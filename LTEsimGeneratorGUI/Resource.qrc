@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>new.png</file>
+        <file>exit.png</file>
+        <file>import.png</file>
+        <file>save.png</file>
+        <file>logoLTEsim.png</file>
+        <file>open.png</file>
+        <file>settings.png</file>
+        <file>quit.png</file>
+        <file>about.png</file>
+        <file>SaveAs.png</file>
+    </qresource>
+    <qresource prefix="/file">
+        <file>parameters.rb</file>
+        <file>tune_traffic_models.rb</file>
+    </qresource>
+    <qresource prefix="/map_item">
+        <file>round_cell.png</file>
+        <file>axis.png</file>
+        <file>dottedline.png</file>
+        <file>dottedline_vertical.png</file>
+        <file>round2.png</file>
+        <file>RBS.png</file>
+        <file>line.png</file>
+        <file>line_vertical.png</file>
+        <file>line_vertical_long.png</file>
+        <file>slanted_line.png</file>
+        <file>srio.png</file>
+    </qresource>
+    <qresource prefix="/Documents">
+        <file>files_structure.PNG</file>
+    </qresource>
+    <qresource prefix="/UML">
+        <file>uml/Readme</file>
+        <file>uml/LTE_SimUML.mdj</file>
+        <file>uml/LTEsimUMLdiagram.jpg</file>
+    </qresource>
+</RCC>
