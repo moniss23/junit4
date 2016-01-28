@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = LTEsimGeneratorGUI
 TEMPLATE = app
+CONFIG   += testcase
 
 
 SOURCES += main.cpp\
