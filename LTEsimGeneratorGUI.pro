@@ -1,5 +1,4 @@
     TEMPLATE = subdirs  
-    SUBDIRS += LTEsimGeneratorGUI \  
-    LTEsimGeneratorGUITests
+    SUBDIRS += LTEsimGeneratorGUI
     CONFIG   += testcase
 

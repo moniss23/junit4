@@ -15,7 +15,8 @@
 #include <maps/parameters_map//mapwindowlarge.h>
 #include <maps/traffic_map/map_traffic.h>
 #include <maps/traffic_map/map_traffic_large.h>
-
+#include <iostream>
+#include<QDebug>
 const unsigned int cellCount=12;
 const unsigned int handoverCount=21;
 const unsigned int centerCount=12;
@@ -82,26 +83,27 @@ void setCenterOfApplication(QWidget* widget)
 
 int main(int argc, char *argv[])
 {
-    projectName=new QString;
 
+//    projectName=new QString;
     QApplication a(argc, argv);
-    dir = new QString ("kamil");
-    proFileExt=new QString(".proj");
-    parametersFile=new QString;
-    projectFile=new QString;
-    projectMng=new ProjectManagement;    
-    setCenterOfApplication(projectMng);
+   qDebug() << "Buahahahahahhhaha";
+//    dir = new QString ("kamil");
+//    proFileExt=new QString(".proj");
+//    parametersFile=new QString;
+//    projectFile=new QString;
+//    projectMng=new ProjectManagement;
+//    setCenterOfApplication(projectMng);
 
-    projectMng->show();
+//    projectMng->show();
 
-    read_settings_file();
-    projectMng->setDefaultDir(defaultNewProjectDir);
+//    read_settings_file();
+//    projectMng->setDefaultDir(defaultNewProjectDir);
 
-    tabChangedParams = new QString [8];
+//    tabChangedParams = new QString [8];
 
-    ParametersWindow viewParameters;
-    p=&viewParameters;
-    setCenterOfApplication(p);
+//    ParametersWindow viewParameters;
+//    p=&viewParameters;
+//    setCenterOfApplication(p);
 
 
     return a.exec();
