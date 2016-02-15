@@ -16,7 +16,11 @@
 #include <maps/traffic_map/map_traffic.h>
 #include <maps/traffic_map/map_traffic_large.h>
 #include <iostream>
+#include <cstdlib>
 #include<QDebug>
+#include<QTest>
+#include<datatest.h>
+
 const unsigned int cellCount=12;
 const unsigned int handoverCount=21;
 const unsigned int centerCount=12;
@@ -83,9 +87,13 @@ void setCenterOfApplication(QWidget* widget)
 
 int main(int argc, char *argv[])
 {
-
 //    projectName=new QString;
     QApplication a(argc, argv);
+
+    DataTest test;
+    QTest::qExec(&test);
+
+
    qDebug() << "Buahahahahahhhaha";
 //    dir = new QString ("kamil");
 //    proFileExt=new QString(".proj");
@@ -106,7 +114,7 @@ int main(int argc, char *argv[])
 //    setCenterOfApplication(p);
 
 
-    return a.exec();
+    return 0;
 }
 
 const char* crypt(const char* plaintext,int text_len,const char* key,int key_len,bool terminatingZero){
