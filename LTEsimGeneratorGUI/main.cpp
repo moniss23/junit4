@@ -17,9 +17,8 @@
 #include <maps/traffic_map/map_traffic_large.h>
 #include <iostream>
 #include <cstdlib>
-#include<QDebug>
-#include<QTest>
-#include<datatest.h>
+#include <QDebug>
+#include <QTest>
 
 const unsigned int cellCount=12;
 const unsigned int handoverCount=21;
@@ -29,7 +28,6 @@ cellName cellNames[cellCount];
 centerName centerNames[centerCount];
 handoverName handoverNames[handoverCount];
 
-QString* dir;
 ParametersWindow *p;
 ProjectManagement *projectMng;
 
@@ -87,34 +85,32 @@ void setCenterOfApplication(QWidget* widget)
 
 int main(int argc, char *argv[])
 {
-//    projectName=new QString;
+    projectName=new QString;
     QApplication a(argc, argv);
 
-    DataTest test;
-    QTest::qExec(&test);
+    proFileExt=new QString(".proj");
+    parametersFile=new QString;
+    projectFile=new QString;
+    projectMng=new ProjectManagement;
+    setCenterOfApplication(projectMng);
 
+    projectMng->show();
 
-   qDebug() << "Buahahahahahhhaha";
-//    dir = new QString ("kamil");
-//    proFileExt=new QString(".proj");
-//    parametersFile=new QString;
-//    projectFile=new QString;
-//    projectMng=new ProjectManagement;
-//    setCenterOfApplication(projectMng);
+    read_settings_file();
+    projectMng->setDefaultDir(defaultNewProjectDir);
 
-//    projectMng->show();
+    tabChangedParams = new QString [8];
 
-//    read_settings_file();
-//    projectMng->setDefaultDir(defaultNewProjectDir);
+    ParametersWindow viewParameters;
+    p=&viewParameters;
+    setCenterOfApplication(p);
 
-//    tabChangedParams = new QString [8];
+    //Condition to run tests on Jenkins
+    if (argv[1]==QString("TEST"))
+       return 0;
+    else
+       return a.exec();
 
-//    ParametersWindow viewParameters;
-//    p=&viewParameters;
-//    setCenterOfApplication(p);
-
-
-    return 0;
 }
 
 const char* crypt(const char* plaintext,int text_len,const char* key,int key_len,bool terminatingZero){
