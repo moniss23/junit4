@@ -122,7 +122,8 @@ HEADERS  += \
     maps/traffic_map/map_traffic_large.h \
     maps/traffic_map/timetraffic/timetraffic.h \
     maps/traffic_map/timetraffic/timetrafficform.h \
-    doubleinputvalidator.h
+    doubleinputvalidator.h \
+    dataelementsinterface.h
 
 FORMS    += \
     management_window/parameterswindow.ui \
