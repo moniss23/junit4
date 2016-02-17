@@ -717,10 +717,6 @@ void ParametersWindow::on_actionSave_triggered()
     this->save_project();
 }
 
-void ParametersWindow::on_pbAddTraffic_clicked()
-{
-}
-
 void ParametersWindow::previewTrafficFile(){
 }
 
