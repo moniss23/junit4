@@ -15,5 +15,6 @@ public:
 
 private slots:
     void testConstructor();
+    void testDestructor();
 };
 #endif // TST_H

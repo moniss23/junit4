@@ -14,6 +14,7 @@ class ManagementTemplate : public QDialog
 
 public:
     explicit ManagementTemplate(QWidget *parent = 0);
+    ~ManagementTemplate();
 
 protected:
     QPushButton *m_saveButton, *m_cancelButton;

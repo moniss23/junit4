@@ -115,7 +115,6 @@ int main(int argc, char *argv[])
         QTest::qExec(&l_managementTemplateTest);
         return 0;
     }
-
     else
        return a.exec();
 

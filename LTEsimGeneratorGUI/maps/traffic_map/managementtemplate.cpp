@@ -17,3 +17,10 @@ ManagementTemplate::ManagementTemplate(QWidget *parent) :
     m_cancelButton->setText("Cancel");
     m_cancelButton->setGeometry(QRect(150, 270, 50, 27));
 }
+
+ManagementTemplate::~ManagementTemplate()
+{
+    delete ui;
+    delete m_saveButton;
+    delete m_cancelButton;
+}
