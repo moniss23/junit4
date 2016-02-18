@@ -253,7 +253,6 @@ void write_settings_file(){
     QDataStream file_str(&file);
 
     QString content(defaultNewProjectDir);
-    qDebug()<<"writing settings file:\n"<<content;
 
     const char* ciphertext=crypt(content.toStdString().c_str(),content.length(),cipher_key.toStdString().c_str(),cipher_key.length());
     file_str.writeRawData(ciphertext,content.length());
@@ -271,7 +270,6 @@ void read_settings_file(){
     file.close();
 
     QString content(plaintext);
-    qDebug()<<"reading settings file:\n"<<content;
     QStringList content_list(content.split("\n"));
 
     defaultNewProjectDir=content_list[0];
