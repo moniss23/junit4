@@ -19,6 +19,9 @@
 #include <cstdlib>
 #include <QDebug>
 #include <QTest>
+#include <maps/traffic_map/managementtemplate.h>
+#include <maps/traffic_map_test/managementtemplate_test.h>
+
 
 const unsigned int cellCount=12;
 const unsigned int handoverCount=21;
@@ -106,8 +109,13 @@ int main(int argc, char *argv[])
     setCenterOfApplication(p);
 
     //Condition to run tests on Jenkins
-    if (argv[1]==QString("TEST"))
-       return 0;
+    if (argv[1]==QString("TEST")){
+        ManagementTemplate l_managementTemplate;
+        ManagementTemplate_Test l_managementTemplateTest(l_managementTemplate);
+        QTest::qExec(&l_managementTemplateTest);
+        return 0;
+    }
+
     else
        return a.exec();
 
