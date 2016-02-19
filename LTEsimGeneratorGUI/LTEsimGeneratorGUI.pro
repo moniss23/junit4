@@ -68,7 +68,9 @@ SOURCES += main.cpp\
     maps/traffic_map/timetraffic/timetrafficform.cpp \
     doubleinputvalidator.cpp \
     maps/traffic_map/managementtemplate.cpp \
-    maps/traffic_map_test/managementtemplate_test.cpp
+    maps/traffic_map_test/managementtemplate_test.cpp \
+    maps/traffic_map/data_objects/handoverdata.cpp \
+    maps/traffic_map_test/data_objects_test/handoverdata_test.cpp
 
 HEADERS  += \
     management_window/parameterswindow.h \
@@ -127,7 +129,9 @@ HEADERS  += \
     doubleinputvalidator.h \
     dataelementsinterface.h \
     maps/traffic_map/managementtemplate.h \
-    maps/traffic_map_test/managementtemplate_test.h
+    maps/traffic_map_test/managementtemplate_test.h \
+    maps/traffic_map/data_objects/handoverdata.h \
+    maps/traffic_map_test/data_objects_test/handoverdata_test.h
 
 FORMS    += \
     management_window/parameterswindow.ui \
