@@ -32,6 +32,7 @@
         <file>files_structure.PNG</file>
         <file>new_proj_file.xml</file>
         <file>Gerrit_users_configuration.pdf</file>
+        <file>Gerrit_configuration_for_administartor.pdf</file>
     </qresource>
     <qresource prefix="/UML">
         <file>uml/Readme</file>
