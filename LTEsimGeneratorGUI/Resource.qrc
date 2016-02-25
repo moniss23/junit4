@@ -30,6 +30,7 @@
     </qresource>
     <qresource prefix="/Documents">
         <file>files_structure.PNG</file>
+        <file>new_proj_file.xml</file>
     </qresource>
     <qresource prefix="/UML">
         <file>uml/Readme</file>
