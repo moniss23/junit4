@@ -12,11 +12,12 @@ public:
     virtual ~DataElementsInterface(){}
 
 public:
-    virtual QString getElementType()=0;
-    virtual QByteArray serializeToProjectFile()const  = 0;
-    virtual void serializeFromProjectFile(QByteArray rawData) = 0;
+    virtual QString getElementType() const = 0;
+    virtual QByteArray serializeToProjectFile() const = 0;
+    virtual void serializeFromProjectFileOld(QByteArray rawData) = 0;
+    virtual void serializeFromProjectFileNew(QByteArray rawData) = 0;
     virtual void serializeToScriptCommands() = 0;
-
+    virtual QByteArray readDataFromProj() = 0;
 };
 
 #endif // DATAELEMENTSINTERFACE_H

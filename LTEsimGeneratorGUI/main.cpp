@@ -154,10 +154,8 @@ QStringList read_project_file(QString project_name,QString dir){
 
     if(dir=="<default>"){
 
-        qDebug()<<"entering default case";
-
         QFile project_file("projects/"+project_name+"/"+project_name+(*proFileExt));
-        project_file.open(QIODevice::ReadOnly);        
+        project_file.open(QIODevice::ReadOnly);
         unsigned int length=project_file.bytesAvailable();
         char* ciphertext=new char[length];
 
@@ -176,11 +174,7 @@ QStringList read_project_file(QString project_name,QString dir){
 
     else{
 
-        qDebug()<<"entering custom case";
-
         QFile project_file(dir+"/"+project_name+"/"+project_name+(*proFileExt));
-
-        qDebug()<<"file name: "<<project_file.fileName();
 
         project_file.open(QIODevice::ReadOnly);
         unsigned int length=project_file.bytesAvailable();

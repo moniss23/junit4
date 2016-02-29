@@ -354,7 +354,6 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
     this->ui->listWidget_2->clear();
 
     QStringList project_data=read_project_file(project_name,project_dir);
-    qDebug()<<"previewing project data:\n"<<project_data;
 
     QString parameters_file(project_data[2]);
 
