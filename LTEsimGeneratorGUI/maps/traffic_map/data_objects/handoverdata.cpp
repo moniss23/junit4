@@ -4,8 +4,7 @@
 
 HandoverData::HandoverData(QString name)
 {
-    this->handoverName = name;
-    readParamsFromScript();
+    this->handoverParams.handoverName = name;
 }
 
 //---------------------Getters------------------------------------------------------
@@ -13,27 +12,31 @@ HandoverData::HandoverData(QString name)
 
 QString HandoverData::getHandoverName()
 {
-    return handoverName;
+    return handoverParams.handoverName;
 }
 
 QString HandoverData::getSouthBoundary()
 {
-    return QString::number(southBoundary);
+    return QString::number(handoverParams.handoverArea.bottom() );
 }
 
 QString HandoverData::getNorthBoundary()
 {
-    return QString::number(northBoundary);
+    return QString::number(handoverParams.handoverArea.top() );
 }
-
 QString HandoverData::getWestBoundary()
 {
-    return QString::number(westBoundary);
+    return QString::number(handoverParams.handoverArea.left() );
 }
 
 QString HandoverData::getEastBoundary()
 {
-    return QString::number(eastBoundary);
+    return QString::number(handoverParams.handoverArea.right() );
+}
+
+HandoverParams HandoverData::getHandoverParams()
+{
+    return handoverParams;
 }
 
 //---------------------Setters------------------------------------------------------
@@ -41,31 +44,50 @@ QString HandoverData::getEastBoundary()
 
 void HandoverData::setHandoverName(QString name)
 {
-    this->handoverName = name;
+    handoverParams.handoverName = name;
 }
 
-void HandoverData::setSouthBoundary(QString south)
+void HandoverData::setSouthBoundary(int south)
 {
-    this->southBoundary = south.toInt();
+    handoverParams.handoverArea.setBottom(south);
 }
-
-void HandoverData::setNorthBoundary(QString north)
+void HandoverData::setNorthBoundary(int north)
 {
-    this->northBoundary = north.toInt();
+    handoverParams.handoverArea.setTop(north);
 }
-
-void HandoverData::setWestBoundary(QString west)
+void HandoverData::setWestBoundary(int west)
 {
-    this->westBoundary = west.toInt();
+    handoverParams.handoverArea.setLeft(west);
 }
 
-void HandoverData::setEastBoundary(QString east)
+void HandoverData::setEastBoundary(int east)
 {
-    this->eastBoundary = east.toInt();
+    handoverParams.handoverArea.setRight(east);
 }
 
-
-void HandoverData::readParamsFromScript()
+void HandoverData::setHandoverParams(HandoverParams params)
 {
-
+    handoverParams = params;
 }
+
+HandoverParams HandoverData::parseDataFromList(QStringList paramsList)
+{}
+
+//---------------Overriden methods from DataElementsInterface---------------------
+
+QString HandoverData::getElementType() const
+{}
+
+void HandoverData::serializeFromProjectFileOld(QByteArray rawData)
+{}
+
+QByteArray HandoverData::readDataFromProj()
+{}
+
+//------------------Serialize/Deserialize operators for future---------------------
+
+QDataStream &operator<<(QDataStream &out, HandoverParams &handover)
+{}
+
+QDataStream &operator>>(QDataStream &in, HandoverParams &handover)
+{}

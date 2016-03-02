@@ -131,7 +131,8 @@ HEADERS  += \
     maps/traffic_map/managementtemplate.h \
     maps/traffic_map_test/managementtemplate_test.h \
     maps/traffic_map/data_objects/handoverdata.h \
-    maps/traffic_map_test/data_objects_test/handoverdata_test.h
+    maps/traffic_map_test/data_objects_test/handoverdata_test.h \
+    common_constans.h
 
 FORMS    += \
     management_window/parameterswindow.ui \

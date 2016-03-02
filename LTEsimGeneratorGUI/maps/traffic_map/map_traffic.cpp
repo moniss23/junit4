@@ -10,11 +10,11 @@
 #include <QSettings>
 #include <QMessageBox>
 #include <QInputDialog>
-#include <QDebug>
 #include <maps/traffic_map/ue_param/UE_param_form.h>
 #include <management_window/encryption.h>
 #include "maps/object_map/cell.h"
 #include "management_window/parameterswindow.h"
+#include "maps/traffic_map/data_objects/handoverdata.h"
 
 //externed checkbox settings from MapWindow
 extern bool tmp_chkCell11;

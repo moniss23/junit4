@@ -175,7 +175,6 @@ QStringList read_project_file(QString project_name,QString dir){
         return project_data.split('\n');
 
     }
-
     else
     {
 
