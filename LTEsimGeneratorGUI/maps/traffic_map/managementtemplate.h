@@ -17,7 +17,7 @@ public:
     ~ManagementTemplate();
 
 protected:
-    QPushButton *m_saveButton, *m_cancelButton;
+    QPushButton *saveButton, *cancelButton;
 public:
     Ui::ManagementTemplate *ui;
 };

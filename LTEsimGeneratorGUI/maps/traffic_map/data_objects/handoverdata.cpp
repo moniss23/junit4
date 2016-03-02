@@ -2,12 +2,10 @@
 #include "qdebug.h"
 #include "QFile"
 
-HandoverData::HandoverData(QString l_name)
+HandoverData::HandoverData(QString name)
 {
-
-    this->m_handoverName=l_name;
+    this->handoverName = name;
     readParamsFromScript();
-
 }
 
 //---------------------Getters------------------------------------------------------
@@ -15,55 +13,55 @@ HandoverData::HandoverData(QString l_name)
 
 QString HandoverData::getHandoverName()
 {
-    return m_handoverName;
+    return handoverName;
 }
 
 QString HandoverData::getSouthBoundary()
 {
-    return QString::number(m_southBoundary);
+    return QString::number(southBoundary);
 }
 
 QString HandoverData::getNorthBoundary()
 {
-    return QString::number(m_northBoundary);
+    return QString::number(northBoundary);
 }
 
 QString HandoverData::getWestBoundary()
 {
-    return QString::number(m_westBoundary);
+    return QString::number(westBoundary);
 }
 
 QString HandoverData::getEastBoundary()
 {
-    return QString::number(m_eastBoundary);
+    return QString::number(eastBoundary);
 }
 
 //---------------------Setters------------------------------------------------------
 
 
-void HandoverData::setHandoverName(QString l_name)
+void HandoverData::setHandoverName(QString name)
 {
-    this->m_handoverName=l_name;
+    this->handoverName = name;
 }
 
-void HandoverData::setSouthBoundary(QString l_south)
+void HandoverData::setSouthBoundary(QString south)
 {
-    this->m_southBoundary=l_south.toInt();
+    this->southBoundary = south.toInt();
 }
 
-void HandoverData::setNorthBoundary(QString l_north)
+void HandoverData::setNorthBoundary(QString north)
 {
-    this->m_northBoundary=l_north.toInt();
+    this->northBoundary = north.toInt();
 }
 
-void HandoverData::setWestBoundary(QString l_west)
+void HandoverData::setWestBoundary(QString west)
 {
-    this->m_westBoundary=l_west.toInt();
+    this->westBoundary = west.toInt();
 }
 
-void HandoverData::setEastBoundary(QString l_east)
+void HandoverData::setEastBoundary(QString east)
 {
-    this->m_eastBoundary=l_east.toInt();
+    this->eastBoundary = east.toInt();
 }
 
 

@@ -23,10 +23,9 @@
 #include <maps/traffic_map_test/managementtemplate_test.h>
 #include <maps/traffic_map_test/data_objects_test/handoverdata_test.h>
 
-
-const unsigned int cellCount=12;
-const unsigned int handoverCount=21;
-const unsigned int centerCount=12;
+const unsigned int cellCount = 12;
+const unsigned int handoverCount = 21;
+const unsigned int centerCount = 12;
 
 cellName cellNames[cellCount];
 centerName centerNames[centerCount];
@@ -41,7 +40,7 @@ QString* projectName;
 QDir* projectDir;
 std::vector<QString*> trafficFilesNames;
 std::vector<QFile*> trafficFiles;
-int trafficFilesCount=0;
+int trafficFilesCount = 0;
 
 QString defaultNewProjectDir;
 
@@ -54,19 +53,19 @@ QString *tabChangedParams;
 
 std::vector<Project> projects;
 
-MapWindow* map_w=NULL;
-MapWindowLarge* map_wl=NULL;
-Map_traffic* map_t =NULL;
+MapWindow* map_w = NULL;
+MapWindowLarge* map_wl = NULL;
+Map_traffic* map_t = NULL;
 Map_traffic_large* map_tl = NULL;
 
-bool normalMapOpen=false;
-bool largeMapOpen=false;
+bool normalMapOpen = false;
+bool largeMapOpen = false;
 
-bool changesPresent=false;
-bool anyProjectOpen=false;
-bool settingsWindowOpen=false;
+bool changesPresent = false;
+bool anyProjectOpen = false;
+bool settingsWindowOpen = false;
 
-bool anyChangesInMap=false;
+bool anyChangesInMap = false;
 
 void msg(QString content);
 
@@ -76,26 +75,26 @@ void setCenterOfApplication(QWidget* widget)
 {
     QDesktopWidget* desktop = QApplication::desktop();
 
-    int my_width=widget->width();
-    int my_height=widget->height();
+    int my_width = widget->width();
+    int my_height = widget->height();
 
     int width = desktop->width();
     int height = desktop->height();
 
-    int centerW = (width/2) - (my_width/2);
-    int centerH = (height/2) - (my_height/2);
+    int centerW = ( width / 2 ) - ( my_width / 2 );
+    int centerH = ( height / 2 ) - ( my_height / 2 );
     widget->move(centerW, centerH);
 }
 
 int main(int argc, char *argv[])
 {
-    projectName=new QString;
+    projectName = new QString;
     QApplication a(argc, argv);
 
-    proFileExt=new QString(".proj");
-    parametersFile=new QString;
-    projectFile=new QString;
-    projectMng=new ProjectManagement;
+    proFileExt = new QString(".proj");
+    parametersFile = new QString;
+    projectFile = new QString;
+    projectMng = new ProjectManagement;
     setCenterOfApplication(projectMng);
 
     projectMng->show();
@@ -106,45 +105,49 @@ int main(int argc, char *argv[])
     tabChangedParams = new QString [8];
 
     ParametersWindow viewParameters;
-    p=&viewParameters;
+    p = &viewParameters;
     setCenterOfApplication(p);
 
     //Condition to run tests on Jenkins
-    if (argv[1]==QString("TEST"))
+    if (argv[1] == QString("TEST") )
     {
 
-    //Tests for ManagementTemplate class
-        ManagementTemplate l_managementTemplate;
-        ManagementTemplate_Test l_managementTemplateTest(l_managementTemplate);
-        QTest::qExec(&l_managementTemplateTest);
+        //Tests for ManagementTemplate class
+        ManagementTemplate managementTemplate;
+        ManagementTemplate_Test managementTemplateTest(managementTemplate);
+        QTest::qExec(&managementTemplateTest);
 
-    //Tests for HandoverData class
-        HandoverData_Test l_handoverTest;
-        QTest::qExec(&l_handoverTest);
+        //Tests for HandoverData class
+        HandoverData_Test handoverTest;
+        QTest::qExec(&handoverTest);
 
         return 0;
     }
     else
-       return a.exec();
+        return a.exec();
 
 }
 
 const char* crypt(const char* plaintext,int text_len,const char* key,int key_len,bool terminatingZero){
-    int key_pos=0;
+    int key_pos = 0;
     int len,i;
-    if(terminatingZero){
-        len=text_len+1;
+    if(terminatingZero)
+    {
+        len = text_len + 1;
     }
-    else{
-        len=text_len;
+    else
+    {
+        len = text_len;
     }
-    char* result=new char[len];
-    for(i=0; i<text_len; i++){
-        result[i]=plaintext[i]^key[key_pos];
-        key_pos=(key_pos+1)%key_len;
+    char* result = new char[len];
+    for(i = 0; i < text_len; i++)
+    {
+        result[i] = plaintext[i] ^ key[key_pos];
+        key_pos = ( key_pos + 1 ) % key_len;
     }
-    if(terminatingZero){
-        result[i]='\0';
+    if(terminatingZero)
+    {
+        result[i] = '\0';
     }
     return result;
 }
@@ -152,18 +155,19 @@ const char* crypt(const char* plaintext,int text_len,const char* key,int key_len
 // read the content of the project file, decrypt it and split it into a list
 QStringList read_project_file(QString project_name,QString dir){
 
-    if(dir=="<default>"){
+    if(dir == "<default>")
+    {
 
-        QFile project_file("projects/"+project_name+"/"+project_name+(*proFileExt));
+        QFile project_file("projects/" + project_name + "/" + project_name + ( *proFileExt ) );
         project_file.open(QIODevice::ReadOnly);
-        unsigned int length=project_file.bytesAvailable();
-        char* ciphertext=new char[length];
+        unsigned int length = project_file.bytesAvailable();
+        char* ciphertext = new char[length];
 
         QDataStream project_file_stream(&project_file);
 
         project_file_stream.readRawData(ciphertext,length);
 
-        const char* plaintext=crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length());
+        const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length() );
 
         QString project_data(plaintext);
 
@@ -172,19 +176,20 @@ QStringList read_project_file(QString project_name,QString dir){
 
     }
 
-    else{
+    else
+    {
 
-        QFile project_file(dir+"/"+project_name+"/"+project_name+(*proFileExt));
+        QFile project_file(dir + "/" + project_name + "/" + project_name + ( *proFileExt ) );
 
         project_file.open(QIODevice::ReadOnly);
-        unsigned int length=project_file.bytesAvailable();
-        char* ciphertext=new char[length];
+        unsigned int length = project_file.bytesAvailable();
+        char* ciphertext = new char[length];
 
         QDataStream project_file_stream(&project_file);
 
         project_file_stream.readRawData(ciphertext,length);
 
-        const char* plaintext=crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length());
+        const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length() );
 
         QString project_data(plaintext);
 
@@ -198,27 +203,29 @@ QStringList read_project_file(QString project_name,QString dir){
 // encrypt the project data and write it into the file
 void write_project_file(QString project_name,QString project_content,QString dir){
 
-    if(dir==QString("<default>")){
+    if(dir == QString("<default>") )
+    {
 
-        QFile project_file("projects/"+project_name+"/"+project_name+(*proFileExt));
+        QFile project_file("projects/" + project_name + "/" + project_name + ( *proFileExt ) );
         project_file.open(QIODevice::WriteOnly);
         QDataStream project_file_stream(&project_file);
 
-        const char* ciphertext=crypt(project_content.toStdString().c_str(),project_content.length(),cipher_key.toStdString().c_str(),cipher_key.length());
-        project_file_stream.writeRawData(ciphertext,project_content.length());
+        const char* ciphertext = crypt(project_content.toStdString().c_str(),project_content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
+        project_file_stream.writeRawData(ciphertext,project_content.length() );
 
         project_file.close();
 
     }
 
-    else{
+    else
+    {
 
-        QFile project_file(dir+"/"+project_name+"/"+project_name+(*proFileExt));
+        QFile project_file(dir + "/" + project_name + "/" + project_name + ( *proFileExt ) );
         project_file.open(QIODevice::WriteOnly);
         QDataStream project_file_stream(&project_file);
 
-        const char* ciphertext=crypt(project_content.toStdString().c_str(),project_content.length(),cipher_key.toStdString().c_str(),cipher_key.length());
-        project_file_stream.writeRawData(ciphertext,project_content.length());
+        const char* ciphertext = crypt(project_content.toStdString().c_str(),project_content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
+        project_file_stream.writeRawData(ciphertext,project_content.length() );
 
         project_file.close();
 
@@ -234,10 +241,11 @@ void write_projects_file(){
     QFile projects_file("projects.dat");
     projects_file.open(QIODevice::WriteOnly);
     QTextStream projects_file_str(&projects_file);
-    projects_file_str<<projects.size()<<"\n";
-    for(int i=0; i<projects.size(); i++){
-        projects_file_str<<projects[i].name<<"\n";
-        projects_file_str<<projects[i].fullpath<<"\n";
+    projects_file_str << projects.size() << "\n";
+    for(int i = 0; i < projects.size(); i++)
+    {
+        projects_file_str << projects[i].name << "\n";
+        projects_file_str << projects[i].fullpath << "\n";
     }
     projects_file.close();
 }
@@ -247,12 +255,13 @@ void read_projects_file(){
     QFile projects_file("projects.dat");
     projects_file.open(QIODevice::ReadOnly);
     QTextStream projects_file_str(&projects_file);
-    QStringList content=projects_file_str.readAll().split("\n");
-    projectC=content[0].toInt();
+    QStringList content = projects_file_str.readAll().split("\n");
+    projectC = content[0].toInt();
     Project new_project;
-    for(int i=1; i<=projectC; i++){
-        new_project.name=content[2*i-1];
-        new_project.fullpath=content[2*i];
+    for(int i = 1; i <= projectC; i++)
+    {
+        new_project.name = content[2 * i - 1];
+        new_project.fullpath = content[2 * i];
         projects.push_back(new_project);
     }
 }
@@ -264,37 +273,40 @@ void write_settings_file(){
 
     QString content(defaultNewProjectDir);
 
-    const char* ciphertext=crypt(content.toStdString().c_str(),content.length(),cipher_key.toStdString().c_str(),cipher_key.length());
-    file_str.writeRawData(ciphertext,content.length());
+    const char* ciphertext = crypt(content.toStdString().c_str(),content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
+    file_str.writeRawData(ciphertext,content.length() );
     file.close();
 }
 
 void read_settings_file(){
     QFile file("settings.dat");
-    unsigned int length=file.bytesAvailable();
+    unsigned int length = file.bytesAvailable();
     file.open(QIODevice::ReadOnly);
-    char* ciphertext=new char[length];
+    char* ciphertext = new char[length];
     QDataStream file_str(&file);
     file_str.readRawData(ciphertext,length);
-    const char* plaintext=crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length(),true);
+    const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length(),true);
     file.close();
 
     QString content(plaintext);
-    QStringList content_list(content.split("\n"));
+    QStringList content_list(content.split("\n") );
 
-    defaultNewProjectDir=content_list[0];
+    defaultNewProjectDir = content_list[0];
 
 }
 
 void viewVector(){
-    for(unsigned int i=0; i<projects.size(); i++){
-        qDebug()<<projects[i].name<<"\t"<<projects[i].fullpath;
+    for(unsigned int i = 0; i < projects.size(); i++)
+    {
+        qDebug() << projects[i].name << "\t" << projects[i].fullpath;
     }
 }
 
 QString get_project_name(QListWidgetItem* item){
-    for(unsigned int i=0; i<projects.size(); i++){
-        if(projects[i].widget==item){
+    for(unsigned int i = 0; i < projects.size(); i++)
+    {
+        if(projects[i].widget == item)
+        {
             return projects[i].name;
         }
     }
@@ -302,8 +314,10 @@ QString get_project_name(QListWidgetItem* item){
 }
 
 QString get_project_dir(QListWidgetItem* item){
-    for(unsigned int i=0; i<projects.size(); i++){
-        if(projects[i].widget==item){
+    for(unsigned int i = 0; i < projects.size(); i++)
+    {
+        if(projects[i].widget == item)
+        {
             return projects[i].fullpath;
         }
     }
@@ -311,8 +325,10 @@ QString get_project_dir(QListWidgetItem* item){
 }
 
 QString get_project_dir(QString project_name){
-    for(unsigned int i=0; i<projects.size(); i++){
-        if(projects[i].name==project_name){
+    for(unsigned int i = 0; i < projects.size(); i++)
+    {
+        if(projects[i].name == project_name)
+        {
             return projects[i].fullpath;
         }
     }
@@ -320,8 +336,10 @@ QString get_project_dir(QString project_name){
 }
 
 Cell* getCellObj(QString name){
-    for(unsigned int i=0; i<cellCount; i++){
-        if(cellNames[i].name==name){
+    for(unsigned int i = 0; i < cellCount; i++)
+    {
+        if(cellNames[i].name == name)
+        {
             return cellNames[i].obj;
         }
     }
@@ -329,8 +347,10 @@ Cell* getCellObj(QString name){
 }
 
 Center* getCenterObj(QString name){
-    for(unsigned int i=0; i<centerCount; i++){
-        if(centerNames[i].name==name){
+    for(unsigned int i = 0; i < centerCount; i++)
+    {
+        if(centerNames[i].name == name)
+        {
             return centerNames[i].obj;
         }
     }
@@ -338,8 +358,10 @@ Center* getCenterObj(QString name){
 }
 
 Handover* getHandoverObj(QString name){
-    for(unsigned int i=0; i<handoverCount; i++){
-        if(handoverNames[i].name==name){
+    for(unsigned int i = 0; i < handoverCount; i++)
+    {
+        if(handoverNames[i].name == name)
+        {
             return handoverNames[i].obj;
         }
     }

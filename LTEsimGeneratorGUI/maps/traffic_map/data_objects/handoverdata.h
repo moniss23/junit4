@@ -6,9 +6,9 @@ class HandoverData
 {
 public:
 
-    HandoverData(QString l_name);
+    HandoverData(QString name);
 
-//----------------------------Getters------------------------------------------------
+    //----------------------------Getters------------------------------------------------
 
     QString getHandoverName();
     QString getSouthBoundary();
@@ -16,28 +16,23 @@ public:
     QString getWestBoundary();
     QString getEastBoundary();
 
-//----------------------------Setters------------------------------------------------
+    //----------------------------Setters------------------------------------------------
 
-
-    void setHandoverName(QString l_name);
-    void setSouthBoundary(QString l_south);
-    void setNorthBoundary(QString l_north);
-    void setWestBoundary(QString l_west);
-    void setEastBoundary(QString l_east);
+    void setHandoverName(QString name);
+    void setSouthBoundary(QString south);
+    void setNorthBoundary(QString north);
+    void setWestBoundary(QString west);
+    void setEastBoundary(QString east);
 
     void readParamsFromScript();
 
 private:
 
-    QString m_handoverName;
-    int m_southBoundary;
-    int m_northBoundary;
-    int m_westBoundary;
-    int m_eastBoundary;
-
-
-
-
+    QString handoverName;
+    int southBoundary;
+    int northBoundary;
+    int westBoundary;
+    int eastBoundary;
 };
 
 #endif // HANDOVERDATA_H

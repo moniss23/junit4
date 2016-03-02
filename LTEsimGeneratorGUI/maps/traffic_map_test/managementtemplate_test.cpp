@@ -1,26 +1,26 @@
 #include "managementtemplate_test.h"
 
-ManagementTemplate_Test::ManagementTemplate_Test(ManagementTemplate &managementTemplate)
+ManagementTemplate_Test::ManagementTemplate_Test(ManagementTemplate &argManagementTemplate)
 {
-    p_managementTemplate = &managementTemplate;
+    managementTemplate = &argManagementTemplate;
 }
 
 void ManagementTemplate_Test::testConstructor()
 {
-    ManagementTemplate *p_managementTemplate2 = new ManagementTemplate;
-    delete p_managementTemplate2;
-    ManagementTemplate p_managementTemplate3;
+    ManagementTemplate *managementTemplate2 = new ManagementTemplate;
+    delete managementTemplate2;
+    ManagementTemplate managementTemplate3;
 }
 
 void ManagementTemplate_Test::testDestructor()
 {
-    p_managementTemplate2 = new ManagementTemplate;
-    delete p_managementTemplate2;
+    managementTemplate2 = new ManagementTemplate;
+    delete managementTemplate2;
 
-    ManagementTemplate *p_mngTmpl1 = new ManagementTemplate;
-    ManagementTemplate &p_mngTmpl2 = *p_mngTmpl1;
-    delete &p_mngTmpl2;
+    ManagementTemplate *mngTmpl1 = new ManagementTemplate;
+    ManagementTemplate &mngTmpl2 = *mngTmpl1;
+    delete &mngTmpl2;
 
-    ManagementTemplate *p_mngTmpl3 = new ManagementTemplate;
-    delete p_mngTmpl3;
+    ManagementTemplate *mngTmpl3 = new ManagementTemplate;
+    delete mngTmpl3;
 }

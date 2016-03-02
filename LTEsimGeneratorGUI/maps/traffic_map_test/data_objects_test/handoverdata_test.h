@@ -11,18 +11,18 @@ class HandoverData_Test : public QObject
 public:
     explicit HandoverData_Test(QObject *parent = 0);
 
-    QString m_handoverName1="Handover11_12";
-    QString m_handoverName2="Handover21_22";
-    QString m_testNumber="1000";
+    QString handoverName1 = "Handover11_12";
+    QString handoverName2 = "Handover21_22";
+    QString testNumber = "1000";
 
 private Q_SLOTS:
 
-     void getHandoverNameTest();
-     void setHandoverNameTest();
-     void setgetSouthBoundaryTest();
-     void setgetNorthBoundaryTest();
-     void setgetEastBoundaryTest();
-     void setgetWestBoundaryTest();
+    void getHandoverNameTest();
+    void setHandoverNameTest();
+    void setgetSouthBoundaryTest();
+    void setgetNorthBoundaryTest();
+    void setgetEastBoundaryTest();
+    void setgetWestBoundaryTest();
 
 };
 

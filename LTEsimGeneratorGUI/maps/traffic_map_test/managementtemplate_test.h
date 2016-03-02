@@ -5,13 +5,13 @@
 #include <QtTest/QtTest>
 #include <maps/traffic_map/managementtemplate.h>
 
-class ManagementTemplate_Test: public QObject
+class ManagementTemplate_Test : public QObject
 {
     Q_OBJECT
 public:
-    ManagementTemplate_Test(ManagementTemplate &managementTemplate);
-    ManagementTemplate *p_managementTemplate;
-    ManagementTemplate *p_managementTemplate2;
+    ManagementTemplate_Test(ManagementTemplate &argManagementTemplate);
+    ManagementTemplate *managementTemplate;
+    ManagementTemplate *managementTemplate2;
 
 private slots:
     void testConstructor();
