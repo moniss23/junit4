@@ -37,7 +37,7 @@ void HandoverData_Test::setgetSouthBoundaryTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
     handover->setSouthBoundary(testNumber);
-    QCOMPARE(handover->getSouthBoundary(),testNumberText);
+    QCOMPARE(handover->getSouthBoundary(),testNumber);
     delete handover;
 }
 
@@ -45,7 +45,7 @@ void HandoverData_Test::setgetNorthBoundaryTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
     handover->setNorthBoundary(testNumber);
-    QCOMPARE(handover->getNorthBoundary(),testNumberText);
+    QCOMPARE(handover->getNorthBoundary(),testNumber);
     delete handover;
 }
 
@@ -53,7 +53,7 @@ void HandoverData_Test::setgetEastBoundaryTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
     handover->setEastBoundary(testNumber);
-    QCOMPARE(handover->getEastBoundary(),testNumberText);
+    QCOMPARE(handover->getEastBoundary(),testNumber);
     delete handover;
 }
 
@@ -61,6 +61,53 @@ void HandoverData_Test::setgetWestBoundaryTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
     handover->setWestBoundary(testNumber);
-    QCOMPARE(handover->getWestBoundary(),testNumberText);
+    QCOMPARE(handover->getWestBoundary(),testNumber);
     delete handover;
 }
+
+void HandoverData_Test::readDataFromFileTest()
+{
+    HandoverData* handover= new HandoverData(handoverName1);
+    QByteArray testDataArray;
+    testDataArray=handover->readDataFromProj();
+    QVERIFY(testDataArray.contains(testPhrase)==true);
+    delete handover;
+}
+
+void HandoverData_Test::getElementTypeTest()
+{
+    HandoverData* handover= new HandoverData(handoverName1);
+    QCOMPARE(handover->getElementType(),QString("Handover"));
+    delete handover;
+}
+
+void HandoverData_Test::serializeDeserializeOperatorTest()
+{
+    QFile projFile(testProjectDir + "/" +testProjectName+"/"+ testOperatorsFile);
+    HandoverParams params;
+    HandoverParams params2;
+    params.handoverName = handoverName1;
+    params.handoverArea.setBottom(testNumber);
+    params.handoverArea.setTop(testNumber);
+    params.handoverArea.setLeft(testNumber);
+    params.handoverArea.setRight(testNumber);
+
+    //-------Serialize params to file-----------------
+    QDataStream dataStreamWriter(&projFile);
+    projFile.open(QIODevice::WriteOnly);
+    dataStreamWriter << params;
+    projFile.close();
+
+    //-------Deserialize params from file-------------
+    QDataStream dataStreamReader(&projFile);
+    projFile.open(QIODevice::ReadOnly);
+    dataStreamReader >> params2;
+    projFile.close();
+
+    QCOMPARE(params2.handoverName,handoverName1);
+    QCOMPARE(params2.handoverArea.top(),testNumber);
+    QCOMPARE(params2.handoverArea.bottom(),testNumber);
+    QCOMPARE(params2.handoverArea.left(),testNumber);
+    QCOMPARE(params2.handoverArea.right(),testNumber);
+}
+

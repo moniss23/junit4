@@ -7,8 +7,8 @@
 
 struct HandoverParams
 {
-   QString handoverName;
-   QRect handoverArea;
+    QString handoverName;
+    QRect handoverArea;
 };
 
 class HandoverData : public DataElementsInterface
@@ -17,16 +17,16 @@ public:
 
     HandoverData(QString name);
 
-    //----------------------------Getters------------------------------------------------
+//----------------------------Getters------------------------------------------------
 
     QString getHandoverName();
-    QString getSouthBoundary();
-    QString getNorthBoundary();
-    QString getWestBoundary();
-    QString getEastBoundary();
+    int getSouthBoundary();
+    int getNorthBoundary();
+    int getWestBoundary();
+    int getEastBoundary();
     HandoverParams getHandoverParams();
 
-    //----------------------------Setters------------------------------------------------
+//----------------------------Setters------------------------------------------------
 
     void setHandoverName(QString name);
     void setSouthBoundary(int south);
