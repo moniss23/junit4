@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui testlib
+QT       +=xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -70,7 +71,9 @@ SOURCES += main.cpp\
     maps/traffic_map/managementtemplate.cpp \
     maps/traffic_map_test/managementtemplate_test.cpp \
     maps/traffic_map/data_objects/handoverdata.cpp \
-    maps/traffic_map_test/data_objects_test/handoverdata_test.cpp
+    maps/traffic_map_test/data_objects_test/handoverdata_test.cpp \
+    maps/traffic_map/ue_param/uegroupdata.cpp \
+    maps/traffic_map_test/ue_param_test/uegroupdata_test.cpp
 
 HEADERS  += \
     management_window/parameterswindow.h \
@@ -132,7 +135,9 @@ HEADERS  += \
     maps/traffic_map_test/managementtemplate_test.h \
     maps/traffic_map/data_objects/handoverdata.h \
     maps/traffic_map_test/data_objects_test/handoverdata_test.h \
-    common_constans.h
+    common_constans.h \
+    maps/traffic_map/ue_param/uegroupdata.h \
+    maps/traffic_map_test/ue_param_test/uegroupdata_test.h
 
 FORMS    += \
     management_window/parameterswindow.ui \

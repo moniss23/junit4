@@ -22,7 +22,9 @@
 #include <maps/traffic_map/managementtemplate.h>
 #include <maps/traffic_map_test/managementtemplate_test.h>
 #include <maps/traffic_map_test/data_objects_test/handoverdata_test.h>
+#include <maps/traffic_map_test/ue_param_test/uegroupdata_test.h>
 
+//Parameters Old Part
 const unsigned int cellCount = 12;
 const unsigned int handoverCount = 21;
 const unsigned int centerCount = 12;
@@ -120,6 +122,10 @@ int main(int argc, char *argv[])
         //Tests for HandoverData class
         HandoverData_Test handoverTest;
         QTest::qExec(&handoverTest);
+
+        //Test for UEgroupData class
+        UEgroupData_Test ueGroupDataTest;
+        QTest::qExec(&ueGroupDataTest);
 
         return 0;
     }
