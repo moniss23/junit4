@@ -597,31 +597,31 @@ module Parameters
         :area => "Handover11_12",
         :southBoundary => 6500,
         :northBoundary => 7500,
-        :westBoundary =>  8250,
+        :westBoundary => 8250,
         :eastBoundary => 12750
       },{
         :area => "Handover12_21",
         :southBoundary => 7750,
         :northBoundary => 12250,
-        :westBoundary =>  11500,
+        :westBoundary => 11500,
         :eastBoundary => 12500
       },{
         :area => "Handover12_22",
         :southBoundary => 7750,
         :northBoundary => 12250,
-        :westBoundary =>  15000,
+        :westBoundary => 15000,
         :eastBoundary => 16000
       },{
         :area => "Handover21_22",
         :southBoundary => 12500,
         :northBoundary => 13500,
-        :westBoundary =>  11750,
+        :westBoundary => 11750,
         :eastBoundary => 16250
       },{
         :area => "Handover31_32",
         :southBoundary => 18500,
         :northBoundary => 19500,
-        :westBoundary =>  8250,
+        :westBoundary => 8250,
         :eastBoundary => 12750
       },{
         :area => "Handover21_31",
@@ -789,19 +789,19 @@ module Parameters
         :area => "Handover13_22",
         :southBoundary => 7750,
         :northBoundary => 12250,
-        :westBoundary =>  18500,
+        :westBoundary => 18500,
         :eastBoundary => 19500
       },{
         :area => "Handover13_23",
         :southBoundary => 7750,
         :northBoundary => 12250,
-        :westBoundary =>  22000,
+        :westBoundary => 22000,
         :eastBoundary => 23000
       },{
         :area => "Handover14_23",
         :southBoundary => 7750,
         :northBoundary => 12250,
-        :westBoundary =>  25500,
+        :westBoundary => 25500,
         :eastBoundary => 26500
       },{
         :area => "Handover14_24",

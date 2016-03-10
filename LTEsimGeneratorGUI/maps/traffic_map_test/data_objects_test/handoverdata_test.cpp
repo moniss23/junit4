@@ -67,23 +67,23 @@ void HandoverData_Test::setgetWestBoundaryTest()
 
 void HandoverData_Test::readDataFromFileTest()
 {
-    HandoverData* handover= new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1);
     QByteArray testDataArray;
-    testDataArray=handover->readDataFromProj();
-    QVERIFY(testDataArray.contains(testPhrase)==true);
+    testDataArray = handover->readDataFromProj();
+    QVERIFY(testDataArray.contains(testPhrase) == true);
     delete handover;
 }
 
 void HandoverData_Test::getElementTypeTest()
 {
-    HandoverData* handover= new HandoverData(handoverName1);
-    QCOMPARE(handover->getElementType(),QString("Handover"));
+    HandoverData* handover = new HandoverData(handoverName1);
+    QCOMPARE(handover->getElementType(),QString("Handover") );
     delete handover;
 }
 
 void HandoverData_Test::serializeDeserializeOperatorTest()
 {
-    QFile projFile(testProjectDir + "/" +testProjectName+"/"+ testOperatorsFile);
+    QFile projFile(testProjectDir + "/" + testProjectName + "/" + testOperatorsFile);
     HandoverParams params;
     HandoverParams params2;
     params.handoverName = handoverName1;
@@ -109,5 +109,32 @@ void HandoverData_Test::serializeDeserializeOperatorTest()
     QCOMPARE(params2.handoverArea.bottom(),testNumber);
     QCOMPARE(params2.handoverArea.left(),testNumber);
     QCOMPARE(params2.handoverArea.right(),testNumber);
+}
+
+void HandoverData_Test::parseDataFromListTest()
+{
+    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverParams paramsStruct;
+    QByteArray testHandoverArray;
+    testHandoverArray = handover->readDataFromProj();
+    QString testHandoverString(testHandoverArray);
+    QStringList testHandoverList = testHandoverString.split('\n');
+    paramsStruct = handover->parseDataFromList(testHandoverList);
+
+    QCOMPARE(paramsStruct.handoverName,handoverName1);
+    QCOMPARE(paramsStruct.handoverArea.bottom(),testNumber);
+    delete handover;
+}
+
+void HandoverData_Test::serializeFromProjectFileOldTest()
+{
+    QByteArray loadedData;
+    HandoverData* handover = new HandoverData(handoverName1);
+    loadedData = handover->readDataFromProj();
+    handover->serializeFromProjectFileOld(loadedData);
+
+    QCOMPARE(handover->getHandoverName(),handoverName1);
+    QCOMPARE(handover->getSouthBoundary(),testNumber);
+    delete handover;
 }
 

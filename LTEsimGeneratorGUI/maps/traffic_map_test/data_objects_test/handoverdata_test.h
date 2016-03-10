@@ -13,14 +13,14 @@ public:
     explicit HandoverData_Test(QObject *parent = 0);
     ~HandoverData_Test();
 
-    QString handoverName1 = "Handover11_12";
+    QString handoverName1 = "Handover11_21";
     QString handoverName2 = "Handover21_22";
     QString testOperatorsFile = "operators";
     QString testProjectName = "test";
     QString testProjectDir = "projects";
     HandoverParams testParams;
     const char* testPhrase = "Handover11_12";
-    int testNumber = 6500;
+    int testNumber = 7750;
 
 private Q_SLOTS:
 
@@ -33,8 +33,8 @@ private Q_SLOTS:
     void readDataFromFileTest();
     void getElementTypeTest();
     void serializeDeserializeOperatorTest();
-
-
+    void parseDataFromListTest();
+    void serializeFromProjectFileOldTest();
 
 };
 

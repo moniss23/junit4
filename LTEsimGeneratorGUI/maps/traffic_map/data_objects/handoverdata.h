@@ -3,6 +3,7 @@
 #include <QString>
 #include <QDir>
 #include <common_constans.h>
+#include <QDebug>
 #include <dataelementsinterface.h>
 
 struct HandoverParams
@@ -19,24 +20,24 @@ public:
 
 //----------------------------Getters------------------------------------------------
 
-    QString getHandoverName();
-    int getSouthBoundary();
-    int getNorthBoundary();
-    int getWestBoundary();
-    int getEastBoundary();
-    HandoverParams getHandoverParams();
+    QString getHandoverName() const;
+    int getSouthBoundary() const;
+    int getNorthBoundary() const;
+    int getWestBoundary() const;
+    int getEastBoundary() const;
+    HandoverParams getHandoverParams() const;
 
 //----------------------------Setters------------------------------------------------
 
-    void setHandoverName(QString name);
+    void setHandoverName(const QString &name);
     void setSouthBoundary(int south);
     void setNorthBoundary(int north);
     void setWestBoundary(int west);
     void setEastBoundary(int east);
-    void setHandoverParams(HandoverParams params);
+    void setHandoverParams(const HandoverParams &params);
 
 
-    HandoverParams parseDataFromList(QStringList paramsList);
+    HandoverParams parseDataFromList(QStringList &paramsList);
 
 //-------------------Overriden methods from DataElemetsInterface----------------------
 
