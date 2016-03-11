@@ -13,7 +13,7 @@ public:
 
 public:
     virtual QString getElementType() const = 0;
-    virtual QByteArray serializeToProjectFile() const = 0;
+    virtual void serializeToProjectFile() const = 0;
     virtual void serializeFromProjectFileOld(QByteArray rawData) = 0;
     virtual void serializeFromProjectFileNew(QByteArray rawData) = 0;
     virtual void serializeToScriptCommands() = 0;

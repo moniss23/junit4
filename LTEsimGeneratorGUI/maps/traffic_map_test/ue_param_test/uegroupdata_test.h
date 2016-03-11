@@ -20,6 +20,7 @@ public:
     QString PSbehaviorModeTest = "No PS";
     QString ueTypeTest = "IratHO";
     QString areaTest = "Center_11";
+    QString testProjectName = "xmlTestFile";
 
 private Q_SLOTS:
 

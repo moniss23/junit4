@@ -73,7 +73,24 @@ void UEgroupData_Test::setgetAreaTest()
     delete area;
 }
 
-void UEgroupData_Test::readDataFromProjTest(){}
+void UEgroupData_Test::readDataFromProjTest()
+{
+    QString projectFileName = QString("projects/" + testProjectName + "/" + testProjectName + ".xml");
+    QFile testFile(projectFileName);
+    QByteArray testArray;
+    UEgroupData* ueGroup = new UEgroupData(ueNameTest, mapIndexTest);
+    const char* testPhrase = "<UE>\n</UE>";
+    testArray = ueGroup->readDataFromProj();
+
+    if(!testFile.exists() )
+    {
+        QCOMPARE(testArray.size(),0);
+    }
+    else
+    {
+        QVERIFY(testArray.contains(testPhrase) );
+    }
+}
 
 void UEgroupData_Test::serializeToProjectFileTest(){}
 

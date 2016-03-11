@@ -80,3 +80,43 @@ void UEgroupData::setArea(const QString &areaCurrent)
 {
     area = areaCurrent;
 }
+
+QByteArray UEgroupData::readDataFromProj()
+{
+    QString projectDir = projectMng->getProjectDir(*projectName);
+    QString xmlFileName;
+    QString beginningOfSector("<UE ID=\"" + ueName + "\">");
+    QString endOfSector("</UE>\n");
+    int start,end;
+
+    if(projectDir == "<default>")
+    {
+        xmlFileName = QString("projects/" + *projectName + "/" + *projectName + ".xml");
+    }
+    else
+    {
+        xmlFileName = QString(projectDir + "/" + *projectName + "/" + *projectName + ".xml");
+    }
+
+    QFile xmlFile(xmlFileName);
+    if(!xmlFile.open(QIODevice::ReadOnly) ) return 0;
+
+    QDataStream xmlFileStream(&xmlFile);
+    QByteArray ueGroupData;
+
+    xmlFileStream >> ueGroupData;
+
+    xmlFile.close();
+
+    //Cutting UEgroupData from byte array
+    start = ueGroupData.indexOf(beginningOfSector);
+    end = ueGroupData.indexOf(endOfSector) + endOfSector.size();
+
+    if(start == -1 || end == -1)
+        return NULL;
+
+    ueGroupData.remove(end,ueGroupData.size() );
+    ueGroupData.remove(0,start);
+
+    return ueGroupData;
+}
