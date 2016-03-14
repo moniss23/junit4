@@ -1,9 +1,15 @@
 #include "uegroupdata.h"
 
-//getters and setters
+UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
+{
+    ue.ueName = name;
+    mapIndexConst = mapIndex;
+}
+
+//getters
 QString UEgroupData::getUEname() const
 {
-    return ueName;
+    return ue.ueName;
 }
 
 QString UEgroupData::getMapIndex() const
@@ -13,79 +19,120 @@ QString UEgroupData::getMapIndex() const
 
 QString UEgroupData::getPairsName() const
 {
-    return pairsName;
-}
-
-void UEgroupData::setPairsName(const QString &pairsNameCurrent)
-{
-    pairsName = pairsNameCurrent;
+    return ue.pairsName;
 }
 
 int UEgroupData::getAmountOfPairs()
 {
-    return amountOfPairs;
+    return ue.amountOfPairs;
 }
-
-void UEgroupData::setAmountOfPairs(int amountOfPairsCurrent)
-{
-    amountOfPairs = amountOfPairsCurrent;
-}
-
 QString UEgroupData::getMobilityModel() const
 {
-    return mobilityModel;
+    return ue.mobilityModel;
 }
-
-void UEgroupData::setMobilityModel(const QString &mobilityModelCurrent)
-{
-    mobilityModel = mobilityModelCurrent;
-}
-
 QString UEgroupData::getCSbehaviourMode() const
 {
-    return CSbehaviourMode;
-}
-
-void UEgroupData::setCSbehaviourMode(const QString &CSbehaviourModeCurrent)
-{
-    CSbehaviourMode = CSbehaviourModeCurrent;
+    return ue.csBehaviorMode;
 }
 
 QString UEgroupData::getPSbehaviourMode() const
 {
-    return PSbehaviorMode;
-}
-
-void UEgroupData::setPSbehaviourMode(const QString &PSbehaviorModeCurrent)
-{
-    PSbehaviorMode = PSbehaviorModeCurrent;
+    return ue.psBehaviorMode;
 }
 
 QString UEgroupData::getUEtype() const
 {
-    return ueType;
-}
-
-void UEgroupData::setUEtype(const QString &ueTypeCurrent)
-{
-    ueType = ueTypeCurrent;
+    return ue.ueType;
 }
 
 QString UEgroupData::getArea() const
 {
-    return area;
+    return ue.area;
+}
+
+
+//setters
+
+void UEgroupData::setPairsName(const QString &pairsNameCurrent)
+{
+    ue.pairsName = pairsNameCurrent;
+}
+
+void UEgroupData::setAmountOfPairs(int amountOfPairsCurrent)
+{
+    ue.amountOfPairs = amountOfPairsCurrent;
+}
+
+void UEgroupData::setMobilityModel(const QString &mobilityModelCurrent)
+{
+    ue.mobilityModel = mobilityModelCurrent;
+}
+
+void UEgroupData::setCSbehaviourMode(const QString &csBehaviorModeCurrent)
+{
+    ue.csBehaviorMode = csBehaviorModeCurrent;
+}
+
+void UEgroupData::setPSbehaviourMode(const QString &psBehaviorModeCurrent)
+{
+    ue.psBehaviorMode = psBehaviorModeCurrent;
+}
+void UEgroupData::setUEtype(const QString &ueTypeCurrent)
+{
+    ue.ueType = ueTypeCurrent;
 }
 
 void UEgroupData::setArea(const QString &areaCurrent)
 {
-    area = areaCurrent;
+    ue.area = areaCurrent;
 }
 
+//save method to QDomDocument - xml UE Group Data Part
+void UEgroupData::serializeToProjectFile()
+{
+    QDomElement ueGroupXmlElement = xmlUePart.createElement("UE");
+    xmlUePart.appendChild(ueGroupXmlElement);
+
+    ueGroupXmlElement.setAttribute("ID", ue.ueName);
+    QDomElement pairsNameXmlElement = xmlUePart.createElement("pairsName");
+    QDomElement amountOfPairsXmlElement = xmlUePart.createElement("amountOfPairs");
+    QDomElement mobilityModelXmlElement = xmlUePart.createElement("mobilityModel");
+    QDomElement csBehaviorModeXmlElement = xmlUePart.createElement("CSbehaviorMode");
+    QDomElement psBehaviorModeXmlElement = xmlUePart.createElement("PSbehaviorMode");
+    QDomElement ueTypeXmlElement = xmlUePart.createElement("UEtype");
+    QDomElement areaXmlElement = xmlUePart.createElement("area");
+
+    ueGroupXmlElement.appendChild(pairsNameXmlElement);
+    ueGroupXmlElement.appendChild(amountOfPairsXmlElement);
+    ueGroupXmlElement.appendChild(mobilityModelXmlElement);
+    ueGroupXmlElement.appendChild(csBehaviorModeXmlElement);
+    ueGroupXmlElement.appendChild(psBehaviorModeXmlElement);
+    ueGroupXmlElement.appendChild(ueTypeXmlElement);
+    ueGroupXmlElement.appendChild(areaXmlElement);
+
+    QDomText pairsNameXmlText = xmlUePart.createTextNode(ue.pairsName);
+    QDomText amountOfPairsXmlText = xmlUePart.createTextNode(QString::number(ue.amountOfPairs) );
+    QDomText mobilityModelXmlText = xmlUePart.createTextNode(ue.mobilityModel);
+    QDomText csBehaviorModeXmlText = xmlUePart.createTextNode(ue.csBehaviorMode);
+    QDomText psBehaviorModeXmlText = xmlUePart.createTextNode(ue.psBehaviorMode);
+    QDomText ueTypeXmlText = xmlUePart.createTextNode(ue.ueType);
+    QDomText areaXmlText = xmlUePart.createTextNode(ue.area);
+
+    pairsNameXmlElement.appendChild(pairsNameXmlText);
+    amountOfPairsXmlElement.appendChild(amountOfPairsXmlText);
+    mobilityModelXmlElement.appendChild(mobilityModelXmlText);
+    csBehaviorModeXmlElement.appendChild(csBehaviorModeXmlText);
+    psBehaviorModeXmlElement.appendChild(psBehaviorModeXmlText);
+    ueTypeXmlElement.appendChild(ueTypeXmlText);
+    areaXmlElement.appendChild(areaXmlText);
+}
+
+//Read UE Parameters Part from Proj to QByteArray
 QByteArray UEgroupData::readDataFromProj()
 {
     QString projectDir = projectMng->getProjectDir(*projectName);
     QString xmlFileName;
-    QString beginningOfSector("<UE ID=\"" + ueName + "\">");
+    QString beginningOfSector("<UE ID=\"" + ue.ueName + "\">");
     QString endOfSector("</UE>\n");
     int start,end;
 

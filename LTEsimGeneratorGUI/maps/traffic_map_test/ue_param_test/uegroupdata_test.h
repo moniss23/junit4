@@ -21,6 +21,8 @@ public:
     QString ueTypeTest = "IratHO";
     QString areaTest = "Center_11";
     QString testProjectName = "xmlTestFile";
+    QString xmlQstring = "<UE ID=\"UE1\">\n <pairsName>UE Group Name 1 Test</pairsName>\n <amountOfPairs>600</amountOfPairs>\n <mobilityModel>RandomWalker</mobilityModel>\n <CSbehaviorMode>PowerOnPowerOff</CSbehaviorMode>\n <PSbehaviorMode>No PS</PSbehaviorMode>\n <UEtype>IratHO</UEtype>\n <area>Center_11</area>\n</UE>\n";
+    QDomDocument xmlUePartTest;
 
 private Q_SLOTS:
 

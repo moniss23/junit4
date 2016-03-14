@@ -92,6 +92,44 @@ void UEgroupData_Test::readDataFromProjTest()
     }
 }
 
-void UEgroupData_Test::serializeToProjectFileTest(){}
+void UEgroupData_Test::serializeToProjectFileTest()
+{
+    QDomElement ueGroupXmlElementTest = xmlUePartTest.createElement("UE");
+    xmlUePartTest.appendChild(ueGroupXmlElementTest);
+
+    ueGroupXmlElementTest.setAttribute("ID", ueNameTest);
+    QDomElement pairsNameXmlElementTest = xmlUePartTest.createElement("pairsName");
+    QDomElement amountOfPairsXmlElementTest = xmlUePartTest.createElement("amountOfPairs");
+    QDomElement mobilityModelXmlElementTest = xmlUePartTest.createElement("mobilityModel");
+    QDomElement csBehaviorModeXmlElementTest = xmlUePartTest.createElement("CSbehaviorMode");
+    QDomElement psBehaviorModeXmlElementTest = xmlUePartTest.createElement("PSbehaviorMode");
+    QDomElement ueTypeXmlElementTest = xmlUePartTest.createElement("UEtype");
+    QDomElement areaXmlElementTest = xmlUePartTest.createElement("area");
+
+    ueGroupXmlElementTest.appendChild(pairsNameXmlElementTest);
+    ueGroupXmlElementTest.appendChild(amountOfPairsXmlElementTest);
+    ueGroupXmlElementTest.appendChild(mobilityModelXmlElementTest);
+    ueGroupXmlElementTest.appendChild(csBehaviorModeXmlElementTest);
+    ueGroupXmlElementTest.appendChild(psBehaviorModeXmlElementTest);
+    ueGroupXmlElementTest.appendChild(ueTypeXmlElementTest);
+    ueGroupXmlElementTest.appendChild(areaXmlElementTest);
+
+    QDomText pairsNameXmlTextTest = xmlUePartTest.createTextNode(pairsNameTest);
+    QDomText amountOfPairsXmlTextTest = xmlUePartTest.createTextNode(QString::number(amountOfPairsTest) );
+    QDomText mobilityModelXmlTextTest = xmlUePartTest.createTextNode(mobilityModelTest);
+    QDomText csBehaviorModeXmlTextTest = xmlUePartTest.createTextNode(CSbehaviourModeTest);
+    QDomText psBehaviorModeXmlTextTest = xmlUePartTest.createTextNode(PSbehaviorModeTest);
+    QDomText ueTypeXmlTextTest = xmlUePartTest.createTextNode(ueTypeTest);
+    QDomText areaXmlTextTest = xmlUePartTest.createTextNode(areaTest);
+
+    pairsNameXmlElementTest.appendChild(pairsNameXmlTextTest);
+    amountOfPairsXmlElementTest.appendChild(amountOfPairsXmlTextTest);
+    mobilityModelXmlElementTest.appendChild(mobilityModelXmlTextTest);
+    csBehaviorModeXmlElementTest.appendChild(csBehaviorModeXmlTextTest);
+    psBehaviorModeXmlElementTest.appendChild(psBehaviorModeXmlTextTest);
+    ueTypeXmlElementTest.appendChild(ueTypeXmlTextTest);
+    areaXmlElementTest.appendChild(areaXmlTextTest);
+    QCOMPARE(xmlUePartTest.toString(), xmlQstring);
+}
 
 void UEgroupData_Test::serializeFromProjectFileOldTest(QByteArray rawData){}

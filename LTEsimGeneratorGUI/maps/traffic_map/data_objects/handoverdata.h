@@ -42,7 +42,7 @@ public:
 //-------------------Overriden methods from DataElemetsInterface----------------------
 
     QString getElementType() const override;
-    void serializeToProjectFile() const override {}
+    void serializeToProjectFile() override {}
     void serializeFromProjectFileOld(QByteArray rawData) override;
     void serializeFromProjectFileNew(QByteArray rawData) override {}
     void serializeToScriptCommands() override {}
