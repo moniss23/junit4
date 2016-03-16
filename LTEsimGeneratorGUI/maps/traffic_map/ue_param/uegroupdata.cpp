@@ -4,6 +4,22 @@ UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
 {
     ue.ueName = name;
     mapIndexConst = mapIndex;
+    QByteArray ueGroupRawData = readDataFromProj();
+    //reading parameter from proj/creating new ue with default parameters
+    if(ueGroupRawData.size() > 0)
+    {
+        serializeFromProjectFileNew(ueGroupRawData);
+    }
+    else
+    {
+        ue.pairsName = "";
+        ue.amountOfPairs = 0;
+        ue.mobilityModel = "RandomWalker";
+        ue.csBehaviorMode = "PowerOnPowerOff";
+        ue.psBehaviorMode = "NoPS";
+        ue.ueType = "IratHO";
+        ue.area = "";
+    }
 }
 
 //getters
@@ -49,7 +65,6 @@ QString UEgroupData::getArea() const
 {
     return ue.area;
 }
-
 
 //setters
 
@@ -166,4 +181,51 @@ QByteArray UEgroupData::readDataFromProj()
     ueGroupData.remove(0,start);
 
     return ueGroupData;
+}
+
+//serialize data from proj to variables
+void UEgroupData::serializeFromProjectFileNew(QByteArray rawData)
+{
+    xmlUePart.setContent(rawData);
+    QDomElement ue1 = xmlUePart.firstChildElement();
+    QDomNodeList ue1Attributes = ue1.childNodes();
+    for(int i = 0; i < ue1Attributes.size(); i++)
+    {
+        QDomElement ueAtrr = ue1Attributes.at(i).toElement();
+        if(ueAtrr.nodeName() == "pairsName")
+        {
+            QDomElement pairsNameXmlElement = ueAtrr.toElement();
+            setPairsName(pairsNameXmlElement.text());
+        }
+        if(ueAtrr.nodeName() == "amountOfPairs")
+        {
+            QDomElement amountOfPairsXmlElement = ueAtrr.toElement();
+            ue.amountOfPairs = amountOfPairsXmlElement.text().toInt();
+        }
+        if(ueAtrr.nodeName() == "mobilityModel")
+        {
+            QDomElement mobilityModelXmlElement = ueAtrr.toElement();
+            ue.mobilityModel = mobilityModelXmlElement.text();
+        }
+        if(ueAtrr.nodeName() == "CSbehaviorMode")
+        {
+            QDomElement csBehaviorModeXmlElement = ueAtrr.toElement();
+            ue.csBehaviorMode = csBehaviorModeXmlElement.text();
+        }
+        if(ueAtrr.nodeName() == "PSbehaviorMode")
+        {
+            QDomElement psBehaviorModeXmlElement = ueAtrr.toElement();
+            ue.psBehaviorMode = psBehaviorModeXmlElement.text();
+        }
+        if(ueAtrr.nodeName() == "UEtype")
+        {
+            QDomElement ueTypeXmlElement = ueAtrr.toElement();
+            ue.ueType = ueTypeXmlElement.text();
+        }
+        if(ueAtrr.nodeName() == "area")
+        {
+            QDomElement areaXmlElement = ueAtrr.toElement();
+            ue.area = areaXmlElement.text();
+        }
+    }
 }

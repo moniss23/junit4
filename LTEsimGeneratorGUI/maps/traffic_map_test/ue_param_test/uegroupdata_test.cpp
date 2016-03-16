@@ -132,4 +132,19 @@ void UEgroupData_Test::serializeToProjectFileTest()
     QCOMPARE(xmlUePartTest.toString(), xmlQstring);
 }
 
-void UEgroupData_Test::serializeFromProjectFileOldTest(QByteArray rawData){}
+void UEgroupData_Test::serializeFromProjectFileNewTest()
+{
+    UEgroupData* ueGroup = new UEgroupData(ueNameTest, mapIndexTest);
+    UEgroupData* ueGroup2 = new UEgroupData(ueNameTest, mapIndexTest);
+    ueGroup->serializeToProjectFile();
+    QByteArray ueGroupRawData = xmlUePartTest.toByteArray();
+    delete ueGroup;
+    ueGroup2->serializeFromProjectFileNew(ueGroupRawData);
+    QCOMPARE(ueGroup2->getPairsName(), pairsNameTest);
+    QCOMPARE(ueGroup2->getAmountOfPairs(), amountOfPairsTest);
+    QCOMPARE(ueGroup2->getMobilityModel(), mobilityModelTest);
+    QCOMPARE(ueGroup2->getCSbehaviourMode(), CSbehaviourModeTest);
+    QCOMPARE(ueGroup2->getPSbehaviourMode(), PSbehaviorModeTest);
+    QCOMPARE(ueGroup2->getUEtype(), ueTypeTest);
+    QCOMPARE(ueGroup2->getArea(), areaTest);
+}

@@ -44,7 +44,7 @@ private Q_SLOTS:
     void serializeToProjectFileTest();
 
     //serialisation
-    void serializeFromProjectFileOldTest(QByteArray rawData);
+    void serializeFromProjectFileNewTest();
 
 };
 

@@ -46,15 +46,15 @@ public:
     QString getElementType() const override {}
     void serializeToProjectFile() override;
     void serializeFromProjectFileOld(QByteArray rawData) override {}
-    void serializeFromProjectFileNew(QByteArray rawData) override {}
+    void serializeFromProjectFileNew(QByteArray rawData) override;
     void serializeToScriptCommands() override {}
     QByteArray readDataFromProj() override;
 
-
 private:
     UEgroupParams ue;
-    QDomDocument xmlUePart;
     QString mapIndexConst;
+    QDomDocument xmlUePart;
+
 };
 
 #endif // UEGROUPDATA_H
