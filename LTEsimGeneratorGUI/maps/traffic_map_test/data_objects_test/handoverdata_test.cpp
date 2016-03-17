@@ -6,7 +6,6 @@ HandoverData_Test::HandoverData_Test(QObject *parent) : QObject(parent)
     *projectName = testProjectName;
     QListWidgetItem* newItem = new QListWidgetItem(*projectName);
     projectMng->addProject(newItem,testProjectDir);
-
 }
 
 HandoverData_Test::~HandoverData_Test()
@@ -65,15 +64,6 @@ void HandoverData_Test::setgetWestBoundaryTest()
     delete handover;
 }
 
-void HandoverData_Test::readDataFromFileTest()
-{
-    HandoverData* handover = new HandoverData(handoverName1);
-    QByteArray testDataArray;
-    testDataArray = handover->readDataFromProj();
-    QVERIFY(testDataArray.contains(testPhrase) == true);
-    delete handover;
-}
-
 void HandoverData_Test::getElementTypeTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
@@ -115,9 +105,9 @@ void HandoverData_Test::parseDataFromListTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
     HandoverParams paramsStruct;
-    QByteArray testHandoverArray;
-    testHandoverArray = handover->readDataFromProj();
-    QString testHandoverString(testHandoverArray);
+    QByteArray testDataArray;
+    testDataArray = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+    QString testHandoverString(testDataArray);
     QStringList testHandoverList = testHandoverString.split('\n');
     paramsStruct = handover->parseDataFromList(testHandoverList);
 
@@ -128,13 +118,12 @@ void HandoverData_Test::parseDataFromListTest()
 
 void HandoverData_Test::serializeFromProjectFileOldTest()
 {
-    QByteArray loadedData;
     HandoverData* handover = new HandoverData(handoverName1);
-    loadedData = handover->readDataFromProj();
-    handover->serializeFromProjectFileOld(loadedData);
+    QByteArray testDataArray;
+    testDataArray = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+    handover->serializeFromProjectFileOld(testDataArray);
 
     QCOMPARE(handover->getHandoverName(),handoverName1);
     QCOMPARE(handover->getSouthBoundary(),testNumber);
     delete handover;
 }
-

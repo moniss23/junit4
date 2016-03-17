@@ -54,7 +54,6 @@ private:
     void serializeFromProjectFileOld(QByteArray rawData) override {}
     void serializeFromProjectFileNew(QByteArray rawData) override {}
     void serializeToScriptCommands() override {}
-    QByteArray readDataFromProj() override {}
 };
 
 #endif // STATISTICSDATA_H

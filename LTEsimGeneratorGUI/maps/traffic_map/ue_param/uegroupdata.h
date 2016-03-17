@@ -2,6 +2,7 @@
 #define UEGROUPDATA_H
 #include <QString>
 #include <dataelementsinterface.h>
+#include <maps/projectreaderwriter.h>
 #include <QtXml>
 #include <common_constans.h>
 
@@ -48,7 +49,6 @@ public:
     void serializeFromProjectFileOld(QByteArray rawData) override {}
     void serializeFromProjectFileNew(QByteArray rawData) override;
     void serializeToScriptCommands() override {}
-    QByteArray readDataFromProj() override;
 
 private:
     UEgroupParams ue;

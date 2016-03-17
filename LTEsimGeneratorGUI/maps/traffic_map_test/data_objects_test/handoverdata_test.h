@@ -30,7 +30,6 @@ private Q_SLOTS:
     void setgetNorthBoundaryTest();
     void setgetEastBoundaryTest();
     void setgetWestBoundaryTest();
-    void readDataFromFileTest();
     void getElementTypeTest();
     void serializeDeserializeOperatorTest();
     void parseDataFromListTest();

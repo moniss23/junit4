@@ -24,6 +24,8 @@
 #include <maps/traffic_map_test/data_objects_test/handoverdata_test.h>
 #include <maps/traffic_map_test/ue_param_test/uegroupdata_test.h>
 #include <maps/traffic_map_test/statistics/statisticsdata_test.h>
+#include <maps/traffic_map_test/data_objects_test/celldata_test.h>
+
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -132,6 +134,10 @@ int main(int argc, char *argv[])
         StatisticsData_Test statisticsDataTest;
         QTest::qExec(&statisticsDataTest);
 
+        //Tests for CellData class
+        CellData_Test cellTest;
+        QTest::qExec(&cellTest);
+
         return 0;
     }
     else
@@ -188,9 +194,7 @@ QStringList read_project_file(QString project_name,QString dir){
     }
     else
     {
-
         QFile project_file(dir + "/" + project_name + "/" + project_name + ( *proFileExt ) );
-
         project_file.open(QIODevice::ReadOnly);
         unsigned int length = project_file.bytesAvailable();
         char* ciphertext = new char[length];

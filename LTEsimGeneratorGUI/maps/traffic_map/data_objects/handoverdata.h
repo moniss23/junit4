@@ -1,10 +1,9 @@
 #ifndef HANDOVERDATA_H
 #define HANDOVERDATA_H
 #include <QString>
-#include <QDir>
 #include <common_constans.h>
-#include <QDebug>
 #include <dataelementsinterface.h>
+#include <maps/projectreaderwriter.h>
 
 struct HandoverParams
 {
@@ -13,6 +12,7 @@ struct HandoverParams
 };
 
 class HandoverData : public DataElementsInterface
+
 {
 public:
 
@@ -36,7 +36,6 @@ public:
     void setEastBoundary(int east);
     void setHandoverParams(const HandoverParams &params);
 
-
     HandoverParams parseDataFromList(QStringList &paramsList);
 
 //-------------------Overriden methods from DataElemetsInterface----------------------
@@ -46,12 +45,11 @@ public:
     void serializeFromProjectFileOld(QByteArray rawData) override;
     void serializeFromProjectFileNew(QByteArray rawData) override {}
     void serializeToScriptCommands() override {}
-    QByteArray readDataFromProj() override;
 
+//-------------------Overriden methods from DataElemetsInterface----------------------
 
 private:
     HandoverParams handoverParams;
-
 };
 
 //------------------Serialize/Deserialize operators for future-------------------------

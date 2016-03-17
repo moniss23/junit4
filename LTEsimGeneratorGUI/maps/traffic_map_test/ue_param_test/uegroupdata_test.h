@@ -37,9 +37,6 @@ private Q_SLOTS:
     void setgetUEtypeTest();
     void setgetAreaTest();
 
-    //read method
-    void readDataFromProjTest();
-
     //save method
     void serializeToProjectFileTest();
 

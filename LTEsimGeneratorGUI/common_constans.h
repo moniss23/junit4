@@ -6,5 +6,10 @@
 
 extern QString* projectName;
 extern ProjectManagement* projectMng;
+extern const QString beginningOfHandoverSector;
+extern const QString endOfHandoverSector;
+extern const QString beginningOfCellSector;
+extern const QString endOfCellSector;
+extern const QString endOfUESector;
 
 #endif // COMMON_CONSTANS_H

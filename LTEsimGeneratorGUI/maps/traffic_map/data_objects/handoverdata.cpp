@@ -1,10 +1,9 @@
 #include "handoverdata.h"
-#include "QFile"
 
 HandoverData::HandoverData(QString name)
 {
-    handoverParams.handoverName=name;
-    QByteArray data=readDataFromProj();
+    handoverParams.handoverName = name;
+    QByteArray data = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
     serializeFromProjectFileOld(data);
 }
 
@@ -25,6 +24,7 @@ int HandoverData::getNorthBoundary() const
 {
     return handoverParams.handoverArea.top();
 }
+
 int HandoverData::getWestBoundary() const
 {
     return handoverParams.handoverArea.left();
@@ -68,6 +68,7 @@ void HandoverData::setEastBoundary(int east)
 
 void HandoverData::setHandoverParams(const HandoverParams &params)
 {
+
     handoverParams = params;
 }
 
@@ -123,49 +124,8 @@ void HandoverData::serializeFromProjectFileOld(QByteArray rawData)
     HandoverParams loadedParams;
     QString projectData(rawData);
     QStringList projectDataList = projectData.split('\n');
-    loadedParams=parseDataFromList(projectDataList);
+    loadedParams = parseDataFromList(projectDataList);
     setHandoverParams(loadedParams);
-}
-
-QByteArray HandoverData::readDataFromProj()
-{
-    QString projectDir = projectMng->getProjectDir(*projectName);
-    QString projectFileName;
-    QString beginningOfSector("default[:areas]");
-    QString endOfSector("default[:dataGenerator]");
-    int start,end;
-
-    if(projectDir == "<default>")
-    {
-        projectFileName = QString("projects/" + *projectName + "/" + *projectName + ".proj");
-    }
-    else
-    {
-        projectFileName = QString(projectDir + "/" + *projectName + "/" + *projectName + ".proj");
-    }
-
-    QFile projectFile(projectFileName);
-    if(!projectFile.open(QIODevice::ReadOnly) ) return 0;
-
-    unsigned int length = projectFile.bytesAvailable();
-    char* cipherText = new char[length];
-
-    QDataStream projectFileStream(&projectFile);
-    projectFileStream.readRawData(cipherText,length);
-    projectFile.close();
-
-    //------------Decrypting data from project file-----------------------------------
-    const char* plainText = crypt(cipherText,length,cipher_key.toStdString().c_str(),cipher_key.length() );
-    QByteArray parametersData(plainText);
-
-    //------------Cutting data about handovers from byte array------------------------
-    start = parametersData.indexOf(beginningOfSector);
-    end = parametersData.indexOf(endOfSector);
-
-    parametersData.remove(end,parametersData.size() );
-    parametersData.remove(0,start);
-
-    return parametersData;
 }
 
 //------------------Serialize/Deserialize operators for future---------------------
@@ -180,5 +140,4 @@ QDataStream &operator>>(QDataStream &in, HandoverParams &handover)
 {
     in >> handover.handoverName >> handover.handoverArea;
     return in;
-
 }

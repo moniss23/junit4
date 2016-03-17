@@ -1,0 +1,145 @@
+#include "celldata_test.h"
+
+CellData_Test::CellData_Test(QObject *parent) : QObject(parent)
+{
+    //Creating new project for testing
+    *projectName = testProjectName;
+    QListWidgetItem* new_item = new QListWidgetItem(*projectName);
+    projectMng->addProject(new_item,testProjectDir);
+
+}
+
+CellData_Test::~CellData_Test()
+{
+    //Removing project file after tests
+    QDir l_dir(testProjectDir + "/" + testProjectName);
+
+    if(l_dir.exists() )
+        l_dir.removeRecursively();
+
+}
+
+void CellData_Test::setgetCellNameTest()
+{
+
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setCellName(cellName2);
+    QCOMPARE(cell11->getCellName(),cellName2);
+
+}
+
+void CellData_Test::setgetCenterNameTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setCenterName(centerName2);
+    QCOMPARE(cell11->getCenterName(),centerName2);
+}
+
+void CellData_Test::setgetPciTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setPci(testNumber1);
+    QCOMPARE(cell11->getPci(),testNumber1);
+
+}
+
+void CellData_Test::setgetPositionXTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setPosition_X(testNumber1);
+    QCOMPARE(cell11->getPosition_X(),testNumber1);
+}
+
+void CellData_Test::setgetPositionYTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setPosition_Y(testNumber1);
+    QCOMPARE(cell11->getPosition_Y(),testNumber1);
+}
+
+void CellData_Test::setgetEarfcnDlTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setEarfcnDl(testNumber1);
+    QCOMPARE(cell11->getEarfcnDl(),testNumber1);
+}
+
+void CellData_Test::setgetTransmitPowerTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setTransmitPower(testNumber2);
+    QCOMPARE(cell11->getTransmitPower(),testNumber2);
+}
+
+void CellData_Test::setgetUlNoiseAndInterferenceTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setUlNoiseAndInterference(testNumber2);
+    QCOMPARE(cell11->getUlNoiseAndInterference(),testNumber2);
+}
+
+void CellData_Test::setgetSouthBoundaryTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setSouthCellBoundary(testNumber1);
+    QCOMPARE(cell11->getSouthCellBoundary(),testNumber1);
+}
+
+void CellData_Test::setgetNorthBoundaryTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setNorthCellBoundary(testNumber1);
+    QCOMPARE(cell11->getNorthCellBoundary(),testNumber1);
+}
+
+void CellData_Test::setgetEastBoundaryTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setEastCellBoundary(testNumber1);
+    QCOMPARE(cell11->getEastCellBoundary(),testNumber1);
+}
+
+void CellData_Test::setgetWestBoundaryTest()
+{
+    CellData* cell11 = new CellData(cellName1,centerName1);
+    cell11->setWestCellBoundary(testNumber1);
+    QCOMPARE(cell11->getWestCellBoundary(),testNumber1);
+}
+
+void CellData_Test::serializeDeserializeCellOperatorTest()
+{
+    QFile projFile(testProjectDir + "/" + testProjectName + "/" + testOperatorsFile);
+    CellParams params;
+    CellParams params2;
+    params.cellName = cellName1;
+    params.cellPosition.setX(testNumber1);
+    params.cellPosition.setY(testNumber1);
+    params.earfcnDl = testNumber1;
+    params.pci = testNumber1;
+    params.transmitPower = testNumber2;
+    params.ulNoiseAndInterference = testNumber2;
+    params.centerParams.centerArea.setTop(testNumber1);
+
+
+    //-------Serialize params to file-----------------
+    QDataStream dataStreamWriter(&projFile);
+    projFile.open(QIODevice::WriteOnly);
+    dataStreamWriter << params;
+    projFile.close();
+
+    //-------Deserialize params from file-------------
+    QDataStream dataStreamReader(&projFile);
+    projFile.open(QIODevice::ReadOnly);
+    dataStreamReader >> params2;
+    projFile.close();
+
+    QCOMPARE(params2.cellName,cellName1);
+    QCOMPARE(params2.cellPosition.x(),testNumber1);
+    QCOMPARE(params2.cellPosition.y(),testNumber1);
+    QCOMPARE(params2.earfcnDl,testNumber1);
+    QCOMPARE(params2.pci,testNumber1);
+    QCOMPARE(params2.transmitPower,testNumber2);
+    QCOMPARE(params2.ulNoiseAndInterference,testNumber2);
+    QCOMPARE(params2.centerParams.centerArea.top(),testNumber1);
+
+}

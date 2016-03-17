@@ -2,8 +2,7 @@
 #define DATAELEMENTSINTERFACE_H
 #include <QByteArray>
 #include <QString>
-
-
+#include <common_constans.h>
 
 class DataElementsInterface
 {
@@ -17,7 +16,6 @@ public:
     virtual void serializeFromProjectFileOld(QByteArray rawData) = 0;
     virtual void serializeFromProjectFileNew(QByteArray rawData) = 0;
     virtual void serializeToScriptCommands() = 0;
-    virtual QByteArray readDataFromProj() = 0;
 };
 
 #endif // DATAELEMENTSINTERFACE_H
