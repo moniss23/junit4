@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = LTEsimGeneratorGUI
 TEMPLATE = app
 CONFIG   += testcase
+CONFIG   += c++11
 
 
 SOURCES += main.cpp\
@@ -73,7 +74,9 @@ SOURCES += main.cpp\
     maps/traffic_map/data_objects/handoverdata.cpp \
     maps/traffic_map_test/data_objects_test/handoverdata_test.cpp \
     maps/traffic_map/ue_param/uegroupdata.cpp \
-    maps/traffic_map_test/ue_param_test/uegroupdata_test.cpp
+    maps/traffic_map_test/ue_param_test/uegroupdata_test.cpp \
+    maps/traffic_map/statistics/statisticsdata.cpp \
+    maps/traffic_map_test/statistics/statisticsdata_test.cpp
 
 HEADERS  += \
     management_window/parameterswindow.h \
@@ -137,7 +140,9 @@ HEADERS  += \
     maps/traffic_map_test/data_objects_test/handoverdata_test.h \
     common_constans.h \
     maps/traffic_map/ue_param/uegroupdata.h \
-    maps/traffic_map_test/ue_param_test/uegroupdata_test.h
+    maps/traffic_map_test/ue_param_test/uegroupdata_test.h \
+    maps/traffic_map/statistics/statisticsdata.h \
+    maps/traffic_map_test/statistics/statisticsdata_test.h
 
 FORMS    += \
     management_window/parameterswindow.ui \

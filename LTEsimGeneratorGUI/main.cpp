@@ -23,6 +23,7 @@
 #include <maps/traffic_map_test/managementtemplate_test.h>
 #include <maps/traffic_map_test/data_objects_test/handoverdata_test.h>
 #include <maps/traffic_map_test/ue_param_test/uegroupdata_test.h>
+#include <maps/traffic_map_test/statistics/statisticsdata_test.h>
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -126,6 +127,10 @@ int main(int argc, char *argv[])
         //Test for UEgroupData class
         UEgroupData_Test ueGroupDataTest;
         QTest::qExec(&ueGroupDataTest);
+
+        //Test for Statistics class
+        StatisticsData_Test statisticsDataTest;
+        QTest::qExec(&statisticsDataTest);
 
         return 0;
     }
