@@ -5,6 +5,9 @@ StatisticsData::StatisticsData(QString &mapIndex)
 {
     mapIndexCurrent = mapIndex;
 
+    enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";
+
+
     for (int i = 0; i <= static_cast<int>( Stats_settings::pdcp_uContStat ); i++)
     {
         Stats_settings keyStat = static_cast<Stats_settings>( i );
@@ -21,4 +24,43 @@ bool StatisticsData::getStatMap(enum Stats_settings &key)
 void StatisticsData::setStatMap(enum Stats_settings &key, bool &value)
 {
     statMap[key] = value;
+}
+
+void StatisticsData::serializeToProjectFile()
+{
+    for(int i = 0; i < statMap.size(); i++)
+    {
+        QString keyMap = getStringFromEnum(i);
+        QDomElement statisticsElement = xmlStatisticsPart.createElement(keyMap);
+        xmlStatisticsPart.appendChild(statisticsElement);
+        QDomText statisticsElementXmlText = xmlStatisticsPart.createTextNode(boolToString(statMap[getEnumFromString(keyMap)]) );
+        statisticsElement.appendChild(statisticsElementXmlText);
+    }
+}
+// Additional methods for enum, string and bool variable
+//method converts enum to string
+QString StatisticsData::getStringFromEnum(int &enumVal)
+{
+    return enumStatString.at(enumVal);
+}
+//method converts string to enum
+Stats_settings StatisticsData::getEnumFromString(QString &stringVal)
+{
+    return static_cast<Stats_settings>( enumStatString.indexOf(stringVal) );
+}
+//method converts string to bool
+bool StatisticsData::stringToBool(QString &valString)
+{
+    if(valString == "true")
+        return true;
+    else
+        return false;
+}
+//method converts bool to string
+QString StatisticsData::boolToString(bool &valBool)
+{
+    if(valBool == true)
+        return "true";
+    else
+        return "false";
 }

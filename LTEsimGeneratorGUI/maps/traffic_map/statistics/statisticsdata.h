@@ -41,19 +41,25 @@ public:
     StatisticsData(QString &mapIndex);
     void setStatMap(Stats_settings &key, bool &value);
     bool getStatMap(Stats_settings &key);
+    QString getStringFromEnum(int &enumVal);
+    Stats_settings getEnumFromString(QString &stringVal);
+    bool stringToBool(QString &valString);
+    QString boolToString(bool &valBool);
+
+    //interface methods
+    QString getElementType() const override {}
+    void serializeToProjectFile() override;
+    void serializeFromProjectFileOld(QByteArray rawData) override {}
+    void serializeFromProjectFileNew(QByteArray rawData) override {}
+    void serializeToScriptCommands() override {}
 
 private:
     QMap<enum Stats_settings, bool> statMap;
     QString mapIndexCurrent;
     bool value;
     Stats_settings enumStat;
-
-    //interface methods
-    QString getElementType() const override {}
-    void serializeToProjectFile() override {}
-    void serializeFromProjectFileOld(QByteArray rawData) override {}
-    void serializeFromProjectFileNew(QByteArray rawData) override {}
-    void serializeToScriptCommands() override {}
+    QDomDocument xmlStatisticsPart;
+    QStringList enumStatString;
 };
 
 #endif // STATISTICSDATA_H
