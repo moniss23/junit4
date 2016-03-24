@@ -46,9 +46,9 @@ QByteArray ProjectReaderWriter::readDataFromProj(const QString &beginningOfSecto
     return parametersData;
 }
 
-QByteArray ProjectReaderWriter::readDataFromXml(const QString &beginningOfSector, const QString &endOfSector)
+QDomDocument ProjectReaderWriter::readDataFromXml(const QString &beginningOfSector, const QString &endOfSector)
 {
-
+    QDomDocument xmlDocument;
     QString projectDir = projectMng->getProjectDir(*projectName);
     QString xmlFileName;
     int start,end;
@@ -63,7 +63,7 @@ QByteArray ProjectReaderWriter::readDataFromXml(const QString &beginningOfSector
     }
 
     QFile xmlFile(xmlFileName);
-    if(!xmlFile.open(QIODevice::ReadOnly) ) return 0;
+    if(!xmlFile.open(QIODevice::ReadOnly) ) return xmlDocument;
 
     QDataStream xmlFileStream(&xmlFile);
     QByteArray xmlData;
@@ -77,11 +77,12 @@ QByteArray ProjectReaderWriter::readDataFromXml(const QString &beginningOfSector
     end = xmlData.indexOf(endOfSector) + endOfSector.size();
 
     if(start == -1 || end == -1)
-        return NULL;
+        return xmlDocument;
 
     xmlData.remove(end,xmlData.size() );
     xmlData.remove(0,start);
+    xmlDocument.setContent(xmlData);
 
-    return xmlData;
+
+    return xmlDocument;
 }
-

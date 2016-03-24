@@ -3,6 +3,24 @@
 #include <QString>
 #include <common_constans.h>
 #include <dataelementsinterface.h>
+#include <maps/projectreaderwriter.h>
+
+#define numberOfCellParams 8
+#define numberOfCenterParams 5
+
+//offset between cell name to current parameter
+#define cellPciOffset 2
+#define cellXPositionOffset 3
+#define cellYPositionOffset 4
+#define cellEarfnDlOffset 5
+#define cellTransmitPowerOffset 6
+#define cellUlNoiseOffset 7
+
+//offset between center name to current parameter
+#define centerSouthBoundaryOffset 1
+#define centerNorthBoundaryOffset 2
+#define centerWestBoundaryOffset 3
+#define centerEastBoundaryOffset 4
 
 
 struct CenterParams
@@ -75,7 +93,7 @@ public:
     QString getElementType() const override;
     void serializeToProjectFile() override {}
     void serializeFromProjectFileOld(QByteArray rawData) override;
-    void serializeFromProjectFileNew(QByteArray rawData) override {}
+    void serializeFromProjectFileNew(QDomDocument xmlDocument) override {}
     void serializeToScriptCommands() override {}
 
 private:

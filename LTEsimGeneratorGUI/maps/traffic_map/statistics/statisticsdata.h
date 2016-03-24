@@ -50,7 +50,7 @@ public:
     QString getElementType() const override {}
     void serializeToProjectFile() override;
     void serializeFromProjectFileOld(QByteArray rawData) override {}
-    void serializeFromProjectFileNew(QByteArray rawData) override {}
+    void serializeFromProjectFileNew(QDomDocument xmlDocument) override {}
     void serializeToScriptCommands() override {}
 
 private:

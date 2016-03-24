@@ -5,11 +5,11 @@ UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
     ue.ueName = name;
     mapIndexConst = mapIndex;
     QString beginningOfUESector("<UE ID=\"" + ue.ueName + "\">");
-    QByteArray ueGroupRawData = ProjectReaderWriter::readDataFromXml(beginningOfUESector,endOfUESector);
+    QDomDocument ueXmlDocument = ProjectReaderWriter::readDataFromXml(beginningOfUESector,endOfUESector);
     //reading parameter from proj/creating new ue with default parameters
-    if(ueGroupRawData.size() > 0)
+    if(ueXmlDocument.isNull()==0)
     {
-        serializeFromProjectFileNew(ueGroupRawData);
+        serializeFromProjectFileNew(ueXmlDocument);
     }
     else
     {
@@ -144,9 +144,9 @@ void UEgroupData::serializeToProjectFile()
 }
 
 //serialize data from proj to variables
-void UEgroupData::serializeFromProjectFileNew(QByteArray rawData)
+void UEgroupData::serializeFromProjectFileNew(QDomDocument xmlDocument)
 {
-    xmlUePart.setContent(rawData);
+    xmlUePart=xmlDocument;
     QDomElement ue1 = xmlUePart.firstChildElement();
     QDomNodeList ue1Attributes = ue1.childNodes();
     for(int i = 0; i < ue1Attributes.size(); i++)

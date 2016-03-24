@@ -10,7 +10,7 @@ class ProjectReaderWriter
 public:
     ProjectReaderWriter();
     static QByteArray readDataFromProj(const QString &beginningOfSector,const QString &endOfSector);
-    static QByteArray readDataFromXml(const QString &beginningOfSector,const QString &endOfSector);
+    static QDomDocument readDataFromXml(const QString &beginningOfSector,const QString &endOfSector);
     static void writeDataToXml(const QDomDocument xmlDocument){}
 };
 

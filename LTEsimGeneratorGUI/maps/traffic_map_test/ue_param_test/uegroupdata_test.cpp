@@ -118,9 +118,8 @@ void UEgroupData_Test::serializeFromProjectFileNewTest()
     UEgroupData* ueGroup = new UEgroupData(ueNameTest, mapIndexTest);
     UEgroupData* ueGroup2 = new UEgroupData(ueNameTest, mapIndexTest);
     ueGroup->serializeToProjectFile();
-    QByteArray ueGroupRawData = xmlUePartTest.toByteArray();
     delete ueGroup;
-    ueGroup2->serializeFromProjectFileNew(ueGroupRawData);
+    ueGroup2->serializeFromProjectFileNew(xmlUePartTest);
     QCOMPARE(ueGroup2->getPairsName(), pairsNameTest);
     QCOMPARE(ueGroup2->getAmountOfPairs(), amountOfPairsTest);
     QCOMPARE(ueGroup2->getMobilityModel(), mobilityModelTest);

@@ -40,6 +40,10 @@ private Q_SLOTS:
     void setgetEastBoundaryTest();
     void setgetWestBoundaryTest();
     void serializeDeserializeCellOperatorTest();
+    void parseCellDataFromListTest();
+    void parseCenterDataFromListTest();
+    void serializeFromProjFileOldTest();
+
 };
 
 

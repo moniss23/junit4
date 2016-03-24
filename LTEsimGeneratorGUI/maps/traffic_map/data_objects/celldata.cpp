@@ -5,6 +5,8 @@ CellData::CellData(const QString &nameCell, const QString &nameCenter)
 {
     cellParams.cellName = nameCell;
     cellParams.centerParams.centerName = nameCenter;
+    QByteArray data = ProjectReaderWriter::readDataFromProj(beginningOfCellSector,endOfCellSector);
+    serializeFromProjectFileOld(data);
 }
 
 
@@ -156,19 +158,91 @@ void CellData::setCenterParams(const CenterParams &params)
 
 
 CellParams CellData::parseCellDataFromList(QStringList &paramsList)
-{}
+{
+    CellParams loadedCellParams;
+    QString searchCellName = ":cell => \"" + cellParams.cellName;
+
+    for(int i = 0; i < paramsList.size(); i++)
+    {
+
+        if(paramsList[i].contains(searchCellName) )
+        {
+
+            //cutting needed phrase from list
+            loadedCellParams.cellName = paramsList[i].section('"',1,1);
+
+            for(int j = cellPciOffset; j < numberOfCellParams; j++)
+            {
+                paramsList[i + j].remove(0,8);
+                paramsList[i + j] = paramsList[i + j].section(' ',2,2);
+                paramsList[i + j].remove(",");
+            }
+
+            loadedCellParams.pci = paramsList[i + cellPciOffset].toInt();
+            loadedCellParams.cellPosition.setX(paramsList[i + cellXPositionOffset].toInt() );
+            loadedCellParams.cellPosition.setY(paramsList[i + cellYPositionOffset].toInt() );
+            loadedCellParams.earfcnDl = paramsList[i + cellEarfnDlOffset].toInt();
+            loadedCellParams.transmitPower = paramsList[i + cellTransmitPowerOffset].toFloat();
+            loadedCellParams.ulNoiseAndInterference = paramsList[i + cellUlNoiseOffset].toFloat();
+
+        }
+    }
+
+    return loadedCellParams;
+}
 
 CenterParams CellData::parseCenterDataFromList(QStringList &paramsList)
-{}
+{
+    CenterParams loadedCenterParams;
+    QString searchCenterName = ":area => \"" + cellParams.centerParams.centerName;
+
+    for(int i = 0; i < paramsList.size(); i++)
+    {
+
+        if(paramsList[i].contains(searchCenterName) )
+        {
+
+            //cutting needed phrase from list
+            loadedCenterParams.centerName = paramsList[i].section('"',1,1);
+
+            for(int j = centerSouthBoundaryOffset; j < numberOfCenterParams; j++)
+            {
+                paramsList[i + j].remove(0,8);
+                paramsList[i + j] = paramsList[i + j].section(' ',2,2);
+                paramsList[i + j].remove(",");
+            }
+
+            loadedCenterParams.centerArea.setBottom(paramsList[i + centerSouthBoundaryOffset].toInt() );
+            loadedCenterParams.centerArea.setTop(paramsList[i + centerNorthBoundaryOffset].toInt() );
+            loadedCenterParams.centerArea.setLeft(paramsList[i + centerWestBoundaryOffset].toInt() );
+            loadedCenterParams.centerArea.setRight(paramsList[i + centerEastBoundaryOffset].toInt() );
+
+        }
+    }
+
+    return loadedCenterParams;
+
+}
 
 
 //---------------Overriden methods from DataElementsInterface---------------------
 
 QString CellData::getElementType() const
-{}
+{
+    return QString("Cell");
+}
 
 void CellData::serializeFromProjectFileOld(QByteArray rawData)
-{}
+{
+    CellParams loadedCellParams;
+    CenterParams loadedCenterParams;
+    QString projectData(rawData);
+    QStringList projectDataList = projectData.split('\n');
+    loadedCellParams = parseCellDataFromList(projectDataList);
+    loadedCenterParams = parseCenterDataFromList(projectDataList);
+    setCellParams(loadedCellParams);
+    setCenterParams(loadedCenterParams);
+}
 
 QDataStream &operator<<(QDataStream &out, CellParams &cell)
 {
