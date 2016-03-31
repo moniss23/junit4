@@ -4,14 +4,20 @@
 StatisticsData::StatisticsData(QString &mapIndex)
 {
     mapIndexCurrent = mapIndex;
-
     enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";
-
-
-    for (int i = 0; i <= static_cast<int>( Stats_settings::pdcp_uContStat ); i++)
+    QString beginningOfStatSector = "<ST>";
+    QDomDocument statisticsDocument = ProjectReaderWriter::readDataFromXml(beginningOfStatSector,endofStatSector);
+    if(statisticsDocument.isNull() == 0)
     {
-        Stats_settings keyStat = static_cast<Stats_settings>( i );
-        statMap.insert(keyStat, false);
+        serializeFromProjectFileNew(statisticsDocument);
+    }
+    else
+    {
+        for (int i = 0; i <= static_cast<int>( Stats_settings::pdcp_uContStat ); i++)
+        {
+            Stats_settings keyStat = static_cast<Stats_settings>( i );
+            statMap.insert(keyStat, false);
+        }
     }
 }
 
@@ -28,15 +34,34 @@ void StatisticsData::setStatMap(enum Stats_settings &key, bool &value)
 
 void StatisticsData::serializeToProjectFile()
 {
+    QDomElement rootElement = xmlStatisticsPart.createElement("statistics");
+    xmlStatisticsPart.appendChild(rootElement);
     for(int i = 0; i < statMap.size(); i++)
     {
         QString keyMap = getStringFromEnum(i);
         QDomElement statisticsElement = xmlStatisticsPart.createElement(keyMap);
-        xmlStatisticsPart.appendChild(statisticsElement);
+        rootElement.appendChild(statisticsElement);
         QDomText statisticsElementXmlText = xmlStatisticsPart.createTextNode(boolToString(statMap[getEnumFromString(keyMap)]) );
         statisticsElement.appendChild(statisticsElementXmlText);
     }
 }
+
+void StatisticsData::serializeFromProjectFileNew(QDomDocument xmlDocument)
+{
+    xmlStatisticsPart = xmlDocument;
+    QDomElement rootElement = xmlStatisticsPart.firstChildElement();
+    QDomNodeList statistics = rootElement.childNodes();
+    for(int i = 0; i < statistics.size(); i++)
+    {
+        QDomElement statisticsElements = statistics.at(i).toElement();
+        QString keyString = enumStatString.at(i);
+        Stats_settings key = getEnumFromString(keyString);
+        QString valuestring = statisticsElements.text();
+        bool value = stringToBool(valuestring);
+        setStatMap(key, value);
+    }
+}
+
 // Additional methods for enum, string and bool variable
 //method converts enum to string
 QString StatisticsData::getStringFromEnum(int &enumVal)

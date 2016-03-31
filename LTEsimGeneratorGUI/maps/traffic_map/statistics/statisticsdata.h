@@ -7,6 +7,7 @@
 #include <QtXml>
 #include <common_constans.h>
 #include <QMap>
+#include <maps/projectreaderwriter.h>
 
 enum class Stats_settings
 {
@@ -50,7 +51,7 @@ public:
     QString getElementType() const override {}
     void serializeToProjectFile() override;
     void serializeFromProjectFileOld(QByteArray rawData) override {}
-    void serializeFromProjectFileNew(QDomDocument xmlDocument) override {}
+    void serializeFromProjectFileNew(QDomDocument xmlDocument) override;
     void serializeToScriptCommands() override {}
 
 private:
@@ -60,6 +61,8 @@ private:
     Stats_settings enumStat;
     QDomDocument xmlStatisticsPart;
     QStringList enumStatString;
+    QList<QDomElement> elementsXmlList;
+    QList<QDomText> textXmlList;
 };
 
 #endif // STATISTICSDATA_H

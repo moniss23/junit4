@@ -7,7 +7,7 @@ UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
     QString beginningOfUESector("<UE ID=\"" + ue.ueName + "\">");
     QDomDocument ueXmlDocument = ProjectReaderWriter::readDataFromXml(beginningOfUESector,endOfUESector);
     //reading parameter from proj/creating new ue with default parameters
-    if(ueXmlDocument.isNull()==0)
+    if(ueXmlDocument.isNull() == 0)
     {
         serializeFromProjectFileNew(ueXmlDocument);
     }

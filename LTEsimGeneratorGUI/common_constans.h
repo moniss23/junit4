@@ -11,5 +11,6 @@ extern const QString endOfHandoverSector;
 extern const QString beginningOfCellSector;
 extern const QString endOfCellSector;
 extern const QString endOfUESector;
+extern const QString endofStatSector;
 
 #endif // COMMON_CONSTANS_H

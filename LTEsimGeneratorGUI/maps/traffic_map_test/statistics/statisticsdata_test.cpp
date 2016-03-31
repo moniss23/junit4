@@ -22,13 +22,27 @@ void StatisticsData_Test::serializeToProjectFileTest()
         statMapTest.insert(keyStatTest, false);
     }
     StatisticsData* param = new StatisticsData(mapIndexTest);
+    QDomElement rootElement = xmlStatTest.createElement("statistics");
+    xmlStatTest.appendChild(rootElement);
     for(int i = 0; i < statMapTest.size(); i++)
     {
         QString keyMapTest = param->getStringFromEnum(i);
         QDomElement statisticsElementTest = xmlStatTest.createElement(keyMapTest);
-        xmlStatTest.appendChild(statisticsElementTest);
+        rootElement.appendChild(statisticsElementTest);
         QDomText statisticsElementXmlTextTest = xmlStatTest.createTextNode(param->boolToString(statMapTest[param->getEnumFromString(keyMapTest)]) );
         statisticsElementTest.appendChild(statisticsElementXmlTextTest);
     }
     QCOMPARE(xmlStatTest.toString(), statXmlString);
+}
+void StatisticsData_Test::serializeFromProjectFileNewTest()
+{
+
+    StatisticsData* statistics2 = new StatisticsData(mapIndexTest);
+    QDomDocument statRawDataTest = xmlStatTest;
+    statistics2->serializeFromProjectFileNew(statRawDataTest);
+    for(int i = 0; i < statMapTest.size(); i++)
+    {
+        Stats_settings key = static_cast<Stats_settings>( i );
+        QCOMPARE(statistics2->getStatMap(key), statMapTest.value(key));
+    }
 }
