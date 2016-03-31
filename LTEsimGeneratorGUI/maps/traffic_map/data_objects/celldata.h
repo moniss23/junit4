@@ -22,7 +22,6 @@
 #define centerWestBoundaryOffset 3
 #define centerEastBoundaryOffset 4
 
-
 struct CenterParams
 {
     QString centerName;

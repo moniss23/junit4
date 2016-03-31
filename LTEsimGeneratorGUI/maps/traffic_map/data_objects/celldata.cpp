@@ -216,7 +216,6 @@ CenterParams CellData::parseCenterDataFromList(QStringList &paramsList)
             loadedCenterParams.centerArea.setTop(paramsList[i + centerNorthBoundaryOffset].toInt() );
             loadedCenterParams.centerArea.setLeft(paramsList[i + centerWestBoundaryOffset].toInt() );
             loadedCenterParams.centerArea.setRight(paramsList[i + centerEastBoundaryOffset].toInt() );
-
         }
     }
 

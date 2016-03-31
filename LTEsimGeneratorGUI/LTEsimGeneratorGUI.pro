@@ -80,7 +80,10 @@ SOURCES += main.cpp\
     maps/traffic_map_test/data_objects_test/celldata_test.cpp \
     maps/traffic_map/data_objects/celldata.cpp \
     maps/projectreaderwriter.cpp \
-    common_constans.cpp
+    common_constans.cpp \
+    maps/traffic_map/mapdata.cpp \
+    maps/traffic_map_test/mapdata_test.cpp \
+    maps/testrunner.cpp
 
 HEADERS  += \
     management_window/parameterswindow.h \
@@ -149,7 +152,10 @@ HEADERS  += \
     maps/traffic_map_test/statistics/statisticsdata_test.h \
     maps/traffic_map_test/data_objects_test/celldata_test.h \
     maps/traffic_map/data_objects/celldata.h \
-    maps/projectreaderwriter.h
+    maps/projectreaderwriter.h \
+    maps/traffic_map/mapdata.h \
+    maps/traffic_map_test/mapdata_test.h \
+    maps/testrunner.h
 
 
 FORMS    += \

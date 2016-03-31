@@ -7,3 +7,4 @@ const QString beginningOfCellSector = "default[:rec]";
 const QString endOfCellSector = "default[:dataGenerator]";
 const QString endOfUESector = "</UE>\n";
 const QString endofStatSector = "</ST>";
+const QString endOfMapSector = "</MT>\n";

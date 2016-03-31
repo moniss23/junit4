@@ -9,7 +9,6 @@
 #include <maps/parameters_map/mapwindow.h>
 #include <management_window/encryption.h>
 #include <QDesktopWidget>
-#include <QDebug>
 #include <QListWidgetItem>
 #include <management_window/settings.h>
 #include <maps/parameters_map//mapwindowlarge.h>
@@ -17,15 +16,7 @@
 #include <maps/traffic_map/map_traffic_large.h>
 #include <iostream>
 #include <cstdlib>
-#include <QDebug>
-#include <QTest>
-#include <maps/traffic_map/managementtemplate.h>
-#include <maps/traffic_map_test/managementtemplate_test.h>
-#include <maps/traffic_map_test/data_objects_test/handoverdata_test.h>
-#include <maps/traffic_map_test/ue_param_test/uegroupdata_test.h>
-#include <maps/traffic_map_test/statistics/statisticsdata_test.h>
-#include <maps/traffic_map_test/data_objects_test/celldata_test.h>
-
+#include <maps/testrunner.h>
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -116,27 +107,8 @@ int main(int argc, char *argv[])
     //Condition to run tests on Jenkins
     if (argv[1] == QString("TEST") )
     {
-
-        //Tests for ManagementTemplate class
-        ManagementTemplate managementTemplate;
-        ManagementTemplate_Test managementTemplateTest(managementTemplate);
-        QTest::qExec(&managementTemplateTest);
-
-        //Tests for HandoverData class
-        HandoverData_Test handoverTest;
-        QTest::qExec(&handoverTest);
-
-        //Test for UEgroupData class
-        UEgroupData_Test ueGroupDataTest;
-        QTest::qExec(&ueGroupDataTest);
-
-        //Test for Statistics class
-        StatisticsData_Test statisticsDataTest;
-        QTest::qExec(&statisticsDataTest);
-
-        //Tests for CellData class
-        CellData_Test cellTest;
-        QTest::qExec(&cellTest);
+        TestRunner unitTests;
+        unitTests.runTests();
 
         return 0;
     }
