@@ -28,4 +28,8 @@ void TestRunner::runTests()
     //Tests for MapData class
     MapData_Test mapTest;
     QTest::qExec(&mapTest);
+
+    //Tests for MapManagement class
+    MapManagement_Test mapManagementTest;
+    QTest::qExec(&mapManagementTest);
 }

@@ -83,6 +83,8 @@ SOURCES += main.cpp\
     common_constans.cpp \
     maps/traffic_map/mapdata.cpp \
     maps/traffic_map_test/mapdata_test.cpp \
+    maps/traffic_map_test/map_components_test/mapmanagement_test.cpp \
+    maps/traffic_map/map_components/mapmanagement.cpp \
     maps/testrunner.cpp
 
 HEADERS  += \
@@ -155,6 +157,8 @@ HEADERS  += \
     maps/projectreaderwriter.h \
     maps/traffic_map/mapdata.h \
     maps/traffic_map_test/mapdata_test.h \
+    maps/traffic_map_test/map_components_test/mapmanagement_test.h \
+    maps/traffic_map/map_components/mapmanagement.h \
     maps/testrunner.h
 
 

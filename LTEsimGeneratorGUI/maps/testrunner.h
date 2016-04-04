@@ -6,6 +6,7 @@
 #include <maps/traffic_map_test/data_objects_test/celldata_test.h>
 #include <maps/traffic_map_test/mapdata_test.h>
 #include <maps/traffic_map_test/managementtemplate_test.h>
+#include <maps/traffic_map_test/map_components_test/mapmanagement_test.h>
 #include <QTest>
 
 class TestRunner
