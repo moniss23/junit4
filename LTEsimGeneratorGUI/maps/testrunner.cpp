@@ -32,4 +32,8 @@ void TestRunner::runTests()
     //Tests for MapManagement class
     MapManagement_Test mapManagementTest;
     QTest::qExec(&mapManagementTest);
+
+    //Tests for MyScrollAreaWidget class
+    MyScrollAreaWidget_Test myScrollAreaWidgetTest;
+    QTest::qExec(&myScrollAreaWidgetTest);
 }

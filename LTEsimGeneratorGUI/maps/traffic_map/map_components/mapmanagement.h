@@ -4,6 +4,7 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include "../managementtemplate.h"
+#include "myscrollareawidget.h"
 
 class MapManagement : public ManagementTemplate
 {
@@ -16,5 +17,6 @@ public:
 
 private:
     QScrollArea *scrollArea;
+    MyScrollAreaWidget *scrollAreaWidgetContents;
 };
 #endif // MAPMANAGEMENT_H

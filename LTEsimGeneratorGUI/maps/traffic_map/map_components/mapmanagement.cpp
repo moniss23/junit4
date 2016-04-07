@@ -19,6 +19,10 @@ void MapManagement::initialiseTheView(bool large)
 
     saveButton->setVisible(false);
     cancelButton->setVisible(false);
+
+    scrollAreaWidgetContents = new MyScrollAreaWidget(large);
+    scrollAreaWidgetContents->resize(maximumWidth()-10, maximumHeight()-10);
+    scrollArea->setWidget(scrollAreaWidgetContents);
 }
 
 //-------Adjust scrollArea features according to size of the window------

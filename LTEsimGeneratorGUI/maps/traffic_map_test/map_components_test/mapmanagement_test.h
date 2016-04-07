@@ -14,6 +14,5 @@ private slots:
 
 private:
     MapManagement *mapManagementPtr;
-
 };
 #endif // TESTT_H
