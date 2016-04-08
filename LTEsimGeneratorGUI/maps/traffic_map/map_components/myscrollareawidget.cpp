@@ -25,6 +25,15 @@ MyScrollAreaWidget::MyScrollAreaWidget( bool large /*= false*/ ) : QWidget()
         int yOfCM = 250 + (i / 2) * 30;
         customModelLabels[i]->setGeometry(xOfCM, yOfCM);
     }
+
+    statisticsButton = new StatisticsButton(this);
+    statisticsButton->setGeometry(QRect(850, 450, 110, 50));
+
+    tuningTrafficButton = new TuningTrafficButton(this);
+    tuningTrafficButton->setGeometry(QRect(850, 500, 110, 50));
+
+    timeButton = new TimeButton(this);
+    timeButton->setGeometry(QRect(850, 550, 110, 50));
 }
 
 //------Allocating the handover and cell visual components------

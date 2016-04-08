@@ -37,6 +37,19 @@ void TestRunner::runTests()
     MyScrollAreaWidget_Test myScrollAreaWidgetTest;
     QTest::qExec(&myScrollAreaWidgetTest);
 
+    //Tests for CustomModelLabel class
     CustomModelLabel_Test customModelLabelTest;
     QTest::qExec(&customModelLabelTest);
+
+    //Tests for StatisticsButton class
+    StatisticsButton_Test statisticsButtonTest;
+    QTest::qExec(&statisticsButtonTest);
+
+    //Tests for TimeButton class
+    TimeButton_Test timeButtonTest;
+    QTest::qExec(&timeButtonTest);
+
+    //Tests for TuningTrafficButton class
+    TuningTrafficButton_Test tuningTrafficButtonTest;
+    QTest::qExec(&tuningTrafficButtonTest);
 }

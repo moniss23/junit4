@@ -4,6 +4,9 @@
 #include <QtWidgets>
 #include <QLabel>
 #include "custommodellabel.h"
+#include "statisticsbutton.h"
+#include "tuningtrafficbutton.h"
+#include "timebutton.h"
 
 class MyScrollAreaWidget : public QWidget
 {
@@ -27,6 +30,9 @@ private:
 
     QLabel myLabel1, myLabel2;
     QList<CustomModelLabel*> customModelLabels;
+    StatisticsButton *statisticsButton;
+    TuningTrafficButton *tuningTrafficButton;
+    TimeButton *timeButton;
 };
 
 #endif // MYSCROLLAREAWIDGET_H
