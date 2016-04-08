@@ -36,4 +36,7 @@ void TestRunner::runTests()
     //Tests for MyScrollAreaWidget class
     MyScrollAreaWidget_Test myScrollAreaWidgetTest;
     QTest::qExec(&myScrollAreaWidgetTest);
+
+    CustomModelLabel_Test customModelLabelTest;
+    QTest::qExec(&customModelLabelTest);
 }

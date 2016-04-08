@@ -87,6 +87,8 @@ SOURCES += main.cpp\
     maps/traffic_map/map_components/mapmanagement.cpp \
     maps/traffic_map/map_components/myscrollareawidget.cpp \
     maps/traffic_map_test/map_components_test/myscrollareawidget_test.cpp \
+    maps/traffic_map/map_components/custommodellabel.cpp \
+    maps/traffic_map_test/map_components_test/custommodellabel_test.cpp \
     maps/testrunner.cpp
 
 HEADERS  += \
@@ -163,6 +165,8 @@ HEADERS  += \
     maps/traffic_map/map_components/mapmanagement.h \
     maps/traffic_map/map_components/myscrollareawidget.h \
     maps/traffic_map_test/map_components_test/myscrollareawidget_test.h \
+    maps/traffic_map/map_components/custommodellabel.h \
+    maps/traffic_map_test/map_components_test/custommodellabel_test.h \
     maps/testrunner.h
 
 

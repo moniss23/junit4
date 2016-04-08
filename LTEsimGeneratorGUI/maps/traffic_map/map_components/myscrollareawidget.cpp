@@ -18,6 +18,13 @@ MyScrollAreaWidget::MyScrollAreaWidget( bool large /*= false*/ ) : QWidget()
     myLabel2.setParent(this);
     myLabel2.setText("Custom Models:");
     myLabel2.setGeometry(850, 220, 110, 30);
+
+    for(int i = 0; i < 10; i++){
+        customModelLabels.append(new CustomModelLabel("CM" + QString::number(i+1), this));
+        int xOfCM = 850 + (i % 2) * 60;
+        int yOfCM = 250 + (i / 2) * 30;
+        customModelLabels[i]->setGeometry(xOfCM, yOfCM);
+    }
 }
 
 //------Allocating the handover and cell visual components------

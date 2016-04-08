@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include <QLabel>
+#include "custommodellabel.h"
 
 class MyScrollAreaWidget : public QWidget
 {
@@ -25,6 +26,7 @@ private:
     void paintEvent(QPaintEvent *event);
 
     QLabel myLabel1, myLabel2;
+    QList<CustomModelLabel*> customModelLabels;
 };
 
 #endif // MYSCROLLAREAWIDGET_H

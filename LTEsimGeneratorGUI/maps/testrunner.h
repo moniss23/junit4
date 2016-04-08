@@ -8,6 +8,7 @@
 #include <maps/traffic_map_test/managementtemplate_test.h>
 #include <maps/traffic_map_test/map_components_test/mapmanagement_test.h>
 #include <maps/traffic_map_test/map_components_test/myscrollareawidget_test.h>
+#include <maps/traffic_map_test/map_components_test/custommodellabel_test.h>
 #include <QTest>
 
 class TestRunner
