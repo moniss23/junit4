@@ -52,4 +52,8 @@ void TestRunner::runTests()
     //Tests for TuningTrafficButton class
     TuningTrafficButton_Test tuningTrafficButtonTest;
     QTest::qExec(&tuningTrafficButtonTest);
+
+    //Tests for Scale Template class
+    Scale_Test scaleTest;
+    QTest::qExec(&scaleTest);
 }
