@@ -63,7 +63,8 @@ SOURCES += main.cpp\
     maps/traffic_map/tuningtraffic/tuningtrafficform.cpp \
     maps/traffic_map/ue_param/ue.cpp \
     maps/traffic_map/ue_param/UE_param_form.cpp \
-    maps/traffic_map/draguelabel.cpp \
+    maps/traffic_map/map_components/draguelabel.cpp \
+    maps/traffic_map_test/map_components_test/draguelabel_test.cpp \
     maps/traffic_map/map_traffic.cpp \
     maps/traffic_map/map_traffic_large.cpp \
     maps/traffic_map/timetraffic/timetraffic.cpp \
@@ -147,7 +148,8 @@ HEADERS  += \
     maps/traffic_map/tuningtraffic/tuningtrafficform.h \
     maps/traffic_map/ue_param/ue.h \
     maps/traffic_map/ue_param/UE_param_form.h \
-    maps/traffic_map/draguelabel.h \
+    maps/traffic_map/map_components/draguelabel.h \
+    maps/traffic_map_test/map_components_test/draguelabel_test.h \
     maps/traffic_map/map_traffic.h \
     maps/traffic_map/map_traffic_large.h \
     maps/traffic_map/timetraffic/timetraffic.h \

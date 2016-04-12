@@ -13,7 +13,7 @@
 #include "maps/traffic_map/tuningtraffic/tuningtrafficform.h"
 #include "maps/object_map/cell.h"
 #include "maps/object_map/center.h"
-#include "maps/traffic_map/draguelabel.h"
+#include "maps/traffic_map/map_components/draguelabel.h"
 #include "my_qlabel.h"
 #include "maps/traffic_map/timetraffic/timetraffic.h"
 #include "maps/traffic_map/timetraffic/timetrafficform.h"

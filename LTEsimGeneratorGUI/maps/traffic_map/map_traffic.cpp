@@ -4,7 +4,7 @@
 #include <QCloseEvent>
 #include <QFile>
 #include <QtWidgets>
-#include "draguelabel.h"
+#include "map_components/draguelabel.h"
 #include "QRect"
 #include <QPoint>
 #include <QSettings>

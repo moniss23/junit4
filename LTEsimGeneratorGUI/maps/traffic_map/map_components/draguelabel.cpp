@@ -3,7 +3,7 @@
 #include <QtWidgets>
 
 DragUELabel::DragUELabel(const QString &text, QWidget *parent)
-    : QLabel(parent)
+    : QLabel(text, parent)
 {
     QFontMetrics metric(font());
     QSize size = metric.size(Qt::TextSingleLine, text);
@@ -34,9 +34,32 @@ DragUELabel::DragUELabel(const QString &text, QWidget *parent)
 
     setPixmap(QPixmap::fromImage(image));
     m_labelText = text;
+    myArea = NULL;
 }
 
 QString DragUELabel::labelText() const
 {
     return m_labelText;
 }
+
+void DragUELabel::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    //TO BE FINISHED
+}
+
+void DragUELabel::setmyArea(MyObjectArea *objectArea)
+{
+    myArea = objectArea;
+}
+
+MyObjectArea* DragUELabel::getmyArea()
+{
+    try{
+        if( myArea == NULL)
+            throw 1;
+        return myArea;
+    } catch ( int ){
+        qDebug() << "myHandoverArea points to NULL adress";
+    }
+}
+

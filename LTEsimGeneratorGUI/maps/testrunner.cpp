@@ -56,4 +56,8 @@ void TestRunner::runTests()
     //Tests for Scale Template class
     Scale_Test scaleTest;
     QTest::qExec(&scaleTest);
+
+    //Tests for DragUELabel class
+    DragUELabel_Test dragUELabelTest;
+    QTest::qExec(&dragUELabelTest);
 }

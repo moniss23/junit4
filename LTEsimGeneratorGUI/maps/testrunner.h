@@ -13,6 +13,7 @@
 #include <maps/traffic_map_test/map_components_test/timebutton_test.h>
 #include <maps/traffic_map_test/map_components_test/tuningtrafficbutton_test.h>
 #include <maps/traffic_map_test/map_components_test/scale_test.h>
+#include <maps/traffic_map_test/map_components_test/draguelabel_test.h>
 #include <QTest>
 
 class TestRunner

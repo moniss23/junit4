@@ -2,7 +2,7 @@
 #define MAP_TRAFFIC_LARGE_H
 
 #include <QMainWindow>
-#include "draguelabel.h"
+#include "map_components/draguelabel.h"
 #include "my_qlabel.h"
 #include <QtWidgets>
 #include "maps/traffic_map/ue_param/UE_param_form.h"
