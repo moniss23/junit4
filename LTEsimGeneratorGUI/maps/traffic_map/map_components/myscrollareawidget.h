@@ -8,6 +8,8 @@
 #include "statisticsbutton.h"
 #include "tuningtrafficbutton.h"
 #include "timebutton.h"
+#include "cellarea.h"
+#include "handoverarea.h"
 
 class AddButton;
 
@@ -31,6 +33,9 @@ private:
     void drawText(QPainter *p);
 
     void paintEvent(QPaintEvent *event);
+
+    QList<MyObjectArea *> myHandoverArea;
+    QList<CellArea *> myCellArea;
 
     QLabel myLabel1, myLabel2;
     QList<CustomModelLabel*> customModelLabels;
