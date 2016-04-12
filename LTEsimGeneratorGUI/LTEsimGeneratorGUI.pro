@@ -99,6 +99,8 @@ SOURCES += main.cpp\
     maps/traffic_map_test/map_components_test/scale_test.cpp \
     maps/traffic_map/map_components/addbutton.cpp \
     maps/traffic_map_test/map_components_test/addbutton_test.cpp \
+    maps/traffic_map/map_components/cellarea.cpp \
+    maps/traffic_map_test/map_components_test/cellarea_test.cpp \
     maps/testrunner.cpp
 
 HEADERS  += \
@@ -189,6 +191,8 @@ HEADERS  += \
     maps/traffic_map/map_components/addbutton.h \
     maps/traffic_map_test/map_components_test/addbutton_test.h \
     maps/traffic_map/map_components/myobjectarea.h \
+    maps/traffic_map/map_components/cellarea.h \
+    maps/traffic_map_test/map_components_test/cellarea_test.h \
     maps/testrunner.h
 
 
