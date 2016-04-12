@@ -1,6 +1,7 @@
 #include "myscrollareawidget.h"
 #include <QPainter>
 #include <QtGui>
+#include "addbutton.h"
 
 //-------MyScrollAreaWidget Constructor (either large or standard size of the map)------
 MyScrollAreaWidget::MyScrollAreaWidget( bool large /*= false*/ ) : QWidget()
@@ -18,6 +19,9 @@ MyScrollAreaWidget::MyScrollAreaWidget( bool large /*= false*/ ) : QWidget()
     myLabel2.setParent(this);
     myLabel2.setText("Custom Models:");
     myLabel2.setGeometry(850, 220, 110, 30);
+
+    addButton = new AddButton(this);
+    addButton->setGeometry(QRect(960, 50, 80, 27));
 
     for(int i = 0; i < 10; i++){
         customModelLabels.append(new CustomModelLabel("CM" + QString::number(i+1), this));

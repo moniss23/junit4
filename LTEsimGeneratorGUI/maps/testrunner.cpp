@@ -60,4 +60,8 @@ void TestRunner::runTests()
     //Tests for DragUELabel class
     DragUELabel_Test dragUELabelTest;
     QTest::qExec(&dragUELabelTest);
+
+    //Tests for AddButtonclass
+    AddButton_Test addButtonTest;
+    QTest::qExec(&addButtonTest);
 }

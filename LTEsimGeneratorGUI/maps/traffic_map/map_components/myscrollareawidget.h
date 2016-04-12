@@ -3,14 +3,18 @@
 
 #include <QtWidgets>
 #include <QLabel>
+#include "draguelabel.h"
 #include "custommodellabel.h"
 #include "statisticsbutton.h"
 #include "tuningtrafficbutton.h"
 #include "timebutton.h"
 
+class AddButton;
+
 class MyScrollAreaWidget : public QWidget
 {
     Q_OBJECT
+    friend class AddButton;
     friend class MyScrollAreaWidget_Test;
 public:
     MyScrollAreaWidget( bool large = 0 );
@@ -33,6 +37,8 @@ private:
     StatisticsButton *statisticsButton;
     TuningTrafficButton *tuningTrafficButton;
     TimeButton *timeButton;
+    QList<DragUELabel*> ueGroupLabel;
+    AddButton *addButton;
 };
 
 #endif // MYSCROLLAREAWIDGET_H
