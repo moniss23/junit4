@@ -182,3 +182,18 @@ void MyScrollAreaWidget::drawCoordinateSystem(QPainter *p)
     p->drawLine(QPoint(scl->getDisplayX(eastHorizon), scl->getDisplayY(northHorizon)),
                 QPoint(scl->getDisplayX(westHorizon), scl->getDisplayY(northHorizon)));
 }
+
+//------Returns pointer to area detected at given location------
+MyObjectArea* MyScrollAreaWidget::whichObjectArea(int xParam, int yParam)
+{
+    MyObjectArea *myObjectAreaPtr = NULL;
+
+    xParam = scl->getRealX(xParam);
+    yParam = scl->getRealY(yParam);
+    foreach(MyObjectArea *it, composition->areaList){
+        it->contain(xParam, yParam, &myObjectAreaPtr);
+    }
+    if(myObjectAreaPtr != NULL)
+        return myObjectAreaPtr;
+    return NULL;
+}

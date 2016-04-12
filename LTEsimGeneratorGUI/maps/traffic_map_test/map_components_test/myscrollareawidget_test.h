@@ -11,6 +11,7 @@ private slots:
     void testStandardConstructor();
     void testLargeConstructor();
     void testDestructor();
+    void testWhichObjectArea();
 
 private:
     MyScrollAreaWidget *myScrollAreaWidgetPtr, *myLargeScrollAreaWidgetPtr;

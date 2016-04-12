@@ -21,3 +21,12 @@ void MyScrollAreaWidget_Test::testDestructor()
     delete myScrollAreaWidgetPtr;
     delete myLargeScrollAreaWidgetPtr;
 }
+
+void MyScrollAreaWidget_Test::testWhichObjectArea()
+{
+    MyScrollAreaWidget myTestScrollAreaWidget(true);
+    QVERIFY(myTestScrollAreaWidget.whichObjectArea(200, 100)->getID() == "61");
+    QVERIFY(myTestScrollAreaWidget.whichObjectArea(600, 800)->getID() == "14");
+    QVERIFY(myTestScrollAreaWidget.whichObjectArea(450, 530)->getID() == "33");
+    QVERIFY(myTestScrollAreaWidget.whichObjectArea(600, 270)->getID() == "54");
+}

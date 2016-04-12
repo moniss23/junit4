@@ -26,6 +26,7 @@ public:
 private:
     void createStandardMap();
     void addLargePart();
+    MyObjectArea* whichObjectArea(int xParam, int yParam);
 
     void drawFacade(QPainter *p);
     void drawCells(QPainter *p);
@@ -43,6 +44,7 @@ private:
 
     Scale<double, int> *scl;
     QPen myPen;
+    QPoint startPos;
     QLabel myLabel1, myLabel2;
     QList<CustomModelLabel*> customModelLabels;
     StatisticsButton *statisticsButton;
