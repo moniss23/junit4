@@ -85,6 +85,12 @@ void MyScrollAreaWidget::createStandardMap()
 //------Appending yet another part of the visual components schould the large map be chossen------
 void MyScrollAreaWidget::addLargePart()
 {
+    for(int i = 0; i < 12; i++)
+    {
+        myCellArea.append(new CellArea(myPositionX[(((i / 2) % 2 == 0) ? 0 : 1) ][((i % 2 == 0) ? 0 : 1) + 2],
+          myPositionY[i / 2], (QString::number(i / 2 + 1) + QString::number(((i % 2 == 0) ? 1 : 2) + 2))));
+    }
+    //YET HANDOVERS TO BE ADD
 }
 
 //------Repainting the map------
