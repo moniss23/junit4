@@ -10,6 +10,8 @@
 #include "timebutton.h"
 #include "cellarea.h"
 #include "handoverarea.h"
+#include "compositionofareas.h"
+#include "scale.h"
 
 class AddButton;
 
@@ -27,6 +29,7 @@ private:
 
     void drawFacade(QPainter *p);
     void drawCells(QPainter *p);
+    void drawCell(QPoint center, double Dx, double Dy, QPainter *p);
     void drawHandowers(QPainter *p);
     void drawCoordinateSystem(QPainter *p);
     void drawGrid(QPainter *p);
@@ -34,9 +37,12 @@ private:
 
     void paintEvent(QPaintEvent *event);
 
+    CompositionOfAreas *composition;
     QList<MyObjectArea *> myHandoverArea;
     QList<CellArea *> myCellArea;
 
+    Scale<double, int> *scl;
+    QPen myPen;
     QLabel myLabel1, myLabel2;
     QList<CustomModelLabel*> customModelLabels;
     StatisticsButton *statisticsButton;

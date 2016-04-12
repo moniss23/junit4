@@ -19,6 +19,12 @@ MyScrollAreaWidget::MyScrollAreaWidget( bool large /*= false*/ ) : QWidget()
     if(large)
         addLargePart();
 
+    composition = new CompositionOfAreas;
+    for(int i = 0; i < myCellArea.size(); i++)
+        composition->addToList(myCellArea[i]);
+    for(int i = 0; i < myHandoverArea.size(); i++)
+        composition->addToList(myHandoverArea[i]);
+
     myLabel1.setParent(this);
     myLabel1.setText("Add UE Group:");
     myLabel1.setGeometry(850, 50, 110, 27);
@@ -45,6 +51,13 @@ MyScrollAreaWidget::MyScrollAreaWidget( bool large /*= false*/ ) : QWidget()
 
     timeButton = new TimeButton(this);
     timeButton->setGeometry(QRect(850, 550, 110, 50));
+
+    const int eheigth = 930;
+    const int ewidth =  eheigth * (eastHorizon - westHorizon) / (northHorizon - southHorizon);
+    const int xe0 = 10;
+    const int ye0 = 940;
+    scl = new Scale<double, int>( xe0, ye0, ewidth, eheigth, westHorizon, southHorizon,
+                     (eastHorizon - westHorizon), (northHorizon - southHorizon));
 }
 
 //------Allocating the handover and cell visual components------
@@ -91,9 +104,22 @@ void MyScrollAreaWidget::drawFacade(QPainter *p)
     drawHandowers(p);
 }
 
+//------That function uses QPainter class method to draw circle------
+void MyScrollAreaWidget::drawCell(QPoint center, double Dx, double Dy, QPainter *p)
+{
+    p->drawArc(center.x() - Dx/2, center.y() - Dy/2, Dx, Dy, 0, 16 * 360);
+}
+
 //------Function reponsible for drawing cirles------
 void MyScrollAreaWidget::drawCells(QPainter *p)
 {
+    double Dx = 2 * scl->getDislpayLengthOX(CellArea::getR());
+    double Dy = 2 * scl->getDisplayLengthOY(CellArea::getR());
+    for(int i = 0; i < myCellArea.size(); i++){
+        QPoint point(scl->getDisplayX(myCellArea[i]->getCenter().x()),
+                     scl->getDisplayY(myCellArea[i]->getCenter().y()));
+        drawCell(point, Dx, Dy, p);
+    }
 }
 
 //------Schould draw rectangles based on boundary coordinates------
@@ -104,14 +130,49 @@ void MyScrollAreaWidget::drawHandowers(QPainter *p)
 //------Function reponsible for legend and descriptions------
 void MyScrollAreaWidget::drawText(QPainter *p)
 {
+    p->drawText(QPoint(scl->getDisplayX(westHorizon) + 10,
+                scl->getDisplayY(northHorizon) + 20), "DistanceY [km]");
+    p->drawText(QPoint(scl->getDisplayX(eastHorizon) + 10,
+                       scl->getDisplayY(southHorizon) - 10), "DistanceX [km]");
+    for(int i = 0; i < 8; i++)
+        p->drawText(QPoint(scl->getDisplayX(myPositionX[((i / 4) >= 1) ? 0 : 1][i % 4]) - 20,
+                    scl->getDisplayY(southHorizon) - 10),
+                    QString::number(myPositionX[((i / 4) >= 1) ? 0 : 1][i % 4]));
+    for(int i = 0; i < 6; i++)
+        p->drawText(QPoint(scl->getDisplayX(westHorizon) + 10, scl->getDisplayY(myPositionY[i]) - 10),
+                    QString::number(myPositionY[i]));
 }
 
 //------That function uses QPainter class method to draw the grid lines------
 void MyScrollAreaWidget::drawGrid(QPainter *p)
 {
+    myPen.setStyle(Qt::DashDotLine);
+    myPen.setColor(Qt::gray);
+    p->setPen(myPen);
+    for(int i = 0; i < 8; i++)
+        p->drawLine(QPoint(scl->getDisplayX(myPositionX[((i / 4) >= 1) ? 0 : 1][i % 4]), scl->getDisplayY(southHorizon)),
+                    QPoint(scl->getDisplayX(myPositionX[((i / 4) >= 1) ? 0 : 1][i % 4]), scl->getDisplayY(northHorizon)));
+    for(int i = 0; i < 6; i++)
+        p->drawLine(QPoint(scl->getDisplayX(westHorizon), scl->getDisplayY(myPositionY[i])),
+                    QPoint(scl->getDisplayX(eastHorizon), scl->getDisplayY(myPositionY[i])));
+    myPen.setStyle(Qt::SolidLine);
+    myPen.setColor(Qt::black);
+    p->setPen(myPen);
 }
 
 //------That function uses QPainter class method to draw the coordinate system------
 void MyScrollAreaWidget::drawCoordinateSystem(QPainter *p)
 {
+    myPen.setWidth(2);
+    p->setPen(myPen);
+    p->drawLine(QPoint(scl->getDisplayX(westHorizon), scl->getDisplayY(southHorizon)),
+                QPoint(scl->getDisplayX(eastHorizon), scl->getDisplayY(southHorizon)));
+    p->drawLine(QPoint(scl->getDisplayX(westHorizon), scl->getDisplayY(southHorizon)),
+                QPoint(scl->getDisplayX(westHorizon), scl->getDisplayY(northHorizon)));
+    myPen.setWidth(1);
+    p->setPen(myPen);
+    p->drawLine(QPoint(scl->getDisplayX(eastHorizon), scl->getDisplayY(southHorizon)),
+                QPoint(scl->getDisplayX(eastHorizon), scl->getDisplayY(northHorizon)));
+    p->drawLine(QPoint(scl->getDisplayX(eastHorizon), scl->getDisplayY(northHorizon)),
+                QPoint(scl->getDisplayX(westHorizon), scl->getDisplayY(northHorizon)));
 }
