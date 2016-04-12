@@ -210,3 +210,86 @@ void MyScrollAreaWidget::mousePressEvent(QMouseEvent *event)
         startPos = event->pos();
     QWidget::mousePressEvent(event);
 }
+
+//------Start drag event only if mouse displacement is greater then defined treshold------
+void MyScrollAreaWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if (event->buttons() & Qt::LeftButton)
+    {
+        int distance = ( event->pos() - startPos ).manhattanLength();
+        if (distance >= QApplication::startDragDistance() )
+            performDrag(event);
+    }
+    QWidget::mouseMoveEvent(event);
+}
+
+//------Creates QDrag and QMimeData objects. Those objects handle drag process------
+void MyScrollAreaWidget::performDrag(QMouseEvent *event)
+{
+    DragUELabel *child = dynamic_cast<DragUELabel*>( childAt(event->pos() ) );
+    if ( child )
+    {
+        QMimeData *mimeData = new QMimeData;
+        mimeData->setText(child->labelText() );
+
+        QDrag *drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+
+        QPixmap pixmap(child->size() );
+        child->render(&pixmap);
+
+        drag->setPixmap(pixmap);
+        drag->exec(Qt::MoveAction);
+    }
+}
+
+//------Captutring the following events in order prtotect drag process------
+void MyScrollAreaWidget::dragEnterEvent(QDragEnterEvent *event)
+{
+    MyScrollAreaWidget *source =
+            qobject_cast<MyScrollAreaWidget *>(event->source() );
+    if (source && source == this)
+    {
+        event->setDropAction(Qt::MoveAction);
+        event->accept();
+    }
+}
+
+void MyScrollAreaWidget::dragMoveEvent(QDragMoveEvent *event)
+{
+    MyScrollAreaWidget *source =
+            qobject_cast<MyScrollAreaWidget *>(event->source() );
+    if (source && source == this)
+    {
+        event->setDropAction(Qt::MoveAction);
+        event->accept();
+    }
+}
+
+//------End of drag process. Dragged Label receives adress to his actual arrea------
+void MyScrollAreaWidget::dropEvent(QDropEvent *event)
+{
+    MyScrollAreaWidget *source =
+            qobject_cast<MyScrollAreaWidget *>(event->source() );
+    if (source && source == this &&
+            whichObjectArea(event->pos().x(), event->pos().y() ) != NULL)
+    {
+        int index = ( ( event->mimeData()->text() ).remove(0, 2) ).toInt() - 1;
+        try
+        {
+            if( index < 0 || index >= ueGroupLabel.size() )
+                throw 1;
+            ueGroupLabel[index]->setGeometry(QRect(event->pos().x(), event->pos().y(),
+                                                   ueGroupLabel[index]->width(), ueGroupLabel[index]->height() ) );
+            ueGroupLabel[index]->setmyArea(whichObjectArea(event->pos().x(), event->pos().y() ) );
+            ueGroupLabel[index]->show();
+            event->setDropAction(Qt::MoveAction);
+            event->accept();
+            AddButton::created = false;
+        }
+        catch( int )
+        {
+            //Schould be added messagebox "Error: Out of scope! Atempt to pick the value of the index: " << index;
+        }
+    }
+}

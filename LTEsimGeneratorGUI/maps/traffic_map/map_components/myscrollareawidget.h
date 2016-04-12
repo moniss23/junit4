@@ -38,6 +38,11 @@ private:
 
     void paintEvent(QPaintEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dragMoveEvent(QDragMoveEvent *event);
+    void dropEvent(QDropEvent *event);
+    void performDrag(QMouseEvent *event);
 
     CompositionOfAreas *composition;
     QList<MyObjectArea *> myHandoverArea;
