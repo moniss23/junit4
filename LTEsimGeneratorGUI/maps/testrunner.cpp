@@ -72,4 +72,8 @@ void TestRunner::runTests()
     //Tests for HandoverArea class
     HandoverArea_Test handoverAreaTest;
     QTest::qExec(&handoverAreaTest);
+
+    //Tests fo CompositionOfAreas class
+    CompositionOfAreas_Test compositionOfAreasTest;
+    QTest::qExec(&compositionOfAreasTest);
 }

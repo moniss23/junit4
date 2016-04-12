@@ -103,6 +103,7 @@ SOURCES += main.cpp\
     maps/traffic_map_test/map_components_test/cellarea_test.cpp \
     maps/traffic_map/map_components/handoverarea.cpp \
     maps/traffic_map_test/map_components_test/handoverarea_test.cpp \
+    maps/traffic_map_test/map_components_test/compositionofareas_test.cpp \
     maps/testrunner.cpp
 
 HEADERS  += \
@@ -197,6 +198,8 @@ HEADERS  += \
     maps/traffic_map_test/map_components_test/cellarea_test.h \
     maps/traffic_map/map_components/handoverarea.h \
     maps/traffic_map_test/map_components_test/handoverarea_test.h \
+    maps/traffic_map/map_components/compositionofareas.h \
+    maps/traffic_map_test/map_components_test/compositionofareas_test.h \
     maps/testrunner.h
 
 
