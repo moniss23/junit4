@@ -188,6 +188,7 @@ HEADERS  += \
     maps/traffic_map_test/map_components_test/scale_test.h \
     maps/traffic_map/map_components/addbutton.h \
     maps/traffic_map_test/map_components_test/addbutton_test.h \
+    maps/traffic_map/map_components/myobjectarea.h \
     maps/testrunner.h
 
 
