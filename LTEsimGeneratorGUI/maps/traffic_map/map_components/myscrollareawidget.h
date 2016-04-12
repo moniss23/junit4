@@ -37,6 +37,7 @@ private:
     void drawText(QPainter *p);
 
     void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
     CompositionOfAreas *composition;
     QList<MyObjectArea *> myHandoverArea;

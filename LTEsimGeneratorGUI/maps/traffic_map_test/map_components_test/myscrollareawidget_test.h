@@ -4,7 +4,7 @@
 #include <QtTest/QtTest>
 #include "maps/traffic_map/map_components/myscrollareawidget.h"
 
-class MyScrollAreaWidget_Test: public QObject
+class MyScrollAreaWidget_Test : public QObject
 {
     Q_OBJECT
 private slots:
@@ -12,6 +12,7 @@ private slots:
     void testLargeConstructor();
     void testDestructor();
     void testWhichObjectArea();
+    void testPressEvent();
 
 private:
     MyScrollAreaWidget *myScrollAreaWidgetPtr, *myLargeScrollAreaWidgetPtr;
