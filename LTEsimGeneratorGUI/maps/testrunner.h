@@ -16,6 +16,7 @@
 #include <maps/traffic_map_test/map_components_test/draguelabel_test.h>
 #include <maps/traffic_map_test/map_components_test/addbutton_test.h>
 #include <maps/traffic_map_test/map_components_test/cellarea_test.h>
+#include <maps/traffic_map_test/map_components_test/handoverarea_test.h>
 #include <QTest>
 
 class TestRunner

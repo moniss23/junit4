@@ -68,4 +68,8 @@ void TestRunner::runTests()
     //Tests for CellArea class
     CellArea_Test cellAreaTest;
     QTest::qExec(&cellAreaTest);
+
+    //Tests for HandoverArea class
+    HandoverArea_Test handoverAreaTest;
+    QTest::qExec(&handoverAreaTest);
 }
