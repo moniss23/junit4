@@ -141,49 +141,26 @@ const char* crypt(const char* plaintext,int text_len,const char* key,int key_len
     return result;
 }
 
-// read the content of the project file, decrypt it and split it into a list
-QStringList read_project_file(QString project_name,QString dir){
+// Read the content of the project file, decrypt it and split into a list
+QStringList read_project_file(QString project_name, QString dir){
 
-    if(dir == "<default>")
-    {
+    dir = (dir == "<default>") ? "projects" : dir;
 
-        QFile project_file("projects/" + project_name + "/" + project_name + ( *proFileExt ) );
-        project_file.open(QIODevice::ReadOnly);
-        unsigned int length = project_file.bytesAvailable();
-        char* ciphertext = new char[length];
+    QFile project_file(dir + "/" + project_name + "/" + project_name + ( *proFileExt ) );
+    project_file.open(QIODevice::ReadOnly);
+    unsigned int length = project_file.bytesAvailable();
+    char* ciphertext = new char[length];
 
-        QDataStream project_file_stream(&project_file);
+    QDataStream project_file_stream(&project_file);
 
-        project_file_stream.readRawData(ciphertext,length);
+    project_file_stream.readRawData(ciphertext,length);
 
-        const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length() );
+    const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length() );
 
-        QString project_data(plaintext);
+    QString project_data(plaintext);
 
-        project_file.close();
-        return project_data.split('\n');
-
-    }
-    else
-    {
-        QFile project_file(dir + "/" + project_name + "/" + project_name + ( *proFileExt ) );
-        project_file.open(QIODevice::ReadOnly);
-        unsigned int length = project_file.bytesAvailable();
-        char* ciphertext = new char[length];
-
-        QDataStream project_file_stream(&project_file);
-
-        project_file_stream.readRawData(ciphertext,length);
-
-        const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length() );
-
-        QString project_data(plaintext);
-
-        project_file.close();
-        return project_data.split('\n');
-
-    }
-
+    project_file.close();
+    return project_data.split('\n');
 }
 
 // encrypt the project data and write it into the file
