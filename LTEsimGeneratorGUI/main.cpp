@@ -71,25 +71,20 @@ void setCenterOfApplication(QWidget* widget)
 {
     QDesktopWidget* desktop = QApplication::desktop();
 
-    int my_width = widget->width();
-    int my_height = widget->height();
+    int centerW = (desktop->width() - widget->width()) / 2;
+    int centerH = (desktop->height() - widget->height()) / 2;
 
-    int width = desktop->width();
-    int height = desktop->height();
-
-    int centerW = ( width / 2 ) - ( my_width / 2 );
-    int centerH = ( height / 2 ) - ( my_height / 2 );
     widget->move(centerW, centerH);
 }
 
 int main(int argc, char *argv[])
 {
-    projectName = new QString;
     QApplication a(argc, argv);
 
-    proFileExt = new QString(".proj");
-    parametersFile = new QString;
     projectFile = new QString;
+    projectName = new QString;
+    parametersFile = new QString;
+    proFileExt = new QString(".proj");
     projectMng = new ProjectManagement;
     setCenterOfApplication(projectMng);
 
@@ -105,7 +100,7 @@ int main(int argc, char *argv[])
     setCenterOfApplication(p);
 
     //Condition to run tests on Jenkins
-    if (argv[1] == QString("TEST") )
+    if (argv[1] == QString("TEST"))
     {
         TestRunner unitTests;
         unitTests.runTests();
@@ -118,26 +113,18 @@ int main(int argc, char *argv[])
 }
 
 const char* crypt(const char* plaintext,int text_len,const char* key,int key_len,bool terminatingZero){
-    int key_pos = 0;
-    int len,i;
-    if(terminatingZero)
-    {
-        len = text_len + 1;
-    }
-    else
-    {
-        len = text_len;
-    }
-    char* result = new char[len];
-    for(i = 0; i < text_len; i++)
-    {
+    int i, key_pos = 0;
+    char* result = new char[text_len + (terminatingZero==1)];
+
+    for(i=0; i<text_len; i++) {
         result[i] = plaintext[i] ^ key[key_pos];
         key_pos = ( key_pos + 1 ) % key_len;
     }
-    if(terminatingZero)
-    {
+
+    if(terminatingZero) {
         result[i] = '\0';
     }
+
     return result;
 }
 
