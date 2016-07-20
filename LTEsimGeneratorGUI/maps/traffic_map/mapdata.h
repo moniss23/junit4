@@ -48,7 +48,10 @@ public:
     void serializeFromProjectFileOld(QByteArray rawData) override {}
     void serializeFromProjectFileNew(QDomDocument xmlDocument) override {}
     void serializeToScriptCommands() override {}
+    void setProjectReaderWriter(ProjectReaderWriter *value);
 
+private:
+    ProjectReaderWriter* projectReaderWriter;
 };
 
 #endif // MAPDATA_H

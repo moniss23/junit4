@@ -5,6 +5,7 @@ MapData::MapData(const QString &name ,bool whichMap)
     mapName = name;
     readyToSave = false;
     largeMap = whichMap;
+    projectReaderWriter = new ProjectReaderWriter;
 
 }
 
@@ -13,7 +14,7 @@ void MapData::fillActiveCellList()
     QString cellName = "cell";
     QString centerName = "Center";
     QString index;
-    QByteArray tempArray = ProjectReaderWriter::readDataFromProj(beginningOfCellSector,endOfCellSector);
+    QByteArray tempArray = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
     QString fileContent(tempArray);
     int rows,columns;
 
@@ -51,7 +52,7 @@ void MapData::fillHandoverList()
 {
     QString handoverName = "Handover";
     QString index;
-    QByteArray tempArray = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+    QByteArray tempArray = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
     QString fileContent(tempArray);
 
     for(int i = 0; i < maxHandoverCount; i++)
@@ -78,4 +79,9 @@ void MapData::fillHandoverList()
 QString MapData::getElementType() const
 {
     return QString("Traffic Map");
+}
+
+void MapData::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
 }

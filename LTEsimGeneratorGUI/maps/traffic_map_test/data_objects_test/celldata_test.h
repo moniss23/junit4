@@ -25,6 +25,8 @@ public:
     QString testProjectDir = "projects";
     const char* testPhrase = "cell11";
 
+    void setProjectReaderWriter(ProjectReaderWriter *value);
+
 private Q_SLOTS:
 
     void setgetCellNameTest();
@@ -43,7 +45,8 @@ private Q_SLOTS:
     void parseCellDataFromListTest();
     void parseCenterDataFromListTest();
     void serializeFromProjFileOldTest();
-
+private:
+    ProjectReaderWriter* projectReaderWriter;
 };
 
 

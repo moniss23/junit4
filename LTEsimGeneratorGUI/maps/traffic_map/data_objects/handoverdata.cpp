@@ -3,8 +3,9 @@
 HandoverData::HandoverData(QString name)
 {
     handoverParams.handoverName = name;
-    QByteArray data = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+    QByteArray data = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
     serializeFromProjectFileOld(data);
+    projectReaderWriter = new ProjectReaderWriter;
 }
 
 //---------------------Getters------------------------------------------------------
@@ -128,6 +129,10 @@ void HandoverData::serializeFromProjectFileOld(QByteArray rawData)
     setHandoverParams(loadedParams);
 }
 
+void HandoverData::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
+}
 //------------------Serialize/Deserialize operators for future---------------------
 
 QDataStream &operator<<(QDataStream &out, HandoverParams &handover)

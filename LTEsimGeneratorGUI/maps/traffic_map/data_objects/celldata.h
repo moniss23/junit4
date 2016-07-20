@@ -95,8 +95,11 @@ public:
     void serializeFromProjectFileNew(QDomDocument xmlDocument) override {}
     void serializeToScriptCommands() override {}
 
+    void setProjectReaderWriter(ProjectReaderWriter *value);
+
 private:
     CellParams cellParams;
+    ProjectReaderWriter* projectReaderWriter;
 };
 
 QDataStream &operator<<(QDataStream& out,CellParams &cell);

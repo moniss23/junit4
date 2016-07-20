@@ -50,10 +50,13 @@ public:
     void serializeFromProjectFileNew(QDomDocument xmlDocument) override;
     void serializeToScriptCommands() override {}
 
+    void setProjectReaderWriter(ProjectReaderWriter *value);
+
 private:
     UEgroupParams ue;
     QString mapIndexConst;
     QDomDocument xmlUePart;
+    ProjectReaderWriter* projectReaderWriter;
 
 };
 

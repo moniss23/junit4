@@ -6,6 +6,7 @@ HandoverData_Test::HandoverData_Test(QObject *parent) : QObject(parent)
     *projectName = testProjectName;
     QListWidgetItem* newItem = new QListWidgetItem(*projectName);
     projectMng->addProject(newItem,testProjectDir);
+    projectReaderWriter = new ProjectReaderWriter;
 }
 
 HandoverData_Test::~HandoverData_Test()
@@ -106,7 +107,7 @@ void HandoverData_Test::parseDataFromListTest()
     HandoverData* handover = new HandoverData(handoverName1);
     HandoverParams paramsStruct;
     QByteArray testDataArray;
-    testDataArray = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+    testDataArray = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
     QString testHandoverString(testDataArray);
     QStringList testHandoverList = testHandoverString.split('\n');
     paramsStruct = handover->parseDataFromList(testHandoverList);
@@ -120,10 +121,15 @@ void HandoverData_Test::serializeFromProjectFileOldTest()
 {
     HandoverData* handover = new HandoverData(handoverName1);
     QByteArray testDataArray;
-    testDataArray = ProjectReaderWriter::readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+    testDataArray = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
     handover->serializeFromProjectFileOld(testDataArray);
 
     QCOMPARE(handover->getHandoverName(),handoverName1);
     QCOMPARE(handover->getSouthBoundary(),testNumber);
     delete handover;
+}
+
+void HandoverData_Test::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
 }

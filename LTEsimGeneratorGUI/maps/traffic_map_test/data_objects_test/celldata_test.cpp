@@ -149,7 +149,7 @@ void CellData_Test::parseCellDataFromListTest()
     CellData* cell11 = new CellData(cellName1,centerName1);
     CellParams paramsStruct;
     QByteArray testCellArray;
-    testCellArray = ProjectReaderWriter::readDataFromProj(beginningOfCellSector,endOfCellSector);
+    testCellArray = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
     QString testCellString(testCellArray);
     QStringList testCellList = testCellString.split('\n');
     paramsStruct = cell11->parseCellDataFromList(testCellList);
@@ -162,7 +162,7 @@ void CellData_Test::parseCenterDataFromListTest()
     CellData* cell11 = new CellData(cellName1,centerName1);
     CenterParams paramsStruct;
     QByteArray testCenterArray;
-    testCenterArray = ProjectReaderWriter::readDataFromProj(beginningOfCellSector,endOfCellSector);
+    testCenterArray = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
     QString testCenterString(testCenterArray);
     QStringList testCenterList = testCenterString.split('\n');
     paramsStruct = cell11->parseCenterDataFromList(testCenterList);
@@ -174,8 +174,13 @@ void CellData_Test::serializeFromProjFileOldTest()
 {
     QByteArray loadedData;
     CellData* cell11 = new CellData(cellName1,centerName1);
-    loadedData = ProjectReaderWriter::readDataFromProj(beginningOfCellSector,endOfCellSector);
+    loadedData = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
     cell11->serializeFromProjectFileOld(loadedData);
     QCOMPARE(cell11->getPci(),testNumber1);
     QCOMPARE(cell11->getSouthCellBoundary(),(int)testNumber2);
+}
+
+void CellData_Test::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
 }

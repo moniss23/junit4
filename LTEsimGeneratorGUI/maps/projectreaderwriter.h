@@ -9,9 +9,10 @@ class ProjectReaderWriter
 {
 public:
     ProjectReaderWriter();
-    static QByteArray readDataFromProj(const QString &beginningOfSector,const QString &endOfSector);
-    static QDomDocument readDataFromXml(const QString &beginningOfSector,const QString &endOfSector);
-    static void writeDataToXml(const QDomDocument xmlDocument){}
+    // ReaderWriterRefactor:  deleted static
+    QByteArray readDataFromProj(const QString &beginningOfSector,const QString &endOfSector);
+    QDomDocument readDataFromXml(const QString &beginningOfSector,const QString &endOfSector);
+    void writeDataToXml(const QDomDocument xmlDocument){}
 };
 
 #endif // PROJECTREADERWRITER_H

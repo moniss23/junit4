@@ -5,8 +5,9 @@ CellData::CellData(const QString &nameCell, const QString &nameCenter)
 {
     cellParams.cellName = nameCell;
     cellParams.centerParams.centerName = nameCenter;
-    QByteArray data = ProjectReaderWriter::readDataFromProj(beginningOfCellSector,endOfCellSector);
+    QByteArray data = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
     serializeFromProjectFileOld(data);
+    projectReaderWriter = new ProjectReaderWriter;
 }
 
 
@@ -241,6 +242,11 @@ void CellData::serializeFromProjectFileOld(QByteArray rawData)
     loadedCenterParams = parseCenterDataFromList(projectDataList);
     setCellParams(loadedCellParams);
     setCenterParams(loadedCenterParams);
+}
+
+void CellData::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
 }
 
 QDataStream &operator<<(QDataStream &out, CellParams &cell)

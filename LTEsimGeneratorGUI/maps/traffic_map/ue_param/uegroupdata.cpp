@@ -5,7 +5,7 @@ UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
     ue.ueName = name;
     mapIndexConst = mapIndex;
     QString beginningOfUESector("<UE ID=\"" + ue.ueName + "\">");
-    QDomDocument ueXmlDocument = ProjectReaderWriter::readDataFromXml(beginningOfUESector,endOfUESector);
+    QDomDocument ueXmlDocument = projectReaderWriter->readDataFromXml(beginningOfUESector,endOfUESector);
     //reading parameter from proj/creating new ue with default parameters
     if(ueXmlDocument.isNull() == 0)
     {
@@ -21,6 +21,7 @@ UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
         ue.ueType = "IratHO";
         ue.area = "";
     }
+    projectReaderWriter = new ProjectReaderWriter;
 }
 
 //getters
@@ -188,4 +189,9 @@ void UEgroupData::serializeFromProjectFileNew(QDomDocument xmlDocument)
             ue.area = areaXmlElement.text();
         }
     }
+}
+
+void UEgroupData::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
 }

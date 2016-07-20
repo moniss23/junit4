@@ -54,6 +54,8 @@ public:
     void serializeFromProjectFileNew(QDomDocument xmlDocument) override;
     void serializeToScriptCommands() override {}
 
+    void setProjectReaderWriter(ProjectReaderWriter *value);
+
 private:
     QMap<enum Stats_settings, bool> statMap;
     QString mapIndexCurrent;
@@ -63,6 +65,7 @@ private:
     QStringList enumStatString;
     QList<QDomElement> elementsXmlList;
     QList<QDomText> textXmlList;
+    ProjectReaderWriter* projectReaderWriter;
 };
 
 #endif // STATISTICSDATA_H

@@ -5,6 +5,7 @@
 #include <QtTest/QtTest>
 #include <QObject>
 #include <QString>
+#include "maps/projectreaderwriter.h"
 
 class HandoverData_Test : public QObject
 {
@@ -22,6 +23,8 @@ public:
     const char* testPhrase = "Handover11_12";
     int testNumber = 7750;
 
+    void setProjectReaderWriter(ProjectReaderWriter *value);
+
 private Q_SLOTS:
 
     void getHandoverNameTest();
@@ -34,6 +37,8 @@ private Q_SLOTS:
     void serializeDeserializeOperatorTest();
     void parseDataFromListTest();
     void serializeFromProjectFileOldTest();
+private:
+    ProjectReaderWriter* projectReaderWriter;
 
 };
 

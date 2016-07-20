@@ -48,8 +48,11 @@ public:
 
 //-------------------Overriden methods from DataElemetsInterface----------------------
 
+    void setProjectReaderWriter(ProjectReaderWriter *value);
+
 private:
     HandoverParams handoverParams;
+    ProjectReaderWriter* projectReaderWriter;
 };
 
 //------------------Serialize/Deserialize operators for future-------------------------

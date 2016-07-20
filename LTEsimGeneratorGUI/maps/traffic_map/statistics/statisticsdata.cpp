@@ -6,7 +6,7 @@ StatisticsData::StatisticsData(QString &mapIndex)
     mapIndexCurrent = mapIndex;
     enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";
     QString beginningOfStatSector = "<ST>";
-    QDomDocument statisticsDocument = ProjectReaderWriter::readDataFromXml(beginningOfStatSector,endofStatSector);
+    QDomDocument statisticsDocument = projectReaderWriter->readDataFromXml(beginningOfStatSector,endofStatSector);
     if(statisticsDocument.isNull() == 0)
     {
         serializeFromProjectFileNew(statisticsDocument);
@@ -19,6 +19,7 @@ StatisticsData::StatisticsData(QString &mapIndex)
             statMap.insert(keyStat, false);
         }
     }
+    projectReaderWriter = new ProjectReaderWriter;
 }
 
 bool StatisticsData::getStatMap(enum Stats_settings &key)
@@ -60,6 +61,11 @@ void StatisticsData::serializeFromProjectFileNew(QDomDocument xmlDocument)
         bool value = stringToBool(valuestring);
         setStatMap(key, value);
     }
+}
+
+void StatisticsData::setProjectReaderWriter(ProjectReaderWriter *value)
+{
+    projectReaderWriter = value;
 }
 
 // Additional methods for enum, string and bool variable
