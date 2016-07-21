@@ -38,25 +38,21 @@ FileDialog::FileDialog(QWidget *parent) :
 
     this->setWindowTitle("New project");
 
-    this->ui->radioButton->setChecked(true);
-
+    this->ui->defaultLocationRadioButton->setChecked(true);
 }
 
-FileDialog::~FileDialog()
-{
-    delete ui;
-}
+FileDialog::~FileDialog() {delete ui;}
 
-void FileDialog::clearInputArea(){
+void FileDialog::clearInputArea() {
     this->ui->fileName->clear();
     this->ui->fileName->setFocus();
 }
 
-void FileDialog::setDefaultDir(QString dir){
-    if(dir=="<default>"){
+void FileDialog::setDefaultDir(QString dir) {
+    if(dir=="<default>") {
         this->ui->label_3->setText("(program's directory)");
     }
-    else{
+    else {
         this->ui->label_3->setText("("+dir+")");
     }
 }
@@ -66,17 +62,17 @@ void FileDialog::on_buttonBox_accepted()
 {
 
     // alert the user if some data has not been entered
-    if(this->ui->fileName->text().length()==0){
+    if(this->ui->fileName->text().length()==0) {
         msg("You must enter the project's name.");
         return;
     }
-    if(this->ui->radioButton_2->isChecked() && this->ui->lineEdit->text().length()==0){
+    if(this->ui->customLocationRadioButton->isChecked() && this->ui->lineEdit->text().length()==0) {
         msg("You must specify the project's location.");
         return;
     }
-    if(this->ui->radioButton_2->isChecked()){
+    if(this->ui->customLocationRadioButton->isChecked()) {
         QDir d(this->ui->lineEdit->text());
-        if(!d.exists()){
+        if(!d.exists()) {
             QMessageBox(QMessageBox::Critical,"","Destination folder does not exist.").exec();
             return;
         }
@@ -85,7 +81,7 @@ void FileDialog::on_buttonBox_accepted()
     QString illegal_chars("<>:\"/\\|?*");
 
     // check if the name is unique, display alert if it's not
-    if(projectMng->projectNameTaken(this->ui->fileName->text())){
+    if(projectMng->projectNameTaken(this->ui->fileName->text())) {
         QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Name already in use. Choose another one.",QMessageBox::Yes).exec();
         return;
     }
@@ -93,19 +89,19 @@ void FileDialog::on_buttonBox_accepted()
     // assure that the name is legal
     bool name_legal=true;
     QString chars_detected("");
-    for(int i=0; i<illegal_chars.length(); i++){
-        if(this->ui->fileName->text().contains(illegal_chars[i])){
-            if(name_legal){
+    for(int i=0; i<illegal_chars.length(); i++) {
+        if(this->ui->fileName->text().contains(illegal_chars[i])) {
+            if(name_legal) {
                 name_legal=false;
             }
             chars_detected.append(illegal_chars[i]);
         }
     }
-    if(!name_legal){
-        if(chars_detected.length()==1){
+    if(!name_legal) {
+        if(chars_detected.length()==1) {
             QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal character: "+chars_detected,QMessageBox::Yes).exec();
         }
-        else{
+        else {
             QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal characters:\n"+chars_detected,QMessageBox::Yes).exec();
         }
         return;
@@ -121,26 +117,21 @@ void FileDialog::on_buttonBox_accepted()
     // add a new element to the list of projects in project management window
     QListWidgetItem* new_item=new QListWidgetItem(appSettings->getProjectName());
     list_items.push_back(new_item);
-    if(this->ui->radioButton_2->isChecked()){
+    if(this->ui->customLocationRadioButton->isChecked()) {
         projectMng->addProject(new_item,this->ui->lineEdit->text());
     }
-    else if(this->ui->radioButton->isChecked()){
+    else if(this->ui->defaultLocationRadioButton->isChecked()) {
         projectMng->addProject(new_item,defaultNewProjectDir);
     }
     listC++;
-
     write_projects_file();
     this->close();
-
 }
 
-void FileDialog::on_buttonBox_rejected()
-{
-    this->close();
-}
+void FileDialog::on_buttonBox_rejected() {this->close();}
 
 // "browse" button clicked
-void FileDialog::on_pushButton_clicked()
+void FileDialog::on_browseDirectoryButton_clicked()
 {
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::Directory);
@@ -148,15 +139,15 @@ void FileDialog::on_pushButton_clicked()
 }
 
 // "default" button toggled
-void FileDialog::on_radioButton_toggled(bool checked)
+void FileDialog::on_defaultLocationRadioButton_toggled(bool checked)
 {
     if(checked){
         this->ui->lineEdit->setEnabled(false);
-        this->ui->pushButton->setEnabled(false);
+        this->ui->browseDirectoryButton->setEnabled(false);
     }
     else{
         this->ui->lineEdit->setEnabled(true);
-        this->ui->pushButton->setEnabled(true);
+        this->ui->browseDirectoryButton->setEnabled(true);
     }
 }
 

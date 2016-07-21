@@ -44,7 +44,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="Resource.qrc">:/Images/logoLTEsim.png</pixmap>
+    <pixmap resource="../Resource.qrc">:/Images/logoLTEsim.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -105,7 +105,7 @@
     <string>Location:</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
+  <widget class="QRadioButton" name="defaultLocationRadioButton">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -118,7 +118,7 @@
     <string>Default</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton_2">
+  <widget class="QRadioButton" name="customLocationRadioButton">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -141,7 +141,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="browseDirectoryButton">
    <property name="geometry">
     <rect>
      <x>420</x>
@@ -169,7 +169,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="Resource.qrc"/>
+  <include location="../Resource.qrc"/>
  </resources>
  <connections/>
 </ui>

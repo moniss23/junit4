@@ -29,9 +29,9 @@ private slots:
 
     void on_buttonBox_rejected();
 
-    void on_pushButton_clicked();
+    void on_browseDirectoryButton_clicked();
 
-    void on_radioButton_toggled(bool checked);
+    void on_defaultLocationRadioButton_toggled(bool checked);
 
 private:
     Ui::FileDialog *ui;
