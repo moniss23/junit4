@@ -493,7 +493,7 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>-570</x>
+           <x>0</x>
            <y>0</y>
            <width>1400</width>
            <height>1200</height>
@@ -1427,7 +1427,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/axis.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/axis.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1688,7 +1688,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1710,7 +1710,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1729,7 +1729,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1748,7 +1748,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1767,7 +1767,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1786,7 +1786,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1805,7 +1805,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1824,7 +1824,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1843,7 +1843,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -1862,7 +1862,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/dottedline_vertical.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -2073,7 +2073,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/RBS.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/RBS.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -2140,7 +2140,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell61">
@@ -2156,7 +2156,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell52">
@@ -2172,7 +2172,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell51">
@@ -2188,7 +2188,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell41">
@@ -2204,7 +2204,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell42">
@@ -2220,7 +2220,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell31">
@@ -2236,7 +2236,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell32">
@@ -2252,7 +2252,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell22">
@@ -2268,7 +2268,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell21">
@@ -2284,7 +2284,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell12">
@@ -2300,7 +2300,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="my_qlabel" name="cell11">
@@ -2316,7 +2316,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/round_cell.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/round_cell.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line12">
@@ -2332,7 +2332,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line11">
@@ -2348,7 +2348,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line22">
@@ -2364,7 +2364,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line">
@@ -2380,7 +2380,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line21">
@@ -2396,7 +2396,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line32">
@@ -2412,7 +2412,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line31">
@@ -2428,7 +2428,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line42">
@@ -2444,7 +2444,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line41">
@@ -2460,7 +2460,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line51">
@@ -2476,7 +2476,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line52">
@@ -2492,7 +2492,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line61">
@@ -2508,7 +2508,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="line62">
@@ -2524,7 +2524,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
          </widget>
          <widget class="QLabel" name="label_44">
@@ -2540,7 +2540,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical_long.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical_long.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -2559,7 +2559,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/slanted_line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/slanted_line.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -2838,7 +2838,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line_vertical_long.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line_vertical_long.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -2857,7 +2857,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/line.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/line.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>true</bool>
@@ -2876,7 +2876,7 @@
            <string/>
           </property>
           <property name="pixmap">
-           <pixmap resource="Resource.qrc">:/map_item/srio.png</pixmap>
+           <pixmap resource="../../Resource.qrc">:/map_item/srio.png</pixmap>
           </property>
           <property name="scaledContents">
            <bool>false</bool>
@@ -2922,6 +2922,41 @@
           </property>
           <property name="text">
            <string/>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="SaveButton">
+          <property name="geometry">
+           <rect>
+            <x>640</x>
+            <y>30</y>
+            <width>121</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::TabFocus</enum>
+          </property>
+          <property name="text">
+           <string>Save and Exit</string>
+          </property>
+          <property name="default">
+           <bool>true</bool>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="RestoreButton">
+          <property name="geometry">
+           <rect>
+            <x>640</x>
+            <y>60</y>
+            <width>121</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Restore to default</string>
+          </property>
+          <property name="default">
+           <bool>true</bool>
           </property>
          </widget>
          <zorder>label_29</zorder>
@@ -3033,6 +3068,8 @@
          <zorder>label_50</zorder>
          <zorder>axis_y</zorder>
          <zorder>axis_x</zorder>
+         <zorder>SaveButton</zorder>
+         <zorder>RestoreButton</zorder>
         </widget>
        </widget>
       </item>
@@ -3046,7 +3083,7 @@
      <x>0</x>
      <y>0</y>
      <width>1120</width>
-     <height>25</height>
+     <height>14</height>
     </rect>
    </property>
   </widget>
@@ -3060,7 +3097,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="Resource.qrc"/>
+  <include location="../../Resource.qrc"/>
  </resources>
  <connections/>
 </ui>

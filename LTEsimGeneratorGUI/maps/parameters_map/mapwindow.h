@@ -121,6 +121,9 @@ private slots:
     void on_Center11_clicked();
     void on_Handover61_62_clicked();
 
+    void save_button_clicked();
+    void restore_button_clicked();
+
     void showCellTabWiget();
     void showHandoverTabWiget();
     void showCenterTabWiget();

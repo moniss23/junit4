@@ -74,6 +74,7 @@ MapWindow::MapWindow(QWidget *parent) :
     mapRange = new MapRange();
 
 
+
     connect(ui->axis, SIGNAL(Mouse_Pressed()), this, SLOT(Mouse_Pressed()));
     connect(ui->cell62, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell62_clicked()));
     connect(ui->cell61, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell61_clicked()));
@@ -95,9 +96,13 @@ MapWindow::MapWindow(QWidget *parent) :
     connect(ui->lblIPEX, SIGNAL(Mouse_Pressed()), this, SLOT(on_lblIpex_clicked()));
     connect(ui->axis_x, SIGNAL(Mouse_Pressed()), this, SLOT(on_axis_x_clicked()));
     connect(ui->axis_y, SIGNAL(Mouse_Pressed()), this, SLOT(on_axis_y_clicked()));
+    connect(ui->SaveButton,SIGNAL (clicked()), this, SLOT(save_button_clicked()));
+    connect(ui->RestoreButton,SIGNAL (clicked()), this, SLOT(restore_button_clicked()));
+
     qDebug()<< "Nazwa celli: " + cell61->getCell() + " Nowa nazwa: " + cell61->getCell_new_name();
     changeMapRange_y_northBoundMap();
     changeMapRange_x_northBoundMap();
+
 
 }
 void MapWindow::createHandover(){
@@ -285,51 +290,57 @@ void MapWindow::createUeSimulated()
 
 void MapWindow::closeEvent(QCloseEvent *event)
 {
-
+    if (!anyChangesInMap) {
+        enteringMapView=false;
+        this->close();
+        p->show();
+        event->accept();
+        return;
+    }
     msgExit.setText("The document has been modified.");
     msgExit.setInformativeText("Do you want to save your changes?");
     msgExit.setIcon(QMessageBox::Question);
     msgExit.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
     msgExit.setDefaultButton(QMessageBox::Save);
-    int ret = msgExit.exec();    
 
-    QString new_parametersFileContent="";
+    int ret = msgExit.exec();
+    QString new_parametersFileContent;
 
     switch (ret) {
-      case QMessageBox::Save:
-          // Save was clicked
-          anyChangesInMap=true;
-          parametersFileContentList=this->generateParams();
+    case QMessageBox::Save:
+        // Save was clicked
+        anyChangesInMap=true;
+        parametersFileContentList=this->generateParams();
 
-          // move changes to the global QString
-          new_parametersFileContent="";
-          for(int i=0; i<parametersFileContentList.size(); i++){
-              new_parametersFileContent+=parametersFileContentList[i];
-          }
-          if(new_parametersFileContent!=parametersFileContent){
-              changesPresent=true;
-              parametersFileContent=new_parametersFileContent;
-          }
-          p->refreshPreview();
+        // move changes to the global QString
+        new_parametersFileContent="";
+        for(int i=0; i<parametersFileContentList.size(); i++){
+            new_parametersFileContent+=parametersFileContentList[i];
+        }
+        if(new_parametersFileContent!=parametersFileContent){
+            changesPresent=true;
+            parametersFileContent=new_parametersFileContent;
+        }
+        p->refreshPreview();
 
-          showList(parametersFileContentList);
-          event->accept();
-          enteringMapView=false;
-          saveCellsCheckboxes();
-          p->show();
-          break;
-      case QMessageBox::Discard:
-          // Don't Save was clicked
-          enteringMapView=false;
-          p->show();
-          break;
-      case QMessageBox::Cancel:
-          // Cancel was clicked
-          event->ignore();
-          break;
-      default:
-          // should never be reached
-          break;
+        showList(parametersFileContentList);
+        event->accept();
+        enteringMapView=false;
+        saveCellsCheckboxes();
+        p->show();
+        break;
+    case QMessageBox::Discard:
+        // Don't Save was clicked
+        enteringMapView=false;
+        p->show();
+        break;
+    case QMessageBox::Cancel:
+        // Cancel was clicked
+        event->ignore();
+        break;
+    default:
+        // should never be reached
+        break;
     }
 
 }
@@ -580,6 +591,7 @@ void MapWindow::saveParams(Center *object){
     if (!listErrors.isEmpty()){
         showMessageError(listErrors);
     }
+    anyChangesInMap = true;
 }
 void MapWindow::saveParams(Handover *object){
     listErrors.clear();
@@ -598,6 +610,7 @@ void MapWindow::saveParams(Handover *object){
     if (!listErrors.isEmpty()){
         showMessageError(listErrors);
     }
+    anyChangesInMap = true;
 }
 void MapWindow::saveParams(Cell *object){
     listErrors.clear();
@@ -621,6 +634,7 @@ void MapWindow::saveParams(Cell *object){
     if (!listErrors.isEmpty()){
         showMessageError(listErrors);
     }
+    anyChangesInMap = true;
 }
 //--------------------------------------------------------------------------
 bool MapWindow::validationPosition(QString textForValidation){
@@ -658,6 +672,39 @@ void MapWindow::showMessageError(QList<QString> listErrors){
     msgBox.exec();
     listErrors.clear();
 }
+//-----------------------SAVE/RESTORE----------------------------
+void MapWindow::save_button_clicked()
+{
+    QString new_parametersFileContent;
+    parametersFileContentList=this->generateParams();
+
+    // move changes to the global QString
+    new_parametersFileContent.clear();
+    for(unsigned int i=0; i<parametersFileContentList.size(); i++){
+        new_parametersFileContent+=parametersFileContentList[i];
+    }
+    if(new_parametersFileContent!=parametersFileContent){
+        changesPresent=true;
+        parametersFileContent=new_parametersFileContent;
+    }
+    enteringMapView=false;
+    saveCellsCheckboxes();
+    p->refreshPreview();
+    anyChangesInMap = false;
+
+    p->show();
+    this->close();
+}
+void MapWindow::restore_button_clicked()
+{
+    msgBox.setText("Are you sure?");
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    int restoreDefault = msgBox.exec();
+    if (restoreDefault==QMessageBox::Yes){
+        parametersFileContentList=this->generateParams();
+    }
+}
+
 
 
 //---------------------------------------------------------------------------
