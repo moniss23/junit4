@@ -14,7 +14,7 @@ public:
     // ReaderWriterRefactor:  deleted static
     QByteArray readDataFromProj(const QString &beginningOfSector,const QString &endOfSector);
     QDomDocument readDataFromXml(const QString &beginningOfSector,const QString &endOfSector);
-    void writeDataToXml(const QDomDocument xmlDocument){}
+    void writeDataToXml(const QDomDocument xmlDocument);
 
 private:
     AppSettings *appSettings;

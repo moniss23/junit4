@@ -85,3 +85,8 @@ QDomDocument ProjectReaderWriter::readDataFromXml(const QString &beginningOfSect
 
     return xmlDocument;
 }
+
+void ProjectReaderWriter::writeDataToXml(const QDomDocument xmlDocument)
+{
+    (void) xmlDocument;
+}
