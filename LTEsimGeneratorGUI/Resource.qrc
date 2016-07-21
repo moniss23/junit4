@@ -1,43 +1,33 @@
 <RCC>
-    <qresource prefix="/Images">
-        <file>new.png</file>
-        <file>exit.png</file>
-        <file>import.png</file>
-        <file>save.png</file>
-        <file>logoLTEsim.png</file>
-        <file>open.png</file>
-        <file>settings.png</file>
-        <file>quit.png</file>
-        <file>about.png</file>
-        <file>SaveAs.png</file>
-    </qresource>
-    <qresource prefix="/file">
-        <file>parameters.rb</file>
-        <file>tune_traffic_models.rb</file>
-    </qresource>
-    <qresource prefix="/map_item">
-        <file>round_cell.png</file>
-        <file>axis.png</file>
-        <file>dottedline.png</file>
-        <file>dottedline_vertical.png</file>
-        <file>round2.png</file>
-        <file>RBS.png</file>
-        <file>line.png</file>
-        <file>line_vertical.png</file>
-        <file>line_vertical_long.png</file>
-        <file>slanted_line.png</file>
-        <file>srio.png</file>
-    </qresource>
-    <qresource prefix="/Documents">
-        <file>files_structure.PNG</file>
-        <file>new_proj_file.xml</file>
-        <file>Gerrit_users_configuration.pdf</file>
-        <file>Gerrit_configuration_for_administartor.pdf</file>
-        <file>Jenkins_configuration.pdf</file>
-    </qresource>
-    <qresource prefix="/UML">
-        <file>uml/Readme</file>
+    <qresource prefix="/">
+        <file>Documents/files_structure.PNG</file>
+        <file>Documents/new_proj_file.xml</file>
+        <file>file/parameters.rb</file>
+        <file>file/tune_traffic_models.rb</file>
+        <file>Images/about.png</file>
+        <file>Images/exit.png</file>
+        <file>Images/import.png</file>
+        <file>Images/logoLTEsim.png</file>
+        <file>Images/new.png</file>
+        <file>Images/open.png</file>
+        <file>Images/quit.png</file>
+        <file>Images/save.png</file>
+        <file>Images/SaveAs.png</file>
+        <file>Images/settings.png</file>
+        <file>map_item/axis.png</file>
+        <file>map_item/dottedline_vertical.png</file>
+        <file>map_item/dottedline.png</file>
+        <file>map_item/line_vertical_long.png</file>
+        <file>map_item/line_vertical.png</file>
+        <file>map_item/line.png</file>
+        <file>map_item/RBS.png</file>
+        <file>map_item/round_cell.png</file>
+        <file>map_item/round2.png</file>
+        <file>map_item/slanted_line.png</file>
+        <file>map_item/srio.png</file>
         <file>uml/LTE_SimUML.mdj</file>
         <file>uml/LTEsimUMLdiagram.jpg</file>
+        <file>uml/Readme</file>
+        <file>uml/Readme~</file>
     </qresource>
 </RCC>
