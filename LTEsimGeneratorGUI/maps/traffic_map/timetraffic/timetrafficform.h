@@ -16,8 +16,6 @@ public:
     explicit TimeTrafficForm(QWidget *parent = 0);
     ~TimeTrafficForm();
     void setParameters(TimeTraffic* timeTraffic);
-    bool getCancelClicked() const;
-    void setCancelClicked(bool value);
 
 private slots:
     void on_txt_attachRate1_textChanged(QString value);
@@ -36,8 +34,6 @@ private:
 
 
     int pairs;
-    bool cancelClicked;
-    bool saveClicked;
     void parametersValidation();
     int convert_tab1_trafficDuration();
     int convert_tab2_trafficDuration();
