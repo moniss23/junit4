@@ -6,12 +6,14 @@
 #include <QObject>
 #include <QString>
 #include "maps/projectreaderwriter.h"
+#include "appsettings.h"
+
 
 class HandoverData_Test : public QObject
 {
     Q_OBJECT
 public:
-    explicit HandoverData_Test(QObject *parent = 0);
+    explicit HandoverData_Test(AppSettings *appSettings, QObject *parent = 0);
     ~HandoverData_Test();
 
     QString handoverName1 = "Handover11_21";
@@ -39,6 +41,7 @@ private Q_SLOTS:
     void serializeFromProjectFileOldTest();
 private:
     ProjectReaderWriter* projectReaderWriter;
+    AppSettings *appSettings;
 
 };
 

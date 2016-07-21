@@ -8,6 +8,7 @@
 #include <vector>
 #include <QString>
 #include <management_window/encryption.h>
+#include <appsettings.h>
 
 namespace Ui {
 class ProjectManagement;
@@ -18,7 +19,7 @@ class ProjectManagement : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ProjectManagement(QWidget *parent = 0);
+    explicit ProjectManagement(AppSettings *appSettings, QWidget *parent = 0);
     ~ProjectManagement();
 
     void addProject(QListWidgetItem* new_item,QString dir="<default>");
@@ -30,6 +31,10 @@ public:
     QString getProjectDir(QString projectName);
     Project getProjectFromVector(int i);
     void setDefaultDir(QString dir);
+
+    void setAppSettings(AppSettings *value);
+
+    void setFileDialogAppSettings(AppSettings *value);
 
 private slots:
 
@@ -54,6 +59,7 @@ private slots:
 private:
     Ui::ProjectManagement *ui;
     FileDialog createProject;
+    AppSettings* appSettings;
 };
 
 #endif // PROJECTMANAGEMENT_H

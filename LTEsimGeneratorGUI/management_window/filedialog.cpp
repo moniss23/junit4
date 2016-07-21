@@ -11,10 +11,6 @@
 
 void msg(QString content);
 
-extern QString* parametersFile;
-extern QString* projectFile;
-extern QString* projectName;
-extern QDir* projectDir;
 extern std::vector <QString*>trafficFiles;
 extern int trafficFilesCount;
 
@@ -116,14 +112,14 @@ void FileDialog::on_buttonBox_accepted()
     }
 
     // store the project name in a global variable for use by other files and methods
-    (*projectName)=ui->fileName->text();
+    appSettings->setProjectName(ui->fileName->text());
 
     // reset the counter of traffic files to zero
     trafficFilesCount=0;
     paramFilePresent=true;
 
     // add a new element to the list of projects in project management window
-    QListWidgetItem* new_item=new QListWidgetItem(*projectName);
+    QListWidgetItem* new_item=new QListWidgetItem(appSettings->getProjectName());
     list_items.push_back(new_item);
     if(this->ui->radioButton_2->isChecked()){
         projectMng->addProject(new_item,this->ui->lineEdit->text());
@@ -163,3 +159,10 @@ void FileDialog::on_radioButton_toggled(bool checked)
         this->ui->pushButton->setEnabled(true);
     }
 }
+
+void FileDialog::setAppSettings(AppSettings *value)
+{
+    appSettings = value;
+}
+
+

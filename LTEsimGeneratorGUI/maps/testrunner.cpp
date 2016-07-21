@@ -10,23 +10,23 @@ void TestRunner::runTests()
     QTest::qExec(&managementTemplateTest);
 
     //Tests for HandoverData class
-    HandoverData_Test handoverTest;
+    HandoverData_Test handoverTest(appSettings);
     QTest::qExec(&handoverTest);
 
     //Test for UEgroupData class
-    UEgroupData_Test ueGroupDataTest;
+    UEgroupData_Test ueGroupDataTest(appSettings);
     QTest::qExec(&ueGroupDataTest);
 
     //Test for Statistics class
-    StatisticsData_Test statisticsDataTest;
+    StatisticsData_Test statisticsDataTest(appSettings);
     QTest::qExec(&statisticsDataTest);
 
     //Tests for CellData class
-    CellData_Test cellTest;
+    CellData_Test cellTest(appSettings);
     QTest::qExec(&cellTest);
 
     //Tests for MapData class
-    MapData_Test mapTest;
+    MapData_Test mapTest(appSettings);
     QTest::qExec(&mapTest);
 
     //Tests for MapManagement class

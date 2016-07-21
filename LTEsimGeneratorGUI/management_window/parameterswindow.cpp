@@ -72,10 +72,7 @@ extern bool settingsWindowOpen;
 
 QString lastOpenMap;
 
-extern QString* parametersFile;
-extern QString* projectFile;
-extern QString* projectName;
-extern QDir* projectDir;
+
 extern std::vector<QFile*> trafficFiles;
 extern std::vector<QString*> trafficFilesNames;
 extern int trafficFilesCount;
@@ -175,8 +172,8 @@ void ParametersWindow::switch_button_state_redo(bool available){
     }
 }
 
-ParametersWindow::ParametersWindow(QWidget *parent) :
-    QMainWindow(parent),
+ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
+    appSettings(appSettings), QMainWindow(parent),
     ui(new Ui::ParametersWindow)
 {
     ui->setupUi(this);
@@ -300,7 +297,7 @@ void ParametersWindow::loadProject(){
     trafficFilesModified.clear();
 
     // set the window title
-    this->setWindowTitle(*projectName);
+    this->setWindowTitle(appSettings->getProjectFile());
 
     QListWidgetItem* new_item;
     QString line;
@@ -310,7 +307,7 @@ void ParametersWindow::loadProject(){
     int trafficFileLen;
 
     // read the project content from the project file
-    QStringList project_content=read_project_file(*projectName,projectMng->getProjectDir(*projectName));
+    QStringList project_content=read_project_file(appSettings->getProjectName(),projectMng->getProjectDir(appSettings->getProjectName()));
 
     // read the default location for output .rb files
     defaultLocationForRbFiles=project_content[0];
@@ -327,12 +324,12 @@ void ParametersWindow::loadProject(){
     }
 
     // read the name of parameters file and nr of traffic files
-    (*parametersFile)=project_content[2];
+    appSettings->setParametersFile(project_content[2]);
     nrOfTrafficFiles=project_content[3].toInt();
     project_content_line=4;
 
     // if the project is empty
-    if(nrOfTrafficFiles==0 && (*parametersFile)=="<none>"){
+    if(nrOfTrafficFiles==0 && (appSettings->getParametersFile())=="<none>"){
         this->ui->listWidget->addItem("<empty>");
         paramFilePresent=false;
         parametersFileContent="";
@@ -342,7 +339,7 @@ void ParametersWindow::loadProject(){
     else{
 
         // if there is no parameters file
-        if((*parametersFile)=="<none>"){
+        if((appSettings->getParametersFile())=="<none>"){
             paramFilePresent=false;
             this->ui->listWidget->addItem("<none>");
             parametersFileContent="";
@@ -351,7 +348,7 @@ void ParametersWindow::loadProject(){
         // if there is a parameters file
         else{
             paramFilePresent=true;
-            this->ui->listWidget->addItem((*parametersFile));
+            this->ui->listWidget->addItem(appSettings->getParametersFile());
         }
 
         // read the traffic file names
@@ -609,7 +606,7 @@ void ParametersWindow::save_project(bool singleFile=false){
     plaintext.append("\n");
 
     // add param file name
-    plaintext.append(*parametersFile);
+    plaintext.append(appSettings->getParametersFile());
     plaintext.append("\n");
 
     // add nr of traffic files
@@ -644,7 +641,7 @@ void ParametersWindow::save_project(bool singleFile=false){
     qDebug()<<plaintext;
 
     // encrypt the project data and write it to file
-    write_project_file(*projectName,plaintext,get_project_dir(*projectName));
+    write_project_file(appSettings->getProjectName(), plaintext,get_project_dir(appSettings->getProjectName()));
 
 }
 
@@ -775,7 +772,7 @@ void ParametersWindow::on_pushButton_3_clicked()
             if(QMessageBox::Yes==QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File will be removed from the project:\n"+(this->ui->listWidget->currentItem()->text())+"\n\nAre you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
 
                 // set the parameters file to <none>
-                (*parametersFile)="<none>";
+                appSettings->setParametersFile("<none>");
 
                 // replace the item in UI with <none> or <empty>
                 if(nrOfTrafficFiles>0){
@@ -840,7 +837,7 @@ void ParametersWindow::on_pushButton_4_clicked()
 
         if(new_name!=this->ui->listWidget->currentItem()->text()){
             name_unique=true;
-            if(new_name==(*parametersFile)){
+            if(new_name==(appSettings->getParametersFile())){
                 name_unique=false;
             }
             if(name_unique){
@@ -902,7 +899,7 @@ void ParametersWindow::on_pushButton_4_clicked()
 
             if(new_name!=this->ui->listWidget->currentItem()->text()){
                 name_unique=true;
-                if(new_name==(*parametersFile)){
+                if(new_name==(appSettings->getParametersFile())){
                     name_unique=false;
                 }
                 if(name_unique){
@@ -929,7 +926,7 @@ void ParametersWindow::on_pushButton_4_clicked()
 
         // update the parameters file name
         if(this->ui->listWidget->currentRow()==0){
-            (*parametersFile)=new_name;
+            appSettings->setParametersFile(new_name);
         }
 
         // update the traffic file name
@@ -1298,9 +1295,9 @@ void ParametersWindow::on_pushButton_6_clicked()
         if(this->ui->listWidget->currentRow()==0){
 
             // if the location of the project is default
-            if(get_project_dir(*projectName)=="<default>"){
+            if(get_project_dir(appSettings->getProjectName())=="<default>"){
 
-                QFile file("projects/"+(*projectName)+"/"+this->ui->listWidget->item(0)->text());
+                QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(0)->text());
                 if(file.exists()){
                     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                         return;
@@ -1316,9 +1313,9 @@ void ParametersWindow::on_pushButton_6_clicked()
             // if the project's location is custom
             else{
 
-                QString project_dir=get_project_dir(*projectName);
+                QString project_dir=get_project_dir(appSettings->getProjectName());
 
-                QFile file(project_dir+"/"+(*projectName)+"/"+this->ui->listWidget->item(0)->text());
+                QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(0)->text());
                 if(file.exists()){
                     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                         return;
@@ -1337,10 +1334,10 @@ void ParametersWindow::on_pushButton_6_clicked()
         else{
 
             // if the location of the project is default
-            if(get_project_dir(*projectName)=="<default>"){
+            if(get_project_dir(appSettings->getProjectName())=="<default>"){
 
                 int file_index=this->ui->listWidget->currentRow()-1;
-                QFile file("projects/"+(*projectName)+"/"+this->ui->listWidget->item(file_index+1)->text());
+                QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(file_index+1)->text());
                 if(file.exists()){
                     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                         return;
@@ -1357,10 +1354,10 @@ void ParametersWindow::on_pushButton_6_clicked()
             // if the location of the project is custom
             else{
 
-                QString project_dir=get_project_dir(*projectName);
+                QString project_dir=get_project_dir(appSettings->getProjectName());
 
                 int file_index=this->ui->listWidget->currentRow()-1;
-                QFile file(project_dir+"/"+(*projectName)+"/"+this->ui->listWidget->item(file_index+1)->text());
+                QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(file_index+1)->text());
                 if(file.exists()){
                     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                         return;
@@ -1477,4 +1474,9 @@ void ParametersWindow::on_radioButton_largeMap_toggled(bool checked)
         chosenMapType="large";
         changesPresent=true;
     }
+}
+
+void ParametersWindow::setFileDialogAppSettings(AppSettings *value)
+{
+    createProject.setAppSettings(value);
 }

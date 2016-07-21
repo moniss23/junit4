@@ -1,10 +1,11 @@
 #include "uegroupdata.h"
 
-UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
+UEgroupData::UEgroupData(const QString &name, const QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
 {
     ue.ueName = name;
     mapIndexConst = mapIndex;
     QString beginningOfUESector("<UE ID=\"" + ue.ueName + "\">");
+
     QDomDocument ueXmlDocument = projectReaderWriter->readDataFromXml(beginningOfUESector,endOfUESector);
     //reading parameter from proj/creating new ue with default parameters
     if(ueXmlDocument.isNull() == 0)
@@ -21,7 +22,9 @@ UEgroupData::UEgroupData(const QString &name, const QString &mapIndex)
         ue.ueType = "IratHO";
         ue.area = "";
     }
-    projectReaderWriter = new ProjectReaderWriter;
+
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
+
 }
 
 //getters

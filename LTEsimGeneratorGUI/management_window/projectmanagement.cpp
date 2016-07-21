@@ -18,11 +18,9 @@
 #include <QDebug>
 #include <maps/parameters_map/mapwindow.h>
 #include <management_window/settings.h>
+#include <appsettings.h>
 
-extern QString* projectName;
 extern ParametersWindow* p;
-
-extern QDir* projectDir;
 
 extern QString* proFileExt;
 
@@ -50,18 +48,20 @@ void setCenterOfApplication(QWidget* widget);
 extern int project_index;
 
 // constructor - loads the list of detected projects into the window view
-ProjectManagement::ProjectManagement(QWidget *parent) :
-    QMainWindow(parent),
+ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) :
+    appSettings(appSettings), QMainWindow(parent),
     ui(new Ui::ProjectManagement)
 {
     projectC=0;
-
     bool anyProjectsPresent;
     ui->setupUi(this);
 
     QListWidgetItem* new_widget;
 
     this->setWindowTitle("Project management");    
+
+    // settings appSettings reference to FileDialog
+    setFileDialogAppSettings(appSettings);
 
     // check if the settings file exists, create it if it doesn't
     QFile settings_file("settings.dat");
@@ -227,7 +227,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
         // create the project subdirectory
         QDir projectDir;
         projectDir.setPath("projects");
-        projectDir.mkdir(*projectName);
+        projectDir.mkdir(appSettings->getProjectName());
 
         // append the settings, the name and content of parameters.rb template to project file
         QString project_content("<default>\nnormal\nParameters.rb\n0\n");
@@ -251,7 +251,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
 
         QDir proj_dir;
         proj_dir.setPath(dir);
-        proj_dir.mkdir(*projectName);
+        proj_dir.mkdir(appSettings->getProjectName());
 
         // append the settings, the name and content of parameters.rb template to project file
         QString project_content("<default>\nnormal\nParameters.rb\n0\n");
@@ -300,7 +300,7 @@ void ProjectManagement::open_project(){
     if(selected_item!=NULL){
 
         // obtain the name of the select project from the widget
-        (*projectName)=selected_item->text().split("\t")[0];
+        appSettings->setProjectName(selected_item->text().split("\t")[0]);
 
         // obtain the project's index in projects vector
         for(unsigned int i=0; i<projects.size(); i++){
@@ -532,4 +532,9 @@ void ProjectManagement::on_pushButton_5_clicked()
     settingsWindow.setWindowModality(Qt::WindowModal);
     setCenterOfApplication(&settingsWindow);
     settingsWindow.exec();
+}
+
+//Setting reference to AppSettings for FileDIalog
+void ProjectManagement::setFileDialogAppSettings(AppSettings *value) {
+    createProject.setAppSettings(value);
 }

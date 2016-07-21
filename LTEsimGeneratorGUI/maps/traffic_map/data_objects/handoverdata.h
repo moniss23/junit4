@@ -4,6 +4,7 @@
 #include <common_constans.h>
 #include <dataelementsinterface.h>
 #include <maps/projectreaderwriter.h>
+#include "appsettings.h"
 
 struct HandoverParams
 {
@@ -16,7 +17,7 @@ class HandoverData : public DataElementsInterface
 {
 public:
 
-    HandoverData(QString name);
+    HandoverData(QString name, AppSettings *appSettings);
 
 //----------------------------Getters------------------------------------------------
 
@@ -53,6 +54,9 @@ public:
 private:
     HandoverParams handoverParams;
     ProjectReaderWriter* projectReaderWriter;
+
+    AppSettings *appSettings;
+
 };
 
 //------------------Serialize/Deserialize operators for future-------------------------

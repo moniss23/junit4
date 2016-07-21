@@ -1,13 +1,16 @@
 #include "celldata.h"
 
 
-CellData::CellData(const QString &nameCell, const QString &nameCenter)
+CellData::CellData(const QString &nameCell, const QString &nameCenter, AppSettings *appSettings) : appSettings(appSettings)
 {
     cellParams.cellName = nameCell;
     cellParams.centerParams.centerName = nameCenter;
+
+
     QByteArray data = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
     serializeFromProjectFileOld(data);
-    projectReaderWriter = new ProjectReaderWriter;
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
+
 }
 
 

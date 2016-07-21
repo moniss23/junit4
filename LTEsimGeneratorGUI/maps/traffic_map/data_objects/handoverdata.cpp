@@ -1,11 +1,12 @@
 #include "handoverdata.h"
 
-HandoverData::HandoverData(QString name)
+HandoverData::HandoverData(QString name, AppSettings *appSettings) : appSettings(appSettings)
 {
     handoverParams.handoverName = name;
-    QByteArray data = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+
+    QByteArray data = projectReaderWriter->readDataFromProj        (beginningOfHandoverSector,endOfHandoverSector);
     serializeFromProjectFileOld(data);
-    projectReaderWriter = new ProjectReaderWriter;
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
 }
 
 //---------------------Getters------------------------------------------------------

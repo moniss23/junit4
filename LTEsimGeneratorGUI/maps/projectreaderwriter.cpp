@@ -1,24 +1,23 @@
 #include "projectreaderwriter.h"
 
-ProjectReaderWriter::ProjectReaderWriter()
+ProjectReaderWriter::ProjectReaderWriter(AppSettings *appSettings) : appSettings(appSettings)
 {
-
 }
 
 QByteArray ProjectReaderWriter::readDataFromProj(const QString &beginningOfSector, const QString &endOfSector)
 {
-    QString projectDir = projectMng->getProjectDir(*projectName);
+    QString projectDir = projectMng->getProjectDir(appSettings->getProjectName());
     QString projectFileName;
     int start,end;
 
 
     if(projectDir == "<default>")
     {
-        projectFileName = QString("projects/" + *projectName + "/" + *projectName + ".proj");
+        projectFileName = QString("projects/" + appSettings->getProjectName() + "/" + appSettings->getProjectName() + ".proj");
     }
     else
     {
-        projectFileName = QString(projectDir + "/" + *projectName + "/" + *projectName + ".proj");
+        projectFileName = QString(projectDir + "/" + appSettings->getProjectName() + "/" + appSettings->getProjectName() + ".proj");
     }
 
     QFile projectFile(projectFileName);
@@ -49,17 +48,17 @@ QByteArray ProjectReaderWriter::readDataFromProj(const QString &beginningOfSecto
 QDomDocument ProjectReaderWriter::readDataFromXml(const QString &beginningOfSector, const QString &endOfSector)
 {
     QDomDocument xmlDocument;
-    QString projectDir = projectMng->getProjectDir(*projectName);
+    QString projectDir = projectMng->getProjectDir(appSettings->getProjectName());
     QString xmlFileName;
     int start,end;
 
     if(projectDir == "<default>")
     {
-        xmlFileName = QString("projects/" + *projectName + "/" + *projectName + ".xml");
+        xmlFileName = QString("projects/" + appSettings->getProjectName() + "/" + appSettings->getProjectName() + ".xml");
     }
     else
     {
-        xmlFileName = QString(projectDir + "/" + *projectName + "/" + *projectName + ".xml");
+        xmlFileName = QString(projectDir + "/" + appSettings->getProjectName() + "/" + appSettings->getProjectName() + ".xml");
     }
 
     QFile xmlFile(xmlFileName);

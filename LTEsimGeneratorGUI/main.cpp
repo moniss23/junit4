@@ -3,7 +3,6 @@
 #include <management_window/projectmanagement.h>
 #include <QString>
 #include <QStringList>
-#include <QDir>
 #include <vector>
 #include <QFile>
 #include <maps/parameters_map/mapwindow.h>
@@ -17,6 +16,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <maps/testrunner.h>
+#include "appsettings.h"
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -30,10 +30,6 @@ handoverName handoverNames[handoverCount];
 ParametersWindow *p;
 ProjectManagement *projectMng;
 
-QString* parametersFile;
-QString* projectFile;
-QString* projectName;
-QDir* projectDir;
 std::vector<QString*> trafficFilesNames;
 std::vector<QFile*> trafficFiles;
 int trafficFilesCount = 0;
@@ -81,11 +77,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    projectFile = new QString;
-    projectName = new QString;
-    parametersFile = new QString;
+    AppSettings appSettings;
     proFileExt = new QString(".proj");
-    projectMng = new ProjectManagement;
+    projectMng = new ProjectManagement(&appSettings);
     setCenterOfApplication(projectMng);
 
     projectMng->show();
@@ -95,14 +89,14 @@ int main(int argc, char *argv[])
 
     tabChangedParams = new QString [8];
 
-    ParametersWindow viewParameters;
+    ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
     setCenterOfApplication(p);
 
     //Condition to run tests on Jenkins
     if (argv[1] == QString("TEST"))
     {
-        TestRunner unitTests;
+        TestRunner unitTests(&appSettings);
         unitTests.runTests();
 
         return 0;

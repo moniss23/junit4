@@ -21,7 +21,7 @@ struct UEgroupParams
 class UEgroupData : DataElementsInterface
 {
 public:
-    UEgroupData(const QString &name, const QString &mapIndex);
+    UEgroupData(const QString &name, const QString &mapIndex, AppSettings *appSettings);
 
     //getters
     QString getUEname() const;
@@ -58,6 +58,7 @@ private:
     QDomDocument xmlUePart;
     ProjectReaderWriter* projectReaderWriter;
 
+    AppSettings *appSettings;
 };
 
 #endif // UEGROUPDATA_H

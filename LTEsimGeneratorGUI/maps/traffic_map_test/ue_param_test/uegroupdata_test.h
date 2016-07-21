@@ -9,7 +9,7 @@ class UEgroupData_Test : public QObject
 {
     Q_OBJECT
 public:
-    explicit UEgroupData_Test(QObject *parent = 0);
+    explicit UEgroupData_Test(AppSettings *appSettings, QObject *parent = 0);
 
     QString ueNameTest = "UE1";
     QString mapIndexTest = "Traffic Map 1";
@@ -42,6 +42,9 @@ private Q_SLOTS:
 
     //serialisation
     void serializeFromProjectFileNewTest();
+
+private:
+    AppSettings *appSettings;
 
 };
 

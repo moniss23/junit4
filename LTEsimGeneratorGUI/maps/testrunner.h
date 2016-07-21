@@ -19,12 +19,17 @@
 #include <maps/traffic_map_test/map_components_test/handoverarea_test.h>
 #include <maps/traffic_map_test/map_components_test/compositionofareas_test.h>
 #include <QTest>
+#include "appsettings.h"
 
 class TestRunner
 {
 public:
-    TestRunner(){}
+    TestRunner(AppSettings *appSettings) : appSettings(appSettings){}
     void runTests();
+
+private:
+    AppSettings *appSettings;
+
 };
 
 #endif // TESTRUNNER_H

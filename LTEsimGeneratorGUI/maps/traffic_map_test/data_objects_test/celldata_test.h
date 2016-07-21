@@ -3,6 +3,7 @@
 #include <QtTest/QtTest>
 #include <QObject>
 #include <maps/traffic_map/data_objects/celldata.h>
+#include "appsettings.h"
 
 extern QString* projectName;
 extern ProjectManagement* projectMng;
@@ -11,7 +12,7 @@ class CellData_Test : public QObject
 {
     Q_OBJECT
 public:
-    explicit CellData_Test (QObject *parent = 0);
+    explicit CellData_Test (AppSettings *appSettings, QObject *parent = 0);
     ~CellData_Test();
 
     QString cellName1 = "cell11";
@@ -45,8 +46,12 @@ private Q_SLOTS:
     void parseCellDataFromListTest();
     void parseCenterDataFromListTest();
     void serializeFromProjFileOldTest();
+
 private:
     ProjectReaderWriter* projectReaderWriter;
+
+    AppSettings *appSettings;
+
 };
 
 

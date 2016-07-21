@@ -1,11 +1,13 @@
 #include "mapdata.h"
 
-MapData::MapData(const QString &name ,bool whichMap)
+MapData::MapData(const QString &name , bool whichMap, AppSettings *appSettings) : appSettings(appSettings)
 {
     mapName = name;
     readyToSave = false;
     largeMap = whichMap;
-    projectReaderWriter = new ProjectReaderWriter;
+
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
+
 
 }
 
@@ -14,7 +16,9 @@ void MapData::fillActiveCellList()
     QString cellName = "cell";
     QString centerName = "Center";
     QString index;
+
     QByteArray tempArray = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
+
     QString fileContent(tempArray);
     int rows,columns;
 
@@ -40,7 +44,7 @@ void MapData::fillActiveCellList()
 
             if(fileContent.contains(cellName) )
             {
-                CellData* cell = new CellData(cellName + index,centerName + index);
+                CellData* cell = new CellData(cellName + index,centerName + index, appSettings);
                 parameterLists.activeCellList.append(cell);
             }
         }
@@ -53,6 +57,7 @@ void MapData::fillHandoverList()
     QString handoverName = "Handover";
     QString index;
     QByteArray tempArray = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+
     QString fileContent(tempArray);
 
     for(int i = 0; i < maxHandoverCount; i++)
@@ -68,7 +73,7 @@ void MapData::fillHandoverList()
             }
 
             fileContent.remove(0,start + 1);
-            HandoverData* handover = new HandoverData(handoverName + index);
+            HandoverData* handover = new HandoverData(handoverName + index, appSettings);
             parameterLists.handoverList.append(handover);
 
         }

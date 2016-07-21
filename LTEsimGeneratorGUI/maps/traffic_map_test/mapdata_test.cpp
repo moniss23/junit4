@@ -1,10 +1,10 @@
 #include "mapdata_test.h"
 
-MapData_Test::MapData_Test(QObject *parent) : QObject(parent)
+MapData_Test::MapData_Test(AppSettings *appSettings, QObject *parent) : appSettings(appSettings), QObject(parent)
 {
     //Creating new project for testing
-    *projectName = testProjectName;
-    QListWidgetItem* new_item = new QListWidgetItem(*projectName);
+    appSettings->setProjectName(testProjectName);
+    QListWidgetItem* new_item = new QListWidgetItem(appSettings->getProjectName());
     projectMng->addProject(new_item,testProjectDir);
 
 }
@@ -20,7 +20,7 @@ MapData_Test::~MapData_Test()
 
 void MapData_Test::fillActiveCellListTest()
 {
-    MapData* mapTraffic = new MapData(testMapName,true);
+    MapData* mapTraffic = new MapData(testMapName,true, appSettings);
     mapTraffic->fillActiveCellList();
     QCOMPARE(mapTraffic->parameterLists.activeCellList.size(),24);
     delete mapTraffic;
@@ -28,7 +28,7 @@ void MapData_Test::fillActiveCellListTest()
 
 void MapData_Test::fillHandoverListTest()
 {
-    MapData* mapTraffic = new MapData(testMapName,true);
+    MapData* mapTraffic = new MapData(testMapName,true, appSettings);
     mapTraffic->fillHandoverList();
     QCOMPARE(mapTraffic->parameterLists.handoverList.size(),53);
     delete mapTraffic;

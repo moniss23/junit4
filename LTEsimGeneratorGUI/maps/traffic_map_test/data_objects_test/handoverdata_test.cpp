@@ -1,12 +1,14 @@
 #include "maps/traffic_map_test/data_objects_test/handoverdata_test.h"
 
-HandoverData_Test::HandoverData_Test(QObject *parent) : QObject(parent)
+HandoverData_Test::HandoverData_Test(AppSettings *appSettings, QObject *parent) :
+    appSettings(appSettings), QObject(parent)
 {
     //Creating project file just for testing
-    *projectName = testProjectName;
-    QListWidgetItem* newItem = new QListWidgetItem(*projectName);
+    appSettings->setProjectName(testProjectName);
+    QListWidgetItem* newItem = new QListWidgetItem(appSettings->getProjectName());
     projectMng->addProject(newItem,testProjectDir);
-    projectReaderWriter = new ProjectReaderWriter;
+
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
 }
 
 HandoverData_Test::~HandoverData_Test()
@@ -20,14 +22,14 @@ HandoverData_Test::~HandoverData_Test()
 
 void HandoverData_Test::getHandoverNameTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     QCOMPARE(handover->getHandoverName(),handoverName1);
     delete handover;
 }
 
 void HandoverData_Test::setHandoverNameTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     handover->setHandoverName(handoverName2);
     QCOMPARE(handover->getHandoverName(),handoverName2);
     delete handover;
@@ -35,7 +37,7 @@ void HandoverData_Test::setHandoverNameTest()
 
 void HandoverData_Test::setgetSouthBoundaryTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     handover->setSouthBoundary(testNumber);
     QCOMPARE(handover->getSouthBoundary(),testNumber);
     delete handover;
@@ -43,7 +45,7 @@ void HandoverData_Test::setgetSouthBoundaryTest()
 
 void HandoverData_Test::setgetNorthBoundaryTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     handover->setNorthBoundary(testNumber);
     QCOMPARE(handover->getNorthBoundary(),testNumber);
     delete handover;
@@ -51,7 +53,7 @@ void HandoverData_Test::setgetNorthBoundaryTest()
 
 void HandoverData_Test::setgetEastBoundaryTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     handover->setEastBoundary(testNumber);
     QCOMPARE(handover->getEastBoundary(),testNumber);
     delete handover;
@@ -59,7 +61,7 @@ void HandoverData_Test::setgetEastBoundaryTest()
 
 void HandoverData_Test::setgetWestBoundaryTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     handover->setWestBoundary(testNumber);
     QCOMPARE(handover->getWestBoundary(),testNumber);
     delete handover;
@@ -67,7 +69,7 @@ void HandoverData_Test::setgetWestBoundaryTest()
 
 void HandoverData_Test::getElementTypeTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     QCOMPARE(handover->getElementType(),QString("Handover") );
     delete handover;
 }
@@ -104,10 +106,12 @@ void HandoverData_Test::serializeDeserializeOperatorTest()
 
 void HandoverData_Test::parseDataFromListTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     HandoverParams paramsStruct;
     QByteArray testDataArray;
+
     testDataArray = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+
     QString testHandoverString(testDataArray);
     QStringList testHandoverList = testHandoverString.split('\n');
     paramsStruct = handover->parseDataFromList(testHandoverList);
@@ -119,9 +123,11 @@ void HandoverData_Test::parseDataFromListTest()
 
 void HandoverData_Test::serializeFromProjectFileOldTest()
 {
-    HandoverData* handover = new HandoverData(handoverName1);
+    HandoverData* handover = new HandoverData(handoverName1, appSettings);
     QByteArray testDataArray;
+
     testDataArray = projectReaderWriter->readDataFromProj(beginningOfHandoverSector,endOfHandoverSector);
+
     handover->serializeFromProjectFileOld(testDataArray);
 
     QCOMPARE(handover->getHandoverName(),handoverName1);

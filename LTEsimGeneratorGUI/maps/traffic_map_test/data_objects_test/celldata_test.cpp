@@ -1,10 +1,12 @@
 #include "celldata_test.h"
+#include <appsettings.h>
 
-CellData_Test::CellData_Test(QObject *parent) : QObject(parent)
+CellData_Test::CellData_Test(AppSettings *appSettings, QObject *parent) :
+    appSettings(appSettings), QObject(parent)
 {
     //Creating new project for testing
-    *projectName = testProjectName;
-    QListWidgetItem* new_item = new QListWidgetItem(*projectName);
+    appSettings->setProjectName(testProjectName);
+    QListWidgetItem* new_item = new QListWidgetItem(appSettings->getProjectName());
     projectMng->addProject(new_item,testProjectDir);
 
 }
@@ -22,7 +24,7 @@ CellData_Test::~CellData_Test()
 void CellData_Test::setgetCellNameTest()
 {
 
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setCellName(cellName2);
     QCOMPARE(cell11->getCellName(),cellName2);
 
@@ -30,14 +32,14 @@ void CellData_Test::setgetCellNameTest()
 
 void CellData_Test::setgetCenterNameTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setCenterName(centerName2);
     QCOMPARE(cell11->getCenterName(),centerName2);
 }
 
 void CellData_Test::setgetPciTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setPci(testNumber1);
     QCOMPARE(cell11->getPci(),testNumber1);
 
@@ -45,63 +47,63 @@ void CellData_Test::setgetPciTest()
 
 void CellData_Test::setgetPositionXTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setPosition_X(testNumber1);
     QCOMPARE(cell11->getPosition_X(),testNumber1);
 }
 
 void CellData_Test::setgetPositionYTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setPosition_Y(testNumber1);
     QCOMPARE(cell11->getPosition_Y(),testNumber1);
 }
 
 void CellData_Test::setgetEarfcnDlTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setEarfcnDl(testNumber1);
     QCOMPARE(cell11->getEarfcnDl(),testNumber1);
 }
 
 void CellData_Test::setgetTransmitPowerTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1,appSettings);
     cell11->setTransmitPower(testNumber2);
     QCOMPARE(cell11->getTransmitPower(),testNumber2);
 }
 
 void CellData_Test::setgetUlNoiseAndInterferenceTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setUlNoiseAndInterference(testNumber2);
     QCOMPARE(cell11->getUlNoiseAndInterference(),testNumber2);
 }
 
 void CellData_Test::setgetSouthBoundaryTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setSouthCellBoundary(testNumber1);
     QCOMPARE(cell11->getSouthCellBoundary(),testNumber1);
 }
 
 void CellData_Test::setgetNorthBoundaryTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setNorthCellBoundary(testNumber1);
     QCOMPARE(cell11->getNorthCellBoundary(),testNumber1);
 }
 
 void CellData_Test::setgetEastBoundaryTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setEastCellBoundary(testNumber1);
     QCOMPARE(cell11->getEastCellBoundary(),testNumber1);
 }
 
 void CellData_Test::setgetWestBoundaryTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     cell11->setWestCellBoundary(testNumber1);
     QCOMPARE(cell11->getWestCellBoundary(),testNumber1);
 }
@@ -146,7 +148,7 @@ void CellData_Test::serializeDeserializeCellOperatorTest()
 
 void CellData_Test::parseCellDataFromListTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     CellParams paramsStruct;
     QByteArray testCellArray;
     testCellArray = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
@@ -159,7 +161,7 @@ void CellData_Test::parseCellDataFromListTest()
 
 void CellData_Test::parseCenterDataFromListTest()
 {
-    CellData* cell11 = new CellData(cellName1,centerName1);
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
     CenterParams paramsStruct;
     QByteArray testCenterArray;
     testCenterArray = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
@@ -173,8 +175,10 @@ void CellData_Test::parseCenterDataFromListTest()
 void CellData_Test::serializeFromProjFileOldTest()
 {
     QByteArray loadedData;
-    CellData* cell11 = new CellData(cellName1,centerName1);
     loadedData = projectReaderWriter->readDataFromProj(beginningOfCellSector,endOfCellSector);
+
+    CellData* cell11 = new CellData(cellName1,centerName1, appSettings);
+
     cell11->serializeFromProjectFileOld(loadedData);
     QCOMPARE(cell11->getPci(),testNumber1);
     QCOMPARE(cell11->getSouthCellBoundary(),(int)testNumber2);

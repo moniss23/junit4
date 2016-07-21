@@ -7,10 +7,11 @@
 #include <QString>
 #include <QVBoxLayout>
 
-#include"helpdialog.h"
-#include<management_window/filedialog.h>
+#include "helpdialog.h"
+#include "filedialog.h"
 #include <QCloseEvent>
 #include <QListWidgetItem>
+#include "appsettings.h"
 
 namespace Ui {
 class ParametersWindow;
@@ -21,7 +22,7 @@ class ParametersWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ParametersWindow(QWidget *parent = 0);
+    explicit ParametersWindow(AppSettings *appSettings, QWidget *parent = 0);
     ~ParametersWindow();
     void closeEvent(QCloseEvent *);
     void open_file();                        // open file
@@ -35,6 +36,8 @@ public:
     void refreshPreview();
     void save_project(bool);    
     void setParamsCM();
+
+    void setFileDialogAppSettings(AppSettings *value);
 
 private slots:
 
@@ -85,7 +88,7 @@ private:
     Ui::ParametersWindow *ui;
     HelpDialog viewHelp;
     FileDialog createProject;
-
+    AppSettings *appSettings;
 };
 
 #endif // PARAMETERSWINDOW_H

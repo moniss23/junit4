@@ -39,7 +39,7 @@ class StatisticsData : public QObject, DataElementsInterface
     Q_OBJECT
     Q_ENUM(Stats_settings)
 public:
-    StatisticsData(QString &mapIndex);
+    StatisticsData(QString &mapIndex, AppSettings *appSettings);
     void setStatMap(Stats_settings &key, bool &value);
     bool getStatMap(Stats_settings &key);
     QString getStringFromEnum(int &enumVal);
@@ -65,7 +65,10 @@ private:
     QStringList enumStatString;
     QList<QDomElement> elementsXmlList;
     QList<QDomText> textXmlList;
+
     ProjectReaderWriter* projectReaderWriter;
+    AppSettings *appSettings;
+
 };
 
 #endif // STATISTICSDATA_H

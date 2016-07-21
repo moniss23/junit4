@@ -4,6 +4,7 @@
 #include <common_constans.h>
 #include <dataelementsinterface.h>
 #include <maps/projectreaderwriter.h>
+#include "appsettings.h"
 
 #define numberOfCellParams 8
 #define numberOfCenterParams 5
@@ -43,7 +44,7 @@ class CellData : public DataElementsInterface
 
 public:
 
-    CellData(const QString &nameCell,const QString &nameCenter);
+    CellData(const QString &nameCell,const QString &nameCenter, AppSettings *appSettings);
 
     //----------------------------Getters------------------------------------------------
 
@@ -100,6 +101,9 @@ public:
 private:
     CellParams cellParams;
     ProjectReaderWriter* projectReaderWriter;
+
+    AppSettings *appSettings;
+
 };
 
 QDataStream &operator<<(QDataStream& out,CellParams &cell);

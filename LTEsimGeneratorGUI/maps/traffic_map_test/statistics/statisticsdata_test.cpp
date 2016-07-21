@@ -1,10 +1,10 @@
 #include "statisticsdata_test.h"
 
-StatisticsData_Test::StatisticsData_Test(QObject *parent) : QObject(parent){}
+StatisticsData_Test::StatisticsData_Test(AppSettings *AppSettings, QObject *parent) : appSettings(appSettings), QObject(parent){}
 
 void StatisticsData_Test::setGetStatisticsParamTest()
 {
-    StatisticsData* params = new StatisticsData(mapIndexTest);
+    StatisticsData* params = new StatisticsData(mapIndexTest, appSettings);
     for (int i = 0; i <= static_cast<int>( Stats_settings::pdcp_uContStat ); i++)
     {
         Stats_settings keyTest = static_cast<Stats_settings>( i );
@@ -21,7 +21,7 @@ void StatisticsData_Test::serializeToProjectFileTest()
         Stats_settings keyStatTest = static_cast<Stats_settings>( i );
         statMapTest.insert(keyStatTest, false);
     }
-    StatisticsData* param = new StatisticsData(mapIndexTest);
+    StatisticsData* param = new StatisticsData(mapIndexTest, appSettings);
     QDomElement rootElement = xmlStatTest.createElement("statistics");
     xmlStatTest.appendChild(rootElement);
     for(int i = 0; i < statMapTest.size(); i++)
@@ -37,7 +37,7 @@ void StatisticsData_Test::serializeToProjectFileTest()
 void StatisticsData_Test::serializeFromProjectFileNewTest()
 {
 
-    StatisticsData* statistics2 = new StatisticsData(mapIndexTest);
+    StatisticsData* statistics2 = new StatisticsData(mapIndexTest, appSettings);
     QDomDocument statRawDataTest = xmlStatTest;
     statistics2->serializeFromProjectFileNew(statRawDataTest);
     for(int i = 0; i < statMapTest.size(); i++)

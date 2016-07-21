@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QString>
+#include <appsettings.h>
 
 namespace Ui {
 class FileDialog;
@@ -20,6 +21,8 @@ public:
 
     void setDefaultDir(QString dir);
 
+    void setAppSettings(AppSettings *value);
+
 private slots:
 
     void on_buttonBox_accepted();
@@ -32,6 +35,7 @@ private slots:
 
 private:
     Ui::FileDialog *ui;
+    AppSettings* appSettings;
 };
 
 #endif // FILEDIALOG_H

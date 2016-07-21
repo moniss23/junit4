@@ -1,12 +1,13 @@
 #include "statisticsdata.h"
 #include <QDebug>
 
-StatisticsData::StatisticsData(QString &mapIndex)
+StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
 {
     mapIndexCurrent = mapIndex;
     enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";
     QString beginningOfStatSector = "<ST>";
     QDomDocument statisticsDocument = projectReaderWriter->readDataFromXml(beginningOfStatSector,endofStatSector);
+
     if(statisticsDocument.isNull() == 0)
     {
         serializeFromProjectFileNew(statisticsDocument);
@@ -19,7 +20,9 @@ StatisticsData::StatisticsData(QString &mapIndex)
             statMap.insert(keyStat, false);
         }
     }
-    projectReaderWriter = new ProjectReaderWriter;
+
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
+
 }
 
 bool StatisticsData::getStatMap(enum Stats_settings &key)

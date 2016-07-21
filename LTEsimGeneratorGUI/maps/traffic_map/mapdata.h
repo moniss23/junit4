@@ -33,7 +33,7 @@ public:
     bool largeMap;
 
 public:
-    MapData(const QString &name,bool whichMap);
+    MapData(const QString &name,bool whichMap, AppSettings *appSettings);
     ~MapData(){}
     void addUEGroup(const QString &UEName){}
     void deleteUEGroup(const QString &UEName){}
@@ -52,6 +52,8 @@ public:
 
 private:
     ProjectReaderWriter* projectReaderWriter;
+    AppSettings *appSettings;
+
 };
 
 #endif // MAPDATA_H
