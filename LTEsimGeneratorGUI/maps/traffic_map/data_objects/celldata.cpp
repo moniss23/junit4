@@ -247,6 +247,11 @@ void CellData::serializeFromProjectFileOld(QByteArray rawData)
     setCenterParams(loadedCenterParams);
 }
 
+void CellData::serializeFromProjectFileNew(QDomDocument xmlDocument)
+{
+    (void) xmlDocument;
+}
+
 void CellData::setProjectReaderWriter(ProjectReaderWriter *value)
 {
     projectReaderWriter = value;

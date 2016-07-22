@@ -10,6 +10,10 @@ class CompositionOfAreas : public MyObjectArea
 public:
     bool contain(int xPos, int yPos, MyObjectArea **objPtr1)
     {
+        (void) xPos;
+        (void) yPos;
+        (void) objPtr1;
+
         return 1;
     }
     QString getID()

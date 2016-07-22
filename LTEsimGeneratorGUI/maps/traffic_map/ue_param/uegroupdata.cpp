@@ -107,6 +107,11 @@ void UEgroupData::setArea(const QString &areaCurrent)
     ue.area = areaCurrent;
 }
 
+QString UEgroupData::getElementType() const
+{
+    return QString();
+}
+
 //save method to QDomDocument - xml UE Group Data Part
 void UEgroupData::serializeToProjectFile()
 {
@@ -145,6 +150,11 @@ void UEgroupData::serializeToProjectFile()
     psBehaviorModeXmlElement.appendChild(psBehaviorModeXmlText);
     ueTypeXmlElement.appendChild(ueTypeXmlText);
     areaXmlElement.appendChild(areaXmlText);
+}
+
+void UEgroupData::serializeFromProjectFileOld(QByteArray rawData)
+{
+    (void) rawData;
 }
 
 //serialize data from proj to variables

@@ -1,6 +1,7 @@
 #include "mapdata_test.h"
 
-MapData_Test::MapData_Test(AppSettings *appSettings, QObject *parent) : appSettings(appSettings), QObject(parent)
+MapData_Test::MapData_Test(AppSettings *appSettings, QObject *parent)
+    :  QObject(parent),appSettings(appSettings)
 {
     //Creating new project for testing
     appSettings->setProjectName(testProjectName);

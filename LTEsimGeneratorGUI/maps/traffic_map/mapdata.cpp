@@ -11,6 +11,11 @@ MapData::MapData(const QString &name , bool whichMap, AppSettings *appSettings) 
 
 }
 
+void MapData::addUEGroup(const QString &UEName)
+{
+ (void) UEName;
+}
+
 void MapData::fillActiveCellList()
 {
     QString cellName = "cell";
@@ -84,6 +89,16 @@ void MapData::fillHandoverList()
 QString MapData::getElementType() const
 {
     return QString("Traffic Map");
+}
+
+void MapData::serializeFromProjectFileOld(QByteArray rawData)
+{
+    (void) rawData;
+}
+
+void MapData::serializeFromProjectFileNew(QDomDocument xmlDocument)
+{
+    (void) xmlDocument;
 }
 
 void MapData::setProjectReaderWriter(ProjectReaderWriter *value)

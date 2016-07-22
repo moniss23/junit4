@@ -1,6 +1,10 @@
 #include "statisticsdata_test.h"
 
-StatisticsData_Test::StatisticsData_Test(AppSettings *AppSettings, QObject *parent) : appSettings(appSettings), QObject(parent){}
+StatisticsData_Test::StatisticsData_Test(AppSettings *AppSettings, QObject *parent)
+    :QObject(parent), appSettings(appSettings)
+{
+
+}
 
 void StatisticsData_Test::setGetStatisticsParamTest()
 {

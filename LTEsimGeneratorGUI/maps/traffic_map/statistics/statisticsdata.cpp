@@ -50,6 +50,11 @@ void StatisticsData::serializeToProjectFile()
     }
 }
 
+void StatisticsData::serializeFromProjectFileOld(QByteArray rawData)
+{
+    (void) rawData;
+}
+
 void StatisticsData::serializeFromProjectFileNew(QDomDocument xmlDocument)
 {
     xmlStatisticsPart = xmlDocument;
@@ -97,4 +102,9 @@ QString StatisticsData::boolToString(bool &valBool)
         return "true";
     else
         return "false";
+}
+
+QString StatisticsData::getElementType() const
+{
+    return QString();
 }

@@ -28,6 +28,8 @@ void MapManagement::initialiseTheView(bool large)
 //-------Adjust scrollArea features according to size of the window------
 void MapManagement::resizeEvent(QResizeEvent *event )
 {
+    (void) event;
+
     scrollArea->verticalScrollBar()->setPageStep(this->height());
     scrollArea->horizontalScrollBar()->setPageStep(this->width());
     scrollArea->verticalScrollBar()->setRange(0, maximumHeight() - this->height());

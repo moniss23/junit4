@@ -130,6 +130,11 @@ void HandoverData::serializeFromProjectFileOld(QByteArray rawData)
     setHandoverParams(loadedParams);
 }
 
+void HandoverData::serializeFromProjectFileNew(QDomDocument xmlDocument)
+{
+    (void)xmlDocument;
+}
+
 void HandoverData::setProjectReaderWriter(ProjectReaderWriter *value)
 {
     projectReaderWriter = value;

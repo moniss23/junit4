@@ -166,8 +166,7 @@ void write_projects_file(){
     projects_file.open(QIODevice::WriteOnly);
     QTextStream projects_file_str(&projects_file);
     projects_file_str << projects.size() << "\n";
-    for(int i = 0; i < projects.size(); i++)
-    {
+    for(size_t i = 0; i < projects.size(); i++) {
         projects_file_str << projects[i].name << "\n";
         projects_file_str << projects[i].fullpath << "\n";
     }

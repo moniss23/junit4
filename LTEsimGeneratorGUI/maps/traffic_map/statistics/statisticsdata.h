@@ -48,9 +48,9 @@ public:
     QString boolToString(bool &valBool);
 
     //interface methods
-    QString getElementType() const override {}
+    QString getElementType() const override;
     void serializeToProjectFile() override;
-    void serializeFromProjectFileOld(QByteArray rawData) override {}
+    void serializeFromProjectFileOld(QByteArray rawData) override;
     void serializeFromProjectFileNew(QDomDocument xmlDocument) override;
     void serializeToScriptCommands() override {}
 
