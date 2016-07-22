@@ -680,7 +680,7 @@ void MapWindow::save_button_clicked()
 
     // move changes to the global QString
     new_parametersFileContent.clear();
-    for(unsigned int i=0; i<parametersFileContentList.size(); i++){
+    for(int i=0; i<parametersFileContentList.size(); i++){
         new_parametersFileContent+=parametersFileContentList[i];
     }
     if(new_parametersFileContent!=parametersFileContent){

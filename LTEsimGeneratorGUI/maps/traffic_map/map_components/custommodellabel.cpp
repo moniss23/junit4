@@ -12,4 +12,5 @@ CustomModelLabel::CustomModelLabel(const QString &text, QWidget *parent)
 
 void CustomModelLabel::mouseDoubleClickEvent(QMouseEvent *event)
 {
+    (void) event;
 }

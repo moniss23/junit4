@@ -1,6 +1,7 @@
 #include "uegroupdata_test.h"
 
-UEgroupData_Test::UEgroupData_Test(AppSettings *appSettings, QObject *parent) : appSettings(appSettings), QObject(parent)
+UEgroupData_Test::UEgroupData_Test(AppSettings *appSettings, QObject *parent)
+    : QObject(parent), appSettings(appSettings)
 {}
 
 void UEgroupData_Test::setgetUEnameTest()

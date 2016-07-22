@@ -5,6 +5,8 @@ bool AddButton::created = false;
 //------Adds DragUELabels to MyScrollAreaWidget------
 void AddButton::mousePressEvent(QMouseEvent *event)
 {
+    (void) event;
+
     try{
         if(created)
             throw 1;

@@ -19,7 +19,7 @@ public:
     QString getID() {
         return pci;
     }
-    static const int getR(){ return R; }
+    static int getR(){ return R; }
 private:
     QPoint center;
     static const int R;

@@ -173,8 +173,8 @@ void ParametersWindow::switch_button_state_redo(bool available){
 }
 
 ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
-    appSettings(appSettings), QMainWindow(parent),
-    ui(new Ui::ParametersWindow)
+    QMainWindow(parent), ui(new Ui::ParametersWindow),
+    appSettings(appSettings)
 {
     ui->setupUi(this);
     connect (ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -1031,6 +1031,7 @@ void ParametersWindow::on_listWidget_currentItemChanged(QListWidgetItem *current
 // file in the project double-clicked
 void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
+    (void) item;
     qDebug() << "MAPA SIE OTWORZYLA";
 
 

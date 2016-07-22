@@ -36,10 +36,10 @@ public:
     MapData(const QString &name,bool whichMap, AppSettings *appSettings);
     ~MapData(){}
     void addUEGroup(const QString &UEName);
-    void deleteUEGroup(const QString &UEName){}
+    void deleteUEGroup(const QString &UEName);
     void fillActiveCellList();
     void fillHandoverList();
-    void fillUEList(QDomDocument xmlDocument){}
+    void fillUEList(QDomDocument xmlDocument);
     void includeXmlPartsFromObjects(){}
 
     //-------------Overriden methods from interface-------------

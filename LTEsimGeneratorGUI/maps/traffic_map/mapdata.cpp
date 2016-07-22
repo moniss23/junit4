@@ -13,7 +13,12 @@ MapData::MapData(const QString &name , bool whichMap, AppSettings *appSettings) 
 
 void MapData::addUEGroup(const QString &UEName)
 {
- (void) UEName;
+    (void) UEName;
+}
+
+void MapData::deleteUEGroup(const QString &UEName)
+{
+    (void) UEName;
 }
 
 void MapData::fillActiveCellList()
@@ -84,6 +89,11 @@ void MapData::fillHandoverList()
         }
     }
 
+}
+
+void MapData::fillUEList(QDomDocument xmlDocument)
+{
+    (void) xmlDocument;
 }
 
 QString MapData::getElementType() const

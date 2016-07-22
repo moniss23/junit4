@@ -2,4 +2,5 @@
 
 void StatisticsButton::mousePressEvent(QMouseEvent *event)
 {
+    (void) event;
 }

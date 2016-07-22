@@ -2,7 +2,7 @@
 #include <appsettings.h>
 
 CellData_Test::CellData_Test(AppSettings *appSettings, QObject *parent) :
-    appSettings(appSettings), QObject(parent)
+    QObject(parent), appSettings(appSettings)
 {
     //Creating new project for testing
     appSettings->setProjectName(testProjectName);

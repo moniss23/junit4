@@ -667,11 +667,6 @@
         </widget>
        </item>
       </layout>
-      <zorder>statisticsBox2</zorder>
-      <zorder>gb_attdetRate2</zorder>
-      <zorder>verticalSpacer_4</zorder>
-      <zorder>verticalSpacer_5</zorder>
-      <zorder>lbl_warning2</zorder>
      </widget>
     </widget>
    </item>

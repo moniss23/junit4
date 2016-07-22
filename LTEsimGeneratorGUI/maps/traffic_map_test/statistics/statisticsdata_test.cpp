@@ -1,7 +1,7 @@
 #include "statisticsdata_test.h"
 
 StatisticsData_Test::StatisticsData_Test(AppSettings *AppSettings, QObject *parent)
-    :QObject(parent), appSettings(appSettings)
+    :QObject(parent), appSettings(AppSettings)
 {
 
 }

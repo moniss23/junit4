@@ -99,6 +99,8 @@ void MyScrollAreaWidget::addLargePart()
 //------Repainting the map------
 void MyScrollAreaWidget::paintEvent(QPaintEvent *event)
 {
+    (void) event;
+
     QPainter painter(this);
     drawFacade(&painter);
 }
@@ -134,7 +136,9 @@ void MyScrollAreaWidget::drawCells(QPainter *p)
 
 //------Schould draw rectangles based on boundary coordinates------
 void MyScrollAreaWidget::drawHandowers(QPainter *p)
-{}
+{
+    (void) p;
+}
 
 //------Function reponsible for legend and descriptions------
 void MyScrollAreaWidget::drawText(QPainter *p)

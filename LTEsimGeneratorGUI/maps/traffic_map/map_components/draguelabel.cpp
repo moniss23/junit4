@@ -44,6 +44,7 @@ QString DragUELabel::labelText() const
 
 void DragUELabel::mouseDoubleClickEvent(QMouseEvent *event)
 {
+    (void) event;
     //TO BE FINISHED
 }
 

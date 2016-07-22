@@ -1,7 +1,7 @@
 #include "maps/traffic_map_test/data_objects_test/handoverdata_test.h"
 
 HandoverData_Test::HandoverData_Test(AppSettings *appSettings, QObject *parent) :
-    appSettings(appSettings), QObject(parent)
+   QObject(parent), appSettings(appSettings)
 {
     //Creating project file just for testing
     appSettings->setProjectName(testProjectName);

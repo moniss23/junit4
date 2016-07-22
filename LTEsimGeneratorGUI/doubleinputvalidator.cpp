@@ -10,6 +10,8 @@ DoubleInputValidator::DoubleInputValidator(double bottom, double top, int decima
 
 QValidator::State DoubleInputValidator::validate(QString & s, int & i) const
 {
+    (void) i;
+
     if (s.isEmpty() || s == "-")
         return QValidator::Intermediate;
 

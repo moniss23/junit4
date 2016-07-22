@@ -237,6 +237,7 @@ void Settings::on_pushButton_6_clicked()
 // custom dir in the line edit changes
 void Settings::on_lineEdit_textChanged(const QString &arg1)
 {
+    (void) arg1;
     this->ui->pushButton_5->setEnabled(true);
 }
 

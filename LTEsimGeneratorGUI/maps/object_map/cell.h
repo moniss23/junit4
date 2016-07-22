@@ -46,9 +46,9 @@ public:
      bool wasThereChanges();
 
 private:
-     QString *tabParams;
-     QString cell;
-     QString cell_new_name;
+    QString *tabParams;
+    QString cell;
+    QString cell_new_name;
     QString site;
     int pci;
     int position_X;

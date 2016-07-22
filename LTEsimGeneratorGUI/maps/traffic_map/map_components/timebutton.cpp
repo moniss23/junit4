@@ -2,4 +2,5 @@
 
 void TimeButton::mousePressEvent(QMouseEvent *event)
 {
+    (void) event;
 }

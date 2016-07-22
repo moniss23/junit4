@@ -7558,7 +7558,7 @@ void Map_traffic::parseSavedList(){
 
 QMap<QString, QString>* Map_traffic::parseCM(QStringList customModelListToParse)
 {
-    QRegExp keyRegexPattern("\:$");
+    QRegExp keyRegexPattern("\\:$");
     int currentIndex = 0;
     QMap<QString, QString> *parsedCM = new QMap<QString, QString>;
     foreach(QString customModelKey, customModelListToParse)

@@ -7,5 +7,6 @@ my_qlabel::my_qlabel(QWidget *parent) :
 
 void my_qlabel::mousePressEvent(QMouseEvent *ev)
 {
+    (void) ev;
     emit Mouse_Pressed();
 }

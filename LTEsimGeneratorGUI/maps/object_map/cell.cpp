@@ -240,6 +240,5 @@ void Cell::resetParams()
 
 bool Cell::wasThereChanges()
 {
-
-
+  return false;
 }

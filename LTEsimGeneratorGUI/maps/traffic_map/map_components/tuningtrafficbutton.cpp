@@ -2,4 +2,5 @@
 
 void TuningTrafficButton::mousePressEvent(QMouseEvent *event)
 {
+    (void) event;
 }

@@ -94,14 +94,12 @@ int main(int argc, char *argv[])
     setCenterOfApplication(p);
 
     //Condition to run tests on Jenkins
-    if (argv[1] == QString("TEST"))
-    {
+    if (argv[1] == QString("TEST"))  {
         TestRunner unitTests(&appSettings);
         unitTests.runTests();
 
         return 0;
-    }
-    else
+    } else
         return a.exec();
 
 }

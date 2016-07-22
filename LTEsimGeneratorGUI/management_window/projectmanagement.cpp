@@ -49,11 +49,10 @@ extern int project_index;
 
 // constructor - loads the list of detected projects into the window view
 ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) :
-    appSettings(appSettings), QMainWindow(parent),
-    ui(new Ui::ProjectManagement)
+    QMainWindow(parent), ui(new Ui::ProjectManagement),
+    appSettings(appSettings)
 {
     projectC=0;
-    bool anyProjectsPresent;
     ui->setupUi(this);
 
     QListWidgetItem* new_widget;
@@ -83,7 +82,6 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
     // check if the projects dir exists, create it if it doesn't
     QDir project_dir;
     if(!project_dir.exists("projects")){
-        anyProjectsPresent=false;
         project_dir.mkdir("projects");
     }
 
@@ -379,6 +377,7 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
 
 void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    (void) previous;
     this->previewProjectFiles(current);
 }
 
@@ -463,6 +462,7 @@ void ProjectManagement::on_pushButton_3_clicked(){
 
 void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
+    (void) item;
     this->open_project();
 }
 
@@ -490,8 +490,9 @@ void ProjectManagement::on_pushButton_4_clicked()
     // create the project element for the vector
     Project new_project;
     new_project.name=project_name;
-    QString vector_dir("");
-    unsigned int i=0;
+    QString vector_dir;
+
+    int i=0;
     for(; i<import_dir_exploded.length()-2; i++){
         vector_dir+=import_dir_exploded[i];
         vector_dir+="/";
@@ -500,7 +501,7 @@ void ProjectManagement::on_pushButton_4_clicked()
     new_project.fullpath=vector_dir;
 
     // check if the project is already on the list
-    for(i=0; i<projects.size(); i++){
+    for(size_t i=0; i<projects.size(); i++){
         if(projects[i].name==new_project.name && projects[i].fullpath==new_project.fullpath){
             msg("Project is already present.");
             return;
