@@ -34,7 +34,6 @@ std::vector<QString*> trafficFilesNames;
 std::vector<QFile*> trafficFiles;
 int trafficFilesCount = 0;
 
-QString * proFileExt;
 
 int projectC;
 unsigned int project_index;
@@ -77,7 +76,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     AppSettings appSettings;
-    proFileExt = new QString(".proj");
     projectMng = new ProjectManagement(&appSettings);
     setCenterOfApplication(projectMng);
 
@@ -101,40 +99,6 @@ int main(int argc, char *argv[])
     } else
         return a.exec();
 
-}
-
-// Read the content of the project file, decrypt it and split into a list
-QStringList read_project_file(QString project_name, QString dir){
-
-    dir = (dir == "<default>") ? "projects" : dir;
-
-    QFile project_file(dir + "/" + project_name + "/" + project_name + (*proFileExt));
-    project_file.open(QIODevice::ReadOnly);
-    QDataStream project_file_stream(&project_file);
-
-    unsigned int length = project_file.bytesAvailable();
-    char* ciphertext = new char[length];
-
-    project_file_stream.readRawData(ciphertext,length);
-    const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length());
-
-    project_file.close();
-    return QString(plaintext).split('\n');
-}
-
-// encrypt the project data and write it into the file
-void write_project_file(QString project_name, QString project_content, QString dir){
-
-    dir = (dir == "<default>") ? "projects" : dir;
-
-    QFile project_file(dir + "/" + project_name + "/" + project_name + (*proFileExt));
-    project_file.open(QIODevice::WriteOnly);
-    QDataStream project_file_stream(&project_file);
-
-    const char* ciphertext = crypt(project_content.toStdString().c_str(),project_content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
-    project_file_stream.writeRawData(ciphertext,project_content.length());
-
-    project_file.close();
 }
 
 // wrapper for displaying an alert/information message

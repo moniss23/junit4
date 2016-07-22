@@ -107,7 +107,7 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
             d.setPath("projects/"+projects_file_content[i]);
         }
         if(d.exists()){
-            QFile f(d.absolutePath()+"/"+projects_file_content[i]+(*proFileExt));
+            QFile f(d.absolutePath()+"/"+projects_file_content[i]+appSettings->getProFileExt());
             if(f.exists()){
                 new_project.name=projects_file_content[i];
                 new_project.fullpath=projects_file_content[i+1];
@@ -131,7 +131,7 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
         project_dir.setPath(projects_dir_content[i].fileName());
 
         // check if the project file exists inside the project dir and its name is the same as project dir
-        project_file.setFileName("projects/"+projects_dir_content[i].fileName()+"/"+projects_dir_content[i].fileName()+(*proFileExt));
+        project_file.setFileName("projects/"+projects_dir_content[i].fileName()+"/"+projects_dir_content[i].fileName()+ appSettings->getProFileExt());
         if(project_file.exists()){
 
             // here we already verified that an element is a valid project
@@ -240,7 +240,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
         param_template.close();
 
         // write the project file
-        write_project_file(new_item->text(),project_content,this->getProjectDir(new_item->text()));
+        appSettings->write_project_file(new_item->text(),project_content,this->getProjectDir(new_item->text()));
 
     }
 
@@ -264,7 +264,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
         param_template.close();
 
         // write the project file
-        write_project_file(new_item->text(),project_content,dir);
+        appSettings->write_project_file(new_item->text(),project_content,dir);
 
     }
 
@@ -351,7 +351,7 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
     // clear the right list
     this->ui->listWidget_2->clear();
 
-    QStringList project_data=read_project_file(project_name,project_dir);
+    QStringList project_data = appSettings->read_project_file(project_name,project_dir);
 
     QString parameters_file(project_data[2]);
 
@@ -481,7 +481,7 @@ void ProjectManagement::on_pushButton_4_clicked()
     // verify validity of the project
     QStringList import_dir_exploded=import_dir.split("/");
     QString project_name(import_dir_exploded[import_dir_exploded.length()-1]);
-    QFile import_file(import_dir+"/"+project_name+(*proFileExt));
+    QFile import_file(import_dir+"/"+project_name+ appSettings->getProFileExt());
     if(!import_file.exists()){
         QMessageBox(QMessageBox::Critical,"","\""+import_dir+"\" does not seem to be a valid project directory.",QMessageBox::Ok).exec();
         return;

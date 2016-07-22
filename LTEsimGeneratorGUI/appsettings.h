@@ -14,6 +14,9 @@ public:
     void write_settings_file();
     void read_settings_file();
 
+    QStringList read_project_file(QString project_name, QString dir);
+    void write_project_file(QString project_name, QString project_content, QString dir);
+
     QString getParametersFile() const;
     void setParametersFile(const QString &value);
 
@@ -29,8 +32,11 @@ public:
     QString getDefaultNewProjectDir() const;
     void setDefaultNewProjectDir(const QString &value);
 
+    QString getProFileExt() const;
+
 private:
 
+    const QString proFileExt = ".proj";
     QString defaultNewProjectDir;
     QString parametersFile;
     QString projectFile;
