@@ -121,7 +121,7 @@ void FileDialog::on_buttonBox_accepted()
         projectMng->addProject(new_item,this->ui->lineEdit->text());
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
-        projectMng->addProject(new_item,defaultNewProjectDir);
+        projectMng->addProject(new_item,appSettings->getDefaultNewProjectDir());
     }
     listC++;
     write_projects_file();

@@ -34,12 +34,11 @@ std::vector<QString*> trafficFilesNames;
 std::vector<QFile*> trafficFiles;
 int trafficFilesCount = 0;
 
-QString defaultNewProjectDir;
+QString * proFileExt;
 
 int projectC;
 unsigned int project_index;
 
-QString* proFileExt;
 bool paramFilePresent;
 QString *tabChangedParams;
 
@@ -84,8 +83,8 @@ int main(int argc, char *argv[])
 
     projectMng->show();
 
-    read_settings_file();
-    projectMng->setDefaultDir(defaultNewProjectDir);
+    appSettings.read_settings_file();
+    projectMng->setDefaultDir(appSettings.getDefaultNewProjectDir());
 
     tabChangedParams = new QString [8];
 
@@ -102,22 +101,6 @@ int main(int argc, char *argv[])
     } else
         return a.exec();
 
-}
-
-const char* crypt(const char* plaintext,int text_len,const char* key,int key_len,bool terminatingZero){
-    int i, key_pos = 0;
-    char* result = new char[text_len + (terminatingZero==1)];
-
-    for(i=0; i<text_len; i++) {
-        result[i] = plaintext[i] ^ key[key_pos];
-        key_pos = ( key_pos + 1 ) % key_len;
-    }
-
-    if(terminatingZero) {
-        result[i] = '\0';
-    }
-
-    return result;
 }
 
 // Read the content of the project file, decrypt it and split into a list
@@ -187,34 +170,6 @@ void read_projects_file(){
     }
 }
 
-void write_settings_file(){
-    QFile file("settings.dat");
-    file.open(QIODevice::WriteOnly);
-    QDataStream file_str(&file);
-
-    QString content(defaultNewProjectDir);
-
-    const char* ciphertext = crypt(content.toStdString().c_str(),content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
-    file_str.writeRawData(ciphertext,content.length() );
-    file.close();
-}
-
-void read_settings_file(){
-    QFile file("settings.dat");
-    unsigned int length = file.bytesAvailable();
-    file.open(QIODevice::ReadOnly);
-    char* ciphertext = new char[length];
-    QDataStream file_str(&file);
-    file_str.readRawData(ciphertext,length);
-    const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length(),true);
-    file.close();
-
-    QString content(plaintext);
-    QStringList content_list(content.split("\n") );
-
-    defaultNewProjectDir = content_list[0];
-
-}
 
 void viewVector(){
     for(unsigned int i = 0; i < projects.size(); i++)

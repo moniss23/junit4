@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDir>
+#include "management_window/encryption.h"
 
 class AppSettings
 {
@@ -10,7 +11,8 @@ public:
     AppSettings();
     ~AppSettings();
 
-
+    void write_settings_file();
+    void read_settings_file();
 
     QString getParametersFile() const;
     void setParametersFile(const QString &value);
@@ -24,7 +26,12 @@ public:
     QDir getProjectDir() const;
     void setProjectDir(const QDir &value);
 
+    QString getDefaultNewProjectDir() const;
+    void setDefaultNewProjectDir(const QString &value);
+
 private:
+
+    QString defaultNewProjectDir;
     QString parametersFile;
     QString projectFile;
     QString projectName;

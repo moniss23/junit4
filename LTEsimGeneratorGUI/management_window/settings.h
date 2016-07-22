@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include <QDialog>
+#include "appsettings.h"
 
 namespace Ui {
 class Settings;
@@ -12,7 +13,7 @@ class Settings : public QDialog
     Q_OBJECT
 
 public:
-    explicit Settings(QWidget *parent = 0, bool secondTabActive = true);
+    explicit Settings(AppSettings *appSettings, QWidget *parent = 0, bool secondTabActive = true);
     ~Settings();
 
 private slots:
@@ -41,6 +42,7 @@ private slots:
 private:
     Ui::Settings *ui;
     bool changesMade;
+    AppSettings *appSettings;
 };
 
 #endif // SETTINGS_H

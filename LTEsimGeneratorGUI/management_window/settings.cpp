@@ -11,9 +11,8 @@ extern int project_index;
 extern std::vector<Project> projects;
 extern ParametersWindow* p;
 
-Settings::Settings(QWidget *parent,bool secondTabActive) :
-    QDialog(parent),
-    ui(new Ui::Settings)
+Settings::Settings(AppSettings *appSettings, QWidget *parent, bool secondTabActive) :
+    QDialog(parent), ui(new Ui::Settings), appSettings(appSettings)
 {
     ui->setupUi(this);
 
@@ -26,7 +25,7 @@ Settings::Settings(QWidget *parent,bool secondTabActive) :
         this->ui->tabWidget->setCurrentWidget(this->ui->tab);
     }
 
-    if(defaultNewProjectDir=="<default>"){
+    if(appSettings->getDefaultNewProjectDir()=="<default>"){
         this->ui->radioButton->setChecked(true);
         this->ui->lineEdit->setEnabled(false);
         this->ui->pushButton->setEnabled(false);
@@ -35,7 +34,7 @@ Settings::Settings(QWidget *parent,bool secondTabActive) :
         this->ui->radioButton_2->setChecked(true);
         this->ui->lineEdit->setEnabled(true);
         this->ui->pushButton->setEnabled(true);
-        this->ui->lineEdit->setText(defaultNewProjectDir);
+        this->ui->lineEdit->setText(appSettings->getDefaultNewProjectDir());
     }
 
     if(secondTabActive){
@@ -107,7 +106,7 @@ void Settings::apply_settings(){
 
     // global - if program's directory is selected
     if(this->ui->radioButton->isChecked()){
-        defaultNewProjectDir="<default>";
+        appSettings->setDefaultNewProjectDir("<default>");
     }
 
     // global - if custom directory is selected
@@ -127,7 +126,7 @@ void Settings::apply_settings(){
             QMessageBox(QMessageBox::Critical,"","Selected directory does not seem to exist.",QMessageBox::Ok).exec();
             return;
         }
-        defaultNewProjectDir=this->ui->lineEdit->text();
+        appSettings->setDefaultNewProjectDir(this->ui->lineEdit->text());
     }
 
     // if "project" tab is active (a project is opened)
@@ -169,7 +168,7 @@ void Settings::apply_settings(){
     }
 
     // write global settings file
-    write_settings_file();
+    appSettings->write_settings_file();
 
     // if second tab is active, also write project file with new settings
     if(this->ui->tab_2->isEnabled()){
@@ -215,10 +214,10 @@ void Settings::on_pushButton_7_clicked()
     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","This will restore all global settings to defaults. Are you sure?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
         return;
     }
-    defaultNewProjectDir="<default>";
+    appSettings->setDefaultNewProjectDir("<default>");
     this->ui->radioButton->setChecked(true);
     this->ui->lineEdit->clear();
-    write_settings_file();
+    appSettings->write_settings_file();
 }
 
 // restore project defaults

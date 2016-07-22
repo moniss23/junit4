@@ -65,8 +65,8 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
     // check if the settings file exists, create it if it doesn't
     QFile settings_file("settings.dat");
     if(!settings_file.exists()){
-        defaultNewProjectDir="<default>";
-        write_settings_file();
+        appSettings->setDefaultNewProjectDir("<default>");
+        appSettings->write_settings_file();
         qDebug()<<"settings file did not exist and was created";
     }
 
@@ -86,7 +86,7 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
     }
 
     // read the contens of settings.dat file
-    read_settings_file();
+    appSettings->read_settings_file();
     // createProject.setDefaultDir(defaultNewProjectDir);
 
     // read the content of projects.dat file
@@ -327,7 +327,7 @@ void ProjectManagement::on_pushButton_clicked()
 void ProjectManagement::on_pushButton_2_clicked()
 {
     createProject.clearInputArea();
-    createProject.setDefaultDir(defaultNewProjectDir);
+    createProject.setDefaultDir(appSettings->getDefaultNewProjectDir());
     createProject.show();
 }
 
@@ -529,7 +529,7 @@ void ProjectManagement::on_pushButton_4_clicked()
 // "settings" button clicked
 void ProjectManagement::on_pushButton_5_clicked()
 {
-    Settings settingsWindow(this,false);
+    Settings settingsWindow(appSettings, this,false);
     settingsWindow.setWindowModality(Qt::WindowModal);
     setCenterOfApplication(&settingsWindow);
     settingsWindow.exec();

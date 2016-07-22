@@ -1455,7 +1455,7 @@ void ParametersWindow::on_pushButton_6_clicked()
 // "settings" opened
 void ParametersWindow::on_actionPath_triggered()
 {
-    Settings settingsWindow(this,true);
+    Settings settingsWindow(appSettings, this,true);
     settingsWindow.setWindowModality(Qt::WindowModal);
     setCenterOfApplication(&settingsWindow);
     settingsWindow.exec();

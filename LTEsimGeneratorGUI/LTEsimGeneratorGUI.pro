@@ -105,7 +105,8 @@ SOURCES += main.cpp\
     maps/traffic_map_test/map_components_test/handoverarea_test.cpp \
     maps/traffic_map_test/map_components_test/compositionofareas_test.cpp \
     maps/testrunner.cpp \
-    appsettings.cpp
+    appsettings.cpp \
+    management_window/encryption.cpp
 
 HEADERS  += \
     management_window/parameterswindow.h \
