@@ -7,9 +7,6 @@ TimeTraffic::TimeTraffic()
     tab1_timeTrafficDuration = tab2_timeTrafficDuration = 0;
 
     tab2_crdelUEPeriod = 0;
-
-    spn_hours1 = spn_minutes1 = spn_seconds1 = 0;
-    spn_hours2 = spn_minutes2 = spn_seconds2 = 0;
 }
 
 TimeTraffic::~TimeTraffic()
@@ -37,23 +34,20 @@ void TimeTraffic::set_tab2_StatsRate(QString rate) {tab2_statsRate = rate.toInt(
 QString TimeTraffic::get_tab2_CrDrUEPeriod() const {return QString::number(tab2_crdelUEPeriod);}
 void TimeTraffic::set_tab2_CrDrUEPeriod(QString period) {tab2_crdelUEPeriod = period.toInt();}
 
-int TimeTraffic::getSpn_hours1() const {return spn_hours1;}
-void TimeTraffic::setSpn_hours1(int hours) {spn_hours1 = hours;}
 
-int TimeTraffic::getSpn_minutes1() const {return spn_minutes1;}
-void TimeTraffic::setSpn_minutes1(int minutes) {spn_minutes1 = minutes;}
+QTime TimeTraffic::getSpn_time1() const {
+    return spn_time1;
+}
+void TimeTraffic::setSpn_time1(int hours, int minutes, int seconds) {
+    spn_time1.setHMS(hours, minutes, seconds);
+}
 
-int TimeTraffic::getSpn_seconds1() const {return spn_seconds1;}
-void TimeTraffic::setSpn_seconds1(int seconds) {spn_seconds1 = seconds;}
-
-int TimeTraffic::getSpn_hours2() const {return spn_hours2;}
-void TimeTraffic::setSpn_hours2(int hours) {spn_hours2 = hours;}
-
-int TimeTraffic::getSpn_minutes2() const {return spn_minutes2;}
-void TimeTraffic::setSpn_minutes2(int minutes) {spn_minutes2 = minutes;}
-
-int TimeTraffic::getSpn_seconds2() const {return spn_seconds2;}
-void TimeTraffic::setSpn_seconds2(int seconds) {spn_seconds2 = seconds;}
+QTime TimeTraffic::getSpn_time2() const {
+    return spn_time2;
+}
+void TimeTraffic::setSpn_time2(int hours, int minutes, int seconds) {
+    spn_time2.setHMS(hours, minutes, seconds);
+}
 
 int TimeTraffic::get_tab1_TimeTrafficDuration() const {return tab1_timeTrafficDuration;}
 void TimeTraffic::set_tab1_TimeTrafficDuration(int duration) {tab1_timeTrafficDuration = duration;}

@@ -1,5 +1,6 @@
 #ifndef TIMETRAFFIC_H
 #define TIMETRAFFIC_H
+#include <QTime>
 #include <QString>
 
 class TimeTraffic
@@ -29,23 +30,11 @@ public:
     QString get_tab2_CrDrUEPeriod() const;
     void set_tab2_CrDrUEPeriod(QString);
 
-    int getSpn_hours1() const;
-    void setSpn_hours1(int);
+    QTime getSpn_time1() const;
+    void setSpn_time1(int, int, int);
 
-    int getSpn_minutes1() const;
-    void setSpn_minutes1(int);
-
-    int getSpn_seconds1() const;
-    void setSpn_seconds1(int);
-
-    int getSpn_hours2() const;
-    void setSpn_hours2(int);
-
-    int getSpn_minutes2() const;
-    void setSpn_minutes2(int);
-
-    int getSpn_seconds2() const;
-    void setSpn_seconds2(int);
+    QTime getSpn_time2() const;
+    void setSpn_time2(int, int, int);
 
     int get_tab1_TimeTrafficDuration() const;
     void set_tab1_TimeTrafficDuration(int);
@@ -54,14 +43,12 @@ public:
     void set_tab2_TimeTrafficDuration(int);
 
 private:
+    QTime spn_time1, spn_time2;
     int tab1_attachRate, tab1_detachRate, tab1_statsRate;
     int tab2_attachRate, tab2_detachRate, tab2_statsRate;
+    int tab1_timeTrafficDuration, tab2_timeTrafficDuration;
 
     int tab2_crdelUEPeriod;
-
-    int spn_hours1, spn_minutes1, spn_seconds1;
-    int spn_hours2, spn_minutes2, spn_seconds2;
-    int tab1_timeTrafficDuration, tab2_timeTrafficDuration;
 };
 
 #endif // TIMETRAFFIC_H
