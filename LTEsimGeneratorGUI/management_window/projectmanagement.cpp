@@ -24,7 +24,6 @@ extern ParametersWindow* p;
 
 extern QString* proFileExt;
 
-extern QString defaultNewProjectDir;
 
 extern bool changesPresent;
 extern bool lastMapOpenWasNormal;

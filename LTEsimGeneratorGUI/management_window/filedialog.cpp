@@ -25,7 +25,6 @@ extern unsigned int listC;
 extern QString* proFileExt;
 extern bool paramFilePresent;
 
-extern QString defaultNewProjectDir;
 extern QString lastOpenMap;
 
 void write_projects_file();

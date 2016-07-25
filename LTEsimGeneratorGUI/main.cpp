@@ -1,22 +1,23 @@
+#include <vector>
+#include <iostream>
+#include <cstdlib>
 #include <QApplication>
-#include <management_window/parameterswindow.h>
-#include <management_window/projectmanagement.h>
 #include <QString>
 #include <QStringList>
-#include <vector>
 #include <QFile>
-#include <maps/parameters_map/mapwindow.h>
-#include <management_window/encryption.h>
 #include <QDesktopWidget>
 #include <QListWidgetItem>
+
+#include "appsettings.h"
+#include <management_window/parameterswindow.h>
+#include <management_window/projectmanagement.h>
+#include <management_window/encryption.h>
 #include <management_window/settings.h>
+#include <maps/parameters_map/mapwindow.h>
 #include <maps/parameters_map//mapwindowlarge.h>
 #include <maps/traffic_map/map_traffic.h>
 #include <maps/traffic_map/map_traffic_large.h>
-#include <iostream>
-#include <cstdlib>
 #include <maps/testrunner.h>
-#include "appsettings.h"
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -39,9 +40,9 @@ unsigned int project_index;
 bool paramFilePresent;
 QString *tabChangedParams;
 
-MapWindow* map_w = NULL;
-MapWindowLarge* map_wl = NULL;
-Map_traffic* map_t = NULL;
+MapWindow* map_w          = NULL;
+MapWindowLarge* map_wl    = NULL;
+Map_traffic* map_t        = NULL;
 Map_traffic_large* map_tl = NULL;
 
 bool normalMapOpen = false;
