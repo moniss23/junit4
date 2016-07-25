@@ -1,14 +1,14 @@
-#include "timetrafficform.h"
-#include "ui_timetrafficform.h"
+#include "timeManager.h"
+#include "ui_timeForm.h"
 #include "maps/traffic_map/ue_param/UE_param_form.h"
 #include <QMessageBox>
 #include <QDebug>
 
 QStringList timeParametersContentList;
 
-TimeTrafficForm::TimeTrafficForm(QWidget *parent) :
+TimeManager::TimeManager(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::TimeTrafficForm)
+    ui(new Ui::TrafficTimeForm)
 {
     ui->setupUi(this);
     setFixedSize(sizeHint());
@@ -17,12 +17,12 @@ TimeTrafficForm::TimeTrafficForm(QWidget *parent) :
     ui->tab_timeTraffic->setCurrentIndex(0);
 }
 
-TimeTrafficForm::~TimeTrafficForm()
+TimeManager::~TimeManager()
 {
     delete ui;
 }
 
-void TimeTrafficForm::setParameters(TimeTraffic *timeTraffic)
+void TimeManager::setParameters(TimeData *timeTraffic)
 {
     this->timeTraffic = timeTraffic;
 
@@ -46,17 +46,17 @@ void TimeTrafficForm::setParameters(TimeTraffic *timeTraffic)
     ui->lbl_warning2->setVisible(Form::getUEPairs() > 1000);
 }
 
-void TimeTrafficForm::on_txt_attachRate1_textChanged(QString value)
+void TimeManager::on_txt_attachRate1_textChanged(QString value)
 {
     ui->txt_detachRate1->setText(value);
 }
 
-void TimeTrafficForm::on_txt_attachRate2_textChanged(QString value)
+void TimeManager::on_txt_attachRate2_textChanged(QString value)
 {
     ui->txt_detachRate2->setText(value);
 }
 
-void TimeTrafficForm::on_buttonBox_accepted()
+void TimeManager::on_buttonBox_accepted()
 {
     timeParametersContentList.clear();
     if (ui->txt_crdelUEPeriod->text().toInt() > convert_tab2_trafficDuration())
@@ -70,7 +70,7 @@ void TimeTrafficForm::on_buttonBox_accepted()
     }
 }
 
-void TimeTrafficForm::on_btn_restore_clicked()
+void TimeManager::on_btn_restore_clicked()
 {
     ui->spn_hours1->setValue(0);
     ui->spn_minutes1->setValue(0);
@@ -88,34 +88,34 @@ void TimeTrafficForm::on_btn_restore_clicked()
     ui->txt_statsRate2->setText("0");
 }
 
-void TimeTrafficForm::on_buttonBox_rejected()
+void TimeManager::on_buttonBox_rejected()
 {
     this->close();
 }
 
-void TimeTrafficForm::on_rd_statsRate1_toggled()
+void TimeManager::on_rd_statsRate1_toggled()
 {
     ui->txt_statsRate1->setEnabled(ui->rd_statsRate1->isChecked());
 }
 
-void TimeTrafficForm::on_rd_statsRate2_toggled()
+void TimeManager::on_rd_statsRate2_toggled()
 {
     ui->txt_statsRate2->setEnabled(ui->rd_statsRate2->isChecked());
 }
 
-void TimeTrafficForm::on_gb_attdetRate1_toggled()
+void TimeManager::on_gb_attdetRate1_toggled()
 {
     if (Form::getUEPairs() > 1000)
         ui->lbl_warning1->setVisible(!ui->gb_attdetRate1->isChecked());
 }
 
-void TimeTrafficForm::on_gb_attdetRate2_toggled()
+void TimeManager::on_gb_attdetRate2_toggled()
 {
     if (Form::getUEPairs() > 1000)
         ui->lbl_warning2->setVisible(!ui->gb_attdetRate2->isChecked());
 }
 
-void TimeTrafficForm::parametersValidation()
+void TimeManager::parametersValidation()
 {
     ui->txt_attachRate1->setValidator(new QIntValidator(0, 712860, this));
     ui->txt_attachRate2->setValidator(new QIntValidator(0, 712860, this));
@@ -133,17 +133,17 @@ void TimeTrafficForm::parametersValidation()
     ui->spn_seconds2->setRange(0, 59);
 }
 
-int TimeTrafficForm::convert_tab1_trafficDuration()
+int TimeManager::convert_tab1_trafficDuration()
 {
     return ui->spn_hours1->value()*3600 + ui->spn_minutes1->value()*60 + ui->spn_seconds1->value();
 }
 
-int TimeTrafficForm::convert_tab2_trafficDuration()
+int TimeManager::convert_tab2_trafficDuration()
 {
     return ui->spn_hours2->value()*3600 + ui->spn_minutes2->value()*60 + ui->spn_seconds2->value();
 }
 
-void TimeTrafficForm::SaveAll()
+void TimeManager::SaveAll()
 {
     timeTraffic->set_tab1_AttachRate(ui->txt_attachRate1->text());
     timeTraffic->set_tab1_DetachRate(ui->txt_detachRate1->text());
@@ -159,7 +159,7 @@ void TimeTrafficForm::SaveAll()
     timeTraffic->setSpn_time2(ui->spn_hours2->value(), ui->spn_minutes2->value(), ui->spn_seconds2->value());
 }
 
-QString TimeTrafficForm::saveToString()
+QString TimeManager::saveToString()
 {
     QString timeParametersContent;
     if (ui->tab_timeTraffic->currentIndex() == 0)

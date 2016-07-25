@@ -15,8 +15,8 @@
 #include "maps/object_map/center.h"
 #include "maps/traffic_map/map_components/draguelabel.h"
 #include "my_qlabel.h"
-#include "maps/traffic_map/timetraffic/timetraffic.h"
-#include "maps/traffic_map/timetraffic/timetrafficform.h"
+#include "maps/traffic_map/time/timeData.h"
+#include "maps/traffic_map/time/timeManager.h"
 
 class Custommodels;
 
@@ -140,11 +140,11 @@ private:
 
     my_qlabel* my_label_array[10];
     Tuningtraffic *tuningtraffic;
-    TimeTraffic* timetraffic;
+    TimeData* timetraffic;
     Statistics *statistics;
     StatisticsForm viewStatistics;
     TuningTrafficForm viewTuningtraffic;
-    TimeTrafficForm viewTimeTraffic;
+    TimeManager viewTimeTraffic;
 
     QComboBox* combo_box;
     Form **tableview;

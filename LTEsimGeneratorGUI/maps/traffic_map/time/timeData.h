@@ -1,13 +1,14 @@
-#ifndef TIMETRAFFIC_H
-#define TIMETRAFFIC_H
+#ifndef TIMEDATA_H
+#define TIMEDATA_H
+
 #include <QTime>
 #include <QString>
 
-class TimeTraffic
+class TimeData
 {
 public:
-    TimeTraffic();
-    ~TimeTraffic();
+    TimeData();
+    ~TimeData();
 
     QString get_tab1_AttachRate() const;
     void set_tab1_AttachRate(QString);
@@ -51,4 +52,4 @@ private:
     int tab2_crdelUEPeriod;
 };
 
-#endif // TIMETRAFFIC_H
+#endif // TIMEDATA_H

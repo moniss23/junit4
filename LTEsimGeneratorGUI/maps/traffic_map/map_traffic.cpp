@@ -125,7 +125,7 @@ Map_traffic::Map_traffic(QWidget *parent) :
         ui->setupUi(this);
         //int n=12;
         tuningtraffic = new Tuningtraffic();
-        timetraffic = new TimeTraffic();
+        timetraffic = new TimeData();
         statistics = new Statistics();
         createCell();
 

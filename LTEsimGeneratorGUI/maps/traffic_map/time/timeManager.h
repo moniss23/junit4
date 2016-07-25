@@ -1,21 +1,21 @@
-#ifndef TIMETRAFFICFORM_H
-#define TIMETRAFFICFORM_H
+#ifndef TIMEMANAGER_H
+#define TIMEMANAGER_H
 
 #include <QDialog>
-#include "timetraffic.h"
+#include "timeData.h"
 
 namespace Ui {
-class TimeTrafficForm;
+class TrafficTimeForm;
 }
 
-class TimeTrafficForm : public QDialog
+class TimeManager : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit TimeTrafficForm(QWidget *parent = 0);
-    ~TimeTrafficForm();
-    void setParameters(TimeTraffic* timeTraffic);
+    explicit TimeManager(QWidget *parent = 0);
+    ~TimeManager();
+    void setParameters(TimeData* timeTraffic);
 
 private slots:
     void on_buttonBox_accepted();
@@ -29,8 +29,8 @@ private slots:
     void on_txt_attachRate2_textChanged(QString);
 
 private:
-    Ui::TimeTrafficForm *ui;
-    TimeTraffic* timeTraffic;
+    Ui::TrafficTimeForm *ui;
+    TimeData* timeTraffic;
 
     int pairs;
     void parametersValidation();
@@ -41,4 +41,4 @@ private:
     QString saveToString();
 };
 
-#endif // TIMETRAFFICFORM_H
+#endif // TIMEMANAGER_H

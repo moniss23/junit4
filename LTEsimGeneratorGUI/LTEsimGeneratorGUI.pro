@@ -67,8 +67,8 @@ SOURCES += main.cpp\
     maps/traffic_map_test/map_components_test/draguelabel_test.cpp \
     maps/traffic_map/map_traffic.cpp \
     maps/traffic_map/map_traffic_large.cpp \
-    maps/traffic_map/timetraffic/timetraffic.cpp \
-    maps/traffic_map/timetraffic/timetrafficform.cpp \
+    maps/traffic_map/time/timeData.cpp \
+    maps/traffic_map/time/timeManager.cpp \
     doubleinputvalidator.cpp \
     maps/traffic_map/managementtemplate.cpp \
     maps/traffic_map_test/managementtemplate_test.cpp \
@@ -161,8 +161,8 @@ HEADERS  += \
     maps/traffic_map_test/map_components_test/draguelabel_test.h \
     maps/traffic_map/map_traffic.h \
     maps/traffic_map/map_traffic_large.h \
-    maps/traffic_map/timetraffic/timetraffic.h \
-    maps/traffic_map/timetraffic/timetrafficform.h \
+    maps/traffic_map/time/timeData.h \
+    maps/traffic_map/time/timeManager.h \
     doubleinputvalidator.h \
     dataelementsinterface.h \
     maps/traffic_map/managementtemplate.h \
@@ -236,8 +236,8 @@ FORMS    += \
     maps/traffic_map/statistics/statisticsform.ui \
     maps/traffic_map/tuningtraffic/tuningtrafficform.ui \
     maps/traffic_map/ue_param/UE_param_form.ui \
-    maps/traffic_map/timetraffic/timetrafficform.ui \
-    maps/traffic_map/managementtemplate.ui
+    maps/traffic_map/managementtemplate.ui \
+    maps/traffic_map/time/timeForm.ui
 
 OTHER_FILES += \
     logoLTEsim.png
