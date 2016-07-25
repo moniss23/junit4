@@ -74,6 +74,34 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
 }
 
 
+void AppSettings::write_projects_file(){
+    QFile projects_file("projects.dat");
+    projects_file.open(QIODevice::WriteOnly);
+    QTextStream projects_file_str(&projects_file);
+    projects_file_str << projects.size() << "\n";
+    for(size_t i = 0; i < projects.size(); i++) {
+        projects_file_str << projects[i].name << "\n";
+        projects_file_str << projects[i].fullpath << "\n";
+    }
+    projects_file.close();
+}
+
+// currently unused
+void AppSettings::read_projects_file(){
+    QFile projects_file("projects.dat");
+    projects_file.open(QIODevice::ReadOnly);
+    QTextStream projects_file_str(&projects_file);
+    QStringList content = projects_file_str.readAll().split("\n");
+    Project new_project;
+    for(int i = 1; i <= projects.size(); i++)
+    {
+        new_project.name = content[2 * i - 1];
+        new_project.fullpath = content[2 * i];
+        projects.push_back(new_project);
+    }
+}
+
+
 /*
  *
  * Getters and Setters

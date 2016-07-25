@@ -124,7 +124,7 @@ void FileDialog::on_buttonBox_accepted()
         projectMng->addProject(new_item,appSettings->getDefaultNewProjectDir());
     }
     listC++;
-    write_projects_file();
+    appSettings->write_projects_file();
     this->close();
 }
 

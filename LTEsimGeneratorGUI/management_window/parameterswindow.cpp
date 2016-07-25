@@ -641,7 +641,7 @@ void ParametersWindow::save_project(bool singleFile=false){
     qDebug()<<plaintext;
 
     // encrypt the project data and write it to file
-    appSettings->write_project_file(appSettings->getProjectName(), plaintext,get_project_dir(appSettings->getProjectName()));
+    appSettings->write_project_file(appSettings->getProjectName(), plaintext,get_project_dir(appSettings->getProjectName(), appSettings->projects));
 
 }
 
@@ -1296,7 +1296,7 @@ void ParametersWindow::on_pushButton_6_clicked()
         if(this->ui->listWidget->currentRow()==0){
 
             // if the location of the project is default
-            if(get_project_dir(appSettings->getProjectName())=="<default>"){
+            if(get_project_dir(appSettings->getProjectName(), appSettings->projects)=="<default>"){
 
                 QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(0)->text());
                 if(file.exists()){
@@ -1314,7 +1314,7 @@ void ParametersWindow::on_pushButton_6_clicked()
             // if the project's location is custom
             else{
 
-                QString project_dir=get_project_dir(appSettings->getProjectName());
+                QString project_dir=get_project_dir(appSettings->getProjectName(), appSettings->projects);
 
                 QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(0)->text());
                 if(file.exists()){
@@ -1335,7 +1335,7 @@ void ParametersWindow::on_pushButton_6_clicked()
         else{
 
             // if the location of the project is default
-            if(get_project_dir(appSettings->getProjectName())=="<default>"){
+            if(get_project_dir(appSettings->getProjectName(), appSettings->projects)=="<default>"){
 
                 int file_index=this->ui->listWidget->currentRow()-1;
                 QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(file_index+1)->text());
@@ -1355,7 +1355,7 @@ void ParametersWindow::on_pushButton_6_clicked()
             // if the location of the project is custom
             else{
 
-                QString project_dir=get_project_dir(appSettings->getProjectName());
+                QString project_dir=get_project_dir(appSettings->getProjectName(), appSettings->projects);
 
                 int file_index=this->ui->listWidget->currentRow()-1;
                 QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(file_index+1)->text());

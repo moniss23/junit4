@@ -4,6 +4,7 @@
 #include <QString>
 #include <QDir>
 #include "management_window/encryption.h"
+#include <QTextStream>
 
 class AppSettings
 {
@@ -11,11 +12,16 @@ public:
     AppSettings();
     ~AppSettings();
 
+    std::vector<Project> projects;
+
     void write_settings_file();
     void read_settings_file();
 
     QStringList read_project_file(QString project_name, QString dir);
     void write_project_file(QString project_name, QString project_content, QString dir);
+
+    void write_projects_file();
+    void read_projects_file();
 
     QString getParametersFile() const;
     void setParametersFile(const QString &value);

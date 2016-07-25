@@ -34,15 +34,12 @@ bool deletionInProgress=false;
 std::vector<QListWidgetItem*> list_items;
 unsigned int listC=0;
 
-extern int projectC;
-extern std::vector<Project> projects;
-
 extern MapWindow* map_w;
 extern Settings* settingsWindowPW;
 extern Settings* settingsWindowPM;
 
 void msg(QString content);
-void viewVector();
+void viewVector(const std::vector<Project> &projects);
 void setCenterOfApplication(QWidget* widget);
 
 extern int project_index;
@@ -52,7 +49,6 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
     QMainWindow(parent), ui(new Ui::ProjectManagement),
     appSettings(appSettings)
 {
-    projectC=0;
     ui->setupUi(this);
 
     QListWidgetItem* new_widget;
@@ -114,7 +110,7 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
                 new_widget=new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
                 this->ui->listWidget->addItem(new_widget);
                 new_project.widget=new_widget;
-                projects.push_back(new_project);
+                appSettings->projects.push_back(new_project);
             }
         }
     }
@@ -138,28 +134,26 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
 
             // check if the project was already obtained from projects.dat, if not then add it
             unsigned int j;
-            for(j=0; j<projects.size(); j++){
-                if(projects[j].name==projects_dir_content[i].fileName()){
+            for(j=0; j<appSettings->projects.size(); j++){
+                if(appSettings->projects[j].name==projects_dir_content[i].fileName()){
                     break;
                 }
             }
 
             // if entire vector was traversed, then it means that project was not found, and it shold be added
-            if(j==projects.size()){
+            if(j==appSettings->projects.size()){
                 new_project.name=projects_dir_content[i].fileName();
                 new_project.fullpath="<default>";
                 new_widget=new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
                 new_project.widget=new_widget;
-                projects.push_back(new_project);
+                appSettings->projects.push_back(new_project);
             }
 
         }
     }
 
-    projectC=projects.size();
-
     // enable or disable buttons accordingly
-    if(projectC>0){
+    if(appSettings->projects.size()>0){
         this->ui->listWidget->item(0)->setSelected(true);
         this->ui->listWidget->setCurrentRow(0);
         this->ui->pushButton->setEnabled(true);
@@ -170,9 +164,9 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
         this->ui->pushButton_3->setEnabled(false);
     }
 
-    viewVector();
+    viewVector(appSettings->projects);
 
-    write_projects_file();
+    appSettings->write_projects_file();
 
 }
 
@@ -182,9 +176,9 @@ ProjectManagement::~ProjectManagement()
 }
 
 QString ProjectManagement::getProjectDir(QString projectName){
-    for(unsigned int i=0; i<projects.size(); i++){
-        if(projects[i].name==projectName){
-            return projects[i].fullpath;
+    for(unsigned int i=0; i<appSettings->projects.size(); i++){
+        if(appSettings->projects[i].name==projectName){
+            return appSettings->projects[i].fullpath;
         }
     }
     return "";
@@ -196,7 +190,7 @@ void ProjectManagement::setDefaultDir(QString dir){
 
 bool ProjectManagement::projectNameTaken(QString name){
     bool taken=false;
-    for(int i=0; i<projectC; i++){
+    for(int i=0; i<appSettings->projects.size(); i++){
         if(this->ui->listWidget->item(i)->text()==name){
             taken=true;
             break;
@@ -217,7 +211,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
     new_project.name=new_item->text();
     new_project.fullpath=dir;
     new_project.widget=new_item;
-    projects.push_back(new_project);
+    appSettings->projects.push_back(new_project);
 
     // if the project is to be saved in default directory
     if(dir=="<default>"){
@@ -278,8 +272,6 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
     if(!this->ui->pushButton_3->isEnabled()){
         this->ui->pushButton_3->setEnabled(true);
     }
-
-    projectC++;
 }
 
 void ProjectManagement::open_project(){
@@ -301,8 +293,8 @@ void ProjectManagement::open_project(){
         appSettings->setProjectName(selected_item->text().split("\t")[0]);
 
         // obtain the project's index in projects vector
-        for(unsigned int i=0; i<projects.size(); i++){
-            if(projects[i].widget==selected_item){
+        for(unsigned int i=0; i<appSettings->projects.size(); i++){
+            if(appSettings->projects[i].widget==selected_item){
                 project_index=i;
                 break;
             }
@@ -340,10 +332,10 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
     // read the selected project's name and directory from the projects vector
     QString project_name;
     QString project_dir;
-    for(unsigned int i=0; i<projects.size(); i++){
-        if(projects[i].widget==item){
-            project_name=projects[i].name;
-            project_dir=projects[i].fullpath;
+    for(unsigned int i=0; i<appSettings->projects.size(); i++){
+        if(appSettings->projects[i].widget==item){
+            project_name=appSettings->projects[i].name;
+            project_dir=appSettings->projects[i].fullpath;
             break;
         }
     }
@@ -420,7 +412,7 @@ void ProjectManagement::on_pushButton_3_clicked(){
 
     deletionInProgress=true;
 
-    if(projectC>0 && QMessageBox::Yes==QMessageBox(QMessageBox::Question, "LTEsimGenerator", "Entire project will be deleted:\n"+this->ui->listWidget->currentItem()->text()+"\n\nThis cannot be reversed.\n\nAre you sure?", QMessageBox::No|QMessageBox::Yes).exec()){
+    if(appSettings->projects.size()>0 && QMessageBox::Yes==QMessageBox(QMessageBox::Question, "LTEsimGenerator", "Entire project will be deleted:\n"+this->ui->listWidget->currentItem()->text()+"\n\nThis cannot be reversed.\n\nAre you sure?", QMessageBox::No|QMessageBox::Yes).exec()){
 
         QString projectName;
 
@@ -434,17 +426,16 @@ void ProjectManagement::on_pushButton_3_clicked(){
 
         // delete element from projects vector
         std::vector<Project>::iterator it;
-        for(it=projects.begin(); it!=projects.end(); it++){
+        for(it=appSettings->projects.begin(); it!=appSettings->projects.end(); it++){
             if(projectName==(*it).name){
                 break;
             }
         }
-        projects.erase(it);
+        appSettings->projects.erase(it);
 
         // decrement project counter
-        projectC--;
 
-        if(projectC>0){
+        if(appSettings->projects.size()>0){
             deletionInProgress=false;
             previewProjectFiles(this->ui->listWidget->currentItem());
             deletionInProgress=true;
@@ -501,8 +492,8 @@ void ProjectManagement::on_pushButton_4_clicked()
     new_project.fullpath=vector_dir;
 
     // check if the project is already on the list
-    for(size_t i=0; i<projects.size(); i++){
-        if(projects[i].name==new_project.name && projects[i].fullpath==new_project.fullpath){
+    for(size_t i=0; i<appSettings->projects.size(); i++){
+        if(appSettings->projects[i].name==new_project.name && appSettings->projects[i].fullpath==new_project.fullpath){
             msg("Project is already present.");
             return;
         }
@@ -511,10 +502,10 @@ void ProjectManagement::on_pushButton_4_clicked()
     // if it's not, append it to the vector
     QListWidgetItem* new_item=new QListWidgetItem(project_name+"\t"+vector_dir);
     new_project.widget=new_item;
-    projects.push_back(new_project);
+    appSettings->projects.push_back(new_project);
 
     // update the projects.dat file
-    write_projects_file();
+    appSettings->write_projects_file();
 
     // update UI
     this->ui->listWidget->addItem(new_item);

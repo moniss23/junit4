@@ -34,14 +34,10 @@ std::vector<QString*> trafficFilesNames;
 std::vector<QFile*> trafficFiles;
 int trafficFilesCount = 0;
 
-
-int projectC;
 unsigned int project_index;
 
 bool paramFilePresent;
 QString *tabChangedParams;
-
-std::vector<Project> projects;
 
 MapWindow* map_w = NULL;
 MapWindowLarge* map_wl = NULL;
@@ -106,43 +102,16 @@ void msg(QString content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
-void write_projects_file(){
-    QFile projects_file("projects.dat");
-    projects_file.open(QIODevice::WriteOnly);
-    QTextStream projects_file_str(&projects_file);
-    projects_file_str << projects.size() << "\n";
-    for(size_t i = 0; i < projects.size(); i++) {
-        projects_file_str << projects[i].name << "\n";
-        projects_file_str << projects[i].fullpath << "\n";
-    }
-    projects_file.close();
-}
-
-// currently unused
-void read_projects_file(){
-    QFile projects_file("projects.dat");
-    projects_file.open(QIODevice::ReadOnly);
-    QTextStream projects_file_str(&projects_file);
-    QStringList content = projects_file_str.readAll().split("\n");
-    projectC = content[0].toInt();
-    Project new_project;
-    for(int i = 1; i <= projectC; i++)
-    {
-        new_project.name = content[2 * i - 1];
-        new_project.fullpath = content[2 * i];
-        projects.push_back(new_project);
-    }
-}
 
 
-void viewVector(){
+void viewVector(const std::vector<Project> &projects){
     for(unsigned int i = 0; i < projects.size(); i++)
     {
         qDebug() << projects[i].name << "\t" << projects[i].fullpath;
     }
 }
 
-QString get_project_name(QListWidgetItem* item){
+QString get_project_name(QListWidgetItem* item, const std::vector<Project> &projects){
     for(unsigned int i = 0; i < projects.size(); i++)
     {
         if(projects[i].widget == item)
@@ -153,7 +122,7 @@ QString get_project_name(QListWidgetItem* item){
     return "";
 }
 
-QString get_project_dir(QListWidgetItem* item){
+QString get_project_dir(QListWidgetItem* item, const std::vector<Project> &projects){
     for(unsigned int i = 0; i < projects.size(); i++)
     {
         if(projects[i].widget == item)
@@ -164,7 +133,7 @@ QString get_project_dir(QListWidgetItem* item){
     return "";
 }
 
-QString get_project_dir(QString project_name){
+QString get_project_dir(QString project_name, const std::vector<Project> &projects){
     for(unsigned int i = 0; i < projects.size(); i++)
     {
         if(projects[i].name == project_name)

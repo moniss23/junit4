@@ -134,7 +134,7 @@ void Settings::apply_settings(){
 
         // project - project's directory is selected
         if(this->ui->radioButton_3->isChecked()){
-            projects[project_index].rbOutputDir="<default>";
+            appSettings->projects[project_index].rbOutputDir="<default>";
             defaultLocationForRbFiles="<default>";
         }
 
@@ -155,13 +155,13 @@ void Settings::apply_settings(){
                 QMessageBox(QMessageBox::Critical,"","Selected directory does not seem to exist.",QMessageBox::Ok).exec();
                 return;
             }
-            projects[project_index].rbOutputDir=this->ui->lineEdit_2->text();
+            appSettings->projects[project_index].rbOutputDir=this->ui->lineEdit_2->text();
             defaultLocationForRbFiles=this->ui->lineEdit_2->text();
         }
 
         // project - asking individually is selected
         if(this->ui->radioButton_5->isChecked()){
-            projects[project_index].rbOutputDir="<individually>";
+            appSettings->projects[project_index].rbOutputDir="<individually>";
             defaultLocationForRbFiles="<individually>";
         }
 
