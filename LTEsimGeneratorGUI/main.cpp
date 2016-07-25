@@ -55,8 +55,6 @@ bool anyChangesInMap = false;
 
 void msg(QString content);
 
-extern QString defaultNewProjectDir;
-
 void setCenterOfApplication(QWidget* widget)
 {
     QDesktopWidget* desktop = QApplication::desktop();

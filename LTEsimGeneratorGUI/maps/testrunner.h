@@ -1,5 +1,7 @@
 #ifndef TESTRUNNER_H
 #define TESTRUNNER_H
+#include <QTest>
+
 #include <maps/traffic_map_test/data_objects_test/handoverdata_test.h>
 #include <maps/traffic_map_test/ue_param_test/uegroupdata_test.h>
 #include <maps/traffic_map_test/statistics/statisticsdata_test.h>
@@ -18,7 +20,7 @@
 #include <maps/traffic_map_test/map_components_test/cellarea_test.h>
 #include <maps/traffic_map_test/map_components_test/handoverarea_test.h>
 #include <maps/traffic_map_test/map_components_test/compositionofareas_test.h>
-#include <QTest>
+
 #include "appsettings.h"
 
 class TestRunner

@@ -5,7 +5,6 @@
 #include <management_window/encryption.h>
 #include <management_window/parameterswindow.h>
 
-extern QString defaultNewProjectDir;
 extern QString defaultLocationForRbFiles;
 extern int project_index;
 extern std::vector<Project> projects;
