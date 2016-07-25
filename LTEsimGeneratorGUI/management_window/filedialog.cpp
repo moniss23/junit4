@@ -80,7 +80,7 @@ void FileDialog::on_buttonBox_accepted()
     QString illegal_chars("<>:\"/\\|?*");
 
     // check if the name is unique, display alert if it's not
-    if(projectMng->projectNameTaken(this->ui->fileName->text())) {
+    if(appSettings->projectNameTaken(this->ui->fileName->text())) {
         QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Name already in use. Choose another one.",QMessageBox::Yes).exec();
         return;
     }

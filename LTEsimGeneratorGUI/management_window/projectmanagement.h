@@ -27,7 +27,6 @@ public:
     QListWidgetItem* getCurrentItem();
 
     void previewProjectFiles(QListWidgetItem* item);
-    bool projectNameTaken(QString name);
     QString getProjectDir(QString projectName);
     Project getProjectFromVector(int i);
     void setDefaultDir(QString dir);

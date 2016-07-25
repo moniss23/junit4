@@ -23,6 +23,8 @@ public:
     void write_projects_file();
     void read_projects_file();
 
+    bool projectNameTaken(QString projectName);
+
     QString getParametersFile() const;
     void setParametersFile(const QString &value);
 

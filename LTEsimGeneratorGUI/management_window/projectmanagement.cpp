@@ -187,16 +187,6 @@ void ProjectManagement::setDefaultDir(QString dir){
     this->createProject.setDefaultDir(dir);
 }
 
-bool ProjectManagement::projectNameTaken(QString name){
-    bool taken=false;
-    for(int i=0; i<appSettings->projects.size(); i++){
-        if(this->ui->listWidget->item(i)->text()==name){
-            taken=true;
-            break;
-        }
-    }
-    return taken;
-}
 
 QListWidgetItem* ProjectManagement::getCurrentItem(){
     return this->ui->listWidget->currentItem();

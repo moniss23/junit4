@@ -101,6 +101,19 @@ void AppSettings::read_projects_file(){
     }
 }
 
+//Moved from projectManagement
+bool AppSettings::projectNameTaken(QString projectName){
+    bool taken=false;
+    for(unsigned i=0; i<projects.size(); i++){
+        if(projects[i].name == projectName)
+        {
+            taken=true;
+            break;
+        }
+    }
+    return taken;
+}
+
 
 /*
  *
