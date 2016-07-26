@@ -55,12 +55,6 @@ void DragUELabel::setmyArea(MyObjectArea *objectArea)
 
 MyObjectArea* DragUELabel::getmyArea()
 {
-    try{
-        if( myArea == NULL)
-            throw 1;
-        return myArea;
-    } catch ( int ){
-        qDebug() << "myHandoverArea points to NULL adress";
-    }
+    return myArea;
 }
 

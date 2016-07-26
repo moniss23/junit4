@@ -581,20 +581,6 @@ void ParametersWindow::save_project(bool singleFile=false){
             trafficFilesChanged[file_index]=false;
             savedTrafficFilesContent[file_index]=trafficFilesContent[file_index];
         }
-
-        bool anyChangesLeft=false;
-        if(paramFileChanged){
-            anyChangesLeft=true;
-        }
-        else{
-            for(int i=0; i<nrOfTrafficFiles; i++){
-                if(trafficFilesChanged[i]){
-                    anyChangesLeft=true;
-                    break;
-                }
-            }
-        }
-
     }
 
     // add default location for output .rb files

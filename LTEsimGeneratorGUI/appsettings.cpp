@@ -93,7 +93,7 @@ void AppSettings::read_projects_file(){
     QTextStream projects_file_str(&projects_file);
     QStringList content = projects_file_str.readAll().split("\n");
     Project new_project;
-    for(int i = 1; i <= projects.size(); i++)
+    for(unsigned i=1; i<=projects.size(); i++)
     {
         new_project.name = content[2 * i - 1];
         new_project.fullpath = content[2 * i];
