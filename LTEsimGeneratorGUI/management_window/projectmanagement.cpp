@@ -50,106 +50,18 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
 {
     ui->setupUi(this);
 
-    QListWidgetItem* new_widget;
-
-    this->setWindowTitle("Project management");    
+    this->setWindowTitle("Project management");
 
     // settings appSettings reference to FileDialog
     setFileDialogAppSettings(appSettings);
 
-    // check if the settings file exists, create it if it doesn't
-    QFile settings_file("settings.dat");
-    if(!settings_file.exists()){
-        appSettings->setDefaultNewProjectDir("<default>");
-        appSettings->write_settings_file();
-        qDebug()<<"settings file did not exist and was created";
+
+    std::vector<QListWidgetItem*> widget_vector = appSettings->loadSettings();
+
+    for(const auto &it : widget_vector) {
+        this->ui->listWidget->addItem(it);
     }
 
-    // check if the projects file exists, create it if it doesn't
-    QFile projects_file("projects.dat");
-    if(!projects_file.exists()){
-        projects_file.open(QIODevice::WriteOnly);
-        QTextStream str(&projects_file);
-        str<<"0";
-        projects_file.close();
-    }
-
-    // check if the projects dir exists, create it if it doesn't
-    QDir project_dir;
-    if(!project_dir.exists("projects")){
-        project_dir.mkdir("projects");
-    }
-
-    // read the contens of settings.dat file
-    appSettings->read_settings_file();
-    // createProject.setDefaultDir(defaultNewProjectDir);
-
-    // read the content of projects.dat file
-    projects_file.open(QIODevice::ReadOnly);
-    QTextStream s(&projects_file);
-    QStringList projects_file_content(s.readAll().split('\n'));
-    int projectC_file=projects_file_content[0].toInt();
-
-    Project new_project;
-
-    // test the projects obtained from the file, discard those which don't seem to exist anymore
-    for(int i=1; i<=projectC_file*2; i+=2){
-        QDir d;
-        if(projects_file_content[i+1]!="<default>"){
-            d.setPath(projects_file_content[i+1]+"/"+projects_file_content[i]);
-        }
-        else{
-            d.setPath("projects/"+projects_file_content[i]);
-        }
-        if(d.exists()){
-            QFile f(d.absolutePath()+"/"+projects_file_content[i]+appSettings->getProFileExt());
-            if(f.exists()){
-                new_project.name=projects_file_content[i];
-                new_project.fullpath=projects_file_content[i+1];
-                new_widget=new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
-                this->ui->listWidget->addItem(new_widget);
-                new_project.widget=new_widget;
-                appSettings->projects.push_back(new_project);
-            }
-        }
-    }
-
-    project_dir.setPath("projects");
-
-    // get the contents of the projects dir
-    QFileInfoList projects_dir_content=project_dir.entryInfoList(QDir::AllDirs);
-    QFile project_file;
-
-    // traverse the list of projects dir contents
-    for(int i=0; i<projects_dir_content.size(); i++){
-
-        project_dir.setPath(projects_dir_content[i].fileName());
-
-        // check if the project file exists inside the project dir and its name is the same as project dir
-        project_file.setFileName("projects/"+projects_dir_content[i].fileName()+"/"+projects_dir_content[i].fileName()+ appSettings->getProFileExt());
-        if(project_file.exists()){
-
-            // here we already verified that an element is a valid project
-
-            // check if the project was already obtained from projects.dat, if not then add it
-            unsigned int j;
-            for(j=0; j<appSettings->projects.size(); j++){
-                if(appSettings->projects[j].name==projects_dir_content[i].fileName()){
-                    break;
-                }
-            }
-
-            // if entire vector was traversed, then it means that project was not found, and it shold be added
-            if(j==appSettings->projects.size()){
-                new_project.name=projects_dir_content[i].fileName();
-                new_project.fullpath="<default>";
-                new_widget=new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
-                new_project.widget=new_widget;
-                appSettings->projects.push_back(new_project);
-            }
-
-        }
-    }
 
     // enable or disable buttons accordingly
     if(appSettings->projects.size()>0){
@@ -186,7 +98,6 @@ QString ProjectManagement::getProjectDir(QString projectName){
 void ProjectManagement::setDefaultDir(QString dir){
     this->createProject.setDefaultDir(dir);
 }
-
 
 QListWidgetItem* ProjectManagement::getCurrentItem(){
     return this->ui->listWidget->currentItem();

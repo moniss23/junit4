@@ -5,6 +5,10 @@
 #include <QDir>
 #include "management_window/encryption.h"
 #include <QTextStream>
+#include <QFile>
+#include <QStringList>
+#include <QDebug>
+#include <QListWidgetItem>
 
 class AppSettings
 {
@@ -13,6 +17,14 @@ public:
     ~AppSettings();
 
     std::vector<Project> projects;
+
+    std::vector<QListWidgetItem*> loadSettings();
+    void checkIfExistAndCreateSettingsFile();
+    void checkIfExistAndCreateProjectsFile();
+    void checkIfExistAndCreateProjectsDir();
+    void readProjectsFile();
+    std::vector<QListWidgetItem*> testProjectsObtainedFromTheFile();
+    void traverseProjectsListAndAddProjectIfNotFound();
 
     void write_settings_file();
     void read_settings_file();
@@ -42,8 +54,24 @@ public:
 
     QString getProFileExt() const;
 
+    QDir getProject_dir() const;
+    void setProject_dir(const QDir &value);
+
+    QFile getProjects_file() const;
+    void setProjects_file(const QFile &value);
+
+    QFile getSettings_file() const;
+    void setSettings_file(const QFile &value);
+
 private:
 
+    QFile project_file;
+    QFileInfoList projects_dir_content;
+    QStringList projects_file_content;
+    int projectC_file;
+    QDir project_dir;
+    QFile settings_file;
+    QFile projects_file;
     const QString proFileExt = ".proj";
     QString defaultNewProjectDir;
     QString parametersFile;
