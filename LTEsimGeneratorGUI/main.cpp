@@ -2,22 +2,31 @@
 #include <iostream>
 #include <cstdlib>
 #include <QApplication>
+<<<<<<< 6d7ccf832922aaf55c477e811f79daa1688057a5
+=======
+#include <ManagementWindow/ParametersWindow/parameterswindow.h>
+#include <ManagementWindow/ProjectManagement/projectmanagement.h>
+>>>>>>> Renamed and relocated most of folders
 #include <QString>
 #include <QStringList>
 #include <QFile>
+<<<<<<< 6d7ccf832922aaf55c477e811f79daa1688057a5
 #include <QDesktopWidget>
 #include <QListWidgetItem>
-
-#include "appsettings.h"
-#include <management_window/parameterswindow.h>
-#include <management_window/projectmanagement.h>
-#include <management_window/encryption.h>
-#include <management_window/settings.h>
-#include <maps/parameters_map/mapwindow.h>
-#include <maps/parameters_map//mapwindowlarge.h>
-#include <maps/traffic_map/map_traffic.h>
-#include <maps/traffic_map/map_traffic_large.h>
-#include <maps/testrunner.h>
+=======
+#include <Maps/Parameters/MapWindow/mapwindow.h>
+#include <ManagementWindow/Encryption/encryption.h>
+#include <QDesktopWidget>
+#include <QListWidgetItem>
+#include <ManagementWindow/Settings/settings.h>
+#include <Maps/Parameters/MapWindow/mapwindowlarge.h>
+#include <Maps/Traffic/map_traffic.h>
+#include <Maps/Traffic/map_traffic_large.h>
+#include <iostream>
+#include <cstdlib>
+#include <TestRunner/testrunner.h>
+#include <AppSettings/appsettings.h>
+>>>>>>> Renamed and relocated most of folders
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
