@@ -6,7 +6,6 @@
 #include <QVBoxLayout>
 #include <vector>
 #include <QFile>
-#include <QObject>
 #include <QString>
 #include <QStringList>
 #include <QListWidgetItem>

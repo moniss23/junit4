@@ -4,7 +4,7 @@
 #include <QObject>
 #include <Maps/Traffic/DataObjects/celldata.h>
 #include <AppSettings/appsettings.h>
-extern QString* projectName;
+
 extern ProjectManagement* projectMng;
 
 class CellData_Test : public QObject

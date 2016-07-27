@@ -7,7 +7,7 @@
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <ManagementWindow/Encryption/encryption.h>
 #include <AppSettings/appsettings.h>
-extern QString* projectName;
+
 extern ProjectManagement* projectMng;
 
 class MapData_Test : public QObject

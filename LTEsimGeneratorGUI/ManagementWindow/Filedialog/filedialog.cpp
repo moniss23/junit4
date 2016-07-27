@@ -1,7 +1,7 @@
 #include "filedialog.h"
 #include "ui_filedialog.h"
+
 #include <QMessageBox>
-#include <QFile>
 #include <QString>
 #include <QTextStream>
 #include <QFileDialog>
