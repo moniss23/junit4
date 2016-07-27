@@ -1,26 +1,15 @@
 #include <vector>
-#include <iostream>
-#include <cstdlib>
 #include <QApplication>
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <QString>
-#include <QStringList>
 #include <QFile>
-#include <QDesktopWidget>
 #include <QListWidgetItem>
-#include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <ManagementWindow/Encryption/encryption.h>
-#include <QDesktopWidget>
-#include <QListWidgetItem>
-#include <ManagementWindow/Settings/settings.h>
-#include <Maps/Parameters/MapWindow/mapwindowlarge.h>
-#include <Maps/Traffic/map_traffic.h>
-#include <Maps/Traffic/map_traffic_large.h>
-#include <iostream>
-#include <cstdlib>
-#include <TestRunner/testrunner.h>
-#include <AppSettings/appsettings.h>
+
+#include "TestRunner/testrunner.h"
+#include "AppSettings/appsettings.h"
+#include "ManagementWindow/ParametersWindow/parameterswindow.h"
+#include "ManagementWindow/ProjectManagement/projectmanagement.h"
+#include "Maps/Parameters/MapWindow/mapwindow.h"
+#include "Maps/Parameters/MapWindow/mapwindowlarge.h"
 
 
 //Parameters Old Part

@@ -1,22 +1,19 @@
 #include "projectmanagement.h"
 #include "ui_projectmanagement.h"
+
 #include <QFile>
 #include <QDir>
 #include <vector>
 #include <QTextStream>
-#include <QListWidgetItem>
 #include <QListWidget>
-#include <QList>
 #include <QString>
 #include <QStringList>
 #include <QFileInfoList>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QLayout>
 #include <QDebug>
 
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <ManagementWindow/Settings/settings.h>
 #include <AppSettings/appsettings.h>

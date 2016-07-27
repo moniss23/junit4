@@ -2,13 +2,12 @@
 #define PROJECTMANAGEMENT_H
 
 #include <QMainWindow>
-#include <ManagementWindow/Filedialog/filedialog.h>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <vector>
 #include <QString>
-#include <ManagementWindow/Encryption/encryption.h>
-#include <AppSettings/appsettings.h>
+
+#include "ManagementWindow/Filedialog/filedialog.h"
+#include "AppSettings/appsettings.h"
 
 
 namespace Ui {
@@ -28,7 +27,7 @@ public:
     QListWidgetItem* getCurrentItem();
 
     void previewProjectFiles(QListWidgetItem* item);
-    Project getProjectFromVector(int i);
+
     void setDefaultDir(QString dir);
 
     void setAppSettings(AppSettings *value);
