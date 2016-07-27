@@ -19,10 +19,6 @@ extern ParametersWindow * p;
 
 extern ProjectManagement* projectMng;
 
-extern std::vector<QListWidgetItem*> list_items;
-extern unsigned int listC;
-
-extern QString* proFileExt;
 extern bool paramFilePresent;
 
 extern QString lastOpenMap;
@@ -113,7 +109,7 @@ void FileDialog::on_buttonBox_accepted()
 
     // add a new element to the list of projects in project management window
     QListWidgetItem* new_item=new QListWidgetItem(appSettings->getProjectName());
-    list_items.push_back(new_item);
+
     if(this->ui->customLocationRadioButton->isChecked()) {
         projectMng->addWidgetToListWidget(new_item);
         appSettings->addProject(new_item,this->ui->lineEdit->text());
@@ -124,7 +120,6 @@ void FileDialog::on_buttonBox_accepted()
         appSettings->addProject(new_item,appSettings->getDefaultNewProjectDir());
         projectMng->setButtonsStates(new_item);
     }
-    listC++;
     appSettings->write_projects_file();
     this->close();
 }

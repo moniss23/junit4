@@ -25,7 +25,6 @@ public:
 
     QListWidgetItem* getCurrentItem();
     void previewProjectFiles(QListWidgetItem* item);
-    void setFileDialogAppSettings(AppSettings *value);
     void addWidgetToListWidget(QListWidgetItem* new_item);
     void setButtonsStates(QListWidgetItem* new_item);
 

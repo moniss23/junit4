@@ -77,13 +77,9 @@ extern std::vector<QFile*> trafficFiles;
 extern std::vector<QString*> trafficFilesNames;
 extern ParametersWindow* p;
 
-extern QString* proFileExt;
 extern bool paramFilePresent;
-extern QString* proFileExt;
 
 extern std::vector<Project> projects;
-
-extern int project_index;
 
 extern ProjectManagement* projectMng;
 

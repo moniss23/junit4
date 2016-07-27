@@ -19,24 +19,10 @@
 #include <AppSettings/appsettings.h>
 
 
-extern ParametersWindow* p;
-
-extern QString* proFileExt;
-
-extern bool lastMapOpenWasNormal;
-
-bool deletionInProgress=false;
-
-std::vector<QListWidgetItem*> list_items;
-unsigned int listC=0;
-
-extern MapWindow* map_w;
-extern Settings* settingsWindowPW;
-extern Settings* settingsWindowPM;
-
+extern ParametersWindow* p;//TODO: get rid of that
 void msg(QString content);
+extern int project_index;//TODO: get rid of that
 
-extern int project_index;
 
 // constructor - loads the list of detected projects into the window view
 ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) :
@@ -47,16 +33,15 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
     this->setWindowTitle("Project management");
 
 
+    //TODO: This window should not spawn any other one, it should be a separate subsystem
     createProject.setAppSettings(appSettings);
-    createProject.setDefaultDir(appSettings->getDefaultNewProjectDir());
-
 
     //TODO: This should be a separate API - request projects info
     std::vector<QListWidgetItem*> widget_vector = appSettings->loadSettings();
     for(const auto &it : widget_vector) {
         this->ui->listWidget->addItem(it);
     }
-    // enable or disable buttons accordingly
+    // enable or disable buttons accordingly (TODO:this could be a separate function)
     bool projectsPresent =(appSettings->projects.size()>0);
     this->ui->openProject_Button->setEnabled(projectsPresent);
     this->ui->deleteProject_Button->setEnabled(projectsPresent);
@@ -90,8 +75,6 @@ void ProjectManagement::on_openProject_Button_clicked()
 // "delete project" button clicked
 void ProjectManagement::on_deleteProject_Button_clicked(){
 
-    deletionInProgress=true;
-
     if(appSettings->projects.size()>0 && QMessageBox::Yes==QMessageBox(QMessageBox::Question, "LTEsimGenerator", "Entire project will be deleted:\n"+this->ui->listWidget->currentItem()->text()+"\n\nThis cannot be reversed.\n\nAre you sure?", QMessageBox::No|QMessageBox::Yes).exec()){
 
         QString projectName;
@@ -101,9 +84,11 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
         delete this->ui->listWidget->takeItem(this->ui->listWidget->currentRow());
         this->ui->listWidget_2->clear();
 
+
+
+        ///////THIS SHOULD BE DONE ONLY IN APPSETTINGS due to catched signal
         // delete the project directory along with its entire content
         appSettings->removeDirectoryRecursively(projectName);
-
         // delete element from projects vector
         std::vector<Project>::iterator it;
         for(it=appSettings->projects.begin(); it!=appSettings->projects.end(); it++){
@@ -112,13 +97,12 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
             }
         }
         appSettings->projects.erase(it);
+        ///////THIS SHOULD BE DONE ONLY IN APPSETTINGS due to catched signal
 
-        // decrement project counter
+
 
         if(appSettings->projects.size()>0){
-            deletionInProgress=false;//TODO: WTF IS THIS ?
             previewProjectFiles(this->ui->listWidget->currentItem());
-            deletionInProgress=true;//TODO: WTF IS THIS ?
         }
         else{
             this->ui->listWidget_2->clear();
@@ -127,8 +111,6 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
         }
 
     }
-
-    deletionInProgress=false;
 }
 
 // "import project" button is clicked
@@ -221,11 +203,16 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 *   LOGIC CODE HERE
 ***********************************************/
 
-//Setting reference to AppSettings for FileDIalog
-void ProjectManagement::setFileDialogAppSettings(AppSettings *value) {
-
+void ProjectManagement::updateProjectLists(std::vector<Project> &projects)
+{
+  (void)projects; //TODO: implement API :)
 }
 
+
+
+/***********************************************
+*   OLD LOGIC CODE HERE, TODO: DISPOSE
+***********************************************/
 void ProjectManagement::addWidgetToListWidget(QListWidgetItem *new_item) {
     this->ui->listWidget->addItem(new_item);
 }
@@ -236,11 +223,6 @@ void ProjectManagement::setButtonsStates(QListWidgetItem *new_item) {
     this->ui->listWidget->setCurrentItem(new_item);
     this->ui->openProject_Button->setEnabled(true);
     this->ui->deleteProject_Button->setEnabled(true);
-}
-
-void ProjectManagement::updateProjectLists(std::vector<Project> &projects)
-{
-
 }
 
 void ProjectManagement::open_project(){
@@ -281,8 +263,6 @@ void ProjectManagement::open_project(){
 // display project's files in the right view
 void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
 
-    if(deletionInProgress)
-        return;
 
     // read the selected project's name and directory from the projects vector
     QString project_name;
