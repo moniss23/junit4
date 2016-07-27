@@ -56,7 +56,6 @@ int main(int argc, char *argv[])
     ProjectManagement projectUi(&appSettings);
     projectMng = &projectUi;
     projectUi.show();
-    projectUi.setDefaultDir(appSettings.getDefaultNewProjectDir());
 
     tabChangedParams = new QString [8];
 
@@ -79,14 +78,6 @@ void msg(QString content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
-
-
-void viewVector(const std::vector<Project> &projects){
-    for(unsigned int i = 0; i < projects.size(); i++)
-    {
-        qDebug() << projects[i].name << "\t" << projects[i].fullpath;
-    }
-}
 
 QString get_project_name(QListWidgetItem* item, const std::vector<Project> &projects){
     for(unsigned int i = 0; i < projects.size(); i++)

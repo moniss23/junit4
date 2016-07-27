@@ -35,7 +35,6 @@ extern Settings* settingsWindowPW;
 extern Settings* settingsWindowPM;
 
 void msg(QString content);
-void viewVector(const std::vector<Project> &projects);
 
 extern int project_index;
 
@@ -45,34 +44,26 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
     appSettings(appSettings)
 {
     ui->setupUi(this);
-
     this->setWindowTitle("Project management");
 
-    // settings appSettings reference to FileDialog
-    setFileDialogAppSettings(appSettings);
+
+    createProject.setAppSettings(appSettings);
+    createProject.setDefaultDir(appSettings->getDefaultNewProjectDir());
 
 
+    //TODO: This should be a separate API - request projects info
     std::vector<QListWidgetItem*> widget_vector = appSettings->loadSettings();
-
     for(const auto &it : widget_vector) {
         this->ui->listWidget->addItem(it);
     }
-
-
     // enable or disable buttons accordingly
     bool projectsPresent =(appSettings->projects.size()>0);
     this->ui->openProject_Button->setEnabled(projectsPresent);
     this->ui->deleteProject_Button->setEnabled(projectsPresent);
-
     if(projectsPresent){
         this->ui->listWidget->item(0)->setSelected(true);
         this->ui->listWidget->setCurrentRow(0);
     }
-
-
-    viewVector(appSettings->projects);
-
-    appSettings->write_projects_file();
 
 }
 
@@ -232,7 +223,7 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 
 //Setting reference to AppSettings for FileDIalog
 void ProjectManagement::setFileDialogAppSettings(AppSettings *value) {
-    createProject.setAppSettings(value);
+
 }
 
 void ProjectManagement::addWidgetToListWidget(QListWidgetItem *new_item) {
@@ -329,12 +320,6 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
         }
     }
 
-}
-
-
-
-void ProjectManagement::setDefaultDir(QString dir){
-    this->createProject.setDefaultDir(dir);
 }
 
 QListWidgetItem* ProjectManagement::getCurrentItem(){

@@ -25,8 +25,6 @@ public:
 
     QListWidgetItem* getCurrentItem();
     void previewProjectFiles(QListWidgetItem* item);
-    void setDefaultDir(QString dir);
-    void setAppSettings(AppSettings *value);
     void setFileDialogAppSettings(AppSettings *value);
     void addWidgetToListWidget(QListWidgetItem* new_item);
     void setButtonsStates(QListWidgetItem* new_item);
