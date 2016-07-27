@@ -22,9 +22,6 @@
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <Maps/Parameters/MapRange/maprangeform.h>
 
-#include <QStringList>
-#include <QString>
-
 namespace Ui {
 class MapWindow;
 }
@@ -46,56 +43,9 @@ public:
     Ipgwtg *ipex;
     MapRange *mapRange;
 
-    Cell* *tabCell;
-    Cell* cell61;
-    Cell* cell62;
-    Cell* cell52;
-    Cell* cell51;
-    Cell* cell42;
-    Cell* cell41;
-    Cell* cell32;
-    Cell* cell31;
-    Cell* cell22;
-    Cell* cell21;
-    Cell* cell12;
-    Cell* cell11;
-
+    Cell** tabCell;
     Center** tabCenter;
-    Center* center61;
-    Center* center62;
-    Center* center51;
-    Center* center52;
-    Center* center41;
-    Center* center42;
-    Center* center31;
-    Center* center32;
-    Center* center21;
-    Center* center22;
-    Center* center11;
-    Center* center12;
-
     Handover** tabHandover;
-    Handover* handover61_62;
-    Handover* handover51_61;
-    Handover* handover52_62;
-    Handover* handover52_61;
-    Handover* handover51_52;
-    Handover* handover42_52;
-    Handover* handover41_42;
-    Handover* handover32_42;
-    Handover* handover22_32;
-    Handover* handover21_22;
-    Handover* handover12_22;
-    Handover* handover12_21;
-    Handover* handover32_41;
-    Handover* handover11_21;
-    Handover* handover21_31;
-    Handover* handover21_32;
-    Handover* handover31_32;
-    Handover* handover31_41;
-    Handover* handover41_52;
-    Handover* handover41_51;
-    Handover* handover11_12;
 
     void changeMapRange_x_northBoundMap();
     void changeMapRange_y_northBoundMap();
@@ -268,6 +218,8 @@ private:
     int counter_center;
     int couter_handover;
     int divisor;
+
+    bool anyChangesInMap;
 
     QString convertBoolToText(bool value);
 };

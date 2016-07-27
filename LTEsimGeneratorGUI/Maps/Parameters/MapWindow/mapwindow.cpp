@@ -1,10 +1,11 @@
-#include "mapwindow.h"
-#include "ui_mapwindow.h"
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <Maps/MapObjects/cell.h>
 #include <QString>
 #include <QCloseEvent>
+
+#include "mapwindow.h"
+#include "ui_mapwindow.h"
+#include <Maps/MapObjects/cell.h>
 #include <ManagementWindow/Encryption/encryption.h>
+#include <ManagementWindow/ParametersWindow/parameterswindow.h>
 
 extern ParametersWindow* p;
 extern QString * tabChangedParams;
@@ -29,7 +30,6 @@ extern std::vector<bool> trafficFilesChanged;
 extern std::vector<bool> trafficFilesModified;
 
 extern bool enteringMapView;
-extern bool anyChangesInMap;
 extern bool changesPresent;
 
 //Temporary global variables for checkboxCells
@@ -73,7 +73,7 @@ MapWindow::MapWindow(QWidget *parent) :
     ipex = new Ipgwtg();
     mapRange = new MapRange();
 
-
+    anyChangesInMap = false;
 
     connect(ui->axis, SIGNAL(Mouse_Pressed()), this, SLOT(Mouse_Pressed()));
     connect(ui->cell62, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell62_clicked()));
@@ -88,6 +88,7 @@ MapWindow::MapWindow(QWidget *parent) :
     connect(ui->cell21, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell21_clicked()));
     connect(ui->cell12, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell12_clicked()));
     connect(ui->cell11, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell11_clicked()));
+
     connect(ui->lblMME1, SIGNAL(Mouse_Pressed()), this, SLOT(on_lblMME_clicked()));
     connect(ui->lblSGW1, SIGNAL(Mouse_Pressed()), this, SLOT(on_lblSGW_clicked()));
     connect(ui->lblUCTool, SIGNAL(Mouse_Pressed()), this, SLOT(on_lblUCtool_clicked()));
@@ -99,179 +100,135 @@ MapWindow::MapWindow(QWidget *parent) :
     connect(ui->SaveButton,SIGNAL (clicked()), this, SLOT(save_button_clicked()));
     connect(ui->RestoreButton,SIGNAL (clicked()), this, SLOT(restore_button_clicked()));
 
-    qDebug()<< "Nazwa celli: " + cell61->getCell() + " Nowa nazwa: " + cell61->getCell_new_name();
     changeMapRange_y_northBoundMap();
     changeMapRange_x_northBoundMap();
-
-
 }
-void MapWindow::createHandover(){
+void MapWindow::createHandover() {
     tabHandover = new Handover*[21];
-    handover11_12 = new Handover ("Handover11_12");
-    handover61_62 = new Handover ("Handover61_62");
-    handover51_61 = new Handover ("Handover51_61");
-    handover52_62 = new Handover ("Handover52_62");
-    handover52_61 = new Handover ("Handover52_61");
-    handover51_52 = new Handover ("Handover51_52");
-    handover42_52 = new Handover ("Handover42_52");
-    handover41_42 = new Handover ("Handover41_42");
-    handover32_42 = new Handover ("Handover32_42");
-    handover22_32 = new Handover ("Handover22_32");
-    handover21_22 = new Handover ("Handover21_22");
-    handover12_22 = new Handover ("Handover12_22");
-    handover12_21 = new Handover ("Handover12_21");
-    handover32_41 = new Handover ("Handover32_41");
-    handover11_21 = new Handover ("Handover11_21");
-    handover21_31 = new Handover ("Handover21_31");
-    handover21_32 = new Handover ("Handover21_32");
-    handover31_32 = new Handover ("Handover31_32");
-    handover31_41 = new Handover ("Handover31_41");
-    handover41_52 = new Handover ("Handover41_52");
-    handover41_51 = new Handover ("Handover41_51");
-
-    tabHandover[0] = handover11_12;
-    tabHandover[1] = handover11_21;
-    tabHandover[2] = handover12_21;
-    tabHandover[3] = handover12_22;
-    tabHandover[4] = handover21_22;
-    tabHandover[5] = handover21_31;
-    tabHandover[6] = handover21_32;
-    tabHandover[7] = handover22_32;
-    tabHandover[8] = handover31_32;
-    tabHandover[9] = handover31_41;
-    tabHandover[10] = handover32_41;
-    tabHandover[11] = handover32_42;
-    tabHandover[12] = handover41_42;
-    tabHandover[13] = handover41_51;
-    tabHandover[14] = handover41_52;
-    tabHandover[15] = handover42_52;
-    tabHandover[16] = handover51_52;
-    tabHandover[17] = handover51_61;
-    tabHandover[18] = handover52_61;
-    tabHandover[19] = handover52_62;
-    tabHandover[20] = handover61_62;
-
-//    for(unsigned int i=0; i<handoverCount; i++){
-//        handoverNames[i].name=tabHandover[i]->getArea();
-//        handoverNames[i].obj=tabHandover[i];
-//    }
-
+    tabHandover[0] = new Handover ("Handover11_12");
+    tabHandover[1] = new Handover ("Handover11_21");
+    tabHandover[2] = new Handover ("Handover12_21");
+    tabHandover[3] = new Handover ("Handover12_22");
+    tabHandover[4] = new Handover ("Handover21_22");
+    tabHandover[5] = new Handover ("Handover21_31");
+    tabHandover[6] = new Handover ("Handover21_32");
+    tabHandover[7] = new Handover ("Handover22_32");
+    tabHandover[8] = new Handover ("Handover31_32");
+    tabHandover[9] = new Handover ("Handover31_41");
+    tabHandover[10] = new Handover ("Handover32_41");
+    tabHandover[11] = new Handover ("Handover32_42");
+    tabHandover[12] = new Handover ("Handover41_42");
+    tabHandover[13] = new Handover ("Handover41_51");
+    tabHandover[14] = new Handover ("Handover41_52");
+    tabHandover[15] = new Handover ("Handover42_52");
+    tabHandover[16] = new Handover ("Handover51_52");
+    tabHandover[17] = new Handover ("Handover51_61");
+    tabHandover[18] = new Handover ("Handover52_61");
+    tabHandover[19] = new Handover ("Handover52_62");
+    tabHandover[20] = new Handover ("Handover61_62");
 }
 
-void MapWindow::createCenter(){
+void MapWindow::createCenter() {
     tabCenter = new Center*[12];
-    center61 = new Center ("Center61");
-    center62 = new Center ("Center62");
-    center51 = new Center ("Center51");
-    center52 = new Center ("Center52");
-    center41 = new Center ("Center41");
-    center42 = new Center ("Center42");
-    center31 = new Center ("Center31");
-    center32 = new Center ("Center32");
-    center21 = new Center ("Center21");
-    center22 = new Center ("Center22");
-    center11 = new Center ("Center11");
-    center12 = new Center ("Center12");
-
-    tabCenter[0] = center11;
-    tabCenter[1] = center12;
-    tabCenter[2] = center21;
-    tabCenter[3] = center22;
-    tabCenter[4] = center31;
-    tabCenter[5] = center32;
-    tabCenter[6] = center41;
-    tabCenter[7] = center42;
-    tabCenter[8] = center51;
-    tabCenter[9] = center52;
-    tabCenter[10] = center61;
-    tabCenter[11] = center62;
-
-//    for(unsigned int i=0; i<centerCount; i++){
-//        centerNames[i].name=tabCenter[i]->getArea();
-//        centerNames[i].obj=tabCenter[i];
-//    }
+    tabCenter[0] = new Center ("Center11");
+    tabCenter[1] = new Center ("Center12");
+    tabCenter[2] = new Center ("Center21");
+    tabCenter[3] = new Center ("Center22");
+    tabCenter[4] = new Center ("Center31");
+    tabCenter[5] = new Center ("Center32");
+    tabCenter[6] = new Center ("Center41");
+    tabCenter[7] = new Center ("Center42");
+    tabCenter[8] = new Center ("Center51");
+    tabCenter[9] = new Center ("Center52");
+    tabCenter[10] = new Center ("Center61");
+    tabCenter[11] = new Center ("Center62");
 }
 
 void MapWindow::createCell(){
-    cell61 = new Cell ("cell61");
-    cell61->chBox = ui->checkBoxCell61;
-    cell61->center = center61;
-    if(!cell61->getCell_new_name().isEmpty())
-        cell61->chBox->setText(cell61->getCell_new_name());
-    cell62 = new Cell ("cell62");
-    cell62->chBox = ui->checkBoxCell62;
-    cell62->center = center62;
-    if(!cell62->getCell_new_name().isEmpty())
-        cell62->chBox->setText(cell62->getCell_new_name());
-    cell52 = new Cell ("cell52");
-    cell52->chBox = ui->checkBoxCell52;
-    cell52->center = center52;
-    if(!cell52->getCell_new_name().isEmpty())
-        cell52->chBox->setText(cell52->getCell_new_name());
-    cell51 = new Cell ("cell51");
-    cell51->chBox = ui->checkBoxCell51;
-    cell51->center = center51;
-    if(!cell51->getCell_new_name().isEmpty())
-        cell51->chBox->setText(cell51->getCell_new_name());
-    cell42 = new Cell ("cell42");
-    cell42->chBox = ui->checkBoxCell42;
-    cell42->center = center42;
-    if(!cell42->getCell_new_name().isEmpty())
-        cell42->chBox->setText(cell42->getCell_new_name());
-    cell41 = new Cell ("cell41");
-    cell41->chBox = ui->checkBoxCell41;
-    cell41->center = center41;
-    if(!cell41->getCell_new_name().isEmpty())
-        cell41->chBox->setText(cell41->getCell_new_name());
-    cell32 = new Cell ("cell32");
-    cell32->chBox = ui->checkBoxCell32;
-    cell32->center = center32;
-    if(!cell32->getCell_new_name().isEmpty())
-        cell32->chBox->setText(cell32->getCell_new_name());
-    cell31 = new Cell ("cell31");
-    cell31->chBox = ui->checkBoxCell31;
-    cell31->center = center31;
-    if(!cell31->getCell_new_name().isEmpty())
-        cell31->chBox->setText(cell31->getCell_new_name());
-    cell22 = new Cell ("cell22");
-    cell22->chBox = ui->checkBoxCell22;
-    cell22->center = center22;
-    if(!cell22->getCell_new_name().isEmpty())
-        cell22->chBox->setText(cell22->getCell_new_name());
-    cell21 = new Cell ("cell21");
-    cell21->chBox = ui->checkBoxCell21;
-    cell21->center = center21;
-    if(!cell21->getCell_new_name().isEmpty())
-        cell21->chBox->setText(cell21->getCell_new_name());
-    cell12 = new Cell ("cell12");
-    cell12->chBox = ui->checkBoxCell12;
-    cell12->center = center12;
-    if(!cell12->getCell_new_name().isEmpty())
-        cell12->chBox->setText(cell12->getCell_new_name());
-    cell11 = new Cell ("cell11");
-    cell11->chBox = ui->checkBoxCell11;
-    cell11->center = center11;
-    if(!cell11->getCell_new_name().isEmpty())
-        cell11->chBox->setText(cell11->getCell_new_name());
     tabCell = new Cell *[12];
-    tabCell[0] = cell11;
-    tabCell[1] = cell12;
-    tabCell[2] = cell21;
-    tabCell[3] = cell22;
-    tabCell[4] = cell31;
-    tabCell[5] = cell32;
-    tabCell[6] = cell41;
-    tabCell[7] = cell42;
-    tabCell[8] = cell51;
-    tabCell[9] = cell52;
-    tabCell[10] = cell61;
-    tabCell[11] = cell62;
 
-//    for(unsigned int i=0; i<cellCount; i++){
-//        cellNames[i].name=tabCell[i]->getCell();
-//        cellNames[i].obj=tabCell[i];
-//    }
+    tabCell[11] = new Cell ("cell62");
+    tabCell[11]->chBox = ui->checkBoxCell62;
+    tabCell[11]->center = tabCenter[11];
+    if(!tabCell[11]->getCell_new_name().isEmpty()) {
+        tabCell[11]->chBox->setText(tabCell[11]->getCell_new_name());
+    }
+
+    tabCell[10] = new Cell ("cell61");
+    tabCell[10]->chBox = ui->checkBoxCell61;
+    tabCell[10]->center = tabCenter[10];
+    if(!tabCell[10]->getCell_new_name().isEmpty()) {
+        tabCell[10]->chBox->setText(tabCell[10]->getCell_new_name());
+    }
+
+    tabCell[9] = new Cell ("cell52");
+    tabCell[9]->chBox = ui->checkBoxCell52;
+    tabCell[9]->center = tabCenter[9];
+    if(!tabCell[9]->getCell_new_name().isEmpty()) {
+        tabCell[9]->chBox->setText(tabCell[9]->getCell_new_name());
+    }
+
+    tabCell[8] = new Cell ("cell51");
+    tabCell[8]->chBox = ui->checkBoxCell51;
+    tabCell[8]->center = tabCenter[8];
+    if(!tabCell[8]->getCell_new_name().isEmpty()) {
+        tabCell[8]->chBox->setText(tabCell[8]->getCell_new_name());
+    }
+
+    tabCell[7] = new Cell ("cell42");
+    tabCell[7]->chBox = ui->checkBoxCell42;
+    tabCell[7]->center = tabCenter[7];
+    if(!tabCell[7]->getCell_new_name().isEmpty()) {
+        tabCell[7]->chBox->setText(tabCell[7]->getCell_new_name());
+    }
+
+    tabCell[6] = new Cell ("cell41");
+    tabCell[6]->chBox = ui->checkBoxCell41;
+    tabCell[6]->center = tabCenter[6];
+    if(!tabCell[6]->getCell_new_name().isEmpty()) {
+        tabCell[6]->chBox->setText(tabCell[6]->getCell_new_name());
+    }
+
+    tabCell[5] = new Cell ("cell32");
+    tabCell[5]->chBox = ui->checkBoxCell32;
+    tabCell[5]->center = tabCenter[5];
+    if(!tabCell[5]->getCell_new_name().isEmpty()) {
+        tabCell[5]->chBox->setText(tabCell[5]->getCell_new_name());
+    }
+
+    tabCell[4] = new Cell ("cell31");
+    tabCell[4]->chBox = ui->checkBoxCell31;
+    tabCell[4]->center = tabCenter[4];
+    if(!tabCell[4]->getCell_new_name().isEmpty()) {
+        tabCell[4]->chBox->setText(tabCell[4]->getCell_new_name());
+    }
+
+    tabCell[3] = new Cell ("cell22");
+    tabCell[3]->chBox = ui->checkBoxCell22;
+    tabCell[3]->center = tabCenter[3];
+    if(!tabCell[3]->getCell_new_name().isEmpty()) {
+        tabCell[3]->chBox->setText(tabCell[3]->getCell_new_name());
+    }
+
+    tabCell[2] = new Cell ("cell21");
+    tabCell[2]->chBox = ui->checkBoxCell21;
+    tabCell[2]->center = tabCenter[2];
+    if(!tabCell[2]->getCell_new_name().isEmpty())
+        tabCell[2]->chBox->setText(tabCell[2]->getCell_new_name());
+
+    tabCell[1] = new Cell ("cell12");
+    tabCell[1]->chBox = ui->checkBoxCell12;
+    tabCell[1]->center = tabCenter[1];
+    if(!tabCell[1]->getCell_new_name().isEmpty())
+        tabCell[1]->chBox->setText(tabCell[1]->getCell_new_name());
+
+    tabCell[0] = new Cell ("cell11");
+    tabCell[0]->chBox = ui->checkBoxCell11;
+    tabCell[0]->center = tabCenter[0];
+    if(!tabCell[0]->getCell_new_name().isEmpty())
+        tabCell[0]->chBox->setText(tabCell[0]->getCell_new_name());
 }
+
 void MapWindow::createCoreNetwork()
 {
     mme = new Mme;
@@ -705,261 +662,260 @@ void MapWindow::restore_button_clicked()
     }
 }
 
-
-
 //---------------------------------------------------------------------------
+
 void MapWindow::on_Center61_clicked()
 {
-   openCenter = center61;
+   openCenter = tabCenter[10];
    openCell = NULL;
    openHandover = NULL;
-   fillParams(center61);
+   fillParams(tabCenter[10]);
 }
 void MapWindow::on_Center62_clicked()
 {
-    openCenter = center62;
+    openCenter = tabCenter[11];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center62);
+    fillParams(tabCenter[11]);
 }
 void MapWindow::on_Center52_clicked()
 {
-    openCenter = center52;
+    openCenter = tabCenter[9];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center52);
+    fillParams(tabCenter[9]);
 }
 void MapWindow::on_Center51_clicked()
 {
-    openCenter = center51;
+    openCenter = tabCenter[8];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center51);
+    fillParams(tabCenter[8]);
 }
 void MapWindow::on_Center42_clicked()
 {
-    openCenter = center42;
+    openCenter = tabCenter[7];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center42);
+    fillParams(tabCenter[7]);
 }
 void MapWindow::on_Center41_clicked()
 {
-    openCenter = center41;
+    openCenter = tabCenter[6];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center41);
+    fillParams(tabCenter[6]);
 }
 void MapWindow::on_Center32_clicked()
 {
-    openCenter = center32;
+    openCenter = tabCenter[5];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center32);
+    fillParams(tabCenter[5]);
 }
 void MapWindow::on_Center31_clicked()
 {
-    openCenter = center31;
+    openCenter = tabCenter[4];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center31);
+    fillParams(tabCenter[4]);
 }
 void MapWindow::on_Center22_clicked()
 {
-    openCenter = center22;
+    openCenter = tabCenter[3];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center22);
+    fillParams(tabCenter[3]);
 }
 void MapWindow::on_Center21_clicked()
 {
-    openCenter = center21;
+    openCenter = tabCenter[2];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center21);
+    fillParams(tabCenter[2]);
 }
 void MapWindow::on_Center12_clicked()
 {
-    openCenter = center12;
+    openCenter = tabCenter[1];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center12);
+    fillParams(tabCenter[1]);
 }
 void MapWindow::on_Center11_clicked()
 {
-    openCenter = center11;
+    openCenter = tabCenter[0];
     openCell = NULL;
     openHandover = NULL;
-    fillParams(center11);
+    fillParams(tabCenter[0]);
 }
 
 //-----------Handover funcion-------------------------
 
 void MapWindow::on_Handover61_62_clicked()
 {
-    openHandover = handover61_62;
+    openHandover = tabHandover[20];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover61_62);
+    fillParams(tabHandover[20]);
 }
 
 void MapWindow::on_Handover51_61_clicked()
 {
-    openHandover = handover51_61;
+    openHandover = tabHandover[17];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover51_61);
+    fillParams(tabHandover[17]);
 }
 void MapWindow::on_Handover52_61_clicked()
 {
-    openHandover = handover52_61;
+    openHandover = tabHandover[18];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover52_61);
+    fillParams(tabHandover[18]);
 }
 
 void MapWindow::on_Handover52_62_clicked()
 {
-    openHandover = handover52_62;
+    openHandover = tabHandover[19];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover52_62);
+    fillParams(tabHandover[19]);
 }
 
 void MapWindow::on_Handover51_52_clicked()
 {
-    openHandover = handover51_52;
+    openHandover = tabHandover[16];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover51_52);
+    fillParams(tabHandover[16]);
 }
 
 void MapWindow::on_Handover41_51_clicked()
 {
-    openHandover = handover41_51;
+    openHandover = tabHandover[13];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover41_51);
+    fillParams(tabHandover[13]);
 }
 
 void MapWindow::on_Handover41_52_clicked()
 {
-    openHandover = handover41_52;
+    openHandover = tabHandover[14];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover41_52);
+    fillParams(tabHandover[14]);
 }
 
 void MapWindow::on_Handover42_52_clicked()
 {
-    openHandover = handover42_52;
+    openHandover = tabHandover[15];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover42_52);
+    fillParams(tabHandover[15]);
 }
 
 void MapWindow::on_Handover41_42_clicked()
 {
-    openHandover = handover41_42;
+    openHandover = tabHandover[12];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover41_42);
+    fillParams(tabHandover[12]);
 }
 
 void MapWindow::on_Handover31_41_clicked()
 {
-    openHandover = handover31_41;
+    openHandover = tabHandover[9];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover31_41);
+    fillParams(tabHandover[9]);
 }
 
 void MapWindow::on_Handover32_41_clicked()
 {
-    openHandover = handover32_41;
+    openHandover = tabHandover[10];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover32_41);
+    fillParams(tabHandover[10]);
 }
 
 void MapWindow::on_Handover32_42_clicked()
 {
-    openHandover = handover32_42;
+    openHandover = tabHandover[11];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover32_42);
+    fillParams(tabHandover[11]);
 }
 
 void MapWindow::on_Handover31_32_clicked()
 {
-    openHandover = handover31_32;
+    openHandover = tabHandover[8];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover31_32);
+    fillParams(tabHandover[8]);
 }
 
 void MapWindow::on_Handover21_31_clicked()
 {
-    openHandover = handover21_31;
+    openHandover = tabHandover[5];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover21_31);
+    fillParams(tabHandover[5]);
 }
 
 void MapWindow::on_Handover21_32_clicked()
 {
-    openHandover = handover21_32;
+    openHandover = tabHandover[6];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover21_32);
+    fillParams(tabHandover[6]);
 }
 
 void MapWindow::on_Handover22_32_clicked()
 {
-    openHandover = handover22_32;
+    openHandover = tabHandover[7];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover22_32);
+    fillParams(tabHandover[7]);
 }
 
 void MapWindow::on_Handover21_22_clicked()
 {
-    openHandover = handover21_22;
+    openHandover = tabHandover[4];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover21_22);
+    fillParams(tabHandover[4]);
 }
 
 void MapWindow::on_Handover11_21_clicked()
 {
-    openHandover = handover11_21;
+    openHandover = tabHandover[1];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover11_21);
+    fillParams(tabHandover[1]);
 }
 
 void MapWindow::on_Handover12_21_clicked()
 {
-    openHandover = handover12_21;
+    openHandover = tabHandover[2];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover12_21);
+    fillParams(tabHandover[2]);
 }
 
 void MapWindow::on_Handover12_22_clicked()
 {
-    openHandover = handover12_22;
+    openHandover = tabHandover[3];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover12_22);
+    fillParams(tabHandover[3]);
 }
 
 void MapWindow::on_Handover11_12_clicked()
 {
-    openHandover = handover11_12;
+    openHandover = tabHandover[0];
     openCell = NULL;
     openCenter = NULL;
-    fillParams(handover11_12);
+    fillParams(tabHandover[0]);
 }
 
 //-----------Cell funcion ----------------------------

@@ -95,9 +95,6 @@ extern Map_traffic_large* map_tl;
 
 extern bool normalMapOpen;
 extern bool largeMapOpen;
-
-extern bool anyChangesInMap;
-
 extern bool changesPresent;
 
 int nrOfTrafficFiles=0;

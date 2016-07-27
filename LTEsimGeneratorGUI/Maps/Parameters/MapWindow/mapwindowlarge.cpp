@@ -29,7 +29,6 @@ extern std::vector<bool> trafficFilesChanged;
 extern std::vector<bool> trafficFilesModified;
 
 extern bool enteringMapView;
-extern bool anyChangesInMap;
 extern bool changesPresent;
 
 extern Cell *openCell;

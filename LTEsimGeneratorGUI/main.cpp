@@ -55,8 +55,6 @@ bool changesPresent = false;
 bool anyProjectOpen = false;
 bool settingsWindowOpen = false;
 
-bool anyChangesInMap = false;
-
 void msg(QString content);
 
 int main(int argc, char *argv[])
