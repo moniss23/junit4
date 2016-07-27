@@ -60,16 +60,15 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
 
 
     // enable or disable buttons accordingly
-    if(appSettings->projects.size()>0){
+    bool projectsPresent =(appSettings->projects.size()>0);
+    this->ui->openProject_Button->setEnabled(projectsPresent);
+    this->ui->deleteProject_Button->setEnabled(projectsPresent);
+
+    if(projectsPresent){
         this->ui->listWidget->item(0)->setSelected(true);
         this->ui->listWidget->setCurrentRow(0);
-        this->ui->pushButton->setEnabled(true);
-        this->ui->pushButton_3->setEnabled(true);
     }
-    else{
-        this->ui->pushButton->setEnabled(false);
-        this->ui->pushButton_3->setEnabled(false);
-    }
+
 
     viewVector(appSettings->projects);
 
@@ -82,116 +81,23 @@ ProjectManagement::~ProjectManagement()
     delete ui;
 }
 
-void ProjectManagement::setDefaultDir(QString dir){
-    this->createProject.setDefaultDir(dir);
-}
-
-QListWidgetItem* ProjectManagement::getCurrentItem(){
-    return this->ui->listWidget->currentItem();
-}
-
-
-void ProjectManagement::open_project(){
-
-    QListWidgetItem* selected_item;
-
-    // check which item in the list is selected
-    if(!(this->ui->listWidget->selectedItems().isEmpty())){
-        selected_item=this->ui->listWidget->selectedItems()[0];
-    }
-    else{
-        selected_item=NULL;
-    }
-
-    // if some item is selected
-    if(selected_item!=NULL){
-
-        // obtain the name of the select project from the widget
-        appSettings->setProjectName(selected_item->text().split("\t")[0]);
-
-        // obtain the project's index in projects vector
-        for(unsigned int i=0; i<appSettings->projects.size(); i++){
-            if(appSettings->projects[i].widget==selected_item){
-                project_index=i;
-                break;
-            }
-        }
-
-        this->close();
-
-        p->show();
-
-        p->loadProject();
-
-    }
-}
-
-// when the "load project" button is clicked
-void ProjectManagement::on_pushButton_clicked()
-{
-    this->open_project();
-}
-
-// when the "new project" button is clicked
-void ProjectManagement::on_pushButton_2_clicked()
+/***********************************************
+*   AUTOMATIC BINDINGS TO UI BUTTONS CODE HERE
+***********************************************/
+void ProjectManagement::on_newProject_Button_clicked()
 {
     createProject.clearInputArea();
     createProject.setDefaultDir(appSettings->getDefaultNewProjectDir());
     createProject.show();
 }
 
-// display project's files in the right view
-void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
-
-    if(deletionInProgress)
-        return;
-
-    // read the selected project's name and directory from the projects vector
-    QString project_name;
-    QString project_dir;
-    for(unsigned int i=0; i<appSettings->projects.size(); i++){
-        if(appSettings->projects[i].widget==item){
-            project_name=appSettings->projects[i].name;
-            project_dir=appSettings->projects[i].fullpath;
-            break;
-        }
-    }
-
-    // clear the right list
-    this->ui->listWidget_2->clear();
-
-    QStringList project_data = appSettings->read_project_file(project_name,project_dir);
-
-    QString parameters_file(project_data[2]);
-
-    int traffic_files_count=project_data[3].toInt();
-
-    QString file_name;
-
-    // if the project file is empty, update the right list
-    if(parameters_file=="<none>" && traffic_files_count==0){
-        this->ui->listWidget_2->addItem("<empty>");
-    }
-
-    // if the project file is not empty
-    else{
-        this->ui->listWidget_2->addItem(parameters_file);
-        for(int i=0; i<traffic_files_count; i++){
-            file_name=project_data[4+i];
-            this->ui->listWidget_2->addItem(file_name);
-        }
-    }
-
-}
-
-void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void ProjectManagement::on_openProject_Button_clicked()
 {
-    (void) previous;
-    this->previewProjectFiles(current);
+    this->open_project();
 }
 
 // "delete project" button clicked
-void ProjectManagement::on_pushButton_3_clicked(){
+void ProjectManagement::on_deleteProject_Button_clicked(){
 
     deletionInProgress=true;
 
@@ -219,14 +125,14 @@ void ProjectManagement::on_pushButton_3_clicked(){
         // decrement project counter
 
         if(appSettings->projects.size()>0){
-            deletionInProgress=false;
+            deletionInProgress=false;//TODO: WTF IS THIS ?
             previewProjectFiles(this->ui->listWidget->currentItem());
-            deletionInProgress=true;
+            deletionInProgress=true;//TODO: WTF IS THIS ?
         }
         else{
             this->ui->listWidget_2->clear();
-            this->ui->pushButton->setEnabled(false);
-            this->ui->pushButton_3->setEnabled(false);
+            this->ui->openProject_Button->setEnabled(false);
+            this->ui->deleteProject_Button->setEnabled(false);
         }
 
     }
@@ -234,14 +140,8 @@ void ProjectManagement::on_pushButton_3_clicked(){
     deletionInProgress=false;
 }
 
-void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
-{
-    (void) item;
-    this->open_project();
-}
-
 // "import project" button is clicked
-void ProjectManagement::on_pushButton_4_clicked()
+void ProjectManagement::on_importProject_Button_clicked()
 {
 
     // open a dialog to find the project's dir
@@ -301,12 +201,34 @@ void ProjectManagement::on_pushButton_4_clicked()
 }
 
 // "settings" button clicked
-void ProjectManagement::on_pushButton_5_clicked()
+void ProjectManagement::on_settings_Button_clicked()
 {
     Settings settingsWindow(appSettings, this,false);
     settingsWindow.setWindowModality(Qt::WindowModal);
     settingsWindow.exec();
 }
+
+
+/***********************************************
+*   AUTOMATIC BINDINGS TO UI ACTIONS CODE HERE
+***********************************************/
+
+void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+{
+    (void) item;
+    this->open_project();
+}
+
+void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    (void) previous;
+    this->previewProjectFiles(current);
+}
+
+
+/***********************************************
+*   LOGIC CODE HERE
+***********************************************/
 
 //Setting reference to AppSettings for FileDIalog
 void ProjectManagement::setFileDialogAppSettings(AppSettings *value) {
@@ -321,11 +243,101 @@ void ProjectManagement::setButtonsStates(QListWidgetItem *new_item) {
     this->previewProjectFiles(new_item);
 
     this->ui->listWidget->setCurrentItem(new_item);
+    this->ui->openProject_Button->setEnabled(true);
+    this->ui->deleteProject_Button->setEnabled(true);
+}
 
-    if(!this->ui->pushButton->isEnabled()){
-        this->ui->pushButton->setEnabled(true);
+void ProjectManagement::updateProjectLists(std::vector<Project> &projects)
+{
+
+}
+
+void ProjectManagement::open_project(){
+
+    QListWidgetItem* selected_item;
+
+    // check which item in the list is selected
+    if(!(this->ui->listWidget->selectedItems().isEmpty())){
+        selected_item=this->ui->listWidget->selectedItems()[0];
     }
-    if(!this->ui->pushButton_3->isEnabled()){
-        this->ui->pushButton_3->setEnabled(true);
+    else{
+        selected_item=NULL;
+    }
+
+    // if some item is selected
+    if(selected_item!=NULL){
+
+        // obtain the name of the select project from the widget
+        appSettings->setProjectName(selected_item->text().split("\t")[0]);
+
+        // obtain the project's index in projects vector
+        for(unsigned int i=0; i<appSettings->projects.size(); i++){
+            if(appSettings->projects[i].widget==selected_item){
+                project_index=i;
+                break;
+            }
+        }
+
+        this->close();
+
+        p->show();
+
+        p->loadProject();
+
     }
 }
+
+// display project's files in the right view
+void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
+
+    if(deletionInProgress)
+        return;
+
+    // read the selected project's name and directory from the projects vector
+    QString project_name;
+    QString project_dir;
+    for(unsigned int i=0; i<appSettings->projects.size(); i++){
+        if(appSettings->projects[i].widget==item){
+            project_name=appSettings->projects[i].name;
+            project_dir=appSettings->projects[i].fullpath;
+            break;
+        }
+    }
+
+    // clear the right list
+    this->ui->listWidget_2->clear();
+
+    QStringList project_data = appSettings->read_project_file(project_name,project_dir);
+
+    QString parameters_file(project_data[2]);
+
+    int traffic_files_count=project_data[3].toInt();
+
+    QString file_name;
+
+    // if the project file is empty, update the right list
+    if(parameters_file=="<none>" && traffic_files_count==0){
+        this->ui->listWidget_2->addItem("<empty>");
+    }
+
+    // if the project file is not empty
+    else{
+        this->ui->listWidget_2->addItem(parameters_file);
+        for(int i=0; i<traffic_files_count; i++){
+            file_name=project_data[4+i];
+            this->ui->listWidget_2->addItem(file_name);
+        }
+    }
+
+}
+
+
+
+void ProjectManagement::setDefaultDir(QString dir){
+    this->createProject.setDefaultDir(dir);
+}
+
+QListWidgetItem* ProjectManagement::getCurrentItem(){
+    return this->ui->listWidget->currentItem();
+}
+

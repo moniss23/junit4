@@ -55,7 +55,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="openProject_Button">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -68,7 +68,7 @@
      <string>Open</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="newProject_Button">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -104,7 +104,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="deleteProject_Button">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -117,7 +117,7 @@
      <string>Delete</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="importProject_Button">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -130,7 +130,7 @@
      <string>Import</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="settings_Button">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -150,7 +150,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

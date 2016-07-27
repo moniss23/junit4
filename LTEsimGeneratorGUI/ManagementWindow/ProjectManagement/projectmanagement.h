@@ -24,35 +24,49 @@ public:
 
 
     QListWidgetItem* getCurrentItem();
-
     void previewProjectFiles(QListWidgetItem* item);
-
     void setDefaultDir(QString dir);
-
     void setAppSettings(AppSettings *value);
-
     void setFileDialogAppSettings(AppSettings *value);
-
     void addWidgetToListWidget(QListWidgetItem* new_item);
     void setButtonsStates(QListWidgetItem* new_item);
 
+    //TODO: new API to implement
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
+signals:
+    void SpawnWindow_NewProject();
+    void SpawnWindow_OpenProject();
+    void SpawnWindow_ImportProject();
+    void DeleteProject(const QString &ProjectName );
+    void SpawnWindow_Settings();
+public slots:
+    void updateProjectLists(std::vector<Project> &projects);
+
+
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
 private slots:
+    void on_newProject_Button_clicked();
 
-    void on_pushButton_clicked();
+    void on_openProject_Button_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_importProject_Button_clicked();
+
+    void on_deleteProject_Button_clicked();
+
+    void on_settings_Button_clicked();
+
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
-    void on_pushButton_3_clicked();
-
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
-    void open_project();
 
-    void on_pushButton_4_clicked();
-
-    void on_pushButton_5_clicked();
+private:
+     void open_project();
 
 private:
     Ui::ProjectManagement *ui;

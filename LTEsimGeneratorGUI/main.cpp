@@ -51,11 +51,12 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     AppSettings appSettings;
-    projectMng = new ProjectManagement(&appSettings);
-    projectMng->show();
-
     appSettings.read_settings_file();
-    projectMng->setDefaultDir(appSettings.getDefaultNewProjectDir());
+
+    ProjectManagement projectUi(&appSettings);
+    projectMng = &projectUi;
+    projectUi.show();
+    projectUi.setDefaultDir(appSettings.getDefaultNewProjectDir());
 
     tabChangedParams = new QString [8];
 
