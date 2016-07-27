@@ -41,7 +41,6 @@ extern Settings* settingsWindowPM;
 
 void msg(QString content);
 void viewVector(const std::vector<Project> &projects);
-void setCenterOfApplication(QWidget* widget);
 
 extern int project_index;
 
@@ -424,7 +423,6 @@ void ProjectManagement::on_pushButton_5_clicked()
 {
     Settings settingsWindow(appSettings, this,false);
     settingsWindow.setWindowModality(Qt::WindowModal);
-    setCenterOfApplication(&settingsWindow);
     settingsWindow.exec();
 }
 

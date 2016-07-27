@@ -60,24 +60,12 @@ bool anyChangesInMap = false;
 
 void msg(QString content);
 
-void setCenterOfApplication(QWidget* widget)
-{
-    QDesktopWidget* desktop = QApplication::desktop();
-
-    int centerW = (desktop->width() - widget->width()) / 2;
-    int centerH = (desktop->height() - widget->height()) / 2;
-
-    widget->move(centerW, centerH);
-}
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
     AppSettings appSettings;
     projectMng = new ProjectManagement(&appSettings);
-    setCenterOfApplication(projectMng);
-
     projectMng->show();
 
     appSettings.read_settings_file();
@@ -87,7 +75,6 @@ int main(int argc, char *argv[])
 
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
-    setCenterOfApplication(p);
 
     //Condition to run tests on Jenkins
     if (argv[1] == QString("TEST"))  {

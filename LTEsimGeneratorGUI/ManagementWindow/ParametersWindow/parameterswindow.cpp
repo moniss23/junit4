@@ -105,8 +105,6 @@ int nrOfTrafficFiles=0;
 
 void msg(QString content);
 
-void setCenterOfApplication(QWidget* widget);
-
 QString text1;              // tekst znajdujący się w polu tekstowym
 
 QString pattern;      // tekst, który zamienimy na inny
@@ -1048,7 +1046,6 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             // create a new map object and display it
             lastOpenMap="normal";
             map_w=new MapWindow;
-            setCenterOfApplication(map_w);
             p->close();
 
             map_w->show();
@@ -1102,14 +1099,8 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
             // create a new map object and display it
             map_wl=new MapWindowLarge;
-            qDebug()<<"checkpoint6.1";
-            setCenterOfApplication(map_wl);
-            qDebug()<<"checkpoint6.2";
             p->close();
-            qDebug()<<"checkpoint6.3";
             map_wl->show();
-
-            qDebug()<<"checkpoint7";
 
         }
     }
@@ -1444,7 +1435,6 @@ void ParametersWindow::on_actionPath_triggered()
 {
     Settings settingsWindow(appSettings, this,true);
     settingsWindow.setWindowModality(Qt::WindowModal);
-    setCenterOfApplication(&settingsWindow);
     settingsWindow.exec();
 }
 

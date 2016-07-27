@@ -45,6 +45,4 @@ QString get_project_dir(QString project_name, const std::vector<Project> &projec
 void write_settings_file();
 void read_settings_file();
 
-void setCenterOfApplication(QWidget* widget);
-
 #endif // ENCRYPTION_H
