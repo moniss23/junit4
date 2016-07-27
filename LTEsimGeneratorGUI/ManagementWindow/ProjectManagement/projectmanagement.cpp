@@ -87,15 +87,6 @@ ProjectManagement::~ProjectManagement()
     delete ui;
 }
 
-QString ProjectManagement::getProjectDir(QString projectName){
-    for(unsigned int i=0; i<appSettings->projects.size(); i++){
-        if(appSettings->projects[i].name==projectName){
-            return appSettings->projects[i].fullpath;
-        }
-    }
-    return "";
-}
-
 void ProjectManagement::setDefaultDir(QString dir){
     this->createProject.setDefaultDir(dir);
 }
@@ -135,7 +126,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
         param_template.close();
 
         // write the project file
-        appSettings->write_project_file(new_item->text(),project_content,this->getProjectDir(new_item->text()));
+        appSettings->write_project_file(new_item->text(),project_content,appSettings->getProjectDirectory(new_item->text()));
 
     }
 

@@ -306,7 +306,7 @@ void ParametersWindow::loadProject(){
     int trafficFileLen;
 
     // read the project content from the project file
-    QStringList project_content=appSettings->read_project_file(appSettings->getProjectName(),projectMng->getProjectDir(appSettings->getProjectName()));
+    QStringList project_content=appSettings->read_project_file(appSettings->getProjectName(),appSettings->getProjectDirectory(appSettings->getProjectName()));
 
     // read the default location for output .rb files
     defaultLocationForRbFiles=project_content[0];

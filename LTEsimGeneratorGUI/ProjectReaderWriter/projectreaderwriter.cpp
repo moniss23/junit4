@@ -6,7 +6,7 @@ ProjectReaderWriter::ProjectReaderWriter(AppSettings *appSettings) : appSettings
 
 QByteArray ProjectReaderWriter::readDataFromProj(const QString &beginningOfSector, const QString &endOfSector)
 {
-    QString projectDir = projectMng->getProjectDir(appSettings->getProjectName());
+    QString projectDir = appSettings->getProjectDirectory(appSettings->getProjectName());
     QString projectFileName;
     int start,end;
 
@@ -48,7 +48,7 @@ QByteArray ProjectReaderWriter::readDataFromProj(const QString &beginningOfSecto
 QDomDocument ProjectReaderWriter::readDataFromXml(const QString &beginningOfSector, const QString &endOfSector)
 {
     QDomDocument xmlDocument;
-    QString projectDir = projectMng->getProjectDir(appSettings->getProjectName());
+    QString projectDir = appSettings->getProjectDirectory(appSettings->getProjectName());
     QString xmlFileName;
     int start,end;
 

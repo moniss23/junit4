@@ -26,6 +26,8 @@ public:
     std::vector<QListWidgetItem*> testProjectsObtainedFromTheFile();
     void traverseProjectsListAndAddProjectIfNotFound();
 
+    QString getProjectDirectory(const QString &projectName);
+
     void write_settings_file();
     void read_settings_file();
 

@@ -233,6 +233,15 @@ void AppSettings::traverseProjectsListAndAddProjectIfNotFound() {
     }
 }
 
+QString AppSettings::getProjectDirectory(const QString &projectName){
+    auto it = std::find_if(projects.begin(), projects.end(), [&projectName](const Project &project) -> bool {
+          return (project.name == projectName);
+    });
+
+    if(it == std::end(projects)) return QString();
+    return it->fullpath;
+}
+
 /*
  *
  * Getters and Setters
