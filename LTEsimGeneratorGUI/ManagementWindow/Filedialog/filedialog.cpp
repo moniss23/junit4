@@ -13,7 +13,6 @@
 void msg(QString content);
 
 extern std::vector <QString*>trafficFiles;
-extern int trafficFilesCount;
 
 extern QString *dir;
 extern ParametersWindow * p;
@@ -110,8 +109,6 @@ void FileDialog::on_buttonBox_accepted()
     // store the project name in a global variable for use by other files and methods
     appSettings->setProjectName(ui->fileName->text());
 
-    // reset the counter of traffic files to zero
-    trafficFilesCount=0;
     paramFilePresent=true;
 
     // add a new element to the list of projects in project management window

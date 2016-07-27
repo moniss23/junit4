@@ -26,8 +26,6 @@ extern ParametersWindow* p;
 
 extern QString* proFileExt;
 
-
-extern bool changesPresent;
 extern bool lastMapOpenWasNormal;
 
 bool deletionInProgress=false;

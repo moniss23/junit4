@@ -37,7 +37,6 @@ ProjectManagement *projectMng;
 
 std::vector<QString*> trafficFilesNames;
 std::vector<QFile*> trafficFiles;
-int trafficFilesCount = 0;
 
 unsigned int project_index;
 

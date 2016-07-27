@@ -76,7 +76,6 @@ QString lastOpenMap;
 
 extern std::vector<QFile*> trafficFiles;
 extern std::vector<QString*> trafficFilesNames;
-extern int trafficFilesCount;
 extern ParametersWindow* p;
 
 extern QString* proFileExt;
