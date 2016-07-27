@@ -19,7 +19,7 @@
 #include <AppSettings/appsettings.h>
 
 #include <Maps/Traffic/MapTest/UeParametersTest/uegroupdata_test.h>
-#include <Maps/Traffic/MapTest/statistics/statisticsdata_test.h>
+#include <Maps/Traffic/MapTest/Statistics/statisticsdata_test.h>
 #include <Maps/Traffic/MapTest/DataObjectsTest/CellDataTest/celldata_test.h>
 #include <Maps/Traffic/MapTest/mapdata_test.h>
 #include <Maps/Traffic/MapTest/mapdata_test.h>

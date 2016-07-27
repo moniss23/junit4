@@ -125,7 +125,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
 
         // append the settings, the name and content of parameters.rb template to project file
         QString project_content("<default>\nnormal\nParameters.rb\n0\n");
-        QFile param_template(":/file/parameters.rb");
+        QFile param_template(":/RbFiles/parameters.rb");
         param_template.open(QIODevice::ReadOnly);
         QTextStream param_template_str(&param_template);
         QString param_template_content=param_template_str.readAll();
@@ -149,7 +149,7 @@ void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
 
         // append the settings, the name and content of parameters.rb template to project file
         QString project_content("<default>\nnormal\nParameters.rb\n0\n");
-        QFile param_template(":/file/parameters.rb");
+        QFile param_template(":/RbFiles/parameters.rb");
         param_template.open(QIODevice::ReadOnly);
         QTextStream param_template_str(&param_template);
         QString param_template_content=param_template_str.readAll();

@@ -207,7 +207,7 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     this->ui->radioButton_normalMap->setChecked(true);
 
     // read in the default values for parameters.rb
-    QFile param_template(":/file/parameters.rb");
+    QFile param_template(":/RbFiles/parameters.rb");
     param_template.open(QIODevice::ReadOnly);
     QTextStream param_template_str(&param_template);
     parametersFileContentDefault=param_template_str.readAll();
@@ -1188,7 +1188,7 @@ void ParametersWindow::on_pushButton_7_clicked()
 
             // ask for confirmation
             if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
-                QFile file(":/file/parameters.rb");
+                QFile file(":/RbFiles/parameters.rb");
                 file.open((QIODevice::ReadOnly));
                 QTextStream s(&file);
                 QString fileContent=s.readAll();
@@ -1209,7 +1209,7 @@ void ParametersWindow::on_pushButton_7_clicked()
 
             // ask for confirmation
             if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
-                QFile file(":/file/tune_traffic_models.rb");
+                QFile file(":/RbFiles/tune_traffic_models.rb");
                 file.open((QIODevice::ReadOnly));
                 QTextStream s(&file);
                 QString fileContent=s.readAll();
