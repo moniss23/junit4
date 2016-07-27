@@ -22,7 +22,6 @@ public:
     explicit ProjectManagement(AppSettings *appSettings, QWidget *parent = 0);
     ~ProjectManagement();
 
-    void addProject(QListWidgetItem* new_item,QString dir="<default>");
 
     QListWidgetItem* getCurrentItem();
 
@@ -33,6 +32,9 @@ public:
     void setAppSettings(AppSettings *value);
 
     void setFileDialogAppSettings(AppSettings *value);
+
+    void addWidgetToListWidget(QListWidgetItem* new_item);
+    void setButtonsStates(QListWidgetItem* new_item);
 
 private slots:
 

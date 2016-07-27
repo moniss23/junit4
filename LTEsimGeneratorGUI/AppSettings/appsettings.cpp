@@ -242,6 +242,44 @@ QString AppSettings::getProjectDirectory(const QString &projectName){
     return it->fullpath;
 }
 
+void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
+
+    Project new_project;
+    new_project.name=new_item->text();
+    new_project.fullpath=dir;
+    new_project.widget=new_item;
+    projects.push_back(new_project);
+
+    QDir projectDir;
+
+    // if the project is to be saved in default directory
+    if(dir=="<default>"){
+        projectDir.setPath("projects");
+    } else {
+        projectDir.setPath(dir);
+    }
+
+    projectDir.mkdir(getProjectName());
+
+    // append the settings, the name and content of parameters.rb template to project file
+    QString project_content("<default>\nnormal\nParameters.rb\n0\n");
+    QFile param_template(":/RbFiles/parameters.rb");
+    param_template.open(QIODevice::ReadOnly);
+    QTextStream param_template_str(&param_template);
+    QString param_template_content=param_template_str.readAll();
+    project_content+=itoa(param_template_content.split("\n").size());
+    project_content+="\n";
+    project_content+=param_template_content;
+    project_content+="\n";
+    param_template.close();
+
+    if(dir=="<default>"){
+        write_project_file(new_item->text(),project_content, getProjectDirectory(new_item->text()));
+    } else {
+        write_project_file(new_item->text(),project_content,dir);
+    }
+}
+
 /*
  *
  * Getters and Setters

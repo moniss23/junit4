@@ -90,76 +90,6 @@ QListWidgetItem* ProjectManagement::getCurrentItem(){
     return this->ui->listWidget->currentItem();
 }
 
-void ProjectManagement::addProject(QListWidgetItem* new_item,QString dir){
-
-    this->ui->listWidget->addItem(new_item);
-
-    Project new_project;
-    new_project.name=new_item->text();
-    new_project.fullpath=dir;
-    new_project.widget=new_item;
-    appSettings->projects.push_back(new_project);
-
-    // if the project is to be saved in default directory
-    if(dir=="<default>"){
-
-        // create the project subdirectory
-        QDir projectDir;
-        projectDir.setPath("projects");
-        projectDir.mkdir(appSettings->getProjectName());
-
-        // append the settings, the name and content of parameters.rb template to project file
-        QString project_content("<default>\nnormal\nParameters.rb\n0\n");
-        QFile param_template(":/RbFiles/parameters.rb");
-        param_template.open(QIODevice::ReadOnly);
-        QTextStream param_template_str(&param_template);
-        QString param_template_content=param_template_str.readAll();
-        project_content+=itoa(param_template_content.split("\n").size());
-        project_content+="\n";
-        project_content+=param_template_content;
-        project_content+="\n";
-        param_template.close();
-
-        // write the project file
-        appSettings->write_project_file(new_item->text(),project_content,appSettings->getProjectDirectory(new_item->text()));
-
-    }
-
-    // if the project is to be saved in custom directory
-    else{
-
-        QDir proj_dir;
-        proj_dir.setPath(dir);
-        proj_dir.mkdir(appSettings->getProjectName());
-
-        // append the settings, the name and content of parameters.rb template to project file
-        QString project_content("<default>\nnormal\nParameters.rb\n0\n");
-        QFile param_template(":/RbFiles/parameters.rb");
-        param_template.open(QIODevice::ReadOnly);
-        QTextStream param_template_str(&param_template);
-        QString param_template_content=param_template_str.readAll();
-        project_content+=itoa(param_template_content.split("\n").size());
-        project_content+="\n";
-        project_content+=param_template_content;
-        project_content+="\n";
-        param_template.close();
-
-        // write the project file
-        appSettings->write_project_file(new_item->text(),project_content,dir);
-
-    }
-
-    this->previewProjectFiles(new_item);
-
-    this->ui->listWidget->setCurrentItem(new_item);
-
-    if(!this->ui->pushButton->isEnabled()){
-        this->ui->pushButton->setEnabled(true);
-    }
-    if(!this->ui->pushButton_3->isEnabled()){
-        this->ui->pushButton_3->setEnabled(true);
-    }
-}
 
 void ProjectManagement::open_project(){
 
@@ -415,4 +345,21 @@ void ProjectManagement::on_pushButton_5_clicked()
 //Setting reference to AppSettings for FileDIalog
 void ProjectManagement::setFileDialogAppSettings(AppSettings *value) {
     createProject.setAppSettings(value);
+}
+
+void ProjectManagement::addWidgetToListWidget(QListWidgetItem *new_item) {
+    this->ui->listWidget->addItem(new_item);
+}
+
+void ProjectManagement::setButtonsStates(QListWidgetItem *new_item) {
+    this->previewProjectFiles(new_item);
+
+    this->ui->listWidget->setCurrentItem(new_item);
+
+    if(!this->ui->pushButton->isEnabled()){
+        this->ui->pushButton->setEnabled(true);
+    }
+    if(!this->ui->pushButton_3->isEnabled()){
+        this->ui->pushButton_3->setEnabled(true);
+    }
 }

@@ -5,7 +5,9 @@ HandoverData_Test::HandoverData_Test(AppSettings *appSettings, QObject *parent) 
     //Creating project file just for testing
     appSettings->setProjectName(testProjectName);
     QListWidgetItem* newItem = new QListWidgetItem(appSettings->getProjectName());
-    projectMng->addProject(newItem,testProjectDir);
+    projectMng->addWidgetToListWidget(newItem);
+    appSettings->addProject(newItem,testProjectDir);
+    projectMng->setButtonsStates(newItem);
 
     projectReaderWriter = new ProjectReaderWriter(appSettings);
 }

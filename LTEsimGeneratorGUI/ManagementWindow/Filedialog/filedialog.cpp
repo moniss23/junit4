@@ -115,10 +115,14 @@ void FileDialog::on_buttonBox_accepted()
     QListWidgetItem* new_item=new QListWidgetItem(appSettings->getProjectName());
     list_items.push_back(new_item);
     if(this->ui->customLocationRadioButton->isChecked()) {
-        projectMng->addProject(new_item,this->ui->lineEdit->text());
+        projectMng->addWidgetToListWidget(new_item);
+        appSettings->addProject(new_item,this->ui->lineEdit->text());
+        projectMng->setButtonsStates(new_item);
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
-        projectMng->addProject(new_item,appSettings->getDefaultNewProjectDir());
+        projectMng->addWidgetToListWidget(new_item);
+        appSettings->addProject(new_item,appSettings->getDefaultNewProjectDir());
+        projectMng->setButtonsStates(new_item);
     }
     listC++;
     appSettings->write_projects_file();

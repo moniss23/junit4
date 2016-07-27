@@ -6,8 +6,9 @@ MapData_Test::MapData_Test(AppSettings *appSettings, QObject *parent)
     //Creating new project for testing
     appSettings->setProjectName(testProjectName);
     QListWidgetItem* new_item = new QListWidgetItem(appSettings->getProjectName());
-    projectMng->addProject(new_item,testProjectDir);
-
+    projectMng->addWidgetToListWidget(new_item);
+    appSettings->addProject(new_item,testProjectDir);
+    projectMng->setButtonsStates(new_item);
 }
 
 MapData_Test::~MapData_Test()
