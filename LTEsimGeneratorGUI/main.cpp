@@ -2,18 +2,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <QApplication>
-<<<<<<< 6d7ccf832922aaf55c477e811f79daa1688057a5
-=======
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
->>>>>>> Renamed and relocated most of folders
 #include <QString>
 #include <QStringList>
 #include <QFile>
-<<<<<<< 6d7ccf832922aaf55c477e811f79daa1688057a5
 #include <QDesktopWidget>
 #include <QListWidgetItem>
-=======
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <ManagementWindow/Encryption/encryption.h>
 #include <QDesktopWidget>
@@ -26,7 +21,7 @@
 #include <cstdlib>
 #include <TestRunner/testrunner.h>
 #include <AppSettings/appsettings.h>
->>>>>>> Renamed and relocated most of folders
+
 
 //Parameters Old Part
 const unsigned int cellCount = 12;

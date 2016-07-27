@@ -18,8 +18,6 @@
 #include <Maps/Traffic/Time/timeManager.h>
 #include <my_qlabel.h>
 
->>>>>>> Renamed and relocated most of folders:LTEsimGeneratorGUI/Maps/Traffic/map_traffic.h
-
 class Custommodels;
 
 namespace Ui {

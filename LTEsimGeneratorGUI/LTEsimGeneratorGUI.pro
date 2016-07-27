@@ -104,10 +104,6 @@ SOURCES += main.cpp\
     AppSettings/appsettings.cpp \
     DoubleInputValidator/doubleinputvalidator.cpp \
     my_qlabel.cpp \
-
-<<<<<<< 6d7ccf832922aaf55c477e811f79daa1688057a5
- 
-=======
     CommonConstans/common_constans.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
@@ -164,7 +160,6 @@ HEADERS  += \
     Maps/Traffic/MapTest/MapComponentsTest/draguelabel_test.h \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/map_traffic_large.h \
->>>>>>> Renamed and relocated most of folders
     dataelementsinterface.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/MapTest/managementtemplate_test.h \
@@ -208,8 +203,7 @@ HEADERS  += \
     my_qlabel.h \
     CommonConstans/common_constans.h \
     Maps/Traffic/Time/timeData.h \
-    Maps/Traffic/Time/timeManager.h \
-
+    Maps/Traffic/Time/timeManager.h
 
 FORMS    += \
     Ui/parameterswindow.ui \

@@ -55,16 +55,6 @@ void DragUELabel::setmyArea(MyObjectArea *objectArea)
 
 MyObjectArea* DragUELabel::getmyArea()
 {
-<<<<<<< 6d7ccf832922aaf55c477e811f79daa1688057a5:LTEsimGeneratorGUI/maps/traffic_map/map_components/draguelabel.cpp
     return myArea;
-=======
-    try{
-        if( myArea == NULL)
-            throw 1;
-        return myArea;
-    } catch ( int ){
-        qDebug() << "myHandoverArea points to NULL adress";
-    }
->>>>>>> Renamed and relocated most of folders:LTEsimGeneratorGUI/Maps/Traffic/MapComponents/draguelabel.cpp
 }
 
