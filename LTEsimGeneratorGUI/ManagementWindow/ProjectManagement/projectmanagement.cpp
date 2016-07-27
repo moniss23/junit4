@@ -190,40 +190,6 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
     this->previewProjectFiles(current);
 }
 
-// recursively remove entire directory and its content
-void ProjectManagement::rmrf(QString dir_name){
-
-    // prepare the list of the directory's content
-    QDir directory("projects/"+dir_name);
-    QFileInfoList dir_content=directory.entryInfoList();
-
-    // traverse the list
-    for(int i=0; i<dir_content.size(); i++){
-
-        // if an element is a file, delete it
-        if(dir_content[i].isFile()){
-            directory.remove(dir_content[i].fileName());
-        }
-
-        // if an element is a directory, call rmrf() on it recursively, then delete it
-        else if(dir_content[i].isDir()){
-
-            // if it's parent dir or present dir, skip it
-            if(dir_content[i].fileName()!="." && dir_content[i].fileName()!=".."){
-
-                rmrf(dir_name+"/"+dir_content[i].fileName());
-                directory.rmdir(dir_content[i].fileName());
-
-            }
-
-        }
-
-    }
-
-    directory.rmdir(directory.absolutePath());
-
-}
-
 // "delete project" button clicked
 void ProjectManagement::on_pushButton_3_clicked(){
 
@@ -239,7 +205,7 @@ void ProjectManagement::on_pushButton_3_clicked(){
         this->ui->listWidget_2->clear();
 
         // delete the project directory along with its entire content
-        rmrf(projectName);
+        appSettings->removeDirectoryRecursively(projectName);
 
         // delete element from projects vector
         std::vector<Project>::iterator it;

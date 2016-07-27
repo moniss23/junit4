@@ -46,8 +46,6 @@ private slots:
 
     void on_pushButton_3_clicked();
 
-    void rmrf(QString dir_name);
-
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
     void open_project();

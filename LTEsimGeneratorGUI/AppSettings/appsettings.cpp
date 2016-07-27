@@ -280,6 +280,12 @@ void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
     }
 }
 
+// recursively remove entire directory and its content
+void AppSettings::removeDirectoryRecursively(QString dir_name){
+    QDir directory("projects/"+dir_name);
+    directory.removeRecursively();
+}
+
 /*
  *
  * Getters and Setters

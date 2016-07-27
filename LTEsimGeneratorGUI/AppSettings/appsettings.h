@@ -28,6 +28,8 @@ public:
 
     void addProject(QListWidgetItem* new_item,QString dir);
 
+    void removeDirectoryRecursively(QString dir_name);
+
     QString getProjectDirectory(const QString &projectName);
 
     void write_settings_file();
