@@ -8,11 +8,6 @@ extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
 extern std::vector<QString> trafficFilesContent;
-extern std::vector<QString> savedTrafficFilesContent;
-extern bool paramFileChanged;
-extern bool paramFileModified;
-extern std::vector<bool> trafficFilesChanged;
-extern std::vector<bool> trafficFilesModified;
 
 Ue::Ue()
 {

@@ -89,6 +89,7 @@ QString text1;              // tekst znajdujący się w polu tekstowym
 
 QString pattern;      // tekst, który zamienimy na inny
 
+
 QString itoa(int i){
     if(i==0){
         return QString("0");

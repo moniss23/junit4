@@ -168,14 +168,17 @@ void ProjectManagement::on_importProject_Button_clicked()
     QListWidgetItem* new_item=new QListWidgetItem(project_name+"\t"+vector_dir);
     new_project.widget=new_item;
     appSettings->projects.push_back(new_project);
-
     // update the projects.dat file
     appSettings->write_projects_file();
 
+
+
+    //TODO: This should be done by invoking updateProjectLists slot
     // update UI
     this->ui->listWidget->addItem(new_item);
     this->ui->listWidget->setCurrentItem(new_item);
     this->ui->listWidget->item(this->ui->listWidget->currentRow())->setSelected(true);
+
 
     // display message
     msg("Project \""+project_name+"\" in "+new_project.fullpath+" successfully imported.");

@@ -9,28 +9,13 @@
 extern ParametersWindow* p;
 extern QString * tabChangedParams;
 
-//extern const unsigned int cellCount=12;
-//extern const unsigned int handoverCount=21;
-//extern const unsigned int centerCount=12;
-
-//extern cellName cellNames[cellCount];
-//extern centerName centerNames[centerCount];
-//extern handoverName handoverNames[handoverCount];
-
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
 extern QStringList savedParametersFileContentList;
 extern std::vector<QString> trafficFilesContent;
-extern std::vector<QString> savedTrafficFilesContent;
-extern bool paramFileChanged;
-extern bool paramFileModified;
-extern std::vector<bool> trafficFilesChanged;
-extern std::vector<bool> trafficFilesModified;
-
 extern bool enteringMapView;
 extern bool changesPresent;
-
 extern Cell *openCell;
 extern Center *openCenter;
 extern Handover *openHandover;
