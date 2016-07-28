@@ -3,11 +3,8 @@
 #include <QTextStream>
 #include <qdebug.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-extern MapWindow* map_w;
-extern QString parametersFileContent;
+
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
-extern std::vector<QString> trafficFilesContent;
 
 Center::Center()
 {
@@ -56,44 +53,6 @@ void Center::setWestBoundary(QString w){
     westBoundary=w.toInt();
 }
 
-//void Center::setParams(){
-//    QString name_search = ":area => \"" +area + "\""+",";
-
-//    QString fileName = ":/RbFiles/parameters.rb";
-//    QFile file1(fileName);
-//    if(!file1.open(QIODevice::ReadOnly | QIODevice::Text))
-//        return;              // if coudn't open file: stop loading file
-
-//    QString text1="";
-//    QTextStream stream(&file1);
-
-//    QString text_search;
-//    while(text_search != name_search && !stream.atEnd()){
-//        text1 = stream.readLine();
-//        text_search = text1.trimmed();
-//   }
-
-//    tabParams = new QString [5];
-//    for (int i=0; i<5; i++)
-//    {
-//        tabParams[i] = text_search;
-//        text1 = stream.readLine();
-//        text_search = text1.trimmed();
-//    }
-//    QStringList list;
-//    for (int i=0; i<5; i++)
-//    {
-//        list = tabParams[i].split(" ");
-//        tabParams[i]= list[2];
-//        tabParams[i].remove(QChar('"'));
-//        tabParams[i].remove(QChar(','));
-//    }
-//    area = tabParams[0];
-//    southBoundary = tabParams[1].toInt();
-//    northBoundary = tabParams[2].toInt();
-//    westBoundary = tabParams[3].toInt();
-//    eastBoundary = tabParams[4].toInt();
-//}
 void Center::setParams(){
     //QString name_search = ":area => \"" +area + "\""+",";
     QString name_search = ":area => \"" +area;

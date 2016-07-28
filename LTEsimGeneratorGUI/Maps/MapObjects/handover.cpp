@@ -4,14 +4,10 @@
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <qdebug.h>
 
-extern MapWindow* map_w;
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
-extern std::vector<QString> trafficFilesContent;
-extern bool paramFileChanged;
 
-extern MapWindow* map_w;
+
 
 Handover::Handover()
 {

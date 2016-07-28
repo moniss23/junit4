@@ -2,13 +2,14 @@
 #define MAPWINDOW_H
 
 #include <QMainWindow>
+#include <QList>
+#include <QMessageBox>
+
 #include <Maps/MapObjects/cell.h>
 #include <Maps/MapObjects/center.h>
 #include <Maps/MapObjects/handover.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h>
-#include <QList>
-#include <QMessageBox>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h>
 #include <Maps/Parameters/SimulatedUe/ubsimform.h>

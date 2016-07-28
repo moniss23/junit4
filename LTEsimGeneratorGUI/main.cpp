@@ -114,17 +114,6 @@ Cell* getCellObj(QString name){
     return NULL;
 }
 
-Center* getCenterObj(QString name){
-    for(unsigned int i = 0; i < centerCount; i++)
-    {
-        if(centerNames[i].name == name)
-        {
-            return centerNames[i].obj;
-        }
-    }
-    return NULL;
-}
-
 Handover* getHandoverObj(QString name){
     for(unsigned int i = 0; i < handoverCount; i++)
     {

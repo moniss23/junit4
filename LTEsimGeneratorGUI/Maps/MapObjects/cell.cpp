@@ -4,13 +4,9 @@
 #include <QTextStream>
 #include <qdebug.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-extern QString parametersFileContent;
+
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
-extern std::vector<QString> trafficFilesContent;
 
-
-extern MapWindow* map_w;
 
 Cell::Cell(QString name)
 {
@@ -87,51 +83,6 @@ void Cell::setCell_new_name(const QString &value)
     qDebug() <<"Nowa nazwa celli: "  + cell_new_name;
 }
 
-
-//--------------Funcion-------------------------------------------------------
-
-//QString* Cell::setParams(){
-//    QString name_search = ":cell => \"" +cell + "\""+",";
-
-//    QString fileName = ":/RbFiles/parameters.rb";
-//    QString text1;
-//    QFile file1(fileName);
-//    if(!file1.open(QIODevice::ReadOnly | QIODevice::Text))
-//        return NULL;              // if coudn't open file: stop loading file
-//    text1.clear();
-//    QTextStream stream(&file1);
-//    QString text_search;
-//    while(text_search != name_search && !stream.atEnd()){
-//        text1 = stream.readLine();
-//        text_search = text1.trimmed();
-//   }
-//    tabParams = new QString [8];
-//    for (int i=0; i<8; i++)
-//    {
-//        tabParams[i] = text_search;
-//        text1 = stream.readLine();
-//        text_search = text1.trimmed();
-//    }
-
-//    QStringList list;
-//    for (int i=0; i<8; i++)
-//    {
-//        list = tabParams[i].split(" ");
-//        tabParams[i]= list[2];
-//        tabParams[i].remove(QChar('"'));
-//        tabParams[i].remove(QChar(','));
-//    }
-//    cell = tabParams[0];
-//    site = tabParams[1];
-//    pci = tabParams[2].toInt();
-//    position_X = tabParams[3].toInt();
-//    position_Y = tabParams[4].toInt();
-//    earfcnDl = tabParams[5].toInt();
-//    transmitPower = tabParams[6].toFloat();
-//    ulNoiseAndInterference = tabParams[7].toFloat();
-
-//    return tabParams;
-//}
 
 QString* Cell::setParams(){
 //    QString name_search = ":cell => \"" +cell + "\""+",";

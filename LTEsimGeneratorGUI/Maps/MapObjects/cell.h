@@ -14,7 +14,6 @@ public:
     Cell(QString name);
     Cell();
     ~Cell();
-    Cell *tabCell;
 
     QString getCell();
     QString *setParams();
