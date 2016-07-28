@@ -14,16 +14,11 @@ void msg(QString content);
 
 extern std::vector <QString*>trafficFiles;
 
-extern QString *dir;
 extern ParametersWindow * p;
 
 extern ProjectManagement* projectMng;
 
 extern bool paramFilePresent;
-
-extern QString lastOpenMap;
-
-void write_projects_file();
 
 FileDialog::FileDialog(QWidget *parent) :
     QDialog(parent),
@@ -55,9 +50,8 @@ void FileDialog::setDefaultDir(QString dir) {
 // creating a new project
 void FileDialog::on_buttonBox_accepted()
 {
-
     // alert the user if some data has not been entered
-    if(this->ui->fileName->text().length()==0) {
+    if(this->ui->fileName->text().length()==0) {  //TODO: better set validator in ui->fileName control
         msg("You must enter the project's name.");
         return;
     }
@@ -73,7 +67,7 @@ void FileDialog::on_buttonBox_accepted()
         }
     }
 
-    QString illegal_chars("<>:\"/\\|?*");
+    QString illegal_chars("<>:\"/\\|?*");//TODO: better set validator in ui->fileName control
 
     // check if the name is unique, display alert if it's not
     if(appSettings->projectNameTaken(this->ui->fileName->text())) {
@@ -92,7 +86,7 @@ void FileDialog::on_buttonBox_accepted()
             chars_detected.append(illegal_chars[i]);
         }
     }
-    if(!name_legal) {
+    if(!name_legal) {//TODO: not needed if validator is set
         if(chars_detected.length()==1) {
             QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal character: "+chars_detected,QMessageBox::Yes).exec();
         }
@@ -107,6 +101,7 @@ void FileDialog::on_buttonBox_accepted()
 
     paramFilePresent=true;
 
+    //TODO: this should only emit a signal that new project should be created
     // add a new element to the list of projects in project management window
     QListWidgetItem* new_item=new QListWidgetItem(appSettings->getProjectName());
 
@@ -147,7 +142,7 @@ void FileDialog::on_defaultLocationRadioButton_toggled(bool checked)
     }
 }
 
-void FileDialog::setAppSettings(AppSettings *value)
+void FileDialog::setAppSettings(AppSettings *value) //TODO: should not be needed with new API
 {
     appSettings = value;
 }
