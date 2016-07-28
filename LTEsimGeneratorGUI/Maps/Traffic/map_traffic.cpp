@@ -114,7 +114,6 @@ int offset_x_2=40;
 DragUELabel *actualposition;
 //int UEindex;
 extern int currentOpenedTrafficFile;
-extern std::vector<QStringList> trafficFilesContentLists;
 extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
 extern std::vector<QString> trafficFilesContent;

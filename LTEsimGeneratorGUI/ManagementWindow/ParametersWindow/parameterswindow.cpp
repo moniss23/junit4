@@ -26,9 +26,6 @@
 // saving traffic map
 extern QStringList mapTrafficList;
 
-extern my_qlabel *pointer_CM1;
-extern my_qlabel *pointer_CM2;
-
 std::vector<QStringList> trafficFilesContentLists;
 int currentOpenedTrafficFile;
 
@@ -42,8 +39,6 @@ struct Change{
     QString content;
 };
 
-int positionInHistory=-1;
-int textSize=0;
 std::vector<Change*> changeHistory;
 
 QString parametersFileContent;
@@ -67,19 +62,13 @@ bool fileAdditionInProgress=false;
 bool enteringMapView;
 QString chosenMapType;
 
-extern bool anyProjectOpen;
-extern bool settingsWindowOpen;
-
 QString lastOpenMap;
 
 
-extern std::vector<QFile*> trafficFiles;
 extern std::vector<QString*> trafficFilesNames;
 extern ParametersWindow* p;
 
 extern bool paramFilePresent;
-
-extern std::vector<Project> projects;
 
 extern ProjectManagement* projectMng;
 
@@ -99,16 +88,6 @@ void msg(QString content);
 QString text1;              // tekst znajdujący się w polu tekstowym
 
 QString pattern;      // tekst, który zamienimy na inny
-QString replacement;          // tekst na jaki zostanie zamieniona szukana fraza
-
-QString previousPath;  //sciezka zapisu
-
-QString* Path;  //sciezka zapisu
-
-QVBoxLayout * lay;
-int fileNameIncrement=0;
-
-extern QString* dir;
 
 QString itoa(int i){
     if(i==0){
@@ -204,7 +183,6 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     param_template.close();
 
     changeHistory.clear();
-    positionInHistory=-1;
 
     this->ui->textEdit->setFocusPolicy(Qt::StrongFocus);
 
@@ -212,7 +190,7 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
 
 void ParametersWindow::closeEvent (QCloseEvent *event){
 
-    if(enteringMapView || settingsWindowOpen){
+    if(enteringMapView){
         event->accept();
     }
 
@@ -407,8 +385,6 @@ void ParametersWindow::loadProject(){
         this->setWindowTitle(this->windowTitle().left(this->windowTitle().length()-1));
     }
 
-    textSize=this->ui->textEdit->toPlainText().size();
-
 }
 
 void addParamFile(){
@@ -482,7 +458,6 @@ void ParametersWindow::open_file()
     // read all files
     text1 = stream.readAll();
     ui->textEdit->insertPlainText(text1);
-    previousPath = fileName;
     file1.close();
 
 }

@@ -23,12 +23,8 @@ handoverName handoverNames[handoverCount];
 
 ParametersWindow *p;
 ProjectManagement *projectMng;
-
 std::vector<QString*> trafficFilesNames;
-std::vector<QFile*> trafficFiles;
-
 unsigned int project_index;
-
 bool paramFilePresent;
 
 MapWindow* map_w          = NULL;
@@ -40,8 +36,6 @@ bool normalMapOpen = false;
 bool largeMapOpen = false;
 
 bool changesPresent = false;
-bool anyProjectOpen = false;
-bool settingsWindowOpen = false;
 
 void msg(QString content);
 

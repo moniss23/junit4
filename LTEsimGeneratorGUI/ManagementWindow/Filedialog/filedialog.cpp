@@ -12,12 +12,8 @@
 
 void msg(QString content);
 
-extern std::vector <QString*>trafficFiles;
-
 extern ParametersWindow * p;
-
 extern ProjectManagement* projectMng;
-
 extern bool paramFilePresent;
 
 FileDialog::FileDialog(QWidget *parent) :

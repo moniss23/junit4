@@ -8,7 +8,6 @@
 
 extern QString defaultLocationForRbFiles;
 extern int project_index;
-extern std::vector<Project> projects;
 extern ParametersWindow* p;
 
 Settings::Settings(AppSettings *appSettings, QWidget *parent, bool secondTabActive) :
