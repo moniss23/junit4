@@ -51,10 +51,10 @@ MapWindow::MapWindow(QWidget *parent) :
     ui(new Ui::MapWindow)
 {
     ui->setupUi(this);
-    ui->tabWidget->hide();
-    ui->tabWidget->removeTab(0);
-    ui->tabWidget->removeTab(1);
-    ui->tabWidget->removeTab(2);
+    ui->mapObjectsWidget->hide();
+    ui->mapObjectsWidget->removeTab(0);
+    ui->mapObjectsWidget->removeTab(1);
+    ui->mapObjectsWidget->removeTab(2);
 
     createCenter();
     createCell();
@@ -309,25 +309,25 @@ MapWindow::~MapWindow()
 //--------------Show function  ---------------
 void MapWindow::showCellTabWiget()
 {
-    ui->tabWidget->insertTab(0,ui->tab, (openCell->getCell_new_name().isEmpty()) ? openCell->getCell() : openCell->getCell_new_name());
-    ui->tabWidget->removeTab(1);
-    ui->tabWidget->removeTab(2);
-    ui->tabWidget->show();
+    ui->mapObjectsWidget->insertTab(0,ui->tab, (openCell->getCell_new_name().isEmpty()) ? openCell->getCell() : openCell->getCell_new_name());
+    ui->mapObjectsWidget->removeTab(1);
+    ui->mapObjectsWidget->removeTab(2);
+    ui->mapObjectsWidget->show();
 
 }
 void MapWindow::showCenterTabWiget()
 {
-    ui->tabWidget->insertTab(0,ui->tab_2, ((openCenter->getNew_name_area().isEmpty()) ? openCenter->getArea() : openCenter->getNew_name_area()));
-    ui->tabWidget->removeTab(1);
-    ui->tabWidget->removeTab(2);
-    ui->tabWidget->show();
+    ui->mapObjectsWidget->insertTab(0,ui->tab_2, ((openCenter->getNew_name_area().isEmpty()) ? openCenter->getArea() : openCenter->getNew_name_area()));
+    ui->mapObjectsWidget->removeTab(1);
+    ui->mapObjectsWidget->removeTab(2);
+    ui->mapObjectsWidget->show();
 }
 void MapWindow::showHandoverTabWiget()
 {
-    ui->tabWidget->insertTab(0,ui->tab_3, openHandover->getArea());
-    ui->tabWidget->removeTab(1);
-    ui->tabWidget->removeTab(2);
-    ui->tabWidget->show();
+    ui->mapObjectsWidget->insertTab(0,ui->tab_3, openHandover->getArea());
+    ui->mapObjectsWidget->removeTab(1);
+    ui->mapObjectsWidget->removeTab(2);
+    ui->mapObjectsWidget->show();
 }
 //----------------- Myfunction -----------------
 
@@ -495,7 +495,7 @@ QString MapWindow::convertBoolToText(bool value){
 
 //------------Fill functions------------------------------------------------------
 void MapWindow::fillParams(Center *object){
-   ui->tabWidget->setTabText(1, object->getArea());
+   ui->mapObjectsWidget->setTabText(1, object->getArea());
    ui->eastBoundary->setText(object->getEastBoundary());
    ui->westBoundary->setText(object->getWestBoundary());
    ui->southBoundary->setText(object->getSouthBoundary());
@@ -569,7 +569,7 @@ void MapWindow::saveParams(Cell *object){
         object->setCell_new_name(ui->cell->text());
         object->chBox->setText(ui->cell->text());                                       //change name CheckBox
         object->center->setNew_name_area("center" + ui->cell->text().remove(QString("cell")));   //change name Center
-        ui->tabWidget->setTabText( 0 , ui->cell->text());                               //change naem tabWiget
+        ui->mapObjectsWidget->setTabText( 0 , ui->cell->text());                               //change naem tabWiget
     }else listErrors <<" Name Cell: " +ui->cell->text()+"\n";
     object->setSite(ui->site->text());
     object->setPci(ui->pci->text());
@@ -1049,7 +1049,7 @@ void MapWindow::on_ulNoiseAndInterference_returnPressed()
 
 void MapWindow::on_pbSetCellParams_clicked()
 {
-   ui->tabWidget->hide();
+   ui->mapObjectsWidget->hide();
    saveParams(openCell);
 }
 //------------------------end edit parameters ------------------------------------
@@ -1076,7 +1076,7 @@ void MapWindow::on_eastBoundary_returnPressed()
 
 void MapWindow::on_pbSetCenterParams_clicked()
 {
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
     saveParams(openCenter);
 }
 //------------------------------------------------------------------------------------
@@ -1104,7 +1104,7 @@ void MapWindow::on_eastHandovernoundary_returnPressed()
 void MapWindow::on_pbsetHandoverParams_clicked()
 {
     saveParams(openHandover);
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 //--------------on/off cell ---------------------------------
 void MapWindow::on_checkBoxCell61_clicked()
@@ -1129,7 +1129,7 @@ void MapWindow::on_checkBoxCell61_clicked()
             ui->Handover52_61->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell62_clicked()
 {
@@ -1149,7 +1149,7 @@ void MapWindow::on_checkBoxCell62_clicked()
             ui->Handover52_62->setEnabled(true);
     }
      showActiveLine();
-     ui->tabWidget->hide();
+     ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell51_clicked()
 {
@@ -1171,7 +1171,7 @@ void MapWindow::on_checkBoxCell51_clicked()
             ui->Handover41_51->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell52_clicked()
 {
@@ -1199,7 +1199,7 @@ void MapWindow::on_checkBoxCell52_clicked()
             ui->Handover51_52->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell41_clicked()
 {
@@ -1227,7 +1227,7 @@ void MapWindow::on_checkBoxCell41_clicked()
             ui->Handover31_41->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell42_clicked()
 {
@@ -1249,7 +1249,7 @@ void MapWindow::on_checkBoxCell42_clicked()
             ui->Handover41_42->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell31_clicked()
 {
@@ -1272,7 +1272,7 @@ void MapWindow::on_checkBoxCell31_clicked()
             ui->Handover21_31->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell32_clicked()
 {
@@ -1300,7 +1300,7 @@ void MapWindow::on_checkBoxCell32_clicked()
             ui->Handover31_32->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell21_clicked()
 {
@@ -1328,7 +1328,7 @@ void MapWindow::on_checkBoxCell21_clicked()
             ui->Handover12_21->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell22_clicked()
 {
@@ -1350,7 +1350,7 @@ void MapWindow::on_checkBoxCell22_clicked()
             ui->Handover21_22->setEnabled(true);
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell11_clicked()
 {
@@ -1369,7 +1369,7 @@ void MapWindow::on_checkBoxCell11_clicked()
             ui->Handover11_21->setEnabled((true));
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 void MapWindow::on_checkBoxCell12_clicked()
 {
@@ -1391,7 +1391,7 @@ void MapWindow::on_checkBoxCell12_clicked()
             ui->Handover11_12->setEnabled((true));
     }
     showActiveLine();
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
 }
 
 void MapWindow::Mouse_Pressed()
@@ -1411,13 +1411,13 @@ if(openCell!=NULL && wasChangeonCell())
     switch (ret) {
         case QMessageBox::Save:
                    saveParams(openCell);
-                   ui->tabWidget->hide();
+                   ui->mapObjectsWidget->hide();
                    openCell = NULL;
                    openCenter = NULL;
                    openHandover = NULL;
                     break;
                  case QMessageBox::Discard:
-                       ui->tabWidget->hide();
+                       ui->mapObjectsWidget->hide();
                        openCell = NULL;
                        openCenter = NULL;
                        openHandover = NULL;
@@ -1433,7 +1433,7 @@ if(openCell!=NULL && wasChangeonCell())
                   }
 }else if(openCell!=NULL)
 {
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
     openCell=NULL;
 }
 
@@ -1444,13 +1444,13 @@ if(openCenter!=NULL && wasChangeonCenter())
     switch (ret) {
         case QMessageBox::Save:
                    saveParams(openCenter);
-                   ui->tabWidget->hide();
+                   ui->mapObjectsWidget->hide();
                    openCell = NULL;
                    openCenter = NULL;
                    openHandover = NULL;
                     break;
                  case QMessageBox::Discard:
-                       ui->tabWidget->hide();
+                       ui->mapObjectsWidget->hide();
                        openCell = NULL;
                        openCenter = NULL;
                        openHandover = NULL;
@@ -1466,7 +1466,7 @@ if(openCenter!=NULL && wasChangeonCenter())
                   }
 }else if(openCenter!=NULL)
 {
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
     openCenter=NULL;
 }
 
@@ -1477,13 +1477,13 @@ if(openHandover !=NULL && wasChangeonHandover())
     switch (ret) {
         case QMessageBox::Save:
                    saveParams(openHandover);
-                   ui->tabWidget->hide();
+                   ui->mapObjectsWidget->hide();
                    openCell = NULL;
                    openCenter = NULL;
                    openHandover = NULL;
                     break;
                  case QMessageBox::Discard:
-                       ui->tabWidget->hide();
+                       ui->mapObjectsWidget->hide();
                        openCell = NULL;
                        openCenter = NULL;
                        openHandover = NULL;
@@ -1499,7 +1499,7 @@ if(openHandover !=NULL && wasChangeonHandover())
                   }
 }else if(openHandover!=NULL)
 {
-    ui->tabWidget->hide();
+    ui->mapObjectsWidget->hide();
     openHandover=NULL;
 }
 
