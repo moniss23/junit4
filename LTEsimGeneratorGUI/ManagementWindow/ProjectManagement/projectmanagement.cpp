@@ -75,6 +75,15 @@ void ProjectManagement::on_openProject_Button_clicked()
 // "delete project" button clicked
 void ProjectManagement::on_deleteProject_Button_clicked(){
 
+    //TODO: Replace code, sample is commented, should be working (but QListWidgetItem text is project name and path, should be parsed)
+
+    /*
+    QListWidgetItem *item = ui->listWidget->currentItem();
+    QString text = item->text();
+    emit DeleteProject(text);
+    */
+
+
     if(appSettings->projects.size()>0 && QMessageBox::Yes==QMessageBox(QMessageBox::Question, "LTEsimGenerator", "Entire project will be deleted:\n"+this->ui->listWidget->currentItem()->text()+"\n\nThis cannot be reversed.\n\nAre you sure?", QMessageBox::No|QMessageBox::Yes).exec()){
 
         QString projectName;
@@ -205,7 +214,11 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 
 void ProjectManagement::updateProjectLists(std::vector<Project> &projects)
 {
-  (void)projects; //TODO: implement API :)
+    for(auto &&it:projects){
+        new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->listWidget);
+    }
+
+    return ;
 }
 
 
@@ -262,7 +275,6 @@ void ProjectManagement::open_project(){
 
 // display project's files in the right view
 void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
-
 
     // read the selected project's name and directory from the projects vector
     QString project_name;

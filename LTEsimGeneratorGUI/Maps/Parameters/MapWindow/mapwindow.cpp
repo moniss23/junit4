@@ -8,7 +8,6 @@
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 
 extern ParametersWindow* p;
-extern QString * tabChangedParams;
 
 extern const unsigned int cellCount=12;
 extern const unsigned int handoverCount=21;

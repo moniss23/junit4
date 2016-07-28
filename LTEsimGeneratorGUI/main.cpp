@@ -30,7 +30,6 @@ std::vector<QFile*> trafficFiles;
 unsigned int project_index;
 
 bool paramFilePresent;
-QString *tabChangedParams;
 
 MapWindow* map_w          = NULL;
 MapWindowLarge* map_wl    = NULL;
@@ -56,8 +55,6 @@ int main(int argc, char *argv[])
     ProjectManagement projectUi(&appSettings);
     projectMng = &projectUi;
     projectUi.show();
-
-    tabChangedParams = new QString [8];
 
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
