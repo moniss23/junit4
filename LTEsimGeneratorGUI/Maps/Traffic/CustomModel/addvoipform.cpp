@@ -1,8 +1,7 @@
-
 #include "addvoipform.h"
 #include "ui_addvoipform.h"
 
-    QList<QString> VoipList;
+QList<QString> VoipList;
 
 AddVoipForm::AddVoipForm(QWidget *parent) :
     QWidget(parent),
@@ -13,20 +12,15 @@ AddVoipForm::AddVoipForm(QWidget *parent) :
 
     qciAddVoipPointer = ui->qciComboVoip;
 
-    QRegExp rx("[0-9]{0,20}");
-    QRegExp rx1("^[1-9][0-9]?$|^100$");
+    ui->tet_duration->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_maxTransferTime->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_activityFactor->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_minPacketsReceivedInTime->setValidator(new QIntValidator(0, INT_MAX, this));
 
-    ui->tet_duration->setValidator(new QRegExpValidator(rx, this));
-    ui->tet_maxTransferTime->setValidator(new QRegExpValidator(rx, this));
-    ui->tet_activityFactor->setValidator(new QRegExpValidator(rx1, this));
-    ui->tet_minPacketsReceivedInTime->setValidator(new QRegExpValidator(rx1, this));
-
-            ui->qciComboVoip->addItem("");
+    ui->qciComboVoip->addItem("");
     for(int i=1; i<10; i++){
-
         QString index = QString::number(i);
         ui->qciComboVoip->addItem(index);
-
     }
 }
 
@@ -76,31 +70,28 @@ void AddVoipForm::SaveAll()
     addvoip->setMinPacketsReceivedInTime(ui->tet_minPacketsReceivedInTime->text());
 }
 
- void AddVoipForm::setParameters(Addvoip *addvoip)
- {
-     this->addvoip = addvoip;
+void AddVoipForm::setParameters(Addvoip *addvoip)
+{
+    this->addvoip = addvoip;
 
-     ui->qciComboVoip->setCurrentText(addvoip->getQci());
-     ui->tet_duration->setText(addvoip->getduration());
-     ui->tet_activityFactor->setText(addvoip->getActivityFactor());
-     ui->tet_maxTransferTime->setText(addvoip->getMaxTransferTime());
-     ui->tet_minPacketsReceivedInTime->setText(addvoip->getMinPacketsReceivedInTime());
- }
-
-
- void AddVoipForm::addToList(){
-
-     VoipList.clear();
-     VoipList.append("AddVoip\nQCI:");
-     VoipList.append(ui->qciComboVoip->currentText());
-     VoipList.append("Duration:");
-     VoipList.append(ui->tet_duration->text());
-     VoipList.append("ActivityFactor:");
-     VoipList.append(ui->tet_activityFactor->text());
-     VoipList.append("MaxTransferTime:");
-     VoipList.append(ui->tet_maxTransferTime->text());
-     VoipList.append("MinPacketReceivedInTime:");
-     VoipList.append(ui->tet_minPacketsReceivedInTime->text());
+    ui->qciComboVoip->setCurrentText(addvoip->getQci());
+    ui->tet_duration->setText(addvoip->getduration());
+    ui->tet_activityFactor->setText(addvoip->getActivityFactor());
+    ui->tet_maxTransferTime->setText(addvoip->getMaxTransferTime());
+    ui->tet_minPacketsReceivedInTime->setText(addvoip->getMinPacketsReceivedInTime());
+}
 
 
- }
+void AddVoipForm::addToList(){
+    VoipList.clear();
+    VoipList.append("AddVoip\nQCI:");
+    VoipList.append(ui->qciComboVoip->currentText());
+    VoipList.append("Duration:");
+    VoipList.append(ui->tet_duration->text());
+    VoipList.append("ActivityFactor:");
+    VoipList.append(ui->tet_activityFactor->text());
+    VoipList.append("MaxTransferTime:");
+    VoipList.append(ui->tet_maxTransferTime->text());
+    VoipList.append("MinPacketReceivedInTime:");
+    VoipList.append(ui->tet_minPacketsReceivedInTime->text());
+}

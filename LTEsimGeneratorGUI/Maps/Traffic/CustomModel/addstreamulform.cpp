@@ -1,7 +1,7 @@
 #include "addstreamulform.h"
 #include "ui_addstreamulform.h"
 
-    QList<QString> StreamUlList;
+QList<QString> StreamUlList;
 
 AddStreamUlForm::AddStreamUlForm(QWidget *parent) :
     QWidget(parent),
@@ -11,21 +11,16 @@ AddStreamUlForm::AddStreamUlForm(QWidget *parent) :
     this->setWindowTitle("addStreamUl");
     qciAddStreamUlPointer = ui->qciComboStreamUl;
 
-    QRegExp rx("[0-9]{0,20}");
+    ui->tet_duration->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_minThroughput->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_speed->setValidator(new QIntValidator(0, INT_MAX, this));
 
-    ui->tet_duration->setValidator(new QRegExpValidator(rx, this));
-    ui->tet_minThroughput->setValidator(new QRegExpValidator(rx, this));
-    ui->tet_speed->setValidator(new QRegExpValidator(rx, this));
-
-            ui->qciComboStreamUl->addItem("");
+    ui->qciComboStreamUl->addItem("");
 
     for(int i=1; i<10; i++){
-
         QString index = QString::number(i);
         ui->qciComboStreamUl->addItem(index);
-
     }
-
 }
 
 AddStreamUlForm::~AddStreamUlForm()
@@ -64,7 +59,6 @@ void AddStreamUlForm::setParameters(Addstreamul *addstreamul)
     ui->tet_speed->setText(addstreamul->getSpeed());
     ui->tet_duration->setText(addstreamul->getDuration());
     ui->tet_minThroughput->setText(addstreamul->getMinThroughput());
-
 }
 
 void AddStreamUlForm::on_bt_save_clicked()
@@ -80,7 +74,6 @@ void AddStreamUlForm::on_bt_cancel_clicked()
 }
 
 void AddStreamUlForm::addToList(){
-
     StreamUlList.clear();
     StreamUlList.append("AddStreamUl\nQCI:");
     StreamUlList.append(ui->qciComboStreamUl->currentText());
@@ -90,5 +83,4 @@ void AddStreamUlForm::addToList(){
     StreamUlList.append(ui->tet_duration->text());
     StreamUlList.append("MinThroughtput:");
     StreamUlList.append(ui->tet_minThroughput->text());
-
 }

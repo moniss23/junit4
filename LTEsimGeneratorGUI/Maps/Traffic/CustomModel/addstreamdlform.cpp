@@ -1,7 +1,7 @@
 #include "addstreamdlform.h"
 #include "ui_addstreamdlform.h"
 
-    QList<QString> StreamDlList;
+QList<QString> StreamDlList;
 
 AddStreamDlForm::AddStreamDlForm(QWidget *parent) :
     QWidget(parent),
@@ -11,19 +11,15 @@ AddStreamDlForm::AddStreamDlForm(QWidget *parent) :
     this->setWindowTitle("addStreamDl");
     qciAddStreamDlPointer = ui->qciComboStreamDl;
 
-    QRegExp rx("[0-9]{0,20}");
-
-    ui->tet_duration->setValidator(new QRegExpValidator(rx, this));
-    ui->tet_minThroughput->setValidator(new QRegExpValidator(rx, this));
-    ui->tet_speed->setValidator(new QRegExpValidator(rx, this));
+    ui->tet_duration->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_minThroughput->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->tet_speed->setValidator(new QIntValidator(0, INT_MAX, this));
 
     ui->qciComboStreamDl->addItem("");
-for(int i=1; i<10; i++){
-
-QString index = QString::number(i);
-ui->qciComboStreamDl->addItem(index);
-
-}
+    for(int i=1; i<10; i++){
+        QString index = QString::number(i);
+        ui->qciComboStreamDl->addItem(index);
+    }
 
 }
 
@@ -54,7 +50,6 @@ void AddStreamDlForm::SaveAll()
     addstreamdl->setSpeed(ui->tet_speed->text());
     addstreamdl->setDuration(ui->tet_duration->text());
     addstreamdl->setMinThroughput(ui->tet_minThroughput->text());
-
 }
 
 void AddStreamDlForm::on_bt_save_clicked()
@@ -90,5 +85,4 @@ void AddStreamDlForm::addToList(){
     StreamDlList.append(ui->tet_duration->text());
     StreamDlList.append("MinThroughput:");
     StreamDlList.append(ui->tet_minThroughput->text());
-
 }
