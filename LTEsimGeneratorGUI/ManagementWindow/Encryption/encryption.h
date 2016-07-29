@@ -12,6 +12,7 @@ struct Project{
     QString fullpath;
     QListWidgetItem* widget;
     QString rbOutputDir;
+    QString chosenMapType;
 };
 
 struct cellName{

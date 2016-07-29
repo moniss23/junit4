@@ -32,6 +32,8 @@ public:
 
     QString getProjectDirectory(const QString &projectName);
 
+    void setMapType(const QString& projectName, const QString& mapType);
+
     void write_settings_file();
     void read_settings_file();
 

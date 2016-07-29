@@ -293,6 +293,13 @@ QString AppSettings::readParametersFile()
     return param_template_str.readAll();
 }
 
+void AppSettings::setMapType(const QString& projectName, const QString& mapType) {
+    for(auto &&it : projects) {
+        if(it.name == projectName) {
+            it.chosenMapType = mapType;
+        }
+    }
+}
 
 /*
  * Slots

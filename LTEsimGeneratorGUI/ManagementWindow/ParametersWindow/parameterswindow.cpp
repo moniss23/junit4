@@ -52,7 +52,7 @@ bool previewFileInProgress=false;
 bool closingInProgress=false;
 bool fileAdditionInProgress=false;
 bool enteringMapView;
-QString chosenMapType;
+
 QString lastOpenMap;
 extern std::vector<QString*> trafficFilesNames;
 extern ParametersWindow* p;
@@ -258,7 +258,7 @@ void ParametersWindow::loadProject(){
     defaultLocationForRbFiles=project_content[0];
 
     // read the type of last open map
-    chosenMapType=project_content[1];
+    appSettings->setMapType(appSettings->getProjectName(), project_content[1]);
     lastOpenMap=project_content[1];
 
     if(lastOpenMap=="normal"){
@@ -1359,7 +1359,7 @@ void ParametersWindow::on_actionPath_triggered()
 void ParametersWindow::on_radioButton_normalMap_toggled(bool checked)
 {
     if(checked){
-        chosenMapType="normal";
+        appSettings->setMapType(appSettings->getProjectName(), "normal");
         changesPresent=true;
     }
 }
@@ -1367,7 +1367,7 @@ void ParametersWindow::on_radioButton_normalMap_toggled(bool checked)
 void ParametersWindow::on_radioButton_largeMap_toggled(bool checked)
 {
     if(checked){
-        chosenMapType="large";
+        appSettings->setMapType(appSettings->getProjectName(), "large");
         changesPresent=true;
     }
 }
