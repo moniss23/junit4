@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QString>
 #include <AppSettings/appsettings.h>
+#include <QObject>
 
 namespace Ui {
 class FileDialog;
@@ -22,6 +23,15 @@ public:
     void setDefaultDir(QString dir);
 
     void setAppSettings(AppSettings *value);
+
+signals:
+
+    //TODO: new API to implement
+    //***********************************************/
+    void createNewProject(const QString& projectName, const QString& directory);
+
+    //***********************************************
+    //***********************************************/
 
 private slots:
 

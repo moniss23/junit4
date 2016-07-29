@@ -12,6 +12,7 @@
 
 class AppSettings
 {
+
 public:
     AppSettings();
     ~AppSettings();
@@ -43,6 +44,13 @@ public:
 
     bool projectNameTaken(QString projectName);
 
+    //Those functions need implementation.
+    //-------------------------------------------------------------
+    bool isProjectNameValid(const QString& projectName);
+    bool isProjectDirValid(const QString& projectDir);
+    //-------------------------------------------------------------
+    //-------------------------------------------------------------
+
     QString getParametersFile() const;
     void setParametersFile(const QString &value);
 
@@ -68,6 +76,18 @@ public:
 
     QFile getSettings_file() const;
     void setSettings_file(const QFile &value);
+
+
+    //TODO: new API to implement
+    //***********************************************/
+signals:
+    void currentProjects(const std::vector<Project> &projects);
+
+public slots:
+
+    void createNewProject(const QString &projectName, const QString & directory);
+    //***********************************************
+    //***********************************************/
 
 private:
 

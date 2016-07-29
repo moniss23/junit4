@@ -287,6 +287,13 @@ void AppSettings::removeDirectoryRecursively(QString dir_name){
 }
 
 /*
+ * Slots
+ *
+ */
+
+
+
+/*
  *
  * Getters and Setters
  *
