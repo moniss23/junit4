@@ -23,14 +23,6 @@
 #include <Maps/Traffic/map_traffic_large.h>
 
 
-// saving traffic map
-extern QStringList mapTrafficList;
-
-std::vector<QStringList> trafficFilesContentLists;
-int currentOpenedTrafficFile;
-
-
-
 // deprecated
 struct Change{
     QString type;
@@ -39,8 +31,11 @@ struct Change{
     QString content;
 };
 
+// saving traffic map
+extern QStringList mapTrafficList;
+std::vector<QStringList> trafficFilesContentLists;
+int currentOpenedTrafficFile;
 std::vector<Change*> changeHistory;
-
 QString parametersFileContent;
 QStringList parametersFileContentList;
 QString parametersFileContentDefault;
@@ -52,41 +47,28 @@ bool paramFileChanged;
 bool paramFileModified;
 std::vector<bool> trafficFilesChanged;
 std::vector<bool> trafficFilesModified;
-
 QString defaultLocationForRbFiles;
-
 bool enableChangeRegistration=true;
 bool previewFileInProgress=false;
 bool closingInProgress=false;
 bool fileAdditionInProgress=false;
 bool enteringMapView;
 QString chosenMapType;
-
 QString lastOpenMap;
-
-
 extern std::vector<QString*> trafficFilesNames;
 extern ParametersWindow* p;
-
 extern bool paramFilePresent;
-
 extern ProjectManagement* projectMng;
-
 extern MapWindow* map_w;
 extern MapWindowLarge* map_wl;
 extern Map_traffic* map_t;
 extern Map_traffic_large* map_tl;
-
 extern bool normalMapOpen;
 extern bool largeMapOpen;
 extern bool changesPresent;
-
 int nrOfTrafficFiles=0;
-
 void msg(QString content);
-
 QString text1;              // tekst znajdujący się w polu tekstowym
-
 QString pattern;      // tekst, który zamienimy na inny
 
 
@@ -147,12 +129,9 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     appSettings(appSettings)
 {
     ui->setupUi(this);
-    connect (ui->actionQuit, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     changesPresent=false;
     paramFileChanged=false;
-
-    ui->textEdit->setReadOnly(true);
 
     // set undo and redo enabled in the text editor
     this->ui->textEdit->setUndoRedoEnabled(true);
@@ -176,12 +155,10 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     this->ui->radioButton_normalMap->setChecked(true);
 
     // read in the default values for parameters.rb
-    QFile param_template(":/RbFiles/parameters.rb");
-    param_template.open(QIODevice::ReadOnly);
-    QTextStream param_template_str(&param_template);
-    parametersFileContentDefault=param_template_str.readAll();
+    parametersFileContentDefault = appSettings->readParametersFile();
+
     parametersFileContentDefaultList=parametersFileContentDefault.split("\n");
-    param_template.close();
+
 
     changeHistory.clear();
 

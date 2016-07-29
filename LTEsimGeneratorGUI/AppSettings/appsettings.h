@@ -77,9 +77,12 @@ public:
     QFile getSettings_file() const;
     void setSettings_file(const QFile &value);
 
+    QString readParametersFile();
 
     //TODO: new API to implement
     //***********************************************/
+
+
 signals:
     void currentProjects(const std::vector<Project> &projects);
 
@@ -108,6 +111,9 @@ private:
     QString projectFile;
     QString projectName;
     QDir projectDir;
+
+    const QString proFileExt = ".proj";
+    const QString parameterFile = ":/RbFiles/parameters.rb";
 };
 
 #endif // APPSETTINGS_H

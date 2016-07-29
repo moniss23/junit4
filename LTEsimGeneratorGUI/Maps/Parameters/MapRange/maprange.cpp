@@ -5,7 +5,6 @@
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
 extern MapWindow* map_w;
-extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
 extern std::vector<QString> trafficFilesContent;

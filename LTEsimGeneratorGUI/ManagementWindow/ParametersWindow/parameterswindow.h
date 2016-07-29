@@ -26,10 +26,6 @@ public:
     ~ParametersWindow();
     void closeEvent(QCloseEvent *);
     void open_file();                        // open file
-    void generate_template_prameters();
-    void generate_template_traffic();
-    void FilesPanel();
-    void addButtonToFilePanel();
     void addParamFile();
     void addTrafficFile();
     void loadProject();

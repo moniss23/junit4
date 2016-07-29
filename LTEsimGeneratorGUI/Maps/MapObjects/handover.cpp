@@ -4,7 +4,7 @@
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <qdebug.h>
 
-extern QString parametersFileContent;
+
 extern QStringList parametersFileContentList;
 
 

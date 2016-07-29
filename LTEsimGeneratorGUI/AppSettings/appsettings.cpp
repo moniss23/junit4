@@ -284,6 +284,17 @@ void AppSettings::removeDirectoryRecursively(QString dir_name){
     directory.removeRecursively();
 }
 
+QString AppSettings::readParametersFile()
+{
+    QFile param_template(parameterFile);
+    param_template.open(QIODevice::ReadOnly);
+    QTextStream param_template_str(&param_template);
+    param_template.close();
+
+    return param_template_str.readAll();
+}
+
+
 /*
  * Slots
  *
