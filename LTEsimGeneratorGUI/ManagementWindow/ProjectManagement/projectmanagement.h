@@ -6,7 +6,7 @@
 #include <QListWidgetItem>
 #include <QString>
 
-#include "ManagementWindow/Filedialog/filedialog.h"
+#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
 #include "AppSettings/appsettings.h"
 
 

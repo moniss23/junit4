@@ -1,4 +1,4 @@
-#include "filedialog.h"
+#include "addProjectWindow.h"
 #include "ui_filedialog.h"
 
 #include <QMessageBox>

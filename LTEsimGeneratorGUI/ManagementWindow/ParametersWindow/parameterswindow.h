@@ -8,7 +8,7 @@
 #include <QVBoxLayout>
 
 #include "ManagementWindow/Helpdialog/helpdialog.h"
-#include "ManagementWindow/Filedialog/filedialog.h"
+#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
 #include <QCloseEvent>
 #include <QListWidgetItem>
 #include "AppSettings/appsettings.h"

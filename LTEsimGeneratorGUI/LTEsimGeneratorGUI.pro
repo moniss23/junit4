@@ -17,7 +17,6 @@ CONFIG   += c++11
 
 SOURCES += main.cpp\
     ManagementWindow/ParametersWindow/parameterswindow.cpp \
-    ManagementWindow/Filedialog/filedialog.cpp \
     ManagementWindow/Helpdialog/helpdialog.cpp \
     ManagementWindow/ProjectManagement/projectmanagement.cpp \
     ManagementWindow/Settings/settings.cpp \
@@ -107,10 +106,10 @@ SOURCES += main.cpp\
     CommonConstans/common_constans.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
+    ManagementWindow/AddProjectWindow/addProjectWindow.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
-    ManagementWindow/Filedialog/filedialog.h \
     ManagementWindow/Helpdialog/helpdialog.h \
     ManagementWindow/ProjectManagement/projectmanagement.h \
     ManagementWindow/Settings/settings.h \
@@ -203,11 +202,11 @@ HEADERS  += \
     my_qlabel.h \
     CommonConstans/common_constans.h \
     Maps/Traffic/Time/timeData.h \
-    Maps/Traffic/Time/timeManager.h
+    Maps/Traffic/Time/timeManager.h \
+    ManagementWindow/AddProjectWindow/addProjectWindow.h
 
 FORMS    += \
     Ui/parameterswindow.ui \
-    Ui/filedialog.ui \
     Ui/helpdialog.ui \
     Ui/projectmanagement.ui \
     Ui/settings.ui \
@@ -236,7 +235,8 @@ FORMS    += \
     Ui/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
     Ui/managementtemplate.ui \
-    Ui/timeForm.ui
+    Ui/timeForm.ui \
+    Ui/addProjectWindow.ui
 
 
 OTHER_FILES += \
