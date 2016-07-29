@@ -52,7 +52,6 @@ bool previewFileInProgress=false;
 bool closingInProgress=false;
 bool fileAdditionInProgress=false;
 bool enteringMapView;
-
 QString lastOpenMap;
 extern std::vector<QString*> trafficFilesNames;
 extern ParametersWindow* p;

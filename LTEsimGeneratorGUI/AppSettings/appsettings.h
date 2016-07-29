@@ -3,11 +3,12 @@
 
 #include <QString>
 #include <QDir>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <QTextStream>
 #include <QFile>
 #include <QStringList>
 #include <QListWidgetItem>
+
+#include "ManagementWindow/Encryption/encryption.h"
 
 class AppSettings
 {

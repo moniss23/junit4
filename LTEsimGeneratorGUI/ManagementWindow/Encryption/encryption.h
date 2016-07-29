@@ -4,9 +4,11 @@
 #include <QString>
 #include <QStringList>
 #include <QListWidgetItem>
+
 #include <Maps/MapObjects/cell.h>
 #include <Maps/MapObjects/handover.h>
 #include <Maps/MapObjects/center.h>
+
 struct Project{
     QString name;
     QString fullpath;

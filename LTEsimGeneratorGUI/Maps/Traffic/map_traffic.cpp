@@ -101,8 +101,6 @@ my_qlabel *pointer_CM8;
 my_qlabel *pointer_CM9;
 my_qlabel *pointer_CM10;
 
-extern bool lolo;
-
 
 extern QStringList customModelList;
 

@@ -264,7 +264,7 @@ void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
     param_template.open(QIODevice::ReadOnly);
     QTextStream param_template_str(&param_template);
     QString param_template_content=param_template_str.readAll();
-    project_content+=itoa(param_template_content.split("\n").size());
+    project_content+=QString::number(param_template_content.split("\n").size());
     project_content+="\n";
     project_content+=param_template_content;
     project_content+="\n";

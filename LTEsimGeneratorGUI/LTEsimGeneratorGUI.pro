@@ -6,6 +6,7 @@
 
 QT       += core gui testlib
 QT       +=xml
+QT += widgets testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -260,4 +261,4 @@ DISTFILES += \
     RbFiles/parameters.rb \
     RbFiles/tune_traffic_models.rb
 
-QT += widgets testlib
+

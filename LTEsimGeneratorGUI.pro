@@ -1,6 +1,7 @@
     TEMPLATE = subdirs  
     SUBDIRS += LTEsimGeneratorGUI
-    CONFIG   += testcase
+    SUBDIRS += LTEsimGeneratorTESTS
+
 
 RESOURCES += \
     ../Resource.qrc \

@@ -40,8 +40,6 @@ QWidget *pointerWinTitle_large;
  my_qlabel *pointer_CM9_large;
  my_qlabel *pointer_CM10_large;
 
- extern bool lolo;
-
 
 //end
 
