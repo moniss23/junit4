@@ -2,7 +2,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QVector>
-#include <qdebug.h>
 
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
@@ -53,25 +52,21 @@ bool Sgw::getCore_network_gateway()
 void Sgw::setNames(QString n)
 {
     names = "[\"" + n + "\"]";
-    qDebug() << names;
 }
 
 void Sgw::setIpAddresses(QString ip)
 {
     ipAddresses = "[\"" + ip + "\"]";
-    qDebug() << ipAddresses;
 }
 
 void Sgw::setApn_lists(QString a)
 {
     apn_lists = "[\"" + a + "\"]";
-    qDebug() << apn_lists;
 }
 
 void Sgw::setLDIs(QString Ldi)
 {
     LDIs =  "[\"" + Ldi + "\"]";
-    qDebug() << LDIs;
 }
 
 void Sgw::setCore_network_gateway(bool cn)

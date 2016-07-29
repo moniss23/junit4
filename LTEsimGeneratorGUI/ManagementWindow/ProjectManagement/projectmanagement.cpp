@@ -11,7 +11,6 @@
 #include <QFileInfoList>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QDebug>
 
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>

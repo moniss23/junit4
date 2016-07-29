@@ -133,7 +133,6 @@ void AppSettings::checkIfExistAndCreateSettingsFile() {
     if(!settings_file.exists()){
         setDefaultNewProjectDir("<default>");
         write_settings_file();
-        qDebug()<<"settings file did not exist and was created";
     }
 }
 

@@ -129,7 +129,6 @@ Map_traffic::Map_traffic(QWidget *parent) :
         statistics = new Statistics();
         createCell();
 
-
         this->counter_UE=1;
         tab_UE = new DragUELabel*[counter_UE];
 
@@ -149,10 +148,7 @@ Map_traffic::Map_traffic(QWidget *parent) :
         pointer_CM9 = ui->CM_9;
         pointer_CM10 = ui->CM_10;
 
-
         if(trafficFilesContent.size() > 0 && trafficFilesContentLists.size() > 0){
-        qDebug() << "nie jest puste";
-
 
             parseSavedList();
             if(savedCM1List.size() > 0){
@@ -196,10 +192,7 @@ Map_traffic::Map_traffic(QWidget *parent) :
             readyListCM8 = savedCM8List;
             readyListCM9 = savedCM9List;
             readyListCM10 = savedCM10List;
-
-
         }
-
 
         pointerUE1=&viewUE1;
         pointerUE2=&viewUE2;
@@ -212,14 +205,12 @@ Map_traffic::Map_traffic(QWidget *parent) :
         pointerUE9=&viewUE9;
         pointerUE10=&viewUE10;
 
-
         mapRange_traffic = new MapRange();
 
         changeMapRange_y_northBoundMap();
         changeMapRange_x_northBoundMap();
 
         this->number1 =0;
-
 
         viewCustomModels1 = new Custommodels*[10];
         viewCustomModels1[0] = new Custommodels();
@@ -255,9 +246,6 @@ Map_traffic::Map_traffic(QWidget *parent) :
         tableview[9] = &viewUE10;
         tableview[9]->setWindowTitle("UE Params 10");
 
-
-
-
         viewCustomModels1[0]->set_custom_name("lteCustom1");
         viewCustomModels1[0]->setWindowTitle("lteCustom1");
         viewCustomModels1[1]->set_custom_name("lteCustom2");
@@ -279,8 +267,6 @@ Map_traffic::Map_traffic(QWidget *parent) :
         viewCustomModels1[9]->set_custom_name("lteCustom10");
         viewCustomModels1[9]->setWindowTitle("lteCustom10");
 
-        // my_qlabel *CM1 = ui->CM_1;
-
          connect(ui->CM_1, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM1_clicked()));
          connect(ui->CM_2, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM2_clicked()));
          connect(ui->CM_3, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM3_clicked()));
@@ -292,24 +278,6 @@ Map_traffic::Map_traffic(QWidget *parent) :
          connect(ui->CM_9, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM9_clicked()));
          connect(ui->CM_10, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM10_clicked()));
 
-        //Pozycja Celli
-        //        QMessageBox kk;
-        //        QMessageBox gg;
-        //        kk.setText("Pozycja Celli x: "+QString::number(ui->cell21_UE->x()));
-        //        gg.setText("Pozycja Celli y: "+QString::number(ui->cell21_UE->y()));
-        //        kk.exec();
-        //        gg.exec();
-        //Pozycja UE-ka
-        //        QMessageBox bb;
-        //        QMessageBox hh;
-        //        bb.setText("Pozycja UE-ka x "+QString::number(bbb->x()));
-        //        hh.setText("Pozycja UE-ka y "+QString::number(bbb->y()));
-        //        bb.exec();
-        //        hh.exec();
-        //Ukoncz
-        //SET WINDOWS ON THE LEFT SIDE
-        //this->adjustSize();
-       // this->move(QApplication::desktop()->screen()->rect().center() - this->rect().center());
         viewStatistics.adjustSize();
         viewStatistics.move(QApplication::desktop()->screen()->rect().center() + viewStatistics.rect().bottomRight());
 
@@ -339,24 +307,9 @@ Map_traffic::~Map_traffic()
     delete ui;
 }
 
-
 bool Map_traffic::toBool(QString value){
-        bool b;
-        qDebug() <<"Value"<<value;
-    if(value == "1"){
-         b = true;
-           qDebug() <<"b po true "<<b;
-    }
-    else{
-         b = false;
-           qDebug() <<"b po false "<<b;
-    }
-    return b;
-    qDebug() <<"b"<<b;
-
+    return value == QString("1");
 }
-
-
 
 void Map_traffic::createCell(){
     cell61 = new Cell ("cell61");
@@ -476,88 +429,43 @@ void Map_traffic::mouseDoubleClickEvent( QMouseEvent *event )
     if ( event->button() == Qt::LeftButton )
     {
         //Okno wyskakujace z parametrami
-        //qDebug() << "Qstring mousePressEvent()";
         DragUELabel *child = dynamic_cast<DragUELabel*>(childAt(event->pos()));
         if (!child)
             return;
-        //Cell11
-        qDebug() << "Checkout1";
-        if(child==tab_UE[0]){
-            qDebug() << "Checkout2";
-            show_UE_params1();
-        }
-        if(child==tab_UE[1]){
-            qDebug() << "Checkout2";
-            show_UE_params2();
-        }
-        if(child==tab_UE[2]){
-            qDebug() << "Checkout2";
-            show_UE_params3();
-        }
-        if(child==tab_UE[3]){
-            qDebug() << "Checkout2";
-            show_UE_params4();
-        }
-        if(child==tab_UE[4]){
-            qDebug() << "Checkout2";
-            show_UE_params5();
-        }
-        if(child==tab_UE[5]){
-            qDebug() << "Checkout2";
-            show_UE_params6();
-        }
-        if(child==tab_UE[6]){
-            qDebug() << "Checkout2";
-            show_UE_params7();
-        }
-        if(child==tab_UE[7]){
-            qDebug() << "Checkout2";
-            show_UE_params8();
-        }
-        if(child==tab_UE[8]){
-            qDebug() << "Checkout2";
-            show_UE_params9();
-        }
-        if(child==tab_UE[9]){
-            qDebug() << "Checkout2";
-            show_UE_params10();
-        }
 
+        //Cell11
+        if(child==tab_UE[0]) show_UE_params1();
+        if(child==tab_UE[1]) show_UE_params2();
+        if(child==tab_UE[2]) show_UE_params3();
+        if(child==tab_UE[3]) show_UE_params4();
+        if(child==tab_UE[4]) show_UE_params5();
+        if(child==tab_UE[5]) show_UE_params6();
+        if(child==tab_UE[6]) show_UE_params7();
+        if(child==tab_UE[7]) show_UE_params8();
+        if(child==tab_UE[8]) show_UE_params9();
+        if(child==tab_UE[9]) show_UE_params10();
     }
 }
 
 void Map_traffic::mousePressEvent(QMouseEvent *event)
 {
-
     if(event->button() == Qt::LeftButton){
 
         DragUELabel *child = dynamic_cast<DragUELabel*>(childAt(event->pos()));
 
         if (!child)
             return;
-        qDebug() << "BBBBB";
         if(child==tab_UE[0]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -571,26 +479,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
 
         if(child==tab_UE[1]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -603,26 +500,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[2]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -635,26 +521,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[3]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -667,26 +542,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[4]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -699,26 +563,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[5]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -731,26 +584,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[6]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -763,15 +605,6 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[7]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
@@ -795,26 +628,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[8]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -827,26 +649,15 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
         }
         if(child==tab_UE[9]){
             actualposition=child;
-            //child=actualposition;
-            qDebug() << "CCCCC";
-            //    for(int i=0; i<1; i++){
-            //        if(tab_UE[i]==child){
-            //            UEindex=i;
-            //            break;
-            //        }
-            //    }
-
             QPoint hotSpot = event->pos() - child->pos();
 
             QByteArray itemData;
             QDataStream dataStream(&itemData, QIODevice::WriteOnly);
             dataStream << child->labelText() << QPoint(hotSpot);
 
-
             QMimeData *mimeData = new QMimeData;
             mimeData->setData("application/x-UE", itemData);
             mimeData->setText(child->labelText());
-
 
             QDrag *drag = new QDrag(this);
             drag->setMimeData(mimeData);
@@ -857,16 +668,7 @@ void Map_traffic::mousePressEvent(QMouseEvent *event)
             else
                 child->show();
         }
-
-
     }
-
-
-
-    else{
-
-    }
-
 }
 
 
@@ -886,24 +688,9 @@ void Map_traffic::dragMoveEvent(QDragMoveEvent *event)
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
 void Map_traffic::dropEvent(QDropEvent *event)
 {
-
-
-    //
     //UE1
-    //
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -915,10 +702,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[0]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -926,57 +710,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE1->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE1->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE1->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE1->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -985,27 +749,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE1->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE1->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1014,45 +771,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE1->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE1->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE1->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1061,29 +804,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE1->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE1->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1092,45 +826,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE1->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE1->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE1->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1138,13 +858,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE1->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1153,13 +869,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE1->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1168,13 +880,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE1->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1182,13 +890,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE1->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("Handover21_22");
                     }
                 }
@@ -1197,45 +901,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE1->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE1->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE1->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE1->area1->setText("Handover22_32");
                     }
                 }
@@ -1244,13 +934,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE1->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1259,14 +945,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE1->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE1->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -1274,96 +956,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE1->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE1->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE1->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE1->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE1->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE1->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1372,45 +1022,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE1->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE1->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE1->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
@@ -1419,39 +1055,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE1->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE1->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[0]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-    //
     //UE2
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -1463,10 +1082,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[1]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -1474,57 +1090,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE2->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE2->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE2->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE2->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1533,27 +1129,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE2->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE2->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1562,45 +1151,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE2->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE2->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE2->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1609,29 +1184,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE2->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE2->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1640,59 +1206,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE2->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE2->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE2->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE2->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1701,13 +1250,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE2->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1716,27 +1261,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE2->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE2->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("Handover21_22");
                     }
                 }
@@ -1745,45 +1283,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE2->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE2->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE2->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE2->area1->setText("Handover22_32");
                     }
                 }
@@ -1792,13 +1316,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE2->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1807,14 +1327,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE2->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE2->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -1822,96 +1338,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE2->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE2->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE2->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE2->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE2->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE2->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1920,45 +1404,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE2->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE2->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE2->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
@@ -1967,39 +1437,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE2->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE2->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[1]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-    //
     //UE3
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -2011,10 +1464,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[2]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -2022,57 +1472,38 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE3->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
 
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE3->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE3->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE3->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2081,13 +1512,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE3->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2095,13 +1522,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE3->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2110,45 +1533,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE3->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE3->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE3->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2157,29 +1566,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE3->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE3->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2188,59 +1588,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE3->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE3->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE3->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE3->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2249,13 +1632,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE3->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2264,27 +1643,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE3->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE3->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("Handover21_22");
                     }
                 }
@@ -2293,29 +1665,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE3->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE3->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("Handover21_32");
                     }
                 }
@@ -2325,13 +1688,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE3->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE3->area1->setText("Handover22_32");
                     }
                 }
@@ -2340,13 +1699,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE3->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2355,14 +1710,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE3->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE3->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -2370,96 +1721,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE3->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE3->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE3->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE3->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE3->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE3->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2468,45 +1787,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE3->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE3->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE3->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
@@ -2515,41 +1820,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE3->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE3->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[2]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-
-    //
     //UE4
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -2561,10 +1847,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[3]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -2572,57 +1855,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE4->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE4->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE4->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE4->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2631,27 +1894,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE4->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE4->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2660,45 +1916,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE4->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE4->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE4->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2707,29 +1949,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE4->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE4->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2738,59 +1971,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE4->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE4->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE4->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE4->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2799,13 +2015,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE4->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2814,27 +2026,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE4->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE4->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("Handover21_22");
                     }
                 }
@@ -2843,45 +2048,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE4->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE4->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE4->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE4->area1->setText("Handover22_32");
                     }
                 }
@@ -2890,13 +2081,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE4->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -2905,14 +2092,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE4->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE4->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -2920,96 +2103,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE4->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE4->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE4->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE4->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE4->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE4->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -3018,45 +2169,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE4->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE4->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE4->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
@@ -3065,40 +2202,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE4->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE4->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[3]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-    //
     //UE5
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -3110,10 +2229,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[4]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -3121,57 +2237,38 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE5->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
 
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE5->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE5->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE5->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3180,27 +2277,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE5->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE5->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3209,45 +2299,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE5->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE5->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE5->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3256,29 +2332,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE5->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE5->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3287,59 +2354,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE5->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE5->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE5->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE5->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3348,13 +2398,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE5->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3363,27 +2409,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE5->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE5->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("Handover21_22");
                     }
                 }
@@ -3392,45 +2431,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE5->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE5->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE5->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE5->area1->setText("Handover22_32");
                     }
                 }
@@ -3439,13 +2464,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE5->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3454,14 +2475,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE5->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE5->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -3469,96 +2486,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE5->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE5->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE5->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE5->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE5->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE5->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3567,45 +2552,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE5->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE5->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE5->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
@@ -3614,40 +2585,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE5->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE5->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[4]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-    //
     //UE6
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -3659,10 +2612,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[5]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -3670,57 +2620,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE6->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE6->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE6->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE6->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -3729,27 +2659,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE6->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE6->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -3758,45 +2681,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE6->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE6->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE6->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -3805,29 +2714,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE6->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE6->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -3836,59 +2736,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE6->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE6->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE6->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE6->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -3897,13 +2780,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE6->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -3912,27 +2791,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE6->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE6->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("Handover21_22");
                     }
                 }
@@ -3941,45 +2813,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE6->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE6->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE6->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE6->area1->setText("Handover22_32");
                     }
                 }
@@ -3988,13 +2846,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE6->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -4003,13 +2857,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE6->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        pointerUE6->area1->setText("");
                         //tab_position_names[UEindex]="";
                     }
                 }
@@ -4018,96 +2868,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE6->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE6->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE6->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE6->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE6->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE6->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -4116,45 +2934,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE6->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE6->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE6->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -4163,13 +2967,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE6->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE6->area1->setText("");
                     }
                 }
@@ -4177,27 +2977,13 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 tab_UE[5]=newLabel;
             }
 
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-
-    //
     //UE7
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -4209,10 +2995,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[6]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -4220,57 +3003,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE7->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE7->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE7->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE7->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4279,27 +3042,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE7->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE7->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4308,45 +3064,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE7->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE7->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE7->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4355,29 +3097,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE7->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE7->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4386,13 +3119,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE7->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4402,43 +3131,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE7->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE7->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE7->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4447,13 +3164,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE7->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4462,13 +3175,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE7->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4476,13 +3185,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE7->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("Handover21_22");
                     }
                 }
@@ -4491,45 +3196,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE7->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE7->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE7->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE7->area1->setText("Handover22_32");
                     }
                 }
@@ -4538,13 +3229,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE7->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4553,14 +3240,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE7->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE7->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -4568,96 +3251,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE7->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE7->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE7->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE7->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE7->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE7->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4666,45 +3317,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE7->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE7->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE7->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
@@ -4713,40 +3350,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE7->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE7->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[6]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-    //
     //UE8
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -4758,10 +3377,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[7]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -4769,57 +3385,38 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE8->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
 
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE8->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE8->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE8->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -4828,27 +3425,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE8->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE8->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -4857,45 +3447,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE8->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE8->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE8->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -4904,29 +3480,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE8->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE8->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -4935,59 +3502,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE8->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE8->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE8->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE8->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -4996,13 +3546,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE8->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -5011,27 +3557,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE8->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE8->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("Handover21_22");
                     }
                 }
@@ -5040,45 +3579,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE8->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE8->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE8->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE8->area1->setText("Handover22_32");
                     }
                 }
@@ -5087,13 +3612,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE8->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -5102,14 +3623,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE8->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE8->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -5117,96 +3634,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE8->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE8->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE8->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE8->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE8->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE8->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -5215,45 +3700,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE8->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE8->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE8->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
@@ -5262,40 +3733,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE8->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE8->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[7]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-    //
     //UE9
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -5307,10 +3760,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[8]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -5318,57 +3768,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE9->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE9->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE9->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE9->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5377,27 +3807,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE9->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE9->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5406,45 +3829,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE9->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE9->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE9->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5453,29 +3862,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE9->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE9->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5484,59 +3884,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE9->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE9->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE9->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE9->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5545,13 +3928,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE9->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5560,27 +3939,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE9->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE9->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("Handover21_22");
                     }
                 }
@@ -5589,45 +3961,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE9->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE9->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE9->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE9->area1->setText("Handover22_32");
                     }
                 }
@@ -5636,13 +3994,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE9->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5651,13 +4005,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE9->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        pointerUE9->area1->setText("");
                         //tab_position_names[UEindex]="";
                     }
                 }
@@ -5666,96 +4016,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE9->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE9->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE9->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE9->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE9->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE9->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5764,45 +4082,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE9->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE9->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE9->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
@@ -5811,41 +4115,22 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE9->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE9->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[8]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
-
                 event->acceptProposedAction();
             }
         }
     }
 
-
-
-
-    //
     //UE10
-    //
-
     if (event->mimeData()->hasFormat("application/x-UE")) {
         const QMimeData *mime = event->mimeData();
         QByteArray itemData = mime->data("application/x-UE");
@@ -5857,10 +4142,7 @@ void Map_traffic::dropEvent(QDropEvent *event)
 
         DragUELabel *newLabel = new DragUELabel(text, ui->scrollAreaWidgetContents);
 
-        qDebug()<<"Checkout1NN";
-        //bool ok_ue=false;
         if(actualposition==tab_UE[9]){
-            qDebug()<<"Checkout2NN";
             newLabel->move(event->pos() - offset);
             newLabel->show();
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
@@ -5868,57 +4150,37 @@ void Map_traffic::dropEvent(QDropEvent *event)
             if (event->source() == this) {
                 event->setDropAction(Qt::MoveAction);
                 event->accept();
-                qDebug() << "Pozycja x" + QString::number(newLabel->x());
-                qDebug() << "Pozycja y" + QString::number(newLabel->y());
-                //Początek rozpoznawania mapy, cell11
 
                 //Cell11
-
                 bool ok=false;
                 if(newLabel->y()>ui->cell11_UE->y() && newLabel->y()<ui->cell11_UE->y()+120){
                     if(newLabel->x()>ui->cell11_UE->x() && newLabel->x()<ui->cell11_UE->x()+120){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
                         pointerUE10->area1->setText("Center11");
-                        //tab_position_names[UEindex]="cell11";
-
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
-
 
                 //Cell12
                 if(!ok && newLabel->y()>ui->cell12_UE->y() && newLabel->y()<(ui->cell12_UE->y()+110)){
                     if(newLabel->x()>ui->cell12_UE->x() && newLabel->x()<(ui->cell12_UE->x()+100)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE10->area1->setText("Center12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE10->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
-
 
                 //cell21
                 if(!ok && newLabel->y()>ui->cell21_UE->y() && newLabel->y()<(ui->cell21_UE->y()+50)){
                     if(newLabel->x()>ui->cell21_UE->x() && newLabel->x()<(ui->cell21_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell12";
                         pointerUE10->area1->setText("Center21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -5927,27 +4189,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell22_UE->y() && newLabel->y()<(ui->cell22_UE->y()+50)){
                     if(newLabel->x()>ui->cell22_UE->x() && newLabel->x()<(ui->cell22_UE->x()+150)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell22";
                         pointerUE10->area1->setText("Center22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
+
                 //cell31
                 if(!ok && newLabel->y()>ui->cell31_UE->y() && newLabel->y()<(ui->cell31_UE->y()+150)){
                     if(newLabel->x()>ui->cell31_UE->x() && newLabel->x()<(ui->cell31_UE->x()+130)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell31";
                         pointerUE10->area1->setText("Center31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -5956,45 +4211,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell32_UE->y() && newLabel->y()<(ui->cell32_UE->y()+160)){
                     if(newLabel->x()>ui->cell32_UE->x() && newLabel->x()<(ui->cell32_UE->x()+140)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell32";
                         pointerUE10->area1->setText("Center32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //cell41
                 if(!ok && newLabel->y()>ui->cell41_UE->y() && newLabel->y()<(ui->cell41_UE->y()+101)){
                     if(newLabel->x()>ui->cell41_UE->x() && newLabel->x()<(ui->cell41_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell41";
                         pointerUE10->area1->setText("Center41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("cell41");
                     }
                 }
-
 
                 //cell42
                 if(!ok && newLabel->y()>ui->cell42_UE->y() && newLabel->y()<(ui->cell42_UE->y()+101)){
                     if(newLabel->x()>ui->cell42_UE->x() && newLabel->x()<(ui->cell42_UE->x()+141)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell42";
                         pointerUE10->area1->setText("Center42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6003,29 +4244,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell51_UE->y() && newLabel->y()<(ui->cell51_UE->y()+101)){
                     if(newLabel->x()>ui->cell51_UE->x() && newLabel->x()<(ui->cell51_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell51";
                         pointerUE10->area1->setText("Center51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //cell52
                 if(!ok && newLabel->y()>ui->cell52_UE->y() && newLabel->y()<(ui->cell52_UE->y()+101)){
                     if(newLabel->x()>ui->cell52_UE->x() && newLabel->x()<(ui->cell52_UE->x()+151)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell52";
                         pointerUE10->area1->setText("Center52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6034,59 +4266,42 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->cell61_UE->y() && newLabel->y()<(ui->cell61_UE->y()+111)){
                     if(newLabel->x()>ui->cell61_UE->x() && newLabel->x()<(ui->cell61_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell61";
                         pointerUE10->area1->setText("Center61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //cell62
                 if(!ok && newLabel->y()>ui->cell62_UE->y() && newLabel->y()<(ui->cell62_UE->y()+111)){
                     if(newLabel->x()>ui->cell62_UE->x() && newLabel->x()<(ui->cell62_UE->x()+131)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Celli";
-                        //tab_position_names[UEindex]="cell62";
                         pointerUE10->area1->setText("Center62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover11_12
                 if(!ok && newLabel->y()>ui->Handover11_12_UE->y() && newLabel->y()<(ui->Handover11_12_UE->y()+120)){
                     if(newLabel->x()>ui->Handover11_12_UE->x() && newLabel->x()<(ui->Handover11_12_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_12";
                         pointerUE10->area1->setText("Handover11_12");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
+
                 //Handover11_21
                 if(!ok && newLabel->y()>ui->Handover11_21_UE->y() && newLabel->y()<(ui->Handover11_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover11_21_UE->x() && newLabel->x()<(ui->Handover11_21_UE->x()+50)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover11_21";
                         pointerUE10->area1->setText("Handover11_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6095,13 +4310,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_21_UE->y() && newLabel->y()<(ui->Handover12_21_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_21_UE->x() && newLabel->x()<(ui->Handover12_21_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_21";
                         pointerUE10->area1->setText("Handover12_21");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6110,27 +4321,20 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover12_22_UE->y() && newLabel->y()<(ui->Handover12_22_UE->y()+100)){
                     if(newLabel->x()>ui->Handover12_22_UE->x() && newLabel->x()<(ui->Handover12_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover12_22";
                         pointerUE10->area1->setText("Handover12_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
+
                 //Handover21_22
                 if(!ok && newLabel->y()>ui->Handover21_22_UE->y() && newLabel->y()<(ui->Handover21_22_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_22_UE->x() && newLabel->x()<(ui->Handover21_22_UE->x()+70)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_22";
                         pointerUE10->area1->setText("Handover21_22");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("Handover21_22");
                     }
                 }
@@ -6139,45 +4343,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover21_31_UE->y() && newLabel->y()<(ui->Handover21_31_UE->y()+80)){
                     if(newLabel->x()>ui->Handover21_31_UE->x() && newLabel->x()<(ui->Handover21_31_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_31";
                         pointerUE10->area1->setText("Handover21_31");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover21_32
                 if(!ok && newLabel->y()>ui->Handover21_32_UE->y() && newLabel->y()<(ui->Handover21_32_UE->y()+30)){
                     if(newLabel->x()>ui->Handover21_32_UE->x() && newLabel->x()<(ui->Handover21_32_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover21_32";
                         pointerUE10->area1->setText("Handover21_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("Handover21_32");
                     }
                 }
-
 
                 //Handover22_32
                 if(!ok && newLabel->y()>ui->Handover22_32_UE->y() && newLabel->y()<(ui->Handover22_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover22_32_UE->x() && newLabel->x()<(ui->Handover22_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE10->area1->setText("Handover22_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="Handover22_32";
                         pointerUE10->area1->setText("Handover22_32");
                     }
                 }
@@ -6186,13 +4376,9 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_32_UE->y() && newLabel->y()<(ui->Handover31_32_UE->y()+80)){
                     if(newLabel->x()>ui->Handover31_32_UE->x() && newLabel->x()<(ui->Handover31_32_UE->x()+60)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_32";
                         pointerUE10->area1->setText("Handover31_32");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6201,14 +4387,10 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover31_41_UE->y() && newLabel->y()<(ui->Handover31_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover31_41_UE->x() && newLabel->x()<(ui->Handover31_41_UE->x()+80)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover31_41";
                         pointerUE10->area1->setText("Handover31_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
                         pointerUE10->area1->setText("");
-                        //tab_position_names[UEindex]="";
                     }
                 }
 
@@ -6216,96 +4398,64 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover32_41_UE->y() && newLabel->y()<(ui->Handover32_41_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_41_UE->x() && newLabel->x()<(ui->Handover32_41_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_41";
                         pointerUE10->area1->setText("Handover32_41");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover32_42
                 if(!ok && newLabel->y()>ui->Handover32_42_UE->y() && newLabel->y()<(ui->Handover32_42_UE->y()+90)){
                     if(newLabel->x()>ui->Handover32_42_UE->x() && newLabel->x()<(ui->Handover32_42_UE->x()+90)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover32_42";
                         pointerUE10->area1->setText("Handover32_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover41_42
                 if(!ok && newLabel->y()>ui->Handover41_42_UE->y() && newLabel->y()<(ui->Handover41_42_UE->y()+110)){
                     if(newLabel->x()>ui->Handover41_42_UE->x() && newLabel->x()<(ui->Handover41_42_UE->x()+40)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_42";
                         pointerUE10->area1->setText("Handover41_42");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover41_51
                 if(!ok && newLabel->y()>ui->Handover41_51_UE->y() && newLabel->y()<(ui->Handover41_51_UE->y()+66)){
                     if(newLabel->x()>ui->Handover41_51_UE->x() && newLabel->x()<(ui->Handover41_51_UE->x()+81)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_51";
                         pointerUE10->area1->setText("Handover41_51");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover42_52
                 if(!ok && newLabel->y()>ui->Handover42_52_UE->y() && newLabel->y()<(ui->Handover42_52_UE->y()+66)){
                     if(newLabel->x()>ui->Handover42_52_UE->x() && newLabel->x()<(ui->Handover42_52_UE->x()+96)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover41_52";
                         pointerUE10->area1->setText("Handover42_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
-
-
-
 
                 //Handover51_52
                 if(!ok && newLabel->y()>ui->Handover51_52_UE->y() && newLabel->y()<(ui->Handover51_52_UE->y()+91)){
                     if(newLabel->x()>ui->Handover51_52_UE->x() && newLabel->x()<(ui->Handover51_52_UE->x()+56)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_52";
                         pointerUE10->area1->setText("Handover51_52");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6314,45 +4464,31 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover51_61_UE->y() && newLabel->y()<(ui->Handover51_61_UE->y()+41)){
                     if(newLabel->x()>ui->Handover51_61_UE->x() && newLabel->x()<(ui->Handover51_61_UE->x()+76)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover51_61";
                         pointerUE10->area1->setText("Handover51_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover52_61
                 if(!ok && newLabel->y()>ui->Handover52_61_UE->y() && newLabel->y()<(ui->Handover52_61_UE->y()+56)){
                     if(newLabel->x()>ui->Handover52_61_UE->x() && newLabel->x()<(ui->Handover52_61_UE->x()+66)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_61";
                         pointerUE10->area1->setText("Handover52_61");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
-
 
                 //Handover52_62
                 if(!ok && newLabel->y()>ui->Handover52_62_UE->y() && newLabel->y()<(ui->Handover52_62_UE->y()+66)){
                     if(newLabel->x()>ui->Handover52_62_UE->x() && newLabel->x()<(ui->Handover52_62_UE->x()+86)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover52_62";
                         pointerUE10->area1->setText("Handover52_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
@@ -6361,35 +4497,21 @@ void Map_traffic::dropEvent(QDropEvent *event)
                 if(!ok && newLabel->y()>ui->Handover61_62_UE->y() && newLabel->y()<(ui->Handover61_62_UE->y()+96)){
                     if(newLabel->x()>ui->Handover61_62_UE->x() && newLabel->x()<(ui->Handover61_62_UE->x()+116)){
                         ok=true;
-                        qDebug() << "Udane upuszczenie UE-ka w odrębie Handovera";
-                        //tab_position_names[UEindex]="Handover61_62";
                         pointerUE10->area1->setText("Handover61_62");
                     }
                     else{
-                        qDebug() << "Czyszczenie wartosci area";
-                        //tab_position_names[UEindex]="";
                         pointerUE10->area1->setText("");
                     }
                 }
                 actualposition=newLabel;
                 tab_UE[9]=newLabel;
             }
-
-
-
-
-
-
-
-
             else {
 
                 event->acceptProposedAction();
             }
         }
     }
-
-
 
     else if (event->mimeData()->hasText()) {
         QStringList pieces = event->mimeData()->text().split(QRegExp("\\s+"),
@@ -6403,19 +4525,12 @@ void Map_traffic::dropEvent(QDropEvent *event)
             newLabel->setAttribute(Qt::WA_DeleteOnClose);
 
             position += QPoint(newLabel->width(), 0);
-
         }
-
         event->acceptProposedAction();
-
     } else {
         event->ignore();
     }
-
 }
-
-
-
 
 void Map_traffic::show_UE_params1(){
 
@@ -6454,13 +4569,9 @@ void Map_traffic::show_UE_params1(){
 
     }
 
-  //  curPS1 = pointerUE1->pointerPS->currentText();
-
 }
 
 void Map_traffic::show_UE_params2(){
-
-  //  pointerWinTitle->setWindowTitle("UE params 2");
 
     if(pointerUE2->pointerPS->currentText() == ""){
 
@@ -6493,14 +4604,9 @@ void Map_traffic::show_UE_params2(){
         pointerUE2->show();
 
     }
-
-  //   curPS2 = pointerUE2->pointerPS->currentText();
-
 }
 
 void Map_traffic::show_UE_params3(){
-
-  //  pointerWinTitle->setWindowTitle("UE params 3");
 
     if(pointerUE3->pointerPS->currentText() == ""){
 
@@ -6937,11 +5043,6 @@ void Map_traffic::parseSavedList(){
     savedCM10List.clear();
 
     QStringList allSavedInVector = trafficFilesContentLists[currentOpenedTrafficFile];
-    qDebug() << "start";
-    qDebug() << allSavedInVector;
-    qDebug() << "end";
-    qDebug() << "sizeof List";
-    qDebug() << allSavedInVector.size();
 
     if(allSavedInVector.size() > 0){
 
@@ -8449,7 +6550,6 @@ void Map_traffic::on_bt_time_clicked()
 void Map_traffic::on_add_button_clicked(){
     if(counter_UE<10)
     {
-        qDebug() << "click";
         if(counter_UE<5){
             tab_UE[counter_UE]=new DragUELabel("e"+QString::number(counter_UE+1), ui->scrollAreaWidgetContents);
             tab_UE[counter_UE]->setGeometry(750+offset_x,60,40,40);
@@ -8463,8 +6563,6 @@ void Map_traffic::on_add_button_clicked(){
             offset_x_2=offset_x_2+40;
         }
         offset_x=offset_x+40;
-        qDebug() << counter_UE;
-        qDebug() << "stworzono obiekt";
         ui->tet_UE->setText(QString::number(counter_UE));
     }
 }
@@ -8473,10 +6571,8 @@ void Map_traffic::on_add_button_clicked(){
 void Map_traffic::on_remove_button_clicked(){
     if(counter_UE>1)
     {
-        qDebug() << "Przed "+QString::number(counter_UE);
         //delete last_element_traffic;
         for(int i=0;i<counter_UE;i++){
-
             delete tab_UE[counter_UE-1];
             counter_UE--;
             offset_x=40;
@@ -8485,7 +6581,6 @@ void Map_traffic::on_remove_button_clicked(){
         }
 
         //counter_UE--;
-        qDebug() << "Po "+QString::number(counter_UE);
         ui->tet_UE->setText(QString::number(counter_UE));
     }
 }

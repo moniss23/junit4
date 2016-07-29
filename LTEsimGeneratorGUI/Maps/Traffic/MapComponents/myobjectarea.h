@@ -2,7 +2,6 @@
 #define MYOBJECTAREA_H
 
 #include <QString>
-#include <QDebug>
 
 //------Interface of area objects------
 class MyObjectArea

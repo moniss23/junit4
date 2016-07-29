@@ -3,7 +3,6 @@
 
 #include <QLabel>
 #include <QMouseEvent>
-#include <QDebug>
 #include <QEvent>
 
 class my_qlabel : public QLabel

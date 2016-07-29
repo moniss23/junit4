@@ -2,7 +2,6 @@
 #include "QFile"
 #include <QTextStream>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <qdebug.h>
 
 
 extern QStringList parametersFileContentList;
@@ -50,50 +49,7 @@ void Handover::setWestBoundary(QString w){
     westBoundary=w.toInt();
 }
 
-//void Handover::setParams(){
-//    QString name_search = ":area => \"" +area + "\""+",";
-
-//    QString fileName = ":/RbFiles/parameters.rb";
-//    QFile file1(fileName);
-//    if(!file1.open(QIODevice::ReadOnly | QIODevice::Text))
-//        return;              // if coudn't open file: stop loading file
-
-//    QString text1="";
-//    QTextStream stream(&file1);
-
-//    QString text_search;
-//    while(text_search != name_search && !stream.atEnd()){
-//        text1 = stream.readLine();
-//        text_search = text1.trimmed();
-//   }
-
-
-//    tabParams = new QString [5];
-//    for (int i=0; i<5; i++)
-//    {
-//        tabParams[i] = text_search;
-//        text1 = stream.readLine();
-//        text_search = text1.trimmed();
-//    }
-
-//    QStringList list;
-//    for (int i=0; i<5; i++)
-//    {
-//        list = tabParams[i].split(" ", QString::SkipEmptyParts);
-//        tabParams[i]= list[2];
-//        tabParams[i].remove(QChar('"'));
-//        tabParams[i].remove(QChar(','));
-//        tabParams[i].remove(QChar(','));
-//    }
-
-//    area = tabParams[0];
-//    southBoundary = tabParams[1].toInt();
-//    northBoundary = tabParams[2].toInt();
-//    westBoundary = tabParams[3].toInt();
-//    eastBoundary = tabParams[4].toInt();
-//}
 void Handover::setParams(){
-    qDebug() << "Nazwa szukanego HO: " << area;
     QString name_search = ":area => \"" +area + "\""+",";
     tabParams = new QString [5];
     for( int i=0; i<parametersFileContentList.size(); i++){
@@ -105,8 +61,6 @@ void Handover::setParams(){
             tabParams[4] = parametersFileContentList[i+4].trimmed();
         }
     }
-    qDebug() << "Nazwa Handowera: " << tabParams[0];
-    //if (tabParams[0] !=
     QStringList list;
     for (int i=0; i<5; i++)
     {

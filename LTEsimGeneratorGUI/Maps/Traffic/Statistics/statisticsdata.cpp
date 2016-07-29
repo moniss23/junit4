@@ -1,5 +1,4 @@
 #include "statisticsdata.h"
-#include <QDebug>
 
 StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
 {

@@ -12,7 +12,6 @@
 #include <QCloseEvent>
 #include <QInputDialog>
 #include <cmath>
-#include <qdebug.h>
 
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <Maps/Parameters/MapWindow/mapwindowlarge.h>
@@ -566,9 +565,6 @@ void ParametersWindow::save_project(bool singleFile=false){
         plaintext.append("\n");
     }
 
-    qDebug()<<"writing project file:";
-    qDebug()<<plaintext;
-
     // encrypt the project data and write it to file
     appSettings->write_project_file(appSettings->getProjectName(), plaintext,get_project_dir(appSettings->getProjectName(), appSettings->projects));
 
@@ -961,12 +957,9 @@ void ParametersWindow::on_listWidget_currentItemChanged(QListWidgetItem *current
 void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     (void) item;
-    qDebug() << "MAPA SIE OTWORZYLA";
-
 
     // parameters file double-clicked
     if(this->ui->listWidget->currentRow()==0){
-        qDebug()<<"\n\nTUTAJ TWORZE MAPE\n\n";
         enteringMapView=true;
 
         // if normal map is to be displayed
@@ -993,41 +986,26 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             p->close();
 
             map_w->show();
-
-
         }
-
 
         // if large map is to be displayed
         else{
-
-            qDebug()<<"checkpoint1";
-
             if(lastOpenMap=="normal"){
-
-                qDebug()<<"checkpoint2";
 
                 if(QMessageBox::No==QMessageBox(QMessageBox::Question,"","Large map can currently be displayed with default values only. Revert to defaults?",QMessageBox::Yes|QMessageBox::No).exec()){
                     return;
                 }
 
-                qDebug()<<"checkpoint3";
-
                 // restore default values
                 parametersFileContent=parametersFileContentDefault;
                 parametersFileContentList=parametersFileContentDefaultList;
                 this->refreshPreview();
-
-                qDebug()<<"checkpoint4";
-
             }
 
             // set the flags
             largeMapOpen=true;
             normalMapOpen=false;
             lastOpenMap="large";
-
-            qDebug()<<"checkpoint5";
 
             // delete current map objects if they are present
             if(map_w!=NULL){
@@ -1038,8 +1016,6 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
                 delete map_wl;
                 map_wl=NULL;
             }
-
-            qDebug()<<"checkpoint6";
 
             // create a new map object and display it
             map_wl=new MapWindowLarge;
@@ -1078,7 +1054,6 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
 
                     //if large traffic map is to be displayed
-                        qDebug() <<"\n\ntraffic";
                         map_tl =new Map_traffic_large;
 
                         map_tl->show();
@@ -1086,7 +1061,6 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
             else{
 
                 // same as above, but for traffic map window
-                    qDebug() <<"\n\ntraffic";
                     map_t =new Map_traffic;
 
                     map_t->show();

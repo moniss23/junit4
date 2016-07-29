@@ -1,7 +1,6 @@
 #include "ipgwtg.h"
 #include "QFile"
 #include "QTextStream"
-#include "qdebug.h"
 
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
@@ -20,7 +19,6 @@ QString Ipgwtg::getUserDataGen()
 void Ipgwtg::setUserDataGen(QString value)
 {
     userDataGen = value;
-     qDebug() <<userDataGen;
 }
 bool Ipgwtg::getStart_isp_simulator() const
 {
@@ -39,7 +37,6 @@ QString Ipgwtg::getIpgwtg_ipAddress()
 void Ipgwtg::setIpgwtg_ipAddress( QString value)
 {
     ipgwtg_ipAddress = "\"" + value + "\"";
-    qDebug() <<ipgwtg_ipAddress;
 }
 bool Ipgwtg::getIpgwtg_inband_signaling() const
 {

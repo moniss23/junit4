@@ -1,7 +1,6 @@
 #include "addftpdlform.h"
 #include "ui_addftpdlform.h"
 #include <QMessageBox>
-#include <QDebug>
 
 QList<QString> FtpDlList;
 

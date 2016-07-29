@@ -2,12 +2,11 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
-#include <QDebug>
 
+extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
 extern std::vector<QString> trafficFilesContent;
-
 
 ChannelModel::ChannelModel()
 {
@@ -21,7 +20,6 @@ QString ChannelModel::getModel_set_name()
 void ChannelModel::setModel_set_name(QString value)
 {
     model_set_name = "\"" + value + "\"";
-    qDebug() << model_set_name;
 }
 QString ChannelModel::getPdcch_drop_dl_assignment_rate() const
 {
@@ -275,7 +273,6 @@ QString ChannelModel::searchDefaultParameter(QString name)
 void ChannelModel::setParameters()
 {
      model_set_name = searchParameter(":model_set_name").trimmed();
-     qDebug() << model_set_name;
      pdcch_drop_dl_assignment_rate= searchParameter(":pdcch_drop_dl_assignment_rate").toDouble();
      pdcch_drop_grant_rate= searchParameter(":pdcch_drop_grant_rate").toDouble();
      pdsch_transport_block_decoded_error_rate= searchParameter(":pdsch_transport_block_decoded_error_rate").toDouble();

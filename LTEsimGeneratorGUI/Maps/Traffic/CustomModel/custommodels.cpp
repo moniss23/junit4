@@ -2797,6 +2797,7 @@ void Custommodels::addToList(){
                 readyListCM9.append(CM9_List);
             }
         }
+
         if(CMname == "Custom Model 10"){
             CM10_List.clear();
             CM10_List.append(CMname);
@@ -2834,7 +2835,6 @@ void Custommodels::addToList(){
             }
         }
 
-
         customModelList.clear();
         customModelList.append(readyListCM1);
         customModelList.append(readyListCM2);
@@ -2847,44 +2847,15 @@ void Custommodels::addToList(){
         customModelList.append(readyListCM9);
         customModelList.append(readyListCM10);
 
-
-
-        qDebug() <<"CM1_List";
-        qDebug() <<CM1_List;
-        qDebug() <<"CM2_List";
-        qDebug() <<CM2_List;
-        qDebug() <<"ready CM1";
-        qDebug() <<readyListCM1;
-        qDebug() <<"ready CM2";
-        qDebug() <<readyListCM2;
-        qDebug() <<"custommodel FINAL";
-        qDebug() <<customModelList;
     }
-
-    if(large == true){
-        //zrobic adekwatnie
-    }
-
-
 }
 
 bool Custommodels::toBool(QString value){
-    bool b;
-    qDebug() <<"Value"<<value;
-    if(value == "1"){
-        b = true;
-        qDebug() <<"b po true "<<b;
-    }
-    else{
-        b = false;
-        qDebug() <<"b po false "<<b;
-    }
-    return b;
-    qDebug() <<"b"<<b;
-
+    return value == QString("1");
 }
 
 void Custommodels::startParameter(){
+
     ui->bt_add_Ping->setEnabled(false);
     ui->bt_add_Voip->setEnabled(false);
     ui->bt_add_FtpUl->setEnabled(false);

@@ -7,7 +7,6 @@
 #include <QTextStream>
 #include <QFile>
 #include <QStringList>
-#include <QDebug>
 #include <QListWidgetItem>
 
 class AppSettings
@@ -112,7 +111,6 @@ private:
     QString projectName;
     QDir projectDir;
 
-    const QString proFileExt = ".proj";
     const QString parameterFile = ":/RbFiles/parameters.rb";
 };
 

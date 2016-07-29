@@ -1,44 +1,39 @@
 #include "UE_param_form.h"
 #include "ui_UE_param_form.h"
 
-#include <QDebug>
 #include <QMessageBox>
 #include <QSettings>
 
 QString curPS1;
 QString curPS2;
- QString curPS3;
- QString curPS4;
- QString curPS5;
- QString curPS6;
- QString curPS7;
- QString curPS8;
- QString curPS9;
- QString curPS10;
- QString curPS11;
- QString curPS12;
- QString curPS13;
- QString curPS14;
- QString curPS15;
- QString curPS16;
- QString curPS17;
- QString curPS18;
- QString curPS19;
- QString curPS20;
+QString curPS3;
+QString curPS4;
+QString curPS5;
+QString curPS6;
+QString curPS7;
+QString curPS8;
+QString curPS9;
+QString curPS10;
+QString curPS11;
+QString curPS12;
+QString curPS13;
+QString curPS14;
+QString curPS15;
+QString curPS16;
+QString curPS17;
+QString curPS18;
+QString curPS19;
+QString curPS20;
 
-
-
- QString lastCS;
- QString lastPS;
- QString lastMM;
- int lastSpin;
- QString lastTet;
- QString lastUE;
- bool wasClicked;
+QString lastCS;
+QString lastPS;
+QString lastMM;
+int lastSpin;
+QString lastTet;
+QString lastUE;
+bool wasClicked;
 
 QStringList PS_List;
-
-
 
 int Form::uePairsCount = 0;
 
@@ -57,8 +52,6 @@ Form::Form(QWidget *parent) :
     pointerPS = ui->PSBehaviorMode1;
         pointerWinTitle = window();
         pointerWinTitle_large = window();
-
-
 
         PS_List  <<  "NoPS"
                  <<  "general_10s_50Mbps"
@@ -108,8 +101,6 @@ Form::Form(QWidget *parent) :
                  <<  "LteMMTelVoipTerm"
                  <<  "LteMMTelVoipTerm50"
                  <<  "LteMMTelVoipTerm2Pdn50";
-        qDebug() << PS_List;
-
 }
 
 Form::~Form()

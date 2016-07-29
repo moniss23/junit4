@@ -16,6 +16,7 @@ void AddButton::mousePressEvent(QMouseEvent *event)
         pointer->ueGroupLabel[counter]->setGeometry(850, 100, 40, 30);
         created = true;
     } catch( int ) {
-        qDebug() << "There is the other UE Group. Please use it before creating the new one.";
+        // TODO:
+        // zamienic ten try-catch na kiju na cos co dziala lepiej, ale to temat na osobny commit
     }
 }

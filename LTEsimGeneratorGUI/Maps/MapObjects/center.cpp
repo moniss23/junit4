@@ -1,7 +1,6 @@
 #include "center.h"
 #include "QFile"
 #include <QTextStream>
-#include <qdebug.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
 extern QStringList parametersFileContentList;
@@ -54,9 +53,7 @@ void Center::setWestBoundary(QString w){
 }
 
 void Center::setParams(){
-    //QString name_search = ":area => \"" +area + "\""+",";
     QString name_search = ":area => \"" +area;
-    qDebug () << area;
     tabParams = new QString [5];
     for( int i=0; i<parametersFileContentList.size(); i++){
         if(parametersFileContentList[i].contains(name_search)){

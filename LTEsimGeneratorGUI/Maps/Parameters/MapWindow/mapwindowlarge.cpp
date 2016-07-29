@@ -30,26 +30,14 @@ MapWindowLarge::MapWindowLarge(QWidget *parent) :
     ui->tabWidget->removeTab(1);
     ui->tabWidget->removeTab(2);
 
-    qDebug()<<"----------------   checkpoint 0";
-
     createCenter();
-
-    qDebug()<<"----------------   checkpoint 0.1";
-
     createCell();
-
-    qDebug()<<"----------------   checkpoint 1";
-
     createHandover();
     createCoreNetwork();
     createUeSimulated();
     chmod = new ChannelModel();
     ipex = new Ipgwtg();
     mapRange = new MapRange();
-
-    qDebug()<<"----------------   checkpoint 2";
-
-    qDebug ()<<"mapawielosc" + QString::number(mapRange->getEastBoundMap());
 
     connect(ui->axis, SIGNAL(Mouse_Pressed()), this, SLOT(Mouse_Pressed()));
     connect(ui->cell62, SIGNAL(Mouse_Pressed()), this, SLOT(on_cell62_clicked()));
@@ -87,9 +75,6 @@ MapWindowLarge::MapWindowLarge(QWidget *parent) :
     connect(ui->axis_x, SIGNAL(Mouse_Pressed()), this, SLOT(on_axis_x_clicked()));
     connect(ui->axis_y, SIGNAL(Mouse_Pressed()), this, SLOT(on_axis_y_clicked()));
 
-    qDebug()<<"----------------   checkpoint 3";
-
-    qDebug()<< "Nazwa celli: " + cell61->getCell() + " Nowa nazwa: " + cell61->getCell_new_name();
     changeMapRange_x_northBoundMap();
     changeMapRange_y_northBoundMap();
 }
@@ -101,8 +86,6 @@ MapWindowLarge::~MapWindowLarge()
 
 void MapWindowLarge::createHandover(){
     tabHandover = new Handover*[53];
-//    qDebug () << "\n\nRozmiar tablicy: " + QString::number(sizeof(**tabHandover));
-
 
      //new handovers
       handover12_13 = new Handover ("Handover12_13");
@@ -219,21 +202,10 @@ void MapWindowLarge::createHandover(){
     tabHandover[50] = handover52_53;
     tabHandover[51] = handover53_62;
     tabHandover[52] = handover62_63;
-
-
-
-//    for(unsigned int i=0; i<handoverCount; i++){
-//        handoverNames[i].name=tabHandover[i]->getArea();
-//        handoverNames[i].obj=tabHandover[i];
-//    }
-
 }
 
 void MapWindowLarge::createCenter(){
     tabCenter = new Center*[24];
-
-    qDebug()<<"-=-=-=-=-=-=-=-= checkpoint 0";
-
     center61 = new Center ("Center61");
     center62 = new Center ("Center62");
     center51 = new Center ("Center51");
@@ -246,8 +218,6 @@ void MapWindowLarge::createCenter(){
     center22 = new Center ("Center22");
     center11 = new Center ("Center11");
     center12 = new Center ("Center12");
-
-    qDebug()<<"-=-=-=-=-=-=-=-= checkpoint 1";
 
     center63 = new Center ("Center63");
     center64 = new Center ("Center64");
@@ -262,9 +232,6 @@ void MapWindowLarge::createCenter(){
     center13 = new Center ("Center13");
     center14 = new Center ("Center14");
 
-
-    qDebug()<<"-=-=-=-=-=-=-=-= checkpoint 2";
-
     tabCenter[0] = center11;
     tabCenter[1] = center12;
     tabCenter[2] = center21;
@@ -278,9 +245,6 @@ void MapWindowLarge::createCenter(){
     tabCenter[10] = center61;
     tabCenter[11] = center62;
 
-
-    qDebug()<<"-=-=-=-=-=-=-=-= checkpoint 3";
-
     tabCenter[12] = center13;
     tabCenter[13] = center14;
     tabCenter[14] = center23;
@@ -293,12 +257,6 @@ void MapWindowLarge::createCenter(){
     tabCenter[21] = center54;
     tabCenter[22] = center63;
     tabCenter[23] = center64;
-
-
-//    for(unsigned int i=0; i<centerCount; i++){
-//        centerNames[i].name=tabCenter[i]->getArea();
-//        centerNames[i].obj=tabCenter[i];
-//    }
 }
 
 void MapWindowLarge::createCell(){
@@ -523,7 +481,6 @@ void MapWindowLarge::showList(QList<QString> list)
     QString str;
     for(int i=0; i<list.size(); i++)
         str += list[i];
-    qDebug() <<str;
 }
 
 
@@ -697,11 +654,6 @@ QStringList MapWindowLarge::generateParams(){
     outputList <<"\n\t\tdefault[:pathloss_based_feedback_sinr_threshold] = " + chmod->getPathloss_based_feedback_sinr_threshold();
     outputList <<"\n\t\treturn default\n\tend";
     outputList <<"\nend";
-    //    QString list;
-    //    for(int i=0; i<outputList.size(); i++)
-    //        list += outputList[i];
-
-    //    qDebug() <<list;
 
     return outputList;
 
@@ -787,7 +739,6 @@ void MapWindowLarge::saveParams(Cell *object){
         object->setCell_new_name(ui->cell->text());
         object->chBox->setText(ui->cell->text());                                       //change name CheckBox
         object->center->setNew_name_area("center" + ui->cell->text().remove(QString("cell")));   //change name Center
-        qDebug () << "Nowa nazwa Centra: " + object->center->getNew_name_area();
         ui->tabWidget->setTabText( 0 , ui->cell->text());                               //change naem tabWiget
     }else listErrors <<" Name Cell: " +ui->cell->text()+"\n";
     object->setSite(ui->site->text());
@@ -2801,7 +2752,6 @@ void MapWindowLarge::changeCenterValue_X1(int scale,int one_scale)
 //--------------------Reset flag for Core Network and UE simulated-----------------------
 void MapWindowLarge::resetFlags()
 {
-    qDebug ()<< "jestem w reset flag";
     if (mme->getSimulate_core() && sgw->getCore_network_gateway()){
         ui->checkBoxCoreNetwork->setChecked(true);
         mme->setSimulate_core(true);

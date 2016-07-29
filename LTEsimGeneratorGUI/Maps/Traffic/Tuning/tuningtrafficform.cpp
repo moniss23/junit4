@@ -1,8 +1,6 @@
 #include "tuningtrafficform.h"
 #include "ui_tuningtrafficform.h"
 #include <DoubleInputValidator/doubleinputvalidator.h>
-#include <QDebug>
-
 
 //temporary variables for dialog's window settings
 

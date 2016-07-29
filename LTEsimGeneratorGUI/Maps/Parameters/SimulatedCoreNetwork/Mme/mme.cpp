@@ -3,7 +3,6 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QVector>
-#include <QDebug>
 
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
@@ -11,13 +10,11 @@ extern std::vector<QString> trafficFilesContent;
 
 Mme::Mme()
 {
-
     setMmeParameters();
 }
 
 Mme::~Mme()
 {
-
 }
 
 QString Mme::getMme_names()
@@ -63,13 +60,11 @@ bool Mme::getSimulate_core()
 void Mme::setMme_names(QString mme_n)
 {
     mme_names = "[\"" + mme_n + "\"]";
-    qDebug() << mme_names;
 }
 
 void Mme::setMme_tais(QString mme_t)
 {
     mme_tais = "[\"" + mme_t +"\"]";
-     qDebug() <<mme_tais;
 }
 
 void Mme::setMmes(QString mmes)
@@ -80,13 +75,11 @@ void Mme::setMmes(QString mmes)
 void Mme::setMme_s1ap_uris(QString s1ap_uris)
 {
     mme_s1ap_uris = "\""+ s1ap_uris +"\"";
-    qDebug() <<mme_s1ap_uris;
 }
 
 void Mme::setS1ap_pluginFilterPath(QString s1ap_plugin)
 {
     s1ap_pluginFilterPath = "\"" + s1ap_plugin + "\"";
-    qDebug() << s1ap_pluginFilterPath;
 }
 
 void Mme::setSimulate_core(bool sc)
@@ -104,7 +97,6 @@ QString Mme::getPaging_generator_names()
 void Mme::setPaging_generator_names( QString value)
 {
     paging_generator_names = "[\"" + value.replace(", ","\", \"") + "\"]";
-    qDebug() <<paging_generator_names;
 }
 QString Mme::getImsi_ranges()
 {
@@ -117,7 +109,6 @@ QString Mme::getImsi_ranges()
 void Mme::setImsi_ranges(QString value)
 {
     imsi_ranges = "[\"" + value.replace(", ","\", \"") + "\"]";
-    qDebug() <<imsi_ranges;
 }
 QString Mme::getMme_codes()
 {
@@ -130,7 +121,6 @@ QString Mme::getMme_codes()
 void Mme::setMme_codes(QString value)
 {
     mme_codes = "[\"" + value.replace(", ","\", \"") + "\"]";
-    qDebug() <<mme_codes;
 }
 QString Mme::getUe_paging_identity()
 {
@@ -140,7 +130,6 @@ QString Mme::getUe_paging_identity()
 void Mme::setUe_paging_identity(QString value)
 {
     ue_paging_identity = "\""+ value + "\"";
-      qDebug() <<ue_paging_identity;
 }
 QString Mme::getPaging_s1ap_uris()
 {
@@ -153,7 +142,6 @@ QString Mme::getPaging_s1ap_uris()
 void Mme::setPaging_s1ap_uris( QString value)
 {
     paging_s1ap_uris = "[\"" + value.replace(", ","\", \"") + "\"]";
-     qDebug() <<paging_s1ap_uris;
 }
 bool Mme::getS1ap_checkASN1_constraints() const
 {
@@ -285,7 +273,6 @@ void Mme::setMmeParameters(){
    mmes = searchParameter(":mmes").toInt();
    mme_s1ap_uris =  searchParameter(":mme_s1ap_uris").trimmed();
    s1ap_pluginFilterPath = searchParameter(":s1ap_pluginFilterPath").trimmed();
-   qDebug() <<"Output mme: " << QString::number(simulate_core) << mme_names <<QString::number(mmes) << mme_s1ap_uris << s1ap_pluginFilterPath;
     //-----------------paging Parameters--------------------------------------
    generate_pagings = toBool(searchParameter((":generate_pagings")));
    generators = searchParameter((":generators")).toInt();
@@ -296,7 +283,5 @@ void Mme::setMmeParameters(){
    paging_s1ap_uris = searchParameter((":paging_s1ap_uris")).trimmed();
    s1ap_checkASN1_constraints = toBool(searchParameter((":s1ap_checkASN1_constraints")));
    bundle_paging = toBool(searchParameter((":bundle_paging")));
-   qDebug() <<"Output paging: " << QString::number(generate_pagings) << generators<<paging_generator_names
-           <<imsi_ranges<<mme_codes<<ue_paging_identity<<paging_s1ap_uris<<QString::number(s1ap_checkASN1_constraints) <<QString::number(bundle_paging);
 }
 

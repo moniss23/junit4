@@ -299,7 +299,6 @@ void MapWindow::showList(QList<QString> list)
     QString str;
     for(int i=0; i<list.size(); i++)
         str += list[i];
-    qDebug() <<str;
 }
 
 MapWindow::~MapWindow()
@@ -476,15 +475,10 @@ QStringList MapWindow::generateParams(){
     outputList <<"\n\t\tdefault[:pathloss_based_feedback_sinr_threshold] = " + chmod->getPathloss_based_feedback_sinr_threshold();
     outputList <<"\n\t\treturn default\n\tend";
     outputList <<"\nend";
-//    QString list;
-//    for(int i=0; i<outputList.size(); i++)
-//        list += outputList[i];
-
-//    qDebug() <<list;
 
     return outputList;
-
 }
+
 QString MapWindow::convertBoolToText(bool value){
     QString result;
     if (value==true)

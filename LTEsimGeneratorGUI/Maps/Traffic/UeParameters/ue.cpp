@@ -2,7 +2,6 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
-#include <qdebug.h>
 
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
@@ -21,7 +20,6 @@ QString Ue::getName()
 void Ue::setName( QString value)
 {
     name = "\""+value +"\"";
-    qDebug() << name;
 }
 QString Ue::getL1l2_managers()
 {
@@ -31,7 +29,6 @@ QString Ue::getL1l2_managers()
 void Ue::setL1l2_managers( QString value)
 {
     l1l2_managers = "\"" + value + "\"";
-    qDebug() << l1l2_managers;
 }
 QString Ue::getRrc_pluginFilterPath()
 {
@@ -41,7 +38,6 @@ QString Ue::getRrc_pluginFilterPath()
 void Ue::setRrc_pluginFilterPath(QString value)
 {
     rrc_pluginFilterPath = "\"" + value + "\"";
-    qDebug() << rrc_pluginFilterPath;
 }
 QString Ue::getUctool_ip()
 {
@@ -53,7 +49,6 @@ QString Ue::getUctool_ip()
 void Ue::setUctool_ip( QString value)
 {
     uctool_ip = "\"{" + value + "}\"";
-    qDebug() << uctool_ip;
 }
 QString Ue::getUctool_cIds()
 {
@@ -65,7 +60,6 @@ QString Ue::getUctool_cIds()
 void Ue::setUctool_cIds(QString value)
 {
     uctool_cIds = "\"{" + value + "}\"";
-    qDebug() << uctool_cIds;
 }
 QString Ue::getUctool_service_ip()
 {
@@ -77,7 +71,6 @@ QString Ue::getUctool_service_ip()
 void Ue::setUctool_service_ip(QString value)
 {
     uctool_service_ip = "\"{" + value + "}\"";
-    qDebug() << uctool_service_ip;
 }
 QString Ue::getUe_network_capability()
 {
@@ -87,7 +80,6 @@ QString Ue::getUe_network_capability()
 void Ue::setUe_network_capability(QString value)
 {
     ue_network_capability = "\"" + value + "\"";
-    qDebug() << ue_network_capability;
 }
 QString Ue::getUe_keyDerivationAlgorithm()
 {
@@ -97,7 +89,6 @@ QString Ue::getUe_keyDerivationAlgorithm()
 void Ue::setUe_keyDerivationAlgorithm( QString value)
 {
     ue_keyDerivationAlgorithm = "\"" + value + "\"";
-    qDebug() << ue_keyDerivationAlgorithm;
 }
 QString Ue::getUe_key()
 {
@@ -107,7 +98,6 @@ QString Ue::getUe_key()
 void Ue::setUe_key(QString value)
 {
     ue_key = "\"" + value + "\"";
-    qDebug() << ue_key;
 }
 QString Ue::getUe_op()
 {
@@ -117,7 +107,6 @@ QString Ue::getUe_op()
 void Ue::setUe_op( QString value)
 {
     ue_op = "\"" + value + "\"";
-    qDebug() << ue_op;
 }
 QString Ue::getImsiMapRange()
 {
@@ -127,7 +116,6 @@ QString Ue::getImsiMapRange()
 void Ue::setImsiMapRange( QString value)
 {
     imsiMapRange = "\"" + value + "\"";;
-    qDebug() << imsiMapRange;
 }
 QString Ue::getUeTypesDir()
 {
@@ -137,7 +125,6 @@ QString Ue::getUeTypesDir()
 void Ue::setUeTypesDir( QString value)
 {
     ueTypesDir = "\"" + value + "\"";
-    qDebug() << ueTypesDir;
 }
 QString Ue::getCsTrafficModelsDir()
 {
@@ -147,7 +134,6 @@ QString Ue::getCsTrafficModelsDir()
 void Ue::setCsTrafficModelsDir( QString value)
 {
     csTrafficModelsDir = "\"" + value + "\"";;
-    qDebug() << csTrafficModelsDir;
 }
 QString Ue::getPsTrafficModelsDir()
 {
@@ -157,7 +143,6 @@ QString Ue::getPsTrafficModelsDir()
 void Ue::setPsTrafficModelsDir( QString value)
 {
     psTrafficModelsDir = "\"" + value + "\"";;
-    qDebug() << psTrafficModelsDir;
 }
 QString Ue::getMobilityModelsDir()
 {
@@ -167,7 +152,6 @@ QString Ue::getMobilityModelsDir()
 void Ue::setMobilityModelsDir( QString value)
 {
     mobilityModelsDir = "\"" + value + "\"";;
-    qDebug() << mobilityModelsDir;
 }
 QString Ue::getUbsim_patches()
 {
@@ -177,7 +161,6 @@ QString Ue::getUbsim_patches()
 void Ue::setUbsim_patches( QString value)
 {
     ubsim_patches = "\"" + value + "\"";;
-    qDebug() << ubsim_patches;
 }
 bool Ue::getVisualization() const
 {
@@ -280,14 +263,10 @@ QString Ue::searchParameter(QString name)
     {
         if (parametersFileContentList[i].contains(name)){
             text1 = parametersFileContentList[i].trimmed();
-            qDebug()<<"ONE LINE AHEAD:   \n"<<parametersFileContentList[i+1];
             if(text1.left(1)!="#"){
                 list = text1.split("#");
                 text1 = list[0];
                 list = text1.split("=");
-                qDebug()<<"Moj element: "<<parametersFileContentList[i];
-                qDebug()<<"Moj element: "<<parametersFileContentList[i];
-                qDebug() << "THIS IS IT!!!:  \n" <<list;
 
                 return list[1];
             }

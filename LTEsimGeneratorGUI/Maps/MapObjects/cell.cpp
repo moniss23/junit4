@@ -2,7 +2,6 @@
 #include <QString>
 #include <QFile>
 #include <QTextStream>
-#include <qdebug.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
 extern QStringList parametersFileContentList;
@@ -80,14 +79,12 @@ QString Cell::getCell_new_name() const
 void Cell::setCell_new_name(const QString &value)
 {
     cell_new_name = value;
-    qDebug() <<"Nowa nazwa celli: "  + cell_new_name;
 }
 
 
 QString* Cell::setParams(){
 //    QString name_search = ":cell => \"" +cell + "\""+",";
     QString name_search = ":cell => \"" +cell;
-    qDebug() <<" nazwa szukanej celi: " +cell;
     tabParams = new QString [8];
     for( int i=0; i<parametersFileContentList.size(); i++){
         if(parametersFileContentList[i].contains(name_search)){
