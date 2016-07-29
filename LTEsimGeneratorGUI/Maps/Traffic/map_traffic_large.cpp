@@ -26,7 +26,7 @@ QWidget *pointerWinTitle_large;
 
 
 
- extern int CM10isActive;
+ extern int CMisActive[10];
 
 
  my_qlabel *pointer_CM1_large;
@@ -24164,7 +24164,7 @@ void Map_traffic_large::show_UE_params1(){
 
             pointerUE1->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -24180,7 +24180,7 @@ void Map_traffic_large::show_UE_params1(){
         QString PS1 = pointerUE1->pointerPS->currentText();
         pointerUE1->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }

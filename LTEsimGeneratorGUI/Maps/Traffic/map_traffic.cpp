@@ -86,7 +86,7 @@ extern QStringList PS_List;
 
 //extern QString currentPS;
 
-extern int CM10isActive;
+extern bool CMisActive[10];
 
 
 
@@ -6425,7 +6425,7 @@ void Map_traffic::show_UE_params1(){
 
             pointerUE1->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6441,7 +6441,7 @@ void Map_traffic::show_UE_params1(){
         QString PS1 = pointerUE1->pointerPS->currentText();
         pointerUE1->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6466,7 +6466,7 @@ void Map_traffic::show_UE_params2(){
 
             pointerUE2->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6481,7 +6481,7 @@ void Map_traffic::show_UE_params2(){
         QString PS2 = pointerUE2->pointerPS->currentText();
         pointerUE2->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6506,7 +6506,7 @@ void Map_traffic::show_UE_params3(){
 
             pointerUE3->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6521,7 +6521,7 @@ void Map_traffic::show_UE_params3(){
         QString PS3 = pointerUE3->pointerPS->currentText();
         pointerUE3->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6540,7 +6540,7 @@ void Map_traffic::show_UE_params4(){
 
             pointerUE4->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6555,7 +6555,7 @@ void Map_traffic::show_UE_params4(){
         QString PS4 = pointerUE4->pointerPS->currentText();
         pointerUE4->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6574,7 +6574,7 @@ void Map_traffic::show_UE_params5(){
 
             pointerUE5->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6589,7 +6589,7 @@ void Map_traffic::show_UE_params5(){
         QString PS5 = pointerUE5->pointerPS->currentText();
         pointerUE5->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6608,7 +6608,7 @@ void Map_traffic::show_UE_params6(){
 
             pointerUE6->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6623,7 +6623,7 @@ void Map_traffic::show_UE_params6(){
         QString PS6 = pointerUE6->pointerPS->currentText();
         pointerUE6->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6642,7 +6642,7 @@ void Map_traffic::show_UE_params7(){
 
             pointerUE7->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6657,7 +6657,7 @@ void Map_traffic::show_UE_params7(){
         QString PS7 = pointerUE7->pointerPS->currentText();
         pointerUE7->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6676,7 +6676,7 @@ void Map_traffic::show_UE_params8(){
 
             pointerUE8->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6691,7 +6691,7 @@ void Map_traffic::show_UE_params8(){
         QString PS8 = pointerUE8->pointerPS->currentText();
         pointerUE8->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6710,7 +6710,7 @@ void Map_traffic::show_UE_params9(){
 
             pointerUE9->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6725,7 +6725,7 @@ void Map_traffic::show_UE_params9(){
        QString PS9 = pointerUE9->pointerPS->currentText();
         pointerUE9->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
@@ -6744,7 +6744,7 @@ void Map_traffic::show_UE_params10(){
 
             pointerUE10->pointerPS->clear();
             qSort(CM_List.begin(), CM_List.end());
-            if(CM10isActive == 1){
+            if(CMisActive[10]){
                 CM_List.removeOne("Custom Model 10");
                 CM_List.push_back("Custom Model 10");
             }
@@ -6759,7 +6759,7 @@ void Map_traffic::show_UE_params10(){
         QString PS10 = pointerUE10->pointerPS->currentText();
         pointerUE10->pointerPS->clear();
         qSort(CM_List.begin(), CM_List.end());
-        if(CM10isActive == 1){
+        if(CMisActive[10]){
             CM_List.removeOne("Custom Model 10");
             CM_List.push_back("Custom Model 10");
         }
