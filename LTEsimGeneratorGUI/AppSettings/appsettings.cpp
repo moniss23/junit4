@@ -10,7 +10,7 @@ AppSettings::~AppSettings() {
 
 
 void AppSettings::write_settings_file(){
-    QFile file("settings.dat");
+    QFile file(settingsFile);
     file.open(QIODevice::WriteOnly);
     QDataStream file_str(&file);
 
@@ -22,7 +22,7 @@ void AppSettings::write_settings_file(){
 }
 
 void AppSettings::read_settings_file(){
-    QFile file("settings.dat");
+    QFile file(settingsFile);
     unsigned int length = file.bytesAvailable();
     file.open(QIODevice::ReadOnly);
     char* ciphertext = new char[length];
@@ -42,7 +42,7 @@ void AppSettings::read_settings_file(){
 // Read the content of the project file, decrypt it and split into a list
 QStringList AppSettings::read_project_file(QString project_name, QString dir){
 
-    dir = (dir == "<default>") ? "projects" : dir;
+    dir = (dir == "<default>") ? projectsDirectory : dir;
 
     QFile project_file(dir + "/" + project_name + "/" + project_name + getProFileExt());
     project_file.open(QIODevice::ReadOnly);
@@ -61,7 +61,7 @@ QStringList AppSettings::read_project_file(QString project_name, QString dir){
 // encrypt the project data and write it into the file
 void AppSettings::write_project_file(QString project_name, QString project_content, QString dir){
 
-    dir = (dir == "<default>") ? "projects" : dir;
+    dir = (dir == "<default>") ? projectsDirectory : dir;
 
     QFile project_file(dir + "/" + project_name + "/" + project_name + getProFileExt());
     project_file.open(QIODevice::WriteOnly);
@@ -75,7 +75,7 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
 
 
 void AppSettings::write_projects_file(){
-    QFile projects_file("projects.dat");
+    QFile projects_file(projectsFile);
     projects_file.open(QIODevice::WriteOnly);
     QTextStream projects_file_str(&projects_file);
     projects_file_str << projects.size() << "\n";
@@ -88,7 +88,7 @@ void AppSettings::write_projects_file(){
 
 // currently unused
 void AppSettings::read_projects_file(){
-    QFile projects_file("projects.dat");
+    QFile projects_file(projectsFile);
     projects_file.open(QIODevice::ReadOnly);
     QTextStream projects_file_str(&projects_file);
     QStringList content = projects_file_str.readAll().split("\n");
@@ -118,7 +118,7 @@ bool AppSettings::projectNameTaken(QString projectName){
 std::vector<QListWidgetItem*> AppSettings::loadSettings() {
     checkIfExistAndCreateSettingsFile();
     checkIfExistAndCreateProjectsFile();
-    checkIfExistAndCreateProjectsDir();
+    createProjectDirIfNotExist();
     read_settings_file();
     readProjectsFile();
     std::vector<QListWidgetItem*> vector = testProjectsObtainedFromTheFile();
@@ -129,7 +129,7 @@ std::vector<QListWidgetItem*> AppSettings::loadSettings() {
 
 // check if the settings file exists, create it if it doesn't
 void AppSettings::checkIfExistAndCreateSettingsFile() {
-    settings_file.setFileName("settings.dat");
+    settings_file.setFileName(settingsFile);
     if(!settings_file.exists()){
         setDefaultNewProjectDir("<default>");
         write_settings_file();
@@ -139,7 +139,7 @@ void AppSettings::checkIfExistAndCreateSettingsFile() {
 
 // check if the projects file exists, create it if it doesn't
 void AppSettings::checkIfExistAndCreateProjectsFile() {
-    projects_file.setFileName("projects.dat");
+    projects_file.setFileName(projectsFile);
     if(!projects_file.exists()){
         projects_file.open(QIODevice::WriteOnly);
         QTextStream str(&projects_file);
@@ -148,11 +148,9 @@ void AppSettings::checkIfExistAndCreateProjectsFile() {
     }
 }
 
-// check if the projects dir exists, create it if it doesn't
-void AppSettings::checkIfExistAndCreateProjectsDir() {
-    if(!project_dir.exists("projects")){
-        project_dir.mkdir("projects");
-    }
+// create project dir if doesn't exist
+void AppSettings::createProjectDirIfNotExist() {
+        project_dir.mkdir(projectsDirectory);
 }
 
 // read the content of projects.dat file
@@ -192,7 +190,7 @@ std::vector<QListWidgetItem*> AppSettings::testProjectsObtainedFromTheFile() {
             }
         }
     }
-    project_dir.setPath("projects");
+    project_dir.setPath(projectsDirectory);
     return widget_vector;
 }
 
@@ -254,7 +252,7 @@ void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
 
     // if the project is to be saved in default directory
     if(dir=="<default>"){
-        projectDir.setPath("projects");
+        projectDir.setPath(projectsDirectory);
     } else {
         projectDir.setPath(dir);
     }

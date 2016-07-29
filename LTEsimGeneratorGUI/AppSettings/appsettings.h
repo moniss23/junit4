@@ -22,7 +22,7 @@ public:
     std::vector<QListWidgetItem*> loadSettings();
     void checkIfExistAndCreateSettingsFile();
     void checkIfExistAndCreateProjectsFile();
-    void checkIfExistAndCreateProjectsDir();
+    void createProjectDirIfNotExist();
     void readProjectsFile();
     std::vector<QListWidgetItem*> testProjectsObtainedFromTheFile();
     void traverseProjectsListAndAddProjectIfNotFound();
@@ -91,6 +91,11 @@ public slots:
 
 private:
 
+    const QString proFileExt = ".proj";
+    const QString settingsFile = "settings.dat";
+    const QString projectsFile = "projects.dat";
+    const QString projectsDirectory = "projects";
+
     QFile project_file;
     QFileInfoList projects_dir_content;
     QStringList projects_file_content;
@@ -98,7 +103,6 @@ private:
     QDir project_dir;
     QFile settings_file;
     QFile projects_file;
-    const QString proFileExt = ".proj";
     QString defaultNewProjectDir;
     QString parametersFile;
     QString projectFile;
