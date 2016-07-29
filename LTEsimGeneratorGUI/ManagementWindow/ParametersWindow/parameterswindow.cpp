@@ -161,8 +161,6 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
 
     changeHistory.clear();
 
-    this->ui->textEdit->setFocusPolicy(Qt::StrongFocus);
-
 }
 
 void ParametersWindow::closeEvent (QCloseEvent *event){
@@ -246,7 +244,6 @@ void ParametersWindow::loadProject(){
 
     QListWidgetItem* new_item;
     QString line;
-    QFile source;
     int project_content_line=0;
     int paramFileLen;
     int trafficFileLen;
@@ -361,10 +358,6 @@ void ParametersWindow::loadProject(){
     if(this->windowTitle().endsWith("*")){
         this->setWindowTitle(this->windowTitle().left(this->windowTitle().length()-1));
     }
-
-}
-
-void addParamFile(){
 
 }
 
