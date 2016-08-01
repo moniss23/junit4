@@ -23,6 +23,8 @@
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <Maps/Parameters/MapRange/maprangeform.h>
 
+#include "Data/project.h"
+
 namespace Ui {
 class MapWindow;
 }

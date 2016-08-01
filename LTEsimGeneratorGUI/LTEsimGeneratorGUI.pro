@@ -86,7 +86,8 @@ SOURCES += main.cpp\
     CommonConstans/common_constans.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
-    ManagementWindow/AddProjectWindow/addProjectWindow.cpp
+    ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
+    Data/project.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -164,7 +165,8 @@ HEADERS  += \
     CommonConstans/common_constans.h \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
-    ManagementWindow/AddProjectWindow/addProjectWindow.h
+    ManagementWindow/AddProjectWindow/addProjectWindow.h \
+    Data/project.h
 
 FORMS    += \
     Ui/parameterswindow.ui \

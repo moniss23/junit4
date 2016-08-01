@@ -9,6 +9,8 @@
 #include <QListWidgetItem>
 
 #include "ManagementWindow/Encryption/encryption.h"
+#include "Data/project.h"
+
 
 class AppSettings : public QObject
 {
@@ -41,6 +43,10 @@ public:
 
     QStringList read_project_file(QString project_name, QString dir);
     void write_project_file(QString project_name, QString project_content, QString dir);
+
+    QString get_project_dir(QListWidgetItem* item);
+
+    QString get_project_dir(QString project_name);
 
     void write_projects_file();
     void read_projects_file();
@@ -84,8 +90,6 @@ public:
 
     //TODO: new API to implement
     //***********************************************/
-
-
 signals:
     void currentProjects(const std::vector<Project> &projects);
 

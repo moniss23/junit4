@@ -1,7 +1,6 @@
 #ifndef COMMON_CONSTANS_H
 #define COMMON_CONSTANS_H
 #include <QStringList>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 
 #define largeMapRows 6  //number of cells on vertical axis

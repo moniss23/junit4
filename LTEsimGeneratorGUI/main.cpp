@@ -50,8 +50,8 @@ int main(int argc, char *argv[])
     projectMng = &projectUi;
     projectUi.show();
 
-    projectMng->connect(projectMng,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
-    projectMng->connect(&appSettings,SIGNAL(currentProjects(const std::vector<Project> &)),projectMng,SLOT(updateProjectLists(const std::vector<Project>&)));
+    QObject::connect(projectMng,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
+    QObject::connect(&appSettings,SIGNAL(currentProjects(const std::vector<Project> &)),projectMng,SLOT(updateProjectLists(const std::vector<Project>&)));
 
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
@@ -65,46 +65,3 @@ void msg(QString content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
-QString get_project_dir(QListWidgetItem* item, const std::vector<Project> &projects){
-    for(unsigned int i = 0; i < projects.size(); i++)
-    {
-        if(projects[i].widget == item)
-        {
-            return projects[i].fullpath;
-        }
-    }
-    return "";
-}
-
-QString get_project_dir(QString project_name, const std::vector<Project> &projects){
-    for(unsigned int i = 0; i < projects.size(); i++)
-    {
-        if(projects[i].name == project_name)
-        {
-            return projects[i].fullpath;
-        }
-    }
-    return "";
-}
-
-Cell* getCellObj(QString name){
-    for(unsigned int i = 0; i < cellCount; i++)
-    {
-        if(cellNames[i].name == name)
-        {
-            return cellNames[i].obj;
-        }
-    }
-    return NULL;
-}
-
-Handover* getHandoverObj(QString name){
-    for(unsigned int i = 0; i < handoverCount; i++)
-    {
-        if(handoverNames[i].name == name)
-        {
-            return handoverNames[i].obj;
-        }
-    }
-    return NULL;
-}

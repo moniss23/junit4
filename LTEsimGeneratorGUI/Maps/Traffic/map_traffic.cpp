@@ -12,7 +12,6 @@
 
 #include <Maps/Traffic/MapComponents/draguelabel.h>
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <Maps/Traffic/DataObjects/handoverdata.h>
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 #include <Maps/MapObjects/cell.h>

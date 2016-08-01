@@ -4,7 +4,6 @@
 #include "mapwindow.h"
 #include "ui_mapwindow.h"
 #include <Maps/MapObjects/cell.h>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 
 extern ParametersWindow* p;

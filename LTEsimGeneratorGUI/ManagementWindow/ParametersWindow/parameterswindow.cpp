@@ -16,7 +16,6 @@
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <Maps/Parameters/MapWindow/mapwindowlarge.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <ManagementWindow/Settings/settings.h>
 #include <Maps/Traffic/map_traffic.h>
 #include <Maps/Traffic/map_traffic_large.h>
@@ -558,7 +557,10 @@ void ParametersWindow::save_project(bool singleFile=false){
     }
 
     // encrypt the project data and write it to file
-    appSettings->write_project_file(appSettings->getProjectName(), plaintext,get_project_dir(appSettings->getProjectName(), appSettings->projects));
+    QString projectName = appSettings->getProjectName();
+    appSettings->write_project_file(projectName,
+                                    plaintext,
+                                    appSettings->get_project_dir(projectName));
 
 }
 
@@ -1180,11 +1182,13 @@ void ParametersWindow::on_pushButton_6_clicked()
     // if default dir is set
     if(defaultLocationForRbFiles=="<default>"){
 
+        QString projectName = appSettings->getProjectName();
+
         // if the file is parameters
         if(this->ui->listWidget->currentRow()==0){
 
             // if the location of the project is default
-            if(get_project_dir(appSettings->getProjectName(), appSettings->projects)=="<default>"){
+            if(appSettings->get_project_dir(projectName)=="<default>"){
 
                 QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(0)->text());
                 if(file.exists()){
@@ -1201,8 +1205,7 @@ void ParametersWindow::on_pushButton_6_clicked()
 
             // if the project's location is custom
             else{
-
-                QString project_dir=get_project_dir(appSettings->getProjectName(), appSettings->projects);
+                QString project_dir=appSettings->get_project_dir(projectName);
 
                 QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(0)->text());
                 if(file.exists()){
@@ -1223,7 +1226,7 @@ void ParametersWindow::on_pushButton_6_clicked()
         else{
 
             // if the location of the project is default
-            if(get_project_dir(appSettings->getProjectName(), appSettings->projects)=="<default>"){
+            if(appSettings->get_project_dir(projectName)=="<default>"){
 
                 int file_index=this->ui->listWidget->currentRow()-1;
                 QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(file_index+1)->text());
@@ -1243,7 +1246,7 @@ void ParametersWindow::on_pushButton_6_clicked()
             // if the location of the project is custom
             else{
 
-                QString project_dir=get_project_dir(appSettings->getProjectName(), appSettings->projects);
+                QString project_dir=appSettings->get_project_dir(projectName);
 
                 int file_index=this->ui->listWidget->currentRow()-1;
                 QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->listWidget->item(file_index+1)->text());

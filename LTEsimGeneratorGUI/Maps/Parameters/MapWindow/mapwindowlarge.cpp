@@ -4,7 +4,6 @@
 #include <Maps/MapObjects/cell.h>
 #include <QString>
 #include <QCloseEvent>
-#include <ManagementWindow/Encryption/encryption.h>
 
 extern ParametersWindow* p;
 extern QString * tabChangedParams;

@@ -2,7 +2,6 @@
 #include "ui_settings.h"
 #include <qfiledialog.h>
 #include <QMessageBox>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 
 

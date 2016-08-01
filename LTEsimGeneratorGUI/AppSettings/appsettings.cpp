@@ -73,6 +73,28 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
     project_file.close();
 }
 
+QString AppSettings::get_project_dir(QListWidgetItem *item)
+{
+    for(unsigned int i = 0; i < projects.size(); i++) {
+        if(projects[i].widget == item) {
+            return projects[i].fullpath;
+        }
+    }
+
+    return QString();
+}
+
+QString AppSettings::get_project_dir(QString project_name)
+{
+    for(unsigned int i = 0; i < projects.size(); i++) {
+        if(projects[i].name == project_name) {
+            return projects[i].fullpath;
+        }
+    }
+    return QString();
+
+}
+
 
 void AppSettings::write_projects_file(){
     QFile projects_file(projectsFile);

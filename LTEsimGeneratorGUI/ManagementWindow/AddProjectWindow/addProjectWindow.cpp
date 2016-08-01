@@ -8,8 +8,6 @@
 
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
-#include <ManagementWindow/Encryption/encryption.h>
-
 
 void msg(QString content);
 
