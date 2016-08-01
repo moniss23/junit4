@@ -63,7 +63,7 @@ void ParametersWindow::switch_button_state_undo(bool available){
 }
 
 void ParametersWindow::switch_button_state_redo(bool available){
-        this->ui->pushButton_9->setEnabled(available);
+    this->ui->pushButton_9->setEnabled(available);
 }
 
 ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
@@ -332,11 +332,11 @@ void ParametersWindow::addTrafficFile()
     trafficFilesChanged.push_back(false);
     trafficFilesModified.push_back(false);
 
-        QStringList new_list;
-        trafficFilesContent.push_back("");
-        savedTrafficFilesContent.push_back("");
-        trafficFilesContentLists.push_back(new_list);
-        //source.close();
+    QStringList new_list;
+    trafficFilesContent.push_back("");
+    savedTrafficFilesContent.push_back("");
+    trafficFilesContentLists.push_back(new_list);
+    //source.close();
 
 
 
@@ -955,8 +955,8 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
     // traffic file double-clicked
     else if(this->ui->listWidget->currentRow()>0){
 
-    // store the index of the opened traffic file in a global variable
-    currentOpenedTrafficFile=this->ui->listWidget->currentRow()-1;
+        // store the index of the opened traffic file in a global variable
+        currentOpenedTrafficFile=this->ui->listWidget->currentRow()-1;
 
 
         // delete current map objects if they are present
@@ -972,28 +972,19 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         }
 
 
-            if(this->ui->radioButton_largeMap->isChecked() && this->ui->listWidget->currentRow()>0){
-                    // delete current map objects if they are present
-                    if(map_tl!=NULL){
-                        delete map_tl;
-                        map_tl=NULL;
-                    }
-
-
-                    //if large traffic map is to be displayed
-                        qDebug() <<"\n\ntraffic";
-                        map_tl =new Map_traffic_large(appSettings);
-
-                        map_tl->show();
-                }
-            else{
-
-                // same as above, but for traffic map window
-                    qDebug() <<"\n\ntraffic";
-                    map_t =new Map_traffic(appSettings);
-
-                    map_t->show();
+        if(this->ui->radioButton_largeMap->isChecked() && this->ui->listWidget->currentRow()>0){
+            // delete current map objects if they are present
+            if(map_tl!=NULL){
+                delete map_tl;
+                map_tl=NULL;
             }
+            map_tl =new Map_traffic_large(appSettings);
+            map_tl->show();
+        }
+        else{
+            map_t =new Map_traffic(appSettings);
+            map_t->show();
+        }
 
 
     }

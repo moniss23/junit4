@@ -1,5 +1,4 @@
 #include "statisticsData.h"
-#include <QDebug>
 
 StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
 {
@@ -21,9 +20,6 @@ StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : ap
             statMap.insert(keyStat, false);
         }
     }
-
-
-
 }
 
 StatisticsData& StatisticsData::operator =(const StatisticsData& rhc) {
