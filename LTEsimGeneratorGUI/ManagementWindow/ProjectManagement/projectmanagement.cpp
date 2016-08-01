@@ -73,52 +73,13 @@ void ProjectManagement::on_openProject_Button_clicked()
 
 // "delete project" button clicked
 void ProjectManagement::on_deleteProject_Button_clicked(){
-
-    //TODO: Replace code, sample is commented, should be working (but QListWidgetItem text is project name and path, should be parsed)
-
-    /*
     QListWidgetItem *item = ui->listWidget->currentItem();
-    QString text = item->text();
-    emit DeleteProject(text);
-    */
-
-
-    if(appSettings->projects.size()>0 && QMessageBox::Yes==QMessageBox(QMessageBox::Question, "LTEsimGenerator", "Entire project will be deleted:\n"+this->ui->listWidget->currentItem()->text()+"\n\nThis cannot be reversed.\n\nAre you sure?", QMessageBox::No|QMessageBox::Yes).exec()){
-
-        QString projectName;
-
-        // remove the item from UI
-        projectName=this->ui->listWidget->currentItem()->text().split("\t")[0];
-        delete this->ui->listWidget->takeItem(this->ui->listWidget->currentRow());
-        this->ui->listWidget_2->clear();
-
-
-
-        ///////THIS SHOULD BE DONE ONLY IN APPSETTINGS due to catched signal
-        // delete the project directory along with its entire content
-        appSettings->removeDirectoryRecursively(projectName);
-        // delete element from projects vector
-        std::vector<Project>::iterator it;
-        for(it=appSettings->projects.begin(); it!=appSettings->projects.end(); it++){
-            if(projectName==(*it).name){
-                break;
-            }
-        }
-        appSettings->projects.erase(it);
-        ///////THIS SHOULD BE DONE ONLY IN APPSETTINGS due to catched signal
-
-
-
-        if(appSettings->projects.size()>0){
-            previewProjectFiles(this->ui->listWidget->currentItem());
-        }
-        else{
-            this->ui->listWidget_2->clear();
-            this->ui->openProject_Button->setEnabled(false);
-            this->ui->deleteProject_Button->setEnabled(false);
-        }
-
-    }
+         if (item==NULL){
+             return;
+         }
+         QString text = item->text();
+         QString projectName=this->ui->listWidget->currentItem()->text().split("\t")[0];
+         emit deleteProject(projectName);
 }
 
 // "import project" button is clicked
@@ -178,7 +139,6 @@ void ProjectManagement::on_importProject_Button_clicked()
     this->ui->listWidget->setCurrentItem(new_item);
     this->ui->listWidget->item(this->ui->listWidget->currentRow())->setSelected(true);
 
-
     // display message
     msg("Project \""+project_name+"\" in "+new_project.fullpath+" successfully imported.");
 
@@ -205,6 +165,9 @@ void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
 void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    if(!ui->listWidget->count() or current==NULL){
+           return;
+    }
     (void) previous;
     this->previewProjectFiles(current);
 }
@@ -214,13 +177,17 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 *   LOGIC CODE HERE
 ***********************************************/
 
-void ProjectManagement::updateProjectLists(std::vector<Project> &projects)
+void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
 {
+    this->ui->listWidget->clear();
     for(auto &&it:projects){
         new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->listWidget);
     }
-
-    return ;
+    if (!ui->listWidget->count()) {
+        allowManagingProjects(false);
+        return;
+    }
+    ui->listWidget->setCurrentRow(0);
 }
 
 
@@ -282,7 +249,7 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
     QString project_name;
     QString project_dir;
     for(unsigned int i=0; i<appSettings->projects.size(); i++){
-        if(appSettings->projects[i].widget==item){
+        if(appSettings->projects[i].name==item->text().split("\t")[0]){
             project_name=appSettings->projects[i].name;
             project_dir=appSettings->projects[i].fullpath;
             break;
@@ -320,3 +287,9 @@ QListWidgetItem* ProjectManagement::getCurrentItem(){
     return this->ui->listWidget->currentItem();
 }
 
+void ProjectManagement::allowManagingProjects(bool permission)
+{
+    this->ui->openProject_Button->setEnabled(permission);
+    this->ui->deleteProject_Button->setEnabled(permission);
+    this->ui->listWidget_2->clear();
+}

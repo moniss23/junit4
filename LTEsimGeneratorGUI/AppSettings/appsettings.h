@@ -10,8 +10,9 @@
 
 #include "ManagementWindow/Encryption/encryption.h"
 
-class AppSettings
+class AppSettings : public QObject
 {
+    Q_OBJECT
 
 public:
     AppSettings();
@@ -90,9 +91,10 @@ signals:
 
 public slots:
 
-    void createNewProject(const QString &projectName, const QString & directory);
+    //void createNewProject(const QString &projectName, const QString & directory);
     //***********************************************
     //***********************************************/
+    void deleteProject(const QString);
 
 private:
 

@@ -50,6 +50,9 @@ int main(int argc, char *argv[])
     projectMng = &projectUi;
     projectUi.show();
 
+    projectMng->connect(projectMng,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
+    projectMng->connect(&appSettings,SIGNAL(currentProjects(const std::vector<Project> &)),projectMng,SLOT(updateProjectLists(const std::vector<Project>&)));
+
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
 

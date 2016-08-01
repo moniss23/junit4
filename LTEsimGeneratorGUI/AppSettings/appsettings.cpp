@@ -378,3 +378,10 @@ void AppSettings::setProject_dir(const QDir &value)
 {
     project_dir = value;
 }
+void AppSettings::deleteProject(const QString projectName)
+{
+    removeDirectoryRecursively(projectName);
+    auto elem = std::find_if(std::begin(projects), std::end(projects), [projectName](const Project &p)->bool {return projectName==p.name;});
+    projects.erase(elem);
+    emit currentProjects(projects);
+}

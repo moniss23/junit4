@@ -27,6 +27,7 @@ public:
     void previewProjectFiles(QListWidgetItem* item);
     void addWidgetToListWidget(QListWidgetItem* new_item);
     void setButtonsStates(QListWidgetItem* new_item);
+    void allowManagingProjects(bool);
 
     //TODO: new API to implement
     /***********************************************
@@ -36,10 +37,10 @@ signals:
     void SpawnWindow_NewProject();
     void SpawnWindow_OpenProject();
     void SpawnWindow_ImportProject();
-    void DeleteProject(const QString &ProjectName );
+    void deleteProject(const QString &ProjectName );
     void SpawnWindow_Settings();
 public slots:
-    void updateProjectLists(std::vector<Project> &projects);
+    void updateProjectLists(const std::vector<Project> &projects);
 
 
     /***********************************************
