@@ -67,7 +67,7 @@ private:
 
 private:
     Ui::ProjectManagement *ui;
-    FileDialog createProject;
+    AddProjectWindow createProject;
     AppSettings* appSettings;
 };
 

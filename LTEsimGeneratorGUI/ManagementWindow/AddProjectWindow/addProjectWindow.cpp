@@ -1,5 +1,5 @@
 #include "addProjectWindow.h"
-#include "ui_filedialog.h"
+#include "ui_addProjectWindow.h"
 
 #include <QMessageBox>
 #include <QString>
@@ -10,15 +10,16 @@
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <ManagementWindow/Encryption/encryption.h>
 
+
 void msg(QString content);
 
 extern ParametersWindow * p;
 extern ProjectManagement* projectMng;
 extern bool paramFilePresent;
 
-FileDialog::FileDialog(QWidget *parent) :
+AddProjectWindow::AddProjectWindow(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::FileDialog)
+    ui(new Ui::AddProjectWindow)
 {
     ui->setupUi(this);
 
@@ -27,14 +28,14 @@ FileDialog::FileDialog(QWidget *parent) :
     this->ui->defaultLocationRadioButton->setChecked(true);
 }
 
-FileDialog::~FileDialog() {delete ui;}
+AddProjectWindow::~AddProjectWindow() {delete ui;}
 
-void FileDialog::clearInputArea() {
+void AddProjectWindow::clearInputArea() {
     this->ui->fileName->clear();
     this->ui->fileName->setFocus();
 }
 
-void FileDialog::setDefaultDir(QString dir) {
+void AddProjectWindow::setDefaultDir(QString dir) {
     if(dir=="<default>") {
         this->ui->label_3->setText("(program's directory)");
     }
@@ -44,7 +45,7 @@ void FileDialog::setDefaultDir(QString dir) {
 }
 
 // creating a new project
-void FileDialog::on_buttonBox_accepted()
+void AddProjectWindow::on_buttonBox_accepted()
 {
     // alert the user if some data has not been entered
     if(this->ui->fileName->text().length()==0) {  //TODO: better set validator in ui->fileName control
@@ -115,10 +116,10 @@ void FileDialog::on_buttonBox_accepted()
     this->close();
 }
 
-void FileDialog::on_buttonBox_rejected() {this->close();}
+void AddProjectWindow::on_buttonBox_rejected() {this->close();}
 
 // "browse" button clicked
-void FileDialog::on_browseDirectoryButton_clicked()
+void AddProjectWindow::on_browseDirectoryButton_clicked()
 {
     QFileDialog dialog(this);
     dialog.setFileMode(QFileDialog::Directory);
@@ -126,7 +127,7 @@ void FileDialog::on_browseDirectoryButton_clicked()
 }
 
 // "default" button toggled
-void FileDialog::on_defaultLocationRadioButton_toggled(bool checked)
+void AddProjectWindow::on_defaultLocationRadioButton_toggled(bool checked)
 {
     if(checked){
         this->ui->lineEdit->setEnabled(false);
@@ -138,7 +139,7 @@ void FileDialog::on_defaultLocationRadioButton_toggled(bool checked)
     }
 }
 
-void FileDialog::setAppSettings(AppSettings *value) //TODO: should not be needed with new API
+void AddProjectWindow::setAppSettings(AppSettings *value) //TODO: should not be needed with new API
 {
     appSettings = value;
 }

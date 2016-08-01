@@ -1,5 +1,5 @@
-#ifndef FILEDIALOG_H
-#define FILEDIALOG_H
+#ifndef ADDPROJECTWINDOW_H
+#define ADDPROJECTWINDOW_H
 
 #include <QDialog>
 #include <QString>
@@ -7,16 +7,16 @@
 #include <QObject>
 
 namespace Ui {
-class FileDialog;
+class AddProjectWindow;
 }
 
-class FileDialog : public QDialog
+class AddProjectWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit FileDialog(QWidget *parent = 0);
-    ~FileDialog();
+    explicit AddProjectWindow(QWidget *parent = 0);
+    ~AddProjectWindow();
 
     void clearInputArea();
 
@@ -44,8 +44,8 @@ private slots:
     void on_defaultLocationRadioButton_toggled(bool checked);
 
 private:
-    Ui::FileDialog *ui;
+    Ui::AddProjectWindow *ui;
     AppSettings* appSettings;
 };
 
-#endif // FILEDIALOG_H
+#endif // ADDPROJECTWINDOW_H
