@@ -11,7 +11,7 @@
 #include <QList>
 #include <Maps/MapObjects/cell.h>
 #include <Maps/MapObjects/center.h>
-#include <Maps/Traffic/Statistics/statisticsform.h>
+#include <Maps/Traffic/Statistics/statisticsManager.h>
 #include <Maps/Traffic/Tuning/tuningtrafficform.h>
 #include <Maps/Traffic/MapComponents/draguelabel.h>
 #include <Maps/Traffic/Time/timeData.h>
@@ -31,7 +31,7 @@ class Map_traffic : public QMainWindow
 
 public:
 
-    explicit Map_traffic(QWidget *parent = 0);
+    explicit Map_traffic(AppSettings* appSettings, QWidget *parent = 0);
     DragUELabel **tab_UE;
     DragUELabel *last_element_traffic;
     int counter_UE;
@@ -131,6 +131,8 @@ public:
 private:
     Ui::Map_traffic *ui;
 
+    AppSettings* appSettings;
+
     Custommodels** viewCustomModels1;
     int number1;
 
@@ -141,8 +143,8 @@ private:
     my_qlabel* my_label_array[10];
     Tuningtraffic *tuningtraffic;
     TimeData* timetraffic;
-    Statistics *statistics;
-    StatisticsForm viewStatistics;
+    StatisticsData *statistics;
+    StatisticsManager viewStatistics;
     TuningTrafficForm viewTuningtraffic;
     TimeManager viewTimeTraffic;
 

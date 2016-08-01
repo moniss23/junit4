@@ -981,14 +981,16 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
 
                     //if large traffic map is to be displayed
-                        map_tl =new Map_traffic_large;
+                        qDebug() <<"\n\ntraffic";
+                        map_tl =new Map_traffic_large(appSettings);
 
                         map_tl->show();
                 }
             else{
 
                 // same as above, but for traffic map window
-                    map_t =new Map_traffic;
+                    qDebug() <<"\n\ntraffic";
+                    map_t =new Map_traffic(appSettings);
 
                     map_t->show();
             }

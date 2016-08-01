@@ -51,9 +51,10 @@ int offset_x_2_large=40;
 DragUELabel *actualposition_large;
 
 
-Map_traffic_large::Map_traffic_large(QWidget *parent) :
+Map_traffic_large::Map_traffic_large(AppSettings* appSettings,QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Map_traffic_large)
+    ui(new Ui::Map_traffic_large),
+    appSettings(appSettings)
 {
     large = true;
         ui->setupUi(this);
@@ -63,7 +64,8 @@ Map_traffic_large::Map_traffic_large(QWidget *parent) :
 
 
         tuningtraffic = new Tuningtraffic();
-        statistics = new Statistics();
+        QString mapIndex("");
+        statistics = new StatisticsData(mapIndex,appSettings);
         qDebug()<<"----------------   checkpoint 0.1";
 
         createCell();
@@ -24453,7 +24455,7 @@ void Map_traffic_large::on_lbl_custom10_clicked()
 void Map_traffic_large::on_bt_statistics_clicked()
 {
     viewStatistics.close();
-    viewStatistics.setParameters(statistics);
+    viewStatistics.setParameters(statistics,appSettings);
     viewStatistics.show();
 }
 

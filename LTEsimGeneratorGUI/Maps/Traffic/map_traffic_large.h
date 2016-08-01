@@ -11,7 +11,7 @@
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
 #include <Maps/Traffic/CustomModel/custommodels.h>
 #include <Maps/Parameters/MapRange/maprange.h>
-#include <Maps/Traffic/Statistics/statisticsform.h>
+#include <Maps/Traffic/Statistics/statisticsManager.h>
 #include <Maps/Traffic/Tuning/tuningtraffic.h>
 #include <Maps/Traffic/Tuning/tuningtrafficform.h>
 
@@ -30,7 +30,7 @@ public:
     int counter_UE_large;
     //QString tab_position_names[12];
     MapRange *mapRange_traffic_large;
-    explicit Map_traffic_large(QWidget *parent = 0);
+    explicit Map_traffic_large(AppSettings* appSettings, QWidget *parent = 0);
     ~Map_traffic_large();
 
 
@@ -133,13 +133,14 @@ public:
 private:
     Ui::Map_traffic_large *ui;
 
+    AppSettings* appSettings;
 
     Custommodels** viewCustomModels1;
     int number1;
     my_qlabel* my_label_array[10];
     Tuningtraffic *tuningtraffic;
-    Statistics *statistics;
-    StatisticsForm viewStatistics;
+    StatisticsData *statistics;
+    StatisticsManager viewStatistics;
     TuningTrafficForm viewTuningtraffic;
     QComboBox* combo_box;
 

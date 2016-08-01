@@ -115,15 +115,17 @@ extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
 extern std::vector<QString> trafficFilesContent;
 extern ParametersWindow* p;
-Map_traffic::Map_traffic(QWidget *parent) :
+Map_traffic::Map_traffic(AppSettings* appSettings, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Map_traffic)
+    ui(new Ui::Map_traffic),
+    appSettings(appSettings)
 {
         ui->setupUi(this);
         //int n=12;
         tuningtraffic = new Tuningtraffic();
         timetraffic = new TimeData();
-        statistics = new Statistics();
+        QString mapIndex("");
+        statistics = new StatisticsData(mapIndex,appSettings);
         createCell();
 
         this->counter_UE=1;
@@ -6455,7 +6457,7 @@ void Map_traffic::parseListToAddPingEtcCM2(){
 void Map_traffic::on_bt_statistics_clicked()
 {
     viewStatistics.close();
-    viewStatistics.setParameters(statistics);
+    viewStatistics.setParameters(statistics, appSettings);
     viewStatistics.show();
 }
 

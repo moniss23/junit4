@@ -39,9 +39,14 @@ class StatisticsData : public QObject, DataElementsInterface
     Q_ENUM(Stats_settings)
 public:
     StatisticsData(QString &mapIndex, AppSettings *appSettings);
+
+    StatisticsData& operator =(const StatisticsData& rhc);
+
     void setStatMap(Stats_settings &key, bool &value);
+    void setStatMap(Stats_settings &key);
     bool getStatMap(Stats_settings &key);
     QString getStringFromEnum(int &enumVal);
+    QString getMapIndex();
     Stats_settings getEnumFromString(QString &stringVal);
     bool stringToBool(QString &valString);
     QString boolToString(bool &valBool);

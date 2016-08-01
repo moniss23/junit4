@@ -54,8 +54,6 @@ SOURCES += main.cpp\
     Maps/Traffic/CustomModel/addvoip.cpp \
     Maps/Traffic/CustomModel/addvoipform.cpp \
     Maps/Traffic/CustomModel/custommodels.cpp \
-    Maps/Traffic/Statistics/statistics.cpp \
-    Maps/Traffic/Statistics/statisticsform.cpp \
     Maps/Traffic/Tuning/tuningtraffic.cpp \
     Maps/Traffic/Tuning/tuningtrafficform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
@@ -66,7 +64,6 @@ SOURCES += main.cpp\
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
     Maps/Traffic/DataObjects/handoverdata.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
-    Maps/Traffic/Statistics/statisticsdata.cpp \
     Maps/Traffic/DataObjects/celldata.cpp \
     ProjectReaderWriter/projectreaderwriter.cpp \
     Maps/Traffic/MapData/mapdata.cpp \
@@ -87,7 +84,9 @@ SOURCES += main.cpp\
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
     ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
-    Data/project.cpp
+    Data/project.cpp \
+    Maps/Traffic/Statistics/statisticsManager.cpp \
+    Maps/Traffic/Statistics/statisticsData.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -130,8 +129,6 @@ HEADERS  += \
     Maps/Traffic/CustomModel/addvoip.h \
     Maps/Traffic/CustomModel/addvoipform.h \
     Maps/Traffic/CustomModel/custommodels.h \
-    Maps/Traffic/Statistics/statistics.h \
-    Maps/Traffic/Statistics/statisticsform.h \
     Maps/Traffic/Tuning/tuningtraffic.h \
     Maps/Traffic/Tuning/tuningtrafficform.h \
     Maps/Traffic/UeParameters/ue.h \
@@ -143,7 +140,6 @@ HEADERS  += \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/DataObjects/handoverdata.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/Statistics/statisticsdata.h \
     Maps/Traffic/DataObjects/celldata.h \
     ProjectReaderWriter/projectreaderwriter.h \
     Maps/Traffic/MapData/mapdata.h \
@@ -166,7 +162,9 @@ HEADERS  += \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
     ManagementWindow/AddProjectWindow/addProjectWindow.h \
-    Data/project.h
+    Data/project.h \
+    Maps/Traffic/Statistics/statisticsData.h \
+    Maps/Traffic/Statistics/statisticsManager.h
 
 FORMS    += \
     Ui/parameterswindow.ui \
@@ -194,12 +192,12 @@ FORMS    += \
     Ui/addsyncedpingform.ui \
     Ui/addvoipform.ui \
     Ui/custommodels.ui \
-    Ui/statisticsform.ui \
     Ui/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
     Ui/managementtemplate.ui \
     Ui/timeForm.ui \
-    Ui/addProjectWindow.ui
+    Ui/addProjectWindow.ui \
+    Ui/statisticsForm.ui
 
 
 OTHER_FILES += \

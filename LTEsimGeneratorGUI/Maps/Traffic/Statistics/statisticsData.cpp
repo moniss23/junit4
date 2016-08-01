@@ -1,10 +1,12 @@
-#include "statisticsdata.h"
+#include "statisticsData.h"
+#include <QDebug>
 
 StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
 {
     mapIndexCurrent = mapIndex;
     enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";
     QString beginningOfStatSector = "<ST>";
+    projectReaderWriter = new ProjectReaderWriter(appSettings);
     QDomDocument statisticsDocument = projectReaderWriter->readDataFromXml(beginningOfStatSector,endofStatSector);
 
     if(statisticsDocument.isNull() == 0)
@@ -20,8 +22,17 @@ StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : ap
         }
     }
 
-    projectReaderWriter = new ProjectReaderWriter(appSettings);
 
+
+}
+
+StatisticsData& StatisticsData::operator =(const StatisticsData& rhc) {
+    statMap = rhc.statMap;
+    return *this;
+}
+
+QString StatisticsData::getMapIndex() {
+    return mapIndexCurrent;
 }
 
 bool StatisticsData::getStatMap(enum Stats_settings &key)
@@ -33,6 +44,10 @@ bool StatisticsData::getStatMap(enum Stats_settings &key)
 void StatisticsData::setStatMap(enum Stats_settings &key, bool &value)
 {
     statMap[key] = value;
+}
+
+void StatisticsData::setStatMap(enum Stats_settings& key) {
+    statMap[key] = not statMap[key];
 }
 
 void StatisticsData::serializeToProjectFile()
