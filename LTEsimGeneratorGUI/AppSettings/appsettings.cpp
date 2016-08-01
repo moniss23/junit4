@@ -8,6 +8,18 @@ AppSettings::~AppSettings() {
 
 }
 
+void AppSettings::LoadAppData() {
+    checkIfExistAndCreateSettingsFile();
+    checkIfExistAndCreateProjectsFile();
+    createProjectDirIfNotExist();
+    read_settings_file();
+    readProjectsFile();
+    testProjectsObtainedFromTheFile();
+    projects_dir_content=project_dir.entryInfoList(QDir::AllDirs);
+    traverseProjectsListAndAddProjectIfNotFound();
+    emit currentProjects(projects);
+}
+
 
 void AppSettings::write_settings_file(){
     QFile file(settingsFile);
@@ -136,18 +148,6 @@ bool AppSettings::projectNameTaken(QString projectName){
     return taken;
 }
 
-//Loads all the projects and settings
-std::vector<QListWidgetItem*> AppSettings::loadSettings() {
-    checkIfExistAndCreateSettingsFile();
-    checkIfExistAndCreateProjectsFile();
-    createProjectDirIfNotExist();
-    read_settings_file();
-    readProjectsFile();
-    std::vector<QListWidgetItem*> vector = testProjectsObtainedFromTheFile();
-    projects_dir_content=project_dir.entryInfoList(QDir::AllDirs);
-    traverseProjectsListAndAddProjectIfNotFound();
-    return vector;
-}
 
 // check if the settings file exists, create it if it doesn't
 void AppSettings::checkIfExistAndCreateSettingsFile() {
@@ -185,11 +185,10 @@ void AppSettings::readProjectsFile() {
 
 
 // test the projects obtained from the file, discard those which don't seem to exist anymore
-std::vector<QListWidgetItem*> AppSettings::testProjectsObtainedFromTheFile() {
+void AppSettings::testProjectsObtainedFromTheFile() {
 
     Project new_project;
     QListWidgetItem *new_widget;
-    std::vector<QListWidgetItem*> widget_vector;
 
     for(int i=1; i<=projectC_file*2; i+=2){
         QDir d;
@@ -205,14 +204,12 @@ std::vector<QListWidgetItem*> AppSettings::testProjectsObtainedFromTheFile() {
                 new_project.name=projects_file_content[i];
                 new_project.fullpath=projects_file_content[i+1];
                 new_widget = new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
-                widget_vector.push_back(new_widget);
                 new_project.widget=new_widget;
                 projects.push_back(new_project);
             }
         }
     }
     project_dir.setPath(projectsDirectory);
-    return widget_vector;
 }
 
 // traverse the list of projects dir contents

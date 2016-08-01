@@ -34,21 +34,6 @@ ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) 
 
     //TODO: This window should not spawn any other one, it should be a separate subsystem
     createProject.setAppSettings(appSettings);
-
-    //TODO: This should be a separate API - request projects info
-    std::vector<QListWidgetItem*> widget_vector = appSettings->loadSettings();
-    for(const auto &it : widget_vector) {
-        this->ui->listWidget->addItem(it);
-    }
-    // enable or disable buttons accordingly (TODO:this could be a separate function)
-    bool projectsPresent =(appSettings->projects.size()>0);
-    this->ui->openProject_Button->setEnabled(projectsPresent);
-    this->ui->deleteProject_Button->setEnabled(projectsPresent);
-    if(projectsPresent){
-        this->ui->listWidget->item(0)->setSelected(true);
-        this->ui->listWidget->setCurrentRow(0);
-    }
-
 }
 
 ProjectManagement::~ProjectManagement()

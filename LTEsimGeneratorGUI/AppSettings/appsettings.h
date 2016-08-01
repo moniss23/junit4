@@ -22,12 +22,13 @@ public:
 
     std::vector<Project> projects;
 
-    std::vector<QListWidgetItem*> loadSettings();
+    void LoadAppData();
+
     void checkIfExistAndCreateSettingsFile();
     void checkIfExistAndCreateProjectsFile();
     void createProjectDirIfNotExist();
     void readProjectsFile();
-    std::vector<QListWidgetItem*> testProjectsObtainedFromTheFile();
+    void testProjectsObtainedFromTheFile();
     void traverseProjectsListAndAddProjectIfNotFound();
 
     void addProject(QListWidgetItem* new_item,QString dir);

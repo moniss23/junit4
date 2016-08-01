@@ -56,6 +56,7 @@ int main(int argc, char *argv[])
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
 
+    appSettings.LoadAppData();
 
     return a.exec();
 }
