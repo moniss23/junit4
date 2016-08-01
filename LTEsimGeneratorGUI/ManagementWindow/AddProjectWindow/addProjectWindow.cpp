@@ -103,14 +103,13 @@ void AddProjectWindow::on_buttonBox_accepted()
     if(this->ui->customLocationRadioButton->isChecked()) {
         projectMng->addWidgetToListWidget(new_item);
         appSettings->addProject(new_item,this->ui->lineEdit->text());
-        projectMng->setButtonsStates(new_item);
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
         projectMng->addWidgetToListWidget(new_item);
         appSettings->addProject(new_item,appSettings->getDefaultNewProjectDir());
-        projectMng->setButtonsStates(new_item);
     }
     appSettings->write_projects_file();
+
     this->close();
 }
 

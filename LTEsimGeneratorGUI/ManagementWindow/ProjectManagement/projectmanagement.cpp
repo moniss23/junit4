@@ -148,11 +148,11 @@ void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
 void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    updateUiState();
     if(!ui->listWidget->count() or current==NULL){
            return;
     }
     (void) previous;
-    this->previewProjectFiles(current);
 }
 
 
@@ -166,8 +166,8 @@ void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
     for(auto &&it:projects){
         new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->listWidget);
     }
+    updateUiState();
     if (!ui->listWidget->count()) {
-        allowManagingProjects(false);
         return;
     }
     ui->listWidget->setCurrentRow(0);
@@ -180,14 +180,6 @@ void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
 ***********************************************/
 void ProjectManagement::addWidgetToListWidget(QListWidgetItem *new_item) {
     this->ui->listWidget->addItem(new_item);
-}
-
-void ProjectManagement::setButtonsStates(QListWidgetItem *new_item) {
-    this->previewProjectFiles(new_item);
-
-    this->ui->listWidget->setCurrentItem(new_item);
-    this->ui->openProject_Button->setEnabled(true);
-    this->ui->deleteProject_Button->setEnabled(true);
 }
 
 void ProjectManagement::open_project(){
@@ -270,9 +262,17 @@ QListWidgetItem* ProjectManagement::getCurrentItem(){
     return this->ui->listWidget->currentItem();
 }
 
-void ProjectManagement::allowManagingProjects(bool permission)
+
+void ProjectManagement::updateUiState()
 {
-    this->ui->openProject_Button->setEnabled(permission);
-    this->ui->deleteProject_Button->setEnabled(permission);
     this->ui->listWidget_2->clear();
+    if (ui->listWidget->currentRow()>-1){
+        this->ui->openProject_Button->setEnabled(true);
+        this->ui->deleteProject_Button->setEnabled(true);
+        this->previewProjectFiles(ui->listWidget->currentItem());
+        return;
+    }
+    this->ui->openProject_Button->setEnabled(false);
+    this->ui->deleteProject_Button->setEnabled(false);
+
 }

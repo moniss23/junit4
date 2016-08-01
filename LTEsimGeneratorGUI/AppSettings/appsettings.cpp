@@ -294,6 +294,7 @@ void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
     } else {
         write_project_file(new_item->text(),project_content,dir);
     }
+    emit currentProjects(projects);
 }
 
 // recursively remove entire directory and its content

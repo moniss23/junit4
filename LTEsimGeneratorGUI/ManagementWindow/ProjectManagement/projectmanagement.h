@@ -5,7 +5,6 @@
 #include <QListWidget>
 #include <QListWidgetItem>
 #include <QString>
-
 #include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
 #include "AppSettings/appsettings.h"
 
@@ -26,8 +25,7 @@ public:
     QListWidgetItem* getCurrentItem();
     void previewProjectFiles(QListWidgetItem* item);
     void addWidgetToListWidget(QListWidgetItem* new_item);
-    void setButtonsStates(QListWidgetItem* new_item);
-    void allowManagingProjects(bool);
+    void updateUiState();
 
     //TODO: new API to implement
     /***********************************************
