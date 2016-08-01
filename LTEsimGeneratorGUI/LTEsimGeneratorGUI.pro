@@ -86,7 +86,8 @@ SOURCES += main.cpp\
     ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     Data/project.cpp \
     Maps/Traffic/Statistics/statisticsManager.cpp \
-    Maps/Traffic/Statistics/statisticsData.cpp
+    Maps/Traffic/Statistics/statisticsData.cpp  \
+    Data/appglobaldata.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -136,7 +137,6 @@ HEADERS  += \
     Maps/Traffic/MapComponents/draguelabel.h \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/map_traffic_large.h \
-    dataelementsinterface.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/DataObjects/handoverdata.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
@@ -164,7 +164,10 @@ HEADERS  += \
     ManagementWindow/AddProjectWindow/addProjectWindow.h \
     Data/project.h \
     Maps/Traffic/Statistics/statisticsData.h \
-    Maps/Traffic/Statistics/statisticsManager.h
+    Maps/Traffic/Statistics/statisticsManager.h \
+    dataelementsinterface.h \
+    Data/serializeinterface.h \
+    Data/appglobaldata.h
 
 FORMS    += \
     Ui/parameterswindow.ui \

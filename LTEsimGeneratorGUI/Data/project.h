@@ -6,13 +6,24 @@
 #include <Maps/MapObjects/handover.h>
 #include <Maps/MapObjects/center.h>
 
-struct Project{
+#include <Data/serializeinterface.h>
 
+class Project : public SerializeInterface
+{
+public:
     QString name;
     QString fullpath;
     QListWidgetItem* widget;
     QString rbOutputDir;
     QString chosenMapType;
+
+    /****************************
+     * SERIALIZATION INTERFACE  *
+     ****************************/
+public:
+    virtual QString getElementType() const;
+    virtual QByteArray serializeToFile();
+    virtual void serializeFromFile(QByteArray rawData);
 };
 
 struct cellName{

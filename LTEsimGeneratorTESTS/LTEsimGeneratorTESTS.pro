@@ -24,6 +24,7 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 SOURCES += \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/Encryption/encryption.cpp \
+    ../LTEsimGeneratorGUI/Data/project.cpp \
     ltesimgeneratortests.cpp
 
 HEADERS  += \
