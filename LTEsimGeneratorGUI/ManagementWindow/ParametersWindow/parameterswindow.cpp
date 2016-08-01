@@ -20,20 +20,10 @@
 #include <Maps/Traffic/map_traffic.h>
 #include <Maps/Traffic/map_traffic_large.h>
 
-
-// deprecated
-struct Change{
-    QString type;
-    int pos;
-    int length;
-    QString content;
-};
-
 // saving traffic map
 extern QStringList mapTrafficList;
 std::vector<QStringList> trafficFilesContentLists;
 int currentOpenedTrafficFile;
-std::vector<Change*> changeHistory;
 QString parametersFileContent;
 QStringList parametersFileContentList;
 QString parametersFileContentDefault;
@@ -68,57 +58,12 @@ void msg(QString content);
 QString text1;              // tekst znajdujący się w polu tekstowym
 QString pattern;      // tekst, który zamienimy na inny
 
-
-QString itoa(int i){
-    if(i==0){
-        return QString("0");
-    }
-    unsigned int l=(unsigned int)log10(i)+2;
-    char* storage=new char[l];
-    for(int j=l-2; j>=0; j--){
-        storage[j]=(i%10)+'0';
-        i/=10;
-    }
-    storage[l-1]='\0';
-    QString result(storage);
-    return result;
-}
-
-void displayChangeHistory(){
-    if(changeHistory.size()>0){
-        QString history(itoa(changeHistory.size())+"\n\n");
-        for(unsigned int i=0; i<changeHistory.size(); i++){
-            history.append("> "+
-                           changeHistory[i]->type+
-                           " "+
-                           QString(itoa(changeHistory[i]->pos))+
-                           " "+
-                           QString(itoa(changeHistory[i]->length))+
-                           " "+
-                           changeHistory[i]->content+
-                           "\n"
-                           );
-        }
-        msg(history);
-    }
-}
-
 void ParametersWindow::switch_button_state_undo(bool available){
-    if(available){
-        this->ui->pushButton_8->setEnabled(true);
-    }
-    else{
-        this->ui->pushButton_8->setEnabled(false);
-    }
+    this->ui->pushButton_8->setEnabled(available);
 }
 
 void ParametersWindow::switch_button_state_redo(bool available){
-    if(available){
-        this->ui->pushButton_9->setEnabled(true);
-    }
-    else{
-        this->ui->pushButton_9->setEnabled(false);
-    }
+        this->ui->pushButton_9->setEnabled(available);
 }
 
 ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
@@ -155,10 +100,6 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     parametersFileContentDefault = appSettings->readParametersFile();
 
     parametersFileContentDefaultList=parametersFileContentDefault.split("\n");
-
-
-    changeHistory.clear();
-
 }
 
 void ParametersWindow::closeEvent (QCloseEvent *event){
@@ -529,7 +470,7 @@ void ParametersWindow::save_project(bool singleFile=false){
     plaintext.append("\n");
 
     // add nr of traffic files
-    plaintext.append(itoa(nrOfTrafficFiles));
+    plaintext.append(QString::number(nrOfTrafficFiles));
     plaintext.append("\n");
 
     // add names of traffic files
@@ -543,14 +484,14 @@ void ParametersWindow::save_project(bool singleFile=false){
     }
 
     // add length and content of param file
-    plaintext.append(itoa(savedParametersFileContent.split("\n").length()));
+    plaintext.append(QString::number(savedParametersFileContent.split("\n").length()));
     plaintext.append("\n");
     plaintext.append(savedParametersFileContent);
     plaintext.append("\n");
 
     // add length and content of traffic files
     for(int i=0; i<nrOfTrafficFiles; i++){
-        plaintext.append(itoa(savedTrafficFilesContent[i].split("\n").length()));
+        plaintext.append(QString::number(savedTrafficFilesContent[i].split("\n").length()));
         plaintext.append("\n");
         plaintext.append(savedTrafficFilesContent[i]);
         plaintext.append("\n");
