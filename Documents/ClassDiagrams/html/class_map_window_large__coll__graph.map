@@ -1,0 +1,11 @@
+<map id="MapWindowLarge" name="MapWindowLarge">
+<area shape="rect" id="node3" href="$class_handover.html" title="Handover" alt="" coords="103,162,181,189"/>
+<area shape="rect" id="node4" href="$class_cell.html" title="Cell" alt="" coords="334,162,379,189"/>
+<area shape="rect" id="node5" href="$class_center.html" title="Center" alt="" coords="261,5,322,32"/>
+<area shape="rect" id="node6" href="$class_mme.html" title="Mme" alt="" coords="403,162,454,189"/>
+<area shape="rect" id="node7" href="$class_channel_model.html" title="ChannelModel" alt="" coords="479,162,584,189"/>
+<area shape="rect" id="node8" href="$class_ipgwtg.html" title="Ipgwtg" alt="" coords="609,162,670,189"/>
+<area shape="rect" id="node9" href="$class_map_range.html" title="MapRange" alt="" coords="694,162,779,189"/>
+<area shape="rect" id="node10" href="$class_sgw.html" title="Sgw" alt="" coords="803,162,851,189"/>
+<area shape="rect" id="node11" href="$class_ue.html" title="Ue" alt="" coords="876,162,915,189"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Map_traffic" name="Map_traffic">
+<area shape="rect" id="node3" href="$class_cell.html" title="Cell" alt="" coords="239,162,284,189"/>
+<area shape="rect" id="node4" href="$class_center.html" title="Center" alt="" coords="167,5,228,32"/>
+<area shape="rect" id="node5" href="$class_drag_u_e_label.html" title="DragUELabel" alt="" coords="309,162,409,189"/>
+<area shape="rect" id="node7" href="$class_map_range.html" title="MapRange" alt="" coords="436,162,521,189"/>
+</map>

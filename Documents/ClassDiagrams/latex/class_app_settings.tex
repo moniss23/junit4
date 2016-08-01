@@ -1,0 +1,143 @@
+\hypertarget{class_app_settings}{}\section{App\+Settings Class Reference}
+\label{class_app_settings}\index{App\+Settings@{App\+Settings}}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries create\+New\+Project} (const Q\+String \&project\+Name, const Q\+String \&directory)\hypertarget{class_app_settings_a4758ae8be089a60cd0e52d250d2c9cc6}{}\label{class_app_settings_a4758ae8be089a60cd0e52d250d2c9cc6}
+
+\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries current\+Projects} (const std\+::vector$<$ \hyperlink{struct_project}{Project} $>$ \&projects)\hypertarget{class_app_settings_a04473f72a9337a7561c69a617d3e8644}{}\label{class_app_settings_a04473f72a9337a7561c69a617d3e8644}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ Q\+List\+Widget\+Item $\ast$ $>$ {\bfseries load\+Settings} ()\hypertarget{class_app_settings_adaf2c6920769fe633bb457817f25e712}{}\label{class_app_settings_adaf2c6920769fe633bb457817f25e712}
+
+\item 
+void {\bfseries check\+If\+Exist\+And\+Create\+Settings\+File} ()\hypertarget{class_app_settings_ad43966b109460eec7c4b6966e6beda50}{}\label{class_app_settings_ad43966b109460eec7c4b6966e6beda50}
+
+\item 
+void {\bfseries check\+If\+Exist\+And\+Create\+Projects\+File} ()\hypertarget{class_app_settings_a220584efc9258a4a4ce2e7710764cdca}{}\label{class_app_settings_a220584efc9258a4a4ce2e7710764cdca}
+
+\item 
+void {\bfseries create\+Project\+Dir\+If\+Not\+Exist} ()\hypertarget{class_app_settings_a61b0424424801e331beff01f6345ddd9}{}\label{class_app_settings_a61b0424424801e331beff01f6345ddd9}
+
+\item 
+void {\bfseries read\+Projects\+File} ()\hypertarget{class_app_settings_ae93d08cd7ef4975a4be2f4078dc524af}{}\label{class_app_settings_ae93d08cd7ef4975a4be2f4078dc524af}
+
+\item 
+std\+::vector$<$ Q\+List\+Widget\+Item $\ast$ $>$ {\bfseries test\+Projects\+Obtained\+From\+The\+File} ()\hypertarget{class_app_settings_abe01ed44f0d2790df49cd143e5b82331}{}\label{class_app_settings_abe01ed44f0d2790df49cd143e5b82331}
+
+\item 
+void {\bfseries traverse\+Projects\+List\+And\+Add\+Project\+If\+Not\+Found} ()\hypertarget{class_app_settings_af3235d6de06a69317c1a97b18ab5636b}{}\label{class_app_settings_af3235d6de06a69317c1a97b18ab5636b}
+
+\item 
+void {\bfseries add\+Project} (Q\+List\+Widget\+Item $\ast$new\+\_\+item, Q\+String dir)\hypertarget{class_app_settings_ae4f91140a8f1878e54b0a521821bee68}{}\label{class_app_settings_ae4f91140a8f1878e54b0a521821bee68}
+
+\item 
+void {\bfseries remove\+Directory\+Recursively} (Q\+String dir\+\_\+name)\hypertarget{class_app_settings_a3025ec525241da0334a825ebf366a7a1}{}\label{class_app_settings_a3025ec525241da0334a825ebf366a7a1}
+
+\item 
+Q\+String {\bfseries get\+Project\+Directory} (const Q\+String \&project\+Name)\hypertarget{class_app_settings_ae1547f13a85eb3d5609fe853e7f0b031}{}\label{class_app_settings_ae1547f13a85eb3d5609fe853e7f0b031}
+
+\item 
+void {\bfseries set\+Map\+Type} (const Q\+String \&project\+Name, const Q\+String \&map\+Type)\hypertarget{class_app_settings_ae9acb2ed62bf6e63ee792192e2e2c2f4}{}\label{class_app_settings_ae9acb2ed62bf6e63ee792192e2e2c2f4}
+
+\item 
+void {\bfseries write\+\_\+settings\+\_\+file} ()\hypertarget{class_app_settings_a044a33bf439c55642ab876fa3bffdc8b}{}\label{class_app_settings_a044a33bf439c55642ab876fa3bffdc8b}
+
+\item 
+void {\bfseries read\+\_\+settings\+\_\+file} ()\hypertarget{class_app_settings_a1b52026abce0b2f22dc8d48ade71dfe3}{}\label{class_app_settings_a1b52026abce0b2f22dc8d48ade71dfe3}
+
+\item 
+Q\+String\+List {\bfseries read\+\_\+project\+\_\+file} (Q\+String project\+\_\+name, Q\+String dir)\hypertarget{class_app_settings_a1e9c2d729c124dde43cc53100fa5a8a4}{}\label{class_app_settings_a1e9c2d729c124dde43cc53100fa5a8a4}
+
+\item 
+void {\bfseries write\+\_\+project\+\_\+file} (Q\+String project\+\_\+name, Q\+String project\+\_\+content, Q\+String dir)\hypertarget{class_app_settings_a3ff4a29a5a9f052f98bbac4b5f2962c8}{}\label{class_app_settings_a3ff4a29a5a9f052f98bbac4b5f2962c8}
+
+\item 
+void {\bfseries write\+\_\+projects\+\_\+file} ()\hypertarget{class_app_settings_a83837d6a6ab4896338b6178637820922}{}\label{class_app_settings_a83837d6a6ab4896338b6178637820922}
+
+\item 
+void {\bfseries read\+\_\+projects\+\_\+file} ()\hypertarget{class_app_settings_a20aac1922a43ccbbeeadc3e023bc0ed5}{}\label{class_app_settings_a20aac1922a43ccbbeeadc3e023bc0ed5}
+
+\item 
+bool {\bfseries project\+Name\+Taken} (Q\+String project\+Name)\hypertarget{class_app_settings_abc4f77e6834ff97fbf6209426659f03a}{}\label{class_app_settings_abc4f77e6834ff97fbf6209426659f03a}
+
+\item 
+bool {\bfseries is\+Project\+Name\+Valid} (const Q\+String \&project\+Name)\hypertarget{class_app_settings_a355deef5b25d7c2566c28d0ebd207c59}{}\label{class_app_settings_a355deef5b25d7c2566c28d0ebd207c59}
+
+\item 
+bool {\bfseries is\+Project\+Dir\+Valid} (const Q\+String \&project\+Dir)\hypertarget{class_app_settings_add426453dd17778054607c3142f6e1ac}{}\label{class_app_settings_add426453dd17778054607c3142f6e1ac}
+
+\item 
+Q\+String {\bfseries get\+Parameters\+File} () const \hypertarget{class_app_settings_af45425b522c929f2e0d990e9e7a0d9d2}{}\label{class_app_settings_af45425b522c929f2e0d990e9e7a0d9d2}
+
+\item 
+void {\bfseries set\+Parameters\+File} (const Q\+String \&value)\hypertarget{class_app_settings_a4ec3658ec7294c3fc446c1bcf2009c61}{}\label{class_app_settings_a4ec3658ec7294c3fc446c1bcf2009c61}
+
+\item 
+Q\+String {\bfseries get\+Project\+File} () const \hypertarget{class_app_settings_a349b8265c0ae2a6e5af2929c1b8ec7d5}{}\label{class_app_settings_a349b8265c0ae2a6e5af2929c1b8ec7d5}
+
+\item 
+void {\bfseries set\+Project\+File} (const Q\+String \&value)\hypertarget{class_app_settings_a9298dfd433440013467cf47bbf4c36dd}{}\label{class_app_settings_a9298dfd433440013467cf47bbf4c36dd}
+
+\item 
+Q\+String {\bfseries get\+Project\+Name} () const \hypertarget{class_app_settings_a533578586b655779b8f7a6d29375b081}{}\label{class_app_settings_a533578586b655779b8f7a6d29375b081}
+
+\item 
+void {\bfseries set\+Project\+Name} (const Q\+String \&value)\hypertarget{class_app_settings_ab1567f9a05f3d4a2a800d24d6ae3249e}{}\label{class_app_settings_ab1567f9a05f3d4a2a800d24d6ae3249e}
+
+\item 
+Q\+Dir {\bfseries get\+Project\+Dir} () const \hypertarget{class_app_settings_a6e2539bd6bdd0ec38b007e3cff8e891d}{}\label{class_app_settings_a6e2539bd6bdd0ec38b007e3cff8e891d}
+
+\item 
+void {\bfseries set\+Project\+Dir} (const Q\+Dir \&value)\hypertarget{class_app_settings_a8f385a5894b950b9687b2f6c551b4eb2}{}\label{class_app_settings_a8f385a5894b950b9687b2f6c551b4eb2}
+
+\item 
+Q\+String {\bfseries get\+Default\+New\+Project\+Dir} () const \hypertarget{class_app_settings_a8e09af00975757da8cd520b44db8b4cb}{}\label{class_app_settings_a8e09af00975757da8cd520b44db8b4cb}
+
+\item 
+void {\bfseries set\+Default\+New\+Project\+Dir} (const Q\+String \&value)\hypertarget{class_app_settings_a2416714eba17ee60f384cad00124fb9e}{}\label{class_app_settings_a2416714eba17ee60f384cad00124fb9e}
+
+\item 
+Q\+String {\bfseries get\+Pro\+File\+Ext} () const \hypertarget{class_app_settings_a540fcd15c9330cc015fab2f43aa79fc1}{}\label{class_app_settings_a540fcd15c9330cc015fab2f43aa79fc1}
+
+\item 
+Q\+Dir {\bfseries get\+Project\+\_\+dir} () const \hypertarget{class_app_settings_adc3c9af982f7e368ad741bee099010e0}{}\label{class_app_settings_adc3c9af982f7e368ad741bee099010e0}
+
+\item 
+void {\bfseries set\+Project\+\_\+dir} (const Q\+Dir \&value)\hypertarget{class_app_settings_a3060913c5f052852f5a2aa2802351c63}{}\label{class_app_settings_a3060913c5f052852f5a2aa2802351c63}
+
+\item 
+Q\+File {\bfseries get\+Projects\+\_\+file} () const \hypertarget{class_app_settings_a5b244cc47342a3a207a4bf855ef5660d}{}\label{class_app_settings_a5b244cc47342a3a207a4bf855ef5660d}
+
+\item 
+void {\bfseries set\+Projects\+\_\+file} (const Q\+File \&value)\hypertarget{class_app_settings_a0546a786ddf98f93187d7506e1a14e1c}{}\label{class_app_settings_a0546a786ddf98f93187d7506e1a14e1c}
+
+\item 
+Q\+File {\bfseries get\+Settings\+\_\+file} () const \hypertarget{class_app_settings_afe4308305b3178d6fa6f4adc767988a6}{}\label{class_app_settings_afe4308305b3178d6fa6f4adc767988a6}
+
+\item 
+void {\bfseries set\+Settings\+\_\+file} (const Q\+File \&value)\hypertarget{class_app_settings_ad793e27d5965a6480da5d6ce17820efe}{}\label{class_app_settings_ad793e27d5965a6480da5d6ce17820efe}
+
+\item 
+Q\+String {\bfseries read\+Parameters\+File} ()\hypertarget{class_app_settings_ab59a8b8480c4f02478e4bb67040ba348}{}\label{class_app_settings_ab59a8b8480c4f02478e4bb67040ba348}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{struct_project}{Project} $>$ {\bfseries projects}\hypertarget{class_app_settings_a750057357b7231682c87636e0e1c355f}{}\label{class_app_settings_a750057357b7231682c87636e0e1c355f}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/trance/\+L\+T\+Esim/\+Internal.\+L\+T\+Esim\+Generator/\+L\+T\+Esim\+Generator\+G\+U\+I/\+App\+Settings/appsettings.\+h\item 
+/home/trance/\+L\+T\+Esim/\+Internal.\+L\+T\+Esim\+Generator/\+L\+T\+Esim\+Generator\+G\+U\+I/\+App\+Settings/appsettings.\+cpp\end{DoxyCompactItemize}

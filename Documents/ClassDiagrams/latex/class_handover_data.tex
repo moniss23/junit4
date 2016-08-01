@@ -1,0 +1,91 @@
+\hypertarget{class_handover_data}{}\section{Handover\+Data Class Reference}
+\label{class_handover_data}\index{Handover\+Data@{Handover\+Data}}
+
+
+Inheritance diagram for Handover\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{class_handover_data__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Handover\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{class_handover_data__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Handover\+Data} (Q\+String name, \hyperlink{class_app_settings}{App\+Settings} $\ast$app\+Settings)\hypertarget{class_handover_data_a0ebdcdf3e6e19113905b1d5d012f6a0b}{}\label{class_handover_data_a0ebdcdf3e6e19113905b1d5d012f6a0b}
+
+\item 
+Q\+String {\bfseries get\+Handover\+Name} () const \hypertarget{class_handover_data_afc88231951f57e84f261d0f29f9ed761}{}\label{class_handover_data_afc88231951f57e84f261d0f29f9ed761}
+
+\item 
+int {\bfseries get\+South\+Boundary} () const \hypertarget{class_handover_data_aa7240bb71bd2b3f13ab0f4ff00c1c779}{}\label{class_handover_data_aa7240bb71bd2b3f13ab0f4ff00c1c779}
+
+\item 
+int {\bfseries get\+North\+Boundary} () const \hypertarget{class_handover_data_a3b68a3562f9c37188b21eee29ba3f9a7}{}\label{class_handover_data_a3b68a3562f9c37188b21eee29ba3f9a7}
+
+\item 
+int {\bfseries get\+West\+Boundary} () const \hypertarget{class_handover_data_aadcfee4d7b0c6c4091c913f4da6997de}{}\label{class_handover_data_aadcfee4d7b0c6c4091c913f4da6997de}
+
+\item 
+int {\bfseries get\+East\+Boundary} () const \hypertarget{class_handover_data_afb7972ace81cf60fc32e91d94f276c1b}{}\label{class_handover_data_afb7972ace81cf60fc32e91d94f276c1b}
+
+\item 
+\hyperlink{struct_handover_params}{Handover\+Params} {\bfseries get\+Handover\+Params} () const \hypertarget{class_handover_data_a2d2c8f3f0865c5d97e2f6cca132db310}{}\label{class_handover_data_a2d2c8f3f0865c5d97e2f6cca132db310}
+
+\item 
+void {\bfseries set\+Handover\+Name} (const Q\+String \&name)\hypertarget{class_handover_data_aa2ebdd4cdea80d68d74ed11e76ab7b5d}{}\label{class_handover_data_aa2ebdd4cdea80d68d74ed11e76ab7b5d}
+
+\item 
+void {\bfseries set\+South\+Boundary} (int south)\hypertarget{class_handover_data_a7206dedee68b4bb70a65f561bf499e5c}{}\label{class_handover_data_a7206dedee68b4bb70a65f561bf499e5c}
+
+\item 
+void {\bfseries set\+North\+Boundary} (int north)\hypertarget{class_handover_data_a0c8a86e0349737f35ccf1bb6d76badd7}{}\label{class_handover_data_a0c8a86e0349737f35ccf1bb6d76badd7}
+
+\item 
+void {\bfseries set\+West\+Boundary} (int west)\hypertarget{class_handover_data_a58e774266ed7cea002d2e2ceb282ede0}{}\label{class_handover_data_a58e774266ed7cea002d2e2ceb282ede0}
+
+\item 
+void {\bfseries set\+East\+Boundary} (int east)\hypertarget{class_handover_data_a4821fcb178c67fcac39c865fe4d02fdc}{}\label{class_handover_data_a4821fcb178c67fcac39c865fe4d02fdc}
+
+\item 
+void {\bfseries set\+Handover\+Params} (const \hyperlink{struct_handover_params}{Handover\+Params} \&params)\hypertarget{class_handover_data_a44bf5aeb9853496e72cfbdcd1be5de3f}{}\label{class_handover_data_a44bf5aeb9853496e72cfbdcd1be5de3f}
+
+\item 
+\hyperlink{struct_handover_params}{Handover\+Params} {\bfseries parse\+Data\+From\+List} (Q\+String\+List \&params\+List)\hypertarget{class_handover_data_a8e27ad24e6f78a36e80c68b0e2c8a245}{}\label{class_handover_data_a8e27ad24e6f78a36e80c68b0e2c8a245}
+
+\item 
+Q\+String {\bfseries get\+Element\+Type} () const override\hypertarget{class_handover_data_a4e1386200bc54a49a967963baeb0c049}{}\label{class_handover_data_a4e1386200bc54a49a967963baeb0c049}
+
+\item 
+void {\bfseries serialize\+To\+Project\+File} () override\hypertarget{class_handover_data_a45511d327dbabba83a3e2699012e9336}{}\label{class_handover_data_a45511d327dbabba83a3e2699012e9336}
+
+\item 
+void {\bfseries serialize\+From\+Project\+File\+Old} (Q\+Byte\+Array raw\+Data) override\hypertarget{class_handover_data_a710b11d41d03255073c5bcf50ca96ed7}{}\label{class_handover_data_a710b11d41d03255073c5bcf50ca96ed7}
+
+\item 
+void {\bfseries serialize\+From\+Project\+File\+New} (Q\+Dom\+Document xml\+Document) override\hypertarget{class_handover_data_ad7aea1441cddf5f6fba5809685da7ad7}{}\label{class_handover_data_ad7aea1441cddf5f6fba5809685da7ad7}
+
+\item 
+void {\bfseries serialize\+To\+Script\+Commands} () override\hypertarget{class_handover_data_a1f38a95529d4c5e791a9749e796fcc44}{}\label{class_handover_data_a1f38a95529d4c5e791a9749e796fcc44}
+
+\item 
+void {\bfseries set\+Project\+Reader\+Writer} (\hyperlink{class_project_reader_writer}{Project\+Reader\+Writer} $\ast$value)\hypertarget{class_handover_data_a7ff75a2bc77e7d610c52180ce3288ef8}{}\label{class_handover_data_a7ff75a2bc77e7d610c52180ce3288ef8}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/trance/\+L\+T\+Esim/\+Internal.\+L\+T\+Esim\+Generator/\+L\+T\+Esim\+Generator\+G\+U\+I/\+Maps/\+Traffic/\+Data\+Objects/handoverdata.\+h\item 
+/home/trance/\+L\+T\+Esim/\+Internal.\+L\+T\+Esim\+Generator/\+L\+T\+Esim\+Generator\+G\+U\+I/\+Maps/\+Traffic/\+Data\+Objects/handoverdata.\+cpp\end{DoxyCompactItemize}

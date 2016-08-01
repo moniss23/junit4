@@ -1,0 +1,94 @@
+\hypertarget{class_map_data}{}\section{Map\+Data Class Reference}
+\label{class_map_data}\index{Map\+Data@{Map\+Data}}
+
+
+Inheritance diagram for Map\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{class_map_data__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Map\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_map_data__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Map\+Data} (const Q\+String \&name, bool which\+Map, \hyperlink{class_app_settings}{App\+Settings} $\ast$app\+Settings)\hypertarget{class_map_data_ad8ef4a63de6fe07cdcd9cdf0494f896f}{}\label{class_map_data_ad8ef4a63de6fe07cdcd9cdf0494f896f}
+
+\item 
+void {\bfseries add\+U\+E\+Group} (const Q\+String \&U\+E\+Name)\hypertarget{class_map_data_a7739d74af236a0c4806d9cbf226d72c1}{}\label{class_map_data_a7739d74af236a0c4806d9cbf226d72c1}
+
+\item 
+void {\bfseries delete\+U\+E\+Group} (const Q\+String \&U\+E\+Name)\hypertarget{class_map_data_a6f8e09a638b997cf7520b314449ce5e4}{}\label{class_map_data_a6f8e09a638b997cf7520b314449ce5e4}
+
+\item 
+void {\bfseries fill\+Active\+Cell\+List} ()\hypertarget{class_map_data_af8d8b19ff5a2216f009785bb4725e491}{}\label{class_map_data_af8d8b19ff5a2216f009785bb4725e491}
+
+\item 
+void {\bfseries fill\+Handover\+List} ()\hypertarget{class_map_data_aa5b325bf687daa2af9ef60c4b1f6b651}{}\label{class_map_data_aa5b325bf687daa2af9ef60c4b1f6b651}
+
+\item 
+void {\bfseries fill\+U\+E\+List} (Q\+Dom\+Document xml\+Document)\hypertarget{class_map_data_a2ab06ade7342463696b7d7c89c6aae15}{}\label{class_map_data_a2ab06ade7342463696b7d7c89c6aae15}
+
+\item 
+void {\bfseries include\+Xml\+Parts\+From\+Objects} ()\hypertarget{class_map_data_acbbcfb6185d087152bbdb93f7a64cd47}{}\label{class_map_data_acbbcfb6185d087152bbdb93f7a64cd47}
+
+\item 
+Q\+String {\bfseries get\+Element\+Type} () const override\hypertarget{class_map_data_a3a8668925fa56ad48ddb3b657fa843d4}{}\label{class_map_data_a3a8668925fa56ad48ddb3b657fa843d4}
+
+\item 
+void {\bfseries serialize\+To\+Project\+File} () override\hypertarget{class_map_data_a1ccd88e0a96244bc485132292a9b4fe0}{}\label{class_map_data_a1ccd88e0a96244bc485132292a9b4fe0}
+
+\item 
+void {\bfseries serialize\+From\+Project\+File\+Old} (Q\+Byte\+Array raw\+Data) override\hypertarget{class_map_data_a53865a41585c80e967109f356a013643}{}\label{class_map_data_a53865a41585c80e967109f356a013643}
+
+\item 
+void {\bfseries serialize\+From\+Project\+File\+New} (Q\+Dom\+Document xml\+Document) override\hypertarget{class_map_data_ab97fc023216e24e83fbaacb29838d314}{}\label{class_map_data_ab97fc023216e24e83fbaacb29838d314}
+
+\item 
+void {\bfseries serialize\+To\+Script\+Commands} () override\hypertarget{class_map_data_afd21073a33a0c3d3777f688c2ef6c676}{}\label{class_map_data_afd21073a33a0c3d3777f688c2ef6c676}
+
+\item 
+void {\bfseries set\+Project\+Reader\+Writer} (\hyperlink{class_project_reader_writer}{Project\+Reader\+Writer} $\ast$value)\hypertarget{class_map_data_a772cf725d005ddd2dd764b5842de9fdd}{}\label{class_map_data_a772cf725d005ddd2dd764b5842de9fdd}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String {\bfseries map\+Name}\hypertarget{class_map_data_ae211b4c37ab8440462a6b9f76ca865ac}{}\label{class_map_data_ae211b4c37ab8440462a6b9f76ca865ac}
+
+\item 
+\hyperlink{struct_parameters_lists}{Parameters\+Lists} {\bfseries parameter\+Lists}\hypertarget{class_map_data_a4fe07a1487934e92672769cb3c00b665}{}\label{class_map_data_a4fe07a1487934e92672769cb3c00b665}
+
+\item 
+Q\+List$<$ \hyperlink{class_u_egroup_data}{U\+Egroup\+Data} $\ast$ $>$ {\bfseries U\+E\+List}\hypertarget{class_map_data_a2ee66eca23e9dd35e68445c7c9c90523}{}\label{class_map_data_a2ee66eca23e9dd35e68445c7c9c90523}
+
+\item 
+Q\+List$<$ \hyperlink{class_custommodels}{Custommodels} $\ast$ $>$ {\bfseries Custom\+Models\+List}\hypertarget{class_map_data_add304b2782da80e245e832aa5e724963}{}\label{class_map_data_add304b2782da80e245e832aa5e724963}
+
+\item 
+Q\+Dom\+Document {\bfseries map\+Xml\+Document}\hypertarget{class_map_data_acb7b058fe3b817d43e5a1beecb4ec337}{}\label{class_map_data_acb7b058fe3b817d43e5a1beecb4ec337}
+
+\item 
+bool {\bfseries ready\+To\+Save}\hypertarget{class_map_data_a2f08ed2c788e33a86b357db67b78935c}{}\label{class_map_data_a2f08ed2c788e33a86b357db67b78935c}
+
+\item 
+bool {\bfseries large\+Map}\hypertarget{class_map_data_a04a5463ddd13e1481dcd53bd025c17ca}{}\label{class_map_data_a04a5463ddd13e1481dcd53bd025c17ca}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/trance/\+L\+T\+Esim/\+Internal.\+L\+T\+Esim\+Generator/\+L\+T\+Esim\+Generator\+G\+U\+I/\+Maps/\+Traffic/\+Map\+Data/mapdata.\+h\item 
+/home/trance/\+L\+T\+Esim/\+Internal.\+L\+T\+Esim\+Generator/\+L\+T\+Esim\+Generator\+G\+U\+I/\+Maps/\+Traffic/\+Map\+Data/mapdata.\+cpp\end{DoxyCompactItemize}

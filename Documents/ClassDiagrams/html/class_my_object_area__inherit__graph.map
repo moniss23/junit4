@@ -1,0 +1,5 @@
+<map id="MyObjectArea" name="MyObjectArea">
+<area shape="rect" id="node2" href="$class_cell_area.html" title="CellArea" alt="" coords="5,80,77,107"/>
+<area shape="rect" id="node3" href="$class_composition_of_areas.html" title="CompositionOfAreas" alt="" coords="102,80,245,107"/>
+<area shape="rect" id="node4" href="$class_handover_area.html" title="HandoverArea" alt="" coords="269,80,374,107"/>
+</map>
