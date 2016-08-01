@@ -14,7 +14,6 @@
 
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <ManagementWindow/Settings/settings.h>
 #include <AppSettings/appsettings.h>
 
 
@@ -59,12 +58,13 @@ void ProjectManagement::on_openProject_Button_clicked()
 // "delete project" button clicked
 void ProjectManagement::on_deleteProject_Button_clicked(){
     QListWidgetItem *item = ui->listWidget->currentItem();
-         if (item==NULL){
-             return;
-         }
-         QString text = item->text();
-         QString projectName=this->ui->listWidget->currentItem()->text().split("\t")[0];
-         emit deleteProject(projectName);
+    if (item==NULL){
+        return;
+    }
+
+    QString text = item->text();
+    QString projectName=text.split("\t")[0];
+    emit deleteProject(projectName);
 }
 
 // "import project" button is clicked
@@ -132,9 +132,7 @@ void ProjectManagement::on_importProject_Button_clicked()
 // "settings" button clicked
 void ProjectManagement::on_settings_Button_clicked()
 {
-    Settings settingsWindow(appSettings, this,false);
-    settingsWindow.setWindowModality(Qt::WindowModal);
-    settingsWindow.exec();
+    emit SpawnWindow_Settings();
 }
 
 

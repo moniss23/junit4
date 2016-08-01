@@ -5,6 +5,7 @@
 #include <QListWidgetItem>
 
 #include "AppSettings/appsettings.h"
+#include "ManagementWindow/Settings/settings.h"
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
@@ -40,20 +41,37 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
+    /************************************
+     *       SETUP   ALL   WINDOWS      *
+     ************************************/
     AppSettings appSettings;
     appSettings.read_settings_file();
 
     ProjectManagement projectUi(&appSettings);
     projectMng = &projectUi;
-    projectUi.show();
 
-    QObject::connect(projectMng,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
-    QObject::connect(&appSettings,SIGNAL(currentProjects(const std::vector<Project> &)),projectMng,SLOT(updateProjectLists(const std::vector<Project>&)));
+    Settings settingsWindow(&appSettings, NULL, false);
+    settingsWindow.setWindowModality(Qt::WindowModal);
 
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
 
+
+    /************************************
+     *    BINDING  OBJECTS  TOGETHER    *
+     ************************************/
+    QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
+    QObject::connect(&appSettings, SIGNAL(currentProjects(const std::vector<Project> &)),
+                     &projectUi,   SLOT(updateProjectLists(const std::vector<Project>&)));
+
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_Settings()), &settingsWindow, SLOT(exec()));
+
+
+    /************************************
+     * LOAD DATA AND SHOW GUI INTERFACE *
+     ************************************/
     appSettings.LoadAppData();
+    projectUi.show();
 
     return a.exec();
 }

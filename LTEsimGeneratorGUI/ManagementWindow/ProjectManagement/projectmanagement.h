@@ -39,6 +39,7 @@ signals:
     void SpawnWindow_ImportProject();
     void deleteProject(const QString &ProjectName );
     void SpawnWindow_Settings();
+
 public slots:
     void updateProjectLists(const std::vector<Project> &projects);
 
