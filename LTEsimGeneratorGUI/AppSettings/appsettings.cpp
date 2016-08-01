@@ -20,6 +20,51 @@ void AppSettings::LoadAppData() {
     emit currentProjects(projects);
 }
 
+void AppSettings::importProject(const QString &ProjectDirectory)
+{
+    if(ProjectDirectory.isEmpty()){
+        return;
+    }
+
+    // verify validity of the project
+    QStringList import_dir_exploded=ProjectDirectory.split("/");
+    QString project_name(import_dir_exploded[import_dir_exploded.length()-1]);
+    QFile import_file(ProjectDirectory+"/"+project_name+getProFileExt());
+
+    if(!import_file.exists()){
+        emit errorInData("\""+ProjectDirectory+"\" does not seem to be a valid project directory.");
+        return;
+    }
+
+    // create the project element for the vector
+    Project new_project;
+    new_project.name=project_name;
+    QString vector_dir;
+
+    int i=0;
+    for(; i<import_dir_exploded.length()-2; i++){
+        vector_dir+=import_dir_exploded[i];
+        vector_dir+="/";
+    }
+    vector_dir+=import_dir_exploded[i];
+    new_project.fullpath=vector_dir;
+
+    // check if the project is already on the list
+    for(size_t i=0; i<projects.size(); i++){
+        if(projects[i].name==new_project.name && projects[i].fullpath==new_project.fullpath){
+            emit errorInData("Project is already present.");
+            return;
+        }
+    }
+
+    projects.push_back(new_project);
+
+    // update the projects.dat file
+    write_projects_file();
+
+    emit currentProjects(projects);
+}
+
 
 void AppSettings::write_settings_file(){
     QFile file(settingsFile);

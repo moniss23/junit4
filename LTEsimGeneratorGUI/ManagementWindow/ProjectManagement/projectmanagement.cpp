@@ -71,62 +71,8 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
 void ProjectManagement::on_importProject_Button_clicked()
 {
 
-    // open a dialog to find the project's dir
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::Directory);
-    QString import_dir=dialog.getExistingDirectory(this,tr("Find project directory"),"/");
-    if(import_dir==""){
-        return;
-    }
 
-    // verify validity of the project
-    QStringList import_dir_exploded=import_dir.split("/");
-    QString project_name(import_dir_exploded[import_dir_exploded.length()-1]);
-    QFile import_file(import_dir+"/"+project_name+ appSettings->getProFileExt());
-    if(!import_file.exists()){
-        QMessageBox(QMessageBox::Critical,"","\""+import_dir+"\" does not seem to be a valid project directory.",QMessageBox::Ok).exec();
-        return;
-    }
-
-    // create the project element for the vector
-    Project new_project;
-    new_project.name=project_name;
-    QString vector_dir;
-
-    int i=0;
-    for(; i<import_dir_exploded.length()-2; i++){
-        vector_dir+=import_dir_exploded[i];
-        vector_dir+="/";
-    }
-    vector_dir+=import_dir_exploded[i];
-    new_project.fullpath=vector_dir;
-
-    // check if the project is already on the list
-    for(size_t i=0; i<appSettings->projects.size(); i++){
-        if(appSettings->projects[i].name==new_project.name && appSettings->projects[i].fullpath==new_project.fullpath){
-            msg("Project is already present.");
-            return;
-        }
-    }
-
-    // if it's not, append it to the vector
-    QListWidgetItem* new_item=new QListWidgetItem(project_name+"\t"+vector_dir);
-    new_project.widget=new_item;
-    appSettings->projects.push_back(new_project);
-    // update the projects.dat file
-    appSettings->write_projects_file();
-
-
-
-    //TODO: This should be done by invoking updateProjectLists slot
-    // update UI
-    this->ui->listWidget->addItem(new_item);
-    this->ui->listWidget->setCurrentItem(new_item);
-    this->ui->listWidget->item(this->ui->listWidget->currentRow())->setSelected(true);
-
-    // display message
-    msg("Project \""+project_name+"\" in "+new_project.fullpath+" successfully imported.");
-
+    emit SpawnWindow_ImportProject();
 }
 
 // "settings" button clicked
@@ -148,11 +94,13 @@ void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
 void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
-    updateUiState();
-    if(!ui->listWidget->count() or current==NULL){
-           return;
-    }
     (void) previous;
+
+    if(current==NULL || !ui->listWidget->count()){
+        return;
+    }
+
+    updateUiState();
 }
 
 
@@ -167,10 +115,6 @@ void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
         new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->listWidget);
     }
     updateUiState();
-    if (!ui->listWidget->count()) {
-        return;
-    }
-    ui->listWidget->setCurrentRow(0);
 }
 
 
@@ -220,6 +164,12 @@ void ProjectManagement::open_project(){
 // display project's files in the right view
 void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
 
+    // clear the right list
+    this->ui->listWidget_2->clear();
+
+    if(item==NULL) return;
+
+
     // read the selected project's name and directory from the projects vector
     QString project_name;
     QString project_dir;
@@ -231,8 +181,7 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
         }
     }
 
-    // clear the right list
-    this->ui->listWidget_2->clear();
+
 
     QStringList project_data = appSettings->read_project_file(project_name,project_dir);
 
@@ -265,14 +214,9 @@ QListWidgetItem* ProjectManagement::getCurrentItem(){
 
 void ProjectManagement::updateUiState()
 {
-    this->ui->listWidget_2->clear();
-    if (ui->listWidget->currentRow()>-1){
-        this->ui->openProject_Button->setEnabled(true);
-        this->ui->deleteProject_Button->setEnabled(true);
-        this->previewProjectFiles(ui->listWidget->currentItem());
-        return;
-    }
-    this->ui->openProject_Button->setEnabled(false);
-    this->ui->deleteProject_Button->setEnabled(false);
+    bool objects = (ui->listWidget->count() > 0 );
 
+    this->ui->openProject_Button->setEnabled(objects);
+    this->ui->deleteProject_Button->setEnabled(objects);
+    this->previewProjectFiles(ui->listWidget->currentItem());
 }

@@ -8,6 +8,7 @@
 #include "ManagementWindow/Settings/settings.h"
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
+#include "ManagementWindow/ProjectManagement/importprojectwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindowlarge.h"
 #include "Maps/Traffic/map_traffic.h"
@@ -56,6 +57,7 @@ int main(int argc, char *argv[])
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
 
+    ImportProjectWindow importProject;
 
     /************************************
      *    BINDING  OBJECTS  TOGETHER    *
@@ -66,6 +68,11 @@ int main(int argc, char *argv[])
 
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_Settings()), &settingsWindow, SLOT(exec()));
 
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
+    QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), &appSettings, SLOT(importProject(const QString&)));
+
+
+    //QObject::connect(&appSettings,SIGNAL(errorInData(QString)), );  TODO: IMPLEMENT
 
     /************************************
      * LOAD DATA AND SHOW GUI INTERFACE *

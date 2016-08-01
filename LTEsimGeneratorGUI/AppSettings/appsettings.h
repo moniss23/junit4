@@ -22,6 +22,22 @@ public:
 
     std::vector<Project> projects;
 
+    //TODO: new API to implement
+    //***********************************************/
+signals:
+    void currentProjects(const std::vector<Project> &projects);
+    void errorInData(const QString& errorDescription);
+
+public slots:
+
+    //void createNewProject(const QString &projectName, const QString & directory);
+    //***********************************************
+    //***********************************************/
+    void importProject(const QString &ProjectDirectory);
+    void deleteProject(const QString);
+
+
+public:
     void LoadAppData();
 
     void checkIfExistAndCreateSettingsFile();
@@ -89,17 +105,7 @@ public:
 
     QString readParametersFile();
 
-    //TODO: new API to implement
-    //***********************************************/
-signals:
-    void currentProjects(const std::vector<Project> &projects);
 
-public slots:
-
-    //void createNewProject(const QString &projectName, const QString & directory);
-    //***********************************************
-    //***********************************************/
-    void deleteProject(const QString);
 
 private:
 

@@ -21,13 +21,12 @@ public:
     explicit ProjectManagement(AppSettings *appSettings, QWidget *parent = 0);
     ~ProjectManagement();
 
-
+    //TODO: delete this public functions as soon as possible
     QListWidgetItem* getCurrentItem();
-    void previewProjectFiles(QListWidgetItem* item);
     void addWidgetToListWidget(QListWidgetItem* new_item);
-    void updateUiState();
+    void previewProjectFiles(QListWidgetItem* item);
 
-    //TODO: new API to implement
+
     /***********************************************
      *  WINDOW PUBLIC API
      ***********************************************/
@@ -62,8 +61,13 @@ private slots:
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
 
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
      void open_project();
+     void updateUiState();
+
 
 private:
     Ui::ProjectManagement *ui;

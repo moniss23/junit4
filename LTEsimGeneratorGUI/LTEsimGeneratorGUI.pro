@@ -86,7 +86,8 @@ SOURCES += main.cpp\
     Data/project.cpp \
     Maps/Traffic/Statistics/statisticsManager.cpp \
     Maps/Traffic/Statistics/statisticsData.cpp  \
-    Data/appglobaldata.cpp
+    Data/appglobaldata.cpp \
+    ManagementWindow/ProjectManagement/importprojectwindow.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -165,7 +166,8 @@ HEADERS  += \
     Maps/Traffic/Statistics/statisticsManager.h \
     dataelementsinterface.h \
     Data/serializeinterface.h \
-    Data/appglobaldata.h
+    Data/appglobaldata.h \
+    ManagementWindow/ProjectManagement/importprojectwindow.h
 
 FORMS    += \
     Ui/parameterswindow.ui \
