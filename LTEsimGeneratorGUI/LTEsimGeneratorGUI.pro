@@ -4,17 +4,15 @@
 #
 #-------------------------------------------------
 
-QT       += core gui testlib
-QT       +=xml
-QT += widgets testlib
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core
+QT += xml
+QT += gui
+QT += widgets
 
 TARGET = LTEsimGeneratorGUI
 TEMPLATE = app
-CONFIG   += testcase
-CONFIG   += c++11
 
+CONFIG   += c++11
 
 SOURCES += main.cpp\
     ManagementWindow/ParametersWindow/parameterswindow.cpp \
@@ -63,43 +61,24 @@ SOURCES += main.cpp\
     Maps/Traffic/UeParameters/ue.cpp \
     Maps/Traffic/UeParameters/UE_param_form.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/draguelabel_test.cpp \
     Maps/Traffic/map_traffic.cpp \
     Maps/Traffic/map_traffic_large.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
-    Maps/Traffic/MapTest/managementtemplate_test.cpp \
     Maps/Traffic/DataObjects/handoverdata.cpp \
-    Maps/Traffic/MapTest/DataObjectsTest/HandoverDataTest/handoverdata_test.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
     Maps/Traffic/Statistics/statisticsdata.cpp \
-    Maps/Traffic/MapTest/Statistics/statisticsdata_test.cpp\
-    Maps/Traffic/MapTest/UeParametersTest/uegroupdata_test.cpp\
-    Maps/Traffic/MapTest/DataObjectsTest/CellDataTest/celldata_test.cpp \
     Maps/Traffic/DataObjects/celldata.cpp \
     ProjectReaderWriter/projectreaderwriter.cpp \
     Maps/Traffic/MapData/mapdata.cpp \
-    Maps/Traffic/MapTest/mapdata_test.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/mapmanagement_test.cpp \
     Maps/Traffic/MapComponents/mapmanagement.cpp \
     Maps/Traffic/MapComponents/myscrollareawidget.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/myscrollareawidget_test.cpp \
     Maps/Traffic/MapComponents/custommodellabel.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/custommodellabel_test.cpp \
     Maps/Traffic/MapComponents/statisticsbutton.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/statisticsbutton_test.cpp \
     Maps/Traffic/MapComponents/timebutton.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/timebutton_test.cpp \
     Maps/Traffic/MapComponents/tuningtrafficbutton.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/tuningtrafficbutton_test.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/scale_test.cpp \
     Maps/Traffic/MapComponents/addbutton.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/addbutton_test.cpp \
     Maps/Traffic/MapComponents/cellarea.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/cellarea_test.cpp \
     Maps/Traffic/MapComponents/handoverarea.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/handoverarea_test.cpp \
-    Maps/Traffic/MapTest/MapComponentsTest/compositionofareas_test.cpp \
-    TestRunner/testrunner.cpp \
     ManagementWindow/Encryption/encryption.cpp \
     AppSettings/appsettings.cpp \
     DoubleInputValidator/doubleinputvalidator.cpp \
@@ -157,47 +136,28 @@ HEADERS  += \
     Maps/Traffic/UeParameters/ue.h \
     Maps/Traffic/UeParameters/UE_param_form.h \
     Maps/Traffic/MapComponents/draguelabel.h \
-    Maps/Traffic/MapTest/MapComponentsTest/draguelabel_test.h \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/map_traffic_large.h \
     dataelementsinterface.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
-    Maps/Traffic/MapTest/managementtemplate_test.h \
     Maps/Traffic/DataObjects/handoverdata.h \
-    Maps/Traffic/MapTest/DataObjectsTest/HandoverDataTest/handoverdata_test.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/MapTest/UeParametersTest/uegroupdata_test.h \
     Maps/Traffic/Statistics/statisticsdata.h \
-    Maps/Traffic/MapTest/Statistics/statisticsdata_test.h \
-    Maps/Traffic/MapTest/DataObjectsTest/CellDataTest/celldata_test.h \
     Maps/Traffic/DataObjects/celldata.h \
     ProjectReaderWriter/projectreaderwriter.h \
     Maps/Traffic/MapData/mapdata.h \
-    Maps/Traffic/MapTest/mapdata_test.h \
-    Maps/Traffic/MapTest/MapComponentsTest/mapmanagement_test.h \
     Maps/Traffic/MapComponents/mapmanagement.h \
     Maps/Traffic/MapComponents/myscrollareawidget.h \
-    Maps/Traffic/MapTest/MapComponentsTest/myscrollareawidget_test.h \
     Maps/Traffic/MapComponents/custommodellabel.h \
-    Maps/Traffic/MapTest/MapComponentsTest/custommodellabel_test.h \
     Maps/Traffic/MapComponents/statisticsbutton.h \
-    Maps/Traffic/MapTest/MapComponentsTest/statisticsbutton_test.h \
     Maps/Traffic/MapComponents/timebutton.h \
-    Maps/Traffic/MapTest/MapComponentsTest/timebutton_test.h \
     Maps/Traffic/MapComponents/tuningtrafficbutton.h \
-    Maps/Traffic/MapTest/MapComponentsTest/tuningtrafficbutton_test.h \
     Maps/Traffic/MapComponents/scale.h \
-    Maps/Traffic/MapTest/MapComponentsTest/scale_test.h \
     Maps/Traffic/MapComponents/addbutton.h \
-    Maps/Traffic/MapTest/MapComponentsTest/addbutton_test.h \
     Maps/Traffic/MapComponents/myobjectarea.h \
     Maps/Traffic/MapComponents/cellarea.h \
-    Maps/Traffic/MapTest/MapComponentsTest/cellarea_test.h \
     Maps/Traffic/MapComponents/handoverarea.h \
-    Maps/Traffic/MapTest/MapComponentsTest/handoverarea_test.h \
     Maps/Traffic/MapComponents/compositionofareas.h \
-    Maps/Traffic/MapTest/MapComponentsTest/compositionofareas_test.h \
-    TestRunner/testrunner.h \
     AppSettings/appsettings.h \
     DoubleInputValidator/doubleinputvalidator.h \
     my_qlabel.h \

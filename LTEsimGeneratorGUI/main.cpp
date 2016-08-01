@@ -4,13 +4,13 @@
 #include <QFile>
 #include <QListWidgetItem>
 
-#include "TestRunner/testrunner.h"
 #include "AppSettings/appsettings.h"
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindowlarge.h"
-
+#include "Maps/Traffic/map_traffic.h"
+#include "Maps/Traffic/map_traffic_large.h"
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -56,15 +56,8 @@ int main(int argc, char *argv[])
     ParametersWindow viewParameters(&appSettings);
     p = &viewParameters;
 
-    //Condition to run tests on Jenkins
-    if (argv[1] == QString("TEST"))  {
-        TestRunner unitTests(&appSettings);
-        unitTests.runTests();
 
-        return 0;
-    } else
-        return a.exec();
-
+    return a.exec();
 }
 
 // wrapper for displaying an alert/information message
