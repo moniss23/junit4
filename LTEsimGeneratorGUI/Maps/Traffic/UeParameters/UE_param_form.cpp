@@ -4,36 +4,15 @@
 #include <QMessageBox>
 #include <QSettings>
 
-QString curPS1;
-QString curPS2;
-QString curPS3;
-QString curPS4;
-QString curPS5;
-QString curPS6;
-QString curPS7;
-QString curPS8;
-QString curPS9;
-QString curPS10;
-QString curPS11;
-QString curPS12;
-QString curPS13;
-QString curPS14;
-QString curPS15;
-QString curPS16;
-QString curPS17;
-QString curPS18;
-QString curPS19;
-QString curPS20;
-
+QStringList PS_List;
+QString curPS[20];
 QString lastCS;
 QString lastPS;
 QString lastMM;
-int lastSpin;
 QString lastTet;
 QString lastUE;
+int lastSpin;
 bool wasClicked;
-
-QStringList PS_List;
 
 int Form::uePairsCount = 0;
 
@@ -103,153 +82,27 @@ Form::Form(QWidget *parent) :
                  <<  "LteMMTelVoipTerm2Pdn50";
 }
 
-Form::~Form()
-{
-    delete ui;
+Form::~Form(){delete ui;}
+
+QString Form::get_currentCSBehavior() {return ui->CSBehaviorMode1->currentText();}
+QString Form::get_currentPSBehavior(){return ui->PSBehaviorMode1->currentText();}
+QString Form::get_currentArea(){return ui->tet_Area1->text();}
+int Form::getUEPairs(){return uePairsCount;}
+bool Form::is_Accepted(){return accept;}
+void Form::getAllValues(){
+  lastCS =  ui->CSBehaviorMode1->currentText();
+  lastPS = ui->PSBehaviorMode1->currentText();
+  lastMM = ui->MobilityModel1->currentText();
+  lastSpin =  ui->spinBox->value();
+  lastTet = ui->tet_Area1->text();
+  lastUE = ui->UEType1->currentText();
 }
 
-void Form::on_buttonBox_accepted()
-{
-    wasClicked = true;
+void Form::set_currentArea(QString value){ui->tet_Area1->setText(value);}
 
-        if(windowTitle() == "UE Params 1"){
+void Form::resetUEPairsCount(){uePairsCount = 0;}
+void Form::resetAccept(){accept = false;}
 
-            curPS1 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 2"){
-
-            curPS2 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 3"){
-
-            curPS3 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 4"){
-
-            curPS4 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 5"){
-
-            curPS5 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 6"){
-
-            curPS6 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 7"){
-
-            curPS7 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 8"){
-
-            curPS8 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 9"){
-
-            curPS9 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 10"){
-
-            curPS10 = ui->PSBehaviorMode1->currentText();
-        }
-
-        if(windowTitle() == "UE Params 11"){
-
-            curPS11 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 12"){
-
-            curPS12 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 13"){
-
-            curPS13 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 14"){
-
-            curPS14 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 15"){
-
-            curPS15 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 16"){
-
-            curPS16 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 17"){
-
-            curPS17 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 18"){
-
-            curPS18 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 19"){
-
-            curPS19 = ui->PSBehaviorMode1->currentText();
-
-        }
-        if(windowTitle() == "UE Params 20"){
-
-            curPS20 = ui->PSBehaviorMode1->currentText();
-
-        }
-
-        getAllValues();
-
-    accept = true;
-    countUEPairs();
-    if (getUEPairs() > 1000)
-        QMessageBox::information(this, "Warning", "Amout of UE Pairs exceeded 1000.\nFor better optimalization adjust attach/detach rate in Traffic Duration Dialog", QMessageBox::Ok);
-
-
-
-    close();
-}
-
-void Form::on_buttonBox_rejected()
-{
-    accept = false;
-
-    ui->CSBehaviorMode1->setCurrentText(lastCS);
-    ui->PSBehaviorMode1->setCurrentText(lastPS);
-    ui->MobilityModel1->setCurrentText(lastMM);
-    ui->spinBox->setValue(lastSpin);
-    ui->tet_Area1->setText(lastTet);
-    ui->UEType1->setCurrentText(lastUE);
-
-    close();
-    //jakieś odrzucenie zmian
-}
-
-
-QString Form::get_currentCSBehavior()
-{
-    return ui->CSBehaviorMode1->currentText();
-}
-
-QString Form::get_currentPSBehavior()
-{
-    return ui->PSBehaviorMode1->currentText();
-}
 void Form::countUEPairs()
 {
     if (ui->spinBox->value() != 0)
@@ -260,47 +113,32 @@ void Form::countUEPairs()
            uePairsCount += ui->spinBox->value();
            tempPairsCount = ui->spinBox->value();
        }
-
     }
 }
 
-int Form::getUEPairs()
+void Form::on_buttonBox_accepted()
 {
-    return uePairsCount;
+    wasClicked = true;
+    for(unsigned i=0;i<20;i++)
+        if(windowTitle() == (QString("UE Params ") + QString(i)))
+            curPS[i] = ui->PSBehaviorMode1->currentText();
+    getAllValues();
+    accept = true;
+    countUEPairs();
+    if (getUEPairs() > 1000)
+        QMessageBox::information(this, "Warning", "Amout of UE Pairs exceeded 1000.\nFor better optimalization adjust attach/detach rate in Traffic Duration Dialog", QMessageBox::Ok);
+    close();
 }
 
-void Form::resetUEPairsCount()
-{
-    uePairsCount = 0;
-}
-
-
-void Form::resetAccept()
+void Form::on_buttonBox_rejected()
 {
     accept = false;
-}
-
-QString Form::get_currentArea()
-{
-    return ui->tet_Area1->text();
-}
-
-void Form::set_currentArea(QString value)
-{
-    ui->tet_Area1->setText(value);
-}
-
-bool Form::is_Accepted()
-{
-    return accept;
-}
-
-void Form::getAllValues(){
-
-  lastCS =  ui->CSBehaviorMode1->currentText();
-  lastPS = ui->PSBehaviorMode1->currentText();
-  lastMM = ui->MobilityModel1->currentText();
-  lastSpin =  ui->spinBox->value();
-  lastTet = ui->tet_Area1->text();
-  lastUE = ui->UEType1->currentText();
+    ui->CSBehaviorMode1->setCurrentText(lastCS);
+    ui->PSBehaviorMode1->setCurrentText(lastPS);
+    ui->MobilityModel1->setCurrentText(lastMM);
+    ui->spinBox->setValue(lastSpin);
+    ui->tet_Area1->setText(lastTet);
+    ui->UEType1->setCurrentText(lastUE);
+    close();
+    //jakieś odrzucenie zmian
 }

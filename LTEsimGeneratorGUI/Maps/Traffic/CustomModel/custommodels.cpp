@@ -32,28 +32,10 @@ extern my_qlabel *pointer_CM10_large;
 extern QString CMname;
 extern QString CMname_large;
 
-extern QString curPS1;
-extern QString curPS2;
-extern QString curPS3;
-extern QString curPS4;
-extern QString curPS5;
-extern QString curPS6;
-extern QString curPS7;
-extern QString curPS8;
-extern QString curPS9;
-extern QString curPS10;
-extern QString curPS11;
-extern QString curPS12;
-extern QString curPS13;
-extern QString curPS14;
-extern QString curPS15;
-extern QString curPS16;
-extern QString curPS17;
-extern QString curPS18;
-extern QString curPS19;
-extern QString curPS20;
 
-bool CMisActive[11];
+extern QString curPS[20];
+
+bool CMisActive[10];
 
 QStringList CM_List;
 
@@ -1551,7 +1533,7 @@ void Custommodels::on_bt_save_clicked()
     else{
 
         if(small == true){
-            if(curPS1 == CMname || curPS2 == CMname || curPS3 == CMname || curPS4 == CMname || curPS5 == CMname || curPS6 == CMname || curPS7 == CMname || curPS8 == CMname || curPS9 == CMname || curPS10 == CMname){
+            if(curPS[0] == CMname || curPS[1] == CMname || curPS[2] == CMname || curPS[3] == CMname || curPS[4] == CMname || curPS[5] == CMname || curPS[6] == CMname || curPS[7] == CMname || curPS[8] == CMname || curPS[9] == CMname){
 
                 QMessageBox::information(this, "Warning", "Custom Model is set as current PS Behavior Mode!\nYou can't delete this!!!\nRemove Custom Model firstly.", 1);
 
@@ -1645,7 +1627,7 @@ void Custommodels::on_bt_save_clicked()
         //large
         if(large == true){
 
-            if(curPS1 == CMname_large || curPS2 == CMname_large || curPS3 == CMname_large || curPS4 == CMname_large || curPS5 == CMname_large || curPS6 == CMname_large || curPS7 == CMname_large || curPS8 == CMname_large || curPS9 == CMname_large || curPS10 == CMname_large || curPS11 == CMname_large || curPS12 == CMname_large || curPS13 == CMname_large || curPS14 == CMname_large || curPS15 == CMname_large || curPS16 == CMname_large || curPS17 == CMname_large || curPS18 == CMname_large || curPS19 == CMname_large || curPS20 == CMname_large){
+            if(curPS[0] == CMname_large || curPS[1] == CMname_large || curPS[2] == CMname_large || curPS[3] == CMname_large || curPS[4] == CMname_large || curPS[5] == CMname_large || curPS[6] == CMname_large || curPS[7] == CMname_large || curPS[8] == CMname_large || curPS[9] == CMname_large || curPS[11] == CMname_large || curPS[12] == CMname_large || curPS[13] == CMname_large || curPS[14] == CMname_large || curPS[15] == CMname_large || curPS[16] == CMname_large || curPS[17] == CMname_large || curPS[18] == CMname_large || curPS[19] == CMname_large || curPS[20] == CMname_large){
 
                 QMessageBox::information(this, "Warning", "Custom Model is set as current PS Behavior Mode!\nYou can't delete this!!!\nRemove Custom Model firstly.", 1);
 
@@ -2035,7 +2017,7 @@ void Custommodels::on_bt_restore_clicked()
     restoreClicked = true;
 
     if(small == true){
-        if(curPS1 == CMname || curPS2 == CMname || curPS3 == CMname || curPS4 == CMname || curPS5 == CMname || curPS6 == CMname || curPS7 == CMname || curPS8 == CMname || curPS9 == CMname || curPS10 == CMname)
+        if(curPS[0] == CMname || curPS[1] == CMname || curPS[2] == CMname || curPS[3] == CMname || curPS[4] == CMname || curPS[5] == CMname || curPS[6] == CMname || curPS[7] == CMname || curPS[8] == CMname || curPS[9] == CMname)
         {
             QMessageBox::information(this, "Warning", "Custom Model is set as current PS Behavior Mode!\nYou can't delete this!!!\nRemove Custom Model firstly.", 1);
             setParameters();
@@ -2117,7 +2099,7 @@ void Custommodels::on_bt_restore_clicked()
 
     //large
     if(large == true){
-        if(curPS1 == CMname_large || curPS2 == CMname_large || curPS3 == CMname_large || curPS4 == CMname_large || curPS5 == CMname_large || curPS6 == CMname_large || curPS7 == CMname_large || curPS8 == CMname_large || curPS9 == CMname_large || curPS10 == CMname_large || curPS11 == CMname_large || curPS12 == CMname_large || curPS13 == CMname_large || curPS14 == CMname_large || curPS15 == CMname_large || curPS16 == CMname_large || curPS17 == CMname_large || curPS18 == CMname_large || curPS19 == CMname_large || curPS20 == CMname_large)
+        if(curPS[0] == CMname_large || curPS[1] == CMname_large || curPS[2] == CMname_large || curPS[3] == CMname_large || curPS[4] == CMname_large || curPS[5] == CMname_large || curPS[6] == CMname_large || curPS[7] == CMname_large || curPS[8] == CMname_large || curPS[9] == CMname_large || curPS[11] == CMname_large || curPS[12] == CMname_large || curPS[13] == CMname_large || curPS[14] == CMname_large || curPS[15] == CMname_large || curPS[16] == CMname_large || curPS[17] == CMname_large || curPS[18] == CMname_large || curPS[19] == CMname_large || curPS[20] == CMname_large)
         {
             QMessageBox::information(this, "Warning", "Custom Model is set as current PS Behavior Mode!\nYou can't delete this!!!\nRemove Custom Model firstly.", 1);
             setParameters();
