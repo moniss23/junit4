@@ -32,9 +32,6 @@ MapWindowLarge* map_wl    = NULL;
 Map_traffic* map_t        = NULL;
 Map_traffic_large* map_tl = NULL;
 
-bool normalMapOpen = false;
-bool largeMapOpen = false;
-
 bool changesPresent = false;
 
 void msg(QString content);

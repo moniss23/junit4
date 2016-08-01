@@ -900,10 +900,6 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         // if normal map is to be displayed
         if(this->ui->radioButton_normalMap->isChecked()){
 
-            // set the flag to true
-            largeMapOpen=false;
-            normalMapOpen=true;
-
             // delete current map objects if they are present
             if(map_w!=NULL){
                 delete map_w;
@@ -936,10 +932,6 @@ void ParametersWindow::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
                 parametersFileContentList=parametersFileContentDefaultList;
                 this->refreshPreview();
             }
-
-            // set the flags
-            largeMapOpen=true;
-            normalMapOpen=false;
             lastOpenMap="large";
 
             // delete current map objects if they are present
