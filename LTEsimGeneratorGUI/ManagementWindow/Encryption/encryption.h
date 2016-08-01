@@ -39,7 +39,6 @@ const char* crypt(const char* plaintext,int text_len,const char* key,int key_len
 
 QString itoa(int i);
 
-QString get_project_name(QListWidgetItem* item, const std::vector<Project> &projects);
 QString get_project_dir(QListWidgetItem* item, const std::vector<Project> &projects);
 QString get_project_dir(QString project_name, const std::vector<Project> &projects);
 

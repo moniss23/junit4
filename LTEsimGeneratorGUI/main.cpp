@@ -65,18 +65,6 @@ void msg(QString content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
-
-QString get_project_name(QListWidgetItem* item, const std::vector<Project> &projects){
-    for(unsigned int i = 0; i < projects.size(); i++)
-    {
-        if(projects[i].widget == item)
-        {
-            return projects[i].name;
-        }
-    }
-    return "";
-}
-
 QString get_project_dir(QListWidgetItem* item, const std::vector<Project> &projects){
     for(unsigned int i = 0; i < projects.size(); i++)
     {
