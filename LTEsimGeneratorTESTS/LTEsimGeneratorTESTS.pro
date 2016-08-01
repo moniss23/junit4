@@ -17,7 +17,7 @@ CONFIG   += testcase
 CONFIG   += c++11
 
 TEMPLATE = app
-INCLUDEPATH += ../LTEsimGeneratorGui
+INCLUDEPATH += ../LTEsimGeneratorGUI
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -27,6 +27,6 @@ SOURCES += \
     ltesimgeneratortests.cpp
 
 HEADERS  += \
-    ../LTEsimGeneratorGui/AppSettings/appsettings.h \
+    ../LTEsimGeneratorGUI/AppSettings/appsettings.h \
     ../LTEsimGeneratorGUI/ManagementWindow/Encryption/encryption.h
 
