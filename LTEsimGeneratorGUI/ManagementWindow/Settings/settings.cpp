@@ -170,7 +170,7 @@ void Settings::apply_settings(){
 
     // if second tab is active, also write project file with new settings
     if(this->ui->tab_2->isEnabled()){
-        p->save_project(false);
+        p->saveProject(false);
     }
 
 }
