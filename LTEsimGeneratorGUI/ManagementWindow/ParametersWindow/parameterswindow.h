@@ -12,6 +12,7 @@
 #include <QCloseEvent>
 #include <QListWidgetItem>
 #include "AppSettings/appsettings.h"
+#include "Data/project.h"
 
 namespace Ui {
 class ParametersWindow;
@@ -35,8 +36,29 @@ public:
 
     void setFileDialogAppSettings(AppSettings *value);
 
-private slots:
 
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
+signals:
+    void SpawnWindow_ParamMap();
+    void SpawnWindow_TrafficMap();
+    void SpawnWindow_About();
+    void SpawnWindow_Settings();
+    void SpawnWindow_RenameFile(const QString& filename);
+    void SpawnWindow_RemoveFile(const QString& filename);
+    void AddFile_Traffic();
+    void GenerateFile();
+    void SaveFile();
+
+
+public slots:
+    //void updateFilesList(const Project& project);
+
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
+private slots:
     void on_actionNew_triggered();
 
     void on_actionAbout_triggered();
