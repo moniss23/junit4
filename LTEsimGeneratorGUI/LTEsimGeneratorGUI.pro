@@ -78,7 +78,6 @@ SOURCES += main.cpp\
     Maps/Traffic/MapComponents/handoverarea.cpp \
     ManagementWindow/Encryption/encryption.cpp \
     AppSettings/appsettings.cpp \
-    DoubleInputValidator/doubleinputvalidator.cpp \
     my_qlabel.cpp \
     CommonConstans/common_constans.cpp \
     Maps/Traffic/Time/timeData.cpp \
@@ -156,7 +155,6 @@ HEADERS  += \
     Maps/Traffic/MapComponents/handoverarea.h \
     Maps/Traffic/MapComponents/compositionofareas.h \
     AppSettings/appsettings.h \
-    DoubleInputValidator/doubleinputvalidator.h \
     my_qlabel.h \
     CommonConstans/common_constans.h \
     Maps/Traffic/Time/timeData.h \

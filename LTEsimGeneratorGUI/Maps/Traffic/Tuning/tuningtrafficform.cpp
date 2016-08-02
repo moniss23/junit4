@@ -1,12 +1,9 @@
+#include <QDoubleValidator>
+
 #include "tuningtrafficform.h"
 #include "ui_tuningtrafficform.h"
-#include <DoubleInputValidator/doubleinputvalidator.h>
-
-//temporary variables for dialog's window settings
 
 bool tmp_areaChecked;
-
-//--
 
 //Saved structure of chosen tuning parameters
 QStringList tuningParametersContentList;
@@ -98,11 +95,11 @@ void TuningTrafficForm::SaveAll()
 
 void TuningTrafficForm::setParametersValidation()
 {
-    ui->tet_ps_intensity->setValidator(new DoubleInputValidator(0, 100, 3, this));
-    ui->tet_recovery_start_interval->setValidator(new DoubleInputValidator(0, 100, 3, this));
-    ui->tet_ps_duration->setValidator(new DoubleInputValidator(0, 100, 3, this));
-    ui->tet_call_duration->setValidator(new DoubleInputValidator(0,100,3, this));
-    ui->tet_call_intensity->setValidator(new DoubleInputValidator(0,100,3, this));
+    ui->tet_ps_intensity->setValidator(new QDoubleValidator(0, 100, 3, this));
+    ui->tet_recovery_start_interval->setValidator(new QDoubleValidator(0, 100, 3, this));
+    ui->tet_ps_duration->setValidator(new QDoubleValidator(0, 100, 3, this));
+    ui->tet_call_duration->setValidator(new QDoubleValidator(0, 100, 3, this));
+    ui->tet_call_intensity->setValidator(new QDoubleValidator(0, 100, 3, this));
     ui->tet_granularity->setValidator(new QIntValidator(0,100,this));
     ui->tet_speed->setValidator(new QIntValidator(0, 100, this));
 }
