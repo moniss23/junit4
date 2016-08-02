@@ -30,7 +30,7 @@ public:
     void addTrafficFile();
     void loadProject();
     void refreshPreview();
-    void save_project(bool);
+    void saveProject(bool);
     void setParamsCM();
 
     void setFileDialogAppSettings(AppSettings *value);
@@ -47,30 +47,30 @@ private slots:
 
     void previewTrafficFile();
 
-    void on_pushButton_2_clicked();
+    void on_addTrafficButton_clicked();
 
-    void on_pushButton_3_clicked();
+    void on_removeFileButton_clicked();
 
-    void on_pushButton_4_clicked();
+    void on_renameFileButton_clicked();
 
     void previewFile(QListWidgetItem* current);
 
-    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
-    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+    void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_pushButton_8_clicked();
+    void on_undoButton_clicked();
 
-    void on_pushButton_9_clicked();
+    void on_redoButton_clicked();
 
     void switch_button_state_undo(bool available);
     void switch_button_state_redo(bool available);
 
-    void on_pushButton_7_clicked();
+    void on_resetDefaultsButton_clicked();
 
-    void on_textEdit_textChanged();
+    void on_filePreview_textChanged();
 
-    void on_pushButton_6_clicked();
+    void on_generateFileButton_clicked();
 
     void on_actionPath_triggered();
 
@@ -79,6 +79,8 @@ private slots:
     void on_radioButton_normalMap_toggled(bool checked);
 
     void on_radioButton_largeMap_toggled(bool checked);
+
+    void on_saveFileButton_clicked();
 
 private:
     Ui::ParametersWindow *ui;
