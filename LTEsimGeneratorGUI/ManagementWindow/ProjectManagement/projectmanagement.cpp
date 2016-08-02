@@ -52,22 +52,15 @@ void ProjectManagement::on_openProject_Button_clicked()
 }
 
 // "delete project" button clicked
-void ProjectManagement::on_deleteProject_Button_clicked() {
+void ProjectManagement::on_deleteProject_Button_clicked(){
     QListWidgetItem *item = ui->listWidget->currentItem();
-    if (item==NULL) {
+    if (item==NULL){
         return;
     }
 
-    shouldDeleteProject = false;
-
-    QMessageBox msgBox(QMessageBox::Warning,"Delete a project.","Do you really want to delete this project?\nIt will be lost forever.");
-    msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-    int ret = msgBox.exec();
-    if(ret == QMessageBox::Yes) {
-        QString text = item->text();
-        QString projectName = text.split("\t")[0];
-        emit deleteProject(projectName);
-    }
+    QString text = item->text();
+    QString projectName=text.split("\t")[0];
+    emit deleteProject(projectName);
 }
 
 // "import project" button is clicked
