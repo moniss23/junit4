@@ -72,6 +72,8 @@ private:
 private:
     Ui::ProjectManagement *ui;
     AppSettings* appSettings;
+    bool shouldDeleteProject;
+
 };
 
 #endif // PROJECTMANAGEMENT_H
