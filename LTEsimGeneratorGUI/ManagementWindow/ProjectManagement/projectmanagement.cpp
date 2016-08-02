@@ -22,17 +22,13 @@ void msg(QString content);
 extern int project_index;//TODO: get rid of that
 
 
-// constructor - loads the list of detected projects into the window view
+// constructor
 ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ProjectManagement),
     appSettings(appSettings)
 {
     ui->setupUi(this);
     this->setWindowTitle("Project management");
-
-
-    //TODO: This window should not spawn any other one, it should be a separate subsystem
-    createProject.setAppSettings(appSettings);
 }
 
 ProjectManagement::~ProjectManagement()
@@ -43,11 +39,11 @@ ProjectManagement::~ProjectManagement()
 /***********************************************
 *   AUTOMATIC BINDINGS TO UI BUTTONS CODE HERE
 ***********************************************/
+
+// "new project" button clicked
 void ProjectManagement::on_newProject_Button_clicked()
 {
-    createProject.clearInputArea();
-    createProject.setDefaultDir(appSettings->getDefaultNewProjectDir());
-    createProject.show();
+    emit SpawnWindow_NewProject();
 }
 
 void ProjectManagement::on_openProject_Button_clicked()
@@ -70,8 +66,6 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
 // "import project" button is clicked
 void ProjectManagement::on_importProject_Button_clicked()
 {
-
-
     emit SpawnWindow_ImportProject();
 }
 
@@ -146,7 +140,7 @@ void ProjectManagement::open_project(){
 
         // obtain the project's index in projects vector
         for(unsigned int i=0; i<appSettings->projects.size(); i++){
-            if(appSettings->projects[i].widget==selected_item){
+            if(appSettings->projects[i].name==selected_item->text()){
                 project_index=i;
                 break;
             }

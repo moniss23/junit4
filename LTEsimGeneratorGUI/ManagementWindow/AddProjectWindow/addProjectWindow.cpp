@@ -15,9 +15,9 @@ extern ParametersWindow * p;
 extern ProjectManagement* projectMng;
 extern bool paramFilePresent;
 
-AddProjectWindow::AddProjectWindow(QWidget *parent) :
+AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AddProjectWindow)
+    ui(new Ui::AddProjectWindow), appSettings(appSettings)
 {
     ui->setupUi(this);
 
@@ -102,14 +102,14 @@ void AddProjectWindow::on_buttonBox_accepted()
 
     if(this->ui->customLocationRadioButton->isChecked()) {
         projectMng->addWidgetToListWidget(new_item);
-        appSettings->addProject(new_item,this->ui->lineEdit->text());
+        emit createNewProject(ui->fileName->text(),ui->lineEdit->text());
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
         projectMng->addWidgetToListWidget(new_item);
-        appSettings->addProject(new_item,appSettings->getDefaultNewProjectDir());
+        emit createNewProject(ui->fileName->text(),appSettings->getDefaultNewProjectDir());
     }
     appSettings->write_projects_file();
-
+    ui->fileName->clear();
     this->close();
 }
 

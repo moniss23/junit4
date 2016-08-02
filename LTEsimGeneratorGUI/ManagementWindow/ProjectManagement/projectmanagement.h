@@ -71,7 +71,6 @@ private:
 
 private:
     Ui::ProjectManagement *ui;
-    AddProjectWindow createProject;
     AppSettings* appSettings;
 };
 

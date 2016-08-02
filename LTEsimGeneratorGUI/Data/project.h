@@ -13,7 +13,6 @@ class Project : public SerializeInterface
 public:
     QString name;
     QString fullpath;
-    QListWidgetItem* widget;
     QString rbOutputDir;
     QString chosenMapType;
 

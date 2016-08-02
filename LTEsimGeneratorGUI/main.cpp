@@ -58,6 +58,7 @@ int main(int argc, char *argv[])
     p = &viewParameters;
 
     ImportProjectWindow importProject;
+    AddProjectWindow addProjectWindow(&appSettings);
 
     /************************************
      *    BINDING  OBJECTS  TOGETHER    *
@@ -71,6 +72,8 @@ int main(int argc, char *argv[])
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
     QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), &appSettings, SLOT(importProject(const QString&)));
 
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
+    QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),&appSettings,SLOT(createNewProject(QString,QString)));
 
     //QObject::connect(&appSettings,SIGNAL(errorInData(QString)), );  TODO: IMPLEMENT
 

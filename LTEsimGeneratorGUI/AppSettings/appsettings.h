@@ -30,7 +30,7 @@ signals:
 
 public slots:
 
-    //void createNewProject(const QString &projectName, const QString & directory);
+    void createNewProject(const QString &projectName, const QString & directory);
     //***********************************************
     //***********************************************/
     void importProject(const QString &ProjectDirectory);
@@ -47,7 +47,7 @@ public:
     void testProjectsObtainedFromTheFile();
     void traverseProjectsListAndAddProjectIfNotFound();
 
-    void addProject(QListWidgetItem* new_item,QString dir);
+    void addProject(const QString &projectName, const QString &dir);
 
     void removeDirectoryRecursively(QString dir_name);
 

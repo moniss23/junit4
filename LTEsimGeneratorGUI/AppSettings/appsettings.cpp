@@ -133,7 +133,7 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
 QString AppSettings::get_project_dir(QListWidgetItem *item)
 {
     for(unsigned int i = 0; i < projects.size(); i++) {
-        if(projects[i].widget == item) {
+        if(projects[i].name == item->text()) {
             return projects[i].fullpath;
         }
     }
@@ -233,7 +233,6 @@ void AppSettings::readProjectsFile() {
 void AppSettings::testProjectsObtainedFromTheFile() {
 
     Project new_project;
-    QListWidgetItem *new_widget;
 
     for(int i=1; i<=projectC_file*2; i+=2){
         QDir d;
@@ -248,8 +247,6 @@ void AppSettings::testProjectsObtainedFromTheFile() {
             if(f.exists()){
                 new_project.name=projects_file_content[i];
                 new_project.fullpath=projects_file_content[i+1];
-                new_widget = new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
-                new_project.widget=new_widget;
                 projects.push_back(new_project);
             }
         }
@@ -285,8 +282,6 @@ void AppSettings::traverseProjectsListAndAddProjectIfNotFound() {
 
                 new_project.name=projects_dir_content[i].fileName();
                 new_project.fullpath="<default>";
-                QListWidgetItem *new_widget = new QListWidgetItem(new_project.name+"\t("+new_project.fullpath+")");
-                new_project.widget=new_widget;
                 projects.push_back(new_project);
             }
 
@@ -303,12 +298,11 @@ QString AppSettings::getProjectDirectory(const QString &projectName){
     return it->fullpath;
 }
 
-void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
+void AppSettings::addProject(const QString& projectName, const QString& dir){
 
     Project new_project;
-    new_project.name=new_item->text();
+    new_project.name=projectName;
     new_project.fullpath=dir;
-    new_project.widget=new_item;
     projects.push_back(new_project);
 
     QDir projectDir;
@@ -335,11 +329,10 @@ void AppSettings::addProject(QListWidgetItem* new_item,QString dir){
     param_template.close();
 
     if(dir=="<default>"){
-        write_project_file(new_item->text(),project_content, getProjectDirectory(new_item->text()));
+        write_project_file(projectName,project_content, getProjectDirectory(projectName));
     } else {
-        write_project_file(new_item->text(),project_content,dir);
+        write_project_file(projectName,project_content,dir);
     }
-    emit currentProjects(projects);
 }
 
 // recursively remove entire directory and its content
@@ -370,6 +363,11 @@ void AppSettings::setMapType(const QString& projectName, const QString& mapType)
  * Slots
  *
  */
+
+void AppSettings::createNewProject(const QString &projectName, const QString & directory) {
+    this->addProject(projectName, directory);
+    emit currentProjects(projects);
+}
 
 
 

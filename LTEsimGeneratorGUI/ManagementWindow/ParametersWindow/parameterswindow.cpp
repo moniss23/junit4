@@ -1291,11 +1291,6 @@ void ParametersWindow::on_radioButton_largeMap_toggled(bool checked)
     }
 }
 
-void ParametersWindow::setFileDialogAppSettings(AppSettings *value)
-{
-    createProject.setAppSettings(value);
-}
-
 void ParametersWindow::on_saveFileButton_clicked()
 {
     //TODO: implement file saving on button click

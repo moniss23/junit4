@@ -15,7 +15,7 @@ class AddProjectWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddProjectWindow(QWidget *parent = 0);
+    explicit AddProjectWindow(AppSettings* appSettings, QWidget *parent = 0);
     ~AddProjectWindow();
 
     void clearInputArea();

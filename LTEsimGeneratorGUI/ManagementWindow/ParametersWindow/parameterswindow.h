@@ -85,7 +85,6 @@ private slots:
 private:
     Ui::ParametersWindow *ui;
     HelpDialog viewHelp;
-    AddProjectWindow createProject;
     AppSettings *appSettings;
 };
 
