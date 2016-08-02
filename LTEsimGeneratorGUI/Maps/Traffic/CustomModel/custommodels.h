@@ -68,16 +68,7 @@ public:
     QPushButton *pointerAddSyncedPingBt;
     QPushButton *pointerAddVoipBt;
 
-    QStringList CM1_List;
-    QList<QString> CM2_List;
-    QList<QString> CM3_List;
-    QList<QString> CM4_List;
-    QList<QString> CM5_List;
-    QList<QString> CM6_List;
-    QList<QString> CM7_List;
-    QList<QString> CM8_List;
-    QList<QString> CM9_List;
-    QList<QString> CM10_List;
+    QStringList CM_Params[10];
 
     QList<QString> listStyle;
     QList<QString> listAddPing;

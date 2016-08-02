@@ -19,14 +19,14 @@
 bool large;
 
 QString CMname_large;
-extern QStringList CM_List;
+extern QStringList CMList;
 extern QStringList PS_List;
 
 QWidget *pointerWinTitle_large;
 
 
 
- extern int CMisActive[10];
+ extern int isCMActive[10];
 
 
  my_qlabel *pointer_CM1_large;
@@ -24163,31 +24163,31 @@ void Map_traffic_large::show_UE_params1(){
     if(pointerUE1->pointerPS->currentText() == ""){
 
             pointerUE1->pointerPS->clear();
-            qSort(CM_List.begin(), CM_List.end());
-            if(CMisActive[10]){
-                CM_List.removeOne("Custom Model 10");
-                CM_List.push_back("Custom Model 10");
+            qSort(CMList.begin(), CMList.end());
+            if(isCMActive[10]){
+                CMList.removeOne("Custom Model 10");
+                CMList.push_back("Custom Model 10");
             }
             PS_List.removeDuplicates();
-            CM_List.removeDuplicates();
+            CMList.removeDuplicates();
             pointerUE1->pointerPS->addItem(0, "");
             pointerUE1->pointerPS->setCurrentIndex(0);
-            pointerUE1->pointerPS->insertItems(1,(CM_List + PS_List));
+            pointerUE1->pointerPS->insertItems(1,(CMList + PS_List));
             pointerUE1->show();
 
         }
     else {
         QString PS1 = pointerUE1->pointerPS->currentText();
         pointerUE1->pointerPS->clear();
-        qSort(CM_List.begin(), CM_List.end());
-        if(CMisActive[10]){
-            CM_List.removeOne("Custom Model 10");
-            CM_List.push_back("Custom Model 10");
+        qSort(CMList.begin(), CMList.end());
+        if(isCMActive[10]){
+            CMList.removeOne("Custom Model 10");
+            CMList.push_back("Custom Model 10");
         }
         PS_List.removeDuplicates();
-        CM_List.removeDuplicates();
+        CMList.removeDuplicates();
         pointerUE1->pointerPS->addItem(0, "");
-        pointerUE1->pointerPS->insertItems(1,(CM_List + PS_List));
+        pointerUE1->pointerPS->insertItems(1,(CMList + PS_List));
         pointerUE1->pointerPS->setCurrentText(PS1);
         pointerUE1->show();
 
