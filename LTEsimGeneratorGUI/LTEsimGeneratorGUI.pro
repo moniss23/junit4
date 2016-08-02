@@ -31,12 +31,10 @@ SOURCES += main.cpp\
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/UcTool/uctoolform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
-    Maps/Parameters/MapWindow/mapwindowlarge.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
     Maps/Parameters/MapRange/maprangeform.cpp \
-    Maps/Parameters/MapRange/maprangelargeform.cpp \
     Maps/Traffic/CustomModel/addftpdl.cpp \
     Maps/Traffic/CustomModel/addftpdlform.cpp \
     Maps/Traffic/CustomModel/addftpul.cpp \
@@ -60,7 +58,6 @@ SOURCES += main.cpp\
     Maps/Traffic/UeParameters/UE_param_form.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
     Maps/Traffic/map_traffic.cpp \
-    Maps/Traffic/map_traffic_large.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
     Maps/Traffic/DataObjects/handoverdata.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
@@ -106,12 +103,10 @@ HEADERS  += \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/UcTool/uctoolform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
-    Maps/Parameters/MapWindow/mapwindowlarge.h \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
-    Maps/Parameters/MapRange/maprangelargeform.h \
     ManagementWindow/Encryption/encryption.h \
     Maps/Traffic/CustomModel/addftpdl.h \
     Maps/Traffic/CustomModel/addftpdlform.h \
@@ -136,7 +131,6 @@ HEADERS  += \
     Maps/Traffic/UeParameters/UE_param_form.h \
     Maps/Traffic/MapComponents/draguelabel.h \
     Maps/Traffic/map_traffic.h \
-    Maps/Traffic/map_traffic_large.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/DataObjects/handoverdata.h \
     Maps/Traffic/UeParameters/uegroupdata.h \

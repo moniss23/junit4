@@ -3,9 +3,6 @@
 #include <QStringList>
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 
-#define largeMapRows 6  //number of cells on vertical axis
-#define largeMapColumns 4 //number of cells on horizontal axis
-
 #define smallMapRows 6  //number of cells on vertical axis
 #define smallMapColumns 2 //number of cells on horizontal axis
 

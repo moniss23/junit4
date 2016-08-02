@@ -10,9 +10,7 @@
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
 #include "ManagementWindow/ProjectManagement/importprojectwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
-#include "Maps/Parameters/MapWindow/mapwindowlarge.h"
 #include "Maps/Traffic/map_traffic.h"
-#include "Maps/Traffic/map_traffic_large.h"
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -30,9 +28,7 @@ unsigned int project_index;
 bool paramFilePresent;
 
 MapWindow* map_w          = NULL;
-MapWindowLarge* map_wl    = NULL;
 Map_traffic* map_t        = NULL;
-Map_traffic_large* map_tl = NULL;
 
 bool changesPresent = false;
 

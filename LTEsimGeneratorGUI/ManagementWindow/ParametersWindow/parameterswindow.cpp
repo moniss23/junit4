@@ -14,11 +14,9 @@
 #include <cmath>
 
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
-#include <Maps/Parameters/MapWindow/mapwindowlarge.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <ManagementWindow/Settings/settings.h>
 #include <Maps/Traffic/map_traffic.h>
-#include <Maps/Traffic/map_traffic_large.h>
 
 // saving traffic map
 extern QStringList mapTrafficList;
@@ -47,9 +45,7 @@ extern ParametersWindow* p;
 extern bool paramFilePresent;
 extern ProjectManagement* projectMng;
 extern MapWindow* map_w;
-extern MapWindowLarge* map_wl;
 extern Map_traffic* map_t;
-extern Map_traffic_large* map_tl;
 extern bool normalMapOpen;
 extern bool largeMapOpen;
 extern bool changesPresent;
@@ -100,6 +96,9 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     parametersFileContentDefault = appSettings->readParametersFile();
 
     parametersFileContentDefaultList=parametersFileContentDefault.split("\n");
+
+    appSettings->setMapType(appSettings->getProjectName(), "normal");
+    changesPresent=true;
 }
 
 void ParametersWindow::closeEvent (QCloseEvent *event){
@@ -196,13 +195,8 @@ void ParametersWindow::loadProject(){
     // read the type of last open map
     appSettings->setMapType(appSettings->getProjectName(), project_content[1]);
     lastOpenMap=project_content[1];
+    this->ui->radioButton_normalMap->setChecked(true);
 
-    if(lastOpenMap=="normal"){
-        this->ui->radioButton_normalMap->setChecked(true);
-    }
-    else{
-        this->ui->radioButton_largeMap->setChecked(true);
-    }
 
     // read the name of parameters file and nr of traffic files
     appSettings->setParametersFile(project_content[2]);
@@ -896,67 +890,29 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
     // parameters file double-clicked
     if(this->ui->projectsList->currentRow()==0){
         enteringMapView=true;
-
         // if normal map is to be displayed
-        if(this->ui->radioButton_normalMap->isChecked()){
-
-            // delete current map objects if they are present
-            if(map_w!=NULL){
-                delete map_w;
-                map_w=NULL;
-
-            }
-            if(map_wl!=NULL){
-                delete map_wl;
-                map_wl=NULL;
-            }
-
-            // create a new map object and display it
-            lastOpenMap="normal";
-            map_w=new MapWindow;
-            p->close();
-
-            map_w->show();
+        // delete current map objects if they are present
+        if(map_w!=NULL){
+            delete map_w;
+            map_w=NULL;
         }
 
-        // if large map is to be displayed
-        else{
-            if(lastOpenMap=="normal"){
 
-                if(QMessageBox::No==QMessageBox(QMessageBox::Question,"","Large map can currently be displayed with default values only. Revert to defaults?",QMessageBox::Yes|QMessageBox::No).exec()){
-                    return;
-                }
-
-                // restore default values
-                parametersFileContent=parametersFileContentDefault;
-                parametersFileContentList=parametersFileContentDefaultList;
-                this->refreshPreview();
-            }
-            lastOpenMap="large";
-
-            // delete current map objects if they are present
-            if(map_w!=NULL){
-                delete map_w;
-                map_w=NULL;
-            }
-            if(map_wl!=NULL){
-                delete map_wl;
-                map_wl=NULL;
-            }
-
-            // create a new map object and display it
-            map_wl=new MapWindowLarge;
-            p->close();
-            map_wl->show();
-
-        }
+        // create a new map object and display it
+        lastOpenMap="normal";
+        map_w=new MapWindow;
+        p->close();
+        map_w->show();
     }
 
     // traffic file double-clicked
     else if(this->ui->projectsList->currentRow()>0){
     // store the index of the opened traffic file in a global variable
     currentOpenedTrafficFile=this->ui->projectsList->currentRow()-1;
-
+    }
+    if(this->ui->projectsList->currentRow()>0){
+        // store the index of the opened traffic file in a global variable
+        currentOpenedTrafficFile=this->ui->projectsList->currentRow()-1;
 
         // delete current map objects if they are present
         if(map_t!=NULL){
@@ -964,30 +920,12 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
             map_t=NULL;
 
         }
-
-        if(map_tl!=NULL){
-            delete map_tl;
-            map_tl=NULL;
-        }
-
-        if(this->ui->radioButton_largeMap->isChecked() && this->ui->projectsList->currentRow()>0){
-            // delete current map objects if they are present
-            if(map_tl!=NULL){
-                delete map_tl;
-                map_tl=NULL;
-            }
-            map_tl =new Map_traffic_large(appSettings);
-            map_tl->show();
-        }
-        else{
             map_t =new Map_traffic(appSettings);
             map_t->show();
-        }
+
 
 
     }
-
-
 }
 // "undo" button is clicked
 void ParametersWindow::on_undoButton_clicked()
@@ -1006,7 +944,6 @@ void ParametersWindow::on_redoButton_clicked()
 // "defaults" button clicked
 void ParametersWindow::on_resetDefaultsButton_clicked()
 {
-
     // if the file is parameters
     if(this->ui->projectsList->currentRow()==0){
 
@@ -1212,7 +1149,6 @@ void ParametersWindow::on_generateFileButton_clicked()
             ofile_str<<parametersFileContent;
             ofile.close();
         }
-
         // if it's a traffic file
         else{
             QFile ofile(output_dir+"/"+this->ui->projectsList->currentItem()->text());
@@ -1224,7 +1160,6 @@ void ParametersWindow::on_generateFileButton_clicked()
         msg("File \""+output_dir+"/"+this->ui->projectsList->currentItem()->text()+"\" was successfully created.");
 
     }
-
     // if option is custom
     else{
 
@@ -1260,13 +1195,9 @@ void ParametersWindow::on_generateFileButton_clicked()
             file_str<<trafficFilesContent[file_index];
             file.close();
             msg("File generated:\n"+this->ui->projectsList->item(file_index+1)->text());
-
         }
-
     }
-
 }
-
 // "settings" opened
 void ParametersWindow::on_actionPath_triggered()
 {
@@ -1274,23 +1205,6 @@ void ParametersWindow::on_actionPath_triggered()
     settingsWindow.setWindowModality(Qt::WindowModal);
     settingsWindow.exec();
 }
-
-void ParametersWindow::on_radioButton_normalMap_toggled(bool checked)
-{
-    if(checked){
-        appSettings->setMapType(appSettings->getProjectName(), "normal");
-        changesPresent=true;
-    }
-}
-
-void ParametersWindow::on_radioButton_largeMap_toggled(bool checked)
-{
-    if(checked){
-        appSettings->setMapType(appSettings->getProjectName(), "large");
-        changesPresent=true;
-    }
-}
-
 void ParametersWindow::on_saveFileButton_clicked()
 {
     //TODO: implement file saving on button click

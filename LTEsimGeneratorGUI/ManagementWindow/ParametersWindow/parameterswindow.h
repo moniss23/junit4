@@ -74,12 +74,6 @@ private slots:
 
     void on_actionPath_triggered();
 
-
-
-    void on_radioButton_normalMap_toggled(bool checked);
-
-    void on_radioButton_largeMap_toggled(bool checked);
-
     void on_saveFileButton_clicked();
 
 private:

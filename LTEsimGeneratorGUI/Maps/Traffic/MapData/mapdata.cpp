@@ -1,11 +1,9 @@
 #include "mapdata.h"
 
-MapData::MapData(const QString &name , bool whichMap, AppSettings *appSettings) : appSettings(appSettings)
+MapData::MapData(const QString &name, AppSettings *appSettings) : appSettings(appSettings)
 {
     mapName = name;
     readyToSave = false;
-    largeMap = whichMap;
-
     projectReaderWriter = new ProjectReaderWriter(appSettings);
 
 
@@ -31,17 +29,9 @@ void MapData::fillActiveCellList()
 
     QString fileContent(tempArray);
     int rows,columns;
+    rows = smallMapRows;
+    columns = smallMapColumns;
 
-    if(largeMap == true)
-    {
-        rows = largeMapRows;
-        columns = largeMapColumns;
-    }
-    else
-    {
-        rows = smallMapRows;
-        columns = smallMapColumns;
-    }
 
     for(int i = 1; i <= rows; i++)
     {

@@ -31,10 +31,9 @@ public:
     QList<Custommodels*> CustomModelsList;
     QDomDocument mapXmlDocument;
     bool readyToSave;
-    bool largeMap;
 
 public:
-    MapData(const QString &name,bool whichMap, AppSettings *appSettings);
+    MapData(const QString &name, AppSettings *appSettings);
     ~MapData(){}
     void addUEGroup(const QString &UEName);
     void deleteUEGroup(const QString &UEName);

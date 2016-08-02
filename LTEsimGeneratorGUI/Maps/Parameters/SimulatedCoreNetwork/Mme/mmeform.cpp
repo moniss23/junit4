@@ -1,10 +1,8 @@
 #include "mmeform.h"
 #include "ui_mmeform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <Maps/Parameters/MapWindow/mapwindowlarge.h>
 
 extern MapWindow* map_w;
-extern MapWindowLarge* map_wl;
 
 MmeForm::MmeForm(QWidget *parent) :
     QWidget(parent),
@@ -279,12 +277,8 @@ void MmeForm::on_pbReset_clicked()
 {   
     mme->resetParams();
     setParameters(mme);
-
     if (map_w != NULL)
         map_w->resetFlags();
-    else if (map_wl != NULL)
-        map_wl->resetFlags();
-
     this->wasThereChanges=false;
 }
 

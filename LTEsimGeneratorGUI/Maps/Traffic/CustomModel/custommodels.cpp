@@ -3,7 +3,6 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <Maps/Traffic/map_traffic.h>
-#include <Maps/Traffic/map_traffic_large.h>
 
 extern my_qlabel *pointerCM[10];
 
@@ -25,7 +24,6 @@ bool addSyncedPingCheckbox;
 bool addVoipCheckbox;
 
 extern bool small;
-extern bool large;
 
 QStringList customModelList;
 
@@ -1250,6 +1248,7 @@ void Custommodels::on_bt_save_clicked()
     restoreClicked = false;
 
     if(ui->checkBox_add_FtpDl->isChecked() || ui->checkBox_add_Ftpul->isChecked() || ui->checkBox_add_Ping->isChecked()|| ui->checkBox_add_ServiceReq->isChecked() || ui->checkBox_add_StreamDI->isChecked() || ui->checkBox_add_StreamUI->isChecked() || ui->checkBox_add_SyncedPing->isChecked() || ui->checkBox_add_Voip->isChecked()){
+
         for(unsigned i=0;i<10;i++)
             if(CMname == (QString("Custom Model ") + QString::number(i+1))){
                 CMList.append(CMname);
@@ -1263,7 +1262,6 @@ void Custommodels::on_bt_save_clicked()
         if(curPS[0] == CMname || curPS[1] == CMname || curPS[2] == CMname || curPS[3] == CMname || curPS[4] == CMname || curPS[5] == CMname || curPS[6] == CMname || curPS[7] == CMname || curPS[8] == CMname || curPS[9] == CMname){
 
             QMessageBox::information(this, "Warning", "Custom Model is set as current PS Behavior Mode!\nYou can't delete this!!!\nRemove Custom Model firstly.", 1);
-
             setParameters();
         }else{
             for(unsigned i=0;i<10;i++)
@@ -1279,6 +1277,7 @@ void Custommodels::on_bt_save_clicked()
         addToList();
     }
 }
+
 
 void Custommodels::on_bt_cancel_clicked(){
     if(restoreClicked == true){
@@ -1304,8 +1303,7 @@ void Custommodels::on_bt_restore_clicked()
     {
         QMessageBox::information(this, "Warning", "Custom Model is set as current PS Behavior Mode!\nYou can't delete this!!!\nRemove Custom Model firstly.", 1);
         setParameters();
-    }
-    else{
+    }else{
         startParameter();
         for(unsigned i=0;i<10;i++)
             if(CMname == (QString("Custom Model ") + QString::number(i+1))){

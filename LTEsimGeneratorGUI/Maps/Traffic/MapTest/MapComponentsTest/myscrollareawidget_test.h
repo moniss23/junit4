@@ -9,13 +9,12 @@ class MyScrollAreaWidget_Test : public QObject
     Q_OBJECT
 private slots:
     void testStandardConstructor();
-    void testLargeConstructor();
     void testDestructor();
     void testWhichObjectArea();
     void testPressEvent();
 
 private:
-    MyScrollAreaWidget *myScrollAreaWidgetPtr, *myLargeScrollAreaWidgetPtr;
+    MyScrollAreaWidget *myScrollAreaWidgetPtr;
 };
 
 #endif // MYSCROLLAREAWIDGET_TEST_H

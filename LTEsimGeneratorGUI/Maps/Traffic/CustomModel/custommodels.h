@@ -23,7 +23,6 @@
 #include <QPushButton>
 
 #include <Maps/Traffic/map_traffic.h>
-#include <Maps/Traffic/map_traffic_large.h>
 
 
 class my_qlabel;

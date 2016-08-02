@@ -22,7 +22,7 @@ MapData_Test::~MapData_Test()
 
 void MapData_Test::fillActiveCellListTest()
 {
-    MapData* mapTraffic = new MapData(testMapName,true, appSettings);
+    MapData* mapTraffic = new MapData(testMapName, appSettings);
     mapTraffic->fillActiveCellList();
     QCOMPARE(mapTraffic->parameterLists.activeCellList.size(),24);
     delete mapTraffic;
@@ -30,7 +30,7 @@ void MapData_Test::fillActiveCellListTest()
 
 void MapData_Test::fillHandoverListTest()
 {
-    MapData* mapTraffic = new MapData(testMapName,true, appSettings);
+    MapData* mapTraffic = new MapData(testMapName, appSettings);
     mapTraffic->fillHandoverList();
     QCOMPARE(mapTraffic->parameterLists.handoverList.size(),53);
     delete mapTraffic;

@@ -1,10 +1,8 @@
 #include "ubsimform.h"
 #include "ui_ubsimform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <Maps/Parameters/MapWindow/mapwindowlarge.h>
 
 extern MapWindow *map_w;
-extern MapWindowLarge *map_wl;
 UBsimForm::UBsimForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::UBsimForm)
@@ -267,9 +265,6 @@ void UBsimForm::on_pbReset_clicked()
     setParameters(ue);
     if (map_w!=NULL)
         map_w->resetFlags();
-    else if (map_wl!=NULL)
-        map_wl->resetFlags();
-
     if(checkboxactive){
         ue->resetParamsUBSIM();
         setParameters(ue);

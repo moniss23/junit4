@@ -21,7 +21,6 @@ public:
     QLineEdit* area2;
     QComboBox* pointerPS;
     QWidget* pointerWinTitle;
-    QWidget* pointerWinTitle_large;
     QComboBox* combo;
 
     QString get_currentCSBehavior();

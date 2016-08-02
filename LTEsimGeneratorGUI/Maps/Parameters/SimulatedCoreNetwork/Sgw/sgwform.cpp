@@ -1,9 +1,7 @@
 #include "sgwform.h"
 #include "ui_sgwform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <Maps/Parameters/MapWindow/mapwindowlarge.h>
 extern MapWindow *map_w;
-extern MapWindowLarge *map_wl;
 SGWForm::SGWForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SGWForm)
@@ -116,9 +114,6 @@ void SGWForm::on_pbReset_clicked()
     setParameters(sgw);
     if(map_w!=NULL)
         map_w->resetFlags();
-    else if (map_wl!=NULL)
-        map_wl->resetFlags();
-
     if(checkboxactive){
         sgw->resetParams();
         setParameters(sgw);

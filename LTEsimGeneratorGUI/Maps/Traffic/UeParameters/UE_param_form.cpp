@@ -30,7 +30,6 @@ Form::Form(QWidget *parent) :
 
     pointerPS = ui->PSBehaviorMode1;
         pointerWinTitle = window();
-        pointerWinTitle_large = window();
 
         PS_List  <<  "NoPS"
                  <<  "general_10s_50Mbps"
