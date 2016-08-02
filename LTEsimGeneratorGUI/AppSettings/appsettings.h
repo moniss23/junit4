@@ -10,6 +10,7 @@
 
 #include "ManagementWindow/Encryption/encryption.h"
 #include "Data/project.h"
+#include "Data/appglobaldata.h"
 
 
 class AppSettings : public QObject
@@ -22,8 +23,6 @@ public:
 
     std::vector<Project> projects;
 
-    //TODO: new API to implement
-    //***********************************************/
 signals:
     void currentProjects(const std::vector<Project> &projects);
     void errorInData(const QString& errorDescription);
@@ -31,8 +30,6 @@ signals:
 public slots:
 
     void createNewProject(const QString &projectName, const QString & directory);
-    //***********************************************
-    //***********************************************/
     void importProject(const QString &ProjectDirectory);
     void deleteProject(const QString);
 
@@ -55,11 +52,11 @@ public:
 
     void setMapType(const QString& projectName, const QString& mapType);
 
+    void write_project_file(QString project_name, QString project_content, QString dir);
+    QStringList read_project_file(QString project_name, QString dir);
+
     void write_settings_file();
     void read_settings_file();
-
-    QStringList read_project_file(QString project_name, QString dir);
-    void write_project_file(QString project_name, QString project_content, QString dir);
 
     QString get_project_dir(QListWidgetItem* item);
 
@@ -107,12 +104,11 @@ public:
 
 
 
+    AppGlobalData getAppGlobalData() const;
+
 private:
 
-    const QString proFileExt = ".proj";
-    const QString settingsFile = "settings.dat";
-    const QString projectsFile = "projects.dat";
-    const QString projectsDirectory = "projects";
+    AppGlobalData appGlobalData;
 
     QFile project_file;
     QFileInfoList projects_dir_content;
@@ -126,8 +122,6 @@ private:
     QString projectFile;
     QString projectName;
     QDir projectDir;
-
-    const QString parameterFile = ":/RbFiles/parameters.rb";
 };
 
 #endif // APPSETTINGS_H

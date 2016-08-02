@@ -25,9 +25,11 @@ SOURCES += \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/Encryption/encryption.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
+    ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
     ltesimgeneratortests.cpp
 
 HEADERS  += \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.h \
     ../LTEsimGeneratorGUI/ManagementWindow/Encryption/encryption.h
+    ../LTEsimGeneratorGUI/Data/appglobaldata.h
 

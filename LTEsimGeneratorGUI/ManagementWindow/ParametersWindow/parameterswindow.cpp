@@ -493,10 +493,7 @@ void ParametersWindow::saveProject(bool singleFile=false){
 
     // encrypt the project data and write it to file
     QString projectName = appSettings->getProjectName();
-    appSettings->write_project_file(projectName,
-                                    plaintext,
-                                    appSettings->get_project_dir(projectName));
-
+    appSettings->write_project_file(projectName,plaintext,appSettings->get_project_dir(projectName));
 }
 
 void ParametersWindow::on_actionOpen_triggered()

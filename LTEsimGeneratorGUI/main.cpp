@@ -11,6 +11,7 @@
 #include "ManagementWindow/ProjectManagement/importprojectwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Traffic/map_traffic.h"
+#include "Data/appglobaldata.h"
 
 //Parameters Old Part
 const unsigned int cellCount = 12;
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
     /************************************
      *       SETUP   ALL   WINDOWS      *
      ************************************/
+
     AppSettings appSettings;
     appSettings.read_settings_file();
 

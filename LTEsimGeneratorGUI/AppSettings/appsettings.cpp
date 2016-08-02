@@ -1,6 +1,7 @@
 #include "appsettings.h"
-
-AppSettings::AppSettings() {
+#include "Data/appglobaldata.h"
+AppSettings::AppSettings()
+{
 
 }
 
@@ -29,7 +30,7 @@ void AppSettings::importProject(const QString &ProjectDirectory)
     // verify validity of the project
     QStringList import_dir_exploded=ProjectDirectory.split("/");
     QString project_name(import_dir_exploded[import_dir_exploded.length()-1]);
-    QFile import_file(ProjectDirectory+"/"+project_name+getProFileExt());
+    QFile import_file(ProjectDirectory+"/"+project_name + appGlobalData.getProFileExt());
 
     if(!import_file.exists()){
         emit errorInData("\""+ProjectDirectory+"\" does not seem to be a valid project directory.");
@@ -65,43 +66,12 @@ void AppSettings::importProject(const QString &ProjectDirectory)
     emit currentProjects(projects);
 }
 
-
-void AppSettings::write_settings_file(){
-    QFile file(settingsFile);
-    file.open(QIODevice::WriteOnly);
-    QDataStream file_str(&file);
-
-    QString content(defaultNewProjectDir);
-
-    const char* ciphertext = crypt(content.toStdString().c_str(),content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
-    file_str.writeRawData(ciphertext,content.length() );
-    file.close();
-}
-
-void AppSettings::read_settings_file(){
-    QFile file(settingsFile);
-    unsigned int length = file.bytesAvailable();
-    file.open(QIODevice::ReadOnly);
-    char* ciphertext = new char[length];
-    QDataStream file_str(&file);
-    file_str.readRawData(ciphertext,length);
-    const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length(),true);
-    file.close();
-
-    QString content(plaintext);
-    QStringList content_list(content.split("\n") );
-
-    defaultNewProjectDir = content_list[0];
-
-}
-
-
 // Read the content of the project file, decrypt it and split into a list
 QStringList AppSettings::read_project_file(QString project_name, QString dir){
 
-    dir = (dir == "<default>") ? projectsDirectory : dir;
+    dir = (dir == "<default>") ? appGlobalData.getProjectsDirectory() : dir;
 
-    QFile project_file(dir + "/" + project_name + "/" + project_name + getProFileExt());
+    QFile project_file(dir + "/" + project_name + "/" + project_name + appGlobalData.getProFileExt());
     project_file.open(QIODevice::ReadOnly);
     QDataStream project_file_stream(&project_file);
 
@@ -118,9 +88,9 @@ QStringList AppSettings::read_project_file(QString project_name, QString dir){
 // encrypt the project data and write it into the file
 void AppSettings::write_project_file(QString project_name, QString project_content, QString dir){
 
-    dir = (dir == "<default>") ? projectsDirectory : dir;
+    dir = (dir == "<default>") ? appGlobalData.getProjectsDirectory() : dir;
 
-    QFile project_file(dir + "/" + project_name + "/" + project_name + getProFileExt());
+    QFile project_file(dir + "/" + project_name + "/" + project_name + appGlobalData.getProFileExt());
     project_file.open(QIODevice::WriteOnly);
     QDataStream project_file_stream(&project_file);
 
@@ -128,6 +98,36 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
     project_file_stream.writeRawData(ciphertext,project_content.length());
 
     project_file.close();
+}
+
+
+void AppSettings::write_settings_file(){
+    QFile file(appGlobalData.getSettingsFile());
+    file.open(QIODevice::WriteOnly);
+    QDataStream file_str(&file);
+
+    QString content(defaultNewProjectDir);
+
+    const char* ciphertext = crypt(content.toStdString().c_str(),content.length(),cipher_key.toStdString().c_str(),cipher_key.length() );
+    file_str.writeRawData(ciphertext,content.length() );
+    file.close();
+}
+
+void AppSettings::read_settings_file(){
+    QFile file(appGlobalData.getSettingsFile());
+    unsigned int length = file.bytesAvailable();
+    file.open(QIODevice::ReadOnly);
+    char* ciphertext = new char[length];
+    QDataStream file_str(&file);
+    file_str.readRawData(ciphertext,length);
+    const char* plaintext = crypt(ciphertext,length,cipher_key.toStdString().c_str(),cipher_key.length(),true);
+    file.close();
+
+    QString content(plaintext);
+    QStringList content_list(content.split("\n") );
+
+    defaultNewProjectDir = content_list[0];
+
 }
 
 QString AppSettings::get_project_dir(QListWidgetItem *item)
@@ -154,7 +154,7 @@ QString AppSettings::get_project_dir(QString project_name)
 
 
 void AppSettings::write_projects_file(){
-    QFile projects_file(projectsFile);
+    QFile projects_file(appGlobalData.getProjectsFile());
     projects_file.open(QIODevice::WriteOnly);
     QTextStream projects_file_str(&projects_file);
     projects_file_str << projects.size() << "\n";
@@ -167,7 +167,7 @@ void AppSettings::write_projects_file(){
 
 // currently unused
 void AppSettings::read_projects_file(){
-    QFile projects_file(projectsFile);
+    QFile projects_file(appGlobalData.getProjectsFile());
     projects_file.open(QIODevice::ReadOnly);
     QTextStream projects_file_str(&projects_file);
     QStringList content = projects_file_str.readAll().split("\n");
@@ -196,7 +196,7 @@ bool AppSettings::projectNameTaken(QString projectName){
 
 // check if the settings file exists, create it if it doesn't
 void AppSettings::checkIfExistAndCreateSettingsFile() {
-    settings_file.setFileName(settingsFile);
+    settings_file.setFileName(appGlobalData.getSettingsFile());
     if(!settings_file.exists()){
         setDefaultNewProjectDir("<default>");
         write_settings_file();
@@ -205,7 +205,7 @@ void AppSettings::checkIfExistAndCreateSettingsFile() {
 
 // check if the projects file exists, create it if it doesn't
 void AppSettings::checkIfExistAndCreateProjectsFile() {
-    projects_file.setFileName(projectsFile);
+    projects_file.setFileName(appGlobalData.getProjectsFile());
     if(!projects_file.exists()){
         projects_file.open(QIODevice::WriteOnly);
         QTextStream str(&projects_file);
@@ -216,7 +216,7 @@ void AppSettings::checkIfExistAndCreateProjectsFile() {
 
 // create project dir if doesn't exist
 void AppSettings::createProjectDirIfNotExist() {
-        project_dir.mkdir(projectsDirectory);
+        project_dir.mkdir(appGlobalData.getProjectsDirectory());
 }
 
 // read the content of projects.dat file
@@ -243,7 +243,7 @@ void AppSettings::testProjectsObtainedFromTheFile() {
             d.setPath("projects/"+projects_file_content[i]);
         }
         if(d.exists()){
-            QFile f(d.absolutePath()+"/"+projects_file_content[i] + getProFileExt());
+            QFile f(d.absolutePath()+"/"+projects_file_content[i] + appGlobalData.getProFileExt());
             if(f.exists()){
                 new_project.name=projects_file_content[i];
                 new_project.fullpath=projects_file_content[i+1];
@@ -251,7 +251,7 @@ void AppSettings::testProjectsObtainedFromTheFile() {
             }
         }
     }
-    project_dir.setPath(projectsDirectory);
+    project_dir.setPath(appGlobalData.getProjectsDirectory());
 }
 
 // traverse the list of projects dir contents
@@ -261,7 +261,7 @@ void AppSettings::traverseProjectsListAndAddProjectIfNotFound() {
         project_dir.setPath(projects_dir_content[i].fileName());
 
         // check if the project file exists inside the project dir and its name is the same as project dir
-        project_file.setFileName("projects/"+projects_dir_content[i].fileName()+"/"+projects_dir_content[i].fileName()+ getProFileExt());
+        project_file.setFileName("projects/"+projects_dir_content[i].fileName()+"/"+projects_dir_content[i].fileName()+ this->appGlobalData.getProFileExt());
         if(project_file.exists()){
 
             // here we already verified that an element is a valid project
@@ -309,7 +309,7 @@ void AppSettings::addProject(const QString& projectName, const QString& dir){
 
     // if the project is to be saved in default directory
     if(dir=="<default>"){
-        projectDir.setPath(projectsDirectory);
+        projectDir.setPath(appGlobalData.getProjectsDirectory());
     } else {
         projectDir.setPath(dir);
     }
@@ -343,12 +343,17 @@ void AppSettings::removeDirectoryRecursively(QString dir_name){
 
 QString AppSettings::readParametersFile()
 {
-    QFile param_template(parameterFile);
+    QFile param_template(appGlobalData.getProjectsFile());
     param_template.open(QIODevice::ReadOnly);
     QTextStream param_template_str(&param_template);
     param_template.close();
 
     return param_template_str.readAll();
+}
+
+AppGlobalData AppSettings::getAppGlobalData() const
+{
+    return appGlobalData;
 }
 
 void AppSettings::setMapType(const QString& projectName, const QString& mapType) {
@@ -425,11 +430,6 @@ QString AppSettings::getDefaultNewProjectDir() const
 void AppSettings::setDefaultNewProjectDir(const QString &value)
 {
     defaultNewProjectDir = value;
-}
-
-QString AppSettings::getProFileExt() const
-{
-    return proFileExt;
 }
 
 QDir AppSettings::getProject_dir() const
