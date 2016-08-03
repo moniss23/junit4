@@ -18,12 +18,6 @@ public:
     explicit AddProjectWindow(AppSettings* appSettings, QWidget *parent = 0);
     ~AddProjectWindow();
 
-    void clearInputArea();
-
-    void setDefaultDir(QString dir);
-
-    void setAppSettings(AppSettings *value);
-
 signals:
 
     //TODO: new API to implement

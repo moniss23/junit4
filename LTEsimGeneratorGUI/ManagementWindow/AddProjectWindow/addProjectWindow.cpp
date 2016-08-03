@@ -11,8 +11,6 @@
 
 void msg(QString content);
 
-extern ParametersWindow * p;
-extern ProjectManagement* projectMng;
 extern bool paramFilePresent;
 
 AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
@@ -28,19 +26,6 @@ AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
 
 AddProjectWindow::~AddProjectWindow() {delete ui;}
 
-void AddProjectWindow::clearInputArea() {
-    this->ui->fileName->clear();
-    this->ui->fileName->setFocus();
-}
-
-void AddProjectWindow::setDefaultDir(QString dir) {
-    if(dir=="<default>") {
-        this->ui->label_3->setText("(program's directory)");
-    }
-    else {
-        this->ui->label_3->setText("("+dir+")");
-    }
-}
 
 // creating a new project
 void AddProjectWindow::on_buttonBox_accepted()
@@ -71,7 +56,7 @@ void AddProjectWindow::on_buttonBox_accepted()
     }
 
     // assure that the name is legal
-    bool name_legal=true;
+    bool name_legal=true;  //TODO: better set validator in ui->fileName control
     QString chars_detected("");
     for(int i=0; i<illegal_chars.length(); i++) {
         if(this->ui->fileName->text().contains(illegal_chars[i])) {
@@ -96,19 +81,14 @@ void AddProjectWindow::on_buttonBox_accepted()
 
     paramFilePresent=true;
 
-    //TODO: this should only emit a signal that new project should be created
-    // add a new element to the list of projects in project management window
-    QListWidgetItem* new_item=new QListWidgetItem(appSettings->getProjectName());
 
     if(this->ui->customLocationRadioButton->isChecked()) {
-        projectMng->addWidgetToListWidget(new_item);
         emit createNewProject(ui->fileName->text(),ui->lineEdit->text());
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
-        projectMng->addWidgetToListWidget(new_item);
         emit createNewProject(ui->fileName->text(),appSettings->getDefaultNewProjectDir());
     }
-    appSettings->write_projects_file();
+    appSettings->write_projects_file();//TODO: this should not be needed, it's AppSettings internal logic to keep projects
     ui->fileName->clear();
     this->close();
 }
@@ -134,11 +114,6 @@ void AddProjectWindow::on_defaultLocationRadioButton_toggled(bool checked)
         this->ui->lineEdit->setEnabled(true);
         this->ui->browseDirectoryButton->setEnabled(true);
     }
-}
-
-void AddProjectWindow::setAppSettings(AppSettings *value) //TODO: should not be needed with new API
-{
-    appSettings = value;
 }
 
 

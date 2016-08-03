@@ -6,7 +6,6 @@
 #define smallMapRows 6  //number of cells on vertical axis
 #define smallMapColumns 2 //number of cells on horizontal axis
 
-extern ProjectManagement* projectMng;
 extern const QString beginningOfHandoverSector;
 extern const QString endOfHandoverSector;
 extern const QString beginningOfCellSector;
