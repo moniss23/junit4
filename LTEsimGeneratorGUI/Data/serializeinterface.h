@@ -13,8 +13,8 @@ public:
 
 public:
     virtual QString getElementType() const = 0;
-    virtual QByteArray serializeToFile() = 0;
-    virtual void serializeFromFile(QByteArray rawData) = 0;
+    virtual QByteArray serializeData() = 0;
+    virtual void deserializeData(const QByteArray &rawData) = 0;
 };
 
 

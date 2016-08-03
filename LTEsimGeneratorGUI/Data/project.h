@@ -1,6 +1,7 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
+#include <QDataStream>
 #include <QListWidgetItem>
 #include <Maps/MapObjects/cell.h>
 #include <Maps/MapObjects/handover.h>
@@ -21,8 +22,8 @@ public:
      ****************************/
 public:
     virtual QString getElementType() const;
-    virtual QByteArray serializeToFile();
-    virtual void serializeFromFile(QByteArray rawData);
+    virtual QByteArray serializeData();
+    virtual void deserializeData(const QByteArray &rawData);
 };
 
 struct cellName{

@@ -1,17 +1,21 @@
 #include "project.h"
 
-
 QString Project::getElementType() const
 {
-  return "Project";
+    return QString("Project");
 }
 
-QByteArray Project::serializeToFile()
+QByteArray Project::serializeData()
 {
-   return QByteArray();
+    QByteArray serializedData;
+    QDataStream stream(serializedData);
+    stream << name << fullpath << rbOutputDir << chosenMapType;
+
+    return serializedData;
 }
 
-void Project::serializeFromFile(QByteArray rawData)
+void Project::deserializeData(const QByteArray &rawData)
 {
-   (void) rawData;
+    QDataStream stream(rawData);
+    stream >> name >> fullpath >> rbOutputDir >> chosenMapType;
 }
