@@ -6,7 +6,8 @@
 #include <QHash>
 #include <QtWidgets>
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
-#include <Maps/Traffic/CustomModel/custommodels.h>
+#include <Maps/Traffic/CustomModel/oldcustommodels.h>
+#include <Maps/Traffic/CustomModel/customModel.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <QList>
 #include <Maps/MapObjects/cell.h>
@@ -19,6 +20,7 @@
 #include <my_qlabel.h>
 
 class Custommodels;
+class customModel;
 
 namespace Ui {
 class Map_traffic;
@@ -133,7 +135,7 @@ private:
 
     AppSettings* appSettings;
 
-    Custommodels** viewCustomModels1;
+    customModel** viewcustomModel;
     int number1;
 
     QMap<QString, QString>* parseCM(QStringList customModelListToParse);
@@ -180,7 +182,7 @@ private:
     Form* pointerempty;
 
     std::vector<DragUELabel*> vectorUE;
-    Custommodels* viewCustomModels;
+    customModel* viewcustomModel1;
     QMessageBox msgExit;
 
     //values use to change values in object if we change scale map
@@ -203,16 +205,6 @@ private slots:
     void on_add_button_clicked();
     void on_remove_button_clicked();
     void createCell();
-    void on_CM1_clicked();
-    void on_CM2_clicked();
-    void on_CM3_clicked();
-    void on_CM4_clicked();
-    void on_CM5_clicked();
-    void on_CM6_clicked();
-    void on_CM7_clicked();
-    void on_CM8_clicked();
-    void on_CM9_clicked();
-    void on_CM10_clicked();
 
 };
 

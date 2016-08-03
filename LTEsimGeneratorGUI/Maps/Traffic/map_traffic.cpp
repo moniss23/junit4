@@ -192,17 +192,17 @@ Map_traffic::Map_traffic(AppSettings* appSettings, QWidget *parent) :
 
         this->number1 =0;
 
-        viewCustomModels1 = new Custommodels*[10];
-        viewCustomModels1[0] = new Custommodels();
-        viewCustomModels1[1] = new Custommodels();
-        viewCustomModels1[2] = new Custommodels();
-        viewCustomModels1[3] = new Custommodels();
-        viewCustomModels1[4] = new Custommodels();
-        viewCustomModels1[5] = new Custommodels();
-        viewCustomModels1[6] = new Custommodels();
-        viewCustomModels1[7] = new Custommodels();
-        viewCustomModels1[8] = new Custommodels();
-        viewCustomModels1[9] = new Custommodels();
+        viewcustomModel = new customModel*[10];
+        viewcustomModel[0] = new customModel();
+        viewcustomModel[1] = new customModel();
+        viewcustomModel[2] = new customModel();
+        viewcustomModel[3] = new customModel();
+        viewcustomModel[4] = new customModel();
+        viewcustomModel[5] = new customModel();
+        viewcustomModel[6] = new customModel();
+        viewcustomModel[7] = new customModel();
+        viewcustomModel[8] = new customModel();
+        viewcustomModel[9] = new customModel();
 
         tableview = new Form*[10];
         tableview[0] = &viewUE1;
@@ -226,28 +226,13 @@ Map_traffic::Map_traffic(AppSettings* appSettings, QWidget *parent) :
         tableview[9] = &viewUE10;
         tableview[9]->setWindowTitle("UE Params 10");
 
-        viewCustomModels1[0]->set_custom_name("lteCustom1");
-        viewCustomModels1[0]->setWindowTitle("lteCustom1");
-        viewCustomModels1[1]->set_custom_name("lteCustom2");
-        viewCustomModels1[1]->setWindowTitle("lteCustom2");
-        viewCustomModels1[2]->set_custom_name("lteCustom3");
-        viewCustomModels1[2]->setWindowTitle("lteCustom3");
-        viewCustomModels1[3]->set_custom_name("lteCustom4");
-        viewCustomModels1[3]->setWindowTitle("lteCustom4");
-        viewCustomModels1[4]->set_custom_name("lteCustom5");
-        viewCustomModels1[4]->setWindowTitle("lteCustom5");
-        viewCustomModels1[5]->set_custom_name("lteCustom6");
-        viewCustomModels1[5]->setWindowTitle("lteCustom6");
-        viewCustomModels1[6]->set_custom_name("lteCustom7");
-        viewCustomModels1[6]->setWindowTitle("lteCustom7");
-        viewCustomModels1[7]->set_custom_name("lteCustom8");
-        viewCustomModels1[7]->setWindowTitle("lteCustom8");
-        viewCustomModels1[8]->set_custom_name("lteCustom9");
-        viewCustomModels1[8]->setWindowTitle("lteCustom9");
-        viewCustomModels1[9]->set_custom_name("lteCustom10");
-        viewCustomModels1[9]->setWindowTitle("lteCustom10");
 
-         connect(ui->CM_1, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM1_clicked()));
+        for(unsigned i=0;i<10;i++)
+        {
+            viewcustomModel[i]->set_custom_name("Custom Model "+QString::number(i+1));
+            viewcustomModel[i]->setWindowTitle("Custom Model "+QString::number(i+1));
+        }
+
          connect(ui->CM_2, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM2_clicked()));
          connect(ui->CM_3, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM3_clicked()));
          connect(ui->CM_4, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM4_clicked()));
@@ -258,14 +243,24 @@ Map_traffic::Map_traffic(AppSettings* appSettings, QWidget *parent) :
          connect(ui->CM_9, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM9_clicked()));
          connect(ui->CM_10, SIGNAL(Mouse_Pressed()), this, SLOT(on_CM10_clicked()));
 
+         for(unsigned i=0;i<10;i++)
+         {
+             connect(pointerCM[i],&my_qlabel::Mouse_Pressed,[=]() {
+                 viewcustomModel[i]->close();
+                 viewcustomModel[i]->setWindowModality(Qt::ApplicationModal);
+                 viewcustomModel[i]->show();
+             });
+         }
+
+
         viewStatistics.adjustSize();
         viewStatistics.move(QApplication::desktop()->screen()->rect().center() + viewStatistics.rect().bottomRight());
 
         viewTuningtraffic.adjustSize();
         viewTuningtraffic.move(QApplication::desktop()->screen()->rect().center()+ viewTuningtraffic.rect().bottomRight());
 
-        viewCustomModels1[0]->adjustSize();
-        viewCustomModels1[0]->move(QApplication::desktop()->screen()->rect().center()+ viewCustomModels1[0]->rect().bottomRight());
+        viewcustomModel[0]->adjustSize();
+        viewcustomModel[0]->move(QApplication::desktop()->screen()->rect().center()+ viewcustomModel[0]->rect().bottomRight());
         setAcceptDrops(true);
 
         ui->checkBoxCell11->setChecked(tmp_chkCell11);
@@ -6546,314 +6541,5 @@ void Map_traffic::on_remove_button_clicked(){
         //counter_UE--;
         ui->tet_UE->setText(QString::number(counter_UE));
     }
-}
-
-
-void Map_traffic::on_CM1_clicked(){
-
-    viewCustomModels1[0]->close();
-    viewCustomModels1[0]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[0]->show();
-    CMname = "Custom Model 1";
-    if(savedCM1List.size() > 0){
-
-        parseListToAddPingEtcCM1();
-
-    viewCustomModels1[0]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM1List.at(4)));
-    viewCustomModels1[0]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM1List.at(6)));
-    viewCustomModels1[0]->pointerAddPingChckBox->setChecked(toBool(savedCM1List.at(8)));
-    viewCustomModels1[0]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM1List.at(10)));
-    viewCustomModels1[0]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM1List.at(12)));
-    viewCustomModels1[0]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM1List.at(14)));
-    viewCustomModels1[0]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM1List.at(16)));
-    viewCustomModels1[0]->pointerAddVoipChckBox->setChecked(toBool(savedCM1List.at(18)));
-
-    viewCustomModels1[0]->pointerAddFtpDlBt->setEnabled(toBool(savedCM1List.at(4)));
-    viewCustomModels1[0]->pointerAddFtpUlBt->setEnabled(toBool(savedCM1List.at(6)));
-    viewCustomModels1[0]->pointerAddPingBt->setEnabled(toBool(savedCM1List.at(8)));
-    viewCustomModels1[0]->pointerAddServiceReqBt->setEnabled(toBool(savedCM1List.at(10)));
-    viewCustomModels1[0]->pointerAddStreamDlBt->setEnabled(toBool(savedCM1List.at(12)));
-    viewCustomModels1[0]->pointerAddStreamUlBt->setEnabled(toBool(savedCM1List.at(14)));
-    viewCustomModels1[0]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM1List.at(16)));
-    viewCustomModels1[0]->pointerAddVoipBt->setEnabled(toBool(savedCM1List.at(18)));
-
-    savedCM1List.clear();
-
-    }
-}
-
-void Map_traffic::on_CM2_clicked(){
-
-    viewCustomModels1[1]->close();
-    viewCustomModels1[1]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[1]->show();
-    CMname = "Custom Model 2";
-    if(savedCM2List.size() > 0){
-
-        parseListToAddPingEtcCM2();
-
-        viewCustomModels1[1]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM2List.at(4)));
-        viewCustomModels1[1]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM2List.at(6)));
-        viewCustomModels1[1]->pointerAddPingChckBox->setChecked(toBool(savedCM2List.at(8)));
-        viewCustomModels1[1]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM2List.at(10)));
-        viewCustomModels1[1]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM2List.at(12)));
-        viewCustomModels1[1]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM2List.at(14)));
-        viewCustomModels1[1]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM2List.at(16)));
-        viewCustomModels1[1]->pointerAddVoipChckBox->setChecked(toBool(savedCM2List.at(18)));
-
-        viewCustomModels1[1]->pointerAddFtpDlBt->setEnabled(toBool(savedCM2List.at(4)));
-        viewCustomModels1[1]->pointerAddFtpUlBt->setEnabled(toBool(savedCM2List.at(6)));
-        viewCustomModels1[1]->pointerAddPingBt->setEnabled(toBool(savedCM2List.at(8)));
-        viewCustomModels1[1]->pointerAddServiceReqBt->setEnabled(toBool(savedCM2List.at(10)));
-        viewCustomModels1[1]->pointerAddStreamDlBt->setEnabled(toBool(savedCM2List.at(12)));
-        viewCustomModels1[1]->pointerAddStreamUlBt->setEnabled(toBool(savedCM2List.at(14)));
-        viewCustomModels1[1]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM2List.at(16)));
-        viewCustomModels1[1]->pointerAddVoipBt->setEnabled(toBool(savedCM2List.at(18)));
-
-        savedCM2List.clear();
-
-    }
-
-
-}
-void Map_traffic::on_CM3_clicked(){
-
-    viewCustomModels1[2]->close();
-    viewCustomModels1[2]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[2]->show();
-    CMname = "Custom Model 3";
-    if(savedCM3List.size() > 0){
-    viewCustomModels1[2]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM3List.at(4)));
-    viewCustomModels1[2]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM3List.at(6)));
-    viewCustomModels1[2]->pointerAddPingChckBox->setChecked(toBool(savedCM3List.at(8)));
-    viewCustomModels1[2]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM3List.at(10)));
-    viewCustomModels1[2]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM3List.at(12)));
-    viewCustomModels1[2]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM3List.at(14)));
-    viewCustomModels1[2]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM3List.at(16)));
-    viewCustomModels1[2]->pointerAddVoipChckBox->setChecked(toBool(savedCM3List.at(18)));
-
-    viewCustomModels1[2]->pointerAddFtpDlBt->setEnabled(toBool(savedCM3List.at(4)));
-    viewCustomModels1[2]->pointerAddFtpUlBt->setEnabled(toBool(savedCM3List.at(6)));
-    viewCustomModels1[2]->pointerAddPingBt->setEnabled(toBool(savedCM3List.at(8)));
-    viewCustomModels1[2]->pointerAddServiceReqBt->setEnabled(toBool(savedCM3List.at(10)));
-    viewCustomModels1[2]->pointerAddStreamDlBt->setEnabled(toBool(savedCM3List.at(12)));
-    viewCustomModels1[2]->pointerAddStreamUlBt->setEnabled(toBool(savedCM3List.at(14)));
-    viewCustomModels1[2]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM3List.at(16)));
-    viewCustomModels1[2]->pointerAddVoipBt->setEnabled(toBool(savedCM3List.at(18)));
-
-    savedCM3List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM4_clicked(){
-
-    viewCustomModels1[3]->close();
-    viewCustomModels1[3]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[3]->show();
-    CMname = "Custom Model 4";
-    if(savedCM4List.size() > 0){
-    viewCustomModels1[3]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM4List.at(4)));
-    viewCustomModels1[3]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM4List.at(6)));
-    viewCustomModels1[3]->pointerAddPingChckBox->setChecked(toBool(savedCM4List.at(8)));
-    viewCustomModels1[3]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM4List.at(10)));
-    viewCustomModels1[3]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM4List.at(12)));
-    viewCustomModels1[3]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM4List.at(14)));
-    viewCustomModels1[3]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM4List.at(16)));
-    viewCustomModels1[3]->pointerAddVoipChckBox->setChecked(toBool(savedCM4List.at(18)));
-
-    viewCustomModels1[3]->pointerAddFtpDlBt->setEnabled(toBool(savedCM4List.at(4)));
-    viewCustomModels1[3]->pointerAddFtpUlBt->setEnabled(toBool(savedCM4List.at(6)));
-    viewCustomModels1[3]->pointerAddPingBt->setEnabled(toBool(savedCM4List.at(8)));
-    viewCustomModels1[3]->pointerAddServiceReqBt->setEnabled(toBool(savedCM4List.at(10)));
-    viewCustomModels1[3]->pointerAddStreamDlBt->setEnabled(toBool(savedCM4List.at(12)));
-    viewCustomModels1[3]->pointerAddStreamUlBt->setEnabled(toBool(savedCM4List.at(14)));
-    viewCustomModels1[3]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM4List.at(16)));
-    viewCustomModels1[3]->pointerAddVoipBt->setEnabled(toBool(savedCM4List.at(18)));
-
-    savedCM4List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM5_clicked(){
-
-    viewCustomModels1[4]->close();
-    viewCustomModels1[4]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[4]->show();
-    CMname = "Custom Model 5";
-    if(savedCM5List.size() > 0){
-    viewCustomModels1[4]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM5List.at(4)));
-    viewCustomModels1[4]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM5List.at(6)));
-    viewCustomModels1[4]->pointerAddPingChckBox->setChecked(toBool(savedCM5List.at(8)));
-    viewCustomModels1[4]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM5List.at(10)));
-    viewCustomModels1[4]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM5List.at(12)));
-    viewCustomModels1[4]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM5List.at(14)));
-    viewCustomModels1[4]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM5List.at(16)));
-    viewCustomModels1[4]->pointerAddVoipChckBox->setChecked(toBool(savedCM5List.at(18)));
-
-    viewCustomModels1[4]->pointerAddFtpDlBt->setEnabled(toBool(savedCM5List.at(4)));
-    viewCustomModels1[4]->pointerAddFtpUlBt->setEnabled(toBool(savedCM5List.at(6)));
-    viewCustomModels1[4]->pointerAddPingBt->setEnabled(toBool(savedCM5List.at(8)));
-    viewCustomModels1[4]->pointerAddServiceReqBt->setEnabled(toBool(savedCM5List.at(10)));
-    viewCustomModels1[4]->pointerAddStreamDlBt->setEnabled(toBool(savedCM5List.at(12)));
-    viewCustomModels1[4]->pointerAddStreamUlBt->setEnabled(toBool(savedCM5List.at(14)));
-    viewCustomModels1[4]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM5List.at(16)));
-    viewCustomModels1[4]->pointerAddVoipBt->setEnabled(toBool(savedCM5List.at(18)));
-
-    savedCM5List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM6_clicked(){
-
-    viewCustomModels1[5]->close();
-    viewCustomModels1[5]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[5]->show();
-    CMname = "Custom Model 6";
-    if(savedCM6List.size() > 0){
-    viewCustomModels1[5]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM6List.at(4)));
-    viewCustomModels1[5]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM6List.at(6)));
-    viewCustomModels1[5]->pointerAddPingChckBox->setChecked(toBool(savedCM6List.at(8)));
-    viewCustomModels1[5]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM6List.at(10)));
-    viewCustomModels1[5]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM6List.at(12)));
-    viewCustomModels1[5]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM6List.at(14)));
-    viewCustomModels1[5]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM6List.at(16)));
-    viewCustomModels1[5]->pointerAddVoipChckBox->setChecked(toBool(savedCM6List.at(18)));
-
-    viewCustomModels1[5]->pointerAddFtpDlBt->setEnabled(toBool(savedCM6List.at(4)));
-    viewCustomModels1[5]->pointerAddFtpUlBt->setEnabled(toBool(savedCM6List.at(6)));
-    viewCustomModels1[5]->pointerAddPingBt->setEnabled(toBool(savedCM6List.at(8)));
-    viewCustomModels1[5]->pointerAddServiceReqBt->setEnabled(toBool(savedCM6List.at(10)));
-    viewCustomModels1[5]->pointerAddStreamDlBt->setEnabled(toBool(savedCM6List.at(12)));
-    viewCustomModels1[5]->pointerAddStreamUlBt->setEnabled(toBool(savedCM6List.at(14)));
-    viewCustomModels1[5]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM6List.at(16)));
-    viewCustomModels1[5]->pointerAddVoipBt->setEnabled(toBool(savedCM6List.at(18)));
-
-    savedCM6List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM7_clicked(){
-
-    viewCustomModels1[6]->close();
-    viewCustomModels1[6]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[6]->show();
-    CMname = "Custom Model 7";
-    if(savedCM7List.size() > 0){
-    viewCustomModels1[6]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM7List.at(4)));
-    viewCustomModels1[6]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM7List.at(6)));
-    viewCustomModels1[6]->pointerAddPingChckBox->setChecked(toBool(savedCM7List.at(8)));
-    viewCustomModels1[6]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM7List.at(10)));
-    viewCustomModels1[6]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM7List.at(12)));
-    viewCustomModels1[6]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM7List.at(14)));
-    viewCustomModels1[6]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM7List.at(16)));
-    viewCustomModels1[6]->pointerAddVoipChckBox->setChecked(toBool(savedCM7List.at(18)));
-
-    viewCustomModels1[6]->pointerAddFtpDlBt->setEnabled(toBool(savedCM7List.at(4)));
-    viewCustomModels1[6]->pointerAddFtpUlBt->setEnabled(toBool(savedCM7List.at(6)));
-    viewCustomModels1[6]->pointerAddPingBt->setEnabled(toBool(savedCM7List.at(8)));
-    viewCustomModels1[6]->pointerAddServiceReqBt->setEnabled(toBool(savedCM7List.at(10)));
-    viewCustomModels1[6]->pointerAddStreamDlBt->setEnabled(toBool(savedCM7List.at(12)));
-    viewCustomModels1[6]->pointerAddStreamUlBt->setEnabled(toBool(savedCM7List.at(14)));
-    viewCustomModels1[6]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM7List.at(16)));
-    viewCustomModels1[6]->pointerAddVoipBt->setEnabled(toBool(savedCM7List.at(18)));
-
-    savedCM7List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM8_clicked(){
-
-    viewCustomModels1[7]->close();
-    viewCustomModels1[7]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[7]->show();
-    CMname = "Custom Model 8";
-    if(savedCM8List.size() > 0){
-    viewCustomModels1[7]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM8List.at(4)));
-    viewCustomModels1[7]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM8List.at(6)));
-    viewCustomModels1[7]->pointerAddPingChckBox->setChecked(toBool(savedCM8List.at(8)));
-    viewCustomModels1[7]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM8List.at(10)));
-    viewCustomModels1[7]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM8List.at(12)));
-    viewCustomModels1[7]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM8List.at(14)));
-    viewCustomModels1[7]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM8List.at(16)));
-    viewCustomModels1[7]->pointerAddVoipChckBox->setChecked(toBool(savedCM8List.at(18)));
-
-    viewCustomModels1[7]->pointerAddFtpDlBt->setEnabled(toBool(savedCM8List.at(4)));
-    viewCustomModels1[7]->pointerAddFtpUlBt->setEnabled(toBool(savedCM8List.at(6)));
-    viewCustomModels1[7]->pointerAddPingBt->setEnabled(toBool(savedCM8List.at(8)));
-    viewCustomModels1[7]->pointerAddServiceReqBt->setEnabled(toBool(savedCM8List.at(10)));
-    viewCustomModels1[7]->pointerAddStreamDlBt->setEnabled(toBool(savedCM8List.at(12)));
-    viewCustomModels1[7]->pointerAddStreamUlBt->setEnabled(toBool(savedCM8List.at(14)));
-    viewCustomModels1[7]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM8List.at(16)));
-    viewCustomModels1[7]->pointerAddVoipBt->setEnabled(toBool(savedCM8List.at(18)));
-
-    savedCM8List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM9_clicked(){
-
-    viewCustomModels1[8]->close();
-    viewCustomModels1[8]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[8]->show();
-    CMname = "Custom Model 9";
-    if(savedCM9List.size() > 0){
-    viewCustomModels1[8]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM9List.at(4)));
-    viewCustomModels1[8]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM9List.at(6)));
-    viewCustomModels1[8]->pointerAddPingChckBox->setChecked(toBool(savedCM9List.at(8)));
-    viewCustomModels1[8]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM9List.at(10)));
-    viewCustomModels1[8]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM9List.at(12)));
-    viewCustomModels1[8]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM9List.at(14)));
-    viewCustomModels1[8]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM9List.at(16)));
-    viewCustomModels1[8]->pointerAddVoipChckBox->setChecked(toBool(savedCM9List.at(18)));
-
-    viewCustomModels1[8]->pointerAddFtpDlBt->setEnabled(toBool(savedCM9List.at(4)));
-    viewCustomModels1[8]->pointerAddFtpUlBt->setEnabled(toBool(savedCM9List.at(6)));
-    viewCustomModels1[8]->pointerAddPingBt->setEnabled(toBool(savedCM9List.at(8)));
-    viewCustomModels1[8]->pointerAddServiceReqBt->setEnabled(toBool(savedCM9List.at(10)));
-    viewCustomModels1[8]->pointerAddStreamDlBt->setEnabled(toBool(savedCM9List.at(12)));
-    viewCustomModels1[8]->pointerAddStreamUlBt->setEnabled(toBool(savedCM9List.at(14)));
-    viewCustomModels1[8]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM9List.at(16)));
-    viewCustomModels1[8]->pointerAddVoipBt->setEnabled(toBool(savedCM9List.at(18)));
-
-    savedCM9List.clear();
-
-    }
-
-}
-void Map_traffic::on_CM10_clicked(){
-
-    viewCustomModels1[9]->close();
-    viewCustomModels1[9]->setWindowModality(Qt::ApplicationModal);
-    viewCustomModels1[9]->show();
-    CMname = "Custom Model 10";
-    if(savedCM10List.size() > 0){
-    viewCustomModels1[9]->pointerAddFtpDlChckBox->setChecked(toBool(savedCM10List.at(4)));
-    viewCustomModels1[9]->pointerAddFtpUlChckBox->setChecked(toBool(savedCM10List.at(6)));
-    viewCustomModels1[9]->pointerAddPingChckBox->setChecked(toBool(savedCM10List.at(8)));
-    viewCustomModels1[9]->pointerAddServiceReqChckBox->setChecked(toBool(savedCM10List.at(10)));
-    viewCustomModels1[9]->pointerAddStreamDlChckBox->setChecked(toBool(savedCM10List.at(12)));
-    viewCustomModels1[9]->pointerAddStreamUlChckBox->setChecked(toBool(savedCM10List.at(14)));
-    viewCustomModels1[9]->pointerAddSyncedPingChckBox->setChecked(toBool(savedCM10List.at(16)));
-    viewCustomModels1[9]->pointerAddVoipChckBox->setChecked(toBool(savedCM10List.at(18)));
-
-    viewCustomModels1[9]->pointerAddFtpDlBt->setEnabled(toBool(savedCM10List.at(4)));
-    viewCustomModels1[9]->pointerAddFtpUlBt->setEnabled(toBool(savedCM10List.at(6)));
-    viewCustomModels1[9]->pointerAddPingBt->setEnabled(toBool(savedCM10List.at(8)));
-    viewCustomModels1[9]->pointerAddServiceReqBt->setEnabled(toBool(savedCM10List.at(10)));
-    viewCustomModels1[9]->pointerAddStreamDlBt->setEnabled(toBool(savedCM10List.at(12)));
-    viewCustomModels1[9]->pointerAddStreamUlBt->setEnabled(toBool(savedCM10List.at(14)));
-    viewCustomModels1[9]->pointerAddSyncedPingBt->setEnabled(toBool(savedCM10List.at(16)));
-    viewCustomModels1[9]->pointerAddVoipBt->setEnabled(toBool(savedCM10List.at(18)));
-
-    savedCM10List.clear();
-
-    }
-
 }
 

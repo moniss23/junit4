@@ -7,7 +7,7 @@
 
 #include <Maps/Traffic/DataObjects/celldata.h>
 #include <Maps/Traffic/DataObjects/handoverdata.h>
-#include <Maps/Traffic/CustomModel/custommodels.h>
+#include <Maps/Traffic/CustomModel/oldcustommodels.h>
 #include <Maps/Traffic/UeParameters/uegroupdata.h>
 #include <CommonConstans/common_constans.h>
 #include <ProjectReaderWriter/projectreaderwriter.h>

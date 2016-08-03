@@ -51,7 +51,6 @@ SOURCES += main.cpp\
     Maps/Traffic/CustomModel/addsyncedpingform.cpp \
     Maps/Traffic/CustomModel/addvoip.cpp \
     Maps/Traffic/CustomModel/addvoipform.cpp \
-    Maps/Traffic/CustomModel/custommodels.cpp \
     Maps/Traffic/Tuning/tuningtraffic.cpp \
     Maps/Traffic/Tuning/tuningtrafficform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
@@ -84,7 +83,9 @@ SOURCES += main.cpp\
     Maps/Traffic/Statistics/statisticsManager.cpp \
     Maps/Traffic/Statistics/statisticsData.cpp  \
     Data/appglobaldata.cpp \
-    ManagementWindow/ProjectManagement/importprojectwindow.cpp
+    ManagementWindow/ProjectManagement/importprojectwindow.cpp \
+    Maps/Traffic/CustomModel/customModel.cpp \
+    Maps/Traffic/CustomModel/oldcustommodels.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -124,7 +125,6 @@ HEADERS  += \
     Maps/Traffic/CustomModel/addsyncedpingform.h \
     Maps/Traffic/CustomModel/addvoip.h \
     Maps/Traffic/CustomModel/addvoipform.h \
-    Maps/Traffic/CustomModel/custommodels.h \
     Maps/Traffic/Tuning/tuningtraffic.h \
     Maps/Traffic/Tuning/tuningtrafficform.h \
     Maps/Traffic/UeParameters/ue.h \
@@ -161,7 +161,9 @@ HEADERS  += \
     dataelementsinterface.h \
     Data/serializeinterface.h \
     Data/appglobaldata.h \
-    ManagementWindow/ProjectManagement/importprojectwindow.h
+    ManagementWindow/ProjectManagement/importprojectwindow.h \
+    Maps/Traffic/CustomModel/customModel.h \
+    Maps/Traffic/CustomModel/oldcustommodels.h
 
 FORMS    += \
     Ui/parameterswindow.ui \
@@ -194,7 +196,8 @@ FORMS    += \
     Ui/managementtemplate.ui \
     Ui/timeForm.ui \
     Ui/addProjectWindow.ui \
-    Ui/statisticsForm.ui
+    Ui/statisticsForm.ui \
+    Ui/customModel.ui
 
 
 OTHER_FILES += \
