@@ -16,6 +16,15 @@ public:
     explicit Settings(AppSettings *appSettings, QWidget *parent = 0, bool secondTabActive = true);
     ~Settings();
 
+    //TODO: new API to implement
+    //***********************************************/
+signals:
+    void RestoreDefaultsSettings();
+    void SetDefaultLocationForNewProjects();
+    void SetLocationFor_RB_Files();
+    //***********************************************
+    //***********************************************/
+
 private slots:
     void on_radioButton_2_toggled(bool checked);
 
