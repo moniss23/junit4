@@ -57,10 +57,14 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
     if (item==NULL){
         return;
     }
-
-    QString text = item->text();
-    QString projectName=text.split("\t")[0];
-    emit deleteProject(projectName);
+    QMessageBox msgBox(QMessageBox::Warning,"Delete a project.","Do you really want to delete this project?\nIt will be lost forever.");
+    msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+     int ret = msgBox.exec();
+     if(ret == QMessageBox::Yes) {
+         QString text = item->text();
+         QString projectName = text.split("\t")[0];
+         emit deleteProject(projectName);
+     }
 }
 
 // "import project" button is clicked
