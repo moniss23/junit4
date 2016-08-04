@@ -348,7 +348,7 @@ void AppSettings::createNewProject(const QString &projectName, const QString & d
         projectDir.setPath(dir);
     }
 
-    projectDir.mkdir(getProjectName());
+    projectDir.mkdir(projectName);
 
     // append the settings, the name and content of parameters.rb template to project file
     QString project_content("<default>\nnormal\nParameters.rb\n0\n");
@@ -367,6 +367,9 @@ void AppSettings::createNewProject(const QString &projectName, const QString & d
     } else {
         write_project_file(projectName,project_content,dir);
     }
+
+    // store the project name in a global variable for use by other files and methods
+    setProjectName(projectName); //TODO: Should not be needed in good architecture
 
     emit currentProjects(projects);
     write_projects_file();

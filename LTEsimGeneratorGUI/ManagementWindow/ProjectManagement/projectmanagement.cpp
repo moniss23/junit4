@@ -133,9 +133,6 @@ void ProjectManagement::open_project(){
         return;
     }
 
-    //TODO: Remove this part
-    // obtain the name of the select project from the widget
-    appSettings->setProjectName(selected_item->text().split("\t")[0]);
     // obtain the project's index in projects vector
     for(unsigned int i=0; i<appSettings->projects.size(); i++){
         if(appSettings->projects[i].name==selected_item->text()){

@@ -33,7 +33,7 @@ public slots:
     void createNewProject(const QString &projectName, const QString & directory);
     void importProject(const QString &ProjectDirectory);
     void deleteProject(const QString);
-
+    void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
 
 public:
 
@@ -68,7 +68,6 @@ public:
     void setProjectFile(const QString &value);
 
     QString getProjectName() const;
-    void setProjectName(const QString &value);
 
     QDir getProjectDir() const;
     void setProjectDir(const QDir &value);

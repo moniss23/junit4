@@ -35,12 +35,11 @@ private slots:
     void on_defaultLocationRadioButton_toggled(bool checked);
 
 private:
-    QRegExp fileNameRegExp;
     const QString fileNamePattern = "^[\\w\\s-]{1,50}$";
-    QRegExpValidator fileNameValidator;
     Ui::AddProjectWindow *ui;
+    QRegExp fileNameRegExp;
+    QRegExpValidator fileNameValidator;
     AppSettings* appSettings;
-    void initFileNameValidator();
 };
 
 #endif // ADDPROJECTWINDOW_H

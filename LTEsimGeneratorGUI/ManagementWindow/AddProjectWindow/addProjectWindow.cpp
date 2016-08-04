@@ -16,26 +16,20 @@ extern bool paramFilePresent;
 
 AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::AddProjectWindow), appSettings(appSettings)
+    ui(new Ui::AddProjectWindow),
+    fileNameRegExp(fileNamePattern),
+    fileNameValidator(fileNameRegExp),
+    appSettings(appSettings)
 {
     ui->setupUi(this);
-
     this->setWindowTitle("New project");
-
-    this->ui->defaultLocationRadioButton->setChecked(true);
-    initFileNameValidator();
-    this->ui->fileName->setValidator(&fileNameValidator);
+    ui->defaultLocationRadioButton->setChecked(true);
+    ui->fileName->setValidator(&fileNameValidator);
+    fileNameValidator.setParent(ui->fileName);
 }
 
 AddProjectWindow::~AddProjectWindow() {
     delete ui;
-}
-
-void AddProjectWindow::initFileNameValidator()
-{
-    fileNameRegExp.setPattern(this->fileNamePattern);
-    fileNameValidator.setRegExp(fileNameRegExp);
-    fileNameValidator.setParent(ui->fileName);
 }
 
 // creating a new project
@@ -58,9 +52,6 @@ void AddProjectWindow::on_buttonBox_accepted()
         QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Name already in use. Choose another one.",QMessageBox::Yes).exec();
         return;
     }
-
-    // store the project name in a global variable for use by other files and methods
-    appSettings->setProjectName(ui->fileName->text());
 
     paramFilePresent=true;
 
