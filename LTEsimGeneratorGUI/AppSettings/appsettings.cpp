@@ -332,11 +332,20 @@ void AppSettings::setMapType(const QString& projectName, const QString& mapType)
  *
  */
 
-void AppSettings::createNewProject(const QString &projectName, const QString & dir) {
+void AppSettings::createNewProject(const QString &projectName, const QString & directory) {
+
+    QString dir;
+    if(directory.isEmpty()){
+       dir = getDefaultNewProjectDir();
+    } else {
+       dir = directory;
+    }
+
 
     Project new_project;
     new_project.name=projectName;
     new_project.fullpath=dir;
+
     projects.push_back(new_project);
 
     QDir projectDir;

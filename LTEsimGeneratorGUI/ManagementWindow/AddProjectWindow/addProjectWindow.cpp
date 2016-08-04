@@ -59,7 +59,7 @@ void AddProjectWindow::on_buttonBox_accepted()
         emit createNewProject(ui->fileName->text(),ui->lineEdit->text());
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
-        emit createNewProject(ui->fileName->text(),appSettings->getDefaultNewProjectDir());
+        emit createNewProject(ui->fileName->text(),QString());//empty is the default one
     }
 
     ui->fileName->clear();
