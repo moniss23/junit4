@@ -29,7 +29,6 @@ public:
     void open_file();                        // open file
     void addParamFile();
     void addTrafficFile();
-    void loadProject();
     void refreshPreview();
     void saveProject(bool);
     void setParamsCM();
@@ -53,6 +52,7 @@ signals:
 
 
 public slots:
+    void loadProjectAndOpen(const QString &projectName);
     //void updateFilesList(const Project& project);
 
     /***********************************************

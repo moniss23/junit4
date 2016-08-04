@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 namespace Ui {
-class customModel;
+class newCustomModel;
 }
 
 class customModel : public QMainWindow
@@ -18,7 +18,7 @@ public:
     void set_custom_name(QString name);
 
 private:
-    Ui::customModel *ui;
+    Ui::newCustomModel *ui;
     QString name;
 };
 

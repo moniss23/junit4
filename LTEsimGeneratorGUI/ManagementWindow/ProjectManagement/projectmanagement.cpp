@@ -16,8 +16,6 @@
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <AppSettings/appsettings.h>
 
-
-extern ParametersWindow* p;//TODO: get rid of that
 void msg(QString content);
 extern int project_index;//TODO: get rid of that
 
@@ -126,37 +124,29 @@ void ProjectManagement::addWidgetToListWidget(QListWidgetItem *new_item) {
 
 void ProjectManagement::open_project(){
 
-    QListWidgetItem* selected_item;
-
-    // check which item in the list is selected
-    if(!(this->ui->listWidget->selectedItems().isEmpty())){
-        selected_item=this->ui->listWidget->selectedItems()[0];
-    }
-    else{
-        selected_item=NULL;
+    if( ui->listWidget->selectedItems().isEmpty()){
+      return;
     }
 
-    // if some item is selected
-    if(selected_item!=NULL){
+    QListWidgetItem* selected_item = ui->listWidget->currentItem();
+    if(selected_item == NULL){
+        return;
+    }
 
-        // obtain the name of the select project from the widget
-        appSettings->setProjectName(selected_item->text().split("\t")[0]);
-
-        // obtain the project's index in projects vector
-        for(unsigned int i=0; i<appSettings->projects.size(); i++){
-            if(appSettings->projects[i].name==selected_item->text()){
-                project_index=i;
-                break;
-            }
+    //TODO: Remove this part
+    // obtain the name of the select project from the widget
+    appSettings->setProjectName(selected_item->text().split("\t")[0]);
+    // obtain the project's index in projects vector
+    for(unsigned int i=0; i<appSettings->projects.size(); i++){
+        if(appSettings->projects[i].name==selected_item->text()){
+            project_index=i;
+            break;
         }
+    }//TODO: Remove this part
 
-        this->close();
-
-        p->show();
-
-        p->loadProject();
-
-    }
+    QString projectName = selected_item->text().split("\t")[0];
+    this->close();
+    emit SpawnWindow_OpenProject(projectName);
 }
 
 // display project's files in the right view

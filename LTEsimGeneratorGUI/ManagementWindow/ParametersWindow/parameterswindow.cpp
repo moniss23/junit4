@@ -162,7 +162,7 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
 
 }
 
-void ParametersWindow::loadProject(){
+void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
     // reset the vectors
     for(std::vector<QString*>::iterator it=trafficFilesNames.begin(); it!=trafficFilesNames.end(); it++){
@@ -187,13 +187,13 @@ void ParametersWindow::loadProject(){
     int trafficFileLen;
 
     // read the project content from the project file
-    QStringList project_content=appSettings->read_project_file(appSettings->getProjectName(),appSettings->getProjectDirectory(appSettings->getProjectName()));
+    QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDirectory(projectName));
 
     // read the default location for output .rb files
     defaultLocationForRbFiles=project_content[0];
 
     // read the type of last open map
-    appSettings->setMapType(appSettings->getProjectName(), project_content[1]);
+    appSettings->setMapType(projectName, project_content[1]);
     lastOpenMap=project_content[1];
     this->ui->radioButton_normalMap->setChecked(true);
 
@@ -292,6 +292,8 @@ void ParametersWindow::loadProject(){
         this->setWindowTitle(this->windowTitle().left(this->windowTitle().length()-1));
     }
 
+
+    show();
 }
 
 void ParametersWindow::addTrafficFile()

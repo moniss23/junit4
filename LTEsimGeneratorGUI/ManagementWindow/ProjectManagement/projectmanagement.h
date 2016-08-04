@@ -32,9 +32,9 @@ public:
      ***********************************************/
 signals:
     void SpawnWindow_NewProject();
-    void SpawnWindow_OpenProject();
+    void SpawnWindow_OpenProject(const QString &ProjectName);
     void SpawnWindow_ImportProject();
-    void deleteProject(const QString &ProjectName );
+    void deleteProject(const QString &ProjectName);
     void SpawnWindow_Settings();
 
 public slots:

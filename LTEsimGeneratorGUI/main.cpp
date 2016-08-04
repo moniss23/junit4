@@ -60,15 +60,22 @@ int main(int argc, char *argv[])
     /************************************
      *    BINDING  OBJECTS  TOGETHER    *
      ************************************/
+    // Open project
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&viewParameters,SLOT(loadProjectAndOpen(QString)));
+
+    // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
     QObject::connect(&appSettings, SIGNAL(currentProjects(const std::vector<Project> &)),
                      &projectUi,   SLOT(updateProjectLists(const std::vector<Project>&)));
 
+    // Settings
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_Settings()), &settingsWindow, SLOT(exec()));
 
+    // Import Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
     QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), &appSettings, SLOT(importProject(const QString&)));
 
+    // New Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),&appSettings,SLOT(createNewProject(QString,QString)));
 
