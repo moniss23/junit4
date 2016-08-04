@@ -37,12 +37,7 @@ void LTEsimGeneratorTESTS::appSetttingsTest1_checkDefaultProjectDir()
     AppSettings appSettings;
 
     QString dir = appSettings.getDefaultNewProjectDir();
-    QCOMPARE(dir, QString());
-
-    appSettings.LoadAppData();   //TODO: This should be done in class c-tor
-    appSettings.read_settings_file();
-    QString LoadedDefaultDir = appSettings.getDefaultNewProjectDir();
-    QCOMPARE(LoadedDefaultDir, QString("<default>"));
+    QCOMPARE(dir, QString("<default>"));
 
 }
 

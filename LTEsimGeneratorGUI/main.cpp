@@ -44,7 +44,6 @@ int main(int argc, char *argv[])
      ************************************/
 
     AppSettings appSettings;
-    appSettings.read_settings_file();
 
     ProjectManagement projectUi(&appSettings);
     projectMng = &projectUi;

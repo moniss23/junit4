@@ -2,7 +2,9 @@
 #include "Data/appglobaldata.h"
 AppSettings::AppSettings()
 {
-
+  settingsFileSetup();
+  projectsFileSetup();
+  projectsDirSetup();
 }
 
 AppSettings::~AppSettings() {
@@ -10,10 +12,6 @@ AppSettings::~AppSettings() {
 }
 
 void AppSettings::LoadAppData() {
-    checkIfExistAndCreateSettingsFile();
-    checkIfExistAndCreateProjectsFile();
-    createProjectDirIfNotExist();
-    read_settings_file();
     readProjectsFile();
     testProjectsObtainedFromTheFile();
     projects_dir_content=project_dir.entryInfoList(QDir::AllDirs);
@@ -195,16 +193,18 @@ bool AppSettings::projectNameTaken(QString projectName){
 
 
 // check if the settings file exists, create it if it doesn't
-void AppSettings::checkIfExistAndCreateSettingsFile() {
+void AppSettings::settingsFileSetup() {
     settings_file.setFileName(appGlobalData.getSettingsFile());
     if(!settings_file.exists()){
         setDefaultNewProjectDir("<default>");
         write_settings_file();
+    } else {
+        read_settings_file();
     }
 }
 
 // check if the projects file exists, create it if it doesn't
-void AppSettings::checkIfExistAndCreateProjectsFile() {
+void AppSettings::projectsFileSetup() {
     projects_file.setFileName(appGlobalData.getProjectsFile());
     if(!projects_file.exists()){
         projects_file.open(QIODevice::WriteOnly);
@@ -215,7 +215,7 @@ void AppSettings::checkIfExistAndCreateProjectsFile() {
 }
 
 // create project dir if doesn't exist
-void AppSettings::createProjectDirIfNotExist() {
+void AppSettings::projectsDirSetup() {
         project_dir.mkdir(appGlobalData.getProjectsDirectory());
 }
 
@@ -298,43 +298,6 @@ QString AppSettings::getProjectDirectory(const QString &projectName){
     return it->fullpath;
 }
 
-void AppSettings::addProject(const QString& projectName, const QString& dir){
-
-    Project new_project;
-    new_project.name=projectName;
-    new_project.fullpath=dir;
-    projects.push_back(new_project);
-
-    QDir projectDir;
-
-    // if the project is to be saved in default directory
-    if(dir=="<default>"){
-        projectDir.setPath(appGlobalData.getProjectsDirectory());
-    } else {
-        projectDir.setPath(dir);
-    }
-
-    projectDir.mkdir(getProjectName());
-
-    // append the settings, the name and content of parameters.rb template to project file
-    QString project_content("<default>\nnormal\nParameters.rb\n0\n");
-    QFile param_template(":/RbFiles/parameters.rb");
-    param_template.open(QIODevice::ReadOnly);
-    QTextStream param_template_str(&param_template);
-    QString param_template_content=param_template_str.readAll();
-    project_content+=QString::number(param_template_content.split("\n").size());
-    project_content+="\n";
-    project_content+=param_template_content;
-    project_content+="\n";
-    param_template.close();
-
-    if(dir=="<default>"){
-        write_project_file(projectName,project_content, getProjectDirectory(projectName));
-    } else {
-        write_project_file(projectName,project_content,dir);
-    }
-}
-
 // recursively remove entire directory and its content
 void AppSettings::removeDirectoryRecursively(QString dir_name){
     QDir directory("projects/"+dir_name);
@@ -369,8 +332,42 @@ void AppSettings::setMapType(const QString& projectName, const QString& mapType)
  *
  */
 
-void AppSettings::createNewProject(const QString &projectName, const QString & directory) {
-    this->addProject(projectName, directory);
+void AppSettings::createNewProject(const QString &projectName, const QString & dir) {
+
+    Project new_project;
+    new_project.name=projectName;
+    new_project.fullpath=dir;
+    projects.push_back(new_project);
+
+    QDir projectDir;
+
+    // if the project is to be saved in default directory
+    if(dir=="<default>"){
+        projectDir.setPath(appGlobalData.getProjectsDirectory());
+    } else {
+        projectDir.setPath(dir);
+    }
+
+    projectDir.mkdir(getProjectName());
+
+    // append the settings, the name and content of parameters.rb template to project file
+    QString project_content("<default>\nnormal\nParameters.rb\n0\n");
+    QFile param_template(":/RbFiles/parameters.rb");
+    param_template.open(QIODevice::ReadOnly);
+    QTextStream param_template_str(&param_template);
+    QString param_template_content=param_template_str.readAll();
+    project_content+=QString::number(param_template_content.split("\n").size());
+    project_content+="\n";
+    project_content+=param_template_content;
+    project_content+="\n";
+    param_template.close();
+
+    if(dir=="<default>"){
+        write_project_file(projectName,project_content, getProjectDirectory(projectName));
+    } else {
+        write_project_file(projectName,project_content,dir);
+    }
+
     emit currentProjects(projects);
 }
 
