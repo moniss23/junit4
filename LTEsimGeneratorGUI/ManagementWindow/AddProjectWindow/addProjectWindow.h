@@ -5,6 +5,8 @@
 #include <QString>
 #include <AppSettings/appsettings.h>
 #include <QObject>
+#include <QRegExpValidator>
+#include <QRegExp>
 
 namespace Ui {
 class AddProjectWindow;
@@ -20,12 +22,7 @@ public:
 
 signals:
 
-    //TODO: new API to implement
-    //***********************************************/
     void createNewProject(const QString& projectName, const QString& directory);
-
-    //***********************************************
-    //***********************************************/
 
 private slots:
 
@@ -38,8 +35,12 @@ private slots:
     void on_defaultLocationRadioButton_toggled(bool checked);
 
 private:
+    QRegExp fileNameRegExp;
+    const QString fileNamePattern = "^[\\w\\s-]{1,50}$";
+    QRegExpValidator fileNameValidator;
     Ui::AddProjectWindow *ui;
     AppSettings* appSettings;
+    void initFileNameValidator();
 };
 
 #endif // ADDPROJECTWINDOW_H

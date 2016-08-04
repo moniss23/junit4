@@ -13,6 +13,7 @@ void msg(QString content);
 
 extern bool paramFilePresent;
 
+
 AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddProjectWindow), appSettings(appSettings)
@@ -22,19 +23,24 @@ AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
     this->setWindowTitle("New project");
 
     this->ui->defaultLocationRadioButton->setChecked(true);
+    initFileNameValidator();
+    this->ui->fileName->setValidator(&fileNameValidator);
 }
 
-AddProjectWindow::~AddProjectWindow() {delete ui;}
+AddProjectWindow::~AddProjectWindow() {
+    delete ui;
+}
 
+void AddProjectWindow::initFileNameValidator()
+{
+    fileNameRegExp.setPattern(this->fileNamePattern);
+    fileNameValidator.setRegExp(fileNameRegExp);
+    fileNameValidator.setParent(ui->fileName);
+}
 
 // creating a new project
 void AddProjectWindow::on_buttonBox_accepted()
 {
-    // alert the user if some data has not been entered
-    if(this->ui->fileName->text().length()==0) {  //TODO: better set validator in ui->fileName control
-        msg("You must enter the project's name.");
-        return;
-    }
     if(this->ui->customLocationRadioButton->isChecked() && this->ui->lineEdit->text().length()==0) {
         msg("You must specify the project's location.");
         return;
@@ -47,32 +53,9 @@ void AddProjectWindow::on_buttonBox_accepted()
         }
     }
 
-    QString illegal_chars("<>:\"/\\|?*");//TODO: better set validator in ui->fileName control
-
     // check if the name is unique, display alert if it's not
     if(appSettings->projectNameTaken(this->ui->fileName->text())) {
         QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Name already in use. Choose another one.",QMessageBox::Yes).exec();
-        return;
-    }
-
-    // assure that the name is legal
-    bool name_legal=true;  //TODO: better set validator in ui->fileName control
-    QString chars_detected("");
-    for(int i=0; i<illegal_chars.length(); i++) {
-        if(this->ui->fileName->text().contains(illegal_chars[i])) {
-            if(name_legal) {
-                name_legal=false;
-            }
-            chars_detected.append(illegal_chars[i]);
-        }
-    }
-    if(!name_legal) {//TODO: not needed if validator is set
-        if(chars_detected.length()==1) {
-            QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal character: "+chars_detected,QMessageBox::Yes).exec();
-        }
-        else {
-            QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal characters:\n"+chars_detected,QMessageBox::Yes).exec();
-        }
         return;
     }
 
@@ -81,14 +64,13 @@ void AddProjectWindow::on_buttonBox_accepted()
 
     paramFilePresent=true;
 
-
     if(this->ui->customLocationRadioButton->isChecked()) {
         emit createNewProject(ui->fileName->text(),ui->lineEdit->text());
     }
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
         emit createNewProject(ui->fileName->text(),appSettings->getDefaultNewProjectDir());
     }
-    appSettings->write_projects_file();//TODO: this should not be needed, it's AppSettings internal logic to keep projects
+
     ui->fileName->clear();
     this->close();
 }

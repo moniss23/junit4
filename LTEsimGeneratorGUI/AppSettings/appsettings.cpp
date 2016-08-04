@@ -369,6 +369,7 @@ void AppSettings::createNewProject(const QString &projectName, const QString & d
     }
 
     emit currentProjects(projects);
+    write_projects_file();
 }
 
 
