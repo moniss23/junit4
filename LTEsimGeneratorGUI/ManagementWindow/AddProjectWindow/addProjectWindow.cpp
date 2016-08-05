@@ -6,20 +6,16 @@
 #include <QTextStream>
 #include <QFileDialog>
 
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <ManagementWindow/ProjectManagement/projectmanagement.h>
-
 void msg(QString content);
 
 extern bool paramFilePresent;
 
 
-AddProjectWindow::AddProjectWindow(AppSettings *appSettings, QWidget *parent) :
+AddProjectWindow::AddProjectWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddProjectWindow),
     fileNameRegExp(fileNamePattern),
-    fileNameValidator(fileNameRegExp),
-    appSettings(appSettings)
+    fileNameValidator(fileNameRegExp)
 {
     ui->setupUi(this);
     this->setWindowTitle("New project");
@@ -47,12 +43,6 @@ void AddProjectWindow::on_buttonBox_accepted()
         }
     }
 
-    // check if the name is unique, display alert if it's not
-    if(appSettings->projectNameTaken(this->ui->fileName->text())) {
-        QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Name already in use. Choose another one.",QMessageBox::Yes).exec();
-        return;
-    }
-
     paramFilePresent=true;
 
     if(this->ui->customLocationRadioButton->isChecked()) {
@@ -61,9 +51,7 @@ void AddProjectWindow::on_buttonBox_accepted()
     else if(this->ui->defaultLocationRadioButton->isChecked()) {
         emit createNewProject(ui->fileName->text(),QString());//empty is the default one
     }
-
     ui->fileName->clear();
-    this->close();
 }
 
 void AddProjectWindow::on_buttonBox_rejected() {this->close();}
@@ -89,4 +77,11 @@ void AddProjectWindow::on_defaultLocationRadioButton_toggled(bool checked)
     }
 }
 
+void AddProjectWindow::showErrorWindow(const QString& errorMessage) {
+    QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI",errorMessage,QMessageBox::Yes).exec();
+    return;
+}
 
+void AddProjectWindow::closeWindow() {
+    this->close();
+}

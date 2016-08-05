@@ -3,7 +3,6 @@
 
 #include <QDialog>
 #include <QString>
-#include <AppSettings/appsettings.h>
 #include <QObject>
 #include <QRegExpValidator>
 #include <QRegExp>
@@ -17,12 +16,16 @@ class AddProjectWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit AddProjectWindow(AppSettings* appSettings, QWidget *parent = 0);
+    explicit AddProjectWindow(QWidget *parent = 0);
     ~AddProjectWindow();
 
 signals:
 
     void createNewProject(const QString& projectName, const QString& directory);
+
+public slots:
+    void showErrorWindow(const QString& errorMessage);
+    void closeWindow();
 
 private slots:
 
@@ -39,7 +42,6 @@ private:
     Ui::AddProjectWindow *ui;
     QRegExp fileNameRegExp;
     QRegExpValidator fileNameValidator;
-    AppSettings* appSettings;
 };
 
 #endif // ADDPROJECTWINDOW_H

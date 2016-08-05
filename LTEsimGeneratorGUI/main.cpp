@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
     p = &viewParameters;
 
     ImportProjectWindow importProject;
-    AddProjectWindow addProjectWindow(&appSettings);
+    AddProjectWindow addProjectWindow;
 
     /************************************
      *    BINDING  OBJECTS  TOGETHER    *
@@ -79,8 +79,8 @@ int main(int argc, char *argv[])
     // New Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),&appSettings,SLOT(createNewProject(QString,QString)));
-
-    //QObject::connect(&appSettings,SIGNAL(errorInData(QString)), );  TODO: IMPLEMENT
+    QObject::connect(&appSettings,SIGNAL(errorInData(QString)), &addProjectWindow, SLOT(showErrorWindow(QString)));
+    QObject::connect(&appSettings, SIGNAL(currentProjects(std::vector<Project>)), &addProjectWindow, SLOT(closeWindow()));
 
     /************************************
      * LOAD DATA AND SHOW GUI INTERFACE *

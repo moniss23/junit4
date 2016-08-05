@@ -334,6 +334,11 @@ void AppSettings::setMapType(const QString& projectName, const QString& mapType)
 
 void AppSettings::createNewProject(const QString &projectName, const QString & directory) {
 
+    if(projectNameTaken(projectName)) {
+        emit errorInData("Name already in use. Choose another one.");
+        return;
+    }
+
     QString dir;
     if(directory.isEmpty()){
        dir = getDefaultNewProjectDir();
@@ -383,7 +388,6 @@ void AppSettings::createNewProject(const QString &projectName, const QString & d
     emit currentProjects(projects);
     write_projects_file();
 }
-
 
 
 /*
