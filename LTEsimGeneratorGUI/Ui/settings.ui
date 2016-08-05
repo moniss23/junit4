@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QTabWidget" name="tabWidget">
+  <widget class="QTabWidget" name="settingsTabs">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -25,11 +25,11 @@
    <property name="currentIndex">
     <number>1</number>
    </property>
-   <widget class="QWidget" name="tab">
+   <widget class="QWidget" name="globalTab">
     <attribute name="title">
      <string>Global</string>
     </attribute>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="globalTabText">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -42,7 +42,7 @@
       <string>Default location for newly created projects:</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton">
+    <widget class="QRadioButton" name="programsDirRadioButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -55,7 +55,7 @@
       <string>Program's directory</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_2">
+    <widget class="QRadioButton" name="globalCustomDirRadioButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -68,7 +68,7 @@
       <string>Custom:</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="globalDirInput">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -78,7 +78,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="globalBrowseButton">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -91,7 +91,7 @@
       <string>Browse</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="globalDefaultButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -105,11 +105,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_2">
+   <widget class="QWidget" name="projectTab">
     <attribute name="title">
      <string>Project</string>
     </attribute>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="projectTabText">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -122,12 +122,12 @@
       <string>Location for generated .rb files:</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_3">
+    <widget class="QRadioButton" name="projectsDirRadioButton">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>50</y>
-       <width>151</width>
+       <width>191</width>
        <height>22</height>
       </rect>
      </property>
@@ -135,12 +135,12 @@
       <string>Project's directory (default)</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_4">
+    <widget class="QRadioButton" name="projectCustomDirRadioButton">
      <property name="geometry">
       <rect>
        <x>20</x>
        <y>80</y>
-       <width>61</width>
+       <width>71</width>
        <height>22</height>
       </rect>
      </property>
@@ -148,7 +148,7 @@
       <string>Custom:</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
+    <widget class="QLineEdit" name="projectDirInput">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -158,7 +158,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="projectBrowseButton">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -171,7 +171,7 @@
       <string>Browse</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_5">
+    <widget class="QRadioButton" name="echaScriptIndividualDirRadioButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -184,7 +184,7 @@
       <string>Ask individually each time</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="projectDefaultButton">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -199,7 +199,7 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="OKButton">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -212,7 +212,7 @@
     <string>OK</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_4">
+  <widget class="QPushButton" name="cancelButton">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -225,7 +225,7 @@
     <string>Cancel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="applyButton">
    <property name="geometry">
     <rect>
      <x>230</x>

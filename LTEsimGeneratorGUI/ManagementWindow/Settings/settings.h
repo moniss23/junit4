@@ -26,27 +26,29 @@ signals:
     //***********************************************/
 
 private slots:
-    void on_radioButton_2_toggled(bool checked);
+    void on_globalCustomDirRadioButton_toggled(bool checked);
 
-    void on_radioButton_4_toggled(bool checked);
+    void on_projectCustomDirRadioButton_toggled(bool checked);
 
-    void on_pushButton_3_clicked();
+    void on_okButton_clicked();
 
-    void on_pushButton_4_clicked();
+    void on_cancelButton_clicked();
 
-    void on_pushButton_clicked();
+    void on_globalBrowseButton_clicked();
 
-    void on_pushButton_5_clicked();
+    void on_applyButton_clicked();
 
-    void on_pushButton_7_clicked();
+    void on_globalDefaultButton_clicked();
 
-    void on_pushButton_6_clicked();
+    void on_projectDefaultButton_clicked();
 
-    void on_lineEdit_textChanged(const QString &arg1);
+    void on_globalDirInput_textChanged(const QString &arg1);
 
-    void on_pushButton_2_clicked();
+    void on_projectBrowseButton_clicked();
 
     void apply_settings();
+
+    void on_radioButton_clicked();
 
 private:
     Ui::Settings *ui;
