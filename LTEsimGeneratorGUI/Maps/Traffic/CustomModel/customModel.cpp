@@ -4,7 +4,7 @@
 
 customModel::customModel(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::newCustomModel)
+    ui(new Ui::customModel)
 {
     ui->setupUi(this);
 }

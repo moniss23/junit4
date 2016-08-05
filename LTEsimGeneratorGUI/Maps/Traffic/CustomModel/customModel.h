@@ -4,7 +4,7 @@
 #include <QMainWindow>
 
 namespace Ui {
-class newCustomModel;
+class customModel;
 }
 
 class customModel : public QMainWindow
@@ -35,7 +35,7 @@ private slots:
     void on_checkBoxServiceReq_clicked();
 
 private:
-    Ui::newCustomModel *ui;
+    Ui::customModel *ui;
     QString name;
 };
 
