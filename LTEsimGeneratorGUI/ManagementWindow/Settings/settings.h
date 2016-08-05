@@ -48,8 +48,6 @@ private slots:
 
     void apply_settings();
 
-    void on_radioButton_clicked();
-
 private:
     Ui::Settings *ui;
     bool changesMade;
