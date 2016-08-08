@@ -2,7 +2,6 @@
 #define FILEMANAGER_H
 
 #include <QFile>
-#include <QString>
 #include <QByteArray>
 #include <QDataStream>
 

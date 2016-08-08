@@ -84,7 +84,7 @@ SOURCES += main.cpp\
     ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     Maps/Traffic/CustomModel/customModel.cpp \
     Maps/Traffic/CustomModel/oldcustommodels.cpp \
-    FileManager/filemanager.cpp \
+    Data/filemanager.cpp \
     Data/cell.cpp \
     Data/center.cpp \
     Data/handover.cpp
@@ -163,7 +163,7 @@ HEADERS  += \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/CustomModel/oldcustommodels.h \
-    FileManager/filemanager.h \
+    Data/filemanager.h \
     Data/cell.h \
     Data/center.h \
     Data/handover.h

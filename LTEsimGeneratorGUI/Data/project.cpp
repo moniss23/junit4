@@ -7,11 +7,13 @@ QString Project::getElementType() const
 
 QByteArray Project::serializeData()
 {
-    QByteArray serializedData;
-    QDataStream stream(serializedData);
+    QBuffer serializedData;
+    serializedData.open(QBuffer::WriteOnly);
+
+    QDataStream stream(&serializedData);
     stream << name << fullpath << rbOutputDir << chosenMapType;
 
-    return serializedData;
+    return serializedData.buffer();
 }
 
 void Project::deserializeData(const QByteArray &rawData)

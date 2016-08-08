@@ -1,12 +1,13 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
+#include <QBuffer>
 #include <QDataStream>
 #include <QListWidgetItem>
-#include <Data/cell.h>
-#include <Data/handover.h>
-#include <Data/center.h>
 
+#include <Data/cell.h>
+#include <Data/center.h>
+#include <Data/handover.h>
 #include <Data/serializeinterface.h>
 
 class Project : public SerializeInterface
