@@ -438,12 +438,12 @@ void AppSettings::setProjectDir(const QDir &value)
 
 QString AppSettings::getDefaultNewProjectDir() const
 {
-    return defaultNewProjectDir;
+    return appGlobalData.getDefaultNewProjectsPath();
 }
 
 void AppSettings::setDefaultNewProjectDir(const QString &value)
 {
-    defaultNewProjectDir = value;
+    appGlobalData.setDefaultNewProjectsPath(value);
 }
 
 QDir AppSettings::getProject_dir() const

@@ -11,6 +11,9 @@ class AppGlobalData
 public:
     AppGlobalData();
 
+    void setDefaultNewProjectsPath(const QString &value);
+    const QString getDefaultNewProjectsPath() const;
+
     QString getParameterFile() const;
 
     QString getProjectsDirectory() const;
@@ -24,7 +27,7 @@ public:
 
 private:
 
-
+    QString defaultNewProjectsPath;
     const QString proFileExt = ".proj";
     const QString settingsFile = "settings.dat";
     const QString projectsFile = "projects.dat";

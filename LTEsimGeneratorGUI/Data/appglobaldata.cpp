@@ -1,8 +1,19 @@
 #include "appglobaldata.h"
 
-AppGlobalData::AppGlobalData()
+AppGlobalData::AppGlobalData():
+    defaultNewProjectsPath("<default>")
 {
 
+}
+
+void AppGlobalData::setDefaultNewProjectsPath(const QString &value)
+{
+  defaultNewProjectsPath = value;
+}
+
+const QString AppGlobalData::getDefaultNewProjectsPath() const
+{
+  return defaultNewProjectsPath;
 }
 
 /*
