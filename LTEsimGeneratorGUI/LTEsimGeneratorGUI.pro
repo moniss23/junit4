@@ -13,6 +13,7 @@ TARGET = LTEsimGeneratorGUI
 TEMPLATE = app
 
 CONFIG   += c++11
+CONFIG   += qtestlib
 
 SOURCES += main.cpp\
     ManagementWindow/ParametersWindow/parameterswindow.cpp \
