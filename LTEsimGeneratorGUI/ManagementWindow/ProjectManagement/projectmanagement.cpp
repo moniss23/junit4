@@ -1,20 +1,8 @@
 #include "projectmanagement.h"
 #include "ui_projectmanagement.h"
 
-#include <QFile>
-#include <QDir>
-#include <vector>
-#include <QTextStream>
-#include <QListWidget>
-#include <QString>
 #include <QStringList>
-#include <QFileInfoList>
-#include <QFileInfo>
 #include <QMessageBox>
-
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <AppSettings/appsettings.h>
 
 extern int project_index;//TODO: get rid of that
 
@@ -117,9 +105,6 @@ void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
 /***********************************************
 *   OLD LOGIC CODE HERE, TODO: DISPOSE
 ***********************************************/
-void ProjectManagement::addWidgetToListWidget(QListWidgetItem *new_item) {
-    this->ui->listWidget->addItem(new_item);
-}
 
 void ProjectManagement::open_project(){
 

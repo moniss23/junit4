@@ -2,12 +2,9 @@
 #define PROJECTMANAGEMENT_H
 
 #include <QMainWindow>
-#include <QListWidget>
-#include <QListWidgetItem>
 #include <QString>
-#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
-#include "AppSettings/appsettings.h"
 
+#include "AppSettings/appsettings.h"
 
 namespace Ui {
 class ProjectManagement;
@@ -26,7 +23,6 @@ public:
 
     //TODO: delete this public functions as soon as possible
     QListWidgetItem* getCurrentItem();
-    void addWidgetToListWidget(QListWidgetItem* new_item);
     void previewProjectFiles(QListWidgetItem* item);
 
 
@@ -38,20 +34,24 @@ signals:
      * @brief SpawnWindow_NewProject
      */
     void SpawnWindow_NewProject();
+
     /**
      * @brief SpawnWindow_OpenProject
      * @param ProjectName
      */
     void SpawnWindow_OpenProject(const QString &ProjectName);
+
     /**
      * @brief SpawnWindow_ImportProject
      */
     void SpawnWindow_ImportProject();
+
     /**
      * @brief deleteProject
      * @param ProjectName
      */
     void deleteProject(const QString &ProjectName);
+
     /**
      * @brief SpawnWindow_Settings
      */
