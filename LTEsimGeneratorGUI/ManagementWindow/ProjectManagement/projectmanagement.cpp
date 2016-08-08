@@ -16,7 +16,6 @@
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <AppSettings/appsettings.h>
 
-void msg(QString content);
 extern int project_index;//TODO: get rid of that
 
 

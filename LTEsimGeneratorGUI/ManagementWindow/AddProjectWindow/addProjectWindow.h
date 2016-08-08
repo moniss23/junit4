@@ -22,9 +22,9 @@ public:
     ~AddProjectWindow();
 
 
-    /*****************************
-     *        CLASS     API      *
-     *****************************/
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
 signals:
     /**
      * @brief createNewProject signal used to notify application of new project request
@@ -32,7 +32,6 @@ signals:
      * @param directory QString with new project directory
      */
     void createNewProject(const QString& projectName, const QString& directory);
-
 
 public slots:
     /**
@@ -42,15 +41,19 @@ public slots:
     void showErrorWindow(const QString& errorMessage);
 
 
-    /*****************************
-     *    INTERNAL CLASS LOGIC   *
-     *****************************/
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
 private slots:
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();
     void on_browseDirectoryButton_clicked();
     void on_defaultLocationRadioButton_toggled(bool checked);
 
+
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
     Ui::AddProjectWindow *ui;                ///< GUI form pointer
     const QString         fileNamePattern = "^[\\w\\s-]{1,50}$"; ///< Regular expression rules
