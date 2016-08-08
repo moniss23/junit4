@@ -21,10 +21,6 @@ const unsigned int cellCount = 12;
 const unsigned int handoverCount = 21;
 const unsigned int centerCount = 12;
 
-cellName cellNames[cellCount];
-centerName centerNames[centerCount];
-handoverName handoverNames[handoverCount];
-
 ParametersWindow *p;
 ProjectManagement *projectMng;
 std::vector<QString*> trafficFilesNames;

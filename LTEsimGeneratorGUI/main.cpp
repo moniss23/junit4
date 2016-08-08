@@ -5,10 +5,12 @@
 #include <QListWidgetItem>
 
 #include "AppSettings/appsettings.h"
+#include "ManagementWindow/ProjectManagement/projectmanagement.h"
+#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
+#include "ManagementWindow/ProjectManagement/importprojectwindow.h"
+
 #include "ManagementWindow/Settings/settings.h"
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
-#include "ManagementWindow/ProjectManagement/projectmanagement.h"
-#include "ManagementWindow/ProjectManagement/importprojectwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Traffic/map_traffic.h"
 #include "Data/appglobaldata.h"
@@ -17,10 +19,6 @@
 const unsigned int cellCount = 12;
 const unsigned int handoverCount = 21;
 const unsigned int centerCount = 12;
-
-cellName cellNames[cellCount];
-centerName centerNames[centerCount];
-handoverName handoverNames[handoverCount];
 
 ParametersWindow *p;
 ProjectManagement *projectMng;
