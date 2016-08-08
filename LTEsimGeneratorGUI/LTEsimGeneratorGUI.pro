@@ -85,7 +85,8 @@ SOURCES += main.cpp\
     Data/appglobaldata.cpp \
     ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     Maps/Traffic/CustomModel/customModel.cpp \
-    Maps/Traffic/CustomModel/oldcustommodels.cpp
+    Maps/Traffic/CustomModel/oldcustommodels.cpp \
+    FileManager/filemanager.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -163,7 +164,8 @@ HEADERS  += \
     Data/appglobaldata.h \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
-    Maps/Traffic/CustomModel/oldcustommodels.h
+    Maps/Traffic/CustomModel/oldcustommodels.h \
+    FileManager/filemanager.h
 
 FORMS    += \
     Ui/parameterswindow.ui \
