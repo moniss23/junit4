@@ -426,6 +426,14 @@ void AppSettings::setProjectName(const QString &value)
     projectName = value;
 }
 
+void AppSettings::addToProject_TrafficFile(const QString &ProjectName)
+{
+    (void) ProjectName;
+    //find project
+    //add new traffic file
+    //emit signal currentProjectChanged(const Project &current);
+}
+
 QDir AppSettings::getProjectDir() const
 {
     return projectDir;

@@ -290,6 +290,21 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     show();
 }
 
+void ParametersWindow::updateFilesList(const Project &project)
+{
+  currentProject = project;
+
+  this->setWindowTitle(project.name);
+
+//  for(auto &&it:project.files){
+//      new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->projectsList);
+//  }
+
+  // if (ui->projectsList  size > 0 ) select first , then by automatic action:
+  //preview will be triggered (   this->ui->filePreview->setText(<first file> );)
+
+}
+
 void ParametersWindow::addTrafficFile()
 {
     QString new_file_name;
@@ -304,6 +319,7 @@ void ParametersWindow::addTrafficFile()
         this->ui->projectsList->addItem("<none>");
     }
 
+
     // generate unique file name
     while(!name_unique){
         new_file_name="Traffic_"+QString::number(i)+".rb";
@@ -316,6 +332,9 @@ void ParametersWindow::addTrafficFile()
         }
         i++;
     }
+
+
+
     nrOfTrafficFiles++;
 
     trafficFilesNames.push_back(new QString(new_file_name));
@@ -341,24 +360,6 @@ void ParametersWindow::addTrafficFile()
         changesPresent=true;
         this->setWindowTitle(this->windowTitle()+"*");
     }
-}
-
-void ParametersWindow::open_file()
-{
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Otwórz..."), "/home/", tr("Pliki rb ( *.rb)"));
-    QFile file1(fileName);
-    if(!file1.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;              // if coudn't open file: stop loading file
-
-    text1.clear();
-
-    QTextStream stream(&file1);
-
-    // read all files
-    text1 = stream.readAll();
-    ui->filePreview->insertPlainText(text1);
-    file1.close();
-
 }
 
 ParametersWindow::~ParametersWindow()
@@ -570,6 +571,8 @@ void ParametersWindow::on_addTrafficButton_clicked()
     fileAdditionInProgress=true;
     this->addTrafficFile();
     fileAdditionInProgress=false;
+
+    emit AddFile_Traffic(currentProject.name);
 }
 
 // "remove file" button clicked

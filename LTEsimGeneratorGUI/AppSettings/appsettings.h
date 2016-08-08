@@ -25,15 +25,24 @@ public:
 
 signals:
     void currentProjects(const std::vector<Project> &projects);
+    void currentProjectChanged(const Project &current);
     void errorInData(const QString& errorDescription);
 
 public slots:
 
     void LoadAppData();
+    //----------PROJECTS---------------//
     void createNewProject(const QString &projectName, const QString & directory);
     void importProject(const QString &ProjectDirectory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
+    //----------PROJECT TRAFFIC FILES--//
+    void addToProject_TrafficFile(const QString &ProjectName);
+
+
+
+
+
 
 public:
 

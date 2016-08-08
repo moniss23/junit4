@@ -26,19 +26,5 @@ public:
     virtual void deserializeData(const QByteArray &rawData);
 };
 
-struct cellName{
-    Cell* obj;
-    QString name;
-};
-
-struct centerName{
-    Center* obj;
-    QString name;
-};
-
-struct handoverName{
-    Handover* obj;
-    QString name;
-};
 
 #endif // PROJECT_H

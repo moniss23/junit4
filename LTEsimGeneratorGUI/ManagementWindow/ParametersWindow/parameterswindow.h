@@ -25,15 +25,12 @@ class ParametersWindow : public QMainWindow
 public:
     explicit ParametersWindow(AppSettings *appSettings, QWidget *parent = 0);
     ~ParametersWindow();
-    void closeEvent(QCloseEvent *);
-    void open_file();                        // open file
-    void addParamFile();
-    void addTrafficFile();
-    void refreshPreview();
-    void saveProject(bool);
-    void setParamsCM();
 
-    void setFileDialogAppSettings(AppSettings *value);
+
+    void closeEvent(QCloseEvent *);//TODO: Check - remove or move to private
+    void addTrafficFile();//TODO: Check - remove or move to private
+    void refreshPreview();//TODO: Check - remove or move to private
+    void saveProject(bool);//TODO: Check - remove or move to private
 
 
     /***********************************************
@@ -46,14 +43,26 @@ signals:
     void SpawnWindow_Settings();
     void SpawnWindow_RenameFile(const QString& filename);
     void SpawnWindow_RemoveFile(const QString& filename);
-    void AddFile_Traffic();
+    /**
+     * @brief AddFile_Traffic signal used to nofity system to add new traffic file
+     * @param ProjectName name of project to add a new file
+     */
+    void AddFile_Traffic(const QString &ProjectName);
     void GenerateFile();
     void SaveFile();
 
 
 public slots:
     void loadProjectAndOpen(const QString &projectName);
-    //void updateFilesList(const Project& project);
+
+    /**
+     * @brief updateFilesList is used when window needs to refresh state
+     *
+     * @param project project that changed
+     */
+    void updateFilesList(const Project& project);//To refresh view when anyting changes
+
+
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS AND LISTS
@@ -102,6 +111,8 @@ private:
     Ui::ParametersWindow *ui;
     HelpDialog viewHelp;
     AppSettings *appSettings;
+
+    Project currentProject;
 };
 
 #endif // PARAMETERSWINDOW_H

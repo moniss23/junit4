@@ -12,10 +12,6 @@ extern const unsigned int cellCount=12;
 extern const unsigned int handoverCount=21;
 extern const unsigned int centerCount=12;
 
-extern cellName cellNames[cellCount];
-extern centerName centerNames[centerCount];
-extern handoverName handoverNames[handoverCount];
-
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
