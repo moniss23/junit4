@@ -27,9 +27,9 @@ SOURCES += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/Settings/settings.cpp \
-    ../LTEsimGeneratorGUI/Maps/MapObjects/cell.cpp \
-    ../LTEsimGeneratorGUI/Maps/MapObjects/center.cpp \
-    ../LTEsimGeneratorGUI/Maps/MapObjects/handover.cpp \
+    ../LTEsimGeneratorGUI/Data/cell.cpp \
+    ../LTEsimGeneratorGUI/Data/center.cpp \
+    ../LTEsimGeneratorGUI/Data/handover.cpp \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodel.cpp \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodelform.cpp \
     ../LTEsimGeneratorGUI/Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
@@ -103,9 +103,9 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.h \
     ../LTEsimGeneratorGUI/ManagementWindow/Settings/settings.h \
-    ../LTEsimGeneratorGUI/Maps/MapObjects/cell.h \
-    ../LTEsimGeneratorGUI/Maps/MapObjects/center.h \
-    ../LTEsimGeneratorGUI/Maps/MapObjects/handover.h \
+    ../LTEsimGeneratorGUI/Data/cell.h \
+    ../LTEsimGeneratorGUI/Data/center.h \
+    ../LTEsimGeneratorGUI/Data/handover.h \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodel.h \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodelform.h \
     ../LTEsimGeneratorGUI/Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \

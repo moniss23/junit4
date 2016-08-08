@@ -3,9 +3,9 @@
 
 #include <QDataStream>
 #include <QListWidgetItem>
-#include <Maps/MapObjects/cell.h>
-#include <Maps/MapObjects/handover.h>
-#include <Maps/MapObjects/center.h>
+#include <Data/cell.h>
+#include <Data/handover.h>
+#include <Data/center.h>
 
 #include <Data/serializeinterface.h>
 

@@ -20,9 +20,6 @@ SOURCES += main.cpp\
     ManagementWindow/Helpdialog/helpdialog.cpp \
     ManagementWindow/ProjectManagement/projectmanagement.cpp \
     ManagementWindow/Settings/settings.cpp \
-    Maps/MapObjects/cell.cpp \
-    Maps/MapObjects/center.cpp \
-    Maps/MapObjects/handover.cpp \
     Maps/Parameters/ChannelModel/channelmodel.cpp \
     Maps/Parameters/ChannelModel/channelmodelform.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
@@ -87,16 +84,16 @@ SOURCES += main.cpp\
     ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     Maps/Traffic/CustomModel/customModel.cpp \
     Maps/Traffic/CustomModel/oldcustommodels.cpp \
-    FileManager/filemanager.cpp
+    FileManager/filemanager.cpp \
+    Data/cell.cpp \
+    Data/center.cpp \
+    Data/handover.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
     ManagementWindow/Helpdialog/helpdialog.h \
     ManagementWindow/ProjectManagement/projectmanagement.h \
     ManagementWindow/Settings/settings.h \
-    Maps/MapObjects/cell.h \
-    Maps/MapObjects/center.h \
-    Maps/MapObjects/handover.h \
     Maps/Parameters/ChannelModel/channelmodel.h \
     Maps/Parameters/ChannelModel/channelmodelform.h \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \
@@ -166,7 +163,10 @@ HEADERS  += \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/CustomModel/oldcustommodels.h \
-    FileManager/filemanager.h
+    FileManager/filemanager.h \
+    Data/cell.h \
+    Data/center.h \
+    Data/handover.h
 
 
 FORMS    += \

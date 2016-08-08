@@ -1,59 +1,57 @@
-#include "center.h"
+#include "Data/handover.h"
+
 #include "QFile"
 #include <QTextStream>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
+
 extern QStringList parametersFileContentList;
 
-Center::Center()
+
+
+Handover::Handover()
 {
 }
-Center::Center(QString name){
+Handover::Handover(QString name){
     area = name;
     setParams();
 }
 
-Center::~Center()
+Handover::~Handover()
 {
 
 }
-QString Center::getArea(){
+QString Handover::getArea(){
     return area;
 }
-
-QString Center::getEastBoundary(){
+QString Handover::getEastBoundary(){
     return QString::number(eastBoundary);
 }
-
-QString Center::getNorthBoundary(){
+QString Handover::getNorthBoundary(){
     return QString::number(northBoundary);
 }
-QString Center::getSouthBoundary(){
+QString Handover::getSouthBoundary(){
     return QString::number(southBoundary);
 }
-QString Center::getWestBoundary(){
+QString Handover::getWestBoundary(){
     return QString::number(westBoundary);
 }
-
-void Center::setArea(QString value)
-{
-    area= value;
-}
-void Center::setEastBoundary(QString e){
+void Handover::setEastBoundary(QString e){
     eastBoundary=e.toInt();
 }
-void Center::setNorthBoundary(QString n){
+
+void Handover::setNorthBoundary(QString n){
     northBoundary=n.toInt();
 }
-void Center::setSouthBoundary(QString s){
+void Handover::setSouthBoundary(QString s){
     southBoundary=s.toInt();
 }
-void Center::setWestBoundary(QString w){
+void Handover::setWestBoundary(QString w){
     westBoundary=w.toInt();
 }
 
-void Center::setParams(){
-    QString name_search = ":area => \"" +area;
+void Handover::setParams(){
+    QString name_search = ":area => \"" +area + "\""+",";
     tabParams = new QString [5];
     for( int i=0; i<parametersFileContentList.size(); i++){
         if(parametersFileContentList[i].contains(name_search)){
@@ -64,28 +62,25 @@ void Center::setParams(){
             tabParams[4] = parametersFileContentList[i+4].trimmed();
         }
     }
-
     QStringList list;
     for (int i=0; i<5; i++)
     {
-        list = tabParams[i].split(" ");
-        if (list.size() > 3){
-            tabParams[i] = list[2];
-            list[3].remove(",");
-            new_name_area = list[3].remove("\"");
-        }
+        list = tabParams[i].split(" ", QString::SkipEmptyParts);
         tabParams[i]= list[2];
         tabParams[i].remove(QChar('"'));
         tabParams[i].remove(QChar(','));
-
+        tabParams[i].remove(QChar(','));
     }
+
     area = tabParams[0];
     southBoundary = tabParams[1].toInt();
     northBoundary = tabParams[2].toInt();
     westBoundary = tabParams[3].toInt();
     eastBoundary = tabParams[4].toInt();
 }
-void Center::resetParams()
+
+
+void Handover::resetParams()
 {
     QString fileName = ":/RbFiles/parameters.rb";
     QFile file1(fileName);
@@ -100,8 +95,7 @@ void Center::resetParams()
         text1 = stream.readLine();
         fileParameters << text1.trimmed();
    }
-
-    QString name_search = ":area => \"" +area;
+    QString name_search = ":area => \"" +area + "\""+",";
     tabParams = new QString [5];
     for( int i=0; i<fileParameters.size(); i++){
         if(fileParameters[i].contains(name_search)){
@@ -115,25 +109,17 @@ void Center::resetParams()
     QStringList list;
     for (int i=0; i<5; i++)
     {
-        list = tabParams[i].split(" ");
+        list = tabParams[i].split(" ", QString::SkipEmptyParts);
         tabParams[i]= list[2];
         tabParams[i].remove(QChar('"'));
         tabParams[i].remove(QChar(','));
+        tabParams[i].remove(QChar(','));
     }
-    new_name_area = "";
+
     area = tabParams[0];
     southBoundary = tabParams[1].toInt();
     northBoundary = tabParams[2].toInt();
     westBoundary = tabParams[3].toInt();
     eastBoundary = tabParams[4].toInt();
-}
-QString Center::getNew_name_area() const
-{
-    return new_name_area;
-}
 
-void Center::setNew_name_area(const QString &value)
-{
-    new_name_area = value;
 }
-

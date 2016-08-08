@@ -1,4 +1,5 @@
-#include "cell.h"
+#include "Data/cell.h"
+
 #include <QString>
 #include <QFile>
 #include <QTextStream>

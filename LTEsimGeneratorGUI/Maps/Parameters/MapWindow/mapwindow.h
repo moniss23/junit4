@@ -5,9 +5,9 @@
 #include <QList>
 #include <QMessageBox>
 
-#include <Maps/MapObjects/cell.h>
-#include <Maps/MapObjects/center.h>
-#include <Maps/MapObjects/handover.h>
+#include <Data/cell.h>
+#include <Data/center.h>
+#include <Data/handover.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
