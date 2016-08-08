@@ -53,6 +53,8 @@ void msg(QString content);
 QString text1;              // tekst znajdujący się w polu tekstowym
 QString pattern;      // tekst, który zamienimy na inny
 
+#include <QDebug> //THIS WILL STAY TILL THE END OF REFACTOR
+
 void ParametersWindow::switch_button_state_undo(bool available){
     this->ui->undoButton->setEnabled(available);
 }
@@ -91,13 +93,6 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
 
     this->ui->radioButton_normalMap->setChecked(true);
 
-    // read in the default values for parameters.rb
-    parametersFileContentDefault = appSettings->readParametersFile();
-
-    parametersFileContentDefaultList=parametersFileContentDefault.split("\n");
-
-    appSettings->setMapType(appSettings->getProjectName(), "normal");
-    changesPresent=true;
 }
 
 void ParametersWindow::closeEvent (QCloseEvent *event){

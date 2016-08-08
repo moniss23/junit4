@@ -1,8 +1,6 @@
 #include <vector>
 #include <QApplication>
 #include <QString>
-#include <QFile>
-#include <QListWidgetItem>
 
 #include "AppSettings/appsettings.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
@@ -25,12 +23,9 @@ ProjectManagement *projectMng;
 std::vector<QString*> trafficFilesNames;
 unsigned int project_index;
 bool paramFilePresent = true;
-
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
-
 bool changesPresent = false;
-
 void msg(QString content);
 
 int main(int argc, char *argv[])
