@@ -2,14 +2,7 @@
 #include "ui_addProjectWindow.h"
 
 #include <QMessageBox>
-#include <QString>
-#include <QTextStream>
 #include <QFileDialog>
-
-void msg(QString content);
-
-extern bool paramFilePresent;
-
 
 AddProjectWindow::AddProjectWindow(QWidget *parent) :
     QDialog(parent),
@@ -32,9 +25,10 @@ AddProjectWindow::~AddProjectWindow() {
 void AddProjectWindow::on_buttonBox_accepted()
 {
     if(this->ui->customLocationRadioButton->isChecked() && this->ui->lineEdit->text().length()==0) {
-        msg("You must specify the project's location.");
+        QMessageBox(QMessageBox::Information,"","You must specify the project's location.",QMessageBox::Yes).exec();
         return;
     }
+
     if(this->ui->customLocationRadioButton->isChecked()) {
         QDir d(this->ui->lineEdit->text());
         if(!d.exists()) {
@@ -42,8 +36,6 @@ void AddProjectWindow::on_buttonBox_accepted()
             return;
         }
     }
-
-    paramFilePresent=true;
 
     if(this->ui->customLocationRadioButton->isChecked()) {
         emit createNewProject(ui->fileName->text(),ui->lineEdit->text());
@@ -82,6 +74,3 @@ void AddProjectWindow::showErrorWindow(const QString& errorMessage) {
     return;
 }
 
-void AddProjectWindow::closeWindow() {
-    this->close();
-}

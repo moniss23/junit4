@@ -39,8 +39,6 @@ extern int currentOpenedTrafficFile;
 extern std::vector<QStringList> trafficFilesContentLists;
 extern std::vector<QString> trafficFilesContent;
 
-extern ParametersWindow* p;
-
 extern QStringList readyCMList[10];
 
 QStringList savedCM1List;

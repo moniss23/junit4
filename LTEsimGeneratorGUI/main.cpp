@@ -26,7 +26,7 @@ ParametersWindow *p;
 ProjectManagement *projectMng;
 std::vector<QString*> trafficFilesNames;
 unsigned int project_index;
-bool paramFilePresent;
+bool paramFilePresent = true;
 
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),&appSettings,SLOT(createNewProject(QString,QString)));
     QObject::connect(&appSettings,SIGNAL(errorInData(QString)), &addProjectWindow, SLOT(showErrorWindow(QString)));
-    QObject::connect(&appSettings, SIGNAL(currentProjects(std::vector<Project>)), &addProjectWindow, SLOT(closeWindow()));
+    QObject::connect(&appSettings, SIGNAL(currentProjects(std::vector<Project>)), &addProjectWindow, SLOT(close()));
 
     /************************************
      * LOAD DATA AND SHOW GUI INTERFACE *

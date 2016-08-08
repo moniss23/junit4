@@ -41,7 +41,6 @@ bool fileAdditionInProgress=false;
 bool enteringMapView;
 QString lastOpenMap;
 extern std::vector<QString*> trafficFilesNames;
-extern ParametersWindow* p;
 extern bool paramFilePresent;
 extern ProjectManagement* projectMng;
 extern MapWindow* map_w;
@@ -900,7 +899,7 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
         // create a new map object and display it
         lastOpenMap="normal";
         map_w=new MapWindow;
-        p->close();
+        close();
         map_w->show();
     }
 
