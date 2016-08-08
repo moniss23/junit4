@@ -5,18 +5,12 @@
 #include <QApplication>
 #include <QFile>
 #include <QListWidgetItem>
-#include <QPushButton>
-#include <QSignalSpy>
 
-#include "AppSettings/appsettings.h"
-#include "ManagementWindow/Settings/settings.h"
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
-#include "ManagementWindow/ProjectManagement/projectmanagement.h"
-#include "ManagementWindow/ProjectManagement/importprojectwindow.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Traffic/map_traffic.h"
-#include "Data/appglobaldata.h"
 #include "ManagementWindow/ProjectManagement/projectmanagementwindowtest.h"
+#include "ManagementWindow/AddProjectWindow/addprojectwindowtest.h"
 
 
 const unsigned int cellCount = 12;
@@ -44,6 +38,7 @@ public:
     LTEsimGeneratorTESTS();
 
     ProjectManagementWindowTest projectManagementWindowTest;
+    AddProjectWindowTest addProjectWindowTest;
 
 private Q_SLOTS:
     void initTestCase();
@@ -54,6 +49,7 @@ private Q_SLOTS:
 LTEsimGeneratorTESTS::LTEsimGeneratorTESTS()
 {
     QTest::qExec(&projectManagementWindowTest);
+    QTest::qExec(&addProjectWindowTest);
 }
 
 void LTEsimGeneratorTESTS::initTestCase()

@@ -95,6 +95,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Maps/Traffic/CustomModel/customModel.cpp \
     ../LTEsimGeneratorGUI/Maps/Traffic/CustomModel/oldcustommodels.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagementwindowtest.cpp \
+    ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addprojectwindowtest.cpp \
     ltesimgeneratortests.cpp
 
 HEADERS  += \
@@ -174,6 +175,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.h \
     ../LTEsimGeneratorGUI/Maps/Traffic/CustomModel/customModel.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagementwindowtest.h \
+    ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addprojectwindowtest.h \
     ../LTEsimGeneratorGUI/Maps/Traffic/CustomModel/oldcustommodels.h
 
 FORMS    += \
