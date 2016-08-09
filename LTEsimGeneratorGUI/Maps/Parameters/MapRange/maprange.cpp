@@ -7,8 +7,6 @@
 extern MapWindow* map_w;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
-extern std::vector<QString> trafficFilesContent;
-
 
 MapRange::MapRange()
 {

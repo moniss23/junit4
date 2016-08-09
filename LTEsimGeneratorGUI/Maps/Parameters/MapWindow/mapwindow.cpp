@@ -12,7 +12,6 @@ extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
 extern QStringList savedParametersFileContentList;
-extern std::vector<QString> trafficFilesContent;
 extern bool enteringMapView;
 extern bool changesPresent;
 

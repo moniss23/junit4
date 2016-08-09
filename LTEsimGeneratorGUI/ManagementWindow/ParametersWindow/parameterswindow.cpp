@@ -45,8 +45,6 @@ extern bool paramFilePresent;
 extern ProjectManagement* projectMng;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
-extern bool normalMapOpen;
-extern bool largeMapOpen;
 extern bool changesPresent;
 int nrOfTrafficFiles=0;
 void msg(QString content);

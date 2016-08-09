@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     // Open project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&viewParameters,SLOT(loadProjectAndOpen(QString)));
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&appSettings,SLOT(setProjectName(QString)));//TODO: this is global leftover, get rid of
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&appSettings,SLOT(findProject(QString)));
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&appSettings,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));

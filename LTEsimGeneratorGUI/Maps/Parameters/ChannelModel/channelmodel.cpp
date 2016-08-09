@@ -6,7 +6,6 @@
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QString savedParametersFileContent;
-extern std::vector<QString> trafficFilesContent;
 
 ChannelModel::ChannelModel()
 {
