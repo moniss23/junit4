@@ -18,14 +18,10 @@
 #include <ManagementWindow/Settings/settings.h>
 #include <Maps/Traffic/map_traffic.h>
 
-// saving traffic map
-extern QStringList mapTrafficList;
 std::vector<QStringList> trafficFilesContentLists;
 int currentOpenedTrafficFile;
 QString parametersFileContent;
 QStringList parametersFileContentList;
-QString parametersFileContentDefault;
-QStringList parametersFileContentDefaultList;
 QString savedParametersFileContent;
 std::vector<QString> trafficFilesContent;
 std::vector<QString> savedTrafficFilesContent;

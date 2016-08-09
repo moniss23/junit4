@@ -21,6 +21,7 @@ public:
     QString rbOutputDir;
     QString chosenMapType;
 
+    TrafficData parametersFile;
     std::vector<TrafficData> trafficFilesList;
 
     /****************************
