@@ -10,7 +10,6 @@ extern ParametersWindow* p;
 
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
 extern QStringList savedParametersFileContentList;
 extern bool enteringMapView;
 extern bool changesPresent;

@@ -5,7 +5,6 @@
 #include <QVector>
 
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
 
 Mme::Mme()
 {

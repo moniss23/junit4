@@ -4,7 +4,6 @@
 #include <QVector>
 
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
 
 Sgw::Sgw()
 {

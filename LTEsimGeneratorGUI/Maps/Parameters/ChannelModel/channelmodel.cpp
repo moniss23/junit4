@@ -5,7 +5,6 @@
 
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
 
 ChannelModel::ChannelModel()
 {

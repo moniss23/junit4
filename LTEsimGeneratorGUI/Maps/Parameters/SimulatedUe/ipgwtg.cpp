@@ -3,7 +3,6 @@
 #include "QTextStream"
 
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
 
 Ipgwtg::Ipgwtg()
 {

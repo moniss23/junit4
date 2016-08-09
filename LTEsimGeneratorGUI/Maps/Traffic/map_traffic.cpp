@@ -33,8 +33,6 @@ extern bool tmp_chkCell62;
 
 //changes saving map traffic
 
-QStringList mapTrafficList;
-
 extern int currentOpenedTrafficFile;
 extern std::vector<QStringList> trafficFilesContentLists;
 extern std::vector<QString> trafficFilesContent;
@@ -4925,18 +4923,9 @@ void Map_traffic::closeEvent(QCloseEvent *event){
                           trafficFilesContent[currentOpenedTrafficFile] = finalList.join("\n");
 
 
-
-
-                          mapTrafficList = finalList;
-
-
                          //QMap<QString, QString> parsedCM1 = parseCM(readyCMList[0]);
                             for(unsigned i=0;i<10;i++)
                              readyCMList[i].clear();
-
-
-
-
 
                           // move changes to the global QString
 

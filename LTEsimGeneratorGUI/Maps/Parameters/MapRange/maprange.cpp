@@ -6,7 +6,6 @@
 
 extern MapWindow* map_w;
 extern QStringList parametersFileContentList;
-extern QString savedParametersFileContent;
 
 MapRange::MapRange()
 {
