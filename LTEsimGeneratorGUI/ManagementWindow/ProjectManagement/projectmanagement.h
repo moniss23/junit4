@@ -19,13 +19,8 @@ class ProjectManagement : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ProjectManagement(AppSettings *appSettings, QWidget *parent = 0);
+    ProjectManagement(AppSettings *appSettings, QWidget *parent = 0);
     ~ProjectManagement();
-
-    //TODO: delete this public functions as soon as possible
-    QListWidgetItem* getCurrentItem();
-    void previewProjectFiles(QListWidgetItem* item);
-
 
     /***********************************************
      *  WINDOW PUBLIC API
@@ -85,6 +80,7 @@ private slots:
 private:
      void open_project();
      void updateUiState();
+     void previewProjectFiles(QListWidgetItem* item);
 
 private:
     Ui::ProjectManagement *ui;

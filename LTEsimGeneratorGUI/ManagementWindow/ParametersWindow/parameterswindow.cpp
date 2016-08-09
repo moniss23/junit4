@@ -42,7 +42,6 @@ bool enteringMapView;
 QString lastOpenMap;
 extern std::vector<QString*> trafficFilesNames;
 extern bool paramFilePresent;
-extern ProjectManagement* projectMng;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
 extern bool changesPresent;
@@ -119,8 +118,6 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
                 nrOfTrafficFiles=0;
                 this->ui->projectsList->clear();
 
-                projectMng->previewProjectFiles(projectMng->getCurrentItem());
-                projectMng->show();
                 break;
 
             case QMessageBox::No:
@@ -129,8 +126,6 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
                 nrOfTrafficFiles=0;
                 this->ui->projectsList->clear();
 
-                projectMng->previewProjectFiles(projectMng->getCurrentItem());
-                projectMng->show();
                 break;
             }
             event->accept();
@@ -146,8 +141,6 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
         nrOfTrafficFiles=0;
         this->ui->projectsList->clear();
         this->close();
-        projectMng->previewProjectFiles(projectMng->getCurrentItem());
-        projectMng->show();
 
         event->accept();
     }
@@ -511,8 +504,6 @@ void ParametersWindow::on_actionOpen_triggered()
             this->ui->projectsList->clear();
             this->close();
 
-            projectMng->previewProjectFiles(projectMng->getCurrentItem());
-            projectMng->show();
             break;
 
         case QMessageBox::No:
@@ -524,8 +515,6 @@ void ParametersWindow::on_actionOpen_triggered()
             this->ui->projectsList->clear();
             this->close();
 
-            projectMng->previewProjectFiles(projectMng->getCurrentItem());
-            projectMng->show();
             break;
 
         case QMessageBox::Cancel:
@@ -547,9 +536,6 @@ void ParametersWindow::on_actionOpen_triggered()
         nrOfTrafficFiles=0;
         this->ui->projectsList->clear();
         this->close();
-
-        projectMng->previewProjectFiles(projectMng->getCurrentItem());
-        projectMng->show();
 
         closingInProgress=false;
     }

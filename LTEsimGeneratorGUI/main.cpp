@@ -15,7 +15,6 @@
 
 
 ParametersWindow *p;
-ProjectManagement *projectMng;
 std::vector<QString*> trafficFilesNames;
 unsigned int project_index;
 bool paramFilePresent = true;
@@ -35,7 +34,6 @@ int main(int argc, char *argv[])
     AppSettings appSettings;
 
     ProjectManagement projectUi(&appSettings);
-    projectMng = &projectUi;
 
     Settings settingsWindow(&appSettings, NULL, false);
     settingsWindow.setWindowModality(Qt::WindowModal);

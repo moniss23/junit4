@@ -127,7 +127,6 @@ void ProjectManagement::open_project(){
     }//TODO: Remove this part
 
     QString projectName = selected_item->text().split("\t")[0];
-    this->close();
     emit SpawnWindow_OpenProject(projectName);
 }
 
@@ -168,11 +167,6 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
     }
 
 }
-
-QListWidgetItem* ProjectManagement::getCurrentItem(){
-    return this->ui->listWidget->currentItem();
-}
-
 
 void ProjectManagement::updateUiState()
 {
