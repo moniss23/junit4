@@ -165,7 +165,8 @@ HEADERS  += \
     Data/filemanager.h \
     Data/cell.h \
     Data/center.h \
-    Data/handover.h
+    Data/handover.h \
+    Data/trafficdata.h
 
 
 FORMS    += \

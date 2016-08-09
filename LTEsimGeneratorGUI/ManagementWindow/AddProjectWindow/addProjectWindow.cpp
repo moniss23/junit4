@@ -70,7 +70,9 @@ void AddProjectWindow::on_defaultLocationRadioButton_toggled(bool checked)
 }
 
 void AddProjectWindow::showErrorWindow(const QString& errorMessage) {
-    QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI",errorMessage,QMessageBox::Yes).exec();
+    if(this->isActiveWindow()) {
+        QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI",errorMessage,QMessageBox::Yes).exec();
+    }
     return;
 }
 

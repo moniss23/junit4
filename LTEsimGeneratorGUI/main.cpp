@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
     // Open project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&viewParameters,SLOT(loadProjectAndOpen(QString)));
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&appSettings,SLOT(setProjectName(QString)));//TODO: this is global leftover, get rid of
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&appSettings,SLOT(findProject(QString)));
 
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),&appSettings,SLOT(deleteProject(QString)));
@@ -70,6 +71,11 @@ int main(int argc, char *argv[])
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),&appSettings,SLOT(createNewProject(QString,QString)));
     QObject::connect(&appSettings,SIGNAL(errorInData(QString)), &addProjectWindow, SLOT(showErrorWindow(QString)));
     QObject::connect(&appSettings, SIGNAL(currentProjects(std::vector<Project>)), &addProjectWindow, SLOT(close()));
+
+    //Add traffic file
+    QObject::connect(&viewParameters, SIGNAL(AddFile_Traffic(QString)),&appSettings, SLOT(addToProject_TrafficFile(QString)));
+    QObject::connect(&appSettings, SIGNAL(currentProjectChanged(Project)),&viewParameters, SLOT(refreshUI(Project)));
+    QObject::connect(&appSettings,SIGNAL(errorInData(QString)), &viewParameters, SLOT(showErrorWindow(QString)));
 
     /************************************
      * LOAD DATA AND SHOW GUI INTERFACE *

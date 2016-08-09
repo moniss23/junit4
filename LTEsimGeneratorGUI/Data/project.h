@@ -4,11 +4,14 @@
 #include <QBuffer>
 #include <QDataStream>
 #include <QListWidgetItem>
+#include <vector>
 
 #include <Data/cell.h>
 #include <Data/center.h>
 #include <Data/handover.h>
 #include <Data/serializeinterface.h>
+#include <Data/trafficdata.h>
+
 
 class Project : public SerializeInterface
 {
@@ -17,6 +20,8 @@ public:
     QString fullpath;
     QString rbOutputDir;
     QString chosenMapType;
+
+    std::vector<TrafficData> trafficFilesList;
 
     /****************************
      * SERIALIZATION INTERFACE  *

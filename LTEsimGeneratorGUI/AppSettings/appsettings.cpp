@@ -1,4 +1,7 @@
 #include "appsettings.h"
+#include "Data/appglobaldata.h"
+#include "Data/trafficdata.h"
+
 
 AppSettings::AppSettings()
 {
@@ -460,10 +463,16 @@ void AppSettings::setProjectName(const QString &value)
 
 void AppSettings::addToProject_TrafficFile(const QString &ProjectName)
 {
-    (void) ProjectName;
-    //find project
-    //add new traffic file
-    //emit signal currentProjectChanged(const Project &current);
+    auto it = std::find_if(projects.begin(), projects.end(), [&ProjectName](const Project& project)-> bool {
+        return (project.name == ProjectName);
+    });
+    if(it == projects.end()) {
+        emit errorInData("Error while adding traffic file");
+        return;
+    }
+    TrafficData trafficData;
+    it->trafficFilesList.push_back(trafficData);
+    emit currentProjectChanged(*it);
 }
 
 QDir AppSettings::getProjectDir() const
@@ -501,4 +510,15 @@ void AppSettings::deleteProject(const QString projectName)
     auto elem = std::find_if(std::begin(projects), std::end(projects), [projectName](const Project &p)->bool {return projectName==p.name;});
     projects.erase(elem);
     emit currentProjects(projects);
+}
+
+void AppSettings::findProject(const QString &projectName)
+{
+    auto it = std::find_if(projects.begin(), projects.end(), [&projectName](const Project& project)-> bool {
+       return (projectName == project.name);
+    });
+    if(it == projects.end()) {
+        return;
+    }
+    emit currentProjectChanged(*it);
 }

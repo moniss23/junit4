@@ -27,6 +27,7 @@ signals:
     void currentProjects(const std::vector<Project> &projects);
     void currentProjectChanged(const Project &current);
     void errorInData(const QString& errorDescription);
+    void returnProject(const Project& project);
 
 public slots:
 
@@ -38,6 +39,8 @@ public slots:
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
     //----------PROJECT TRAFFIC FILES--//
     void addToProject_TrafficFile(const QString &ProjectName);
+    void findProject(const QString& projectName);
+
 
 
 public:
