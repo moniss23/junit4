@@ -8,10 +8,10 @@
 #include <QStringList>
 #include <QListWidgetItem>
 
-#include "ManagementWindow/Encryption/encryption.h"
 #include "Data/project.h"
+#include "Data/filemanager.h"
 #include "Data/appglobaldata.h"
-
+#include "ManagementWindow/Encryption/encryption.h"
 
 class AppSettings : public QObject
 {
@@ -38,10 +38,6 @@ public slots:
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
     //----------PROJECT TRAFFIC FILES--//
     void addToProject_TrafficFile(const QString &ProjectName);
-
-
-
-
 
 
 public:
@@ -111,8 +107,11 @@ private:
     void removeDirectoryRecursively(QString dir_name);
     void read_settings_file();
 
-private:
+    void loadProjectsFile();
+    void saveProjectsFile();
 
+private:
+    FileManager fileManager;
     AppGlobalData appGlobalData;
 
     QFile project_file;

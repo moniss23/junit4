@@ -30,6 +30,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/cell.cpp \
     ../LTEsimGeneratorGUI/Data/center.cpp \
     ../LTEsimGeneratorGUI/Data/handover.cpp \
+    ../LTEsimGeneratorGUI/Data/filemanager.cpp \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodel.cpp \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodelform.cpp \
     ../LTEsimGeneratorGUI/Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
@@ -106,6 +107,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/cell.h \
     ../LTEsimGeneratorGUI/Data/center.h \
     ../LTEsimGeneratorGUI/Data/handover.h \
+    ../LTEsimGeneratorGUI/Data/filemanager.h \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodel.h \
     ../LTEsimGeneratorGUI/Maps/Parameters/ChannelModel/channelmodelform.h \
     ../LTEsimGeneratorGUI/Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \

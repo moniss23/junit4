@@ -1,5 +1,5 @@
 #include "appsettings.h"
-#include "Data/appglobaldata.h"
+
 AppSettings::AppSettings()
 {
   settingsFileSetup();
@@ -17,6 +17,12 @@ void AppSettings::LoadAppData() {
     projects_dir_content=project_dir.entryInfoList(QDir::AllDirs);
     traverseProjectsListAndAddProjectIfNotFound();
     emit currentProjects(projects);
+}
+
+void AppSettings::loadProjectsFile() {
+}
+
+void AppSettings::saveProjectsFile() {
 }
 
 void AppSettings::importProject(const QString &ProjectDirectory)
