@@ -20,9 +20,35 @@ void AppSettings::LoadAppData() {
 }
 
 void AppSettings::loadProjectsFile() {
+    // implemented, not being used yet, 9.08.16
+    QByteArray rawData = fileManager.readFromFile(appGlobalData.getProjectsFile());
+    QDataStream dataStream(rawData);
+
+    dataStream >> projectC_file;
+    for(int i=0; i<projectC_file; ++i) {
+        QByteArray singleProjectData;
+        dataStream >> singleProjectData;
+
+        Project p;
+        p.deserializeData(singleProjectData);
+        projects.push_back(p);
+    }
 }
 
 void AppSettings::saveProjectsFile() {
+    // implemented, not being used yet, 9.08.16
+    QBuffer rawDataBuff;
+    rawDataBuff.open(QBuffer::WriteOnly);
+    QDataStream dataStream(&rawDataBuff);
+
+    dataStream << (int)projects.size();
+
+    for(auto &&elem : projects) {
+        QByteArray singleProjectData = elem.serializeData();
+        dataStream << singleProjectData;
+    }
+
+    fileManager.writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
 }
 
 void AppSettings::importProject(const QString &ProjectDirectory)
