@@ -1,4 +1,13 @@
-#include "ManagementWindow/ProjectManagement/projectmanagementwindowtest.h"
+#include "projectmanagementwindowtest.h"
+
+#include <QSignalSpy>
+#include <QPushButton>
+
+#include "AppSettings/appsettings.h"
+#include "ManagementWindow/ProjectManagement/projectmanagement.h"
+
+unsigned int project_index;//TODO: Get rid of that!
+
 
 ProjectManagementWindowTest::ProjectManagementWindowTest(){
 

@@ -3,11 +3,7 @@
 
 #include <QObject>
 #include <QtTest>
-#include <QSignalSpy>
-#include <QPushButton>
 
-#include "AppSettings/appsettings.h"
-#include "ManagementWindow/ProjectManagement/projectmanagement.h"
 
 class ProjectManagementWindowTest : public QObject
 {

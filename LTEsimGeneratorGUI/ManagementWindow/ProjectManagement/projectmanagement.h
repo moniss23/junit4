@@ -5,6 +5,7 @@
 #include <QString>
 
 #include "AppSettings/appsettings.h"
+#include "Data/project.h"
 
 namespace Ui {
 class ProjectManagement;
@@ -88,6 +89,7 @@ private:
 private:
     Ui::ProjectManagement *ui;
     AppSettings* appSettings;
+    std::vector<Project> projects; ///> Local copy of Data
 };
 
 #endif // PROJECTMANAGEMENT_H

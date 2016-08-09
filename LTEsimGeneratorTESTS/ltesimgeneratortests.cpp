@@ -1,34 +1,12 @@
 #include <QString>
 #include <QtTest>
 #include <QCoreApplication>
-#include <vector>
 #include <QApplication>
-#include <QFile>
-#include <QListWidgetItem>
 
-#include "ManagementWindow/ParametersWindow/parameterswindow.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
-#include "Maps/Traffic/map_traffic.h"
-#include "ManagementWindow/ProjectManagement/projectmanagementwindowtest.h"
-#include "ManagementWindow/AddProjectWindow/addprojectwindowtest.h"
+#include "UITests/projectmanagementwindowtest.h"
+#include "UITests/addprojectwindowtest.h"
 
-
-const unsigned int cellCount = 12;
-const unsigned int handoverCount = 21;
-const unsigned int centerCount = 12;
-
-ParametersWindow *p;
-ProjectManagement *projectMng;
-std::vector<QString*> trafficFilesNames;
-unsigned int project_index;
-bool paramFilePresent;
-
-MapWindow* map_w          = NULL;
-Map_traffic* map_t        = NULL;
-
-bool changesPresent = false;
-
-void msg(QString content);
+#include "AppSettings/appsettings.h"
 
 class LTEsimGeneratorTESTS : public QObject
 {
@@ -71,10 +49,6 @@ void LTEsimGeneratorTESTS::appSetttingsTest1_checkDefaultProjectDir()
 
 }
 
-// wrapper for displaying an alert/information message
-void msg(QString content){
-    QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
-}
 
 
 QTEST_MAIN(LTEsimGeneratorTESTS)

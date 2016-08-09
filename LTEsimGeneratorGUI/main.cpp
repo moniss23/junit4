@@ -13,10 +13,6 @@
 #include "Maps/Traffic/map_traffic.h"
 #include "Data/appglobaldata.h"
 
-//Parameters Old Part
-const unsigned int cellCount = 12;
-const unsigned int handoverCount = 21;
-const unsigned int centerCount = 12;
 
 ParametersWindow *p;
 ProjectManagement *projectMng;

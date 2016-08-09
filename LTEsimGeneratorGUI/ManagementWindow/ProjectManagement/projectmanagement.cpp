@@ -93,6 +93,7 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 
 void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
 {
+    this->projects = projects;
     this->ui->listWidget->clear();
     for(auto &&it:projects){
         new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->listWidget);
@@ -138,26 +139,18 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
 
     if(item==NULL) return;
 
+    QString ProjectName = item->text().split("\t")[0];
 
-    // read the selected project's name and directory from the projects vector
-    QString project_name;
-    QString project_dir;
-    for(unsigned int i=0; i<appSettings->projects.size(); i++){
-        if(appSettings->projects[i].name==item->text().split("\t")[0]){
-            project_name=appSettings->projects[i].name;
-            project_dir=appSettings->projects[i].fullpath;
-            break;
-        }
-    }
+    auto it = std::find_if(std::begin(projects), std::end(projects),
+                 [&ProjectName](const Project &val){return val.name == ProjectName;});
+    if(it==std::end(projects)) return;
 
-
+   QString project_name=it->name;
+   QString project_dir=it->fullpath;
 
     QStringList project_data = appSettings->read_project_file(project_name,project_dir);
-
     QString parameters_file(project_data[2]);
-
     int traffic_files_count=project_data[3].toInt();
-
     QString file_name;
 
     // if the project file is empty, update the right list
