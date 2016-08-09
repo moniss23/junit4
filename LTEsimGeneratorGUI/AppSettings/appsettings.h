@@ -11,7 +11,6 @@
 #include "Data/project.h"
 #include "Data/filemanager.h"
 #include "Data/appglobaldata.h"
-#include "ManagementWindow/Encryption/encryption.h"
 
 class AppSettings : public QObject
 {

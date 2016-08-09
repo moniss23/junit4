@@ -5,7 +5,6 @@
 #include <QTest>
 #include <Maps/Traffic/MapData/mapdata.h>
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
-#include <ManagementWindow/Encryption/encryption.h>
 #include <AppSettings/appsettings.h>
 
 extern ProjectManagement* projectMng;

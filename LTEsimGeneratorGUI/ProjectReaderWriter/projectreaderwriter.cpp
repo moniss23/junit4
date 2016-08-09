@@ -23,17 +23,12 @@ QByteArray ProjectReaderWriter::readDataFromProj(const QString &beginningOfSecto
     QFile projectFile(projectFileName);
     if(!projectFile.open(QIODevice::ReadOnly) ) return 0;
 
-    unsigned int length = projectFile.bytesAvailable();
-    char* cipherText = new char[length];
-
-
+    QString projFileContent;
     QDataStream projectFileStream(&projectFile);
-    projectFileStream.readRawData(cipherText,length);
+    projectFileStream >> projFileContent;
     projectFile.close();
 
-    //------------Decrypting data from project file-----------------------------------
-    const char* plainText = crypt(cipherText,length,cipher_key.toStdString().c_str(),cipher_key.length() );
-    QByteArray parametersData(plainText);
+    QByteArray parametersData(projFileContent.toStdString().c_str());
 
     //------------Cutting data from byte array------------------------
     start = parametersData.indexOf(beginningOfSector);

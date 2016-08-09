@@ -69,7 +69,6 @@ SOURCES += main.cpp\
     Maps/Traffic/MapComponents/addbutton.cpp \
     Maps/Traffic/MapComponents/cellarea.cpp \
     Maps/Traffic/MapComponents/handoverarea.cpp \
-    ManagementWindow/Encryption/encryption.cpp \
     AppSettings/appsettings.cpp \
     my_qlabel.cpp \
     CommonConstans/common_constans.cpp \
@@ -107,7 +106,6 @@ HEADERS  += \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
-    ManagementWindow/Encryption/encryption.h \
     Maps/Traffic/CustomModel/addftpdl.h \
     Maps/Traffic/CustomModel/addftpdlform.h \
     Maps/Traffic/CustomModel/addftpul.h \

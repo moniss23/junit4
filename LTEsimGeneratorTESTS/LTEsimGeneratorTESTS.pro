@@ -24,7 +24,6 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 SOURCES += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.cpp \
-    ../LTEsimGeneratorGUI/ManagementWindow/Encryption/encryption.cpp \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
@@ -38,7 +37,6 @@ SOURCES += \
 HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.h \
-    ../LTEsimGeneratorGUI/ManagementWindow/Encryption/encryption.h \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.h \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/project.h \
