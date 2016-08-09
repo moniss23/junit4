@@ -86,7 +86,8 @@ SOURCES += main.cpp\
     Data/filemanager.cpp \
     Data/cell.cpp \
     Data/center.cpp \
-    Data/handover.cpp
+    Data/handover.cpp \
+    UISystem/uisystem.cpp
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -167,6 +168,8 @@ HEADERS  += \
     Data/center.h \
     Data/handover.h \
     Data/trafficdata.h
+    UISystem/uisystem.h
+
 
 
 FORMS    += \
