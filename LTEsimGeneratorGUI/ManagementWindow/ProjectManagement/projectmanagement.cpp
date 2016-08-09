@@ -133,19 +133,18 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
                  [&ProjectName](const Project &val){return val.name == ProjectName;});
     if(it==std::end(projects)) return;
 
-   QString project_name=it->name;
-   QString project_dir=it->fullpath;
 
+    /********* REMOVE THIS WHEN appSettings serialization logic is done*/
+    QString project_name=it->name;
+    QString project_dir=it->fullpath;
     QStringList project_data = appSettings->read_project_file(project_name,project_dir);
     QString parameters_file(project_data[2]);
     int traffic_files_count=project_data[3].toInt();
     QString file_name;
-
     // if the project file is empty, update the right list
     if(parameters_file=="<none>" && traffic_files_count==0){
         this->ui->listWidget_2->addItem("<empty>");
     }
-
     // if the project file is not empty
     else{
         this->ui->listWidget_2->addItem(parameters_file);
@@ -154,6 +153,15 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
             this->ui->listWidget_2->addItem(file_name);
         }
     }
+
+    /********* ADD THIS WHEN appSettings serialization logic is done
+    ui->listWidget_2->addItem(it->ParametersFileName);
+
+    std::vector<TrafficData> &trafficFiles = it->trafficFilesList;
+    for(auto &&trafficFile : trafficFiles){
+        ui->listWidget_2->addItem(trafficFile.fileName);
+    }
+    */
 
 }
 
