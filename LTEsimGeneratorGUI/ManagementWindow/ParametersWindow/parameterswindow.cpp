@@ -1089,9 +1089,7 @@ void ParametersWindow::on_generateFileButton_clicked()
 // "settings" opened
 void ParametersWindow::on_actionPath_triggered()
 {
-    Settings settingsWindow(appSettings, this,true);
-    settingsWindow.setWindowModality(Qt::WindowModal);
-    settingsWindow.exec();
+    emit SpawnWindow_Settings(currentProject.name);
 }
 void ParametersWindow::on_saveFileButton_clicked()
 {

@@ -20,8 +20,11 @@ public:
     void bindingObjects();
 
 public slots:
+    void initialiseSettingsWindowSpawn(const QString& projectName = QString());
     void showErrorWindow(const QString& errorDescription);
 
+signals:
+    void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& currentProject = Project());
 
 private:
     AppSettings* appSettings;

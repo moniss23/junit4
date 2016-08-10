@@ -36,6 +36,8 @@ public slots:
     void importProject(const QString &ProjectDirectory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
+    //--------SETTINGS CLASS--------//
+    void setNewDirForProject(const QString& projectName);
     //----------PROJECT TRAFFIC FILES--//
     void addToProject_TrafficFile(const QString &ProjectName);
     void findProject(const QString& projectName);

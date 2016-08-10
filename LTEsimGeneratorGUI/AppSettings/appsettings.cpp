@@ -328,7 +328,7 @@ void AppSettings::traverseProjectsListAndAddProjectIfNotFound() {
 
 QString AppSettings::getProjectDirectory(const QString &projectName){
     auto it = std::find_if(projects.begin(), projects.end(), [&projectName](const Project &project) -> bool {
-          return (project.name == projectName);
+        return (project.name == projectName);
     });
 
     if(it == std::end(projects)) return QString();
@@ -438,6 +438,12 @@ QString AppSettings::getProjectName() const
 void AppSettings::setProjectName(const QString &value)
 {
     projectName = value;
+}
+
+void AppSettings::setNewDirForProject(const QString &projectName)
+{
+    (void)projectName;
+    //TODO: Implement this slot.
 }
 
 void AppSettings::addToProject_TrafficFile(const QString &ProjectName)

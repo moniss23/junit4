@@ -13,17 +13,20 @@ class Settings : public QDialog
     Q_OBJECT
 
 public:
-    explicit Settings(AppSettings* appSettings, QWidget *parent = 0,bool secondTabActive = true);
-
+    explicit Settings(QWidget *parent = 0);
     ~Settings();
 
     //TODO: new API to implement
     //***********************************************/
 
 signals:
-    void RestoreDefaultsSettings();
-    void SetDefaultLocationForNewProjects();
-    void SetLocationFor_RB_Files();
+    void SetDefaultLocationFor_RB_Files(const QString& rbLocation);
+    void SetDefaultLocationForNewProjects(const QString& location);//location.isEmpty == true -> set default (restore)
+    void SetLocationFor_RB_Files(const QString &ProjectName, const QString& location); //location.isEmpty() ==> set default
+
+public slots:
+    void ShowForProject(const AppGlobalData& globalProjectData , const Project &project = Project());//Project.name.isEmpty() == true
+
     //***********************************************
     //***********************************************/
 
@@ -32,7 +35,7 @@ private slots:
 
     void on_projectCustomDirRadioButton_toggled(bool checked);
 
-    void on_OKButton_clicked();
+    void on_okButton_clicked();
 
     void on_cancelButton_clicked();
 
@@ -48,12 +51,12 @@ private slots:
 
     void on_projectBrowseButton_clicked();
 
-    void apply_settings();
+    void apply_settings(bool shouldClose);
 
 private:
     Ui::Settings *ui;
     bool changesMade;
-    AppSettings *appSettings;
+    AppSettings* appSettings;
 };
 
 #endif // SETTINGS_H

@@ -2,7 +2,7 @@
 #include <QMessageBox>
 
 UISystem::UISystem(AppSettings* data) : appSettings(data), projectUi(appSettings),
-    paramWindow(appSettings), settingsWindow(appSettings)
+    paramWindow(appSettings)
 {
     settingsWindow.setWindowModality(Qt::WindowModal);
     this->bindingObjects();
@@ -26,7 +26,9 @@ void UISystem::bindingObjects()
                      &projectUi,   SLOT(updateProjectLists(const QVector<Project>&)));
 
     // Settings
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_Settings()), &settingsWindow, SLOT(exec()));
+    QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
+    QObject::connect(&projectUi, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
+    QObject::connect(&paramWindow, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
 
     // Import Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
@@ -41,9 +43,23 @@ void UISystem::bindingObjects()
     QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString)),appSettings, SLOT(addToProject_TrafficFile(QString)));
     QObject::connect(appSettings, SIGNAL(currentProjectChanged(Project)),&paramWindow, SLOT(refreshUI(Project)));
 
-
     //Error window
     QObject::connect(appSettings, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
+}
+
+void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {
+    AppGlobalData data = appSettings->getAppGlobalData();
+    if(projectName.isEmpty()) {
+        emit spawnSettingsWindowForProject(data);
+    }else {
+        Project currentProject;
+        for(auto project: appSettings->projects) {
+            if(project.name == projectName) {
+                currentProject = project;
+            }
+        }
+        emit spawnSettingsWindowForProject(data, currentProject);
+    }
 }
 
 void UISystem::showErrorWindow(const QString &errorDescription)

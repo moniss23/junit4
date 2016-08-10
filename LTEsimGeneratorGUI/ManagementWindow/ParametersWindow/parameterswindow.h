@@ -39,7 +39,7 @@ signals:
     void SpawnWindow_ParamMap();
     void SpawnWindow_TrafficMap();
     void SpawnWindow_About();
-    void SpawnWindow_Settings();
+    void SpawnWindow_Settings(const QString& projectName = QString());
     void SpawnWindow_RenameFile(const QString& filename);
     void SpawnWindow_RemoveFile(const QString& filename);
     /**
