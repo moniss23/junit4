@@ -361,6 +361,17 @@ AppGlobalData AppSettings::getAppGlobalData() const
  *
  */
 
+QString AppSettings::GetDefaultParametersFileContent()
+{
+    QFile param_template(":/RbFiles/parameters.rb");
+    param_template.open(QIODevice::ReadOnly);
+    QTextStream param_template_str(&param_template);
+    QString content = param_template_str.readAll();
+    param_template.close();
+
+    return content;
+}
+
 void AppSettings::createNewProject(const QString &projectName, const QString &directory) {
 
     if(projectNameTaken(projectName)) {
@@ -370,11 +381,7 @@ void AppSettings::createNewProject(const QString &projectName, const QString &di
 
     QString dir = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
 
-    QFile param_template(":/RbFiles/parameters.rb");
-    param_template.open(QIODevice::ReadOnly);
-    QTextStream param_template_str(&param_template);
-    QString param_template_content = param_template_str.readAll();
-    param_template.close();
+    QString param_template_content = GetDefaultParametersFileContent();
 
     Project new_project;
     new_project.name = projectName;

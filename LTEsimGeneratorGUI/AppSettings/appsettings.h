@@ -45,6 +45,9 @@ public slots:
 
 
 public:
+    QString GetDefaultParametersFileContent(); //TODO: move to private when You can
+
+
 
     QString getProjectDirectory(const QString &projectName);
 

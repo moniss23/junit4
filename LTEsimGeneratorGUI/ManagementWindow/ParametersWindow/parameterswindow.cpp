@@ -27,7 +27,6 @@ QVector<QString> savedTrafficFilesContent;
 bool paramFileModified;
 QVector<bool> trafficFilesChanged;
 QVector<bool> trafficFilesModified;
-QString defaultLocationForRbFiles;
 bool enableChangeRegistration=true;
 bool previewFileInProgress=false;
 bool closingInProgress=false;
@@ -151,10 +150,10 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     // read the project content from the project file
     QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDirectory(projectName));
     // read the default location for output .rb files
-    defaultLocationForRbFiles=project_content[0];
+    QString ParamFileName = project_content[0];
     this->ui->radioButton_normalMap->setChecked(true);
     // read the name of parameters file and nr of traffic files
-    nrOfTrafficFiles=project_content[1].toInt();
+    nrOfTrafficFiles=project_content[2].toInt();
     project_content_line=4;
 
 
@@ -327,7 +326,7 @@ void ParametersWindow::saveProject(bool singleFile=false){
 
     // save the content of currently selected file
     if(this->ui->projectsList->currentRow()==0){
-        parametersFileContent=this->ui->filePreview->toPlainText();
+
     }
     else{
         int index=this->ui->projectsList->currentRow()-1;
@@ -361,10 +360,6 @@ void ParametersWindow::saveProject(bool singleFile=false){
             savedTrafficFilesContent[file_index]=trafficFilesContent[file_index];
     }
 
-    // add default location for output .rb files
-    plaintext.append(defaultLocationForRbFiles);
-    plaintext.append("\n");
-
     // add param file name
     plaintext.append(this->currentProject.parametersFile.fileName);
     plaintext.append("\n");
@@ -392,7 +387,7 @@ void ParametersWindow::saveProject(bool singleFile=false){
     }
 
     // encrypt the project data and write it to file
-    QString projectName = appSettings->getProjectName();
+    QString projectName = currentProject.name;
     appSettings->write_project_file(projectName,plaintext,appSettings->get_project_dir(projectName));
 }
 
@@ -671,7 +666,7 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
 
     // if the file to preview is parameters
     if(this->ui->projectsList->item(0)->text()==current->text()){
-        this->ui->filePreview->setText(parametersFileContent);
+        this->ui->filePreview->setText(currentProject.parametersFile.content);
     }
 
     // if the file is traffic
@@ -798,13 +793,13 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
 
             // ask for confirmation
             if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
-                QFile file(":/RbFiles/parameters.rb");
-                file.open((QIODevice::ReadOnly));
-                QTextStream s(&file);
-                QString fileContent=s.readAll();
+
+                QString fileContent=appSettings->GetDefaultParametersFileContent();
                 this->ui->filePreview->setText(fileContent);
-                parametersFileContent=fileContent;
-                file.close();
+                //parametersFileContent=fileContent;
+                // emit ProjectChanged(currentProject);
+
+
                 paramFileModified=false;
                 this->ui->resetDefaultsButton->setEnabled(false);
             }
@@ -891,49 +886,35 @@ void ParametersWindow::on_generateFileButton_clicked()
         // if the file is parameters
         if(this->ui->projectsList->currentRow()==0){
 
+            QFile file;
             // if the location of the project is default
-            if(appSettings->get_project_dir(projectName)=="<default>"){
-
-                QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->projectsList->item(0)->text());
-                if(file.exists()){
-                    if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
-                        return;
-                    }
-                }
-                file.open(QIODevice::WriteOnly);
-                QTextStream file_str(&file);
-                file_str<<parametersFileContent;
-                file.close();
-                msg("File generated:\n"+this->ui->projectsList->item(0)->text());
+            if(currentProject.fullpath=="<default>"){
+                file.setFileName("projects/"+currentProject.name+"/"+currentProject.parametersFile.fileName);
             }
-
             // if the project's location is custom
             else{
-                QString project_dir=appSettings->get_project_dir(projectName);
-
-                QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->projectsList->item(0)->text());
-                if(file.exists()){
-                    if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
-                        return;
-                    }
-                }
-                file.open(QIODevice::WriteOnly);
-                QTextStream file_str(&file);
-                file_str<<parametersFileContent;
-                file.close();
-                msg("File generated:\n"+this->ui->projectsList->item(0)->text());
+                QString project_dir=currentProject.fullpath;
+                file.setFileName(project_dir+"/"+currentProject.name+"/"+currentProject.parametersFile.fileName);
             }
 
-        }
+            if(file.exists()){
+                if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
+                    return;
+                }
+            }
 
-        // if the file is traffic
-        else{
+            file.open(QIODevice::WriteOnly);
+            QTextStream file_str(&file);
+            file_str<<currentProject.parametersFile.content;
+            file.close();
+            msg("File generated:\n"+this->ui->projectsList->item(0)->text());
+        } else {// if the file is traffic
 
             // if the location of the project is default
-            if(appSettings->get_project_dir(projectName)=="<default>"){
+            if(currentProject.fullpath=="<default>"){
 
                 int file_index=this->ui->projectsList->currentRow()-1;
-                QFile file("projects/"+(appSettings->getProjectName())+"/"+this->ui->projectsList->item(file_index+1)->text());
+                QFile file("projects/"+currentProject.name+"/"+this->ui->projectsList->item(file_index+1)->text());
                 if(file.exists()){
                     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                         return;
@@ -950,10 +931,10 @@ void ParametersWindow::on_generateFileButton_clicked()
             // if the location of the project is custom
             else{
 
-                QString project_dir=appSettings->get_project_dir(projectName);
+                QString project_dir=currentProject.fullpath;
 
                 int file_index=this->ui->projectsList->currentRow()-1;
-                QFile file(project_dir+"/"+(appSettings->getProjectName())+"/"+this->ui->projectsList->item(file_index+1)->text());
+                QFile file(project_dir+"/"+currentProject.name+"/"+this->ui->projectsList->item(file_index+1)->text());
                 if(file.exists()){
                     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                         return;
@@ -1009,7 +990,7 @@ void ParametersWindow::on_generateFileButton_clicked()
         // if the file is parameters
         if(this->ui->projectsList->currentRow()==0){
 
-            QFile file(defaultLocationForRbFiles+"/"+this->ui->projectsList->item(0)->text());
+            QFile file(currentProject.rbOutputDir+"/"+currentProject.parametersFile.fileName);
             if(file.exists()){
                 if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                     return;
@@ -1017,7 +998,7 @@ void ParametersWindow::on_generateFileButton_clicked()
             }
             file.open(QIODevice::WriteOnly);
             QTextStream file_str(&file);
-            file_str<<parametersFileContent;
+            file_str<<currentProject.parametersFile.content;
             file.close();
             msg("File generated:\n"+this->ui->projectsList->item(0)->text());
 
@@ -1027,7 +1008,7 @@ void ParametersWindow::on_generateFileButton_clicked()
         else{
 
             int file_index=this->ui->projectsList->currentRow()-1;
-            QFile file(defaultLocationForRbFiles+"/"+this->ui->projectsList->item(file_index+1)->text());
+            QFile file(currentProject.rbOutputDir+"/"+this->ui->projectsList->item(file_index+1)->text());
             if(file.exists()){
                 if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                     return;
