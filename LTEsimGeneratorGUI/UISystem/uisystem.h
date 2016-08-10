@@ -11,18 +11,17 @@
 class UISystem
 {
 public:
-    UISystem(AppSettings* appSettings, ProjectManagement* projectUi, ImportProjectWindow* importProject,
-             ParametersWindow* paramWindow, AddProjectWindow* addProjectWindow, Settings* settingsWindow);
+    UISystem(AppSettings *data);
 
     void bindingObjects();
 
 private:
     AppSettings* appSettings;
-    ProjectManagement* projectUi;
-    ImportProjectWindow* importProject;
-    ParametersWindow* paramWindow;
-    AddProjectWindow* addProjectWindow;
-    Settings* settingsWindow;
+    ProjectManagement projectUi;
+    ImportProjectWindow importProject;
+    ParametersWindow paramWindow;
+    AddProjectWindow addProjectWindow;
+    Settings settingsWindow;
 };
 
 #endif // UISYSTEM_H

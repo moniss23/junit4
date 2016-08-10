@@ -9,7 +9,7 @@ extern QString defaultLocationForRbFiles;
 extern int project_index;
 extern ParametersWindow* p;
 
-Settings::Settings(AppSettings *appSettings, QWidget *parent, bool secondTabActive) :
+Settings::Settings(AppSettings* appSettings, QWidget *parent,bool secondTabActive) :
     QDialog(parent), ui(new Ui::Settings), appSettings(appSettings)
 {
     ui->setupUi(this);

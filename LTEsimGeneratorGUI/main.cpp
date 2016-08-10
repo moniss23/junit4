@@ -28,36 +28,15 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    /************************************
-     *       SETUP   ALL   WINDOWS      *
-     ************************************/
-
     AppSettings appSettings;
 
-    ProjectManagement projectUi(&appSettings);
-
-    Settings settingsWindow(&appSettings, NULL, false);
-    settingsWindow.setWindowModality(Qt::WindowModal);
-
-    ParametersWindow viewParameters(&appSettings);
-    p = &viewParameters;
-
-    ImportProjectWindow importProject;
-    AddProjectWindow addProjectWindow;
-
-    UISystem UiSystem(&appSettings, &projectUi, &importProject, &viewParameters, &addProjectWindow, &settingsWindow);
 
     /************************************
-     *    BINDING  OBJECTS  TOGETHER    *
+     *       SETUP   ALL   WINDOWS      *
+     *       BINDING SIGNALS&SLOTS      *
+     *           LOAD APP DATA          *
      ************************************/
-    UiSystem.bindingObjects();
-
-
-    /************************************
-     * LOAD DATA AND SHOW GUI INTERFACE *
-     ************************************/
-    appSettings.LoadAppData();
-    projectUi.show();
+    UISystem UiSystem(&appSettings);
 
     return a.exec();
 }

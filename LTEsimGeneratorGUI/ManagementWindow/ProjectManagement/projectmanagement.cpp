@@ -176,3 +176,4 @@ void ProjectManagement::updateUiState()
     this->ui->deleteProject_Button->setEnabled(objects);
     this->previewProjectFiles(ui->listWidget->currentItem());
 }
+

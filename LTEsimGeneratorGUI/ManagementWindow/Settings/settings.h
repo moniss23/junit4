@@ -13,11 +13,12 @@ class Settings : public QDialog
     Q_OBJECT
 
 public:
-    explicit Settings(AppSettings *appSettings, QWidget *parent = 0, bool secondTabActive = true);
+    explicit Settings(AppSettings* appSettings, QWidget *parent = 0,bool secondTabActive = false);
     ~Settings();
 
     //TODO: new API to implement
     //***********************************************/
+
 signals:
     void RestoreDefaultsSettings();
     void SetDefaultLocationForNewProjects();
