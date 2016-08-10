@@ -4,9 +4,6 @@
 #include <QMessageBox>
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
 
-extern int project_index;
-extern ParametersWindow* p;
-
 Settings::Settings(QWidget *parent) :
     QDialog(parent), ui(new Ui::Settings)
 {
@@ -116,14 +113,13 @@ void Settings::apply_settings(bool shouldClose) {
                 QMessageBox(QMessageBox::Critical,"Directory does not exist!","Selected directory does not seem to exist.\nAre you sure you selected it right?",QMessageBox::Ok).exec();
                 return;
             }
-            appSettings->projects[project_index].rbOutputDir=this->ui->projectDirInput->text();
+
         }
         // project - asking individually is selected
         if(this->ui->echaScriptIndividualDirRadioButton->isChecked()) {
             rbLocation="<individually>";
         }
         // if second tab is active, also write project file with new settings
-        p->saveProject(false);
     }
 
     //emit writeSettings(settings); ===> AppSettings

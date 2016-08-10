@@ -6,8 +6,6 @@
 #include "AppSettings/appsettings.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
 
-unsigned int project_index;//TODO: Get rid of that!
-
 
 ProjectManagementWindowTest::ProjectManagementWindowTest(){
 

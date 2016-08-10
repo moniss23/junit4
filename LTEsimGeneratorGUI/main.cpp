@@ -11,7 +11,6 @@
 
 ParametersWindow *p;
 QVector<QString*> trafficFilesNames;
-unsigned int project_index;
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
 bool changesPresent = false;

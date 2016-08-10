@@ -4,9 +4,6 @@
 #include <QStringList>
 #include <QMessageBox>
 
-extern int project_index;//TODO: get rid of that
-
-
 // constructor
 ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ProjectManagement),
@@ -117,14 +114,6 @@ void ProjectManagement::open_project(){
     if(selected_item == NULL){
         return;
     }
-
-    // obtain the project's index in projects vector
-    for(auto i=0; i<appSettings->projects.size(); i++){
-        if(appSettings->projects[i].name==selected_item->text()){
-            project_index=i;
-            break;
-        }
-    }//TODO: Remove this part
 
     QString projectName = selected_item->text().split("\t")[0];
     emit SpawnWindow_OpenProject(projectName);
