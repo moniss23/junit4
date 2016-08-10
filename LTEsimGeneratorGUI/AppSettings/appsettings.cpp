@@ -2,6 +2,8 @@
 #include "Data/appglobaldata.h"
 #include "Data/trafficdata.h"
 
+#include <QDebug>
+
 AppSettings::AppSettings()
 {
   settingsFileSetup();
@@ -448,8 +450,30 @@ void AppSettings::addToProject_TrafficFile(const QString &ProjectName)
         return;
     }
     TrafficData trafficData;
+    trafficData.fileName = generateUniqueTrafficFilename(*it);
     it->trafficFilesList.push_back(trafficData);
     emit currentProjectChanged(*it);
+}
+
+QString AppSettings::generateUniqueTrafficFilename(const Project& project)
+{
+    QString filename;
+    bool filename_unique = false;
+    int i = 0;
+
+    while(!filename_unique){
+        filename="Traffic_"+QString::number(i)+".rb";
+        filename_unique=true;
+        for(auto &&it : project.trafficFilesList) {
+            if(filename == it.fileName){
+                 filename_unique=false;
+                 break;
+             }
+        }
+    i++;
+    }
+    qDebug() << "Traffic name = " << filename;
+    return filename;
 }
 
 QDir AppSettings::getProjectDir() const

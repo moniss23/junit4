@@ -110,6 +110,8 @@ private:
     void loadProjectsFile();
     void saveProjectsFile();
 
+    QString generateUniqueTrafficFilename(const Project& project);
+
 private:
     FileManager fileManager;
     AppGlobalData appGlobalData;

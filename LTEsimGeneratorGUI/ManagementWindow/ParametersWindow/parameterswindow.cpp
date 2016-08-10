@@ -254,12 +254,14 @@ void ParametersWindow::refreshUI(const Project &project)
 
     this->setWindowTitle(project.name);
 
-    //  for(auto &&it:project.files){
-    //      new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->projectsList);
-    //  }
+//    for(auto &&it:project.trafficFilesList){
+//        new QListWidgetItem(it.fileName+"\t("+it.fullpath+")", ui->projectsList);
+//    }
 
-    // if (ui->projectsList  size > 0 ) select first , then by automatic action:
-    //preview will be triggered (   this->ui->filePreview->setText(<first file> );)
+//    if(ui->projectsList->count() > 0 ) {
+//        ui->projectsList->setCurrentRow(0);
+//    }
+//    preview will be triggered (   this->ui->filePreview->setText(<first file> );)
 
 }
 
