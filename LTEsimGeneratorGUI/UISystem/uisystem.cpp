@@ -22,8 +22,8 @@ void UISystem::bindingObjects()
 
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),appSettings,SLOT(deleteProject(QString)));
-    QObject::connect(appSettings, SIGNAL(currentProjects(const std::vector<Project> &)),
-                     &projectUi,   SLOT(updateProjectLists(const std::vector<Project>&)));
+    QObject::connect(appSettings, SIGNAL(currentProjects(const QVector<Project> &)),
+                     &projectUi,   SLOT(updateProjectLists(const QVector<Project>&)));
 
     // Settings
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_Settings()), &settingsWindow, SLOT(exec()));
@@ -35,7 +35,7 @@ void UISystem::bindingObjects()
     // New Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),appSettings,SLOT(createNewProject(QString,QString)));
-    QObject::connect(appSettings, SIGNAL(currentProjects(std::vector<Project>)), &addProjectWindow, SLOT(close()));
+    QObject::connect(appSettings, SIGNAL(currentProjects(QVector<Project>)), &addProjectWindow, SLOT(close()));
 
     //Add traffic file
     QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString)),appSettings, SLOT(addToProject_TrafficFile(QString)));

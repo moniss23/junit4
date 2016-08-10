@@ -91,7 +91,7 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 *   LOGIC CODE HERE
 ***********************************************/
 
-void ProjectManagement::updateProjectLists(const std::vector<Project> &projects)
+void ProjectManagement::updateProjectLists(const QVector<Project> &projects)
 {
     this->projects = projects;
     this->ui->listWidget->clear();
@@ -119,7 +119,7 @@ void ProjectManagement::open_project(){
     }
 
     // obtain the project's index in projects vector
-    for(unsigned int i=0; i<appSettings->projects.size(); i++){
+    for(auto i=0; i<appSettings->projects.size(); i++){
         if(appSettings->projects[i].name==selected_item->text()){
             project_index=i;
             break;

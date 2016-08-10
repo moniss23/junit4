@@ -1,4 +1,4 @@
-#include <vector>
+#include <QVector>
 #include <QApplication>
 #include <QString>
 
@@ -10,7 +10,7 @@
 
 
 ParametersWindow *p;
-std::vector<QString*> trafficFilesNames;
+QVector<QString*> trafficFilesNames;
 unsigned int project_index;
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;

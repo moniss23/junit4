@@ -181,7 +181,7 @@ private:
 
     Form* pointerempty;
 
-    std::vector<DragUELabel*> vectorUE;
+    QVector<DragUELabel*> vectorUE;
     customModel* viewcustomModel1;
     QMessageBox msgExit;
 

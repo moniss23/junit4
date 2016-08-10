@@ -20,10 +20,10 @@ public:
     AppSettings();
     ~AppSettings();
 
-    std::vector<Project> projects;
+    QVector<Project> projects;
 
 signals:
-    void currentProjects(const std::vector<Project> &projects);
+    void currentProjects(const QVector<Project> &projects);
     void currentProjectChanged(const Project &current);
     void errorInData(const QString& errorDescription);
     void returnProject(const Project& project);

@@ -4,8 +4,8 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QVBoxLayout>
-#include <vector>
 #include <QFile>
+#include <QVector>
 #include <QString>
 #include <QStringList>
 #include <QListWidgetItem>
@@ -18,15 +18,15 @@
 #include <ManagementWindow/Settings/settings.h>
 #include <Maps/Traffic/map_traffic.h>
 
-std::vector<QStringList> trafficFilesContentLists;
+QVector<QStringList> trafficFilesContentLists;
 int currentOpenedTrafficFile;
 QString parametersFileContent;
 QStringList parametersFileContentList;
-std::vector<QString> trafficFilesContent;
-std::vector<QString> savedTrafficFilesContent;
+QVector<QString> trafficFilesContent;
+QVector<QString> savedTrafficFilesContent;
 bool paramFileModified;
-std::vector<bool> trafficFilesChanged;
-std::vector<bool> trafficFilesModified;
+QVector<bool> trafficFilesChanged;
+QVector<bool> trafficFilesModified;
 QString defaultLocationForRbFiles;
 bool enableChangeRegistration=true;
 bool previewFileInProgress=false;
@@ -34,7 +34,7 @@ bool closingInProgress=false;
 bool fileAdditionInProgress=false;
 bool enteringMapView;
 QString lastOpenMap;
-extern std::vector<QString*> trafficFilesNames;
+extern QVector<QString*> trafficFilesNames;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
 extern bool changesPresent;
@@ -141,7 +141,7 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
 
 void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
-    std::vector<Project> &vec = appSettings->projects;
+    QVector<Project> &vec = appSettings->projects;
     auto it = std::find_if(vec.begin(), vec.end(), [&projectName](const Project& project)-> bool {
         return (project.name == projectName);
     });
@@ -153,7 +153,7 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
 
     // reset the vectors
-    for(std::vector<QString*>::iterator it=trafficFilesNames.begin(); it!=trafficFilesNames.end(); it++){
+    for(auto it=trafficFilesNames.begin(); it!=trafficFilesNames.end(); it++){
         delete (*it);
     }
     trafficFilesNames.clear();
@@ -271,14 +271,13 @@ void ParametersWindow::addTrafficFile()
     QListWidgetItem* new_item;
     bool name_unique=false;
     int i=0;
-    unsigned int j;
 
 
     // generate unique file name
     while(!name_unique){
         new_file_name="Traffic_"+QString::number(i)+".rb";
         name_unique=true;
-        for(j=0; j<trafficFilesNames.size(); j++){
+        for(auto j=0; j<trafficFilesNames.size(); j++){
             if(new_file_name==trafficFilesNames[j]){
                 name_unique=false;
                 break;
@@ -371,7 +370,8 @@ void ParametersWindow::saveProject(bool singleFile=false){
         if(changesPresent){
             changesPresent=false;
         }
-        for(std::vector<bool>::iterator it=trafficFilesChanged.begin(); it!=trafficFilesChanged.end(); it++){
+
+        for(auto it=trafficFilesChanged.begin(); it!=trafficFilesChanged.end(); it++){
             (*it)=false;
         }
 
@@ -512,14 +512,14 @@ void ParametersWindow::on_removeFileButton_clicked()
         if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File will be removed from the project:\n"+(this->ui->projectsList->currentItem()->text())+"\n\nAre you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
 
             // delete file name from the vector
-            std::vector<QString*>::iterator it=trafficFilesNames.begin();
+            auto it=trafficFilesNames.begin();
             it+=this->ui->projectsList->currentRow()-1;
             QString* mem=trafficFilesNames[this->ui->projectsList->currentRow()-1];
             trafficFilesNames.erase(it);
             delete mem;
 
             // delete file content from the vector
-            std::vector<QString>::iterator it2=trafficFilesContent.begin();
+            auto it2=trafficFilesContent.begin();
             it2+=this->ui->projectsList->currentRow()-1;
             trafficFilesContent.erase(it2);
 

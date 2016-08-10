@@ -1,10 +1,10 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
+#include <QVector>
 #include <QBuffer>
 #include <QDataStream>
 #include <QListWidgetItem>
-#include <vector>
 
 #include <Data/cell.h>
 #include <Data/center.h>
@@ -22,7 +22,7 @@ public:
     QString chosenMapType;
 
     TrafficData parametersFile;
-    std::vector<TrafficData> trafficFilesList;
+    QVector<TrafficData> trafficFilesList;
 
     /****************************
      * SERIALIZATION INTERFACE  *

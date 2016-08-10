@@ -85,7 +85,7 @@ void AppSettings::importProject(const QString &ProjectDirectory)
     new_project.fullpath=vector_dir;
 
     // check if the project is already on the list
-    for(size_t i=0; i<projects.size(); i++){
+    for(auto i=0; i<projects.size(); i++){
         if(projects[i].name==new_project.name && projects[i].fullpath==new_project.fullpath){
             emit errorInData("Project is already present.");
             return;
@@ -157,7 +157,7 @@ void AppSettings::read_settings_file(){
 
 QString AppSettings::get_project_dir(QListWidgetItem *item)
 {
-    for(unsigned int i = 0; i < projects.size(); i++) {
+    for(auto i = 0; i < projects.size(); i++) {
         if(projects[i].name == item->text()) {
             return projects[i].fullpath;
         }
@@ -168,7 +168,7 @@ QString AppSettings::get_project_dir(QListWidgetItem *item)
 
 QString AppSettings::get_project_dir(QString project_name)
 {
-    for(unsigned int i = 0; i < projects.size(); i++) {
+    for(auto i = 0; i < projects.size(); i++) {
         if(projects[i].name == project_name) {
             return projects[i].fullpath;
         }
@@ -183,7 +183,7 @@ void AppSettings::write_projects_file(){
     projects_file.open(QIODevice::WriteOnly);
     QTextStream projects_file_str(&projects_file);
     projects_file_str << projects.size() << "\n";
-    for(size_t i = 0; i < projects.size(); i++) {
+    for(auto i = 0; i < projects.size(); i++) {
         projects_file_str << projects[i].name << "\n";
         projects_file_str << projects[i].fullpath << "\n";
     }
@@ -197,7 +197,7 @@ void AppSettings::read_projects_file(){
     QTextStream projects_file_str(&projects_file);
     QStringList content = projects_file_str.readAll().split("\n");
     Project new_project;
-    for(unsigned i=1; i<=projects.size(); i++)
+    for(auto i=1; i<=projects.size(); i++)
     {
         new_project.name = content[2 * i - 1];
         new_project.fullpath = content[2 * i];
@@ -208,7 +208,7 @@ void AppSettings::read_projects_file(){
 //Moved from projectManagement
 bool AppSettings::projectNameTaken(QString projectName){
     bool taken=false;
-    for(unsigned i=0; i<projects.size(); i++){
+    for(auto i=0; i<projects.size(); i++){
         if(projects[i].name == projectName)
         {
             taken=true;
@@ -306,7 +306,7 @@ void AppSettings::traverseProjectsListAndAddProjectIfNotFound() {
             // check if the project was already obtained from projects.dat, if not then add it
 
             //TODO: change the algorithm
-            unsigned int j;
+            int j;
             for(j=0; j<projects.size(); j++){
                 if(projects[j].name==projects_dir_content[i].fileName()){
                     break;

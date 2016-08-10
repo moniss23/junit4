@@ -58,7 +58,7 @@ public slots:
      * @brief updateProjectLists
      * @param projects
      */
-    void updateProjectLists(const std::vector<Project> &projects);
+    void updateProjectLists(const QVector<Project> &projects);
 
 
     /***********************************************
@@ -85,7 +85,7 @@ private:
 private:
     Ui::ProjectManagement *ui;
     AppSettings* appSettings;
-    std::vector<Project> projects; ///> Local copy of Data
+    QVector<Project> projects; ///> Local copy of Data
 };
 
 #endif // PROJECTMANAGEMENT_H

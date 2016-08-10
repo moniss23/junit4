@@ -34,8 +34,8 @@ extern bool tmp_chkCell62;
 //changes saving map traffic
 
 extern int currentOpenedTrafficFile;
-extern std::vector<QStringList> trafficFilesContentLists;
-extern std::vector<QString> trafficFilesContent;
+extern QVector<QStringList> trafficFilesContentLists;
+extern QVector<QString> trafficFilesContent;
 
 extern QStringList readyCMList[10];
 
@@ -90,7 +90,7 @@ DragUELabel *actualposition;
 extern int currentOpenedTrafficFile;
 extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
-extern std::vector<QString> trafficFilesContent;
+extern QVector<QString> trafficFilesContent;
 extern ParametersWindow* p;
 Map_traffic::Map_traffic(AppSettings* appSettings, QWidget *parent) :
     QMainWindow(parent),
