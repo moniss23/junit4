@@ -2,7 +2,6 @@
 #include "Data/appglobaldata.h"
 #include "Data/trafficdata.h"
 
-
 AppSettings::AppSettings()
 {
   settingsFileSetup();
@@ -358,55 +357,42 @@ void AppSettings::setMapType(const QString& projectName, const QString& mapType)
  *
  */
 
-void AppSettings::createNewProject(const QString &projectName, const QString & directory) {
+void AppSettings::createNewProject(const QString &projectName, const QString &directory) {
 
     if(projectNameTaken(projectName)) {
         emit errorInData("Name already in use. Choose another one.");
         return;
     }
 
-    QString dir;
-    if(directory.isEmpty()){
-       dir = getDefaultNewProjectDir();
-    } else {
-       dir = directory;
-    }
+    QString dir = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
 
-
-    Project new_project;
-    new_project.name=projectName;
-    new_project.fullpath=dir;
-
-    projects.push_back(new_project);
-
-    QDir projectDir;
-
-    // if the project is to be saved in default directory
-    if(dir=="<default>"){
-        projectDir.setPath(appGlobalData.getProjectsDirectory());
-    } else {
-        projectDir.setPath(dir);
-    }
-
-    projectDir.mkdir(projectName);
-
-    // append the settings, the name and content of parameters.rb template to project file
-    QString project_content("<default>\nnormal\nParameters.rb\n0\n");
     QFile param_template(":/RbFiles/parameters.rb");
     param_template.open(QIODevice::ReadOnly);
     QTextStream param_template_str(&param_template);
-    QString param_template_content=param_template_str.readAll();
-    project_content+=QString::number(param_template_content.split("\n").size());
-    project_content+="\n";
-    project_content+=param_template_content;
-    project_content+="\n";
+    QString param_template_content = param_template_str.readAll();
     param_template.close();
 
-    if(dir=="<default>"){
-        write_project_file(projectName,project_content, getProjectDirectory(projectName));
-    } else {
-        write_project_file(projectName,project_content,dir);
-    }
+    Project new_project;
+    new_project.name = projectName;
+    new_project.fullpath = dir;
+    new_project.parametersFile.fileName = "Parameters.rb";
+    new_project.parametersFile.content = param_template_content.split('\n');
+    projects.push_back(new_project);
+
+    QDir projectDir;
+    projectDir.setPath(dir=="<default>" ? appGlobalData.getProjectsDirectory() : dir);
+    projectDir.mkdir(projectName);
+
+    QString project_content;
+    project_content += "<default>\n";
+    project_content += "normal\n";
+    project_content += "Parameters.rb\n";
+    project_content += "0\n";
+    project_content += QString::number(param_template_content.split("\n").size()) + "\n";
+    project_content += param_template_content + "\n";
+
+    write_project_file(projectName, project_content,
+                       dir=="<default>" ? getProjectDirectory(projectName) : dir);
 
     // store the project name in a global variable for use by other files and methods
     setProjectName(projectName); //TODO: Should not be needed in good architecture
