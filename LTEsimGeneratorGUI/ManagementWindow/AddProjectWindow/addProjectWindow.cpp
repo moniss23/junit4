@@ -68,11 +68,3 @@ void AddProjectWindow::on_defaultLocationRadioButton_toggled(bool checked)
         this->ui->browseDirectoryButton->setEnabled(true);
     }
 }
-
-void AddProjectWindow::showErrorWindow(const QString& errorMessage) {
-    if(this->isActiveWindow()) {
-        QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI",errorMessage,QMessageBox::Yes).exec();
-    }
-    return;
-}
-

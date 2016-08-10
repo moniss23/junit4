@@ -33,13 +33,6 @@ signals:
      */
     void createNewProject(const QString& projectName, const QString& directory);
 
-public slots:
-    /**
-     * @brief showErrorWindow is used when application can't add new project with given parameters
-     * @param errorMessage QString with message to display for end user
-     */
-    void showErrorWindow(const QString& errorMessage);
-
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS AND LISTS

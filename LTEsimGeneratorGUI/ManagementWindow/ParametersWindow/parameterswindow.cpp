@@ -1185,11 +1185,3 @@ void ParametersWindow::on_saveFileButton_clicked()
 {
     //TODO: implement file saving on button click
 }
-
-void ParametersWindow::showErrorWindow(const QString &errorDescription)
-{
-    if(this->isActiveWindow()) {
-        QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI",errorDescription,QMessageBox::Yes).exec();
-    }
-    return;
-}

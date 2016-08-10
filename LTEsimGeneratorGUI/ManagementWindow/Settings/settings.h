@@ -13,7 +13,8 @@ class Settings : public QDialog
     Q_OBJECT
 
 public:
-    explicit Settings(AppSettings* appSettings, QWidget *parent = 0,bool secondTabActive = false);
+    explicit Settings(AppSettings* appSettings, QWidget *parent = 0,bool secondTabActive = true);
+
     ~Settings();
 
     //TODO: new API to implement

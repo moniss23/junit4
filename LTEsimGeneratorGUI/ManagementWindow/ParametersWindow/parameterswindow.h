@@ -60,8 +60,6 @@ public slots:
      * @param project project that changed
      */
     void refreshUI(const Project& project);//To refresh view when anyting changes
-    void showErrorWindow(const QString& errorDescription);
-
 
 
     /***********************************************

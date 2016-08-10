@@ -8,12 +8,20 @@
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "ManagementWindow/Settings/settings.h"
 
-class UISystem
+class UISystem : public QObject
 {
+
+    Q_OBJECT
+
 public:
     UISystem(AppSettings *data);
+    ~UISystem();
 
     void bindingObjects();
+
+public slots:
+    void showErrorWindow(const QString& errorDescription);
+
 
 private:
     AppSettings* appSettings;

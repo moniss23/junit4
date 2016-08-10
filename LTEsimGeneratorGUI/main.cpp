@@ -3,12 +3,6 @@
 #include <QString>
 
 #include "AppSettings/appsettings.h"
-#include "ManagementWindow/ProjectManagement/projectmanagement.h"
-#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
-#include "ManagementWindow/ProjectManagement/importprojectwindow.h"
-
-#include "ManagementWindow/Settings/settings.h"
-#include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Traffic/map_traffic.h"
 #include "Data/appglobaldata.h"

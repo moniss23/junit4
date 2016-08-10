@@ -1,4 +1,5 @@
 #include "uisystem.h"
+#include <QMessageBox>
 
 UISystem::UISystem(AppSettings* data) : appSettings(data), projectUi(appSettings),
     paramWindow(appSettings), settingsWindow(appSettings)
@@ -7,6 +8,9 @@ UISystem::UISystem(AppSettings* data) : appSettings(data), projectUi(appSettings
     this->bindingObjects();
     appSettings->LoadAppData();
     this->projectUi.show();
+}
+
+UISystem::~UISystem(){
 }
 
 void UISystem::bindingObjects()
@@ -31,11 +35,18 @@ void UISystem::bindingObjects()
     // New Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),appSettings,SLOT(createNewProject(QString,QString)));
-    QObject::connect(appSettings,SIGNAL(errorInData(QString)), &addProjectWindow, SLOT(showErrorWindow(QString)));
     QObject::connect(appSettings, SIGNAL(currentProjects(std::vector<Project>)), &addProjectWindow, SLOT(close()));
 
     //Add traffic file
     QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString)),appSettings, SLOT(addToProject_TrafficFile(QString)));
     QObject::connect(appSettings, SIGNAL(currentProjectChanged(Project)),&paramWindow, SLOT(refreshUI(Project)));
-    QObject::connect(appSettings,SIGNAL(errorInData(QString)),&paramWindow, SLOT(showErrorWindow(QString)));
+
+
+    //Error window
+    QObject::connect(appSettings, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
+}
+
+void UISystem::showErrorWindow(const QString &errorDescription)
+{
+    QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
 }
