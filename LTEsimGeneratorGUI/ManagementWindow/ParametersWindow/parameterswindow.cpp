@@ -22,10 +22,8 @@ std::vector<QStringList> trafficFilesContentLists;
 int currentOpenedTrafficFile;
 QString parametersFileContent;
 QStringList parametersFileContentList;
-QString savedParametersFileContent;
 std::vector<QString> trafficFilesContent;
 std::vector<QString> savedTrafficFilesContent;
-bool paramFileChanged;
 bool paramFileModified;
 std::vector<bool> trafficFilesChanged;
 std::vector<bool> trafficFilesModified;
@@ -37,7 +35,6 @@ bool fileAdditionInProgress=false;
 bool enteringMapView;
 QString lastOpenMap;
 extern std::vector<QString*> trafficFilesNames;
-extern bool paramFilePresent;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
 extern bool changesPresent;
@@ -63,7 +60,6 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     ui->setupUi(this);
 
     changesPresent=false;
-    paramFileChanged=false;
 
     // set undo and redo enabled in the text editor
     this->ui->filePreview->setUndoRedoEnabled(true);
@@ -163,7 +159,6 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     trafficFilesNames.clear();
     trafficFilesContent.clear();
     trafficFilesChanged.clear();
-    paramFileChanged=false;
     parametersFileContentList.clear();
     paramFileModified=false;
     trafficFilesModified.clear();
@@ -190,13 +185,14 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     project_content_line=4;
 
 
-
-   paramFilePresent=true;
-
+   //-----------REFACTOR IN PROGRESS------------
    //Set first list item to paremeters file name
    qDebug()<<GivenProject.parametersFile.fileName;
    ui->projectsList->addItem(GivenProject.parametersFile.fileName);
 
+   parametersFileContent = GivenProject.parametersFile.content;
+   parametersFileContent+="\n";
+   //-----------REFACTOR IN PROGRESS------------
 
 
     // read the traffic file names
@@ -213,14 +209,8 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     paramFileLen=project_content[project_content_line].toInt();
     project_content_line++;
     for(int i=0; i<paramFileLen; i++){
-        savedParametersFileContent+=project_content[project_content_line];
-        savedParametersFileContent+="\n";
-
         project_content_line++;
     }
-
-    parametersFileContent = GivenProject.parametersFile.content;
-    parametersFileContent+="\n";
 
     // insert param file content into a list of lines
     parametersFileContentList=parametersFileContent.split("\n");
@@ -240,23 +230,11 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     }
 
 
+    this->ui->projectsList->item(0)->setSelected(true);
+    this->ui->projectsList->setCurrentRow(0);
 
-
-    if(paramFilePresent){
-        this->ui->projectsList->item(0)->setSelected(true);
-        this->ui->projectsList->setCurrentRow(0);
-    }
-    else if(nrOfTrafficFiles>0){
-        this->ui->projectsList->item(1)->setSelected(true);
-        this->ui->projectsList->setCurrentRow(1);
-    }
-    else{
-        this->ui->projectsList->item(0);
-        this->ui->projectsList->setCurrentRow(0);
-    }
 
     changesPresent=false;
-    paramFileChanged=false;
 
     if(this->ui->projectsList->item(0)->text().endsWith("*")){
         this->ui->projectsList->item(0)->setText(this->ui->projectsList->item(0)->text().left(this->ui->projectsList->item(0)->text().size()-1));
@@ -292,12 +270,6 @@ void ParametersWindow::addTrafficFile()
     bool name_unique=false;
     int i=0;
     unsigned int j;
-
-    // replace <empty> with <none> in the zero-th row of projectsList
-    if(nrOfTrafficFiles==0 && paramFilePresent==false){
-        delete this->ui->projectsList->takeItem(0);
-        this->ui->projectsList->addItem("<none>");
-    }
 
 
     // generate unique file name
@@ -397,15 +369,11 @@ void ParametersWindow::saveProject(bool singleFile=false){
         if(changesPresent){
             changesPresent=false;
         }
-        if(paramFileChanged){
-            paramFileChanged=false;
-        }
         for(std::vector<bool>::iterator it=trafficFilesChanged.begin(); it!=trafficFilesChanged.end(); it++){
             (*it)=false;
         }
 
         // copy all content from temp to actual
-        savedParametersFileContent=parametersFileContent;
         for(int i=0; i<nrOfTrafficFiles; i++){
             savedTrafficFilesContent[i]=trafficFilesContent[i];
         }
@@ -413,19 +381,9 @@ void ParametersWindow::saveProject(bool singleFile=false){
 
     // if only one file is to be saved, only copy that file's content from temp to actual
     else{
-
-        // if the file to be saved is parameters
-        if(this->ui->projectsList->currentRow()==0){
-            paramFileChanged=false;
-            savedParametersFileContent=parametersFileContent;
-        }
-
-        // if the file to be saved is traffic
-        else{
             int file_index=this->ui->projectsList->currentRow()-1;
             trafficFilesChanged[file_index]=false;
             savedTrafficFilesContent[file_index]=trafficFilesContent[file_index];
-        }
     }
 
     // add default location for output .rb files
@@ -453,12 +411,6 @@ void ParametersWindow::saveProject(bool singleFile=false){
         plaintext.append((*trafficFilesNames[i]));
         plaintext.append("\n");
     }
-
-    // add length and content of param file
-    plaintext.append(QString::number(savedParametersFileContent.split("\n").length()));
-    plaintext.append("\n");
-    plaintext.append(savedParametersFileContent);
-    plaintext.append("\n");
 
     // add length and content of traffic files
     for(int i=0; i<nrOfTrafficFiles; i++){
@@ -579,43 +531,13 @@ void ParametersWindow::on_removeFileButton_clicked()
                 this->setWindowTitle(this->windowTitle()+"*");
             }
 
-            // if there are no more files, change <none> to <empty>
-            if(!paramFilePresent && nrOfTrafficFiles==0){
-                this->ui->projectsList->item(0)->setText("<empty>");
-            }
-
         }
 
     }
 
     // if the file is parameters
     else{
-
-        if(paramFilePresent){
-            if(QMessageBox::Yes==QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File will be removed from the project:\n"+(this->ui->projectsList->currentItem()->text())+"\n\nAre you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-
-
-                // replace the item in UI with <none> or <empty>
-                if(nrOfTrafficFiles>0){
-                    this->ui->projectsList->item(0)->setText("<none>");
-                }
-                else{
-                    this->ui->projectsList->item(0)->setText("<empty>");
-                }
-
-                // reset the bool variable
-                paramFilePresent=false;
-
-                parametersFileContent="";
-
-                this->ui->filePreview->clear();
-
-                if(!changesPresent){
-                    changesPresent=true;
-                    this->setWindowTitle(this->windowTitle()+"*");
-                }
-            }
-        }
+        return;//PSKAL: YOU DO NOT DELETE PARAMETERS FILE !
     }
 }
 
@@ -980,9 +902,6 @@ void ParametersWindow::on_filePreview_textChanged()
 
     // if it's a param file
     if(this->ui->projectsList->currentRow()==0){
-        if(!paramFileChanged){
-            paramFileChanged=true;
-        }
         if(!paramFileModified){
             paramFileModified=true;
             this->ui->resetDefaultsButton->setEnabled(true);
@@ -1008,9 +927,9 @@ void ParametersWindow::on_generateFileButton_clicked()
 {
 
     // if default dir is set
-    if(defaultLocationForRbFiles=="<default>"){
+    if(currentProject.rbOutputDir=="<default>"){
 
-        QString projectName = appSettings->getProjectName();
+        QString projectName = currentProject.name;
 
         // if the file is parameters
         if(this->ui->projectsList->currentRow()==0){

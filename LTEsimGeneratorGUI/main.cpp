@@ -12,7 +12,6 @@
 ParametersWindow *p;
 std::vector<QString*> trafficFilesNames;
 unsigned int project_index;
-bool paramFilePresent = true;
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
 bool changesPresent = false;
