@@ -53,7 +53,7 @@ void ParametersWindow::switch_button_state_undo(bool available){
 }
 
 void ParametersWindow::switch_button_state_redo(bool available){
-        this->ui->redoButton->setEnabled(available);
+    this->ui->redoButton->setEnabled(available);
 }
 
 ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
@@ -145,6 +145,17 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
 
 void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
+    std::vector<Project> &vec = appSettings->projects;
+    auto it = std::find_if(vec.begin(), vec.end(), [&projectName](const Project& project)-> bool {
+        return (project.name == projectName);
+    });
+
+    if(it==vec.end()) {return;}
+    Project &GivenProject = *it;
+    this->currentProject = GivenProject;
+
+
+
     // reset the vectors
     for(std::vector<QString*>::iterator it=trafficFilesNames.begin(); it!=trafficFilesNames.end(); it++){
         delete (*it);
@@ -153,13 +164,12 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     trafficFilesContent.clear();
     trafficFilesChanged.clear();
     paramFileChanged=false;
-    parametersFileContent="";
     parametersFileContentList.clear();
     paramFileModified=false;
     trafficFilesModified.clear();
 
     // set the window title
-    this->setWindowTitle(appSettings->getProjectFile());
+    this->setWindowTitle(projectName);
 
     QListWidgetItem* new_item;
     QString line;
@@ -169,85 +179,68 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
     // read the project content from the project file
     QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDirectory(projectName));
-
     // read the default location for output .rb files
     defaultLocationForRbFiles=project_content[0];
-
     // read the type of last open map
     appSettings->setMapType(projectName, project_content[1]);
     lastOpenMap=project_content[1];
     this->ui->radioButton_normalMap->setChecked(true);
-
-
     // read the name of parameters file and nr of traffic files
-    appSettings->setParametersFile(project_content[2]);
     nrOfTrafficFiles=project_content[3].toInt();
     project_content_line=4;
 
-    // if the project is empty
-    if(nrOfTrafficFiles==0 && (appSettings->getParametersFile())=="<none>"){
-        this->ui->projectsList->addItem("<empty>");
-        paramFilePresent=false;
-        parametersFileContent="";
+
+
+   paramFilePresent=true;
+
+   //Set first list item to paremeters file name
+   qDebug()<<GivenProject.parametersFile.fileName;
+   ui->projectsList->addItem(GivenProject.parametersFile.fileName);
+
+
+
+    // read the traffic file names
+    for(int i=0; i<nrOfTrafficFiles; i++){
+        line=project_content[i+4];
+        new_item=new QListWidgetItem(line);
+        this->ui->projectsList->addItem(new_item);
+        trafficFilesNames.push_back(new QString(line));
+        trafficFilesChanged.push_back(false);
+        trafficFilesModified.push_back(false);
     }
+    project_content_line+=nrOfTrafficFiles;
+    // read the content of the parameters file
+    paramFileLen=project_content[project_content_line].toInt();
+    project_content_line++;
+    for(int i=0; i<paramFileLen; i++){
+        savedParametersFileContent+=project_content[project_content_line];
+        savedParametersFileContent+="\n";
 
-    // if the project is not empty
-    else{
-
-        // if there is no parameters file
-        if((appSettings->getParametersFile())=="<none>"){
-            paramFilePresent=false;
-            this->ui->projectsList->addItem("<none>");
-            parametersFileContent="";
-        }
-
-        // if there is a parameters file
-        else{
-            paramFilePresent=true;
-            this->ui->projectsList->addItem(appSettings->getParametersFile());
-        }
-
-        // read the traffic file names
-        for(int i=0; i<nrOfTrafficFiles; i++){
-            line=project_content[i+4];
-            new_item=new QListWidgetItem(line);
-            this->ui->projectsList->addItem(new_item);
-            trafficFilesNames.push_back(new QString(line));
-            trafficFilesChanged.push_back(false);
-            trafficFilesModified.push_back(false);
-        }
-
-        project_content_line+=nrOfTrafficFiles;
-
-        // read the content of the parameters file
-        paramFileLen=project_content[project_content_line].toInt();
         project_content_line++;
-        for(int i=0; i<paramFileLen; i++){
-            parametersFileContent+=project_content[project_content_line];
-            savedParametersFileContent+=project_content[project_content_line];
-            parametersFileContent+="\n";
-            savedParametersFileContent+="\n";
-            project_content_line++;
-        }
+    }
 
-        // insert param file content into a list of lines
-        parametersFileContentList=parametersFileContent.split("\n");
+    parametersFileContent = GivenProject.parametersFile.content;
+    parametersFileContent+="\n";
 
-        // read the content of all traffic files
-        for(int i=0; i<nrOfTrafficFiles; i++){
-            trafficFileLen=project_content[project_content_line].toInt();
+    // insert param file content into a list of lines
+    parametersFileContentList=parametersFileContent.split("\n");
+    // read the content of all traffic files
+    for(int i=0; i<nrOfTrafficFiles; i++){
+        trafficFileLen=project_content[project_content_line].toInt();
+        project_content_line++;
+        trafficFilesContent.push_back("");
+        savedTrafficFilesContent.push_back("");
+        for(int j=0; j<trafficFileLen; j++){
+            trafficFilesContent[i].append(project_content[project_content_line]);
+            savedTrafficFilesContent[i].append(project_content[project_content_line]);
+            trafficFilesContent[i].append("\n");
+            savedTrafficFilesContent[i].append("\n");
             project_content_line++;
-            trafficFilesContent.push_back("");
-            savedTrafficFilesContent.push_back("");
-            for(int j=0; j<trafficFileLen; j++){
-                trafficFilesContent[i].append(project_content[project_content_line]);
-                savedTrafficFilesContent[i].append(project_content[project_content_line]);
-                trafficFilesContent[i].append("\n");
-                savedTrafficFilesContent[i].append("\n");
-                project_content_line++;
-            }
         }
     }
+
+
+
 
     if(paramFilePresent){
         this->ui->projectsList->item(0)->setSelected(true);
@@ -279,16 +272,16 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
 void ParametersWindow::refreshUI(const Project &project)
 {
-  currentProject = project;
+    currentProject = project;
 
-  this->setWindowTitle(project.name);
+    this->setWindowTitle(project.name);
 
-//  for(auto &&it:project.files){
-//      new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->projectsList);
-//  }
+    //  for(auto &&it:project.files){
+    //      new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->projectsList);
+    //  }
 
-  // if (ui->projectsList  size > 0 ) select first , then by automatic action:
-  //preview will be triggered (   this->ui->filePreview->setText(<first file> );)
+    // if (ui->projectsList  size > 0 ) select first , then by automatic action:
+    //preview will be triggered (   this->ui->filePreview->setText(<first file> );)
 
 }
 
@@ -444,7 +437,7 @@ void ParametersWindow::saveProject(bool singleFile=false){
     plaintext.append("\n");
 
     // add param file name
-    plaintext.append(appSettings->getParametersFile());
+    plaintext.append(this->currentProject.parametersFile.fileName);
     plaintext.append("\n");
 
     // add nr of traffic files
@@ -601,8 +594,6 @@ void ParametersWindow::on_removeFileButton_clicked()
         if(paramFilePresent){
             if(QMessageBox::Yes==QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File will be removed from the project:\n"+(this->ui->projectsList->currentItem()->text())+"\n\nAre you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
 
-                // set the parameters file to <none>
-                appSettings->setParametersFile("<none>");
 
                 // replace the item in UI with <none> or <empty>
                 if(nrOfTrafficFiles>0){
@@ -667,7 +658,7 @@ void ParametersWindow::on_renameFileButton_clicked()
 
         if(new_name!=this->ui->projectsList->currentItem()->text()){
             name_unique=true;
-            if(new_name==(appSettings->getParametersFile())){
+            if(new_name==this->currentProject.parametersFile.fileName){
                 name_unique=false;
             }
             if(name_unique){
@@ -729,7 +720,7 @@ void ParametersWindow::on_renameFileButton_clicked()
 
             if(new_name!=this->ui->projectsList->currentItem()->text()){
                 name_unique=true;
-                if(new_name==(appSettings->getParametersFile())){
+                if(new_name==this->currentProject.parametersFile.fileName){
                     name_unique=false;
                 }
                 if(name_unique){
@@ -756,7 +747,7 @@ void ParametersWindow::on_renameFileButton_clicked()
 
         // update the parameters file name
         if(this->ui->projectsList->currentRow()==0){
-            appSettings->setParametersFile(new_name);
+            this->currentProject.parametersFile.fileName = new_name;
         }
 
         // update the traffic file name
@@ -883,8 +874,8 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 
     // traffic file double-clicked
     else if(this->ui->projectsList->currentRow()>0){
-    // store the index of the opened traffic file in a global variable
-    currentOpenedTrafficFile=this->ui->projectsList->currentRow()-1;
+        // store the index of the opened traffic file in a global variable
+        currentOpenedTrafficFile=this->ui->projectsList->currentRow()-1;
     }
     if(this->ui->projectsList->currentRow()>0){
         // store the index of the opened traffic file in a global variable
@@ -896,8 +887,8 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
             map_t=NULL;
 
         }
-            map_t =new Map_traffic(appSettings);
-            map_t->show();
+        map_t =new Map_traffic(appSettings);
+        map_t->show();
 
 
 

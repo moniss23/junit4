@@ -176,7 +176,7 @@ void Settings::apply_settings(){
 }
 
 // "OK" button clicked
-void Settings::on_okButton_clicked()
+void Settings::on_OKButton_clicked()
 {
     this->apply_settings();
     this->close();

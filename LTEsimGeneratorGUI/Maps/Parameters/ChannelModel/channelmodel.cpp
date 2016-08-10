@@ -3,7 +3,6 @@
 #include <QFile>
 #include <QTextStream>
 
-extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 
 ChannelModel::ChannelModel()

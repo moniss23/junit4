@@ -270,8 +270,18 @@ void AppSettings::testProjectsObtainedFromTheFile() {
         if(d.exists()){
             QFile f(d.absolutePath()+"/"+projects_file_content[i] + appGlobalData.getProFileExt());
             if(f.exists()){
+                QFile param_template(":/RbFiles/parameters.rb");
+                param_template.open(QIODevice::ReadOnly);
+                QTextStream param_template_str(&param_template);
+                QString param_template_content = param_template_str.readAll();
+                param_template.close();
+
+
+
                 new_project.name=projects_file_content[i];
                 new_project.fullpath=projects_file_content[i+1];
+                new_project.parametersFile.fileName="Parameters.rb";//hack
+                new_project.parametersFile.content=param_template_content;//hack
                 projects.push_back(new_project);
             }
         }
@@ -376,7 +386,7 @@ void AppSettings::createNewProject(const QString &projectName, const QString &di
     new_project.name = projectName;
     new_project.fullpath = dir;
     new_project.parametersFile.fileName = "Parameters.rb";
-    new_project.parametersFile.content = param_template_content.split('\n');
+    new_project.parametersFile.content = param_template_content;
     projects.push_back(new_project);
 
     QDir projectDir;
@@ -407,16 +417,6 @@ void AppSettings::createNewProject(const QString &projectName, const QString &di
  * Getters and Setters
  *
  */
-
-QString AppSettings::getParametersFile() const
-{
-    return parametersFile;
-}
-
-void AppSettings::setParametersFile(const QString &value)
-{
-    parametersFile = value;
-}
 
 QString AppSettings::getProjectFile() const
 {

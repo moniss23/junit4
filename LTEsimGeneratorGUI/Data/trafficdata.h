@@ -7,7 +7,7 @@
 struct TrafficData
 {
     QString fileName;
-    QStringList content;
+    QString content;
 };
 
 #endif // TRAFFICDATA_H

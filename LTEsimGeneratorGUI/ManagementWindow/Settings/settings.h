@@ -32,7 +32,7 @@ private slots:
 
     void on_projectCustomDirRadioButton_toggled(bool checked);
 
-    void on_okButton_clicked();
+    void on_OKButton_clicked();
 
     void on_cancelButton_clicked();
 

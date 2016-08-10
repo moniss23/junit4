@@ -68,8 +68,6 @@ public:
     //-------------------------------------------------------------
     //-------------------------------------------------------------
 
-    QString getParametersFile() const;
-    void setParametersFile(const QString &value);
 
     QString getProjectFile() const;
     void setProjectFile(const QString &value);
@@ -124,7 +122,6 @@ private:
     QFile settings_file;
     QFile projects_file;
     QString defaultNewProjectDir;
-    QString parametersFile;
     QString projectFile;
     QString projectName;
     QDir projectDir;
