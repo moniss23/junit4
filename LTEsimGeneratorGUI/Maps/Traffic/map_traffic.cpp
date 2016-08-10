@@ -244,6 +244,7 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
              connect(pointerCM[i],&my_qlabel::Mouse_Pressed,[=]() {
                  viewcustomModel[i]->close();
                  viewcustomModel[i]->setWindowModality(Qt::ApplicationModal);
+                 viewcustomModel[i]->setParameters(&viewcustomModel[i]);
                  viewcustomModel[i]->show();
              });
          }

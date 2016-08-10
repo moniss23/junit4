@@ -1,14 +1,94 @@
 #include "customModel.h"
 #include "ui_customModel.h"
 
+#define SyncedPingComboBoxOffset 6
+#define ServiceReqComboBoxOffset 15
+
+
 customModel::customModel(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::customModel)
 {
     ui->setupUi(this);
 
-    for(unsigned int i=0;i<9;i++)
-        qciUsed[i]=false;
+    for(auto &primaryQciUsed:qciUsed)
+        primaryQciUsed=false;
+
+    comboBoxForQci[0]=ui->comboBoxPingQci;
+    comboBoxForQci[1]=ui->comboBoxVoipQci;
+    comboBoxForQci[2]=ui->comboBoxFTPDlQci;
+    comboBoxForQci[3]=ui->comboBoxFTPUlQci;
+    comboBoxForQci[4]=ui->comboBoxStreamDlQci;
+    comboBoxForQci[5]=ui->comboBoxStreamUlQci;
+    comboBoxForQci[6]=ui->comboBoxSyncedPingQci1;
+    comboBoxForQci[7]=ui->comboBoxSyncedPingQci2;
+    comboBoxForQci[8]=ui->comboBoxSyncedPingQci3;
+    comboBoxForQci[9]=ui->comboBoxSyncedPingQci4;
+    comboBoxForQci[10]=ui->comboBoxSyncedPingQci5;
+    comboBoxForQci[11]=ui->comboBoxSyncedPingQci6;
+    comboBoxForQci[12]=ui->comboBoxSyncedPingQci7;
+    comboBoxForQci[13]=ui->comboBoxSyncedPingQci8;
+    comboBoxForQci[14]=ui->comboBoxSyncedPingQci9;
+    comboBoxForQci[15]=ui->comboBoxServiceReqQci1;
+    comboBoxForQci[16]=ui->comboBoxServiceReqQci2;
+    comboBoxForQci[17]=ui->comboBoxServiceReqQci3;
+    comboBoxForQci[18]=ui->comboBoxServiceReqQci4;
+    comboBoxForQci[19]=ui->comboBoxServiceReqQci5;
+    comboBoxForQci[20]=ui->comboBoxServiceReqQci6;
+    comboBoxForQci[21]=ui->comboBoxServiceReqQci7;
+    comboBoxForQci[22]=ui->comboBoxServiceReqQci8;
+    comboBoxForQci[23]=ui->comboBoxServiceReqQci9;
+
+    //pointer used in setParameters and saveCustomModel
+    pointercomboBoxForQciSyncedPing=&comboBoxForQci[SyncedPingComboBoxOffset];
+
+    //pointer used in setParameters and saveCustomModel
+    pointercomboBoxForQciServiceReq=&comboBoxForQci[ServiceReqComboBoxOffset];
+
+    //pointers used in refreshQci
+    QciCurrentText[0]=&(CMPingParams.currentQciTextPing);
+    QciCurrentText[1]=&(CMVoipParams.currentQciTextVoip);
+    QciCurrentText[2]=&(CMFtpDlParams.currentQciTextFtpDl);
+    QciCurrentText[3]=&(CMFtpUlParams.currentQciTextFtpUl);
+    QciCurrentText[4]=&(CMStreamDlParams.currentQciTextStreamDl);
+    QciCurrentText[5]=&(CMStreamUlParams.currentQciTextStreamUl);
+    for(unsigned i=0;i<AmountOfQci;i++)
+        QciCurrentText[i+SyncedPingComboBoxOffsetInComboBoxForQci]=&(CMSyncedPingParams.currentQciTextSyncedPing[i]);
+    for(unsigned i=0;i<AmountOfQci;i++)
+        QciCurrentText[i+ServiceReqComboBoxOffsetInComboBoxForQci]=&(CMServiceReqParams.currentQciTextServiceReq[i]);
+
+    ui->lineEditPingInterval->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditPingNumberOfPings->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditPingMinReceivedPings->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    ui->lineEditVoipActivityFactor->setValidator(new QIntValidator(0, 100, this));
+    ui->lineEditVoipDuration->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditVoipMaxTransferTime->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditVoipMinPacketsReceivedInTime->setValidator(new QIntValidator(0, 100, this));
+
+    ui->lineEditFTPDlFilesize->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditFTPDlMinThroughput->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    ui->lineEditFTPUlFilesize->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditFTPUlMinThroughput->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    ui->lineEditStreamDlDuration->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditStreamDlMinThroughput->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditStreamDlSpeed->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    ui->lineEditStreamUlDuration->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditStreamUlMinThroughput->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditStreamUlSpeed->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    ui->lineEditSyncedPingInterval->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditSyncedPingMinReceivedPings->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditSyncedPingNumberOfPings->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditSyncedPingTimeBetweenTasks->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    ui->lineEditServiceReqIntervalBetweenUIData->setValidator(new QIntValidator(0, INT_MAX, this));
+    ui->lineEditServiceReqTimeToWaitForAttach->setValidator(new QIntValidator(0, INT_MAX, this));
+
+    on_saveCustomModelButton_clicked();
 }
 
 customModel::~customModel()
@@ -24,7 +104,7 @@ void customModel::set_custom_name(QString name)
 void customModel::on_checkBoxPing_clicked()
 {
     bool isPingActive=ui->checkBoxPing->isChecked();
-    ui->comboBoxPingQci->setEnabled(isPingActive);
+    comboBoxForQci[0]->setEnabled(isPingActive);
     ui->lineEditPingNumberOfPings->setEnabled(isPingActive);
     ui->lineEditPingInterval->setEnabled(isPingActive);
     ui->lineEditPingMinReceivedPings->setEnabled(isPingActive);
@@ -108,626 +188,67 @@ void customModel::on_checkBoxServiceReq_clicked()
     ui->lineEditServiceReqTimeToWaitForAttach->setEnabled(isServiceReqActive);
 }
 
-void customModel::refreshPingQci()
-{
-    if(ui->comboBoxPingQci->currentText()!="")
-    {
-        qciUsed[QciCurrentText[0].toInt()-1]=false;
-        QString temp=(ui->comboBoxPingQci->currentText());
-
-        ui->comboBoxPingQci->clear();
-        ui->comboBoxPingQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-            {
-                ui->comboBoxPingQci->addItem(QString::number(i+1));
-            }
-        }
-        qciUsed[QciCurrentText[0].toInt()-1]=true;
-        ui->comboBoxPingQci->setCurrentText(temp);
-    }else{
-        ui->comboBoxPingQci->clear();
-        ui->comboBoxPingQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxPingQci->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshVoipQci()
-{
-    if(ui->comboBoxVoipQci->currentText()!="")
-    {
-        qciUsed[QciCurrentText[1].toInt()-1]=false;
-        QString temp=ui->comboBoxVoipQci->currentText();
-        ui->comboBoxVoipQci->clear();
-        ui->comboBoxVoipQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxVoipQci->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[1].toInt()-1]=true;
-        ui->comboBoxVoipQci->setCurrentText(temp);
-    }else{
-        ui->comboBoxVoipQci->clear();
-        ui->comboBoxVoipQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxVoipQci->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshFTPDlQci()
-{
-    if(ui->comboBoxFTPDlQci->currentText()!="")
-    {
-        qciUsed[QciCurrentText[2].toInt()-1]=false;
-        QString temp=ui->comboBoxFTPDlQci->currentText();
-        ui->comboBoxFTPDlQci->clear();
-        ui->comboBoxFTPDlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxFTPDlQci->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[2].toInt()-1]=true;
-        ui->comboBoxFTPDlQci->setCurrentText(temp);
-    }else{
-        ui->comboBoxFTPDlQci->clear();
-        ui->comboBoxFTPDlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxFTPDlQci->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshFTPUlQci()
-{
-    if(ui->comboBoxFTPUlQci->currentText()!="")
-    {
-        qciUsed[QciCurrentText[3].toInt()-1]=false;
-        QString temp=ui->comboBoxFTPUlQci->currentText();
-        ui->comboBoxFTPUlQci->clear();
-        ui->comboBoxFTPUlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxFTPUlQci->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[3].toInt()-1]=true;
-        ui->comboBoxFTPUlQci->setCurrentText(temp);
-    }else{
-        ui->comboBoxFTPUlQci->clear();
-        ui->comboBoxFTPUlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxFTPUlQci->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshStreamDlQci()
-{
-    if(ui->comboBoxStreamDlQci->currentText()!="")
-    {
-        qciUsed[QciCurrentText[4].toInt()-1]=false;
-        QString temp=ui->comboBoxStreamDlQci->currentText();
-        ui->comboBoxStreamDlQci->clear();
-        ui->comboBoxStreamDlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxStreamDlQci->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[4].toInt()-1]=true;
-        ui->comboBoxStreamDlQci->setCurrentText(temp);
-    }else{
-        ui->comboBoxStreamDlQci->clear();
-        ui->comboBoxStreamDlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxStreamDlQci->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshStreamUlQci()
-{
-    if(ui->comboBoxStreamUlQci->currentText()!="")
-    {
-        qciUsed[QciCurrentText[5].toInt()-1]=false;
-        QString temp=ui->comboBoxStreamUlQci->currentText();
-        ui->comboBoxStreamUlQci->clear();
-        ui->comboBoxStreamUlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxStreamUlQci->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[5].toInt()-1]=true;
-        ui->comboBoxStreamUlQci->setCurrentText(temp);
-    }else{
-        ui->comboBoxStreamUlQci->clear();
-        ui->comboBoxStreamUlQci->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxStreamUlQci->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshSyncedPingQci()
-{
-    if(ui->comboBoxSyncedPingQci1->currentText()!="")
-    {
-        qciUsed[QciCurrentText[6].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci1->currentText();
-        ui->comboBoxSyncedPingQci1->clear();
-        ui->comboBoxSyncedPingQci1->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci1->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[6].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci1->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci1->clear();
-        ui->comboBoxSyncedPingQci1->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci1->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci2->currentText()!="")
-    {
-        qciUsed[QciCurrentText[7].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci2->currentText();
-        ui->comboBoxSyncedPingQci2->clear();
-        ui->comboBoxSyncedPingQci2->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci2->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[7].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci2->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci2->clear();
-        ui->comboBoxSyncedPingQci2->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci2->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci3->currentText()!="")
-    {
-        qciUsed[QciCurrentText[8].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci3->currentText();
-        ui->comboBoxSyncedPingQci3->clear();
-        ui->comboBoxSyncedPingQci3->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci3->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[8].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci3->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci3->clear();
-        ui->comboBoxSyncedPingQci3->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci3->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci4->currentText()!="")
-    {
-        qciUsed[QciCurrentText[9].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci4->currentText();
-        ui->comboBoxSyncedPingQci4->clear();
-        ui->comboBoxSyncedPingQci4->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci4->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[9].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci4->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci4->clear();
-        ui->comboBoxSyncedPingQci4->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci4->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci5->currentText()!="")
-    {
-        qciUsed[QciCurrentText[10].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci5->currentText();
-        ui->comboBoxSyncedPingQci5->clear();
-        ui->comboBoxSyncedPingQci5->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci5->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[10].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci5->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci5->clear();
-        ui->comboBoxSyncedPingQci5->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci5->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci6->currentText()!="")
-    {
-        qciUsed[QciCurrentText[11].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci6->currentText();
-        ui->comboBoxSyncedPingQci6->clear();
-        ui->comboBoxSyncedPingQci6->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci6->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[11].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci6->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci6->clear();
-        ui->comboBoxSyncedPingQci6->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci6->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci7->currentText()!="")
-    {
-        qciUsed[QciCurrentText[12].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci7->currentText();
-        ui->comboBoxSyncedPingQci7->clear();
-        ui->comboBoxSyncedPingQci7->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci7->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[12].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci7->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci7->clear();
-        ui->comboBoxSyncedPingQci7->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci7->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci8->currentText()!="")
-    {
-        qciUsed[QciCurrentText[13].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci8->currentText();
-        ui->comboBoxSyncedPingQci8->clear();
-        ui->comboBoxSyncedPingQci8->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci8->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[13].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci8->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci8->clear();
-        ui->comboBoxSyncedPingQci8->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci8->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxSyncedPingQci9->currentText()!="")
-    {
-        qciUsed[QciCurrentText[14].toInt()-1]=false;
-        QString temp=ui->comboBoxSyncedPingQci9->currentText();
-        ui->comboBoxSyncedPingQci9->clear();
-        ui->comboBoxSyncedPingQci9->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci9->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[14].toInt()-1]=true;
-        ui->comboBoxSyncedPingQci9->setCurrentText(temp);
-    }else{
-        ui->comboBoxSyncedPingQci9->clear();
-        ui->comboBoxSyncedPingQci9->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxSyncedPingQci9->addItem(QString::number(i+1));
-        }
-    }
-}
-
-void customModel::refreshServiceReqQci()
-{
-    if(ui->comboBoxServiceReqQci1->currentText()!="")
-    {
-        qciUsed[QciCurrentText[15].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci1->currentText();
-        ui->comboBoxServiceReqQci1->clear();
-        ui->comboBoxServiceReqQci1->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci1->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[15].toInt()-1]=true;
-        ui->comboBoxServiceReqQci1->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci1->clear();
-        ui->comboBoxServiceReqQci1->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci1->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci2->currentText()!="")
-    {
-        qciUsed[QciCurrentText[16].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci2->currentText();
-        ui->comboBoxServiceReqQci2->clear();
-        ui->comboBoxServiceReqQci2->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci2->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[16].toInt()-1]=true;
-        ui->comboBoxServiceReqQci2->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci2->clear();
-        ui->comboBoxServiceReqQci2->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci2->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci3->currentText()!="")
-    {
-        qciUsed[QciCurrentText[17].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci3->currentText();
-        ui->comboBoxServiceReqQci3->clear();
-        ui->comboBoxServiceReqQci3->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci3->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[17].toInt()-1]=true;
-        ui->comboBoxServiceReqQci3->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci3->clear();
-        ui->comboBoxServiceReqQci3->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci3->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci4->currentText()!="")
-    {
-        qciUsed[QciCurrentText[18].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci4->currentText();
-        ui->comboBoxServiceReqQci4->clear();
-        ui->comboBoxServiceReqQci4->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci4->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[18].toInt()-1]=true;
-        ui->comboBoxServiceReqQci4->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci4->clear();
-        ui->comboBoxServiceReqQci4->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci4->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci5->currentText()!="")
-    {
-        qciUsed[QciCurrentText[19].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci5->currentText();
-        ui->comboBoxServiceReqQci5->clear();
-        ui->comboBoxServiceReqQci5->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci5->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[19].toInt()-1]=true;
-        ui->comboBoxServiceReqQci5->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci5->clear();
-        ui->comboBoxServiceReqQci5->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci5->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci6->currentText()!="")
-    {
-        qciUsed[QciCurrentText[20].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci6->currentText();
-        ui->comboBoxServiceReqQci6->clear();
-        ui->comboBoxServiceReqQci6->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci6->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[20].toInt()-1]=true;
-        ui->comboBoxServiceReqQci6->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci6->clear();
-        ui->comboBoxServiceReqQci6->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci6->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci7->currentText()!="")
-    {
-        qciUsed[QciCurrentText[21].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci7->currentText();
-        ui->comboBoxServiceReqQci7->clear();
-        ui->comboBoxServiceReqQci7->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci7->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[21].toInt()-1]=true;
-        ui->comboBoxServiceReqQci7->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci7->clear();
-        ui->comboBoxServiceReqQci7->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci7->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci8->currentText()!="")
-    {
-        qciUsed[QciCurrentText[22].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci8->currentText();
-        ui->comboBoxServiceReqQci8->clear();
-        ui->comboBoxServiceReqQci8->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci8->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[22].toInt()-1]=true;
-        ui->comboBoxServiceReqQci8->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci8->clear();
-        ui->comboBoxServiceReqQci8->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci8->addItem(QString::number(i+1));
-        }
-    }
-
-    if(ui->comboBoxServiceReqQci9->currentText()!="")
-    {
-        qciUsed[QciCurrentText[23].toInt()-1]=false;
-        QString temp=ui->comboBoxServiceReqQci9->currentText();
-        ui->comboBoxServiceReqQci9->clear();
-        ui->comboBoxServiceReqQci9->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci9->addItem(QString::number(i+1));
-        }
-        qciUsed[QciCurrentText[23].toInt()-1]=true;
-        ui->comboBoxServiceReqQci9->setCurrentText(temp);
-    }else{
-        ui->comboBoxServiceReqQci9->clear();
-        ui->comboBoxServiceReqQci9->addItem("");
-        for(unsigned i=0;i<9;i++)
-        {
-            if(!qciUsed[i])
-                ui->comboBoxServiceReqQci9->addItem(QString::number(i+1));
-        }
-    }
-}
-
 void customModel::refreshQci()
 {
-    refreshPingQci();
-    refreshVoipQci();
-    refreshFTPDlQci();
-    refreshFTPUlQci();
-    refreshStreamDlQci();
-    refreshStreamUlQci();
-    refreshSyncedPingQci();
-    refreshServiceReqQci();
+    for(unsigned j=0;j<MaxOfQciComboBox;j++)
+    {
+        if(comboBoxForQci[j]->currentText()!="")
+        {
+            qciUsed[QciCurrentText[j]->toInt()-1]=false;
+            QString temp=(comboBoxForQci[j]->currentText());
+
+            comboBoxForQci[j]->clear();
+            comboBoxForQci[j]->addItem("");
+            for(unsigned i=0;i<AmountOfQci;i++)
+            {
+                if(!qciUsed[i])
+                {
+                    comboBoxForQci[j]->addItem(QString::number(i+1));
+                }
+            }
+            qciUsed[QciCurrentText[j]->toInt()-1]=true;
+            comboBoxForQci[j]->setCurrentText(temp);
+        }else{
+            comboBoxForQci[j]->clear();
+            comboBoxForQci[j]->addItem("");
+            for(unsigned i=0;i<AmountOfQci;i++)
+            {
+                if(!qciUsed[i])
+                    comboBoxForQci[j]->addItem(QString::number(i+1));
+            }
+        }
+    }
 }
 
 void customModel::on_comboBoxPingQci_activated(const QString &arg1)
 {
-    if(QciCurrentText[0]!="")
+    if( CMPingParams.currentQciTextPing!="")
     {
-        qciUsed[QciCurrentText[0].toInt()-1]=false;
+        qciUsed[ CMPingParams.currentQciTextPing.toInt()-1]=false;
     }
-    QciCurrentText[0]=arg1;
+    CMPingParams.currentQciTextPing=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxVoipQci_activated(const QString &arg1)
 {
-    if(QciCurrentText[1]!="")
+    if(CMVoipParams.currentQciTextVoip !="")
     {
-        qciUsed[QciCurrentText[1].toInt()-1]=false;
+        qciUsed[CMVoipParams.currentQciTextVoip.toInt()-1]=false;
     }
-    QciCurrentText[1]=arg1;
+    CMVoipParams.currentQciTextVoip=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxFTPDlQci_activated(const QString &arg1)
 {
-    if(QciCurrentText[2]!="")
+    if(CMFtpDlParams.currentQciTextFtpDl!="")
     {
-        qciUsed[QciCurrentText[2].toInt()-1]=false;
+        qciUsed[CMFtpDlParams.currentQciTextFtpDl.toInt()-1]=false;
     }
-    QciCurrentText[2]=arg1;
+    CMFtpDlParams.currentQciTextFtpDl=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -735,11 +256,11 @@ void customModel::on_comboBoxFTPDlQci_activated(const QString &arg1)
 
 void customModel::on_comboBoxFTPUlQci_activated(const QString &arg1)
 {
-    if(QciCurrentText[3]!="")
+    if(CMFtpUlParams.currentQciTextFtpUl!="")
     {
-        qciUsed[QciCurrentText[3].toInt()-1]=false;
+        qciUsed[CMFtpUlParams.currentQciTextFtpUl.toInt()-1]=false;
     }
-    QciCurrentText[3]=arg1;
+    CMFtpUlParams.currentQciTextFtpUl=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -747,11 +268,11 @@ void customModel::on_comboBoxFTPUlQci_activated(const QString &arg1)
 
 void customModel::on_comboBoxStreamDlQci_activated(const QString &arg1)
 {
-    if(QciCurrentText[4]!="")
+    if(CMStreamDlParams.currentQciTextStreamDl!="")
     {
-        qciUsed[QciCurrentText[4].toInt()-1]=false;
+        qciUsed[CMStreamDlParams.currentQciTextStreamDl.toInt()-1]=false;
     }
-    QciCurrentText[4]=arg1;
+    CMStreamDlParams.currentQciTextStreamDl=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -759,11 +280,11 @@ void customModel::on_comboBoxStreamDlQci_activated(const QString &arg1)
 
 void customModel::on_comboBoxStreamUlQci_activated(const QString &arg1)
 {
-    if(QciCurrentText[5]!="")
+    if(CMStreamUlParams.currentQciTextStreamUl!="")
     {
-        qciUsed[QciCurrentText[5].toInt()-1]=false;
+        qciUsed[CMStreamUlParams.currentQciTextStreamUl.toInt()-1]=false;
     }
-    QciCurrentText[5]=arg1;
+    CMStreamUlParams.currentQciTextStreamUl=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -771,11 +292,11 @@ void customModel::on_comboBoxStreamUlQci_activated(const QString &arg1)
 
 void customModel::on_comboBoxSyncedPingQci1_activated(const QString &arg1)
 {
-    if(QciCurrentText[6]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[0]!="")
     {
-        qciUsed[QciCurrentText[6].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[0].toInt()-1]=false;
     }
-    QciCurrentText[6]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[0]=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -783,12 +304,12 @@ void customModel::on_comboBoxSyncedPingQci1_activated(const QString &arg1)
 
 void customModel::on_comboBoxSyncedPingQci2_activated(const QString &arg1)
 {
-    if(QciCurrentText[7]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[1]!="")
     {
-        qciUsed[QciCurrentText[7].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[1].toInt()-1]=false;
     }
     if(arg1!="")
-        QciCurrentText[7]=arg1;
+        CMSyncedPingParams.currentQciTextSyncedPing[1]=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -796,11 +317,11 @@ void customModel::on_comboBoxSyncedPingQci2_activated(const QString &arg1)
 
 void customModel::on_comboBoxSyncedPingQci3_activated(const QString &arg1)
 {
-    if(QciCurrentText[8]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[2]!="")
     {
-        qciUsed[QciCurrentText[8].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[2].toInt()-1]=false;
     }
-    QciCurrentText[8]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[2]=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -808,22 +329,22 @@ void customModel::on_comboBoxSyncedPingQci3_activated(const QString &arg1)
 
 void customModel::on_comboBoxSyncedPingQci4_activated(const QString &arg1)
 {
-    if(QciCurrentText[9]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[3]!="")
     {
-        qciUsed[QciCurrentText[9].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[3].toInt()-1]=false;
     }
-    QciCurrentText[9]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[3]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxSyncedPingQci5_activated(const QString &arg1)
 {
-    if(QciCurrentText[10]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[4]!="")
     {
-        qciUsed[QciCurrentText[10].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[4].toInt()-1]=false;
     }
-    QciCurrentText[10]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[4]=arg1;
     qciUsed[arg1.toInt()-1]=true;
 
     refreshQci();
@@ -831,143 +352,432 @@ void customModel::on_comboBoxSyncedPingQci5_activated(const QString &arg1)
 
 void customModel::on_comboBoxSyncedPingQci6_activated(const QString &arg1)
 {
-    if(QciCurrentText[11]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[5]!="")
     {
-        qciUsed[QciCurrentText[11].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[5].toInt()-1]=false;
     }
-    QciCurrentText[11]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[5]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxSyncedPingQci7_activated(const QString &arg1)
 {
-    if(QciCurrentText[12]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[6]!="")
     {
-        qciUsed[QciCurrentText[12].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[6].toInt()-1]=false;
     }
-    QciCurrentText[12]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[6]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxSyncedPingQci8_activated(const QString &arg1)
 {
-    if(QciCurrentText[13]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[7]!="")
     {
-        qciUsed[QciCurrentText[13].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[7].toInt()-1]=false;
     }
-    QciCurrentText[13]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[7]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxSyncedPingQci9_activated(const QString &arg1)
 {
-    if(QciCurrentText[14]!="")
+    if(CMSyncedPingParams.currentQciTextSyncedPing[8]!="")
     {
-        qciUsed[QciCurrentText[14].toInt()-1]=false;
+        qciUsed[CMSyncedPingParams.currentQciTextSyncedPing[8].toInt()-1]=false;
     }
-    QciCurrentText[14]=arg1;
+    CMSyncedPingParams.currentQciTextSyncedPing[8]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci1_activated(const QString &arg1)
 {
-    if(QciCurrentText[15]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[0]!="")
     {
-        qciUsed[QciCurrentText[15].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[0].toInt()-1]=false;
     }
-    QciCurrentText[15]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[0]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci2_activated(const QString &arg1)
 {
-    if(QciCurrentText[16]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[1]!="")
     {
-        qciUsed[QciCurrentText[16].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[1].toInt()-1]=false;
     }
-    QciCurrentText[16]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[1]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci3_activated(const QString &arg1)
 {
-    if(QciCurrentText[17]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[2]!="")
     {
-        qciUsed[QciCurrentText[17].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[2].toInt()-1]=false;
     }
-    QciCurrentText[17]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[2]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci4_activated(const QString &arg1)
 {
-    if(QciCurrentText[18]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[3]!="")
     {
-        qciUsed[QciCurrentText[18].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[3].toInt()-1]=false;
     }
-    QciCurrentText[18]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[3]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci5_activated(const QString &arg1)
 {
-    if(QciCurrentText[19]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[4]!="")
     {
-        qciUsed[QciCurrentText[19].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[4].toInt()-1]=false;
     }
-    QciCurrentText[19]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[4]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci6_activated(const QString &arg1)
 {
-    if(QciCurrentText[20]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[5]!="")
     {
-        qciUsed[QciCurrentText[20].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[5].toInt()-1]=false;
     }
-    QciCurrentText[20]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[5]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci7_activated(const QString &arg1)
 {
-    if(QciCurrentText[12]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[6]!="")
     {
-        qciUsed[QciCurrentText[21].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[6].toInt()-1]=false;
     }
-    QciCurrentText[21]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[6]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci8_activated(const QString &arg1)
 {
-    if(QciCurrentText[22]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[7]!="")
     {
-        qciUsed[QciCurrentText[22].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[7].toInt()-1]=false;
     }
-    QciCurrentText[22]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[7]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
 }
 
 void customModel::on_comboBoxServiceReqQci9_activated(const QString &arg1)
 {
-    if(QciCurrentText[23]!="")
+    if(CMServiceReqParams.currentQciTextServiceReq[8]!="")
     {
-        qciUsed[QciCurrentText[23].toInt()-1]=false;
+        qciUsed[CMServiceReqParams.currentQciTextServiceReq[8].toInt()-1]=false;
     }
-    QciCurrentText[23]=arg1;
+    CMServiceReqParams.currentQciTextServiceReq[8]=arg1;
     qciUsed[arg1.toInt()-1]=true;
     refreshQci();
+}
+
+void customModel::on_cancelCustomModelButton_clicked()
+{
+    this->close();
+}
+
+void customModel::on_saveCustomModelButton_clicked()
+{
+    saveCustomModel();
+    this->close();
+}
+
+void customModel::setParameters(customModel **customModel){
+
+    this->custommodel = customModel;
+
+    ui->lineEditPingNumberOfPings->setText(QString::number(CMPingParams.pingNumberOfPings));
+    ui->lineEditPingInterval->setText(QString::number(CMPingParams.pingInterval));
+    ui->lineEditPingMinReceivedPings->setText(QString::number(CMPingParams.pingMinRecievedPings));
+
+    ui->lineEditVoipDuration->setText(QString::number( CMVoipParams.voipDuration));
+    ui->lineEditVoipActivityFactor->setText(QString::number( CMVoipParams.voipActivityFactor));
+    ui->lineEditVoipMaxTransferTime->setText(QString::number( CMVoipParams.voipMaxTransferTime));
+    ui->lineEditVoipMinPacketsReceivedInTime->setText(QString::number( CMVoipParams.voipMinPacketsReceivedInTime));
+
+    ui->lineEditFTPDlFilesize->setText(QString::number( CMFtpDlParams.ftpDlFilesize));
+    ui->lineEditFTPDlMinThroughput->setText(QString::number( CMFtpDlParams.ftpDlMinThroughput));
+
+    ui->lineEditFTPUlFilesize->setText(QString::number( CMFtpUlParams.ftpUlFilesize));
+    ui->lineEditFTPUlMinThroughput->setText(QString::number( CMFtpUlParams.ftpUlMinThroughput));
+
+    ui->lineEditStreamDlSpeed->setText(QString::number( CMStreamDlParams.streamDlSpeed));
+    ui->lineEditStreamDlDuration->setText(QString::number( CMStreamDlParams.streamDlDuration));
+    ui->lineEditStreamDlMinThroughput->setText(QString::number( CMStreamDlParams.streamDlMinThroughput));
+
+    ui->lineEditStreamUlSpeed->setText(QString::number( CMStreamUlParams.streamUlSpeed));
+    ui->lineEditStreamUlDuration->setText(QString::number( CMStreamUlParams.streamUlDuration));
+    ui->lineEditStreamUlMinThroughput->setText(QString::number( CMStreamUlParams.streamUlMinThroughput));
+
+    ui->lineEditSyncedPingTimeBetweenTasks->setText(QString::number( CMSyncedPingParams.SyncedPingTimeBetweenTasks));
+    ui->lineEditSyncedPingNumberOfPings->setText(QString::number( CMSyncedPingParams.SyncedPingNumberOfPings));
+    ui->lineEditSyncedPingInterval->setText(QString::number( CMSyncedPingParams.SyncedPingInterval));
+    ui->lineEditSyncedPingMinReceivedPings->setText(QString::number( CMSyncedPingParams.SyncedPingMinReceivedPings));
+
+    ui->lineEditServiceReqIntervalBetweenUIData->setText(QString::number( CMServiceReqParams.ServiceReqTimeToWaitForAttach));
+    ui->lineEditServiceReqIntervalBetweenUIData->setText(QString::number( CMServiceReqParams.ServiceReqIntervalBetweenUlData));
+
+    if( CMPingParams.pingQci==0)
+        ui->comboBoxPingQci->setCurrentText("");
+    else
+        ui->comboBoxPingQci->setCurrentText(QString::number( CMPingParams.pingQci));
+
+    if( CMVoipParams.voipQci==0)
+        ui->comboBoxVoipQci->setCurrentText("");
+    else
+        ui->comboBoxVoipQci->setCurrentText(QString::number( CMVoipParams.voipQci));
+
+    if( CMFtpDlParams.ftpDlQci==0)
+        ui->comboBoxFTPDlQci->setCurrentText("");
+    else
+        ui->comboBoxFTPDlQci->setCurrentText(QString::number( CMFtpDlParams.ftpDlQci));
+
+    if( CMFtpUlParams.ftpUlQci==0)
+        ui->comboBoxFTPUlQci->setCurrentText("");
+    else
+        ui->comboBoxFTPUlQci->setCurrentText(QString::number( CMFtpUlParams.ftpUlQci));
+
+    if( CMStreamDlParams.streamDlQci==0)
+        ui->comboBoxStreamDlQci->setCurrentText("");
+    else
+        ui->comboBoxStreamDlQci->setCurrentText(QString::number( CMStreamDlParams.streamDlQci));
+
+    if( CMStreamUlParams.streamUlQci==0)
+        ui->comboBoxStreamUlQci->setCurrentText("");
+    else
+        ui->comboBoxStreamUlQci->setCurrentText(QString::number( CMStreamUlParams.streamUlQci));
+
+    for(unsigned i=0;i<AmountOfQci;i++)
+    {
+        if( CMSyncedPingParams.SyncedPingQciArray[i]==0)
+            pointercomboBoxForQciSyncedPing[i]->setCurrentText("");
+        else
+            pointercomboBoxForQciSyncedPing[i]->setCurrentText(QString::number( CMSyncedPingParams.SyncedPingQciArray[i]));
+    }
+    for(unsigned i=0;i<AmountOfQci;i++)
+    {
+        if( CMServiceReqParams.ServiceReqQciArray[i]==0)
+            pointercomboBoxForQciServiceReq[i]->setCurrentText("");
+        else
+            pointercomboBoxForQciServiceReq[i]->setCurrentText(QString::number( CMServiceReqParams.ServiceReqQciArray[i]));
+    }
+}
+
+void customModel::saveCustomModel()
+{
+    CMPingParams.pingQci=ui->comboBoxPingQci->currentText().toInt();
+    CMPingParams.pingNumberOfPings=ui->lineEditPingNumberOfPings->text().toInt();
+    CMPingParams.pingInterval=ui->lineEditPingInterval->text().toInt();
+    CMPingParams.pingMinRecievedPings=ui->lineEditPingMinReceivedPings->text().toInt();
+
+    CMVoipParams.voipQci=ui->comboBoxVoipQci->currentText().toInt();
+    CMVoipParams.voipDuration=ui->lineEditVoipDuration->text().toInt();
+    CMVoipParams.voipActivityFactor=ui->lineEditVoipActivityFactor->text().toInt();
+    CMVoipParams.voipMaxTransferTime=ui->lineEditVoipMaxTransferTime->text().toInt();
+    CMVoipParams.voipMinPacketsReceivedInTime=ui->lineEditVoipMinPacketsReceivedInTime->text().toInt();
+
+    CMFtpDlParams.ftpDlQci=ui->comboBoxFTPDlQci->currentText().toInt();
+    CMFtpDlParams.ftpDlFilesize=ui->lineEditFTPDlFilesize->text().toInt();
+    CMFtpDlParams.ftpDlMinThroughput=ui->lineEditFTPDlMinThroughput->text().toInt();
+
+    CMFtpUlParams.ftpUlQci=ui->comboBoxFTPUlQci->currentText().toInt();
+    CMFtpUlParams.ftpUlFilesize=ui->lineEditFTPUlFilesize->text().toInt();
+    CMFtpUlParams.ftpUlMinThroughput=ui->lineEditFTPUlMinThroughput->text().toInt();
+
+    CMStreamDlParams.streamDlQci=ui->comboBoxStreamDlQci->currentText().toInt();
+    CMStreamDlParams.streamDlSpeed=ui->lineEditStreamDlSpeed->text().toInt();
+    CMStreamDlParams.streamDlDuration=ui->lineEditStreamDlDuration->text().toInt();
+    CMStreamDlParams.streamDlMinThroughput=ui->lineEditStreamDlMinThroughput->text().toInt();
+
+    CMStreamUlParams.streamUlQci=ui->comboBoxStreamUlQci->currentText().toInt();
+    CMStreamUlParams.streamUlSpeed=ui->lineEditStreamUlSpeed->text().toInt();
+    CMStreamUlParams.streamUlDuration=ui->lineEditStreamUlDuration->text().toInt();
+    CMStreamUlParams.streamUlMinThroughput=ui->lineEditStreamUlMinThroughput->text().toInt();
+
+    for(unsigned i=0;i<AmountOfQci;i++)
+        CMSyncedPingParams.SyncedPingQciArray[i]=pointercomboBoxForQciSyncedPing[i]->currentText().toInt();
+
+    CMSyncedPingParams.SyncedPingTimeBetweenTasks=ui->lineEditSyncedPingTimeBetweenTasks->text().toInt();
+    CMSyncedPingParams.SyncedPingNumberOfPings=ui->lineEditSyncedPingNumberOfPings->text().toInt();
+    CMSyncedPingParams.SyncedPingInterval=ui->lineEditSyncedPingInterval->text().toInt();
+    CMSyncedPingParams.SyncedPingMinReceivedPings=ui->lineEditSyncedPingMinReceivedPings->text().toInt();
+
+    for(unsigned i=0;i<AmountOfQci;i++)
+        CMServiceReqParams.ServiceReqQciArray[i]=pointercomboBoxForQciServiceReq[i]->currentText().toInt();
+
+    CMServiceReqParams.ServiceReqTimeToWaitForAttach=ui->lineEditServiceReqIntervalBetweenUIData->text().toInt();
+    CMServiceReqParams.ServiceReqIntervalBetweenUlData=ui->lineEditServiceReqIntervalBetweenUIData->text().toInt();
+}
+
+void customModel::on_restoreCustomModelButton_clicked()
+{
+    ui->comboBoxPingQci->setCurrentText("");
+    ui->lineEditPingNumberOfPings->setText("0");
+    ui->lineEditPingInterval->setText("0");
+    ui->lineEditPingMinReceivedPings->setText("0");
+
+    ui->comboBoxVoipQci->setCurrentText("");
+    ui->lineEditVoipDuration->setText("0");
+    ui->lineEditVoipActivityFactor->setText("0");
+    ui->lineEditVoipMaxTransferTime->setText("0");
+    ui->lineEditVoipMinPacketsReceivedInTime->setText("0");
+
+    ui->comboBoxFTPDlQci->setCurrentText("");
+    ui->lineEditFTPDlFilesize->setText("0");
+    ui->lineEditFTPDlMinThroughput->setText("0");
+
+    ui->comboBoxFTPUlQci->setCurrentText("");
+    ui->lineEditFTPUlFilesize->setText("0");
+    ui->lineEditFTPUlMinThroughput->setText("0");
+
+    ui->comboBoxStreamDlQci->setCurrentText("");
+    ui->lineEditStreamDlSpeed->setText("0");
+    ui->lineEditStreamDlDuration->setText("0");
+    ui->lineEditStreamDlMinThroughput->setText("0");
+
+    ui->comboBoxStreamUlQci->setCurrentText("");
+    ui->lineEditStreamUlSpeed->setText("0");
+    ui->lineEditStreamUlDuration->setText("0");
+    ui->lineEditStreamUlMinThroughput->setText("0");
+
+    ui->comboBoxSyncedPingQci1->setCurrentText("");
+    ui->comboBoxSyncedPingQci2->setCurrentText("");
+    ui->comboBoxSyncedPingQci3->setCurrentText("");
+    ui->comboBoxSyncedPingQci4->setCurrentText("");
+    ui->comboBoxSyncedPingQci5->setCurrentText("");
+    ui->comboBoxSyncedPingQci6->setCurrentText("");
+    ui->comboBoxSyncedPingQci7->setCurrentText("");
+    ui->comboBoxSyncedPingQci8->setCurrentText("");
+    ui->comboBoxSyncedPingQci9->setCurrentText("");
+    ui->lineEditSyncedPingTimeBetweenTasks->setText("0");
+    ui->lineEditSyncedPingNumberOfPings->setText("0");
+    ui->lineEditSyncedPingInterval->setText("0");
+    ui->lineEditSyncedPingMinReceivedPings->setText("0");
+
+    ui->comboBoxServiceReqQci1->setCurrentText("");
+    ui->comboBoxServiceReqQci2->setCurrentText("");
+    ui->comboBoxServiceReqQci3->setCurrentText("");
+    ui->comboBoxServiceReqQci4->setCurrentText("");
+    ui->comboBoxServiceReqQci5->setCurrentText("");
+    ui->comboBoxServiceReqQci6->setCurrentText("");
+    ui->comboBoxServiceReqQci7->setCurrentText("");
+    ui->comboBoxServiceReqQci8->setCurrentText("");
+    ui->comboBoxServiceReqQci9->setCurrentText("");
+    ui->lineEditServiceReqIntervalBetweenUIData->setText("0");
+    ui->lineEditServiceReqIntervalBetweenUIData->setText("0");
+
+    if(ui->checkBoxPing->isChecked())
+    {
+        ui->checkBoxPing->setChecked(false);
+        ui->comboBoxPingQci->setEnabled(false);
+        ui->lineEditPingNumberOfPings->setEnabled(false);
+        ui->lineEditPingInterval->setEnabled(false);
+        ui->lineEditPingMinReceivedPings->setEnabled(false);
+    }
+
+    if(ui->checkBoxVoip->isChecked())
+    {
+        ui->checkBoxVoip->setChecked(false);
+        ui->comboBoxVoipQci->setEnabled(false);
+        ui->lineEditVoipActivityFactor->setEnabled(false);
+        ui->lineEditVoipDuration->setEnabled(false);
+        ui->lineEditVoipMaxTransferTime->setEnabled(false);
+        ui->lineEditVoipMinPacketsReceivedInTime->setEnabled(false);
+    }
+
+    if(ui->checkBoxFTPDl->isChecked())
+    {
+        ui->checkBoxFTPDl->setChecked(false);
+        ui->comboBoxFTPDlQci->setEnabled(false);
+        ui->lineEditFTPDlFilesize->setEnabled(false);
+        ui->lineEditFTPDlMinThroughput->setEnabled(false);
+    }
+
+    if(ui->checkBoxFTPUl->isChecked())
+    {
+        ui->checkBoxFTPUl->setChecked(false);
+        ui->comboBoxFTPUlQci->setEnabled(false);
+        ui->lineEditFTPUlFilesize->setEnabled(false);
+        ui->lineEditFTPUlMinThroughput->setEnabled(false);
+    }
+
+    if(ui->checkBoxStreamDl->isChecked())
+    {
+        ui->checkBoxStreamDl->setChecked(false);
+        ui->comboBoxStreamDlQci->setEnabled(false);
+        ui->lineEditStreamDlDuration->setEnabled(false);
+        ui->lineEditStreamDlMinThroughput->setEnabled(false);
+        ui->lineEditStreamDlSpeed->setEnabled(false);
+    }
+
+    if(ui->checkBoxStreamUl->isChecked())
+    {
+        ui->checkBoxStreamUl->setChecked(false);
+        ui->comboBoxStreamUlQci->setEnabled(false);
+        ui->lineEditStreamUlDuration->setEnabled(false);
+        ui->lineEditStreamUlMinThroughput->setEnabled(false);
+        ui->lineEditStreamUlSpeed->setEnabled(false);
+    }
+
+    if(ui->checkBoxSyncedPing->isChecked())
+    {
+        ui->checkBoxSyncedPing->setChecked(false);
+        ui->comboBoxSyncedPingQci1->setEnabled(false);
+        ui->comboBoxSyncedPingQci2->setEnabled(false);
+        ui->comboBoxSyncedPingQci3->setEnabled(false);
+        ui->comboBoxSyncedPingQci4->setEnabled(false);
+        ui->comboBoxSyncedPingQci5->setEnabled(false);
+        ui->comboBoxSyncedPingQci6->setEnabled(false);
+        ui->comboBoxSyncedPingQci7->setEnabled(false);
+        ui->comboBoxSyncedPingQci8->setEnabled(false);
+        ui->comboBoxSyncedPingQci9->setEnabled(false);
+        ui->lineEditSyncedPingInterval->setEnabled(false);
+        ui->lineEditSyncedPingMinReceivedPings->setEnabled(false);
+        ui->lineEditSyncedPingNumberOfPings->setEnabled(false);
+        ui->lineEditSyncedPingTimeBetweenTasks->setEnabled(false);
+    }
+
+    if(ui->checkBoxServiceReq->isChecked())
+    {
+        ui->checkBoxServiceReq->setChecked(false);
+        ui->comboBoxServiceReqQci1->setEnabled(false);
+        ui->comboBoxServiceReqQci2->setEnabled(false);
+        ui->comboBoxServiceReqQci3->setEnabled(false);
+        ui->comboBoxServiceReqQci4->setEnabled(false);
+        ui->comboBoxServiceReqQci5->setEnabled(false);
+        ui->comboBoxServiceReqQci6->setEnabled(false);
+        ui->comboBoxServiceReqQci7->setEnabled(false);
+        ui->comboBoxServiceReqQci8->setEnabled(false);
+        ui->comboBoxServiceReqQci9->setEnabled(false);
+        ui->lineEditServiceReqIntervalBetweenUIData->setEnabled(false);
+        ui->lineEditServiceReqTimeToWaitForAttach->setEnabled(false);
+    }
+
+    for(auto &QciUsed:qciUsed)
+        QciUsed=false;
+
+    refreshQci();
+    saveCustomModel();
 }

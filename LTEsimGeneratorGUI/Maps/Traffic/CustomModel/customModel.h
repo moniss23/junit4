@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QComboBox>
 
+#define AmountOfQci 9
+#define MaxOfQciComboBox 24
+
 namespace Ui {
 class customModel;
 }
@@ -18,6 +21,7 @@ public:
 
     void set_custom_name(QString name);
 
+    void setParameters(customModel **customModel);
 
 private slots:
     void on_checkBoxPing_clicked();
@@ -84,20 +88,98 @@ private slots:
 
     void on_comboBoxServiceReqQci9_activated(const QString &arg1);
 
+    void on_cancelCustomModelButton_clicked();
+
+    void on_saveCustomModelButton_clicked();
+
+    void on_restoreCustomModelButton_clicked();
+
 private:
     Ui::customModel *ui;
+    customModel **custommodel;
     QString name;
-    bool qciUsed[9];
-    QString QciCurrentText[24];
+    bool qciUsed[AmountOfQci];
 
-    void refreshPingQci();
-    void refreshVoipQci();
-    void refreshFTPDlQci();
-    void refreshFTPUlQci();
-    void refreshStreamDlQci();
-    void refreshStreamUlQci();
-    void refreshSyncedPingQci();
-    void refreshServiceReqQci();
+
+    QComboBox *comboBoxForQci[MaxOfQciComboBox];
+    QComboBox **pointercomboBoxForQciSyncedPing;
+    QComboBox **pointercomboBoxForQciServiceReq;
+
+    QString *QciCurrentText[MaxOfQciComboBox];
+
+    struct customModelPingParameters{
+        QString currentQciTextPing;
+        int pingQci;
+        int pingNumberOfPings;
+        int pingInterval;
+        int pingMinRecievedPings;
+    };
+
+    struct customModelVoipParameters{
+        QString currentQciTextVoip;
+        int voipQci;
+        int voipDuration;
+        int voipActivityFactor;
+        int voipMaxTransferTime;
+        int voipMinPacketsReceivedInTime;
+    };
+
+    struct customModelFtpDlParameters{
+        QString currentQciTextFtpDl;
+        int ftpDlQci;
+        int ftpDlFilesize;
+        int ftpDlMinThroughput;
+    };
+
+    struct customModelFtpUlParameters{
+        QString currentQciTextFtpUl;
+        int ftpUlQci;
+        int ftpUlFilesize;
+        int ftpUlMinThroughput;
+    };
+
+    struct customModelStreamDlParameters{
+        QString currentQciTextStreamDl;
+        int streamDlQci;
+        int streamDlSpeed;
+        int streamDlDuration;
+        int streamDlMinThroughput;
+    };
+
+    struct customModelStreamUlParameters{
+        QString currentQciTextStreamUl;
+        int streamUlQci;
+        int streamUlSpeed;
+        int streamUlDuration;
+        int streamUlMinThroughput;
+    };
+
+    struct customModelSyncedPingParameters{
+        QString currentQciTextSyncedPing[9];
+        int SyncedPingQciArray[9];
+        int SyncedPingTimeBetweenTasks;
+        int SyncedPingNumberOfPings;
+        int SyncedPingInterval;
+        int SyncedPingMinReceivedPings;
+    };
+
+    struct customModelServiceReqParameters{
+        QString currentQciTextServiceReq[9];
+        int ServiceReqQciArray[9];
+        int ServiceReqTimeToWaitForAttach;
+        int ServiceReqIntervalBetweenUlData;
+    };
+
+    customModelPingParameters CMPingParams;
+    customModelVoipParameters CMVoipParams;
+    customModelFtpDlParameters CMFtpDlParams;
+    customModelFtpUlParameters CMFtpUlParams;
+    customModelStreamDlParameters CMStreamDlParams;
+    customModelStreamUlParameters CMStreamUlParams;
+    customModelSyncedPingParameters CMSyncedPingParams;
+    customModelServiceReqParameters CMServiceReqParams;
+
+    void saveCustomModel();
     void refreshQci();
 };
 
