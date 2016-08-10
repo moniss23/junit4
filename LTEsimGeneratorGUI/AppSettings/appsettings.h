@@ -48,8 +48,6 @@ public:
 
     QString getProjectDirectory(const QString &projectName);
 
-    void setMapType(const QString& projectName, const QString& mapType);
-
     void write_project_file(QString project_name, QString project_content, QString dir);
     QStringList read_project_file(QString project_name, QString dir);
 

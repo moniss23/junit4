@@ -33,7 +33,6 @@ bool previewFileInProgress=false;
 bool closingInProgress=false;
 bool fileAdditionInProgress=false;
 bool enteringMapView;
-QString lastOpenMap;
 extern QVector<QString*> trafficFilesNames;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
@@ -45,14 +44,6 @@ QString pattern;      // tekst, który zamienimy na inny
 
 #include <QDebug> //THIS WILL STAY TILL THE END OF REFACTOR
 
-void ParametersWindow::switch_button_state_undo(bool available){
-    this->ui->undoButton->setEnabled(available);
-}
-
-void ParametersWindow::switch_button_state_redo(bool available){
-    this->ui->redoButton->setEnabled(available);
-}
-
 ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow),
     appSettings(appSettings)
@@ -60,21 +51,6 @@ ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
     ui->setupUi(this);
 
     changesPresent=false;
-
-    // set undo and redo enabled in the text editor
-    this->ui->filePreview->setUndoRedoEnabled(true);
-
-    connect(this->ui->filePreview,
-            SIGNAL(undoAvailable(bool)),
-            this,
-            SLOT(switch_button_state_undo(bool))
-            );
-
-    connect(this->ui->filePreview,
-            SIGNAL(redoAvailable(bool)),
-            this,
-            SLOT(switch_button_state_redo(bool))
-            );
 
     this->ui->undoButton->setEnabled(false);
     this->ui->redoButton->setEnabled(false);
@@ -176,12 +152,9 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDirectory(projectName));
     // read the default location for output .rb files
     defaultLocationForRbFiles=project_content[0];
-    // read the type of last open map
-    appSettings->setMapType(projectName, project_content[1]);
-    lastOpenMap=project_content[1];
     this->ui->radioButton_normalMap->setChecked(true);
     // read the name of parameters file and nr of traffic files
-    nrOfTrafficFiles=project_content[3].toInt();
+    nrOfTrafficFiles=project_content[1].toInt();
     project_content_line=4;
 
 
@@ -390,10 +363,6 @@ void ParametersWindow::saveProject(bool singleFile=false){
 
     // add default location for output .rb files
     plaintext.append(defaultLocationForRbFiles);
-    plaintext.append("\n");
-
-    // add the type of last open map
-    plaintext.append(lastOpenMap);
     plaintext.append("\n");
 
     // add param file name
@@ -790,7 +759,6 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 
 
         // create a new map object and display it
-        lastOpenMap="normal";
         map_w=new MapWindow;
         close();
         map_w->show();
@@ -817,19 +785,6 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 
 
     }
-}
-// "undo" button is clicked
-void ParametersWindow::on_undoButton_clicked()
-{
-
-    this->ui->filePreview->undo();
-
-}
-
-// "redo" button is clicked
-void ParametersWindow::on_redoButton_clicked()
-{
-    this->ui->filePreview->redo();
 }
 
 // "defaults" button clicked
@@ -1016,7 +971,7 @@ void ParametersWindow::on_generateFileButton_clicked()
     }
 
     // if the option is "individually"
-    else if(defaultLocationForRbFiles=="<individually>"){
+    else if(currentProject.rbOutputDir=="<individually>"){
 
         QFileDialog dialog(this);
         dialog.setFileMode(QFileDialog::Directory);
@@ -1034,7 +989,7 @@ void ParametersWindow::on_generateFileButton_clicked()
 
             ofile.open(QIODevice::WriteOnly);
             QTextStream ofile_str(&ofile);
-            ofile_str<<parametersFileContent;
+            ofile_str<<currentProject.parametersFile.content;
             ofile.close();
         }
         // if it's a traffic file

@@ -88,13 +88,6 @@ private slots:
 
     void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_undoButton_clicked();
-
-    void on_redoButton_clicked();
-
-    void switch_button_state_undo(bool available);
-    void switch_button_state_redo(bool available);
-
     void on_resetDefaultsButton_clicked();
 
     void on_filePreview_textChanged();

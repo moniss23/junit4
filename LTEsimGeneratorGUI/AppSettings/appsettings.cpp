@@ -356,14 +356,6 @@ AppGlobalData AppSettings::getAppGlobalData() const
     return appGlobalData;
 }
 
-void AppSettings::setMapType(const QString& projectName, const QString& mapType) {
-    for(auto &&it : projects) {
-        if(it.name == projectName) {
-            it.chosenMapType = mapType;
-        }
-    }
-}
-
 /*
  * Slots
  *
