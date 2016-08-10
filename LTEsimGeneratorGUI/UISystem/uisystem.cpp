@@ -1,7 +1,8 @@
 #include "uisystem.h"
 #include <QMessageBox>
 
-UISystem::UISystem(AppSettings* data) : appSettings(data), projectUi(appSettings),
+UISystem::UISystem(AppSettings* data) :
+    appSettings(data),
     paramWindow(appSettings)
 {
     settingsWindow.setWindowModality(Qt::WindowModal);

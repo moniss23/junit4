@@ -1,13 +1,11 @@
 #include "projectmanagement.h"
 #include "ui_projectmanagement.h"
 
-#include <QStringList>
 #include <QMessageBox>
 
 // constructor
-ProjectManagement::ProjectManagement(AppSettings *appSettings, QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::ProjectManagement),
-    appSettings(appSettings)
+ProjectManagement::ProjectManagement(QWidget *parent) :
+    QMainWindow(parent), ui(new Ui::ProjectManagement)
 {
     ui->setupUi(this);
     this->setWindowTitle("Project management");
@@ -133,35 +131,12 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
                  [&ProjectName](const Project &val){return val.name == ProjectName;});
     if(it==std::end(projects)) return;
 
+    ui->listWidget_2->addItem(it->parametersFile.fileName);
 
-    /********* REMOVE THIS WHEN appSettings serialization logic is done*/
-    QString project_name=it->name;
-    QString project_dir=it->fullpath;
-    QStringList project_data = appSettings->read_project_file(project_name,project_dir);
-    QString parameters_file(project_data[2]);
-    int traffic_files_count=project_data[3].toInt();
-    QString file_name;
-    // if the project file is empty, update the right list
-    if(parameters_file=="<none>" && traffic_files_count==0){
-        this->ui->listWidget_2->addItem("<empty>");
-    }
-    // if the project file is not empty
-    else{
-        this->ui->listWidget_2->addItem(parameters_file);
-        for(int i=0; i<traffic_files_count; i++){
-            file_name=project_data[4+i];
-            this->ui->listWidget_2->addItem(file_name);
-        }
-    }
-
-    /********* ADD THIS WHEN appSettings serialization logic is done
-    ui->listWidget_2->addItem(it->ParametersFileName);
-
-    std::vector<TrafficData> &trafficFiles = it->trafficFilesList;
+    QVector<TrafficData> &trafficFiles = it->trafficFilesList;
     for(auto &&trafficFile : trafficFiles){
         ui->listWidget_2->addItem(trafficFile.fileName);
     }
-    */
 
 }
 

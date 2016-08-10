@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QString>
 
-#include "AppSettings/appsettings.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -19,7 +18,7 @@ class ProjectManagement : public QMainWindow
     Q_OBJECT
 
 public:
-    ProjectManagement(AppSettings *appSettings, QWidget *parent = 0);
+    ProjectManagement(QWidget *parent = 0);
     ~ProjectManagement();
 
     /***********************************************
@@ -27,24 +26,24 @@ public:
      ***********************************************/
 signals:
     /**
-     * @brief SpawnWindow_NewProject
+     * @brief SpawnWindow_NewProject - when user wants to add a project
      */
     void SpawnWindow_NewProject();
 
     /**
-     * @brief SpawnWindow_OpenProject
+     * @brief SpawnWindow_OpenProject - when user wants to open given project
      * @param ProjectName
      */
     void SpawnWindow_OpenProject(const QString &ProjectName);
 
     /**
-     * @brief SpawnWindow_ImportProject
+     * @brief SpawnWindow_ImportProject - used when user wants to import other project
      */
     void SpawnWindow_ImportProject();
 
     /**
-     * @brief deleteProject
-     * @param ProjectName
+     * @brief deleteProject - used
+     * @param ProjectName name of project to delete
      */
     void deleteProject(const QString &ProjectName);
 
@@ -84,7 +83,6 @@ private:
 
 private:
     Ui::ProjectManagement *ui;
-    AppSettings* appSettings;
     QVector<Project> projects; ///> Local copy of Data
 };
 

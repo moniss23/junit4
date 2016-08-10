@@ -22,9 +22,7 @@ void ProjectManagementWindowTest::cleanupTestCase()
 void ProjectManagementWindowTest::ProjectManagementTest1_checkNewProjectSignal()
 {
     qInfo() << "TEST FOR NEW PROJECT WINDOW SPAWN SIGNAL";
-
-    AppSettings appSettings;
-    ProjectManagement projectManagement(&appSettings);
+    ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("newProject_Button");
     QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_NewProject()));
@@ -38,9 +36,7 @@ void ProjectManagementWindowTest::ProjectManagementTest2_checkOpenProjectSignal(
 {
     qInfo() << "TEST FOR OPEN PROJECT WINDOW SPAWN SIGNAL";
     qInfo() << "TRYING TO OPEN PROJECT FROM EMPTY LIST, EXPECTING SIGNAL WILL NOT BE INVOKED";
-
-    AppSettings appSettings;
-    ProjectManagement projectManagement(&appSettings);
+    ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("openProject_Button");
     QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_OpenProject(const QString)));
@@ -53,9 +49,7 @@ void ProjectManagementWindowTest::ProjectManagementTest2_checkOpenProjectSignal(
 void ProjectManagementWindowTest::ProjectManagementTest3_checkImportProjectSignal()
 {
     qInfo() << "TEST FOR IMPORT PROJECT WINDOW SPAWN SIGNAL";
-
-    AppSettings appSettings;
-    ProjectManagement projectManagement(&appSettings);
+    ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("importProject_Button");
     QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_ImportProject()));
@@ -69,9 +63,7 @@ void ProjectManagementWindowTest::ProjectManagementTest4_checkDeleteProjectSigna
 {
     qInfo() << "TEST FOR DELETE PROJECT SIGNAL";
     qInfo() << "TRYING TO DELETE PROJECT FROM EMPTY LIST, EXPECTING SIGNAL WILL NOT BE INVOKED";
-
-    AppSettings appSettings;
-    ProjectManagement projectManagement(&appSettings);
+    ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("deleteProject_Button");
     QSignalSpy spy(&projectManagement, SIGNAL(deleteProject(const QString)));
@@ -84,9 +76,7 @@ void ProjectManagementWindowTest::ProjectManagementTest4_checkDeleteProjectSigna
 void ProjectManagementWindowTest::ProjectManagementTest5_checkSettingsSignal()
 {
     qInfo() << "TEST FOR SETTINGS WINDOW SPAWN SIGNAL";
-
-    AppSettings appSettings;
-    ProjectManagement projectManagement(&appSettings);
+    ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("settings_Button");
     QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_Settings()));
