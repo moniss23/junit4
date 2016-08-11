@@ -45,7 +45,7 @@ void AppSettings::saveProjectsFile() {
     rawDataBuff.open(QBuffer::WriteOnly);
     QDataStream dataStream(&rawDataBuff);
 
-    dataStream << (int)projects.size();
+    dataStream << projects.size();
 
     for(auto &&elem : projects) {
         QByteArray singleProjectData = elem.serializeData();
@@ -409,7 +409,9 @@ void AppSettings::createNewProject(const QString &projectName, const QString &di
     setProjectName(projectName); //TODO: Should not be needed in good architecture
 
     emit currentProjects(projects);
-    write_projects_file();
+
+    //saveProjectsFile(); - ready to use as soon as we adjust whole logic to use it, 11.08
+    write_projects_file(); // will be removed as soon as saveProjectsFile() works, 11.08
 }
 
 
