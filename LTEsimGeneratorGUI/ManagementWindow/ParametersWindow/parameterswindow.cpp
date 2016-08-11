@@ -166,16 +166,23 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
    parametersFileContent+="\n";
    //-----------REFACTOR IN PROGRESS------------
 
+   QVector<TrafficData> trafficFilesList;
 
     // read the traffic file names
     for(int i=0; i<nrOfTrafficFiles; i++){
         line=project_content[i+4];
+
+        //-----------REFACTOR IN PROGRESS---------------
+        //Add trafficFile with filename from file.
+        emit AddFile_Traffic(currentProject.name, line);
+
         new_item=new QListWidgetItem(line);
         this->ui->projectsList->addItem(new_item);
         trafficFilesNames.push_back(new QString(line));
         trafficFilesChanged.push_back(false);
         trafficFilesModified.push_back(false);
     }
+
     project_content_line+=nrOfTrafficFiles;
     // read the content of the parameters file
     paramFileLen=project_content[project_content_line].toInt();
@@ -226,13 +233,16 @@ void ParametersWindow::refreshUI(const Project &project)
 
     this->setWindowTitle(project.name);
 
-//    for(auto &&it:project.trafficFilesList){
-//        new QListWidgetItem(it.fileName+"\t("+it.fullpath+")", ui->projectsList);
-//    }
+    ui->projectsList->clear();
+    ui->projectsList->addItem(currentProject.parametersFile.fileName);
 
-//    if(ui->projectsList->count() > 0 ) {
-//        ui->projectsList->setCurrentRow(0);
-//    }
+    for(auto &&it:project.trafficFilesList){
+        ui->projectsList->addItem(new QListWidgetItem(it.fileName));
+    }
+
+    if(ui->projectsList->count() > 0 ) {
+        ui->projectsList->setCurrentRow(0);
+    }
 //    preview will be triggered (   this->ui->filePreview->setText(<first file> );)
 
 }
@@ -463,7 +473,7 @@ void ParametersWindow::on_addTrafficButton_clicked()
     this->addTrafficFile();
     fileAdditionInProgress=false;
 
-    emit AddFile_Traffic(currentProject.name);
+    emit AddFile_Traffic(currentProject.name, "default");
 }
 
 // "remove file" button clicked

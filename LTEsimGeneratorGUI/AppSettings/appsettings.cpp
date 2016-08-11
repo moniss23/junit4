@@ -288,7 +288,7 @@ void AppSettings::setNewDirForProject(const QString &projectName)
     //TODO: Implement this slot.
 }
 
-void AppSettings::addToProject_TrafficFile(const QString &ProjectName)
+void AppSettings::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
 {
     auto it = std::find_if(projects.begin(), projects.end(), [&ProjectName](const Project& project)-> bool {
         return (project.name == ProjectName);
@@ -298,7 +298,11 @@ void AppSettings::addToProject_TrafficFile(const QString &ProjectName)
         return;
     }
     TrafficData trafficData;
-    trafficData.fileName = generateUniqueTrafficFilename(*it);
+    if(fileName == "default") {
+        trafficData.fileName = generateUniqueTrafficFilename(*it);
+    } else {
+        trafficData.fileName = fileName;
+    }
     it->trafficFilesList.push_back(trafficData);
     emit currentProjectChanged(*it);
 }

@@ -41,7 +41,7 @@ void UISystem::bindingObjects()
     QObject::connect(appSettings, SIGNAL(currentProjects(QVector<Project>)), &addProjectWindow, SLOT(close()));
 
     //Add traffic file
-    QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString)),appSettings, SLOT(addToProject_TrafficFile(QString)));
+    QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString,QString)),appSettings, SLOT(addToProject_TrafficFile(QString,QString)));
     QObject::connect(appSettings, SIGNAL(currentProjectChanged(Project)),&paramWindow, SLOT(refreshUI(Project)));
 
     //Error window

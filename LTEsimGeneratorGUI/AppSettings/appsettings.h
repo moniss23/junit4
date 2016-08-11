@@ -38,7 +38,7 @@ public slots:
     //--------SETTINGS CLASS--------//
     void setNewDirForProject(const QString& projectName);
     //----------PROJECT TRAFFIC FILES--//
-    void addToProject_TrafficFile(const QString &ProjectName);
+    void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
     void findProject(const QString& projectName);
 
 

@@ -3,9 +3,10 @@
 
 #include <QMainWindow>
 #include <QWidget>
- #include <QFileDialog>
+#include <QFileDialog>
 #include <QString>
 #include <QVBoxLayout>
+#include <QVector>
 
 #include "ManagementWindow/Helpdialog/helpdialog.h"
 #include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
@@ -46,7 +47,7 @@ signals:
      * @brief AddFile_Traffic signal used to nofity system to add new traffic file
      * @param ProjectName name of project to add a new file
      */
-    void AddFile_Traffic(const QString &ProjectName);
+    void AddFile_Traffic(const QString &ProjectName, const QString &fileName);
     void GenerateFile();
     void SaveFile();
 
