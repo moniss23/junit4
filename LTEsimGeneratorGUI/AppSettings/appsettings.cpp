@@ -6,30 +6,26 @@
 
 AppSettings::AppSettings()
 {
-  settingsFileSetup();
-  projectsFileSetup();
-  projectsDirSetup();
+    settingsFileSetup();
+    projectsFileSetup();
+    projectsDirSetup();
 }
 
 AppSettings::~AppSettings() {
-
 }
 
 void AppSettings::LoadAppData() {
-    readProjectsFile();
-    testProjectsObtainedFromTheFile();
-    projects_dir_content=project_dir.entryInfoList(QDir::AllDirs);
-    traverseProjectsListAndAddProjectIfNotFound();
+    loadProjectsFile();
     emit currentProjects(projects);
 }
 
 void AppSettings::loadProjectsFile() {
-    // implemented, not being used yet, 9.08.16
-    QByteArray rawData = fileManager.readFromFile(appGlobalData.getProjectsFile());
-    QDataStream dataStream(rawData);
+    QDataStream dataStream(fileManager.readFromFile(appGlobalData.getProjectsFile()));
 
-    dataStream >> projectC_file;
-    for(int i=0; i<projectC_file; ++i) {
+    int projectsAmount;
+    dataStream >> projectsAmount;
+
+    while(projectsAmount--) {
         QByteArray singleProjectData;
         dataStream >> singleProjectData;
 
@@ -40,7 +36,6 @@ void AppSettings::loadProjectsFile() {
 }
 
 void AppSettings::saveProjectsFile() {
-    // implemented, not being used yet, 9.08.16
     QBuffer rawDataBuff;
     rawDataBuff.open(QBuffer::WriteOnly);
     QDataStream dataStream(&rawDataBuff);
@@ -53,51 +48,6 @@ void AppSettings::saveProjectsFile() {
     }
 
     fileManager.writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
-}
-
-void AppSettings::importProject(const QString &ProjectDirectory)
-{
-    if(ProjectDirectory.isEmpty()){
-        return;
-    }
-
-    // verify validity of the project
-    QStringList import_dir_exploded=ProjectDirectory.split("/");
-    QString project_name(import_dir_exploded[import_dir_exploded.length()-1]);
-    QFile import_file(ProjectDirectory+"/"+project_name + appGlobalData.getProFileExt());
-
-    if(!import_file.exists()){
-        emit errorInData("\""+ProjectDirectory+"\" does not seem to be a valid project directory.");
-        return;
-    }
-
-    // create the project element for the vector
-    Project new_project;
-    new_project.name=project_name;
-    QString vector_dir;
-
-    int i=0;
-    for(; i<import_dir_exploded.length()-2; i++){
-        vector_dir+=import_dir_exploded[i];
-        vector_dir+="/";
-    }
-    vector_dir+=import_dir_exploded[i];
-    new_project.fullpath=vector_dir;
-
-    // check if the project is already on the list
-    for(auto i=0; i<projects.size(); i++){
-        if(projects[i].name==new_project.name && projects[i].fullpath==new_project.fullpath){
-            emit errorInData("Project is already present.");
-            return;
-        }
-    }
-
-    projects.push_back(new_project);
-
-    // update the projects.dat file
-    write_projects_file();
-
-    emit currentProjects(projects);
 }
 
 // Read the content of the project file, decrypt it and split into a list
@@ -128,7 +78,6 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
     project_file_stream << project_content;
     project_file.close();
 }
-
 
 void AppSettings::write_settings_file(){
     QFile file(appGlobalData.getSettingsFile());
@@ -177,34 +126,6 @@ QString AppSettings::get_project_dir(QString project_name)
 
 }
 
-
-void AppSettings::write_projects_file(){
-    QFile projects_file(appGlobalData.getProjectsFile());
-    projects_file.open(QIODevice::WriteOnly);
-    QTextStream projects_file_str(&projects_file);
-    projects_file_str << projects.size() << "\n";
-    for(auto i = 0; i < projects.size(); i++) {
-        projects_file_str << projects[i].name << "\n";
-        projects_file_str << projects[i].fullpath << "\n";
-    }
-    projects_file.close();
-}
-
-// currently unused
-void AppSettings::read_projects_file(){
-    QFile projects_file(appGlobalData.getProjectsFile());
-    projects_file.open(QIODevice::ReadOnly);
-    QTextStream projects_file_str(&projects_file);
-    QStringList content = projects_file_str.readAll().split("\n");
-    Project new_project;
-    for(auto i=1; i<=projects.size(); i++)
-    {
-        new_project.name = content[2 * i - 1];
-        new_project.fullpath = content[2 * i];
-        projects.push_back(new_project);
-    }
-}
-
 //Moved from projectManagement
 bool AppSettings::projectNameTaken(QString projectName){
     bool taken=false;
@@ -233,97 +154,18 @@ void AppSettings::settingsFileSetup() {
 // check if the projects file exists, create it if it doesn't
 void AppSettings::projectsFileSetup() {
     projects_file.setFileName(appGlobalData.getProjectsFile());
-    if(!projects_file.exists()){
+
+    if(!projects_file.exists()) {
         projects_file.open(QIODevice::WriteOnly);
         QTextStream str(&projects_file);
-        str<<"0";
+        str << "0";
         projects_file.close();
     }
 }
 
 // create project dir if doesn't exist
 void AppSettings::projectsDirSetup() {
-        project_dir.mkdir(appGlobalData.getProjectsDirectory());
-}
-
-// read the content of projects.dat file
-void AppSettings::readProjectsFile() {
-    projects_file.open(QIODevice::ReadOnly);
-    QTextStream projectFileStream(&projects_file);
-    QStringList file_content(projectFileStream.readAll().split('\n'));
-    projects_file_content = file_content;
-    projectC_file=projects_file_content[0].toInt();
-}
-
-
-// test the projects obtained from the file, discard those which don't seem to exist anymore
-void AppSettings::testProjectsObtainedFromTheFile() {
-
-    Project new_project;
-
-    for(int i=1; i<=projectC_file*2; i+=2){
-        QDir d;
-        if(projects_file_content[i+1]!="<default>"){
-            d.setPath(projects_file_content[i+1]+"/"+projects_file_content[i]);
-        }
-        else{
-            d.setPath("projects/"+projects_file_content[i]);
-        }
-        if(d.exists()){
-            QFile f(d.absolutePath()+"/"+projects_file_content[i] + appGlobalData.getProFileExt());
-            if(f.exists()){
-                QFile param_template(":/RbFiles/parameters.rb");
-                param_template.open(QIODevice::ReadOnly);
-                QTextStream param_template_str(&param_template);
-                QString param_template_content = param_template_str.readAll();
-                param_template.close();
-
-
-
-                new_project.name=projects_file_content[i];
-                new_project.fullpath=projects_file_content[i+1];
-                new_project.parametersFile.fileName="Parameters.rb";//hack
-                new_project.parametersFile.content=param_template_content;//hack
-                projects.push_back(new_project);
-            }
-        }
-    }
-    project_dir.setPath(appGlobalData.getProjectsDirectory());
-}
-
-// traverse the list of projects dir contents
-void AppSettings::traverseProjectsListAndAddProjectIfNotFound() {
-    for(int i=0; i<projects_dir_content.size(); i++){
-
-        project_dir.setPath(projects_dir_content[i].fileName());
-
-        // check if the project file exists inside the project dir and its name is the same as project dir
-        project_file.setFileName("projects/"+projects_dir_content[i].fileName()+"/"+projects_dir_content[i].fileName()+ this->appGlobalData.getProFileExt());
-        if(project_file.exists()){
-
-            // here we already verified that an element is a valid project
-
-            // check if the project was already obtained from projects.dat, if not then add it
-
-            //TODO: change the algorithm
-            int j;
-            for(j=0; j<projects.size(); j++){
-                if(projects[j].name==projects_dir_content[i].fileName()){
-                    break;
-                }
-            }
-
-            // if entire vector was traversed, then it means that project was not found, and it shold be added
-            if(j==projects.size()){
-                Project new_project;
-
-                new_project.name=projects_dir_content[i].fileName();
-                new_project.fullpath="<default>";
-                projects.push_back(new_project);
-            }
-
-        }
-    }
+    project_dir.mkdir(appGlobalData.getProjectsDirectory());
 }
 
 QString AppSettings::getProjectDirectory(const QString &projectName){
@@ -410,8 +252,7 @@ void AppSettings::createNewProject(const QString &projectName, const QString &di
 
     emit currentProjects(projects);
 
-    //saveProjectsFile(); - ready to use as soon as we adjust whole logic to use it, 11.08
-    write_projects_file(); // will be removed as soon as saveProjectsFile() works, 11.08
+    saveProjectsFile();
 }
 
 
@@ -473,11 +314,11 @@ QString AppSettings::generateUniqueTrafficFilename(const Project& project)
         filename_unique=true;
         for(auto &&it : project.trafficFilesList) {
             if(filename == it.fileName){
-                 filename_unique=false;
-                 break;
-             }
+                filename_unique=false;
+                break;
+            }
         }
-    i++;
+        i++;
     }
     qDebug() << "Traffic name = " << filename;
     return filename;
@@ -515,15 +356,19 @@ void AppSettings::setProject_dir(const QDir &value)
 void AppSettings::deleteProject(const QString projectName)
 {
     removeDirectoryRecursively(projectName);
-    auto elem = std::find_if(std::begin(projects), std::end(projects), [projectName](const Project &p)->bool {return projectName==p.name;});
+    auto elem = std::find_if(std::begin(projects), std::end(projects),
+                             [projectName](const Project &p)->bool {return projectName==p.name;});
+
     projects.erase(elem);
     emit currentProjects(projects);
+
+    saveProjectsFile();
 }
 
 void AppSettings::findProject(const QString &projectName)
 {
     auto it = std::find_if(projects.begin(), projects.end(), [&projectName](const Project& project)-> bool {
-       return (projectName == project.name);
+        return (projectName == project.name);
     });
     if(it == projects.end()) {
         return;

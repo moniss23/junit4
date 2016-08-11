@@ -33,7 +33,6 @@ public slots:
     void LoadAppData();
     //----------PROJECTS---------------//
     void createNewProject(const QString &projectName, const QString & directory);
-    void importProject(const QString &ProjectDirectory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
     //--------SETTINGS CLASS--------//
@@ -59,8 +58,6 @@ public:
     QString get_project_dir(QListWidgetItem* item);
     QString get_project_dir(QString project_name);
 
-    void write_projects_file();
-    void read_projects_file();//TODO: remove ?
 
     bool projectNameTaken(QString projectName);
 
@@ -104,9 +101,6 @@ private:
     void settingsFileSetup();
     void projectsFileSetup();
     void projectsDirSetup();
-    void readProjectsFile();
-    void testProjectsObtainedFromTheFile();
-    void traverseProjectsListAndAddProjectIfNotFound();
     void removeDirectoryRecursively(QString dir_name);
     void read_settings_file();
 
