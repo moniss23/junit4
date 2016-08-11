@@ -20,13 +20,13 @@ INCLUDEPATH += ../LTEsimGeneratorGUI
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
-
 SOURCES += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.cpp \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
+    ../LTEsimGeneratorGUI/Data/trafficdata.cpp \
     ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     ../LTEsimGeneratorGUI/Data/filemanager.cpp \
@@ -40,6 +40,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/AppSettings/appsettings.h \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/project.h \
+    ../LTEsimGeneratorGUI/Data/trafficdata.h \
     ../LTEsimGeneratorGUI/dataelementsinterface.h \
     ../LTEsimGeneratorGUI/Data/serializeinterface.h \
     ../LTEsimGeneratorGUI/Data/appglobaldata.h \
@@ -53,8 +54,6 @@ FORMS    += \
     ../LTEsimGeneratorGUI/Ui/projectmanagement.ui \
     ../LTEsimGeneratorGUI/Ui/addProjectWindow.ui \
     ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
-
-
 
 OTHER_FILES += \
     ../LTEsimGeneratorGUI/logoLTEsim.png
