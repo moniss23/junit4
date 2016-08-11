@@ -40,6 +40,7 @@ public slots:
     //----------PROJECT TRAFFIC FILES--//
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
     void findProject(const QString& projectName);
+    void checkAndRenameIfFilenameUnique(const QString &filename, const QString& oldFilename, const QString& projectName);
 
 
 

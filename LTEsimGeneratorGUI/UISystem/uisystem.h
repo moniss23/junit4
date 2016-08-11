@@ -7,6 +7,7 @@
 #include "ManagementWindow/ProjectManagement/importprojectwindow.h"
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "ManagementWindow/Settings/settings.h"
+#include "ManagementWindow/ParametersWindow/renamedialog.h"
 
 class UISystem : public QObject
 {
@@ -33,6 +34,7 @@ private:
     ParametersWindow paramWindow;
     AddProjectWindow addProjectWindow;
     Settings settingsWindow;
+    RenameDialog renameDialog;
 };
 
 #endif // UISYSTEM_H

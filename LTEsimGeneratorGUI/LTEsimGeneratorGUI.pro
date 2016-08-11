@@ -87,7 +87,9 @@ SOURCES += main.cpp\
     Data/center.cpp \
     Data/handover.cpp \
     UISystem/uisystem.cpp \
-    Data/trafficdata.cpp
+    Data/trafficdata.cpp \
+    ManagementWindow/ParametersWindow/renamedialog.cpp
+
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -167,7 +169,8 @@ HEADERS  += \
     Data/center.h \
     Data/handover.h \
     Data/trafficdata.h \
-    UISystem/uisystem.h
+    UISystem/uisystem.h \
+    ManagementWindow/ParametersWindow/renamedialog.h
 
 
 
@@ -204,7 +207,8 @@ FORMS    += \
     Ui/timeForm.ui \
     Ui/addProjectWindow.ui \
     Ui/statisticsForm.ui \
-    Ui/customModel.ui
+    Ui/customModel.ui \
+    Ui/renamedialog.ui
 
 
 OTHER_FILES += \

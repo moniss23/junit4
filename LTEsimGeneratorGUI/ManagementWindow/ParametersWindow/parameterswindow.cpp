@@ -18,6 +18,7 @@
 #include <ManagementWindow/Settings/settings.h>
 #include <Maps/Traffic/map_traffic.h>
 
+
 QVector<QStringList> trafficFilesContentLists;
 int currentOpenedTrafficFile;
 QString parametersFileContent;
@@ -231,20 +232,22 @@ void ParametersWindow::refreshUI(const Project &project)
 {
     currentProject = project;
 
+    //BASIC UI REFRESH
     this->setWindowTitle(project.name);
+    this->ui->radioButton_normalMap->setChecked(true);
 
     ui->projectsList->clear();
+
+    //PARAMETERS FILE
     ui->projectsList->addItem(currentProject.parametersFile.fileName);
 
-    for(auto &&it:project.trafficFilesList){
-        ui->projectsList->addItem(new QListWidgetItem(it.fileName));
+    //TRAFFIC FILES
+    for(auto &&it:currentProject.trafficFilesList){
+        new QListWidgetItem(it.fileName, ui->projectsList);
     }
 
-    if(ui->projectsList->count() > 0 ) {
-        ui->projectsList->setCurrentRow(0);
-    }
-//    preview will be triggered (   this->ui->filePreview->setText(<first file> );)
-
+    ui->projectsList->item(0)->setSelected(true);
+    ui->projectsList->setCurrentRow(0);
 }
 
 void ParametersWindow::addTrafficFile()
@@ -520,147 +523,11 @@ void ParametersWindow::on_removeFileButton_clicked()
 // "rename file" button clicked
 void ParametersWindow::on_renameFileButton_clicked()
 {
-
     if(this->ui->projectsList->currentItem()->text()=="<none>" || this->ui->projectsList->currentItem()->text()=="<empty>"){
         return;
     }
 
-    QString new_name;
-    bool ok;
-    bool name_unique=false;
-    bool name_legal=false;
-
-    new_name=QInputDialog::getText(this,"LTEsimGenerator","Rename file:\n"+this->ui->projectsList->currentItem()->text(),QLineEdit::Normal,this->ui->projectsList->currentItem()->text(),&ok);
-    if(!ok){
-        return;
-    }
-
-    QString illegal_chars("<>:\"/\\|?*");
-    QString chars_detected("");
-
-    name_legal=true;
-    for(int i=0; i<illegal_chars.length(); i++){
-        if(new_name.contains(illegal_chars[i])){
-            if(name_legal){
-                name_legal=false;
-            }
-            chars_detected.append(illegal_chars[i]);
-        }
-    }
-
-    if(name_legal){
-
-        if(!new_name.endsWith(".rb")){
-            new_name.append(".rb");
-        }
-
-        if(new_name!=this->ui->projectsList->currentItem()->text()){
-            name_unique=true;
-            if(new_name==this->currentProject.parametersFile.fileName){
-                name_unique=false;
-            }
-            if(name_unique){
-                for(int i=0; i<nrOfTrafficFiles; i++){
-                    if(new_name==this->ui->projectsList->item(i+1)->text()){
-                        name_unique=false;
-                        break;
-                    }
-                }
-            }
-        }
-        else{
-            name_unique=true;
-        }
-
-    }
-
-    while(!name_unique || !name_legal){
-
-        if(!name_legal){
-            if(chars_detected.length()==1){
-                QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal character: "+chars_detected,QMessageBox::Yes).exec();
-            }
-            else{
-                QMessageBox(QMessageBox::Information,"LTEsimGeneratorGUI","Illegal characters:\n"+chars_detected,QMessageBox::Yes).exec();
-            }
-        }
-
-        else{
-
-            QMessageBox msg;
-            msg.setText("Name already in use, choose another one.");
-            msg.exec();
-
-        }
-
-        new_name=QInputDialog::getText(this,"LTEsimGenerator","Rename file:\n"+this->ui->projectsList->currentItem()->text(),QLineEdit::Normal,new_name,&ok);
-        if(!ok){
-            return;
-        }
-
-        // validation of the entered file name
-        chars_detected="";
-        name_legal=true;
-        for(int i=0; i<illegal_chars.length(); i++){
-            if(new_name.contains(illegal_chars[i])){
-                if(name_legal){
-                    name_legal=false;
-                }
-                chars_detected.append(illegal_chars[i]);
-            }
-        }
-
-        if(name_legal){
-
-            if(!new_name.endsWith(".rb")){
-                new_name.append(".rb");
-            }
-
-            if(new_name!=this->ui->projectsList->currentItem()->text()){
-                name_unique=true;
-                if(new_name==this->currentProject.parametersFile.fileName){
-                    name_unique=false;
-                }
-                if(name_unique){
-                    for(int i=0; i<nrOfTrafficFiles; i++){
-                        if(new_name==this->ui->projectsList->item(i+1)->text()){
-                            name_unique=false;
-                            break;
-                        }
-                    }
-                }
-            }
-            else{
-                name_unique=true;
-            }
-
-        }
-
-    }
-
-    if(name_unique && name_legal && new_name!=this->ui->projectsList->currentItem()->text()){
-
-        // update ui
-        this->ui->projectsList->currentItem()->setText(new_name);
-
-        // update the parameters file name
-        if(this->ui->projectsList->currentRow()==0){
-            this->currentProject.parametersFile.fileName = new_name;
-        }
-
-        // update the traffic file name
-        else{
-            (*trafficFilesNames[this->ui->projectsList->currentRow()-1])=new_name;
-        }
-
-        if(!changesPresent){
-            changesPresent=true;
-            if(!this->windowTitle().endsWith("*")){
-                this->setWindowTitle(this->windowTitle()+"*");
-            }
-        }
-    }
-
+    emit SpawnWindow_RenameFile(ui->projectsList->currentItem()->text());
 }
 
 // preview a file in the right field
@@ -1040,4 +907,9 @@ void ParametersWindow::on_actionPath_triggered()
 void ParametersWindow::on_saveFileButton_clicked()
 {
     //TODO: implement file saving on button click
+}
+
+void ParametersWindow::getNewNameForFile(const QString &newFilename, const QString &oldFilename)
+{
+    emit checkAndRenameIfFilenameUnique(newFilename, oldFilename, currentProject.name);
 }

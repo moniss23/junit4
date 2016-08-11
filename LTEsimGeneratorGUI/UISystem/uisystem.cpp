@@ -44,6 +44,12 @@ void UISystem::bindingObjects()
     QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString,QString)),appSettings, SLOT(addToProject_TrafficFile(QString,QString)));
     QObject::connect(appSettings, SIGNAL(currentProjectChanged(Project)),&paramWindow, SLOT(refreshUI(Project)));
 
+    //Rename file
+    QObject::connect(&paramWindow,SIGNAL(SpawnWindow_RenameFile(QString)),&renameDialog,SLOT(initWindow(QString)));
+    QObject::connect(appSettings,SIGNAL(currentProjectChanged(Project)),&renameDialog,SLOT(close()));
+    QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString)),&paramWindow,SLOT(getNewNameForFile(QString,QString)));
+    QObject::connect(&paramWindow,SIGNAL(checkAndRenameIfFilenameUnique(QString,QString,QString)),appSettings,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
+
     //Error window
     QObject::connect(appSettings, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
 }

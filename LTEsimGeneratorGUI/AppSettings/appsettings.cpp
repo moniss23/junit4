@@ -2,8 +2,6 @@
 #include "Data/appglobaldata.h"
 #include "Data/trafficdata.h"
 
-#include <QDebug>
-
 AppSettings::AppSettings()
 {
     settingsFileSetup();
@@ -324,7 +322,6 @@ QString AppSettings::generateUniqueTrafficFilename(const Project& project)
         }
         i++;
     }
-    qDebug() << "Traffic name = " << filename;
     return filename;
 }
 
@@ -378,4 +375,40 @@ void AppSettings::findProject(const QString &projectName)
         return;
     }
     emit currentProjectChanged(*it);
+}
+
+void AppSettings::checkAndRenameIfFilenameUnique(const QString &newFilename, const QString &oldFilename, const QString& projectName) {
+
+    if(newFilename == oldFilename) {
+        emit errorInData("Filename not changed, can't rename.");
+        return;
+    }
+
+    auto it = std::find_if(projects.begin(), projects.end(),[&projectName](const Project& project)-> bool{
+        return (projectName == project.name);
+    });
+    if(it == projects.end()) {
+        emit errorInData("Can't find right project while renaming a file");
+        return;
+    }
+    if(it->parametersFile.fileName == oldFilename) {
+        it->parametersFile.fileName = newFilename;
+        emit currentProjectChanged(*it);
+        return;
+    } else {
+        for(auto &&iterator : it->trafficFilesList) {
+            if(iterator.fileName == newFilename) {
+                emit errorInData("Name already in use. Choose another one");
+                return;
+            }
+        }
+        for(auto && trafficfile : it->trafficFilesList) {
+            if(trafficfile.fileName == oldFilename) {
+                trafficfile.fileName = newFilename;
+                emit currentProjectChanged(*it);
+                return;
+            }
+        }
+    }
+    emit errorInData("Can't find right trafficFile to rename!");
 }

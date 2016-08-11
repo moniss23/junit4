@@ -24,11 +24,13 @@ public:
 
     QString getProFileExt() const;
 
+    QString getRbFileExt() const;
 
 private:
 
     QString defaultNewProjectsPath;
     const QString proFileExt = ".proj";
+    const QString rbFileExt = ".rb";
     const QString settingsFile = "settings.dat";
     const QString projectsFile = "projects.dat";
     const QString projectsDirectory = "projects";

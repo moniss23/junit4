@@ -46,3 +46,8 @@ QString AppGlobalData::getProFileExt() const
 {
     return proFileExt;
 }
+
+QString AppGlobalData::getRbFileExt() const
+{
+    return rbFileExt;
+}
