@@ -280,10 +280,9 @@ void AppSettings::setProjectName(const QString &value)
     projectName = value;
 }
 
-void AppSettings::setNewDirForProject(const QString &projectName)
+void AppSettings::setNewDirForProjects(const QString& location)
 {
-    (void)projectName;
-    //TODO: Implement this slot.
+    appGlobalData.setDefaultNewProjectsPath(location);
 }
 
 void AppSettings::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)

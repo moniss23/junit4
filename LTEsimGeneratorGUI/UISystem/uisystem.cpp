@@ -30,6 +30,7 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
     QObject::connect(&projectUi, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
     QObject::connect(&paramWindow, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
+    QObject::connect(&settingsWindow, SIGNAL(SetDefaultLocationForNewProjects(QString)), appSettings, SLOT(setNewDirForProjects(QString)));
 
     // Import Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));

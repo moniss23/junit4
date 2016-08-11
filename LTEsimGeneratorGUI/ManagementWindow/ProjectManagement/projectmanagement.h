@@ -50,7 +50,7 @@ signals:
     /**
      * @brief SpawnWindow_Settings
      */
-    void SpawnWindow_Settings();
+    void SpawnWindow_Settings(const QString& projectName = QString());
 
 public slots:
     /**

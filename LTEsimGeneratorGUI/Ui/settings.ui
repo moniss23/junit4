@@ -171,7 +171,7 @@
       <string>Browse</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="echaScriptIndividualDirRadioButton">
+    <widget class="QRadioButton" name="eachScriptIndividualDirRadioButton">
      <property name="geometry">
       <rect>
        <x>20</x>

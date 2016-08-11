@@ -18,6 +18,8 @@ Settings::~Settings() {
 
 void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Project &project)
 {
+    appGlobalData.setDefaultNewProjectsPath(globalProjectData.getDefaultNewProjectsPath());
+    current_RB_FilesLocation = project.rbOutputDir;
     bool secondTabActive = !project.name.isEmpty();
 
     this->ui->projectDirInput->setEnabled(false);
@@ -30,16 +32,20 @@ void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Proj
     }else {
         this->ui->settingsTabs->setTabEnabled(1,true);
         this->ui->settingsTabs->setCurrentIndex(1);
-        if(project.rbOutputDir=="<individually>") {
-            this->ui->echaScriptIndividualDirRadioButton->setChecked(true);
+        if(current_RB_FilesLocation=="<individually>") {
+            this->ui->eachScriptIndividualDirRadioButton->setChecked(true);
+        }else if(current_RB_FilesLocation=="<default>") {
+            this->ui->projectsDirRadioButton->setChecked(true);
+            this->ui->projectDirInput->setEnabled(false);
+            this->ui->projectBrowseButton->setEnabled(false);
         }else {
             this->ui->projectCustomDirRadioButton->setChecked(true);
             this->ui->projectDirInput->setEnabled(true);
             this->ui->projectBrowseButton->setEnabled(true);
-            this->ui->projectDirInput->setText(project.rbOutputDir);
+            this->ui->projectDirInput->setText(current_RB_FilesLocation);
         }
     }
-    if(globalProjectData.getDefaultNewProjectsPath() == "<default>") {
+    if(appGlobalData.getDefaultNewProjectsPath() == "<default>") {
         this->ui->programsDirRadioButton->setChecked(true);
         this->ui->globalDirInput->setEnabled(false);
         this->ui->globalBrowseButton->setEnabled(false);
@@ -47,7 +53,7 @@ void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Proj
         this->ui->globalCustomDirRadioButton->setChecked(true);
         this->ui->globalDirInput->setEnabled(true);
         this->ui->globalBrowseButton->setEnabled(true);
-        this->ui->globalDirInput->setText(globalProjectData.getDefaultNewProjectsPath());
+        this->ui->globalDirInput->setText(appGlobalData.getDefaultNewProjectsPath());
     }
 
     this->show();
@@ -56,6 +62,9 @@ void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Proj
 void Settings::on_globalCustomDirRadioButton_toggled(bool checked) {
     this->ui->globalDirInput->setEnabled(checked);
     this->ui->globalBrowseButton->setEnabled(checked);
+    if(checked && not appGlobalData.getDefaultNewProjectsPath().isEmpty()) {
+        this->ui->globalDirInput->setText(appGlobalData.getDefaultNewProjectsPath());
+    }
 
     this->ui->applyButton->setEnabled(true);
 }
@@ -63,6 +72,9 @@ void Settings::on_globalCustomDirRadioButton_toggled(bool checked) {
 void Settings::on_projectCustomDirRadioButton_toggled(bool checked) {
     this->ui->projectDirInput->setEnabled(checked);
     this->ui->projectBrowseButton->setEnabled(checked);
+    if(checked && current_RB_FilesLocation.isEmpty()) {
+        this->ui->projectDirInput->setText(current_RB_FilesLocation);
+    }
 
     this->ui->applyButton->setEnabled(true);
 }
@@ -94,7 +106,7 @@ void Settings::apply_settings(bool shouldClose) {
     if(this->ui->projectTab->isEnabled()) {
         // project - project's directory is selected
         if(this->ui->projectsDirRadioButton->isChecked()) {
-            rbLocation = "<default>";
+            current_RB_FilesLocation = "<default>";
         }
         // project - custom directory is selected
         if (this->ui->projectCustomDirRadioButton->isChecked()) {
@@ -113,13 +125,13 @@ void Settings::apply_settings(bool shouldClose) {
                 QMessageBox(QMessageBox::Critical,"Directory does not exist!","Selected directory does not seem to exist.\nAre you sure you selected it right?",QMessageBox::Ok).exec();
                 return;
             }
-
         }
         // project - asking individually is selected
-        if(this->ui->echaScriptIndividualDirRadioButton->isChecked()) {
-            rbLocation="<individually>";
+        if(this->ui->eachScriptIndividualDirRadioButton->isChecked()) {
+            current_RB_FilesLocation="<individually>";
         }
         // if second tab is active, also write project file with new settings
+        rbLocation = current_RB_FilesLocation;
     }
 
     //emit writeSettings(settings); ===> AppSettings
@@ -164,26 +176,22 @@ void Settings::on_globalDefaultButton_clicked() {
     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"Restore all global settings.","This will restore all global settings to defaults. Are you sure?",QMessageBox::Ok|QMessageBox::Cancel).exec()) {
         return;
     }
-    appSettings->setDefaultNewProjectDir("<default>");
     this->ui->programsDirRadioButton->setChecked(true);
     this->ui->globalDirInput->clear();
-    appSettings->write_settings_file();
     this->ui->applyButton->setEnabled(false);
+    //emit writeSettings(settings); ===> AppSettings
 }
 
 // restore project defaults
 void Settings::on_projectDefaultButton_clicked() {
-
-    //emit RestoreDefaultsProjectSettings(projectName);
-
     if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"Restore all project settings.","This will restore all project settings to defaults. Are you sure?",QMessageBox::Ok|QMessageBox::Cancel).exec()) {
         return;
     }
-    //appSettings->getDefaultLocationForRbFiles()="<default>";
     this->ui->projectDirInput->clear();
     this->ui->projectDirInput->setEnabled(false);
     this->ui->projectsDirRadioButton->setChecked(true);
     this->ui->projectBrowseButton->setEnabled(false);
+    //emit writeSettings(settings); ===> AppSettings
 }
 
 // custom dir in the line edit changes

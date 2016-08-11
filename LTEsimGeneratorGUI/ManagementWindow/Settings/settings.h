@@ -55,8 +55,9 @@ private slots:
 
 private:
     Ui::Settings *ui;
+    AppGlobalData appGlobalData;
+    QString current_RB_FilesLocation;
     bool changesMade;
-    AppSettings* appSettings;
 };
 
 #endif // SETTINGS_H

@@ -36,7 +36,8 @@ public slots:
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
     //--------SETTINGS CLASS--------//
-    void setNewDirForProject(const QString& projectName);
+    void setNewDirForProjects(const QString& location);
+    void saveProjectsFile();
     //----------PROJECT TRAFFIC FILES--//
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
     void findProject(const QString& projectName);
@@ -106,7 +107,6 @@ private:
     void read_settings_file();
 
     void loadProjectsFile();
-    void saveProjectsFile();
 
     QString generateUniqueTrafficFilename(const Project& project);
 
