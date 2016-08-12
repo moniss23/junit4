@@ -102,9 +102,8 @@ void DataSystem::read_settings_file(){
     defaultNewProjectDir = content_list[0];
 }
 
-<<<<<<< 78b02018b19a6d4149c82641a40cbf501a9a5474:LTEsimGeneratorGUI/AppSettings/appsettings.cpp
 // Returns pointer to a Project element or nullptr if not found
-Project* AppSettings::findProjectByName(const QString &projectName) {
+Project* DataSystem::findProjectByName(const QString &projectName) {
     auto it = std::find_if(std::begin(projects), std::end(projects),
                            [&projectName](const Project &p)->bool {return p.name==projectName; });
 
@@ -112,10 +111,7 @@ Project* AppSettings::findProjectByName(const QString &projectName) {
 }
 
 
-QString AppSettings::get_project_dir(QListWidgetItem *item)
-=======
 QString DataSystem::get_project_dir(QListWidgetItem *item)
->>>>>>> Renamed AppSettings to DataSystem:LTEsimGeneratorGUI/DataSystem/datasystem.cpp
 {
     auto proj = findProjectByName(item->text());
     return proj == nullptr ? QString() : proj->fullpath;
@@ -127,24 +123,10 @@ QString DataSystem::get_project_dir(QString project_name)
     return proj == nullptr ? QString() : proj->fullpath;
 }
 
-<<<<<<< 78b02018b19a6d4149c82641a40cbf501a9a5474:LTEsimGeneratorGUI/AppSettings/appsettings.cpp
-bool AppSettings::projectNameTaken(QString projectName)
+bool DataSystem::projectNameTaken(QString projectName)
 {
     auto proj = findProjectByName(projectName);
     return proj != nullptr;
-=======
-//Moved from projectManagement
-bool DataSystem::projectNameTaken(QString projectName){
-    bool taken=false;
-    for(auto i=0; i<projects.size(); i++){
-        if(projects[i].name == projectName)
-        {
-            taken=true;
-            break;
-        }
-    }
-    return taken;
->>>>>>> Renamed AppSettings to DataSystem:LTEsimGeneratorGUI/DataSystem/datasystem.cpp
 }
 
 // check if the settings file exists, create it if it doesn't
@@ -285,7 +267,7 @@ void DataSystem::setProjectName(const QString &value)
     projectName = value;
 }
 
-void DataSystem::setNewDirForProject(const QString &projectName)
+void DataSystem::setNewDirForProjects(const QString &location)
 {
     appGlobalData.setDefaultNewProjectsPath(location);
 }
@@ -301,8 +283,8 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
 
     TrafficData trafficData;
     trafficData.fileName = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
-    it->trafficFilesList.push_back(trafficData);
-    emit currentProjectChanged(*it);
+    proj->trafficFilesList.push_back(trafficData);
+    emit currentProjectChanged(*proj);
 }
 
 QString DataSystem::generateUniqueTrafficFilename(const Project& project)
