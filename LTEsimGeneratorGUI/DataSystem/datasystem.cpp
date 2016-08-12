@@ -2,8 +2,7 @@
 #include "Data/appglobaldata.h"
 #include "Data/trafficdata.h"
 
-DataSystem::DataSystem()
-{
+DataSystem::DataSystem() {
     settingsFileSetup();
     projectsFileSetup();
 }
@@ -94,9 +93,7 @@ void DataSystem::read_settings_file(){
     file_str >> settingsFileContent;
     file.close();
 
-    QStringList content_list(settingsFileContent.split("\n") );
-
-    defaultNewProjectDir = content_list[0];
+    defaultNewProjectDir = settingsFileContent.split("\n")[0];
 }
 
 // Returns pointer to a Project element or nullptr if not found
@@ -107,26 +104,16 @@ Project* DataSystem::findProjectByName(const QString &projectName) {
     return it != std::end(projects) ? it : nullptr;
 }
 
-
-QString DataSystem::get_project_dir(QListWidgetItem *item)
-{
-    auto proj = findProjectByName(item->text());
-    return proj == nullptr ? QString() : proj->fullpath;
-}
-
-QString DataSystem::get_project_dir(QString project_name)
-{
-    auto proj = findProjectByName(project_name);
-    return proj == nullptr ? QString() : proj->fullpath;
-}
-
-bool DataSystem::projectNameTaken(QString projectName)
-{
+bool DataSystem::projectNameTaken(QString projectName) {
     auto proj = findProjectByName(projectName);
     return proj != nullptr;
 }
 
-// check if the settings file exists, create it if it doesn't
+QString DataSystem::getProjectDir(QString project_name) {
+    auto proj = findProjectByName(project_name);
+    return proj == nullptr ? QString() : proj->fullpath;
+}
+
 void DataSystem::settingsFileSetup() {
     QFile settings_file(appGlobalData.getSettingsFile());
 
@@ -150,11 +137,6 @@ void DataSystem::projectsFileSetup() {
     }
 }
 
-QString DataSystem::getProjectDirectory(const QString &projectName) {
-    auto proj = findProjectByName(projectName);
-    return proj == nullptr ? QString() : proj->fullpath;
-}
-
 // recursively remove entire directory and its content
 void DataSystem::removeDirectoryRecursively(QString dir_name){
     QDir directory("projects/" + dir_name);
@@ -169,11 +151,6 @@ QString DataSystem::readParametersFile()
     param_template.close();
 
     return param_template_str.readAll();
-}
-
-AppGlobalData DataSystem::getAppGlobalData() const
-{
-    return appGlobalData;
 }
 
 /*
@@ -223,7 +200,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     project_content += param_template_content + "\n";
 
     write_project_file(projectName, project_content,
-                       dir=="<default>" ? getProjectDirectory(projectName) : dir);
+                       dir=="<default>" ? getProjectDir(projectName) : dir);
 
     // store the project name in a global variable for use by other files and methods
     setProjectName(projectName); //TODO: Should not be needed in good architecture
@@ -233,27 +210,9 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     saveProjectsFile();
 }
 
-
-/*
- *
- * Getters and Setters
- *
- */
-
-
-QString DataSystem::getProjectName() const
-{
-    return projectName;
-}
-
-void DataSystem::setProjectName(const QString &value)
-{
-    projectName = value;
-}
-
-void DataSystem::setNewDirForProjects(const QString &location)
-{
-    appGlobalData.setDefaultNewProjectsPath(location);
+void DataSystem::importProject(const QString &project_directory) {
+    (void) project_directory;
+    // TODO: Implement adjusted to a new logic
 }
 
 void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
@@ -289,16 +248,6 @@ QString DataSystem::generateUniqueTrafficFilename(const Project& project)
         i++;
     }
     return filename;
-}
-
-QString DataSystem::getDefaultNewProjectDir() const
-{
-    return appGlobalData.getDefaultNewProjectsPath();
-}
-
-void DataSystem::setDefaultNewProjectDir(const QString &value)
-{
-    appGlobalData.setDefaultNewProjectsPath(value);
 }
 
 void DataSystem::deleteProject(const QString projectName)
@@ -355,4 +304,28 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
         }
     }
     emit errorInData("Can't find right trafficFile to rename!");
+}
+
+/* ___ GETTERS & SETTERS ___ */
+
+QString DataSystem::getDefaultNewProjectDir() const {
+    return appGlobalData.getDefaultNewProjectsPath();
+}
+void DataSystem::setDefaultNewProjectDir(const QString &value) {
+    appGlobalData.setDefaultNewProjectsPath(value);
+}
+
+QString DataSystem::getProjectName() const {
+    return projectName;
+}
+void DataSystem::setProjectName(const QString &value) {
+    projectName = value;
+}
+
+AppGlobalData DataSystem::getAppGlobalData() const {
+    return appGlobalData;
+}
+
+void DataSystem::setNewDirForProjects(const QString &location) {
+    appGlobalData.setDefaultNewProjectsPath(location);
 }

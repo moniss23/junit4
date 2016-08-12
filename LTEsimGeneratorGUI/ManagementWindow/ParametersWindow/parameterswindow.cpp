@@ -142,7 +142,7 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     int trafficFileLen;
 
     // read the project content from the project file
-    QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDirectory(projectName));
+    QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDir(projectName));
 
     // read the default location for output .rb files
     QString ParamFileName = project_content[0];
@@ -395,7 +395,7 @@ void ParametersWindow::saveProject(bool singleFile=false){
 
     // encrypt the project data and write it to file
     QString projectName = currentProject.name;
-    appSettings->write_project_file(projectName,plaintext,appSettings->get_project_dir(projectName));
+    appSettings->write_project_file(projectName,plaintext,appSettings->getProjectDir(projectName));
 }
 
 void ParametersWindow::on_actionOpen_triggered()

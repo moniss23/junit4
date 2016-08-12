@@ -34,6 +34,7 @@ public slots:
     //----------PROJECTS---------------//
 
     Project* findProjectByName(const QString &);
+    void importProject(const QString &ProjectDirectory);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
@@ -50,18 +51,12 @@ public slots:
 public:
     QString GetDefaultParametersFileContent(); //TODO: move to private when You can
 
-
-
-    QString getProjectDirectory(const QString &projectName);
-
     void write_project_file(QString project_name, QString project_content, QString dir);
     QStringList read_project_file(QString project_name, QString dir);
 
     void write_settings_file();
 
-    QString get_project_dir(QListWidgetItem* item);
-    QString get_project_dir(QString project_name);
-
+    QString getProjectDir(QString project_name);
 
     bool projectNameTaken(QString projectName);
 
