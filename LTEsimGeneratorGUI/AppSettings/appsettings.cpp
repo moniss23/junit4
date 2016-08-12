@@ -102,41 +102,32 @@ void AppSettings::read_settings_file(){
     defaultNewProjectDir = content_list[0];
 }
 
+// Returns pointer to a Project element or nullptr if not found
+Project* AppSettings::findProjectByName(const QString &projectName) {
+    auto it = std::find_if(std::begin(projects), std::end(projects),
+                           [&projectName](const Project &p)->bool {return p.name==projectName; });
+
+    return it != std::end(projects) ? it : nullptr;
+}
+
+
 QString AppSettings::get_project_dir(QListWidgetItem *item)
 {
-    for(auto i = 0; i < projects.size(); i++) {
-        if(projects[i].name == item->text()) {
-            return projects[i].fullpath;
-        }
-    }
-
-    return QString();
+    auto proj = findProjectByName(item->text());
+    return proj == nullptr ? QString() : proj->fullpath;
 }
 
 QString AppSettings::get_project_dir(QString project_name)
 {
-    for(auto i = 0; i < projects.size(); i++) {
-        if(projects[i].name == project_name) {
-            return projects[i].fullpath;
-        }
-    }
-    return QString();
-
+    auto proj = findProjectByName(project_name);
+    return proj == nullptr ? QString() : proj->fullpath;
 }
 
-//Moved from projectManagement
-bool AppSettings::projectNameTaken(QString projectName){
-    bool taken=false;
-    for(auto i=0; i<projects.size(); i++){
-        if(projects[i].name == projectName)
-        {
-            taken=true;
-            break;
-        }
-    }
-    return taken;
+bool AppSettings::projectNameTaken(QString projectName)
+{
+    auto proj = findProjectByName(projectName);
+    return proj != nullptr;
 }
-
 
 // check if the settings file exists, create it if it doesn't
 void AppSettings::settingsFileSetup() {
@@ -166,18 +157,14 @@ void AppSettings::projectsDirSetup() {
     project_dir.mkdir(appGlobalData.getProjectsDirectory());
 }
 
-QString AppSettings::getProjectDirectory(const QString &projectName){
-    auto it = std::find_if(projects.begin(), projects.end(), [&projectName](const Project &project) -> bool {
-        return (project.name == projectName);
-    });
-
-    if(it == std::end(projects)) return QString();
-    return it->fullpath;
+QString AppSettings::getProjectDirectory(const QString &projectName) {
+    auto proj = findProjectByName(projectName);
+    return proj == nullptr ? QString() : proj->fullpath;
 }
 
 // recursively remove entire directory and its content
 void AppSettings::removeDirectoryRecursively(QString dir_name){
-    QDir directory("projects/"+dir_name);
+    QDir directory("projects/" + dir_name);
     directory.removeRecursively();
 }
 
@@ -287,21 +274,18 @@ void AppSettings::setNewDirForProjects(const QString& location)
 
 void AppSettings::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
 {
-    auto it = std::find_if(projects.begin(), projects.end(), [&ProjectName](const Project& project)-> bool {
-        return (project.name == ProjectName);
-    });
-    if(it == projects.end()) {
+    auto proj = findProjectByName(ProjectName);
+
+    if(proj == nullptr) {
         emit errorInData("Error while adding traffic file");
         return;
     }
+
     TrafficData trafficData;
-    if(fileName == "default") {
-        trafficData.fileName = generateUniqueTrafficFilename(*it);
-    } else {
-        trafficData.fileName = fileName;
-    }
-    it->trafficFilesList.push_back(trafficData);
-    emit currentProjectChanged(*it);
+    trafficData.fileName = fileName == "default" ? generateUniqueTrafficFilename(*proj) : fileName;
+
+    proj->trafficFilesList.push_back(trafficData);
+    emit currentProjectChanged(*proj);
 }
 
 QString AppSettings::generateUniqueTrafficFilename(const Project& project)
@@ -356,10 +340,9 @@ void AppSettings::setProject_dir(const QDir &value)
 void AppSettings::deleteProject(const QString projectName)
 {
     removeDirectoryRecursively(projectName);
-    auto elem = std::find_if(std::begin(projects), std::end(projects),
-                             [projectName](const Project &p)->bool {return projectName==p.name;});
+    auto proj = findProjectByName(projectName);
 
-    projects.erase(elem);
+    projects.erase(proj);
     emit currentProjects(projects);
 
     saveProjectsFile();
@@ -367,13 +350,10 @@ void AppSettings::deleteProject(const QString projectName)
 
 void AppSettings::findProject(const QString &projectName)
 {
-    auto it = std::find_if(projects.begin(), projects.end(), [&projectName](const Project& project)-> bool {
-        return (projectName == project.name);
-    });
-    if(it == projects.end()) {
-        return;
-    }
-    emit currentProjectChanged(*it);
+    auto proj = findProjectByName(projectName);
+
+    if(proj == nullptr) { return; }
+    emit currentProjectChanged(*proj);
 }
 
 void AppSettings::checkAndRenameIfFilenameUnique(const QString &newFilename, const QString &oldFilename, const QString& projectName) {
@@ -383,28 +363,29 @@ void AppSettings::checkAndRenameIfFilenameUnique(const QString &newFilename, con
         return;
     }
 
-    auto it = std::find_if(projects.begin(), projects.end(),[&projectName](const Project& project)-> bool{
-        return (projectName == project.name);
-    });
-    if(it == projects.end()) {
+    auto proj = findProjectByName(projectName);
+
+
+    if(proj == nullptr) {
         emit errorInData("Can't find right project while renaming a file");
         return;
     }
-    if(it->parametersFile.fileName == oldFilename) {
-        it->parametersFile.fileName = newFilename;
-        emit currentProjectChanged(*it);
+
+    if(proj->parametersFile.fileName == oldFilename) {
+        proj->parametersFile.fileName = newFilename;
+        emit currentProjectChanged(*proj);
         return;
     } else {
-        for(auto &&iterator : it->trafficFilesList) {
+        for(auto &&iterator : proj->trafficFilesList) {
             if(iterator.fileName == newFilename) {
                 emit errorInData("Name already in use. Choose another one");
                 return;
             }
         }
-        for(auto && trafficfile : it->trafficFilesList) {
+        for(auto &&trafficfile : proj->trafficFilesList) {
             if(trafficfile.fileName == oldFilename) {
                 trafficfile.fileName = newFilename;
-                emit currentProjectChanged(*it);
+                emit currentProjectChanged(*proj);
                 return;
             }
         }

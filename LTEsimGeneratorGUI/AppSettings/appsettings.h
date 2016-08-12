@@ -32,6 +32,8 @@ public slots:
 
     void LoadAppData();
     //----------PROJECTS---------------//
+
+    Project* findProjectByName(const QString &);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
