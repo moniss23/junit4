@@ -282,10 +282,9 @@ void AppSettings::addToProject_TrafficFile(const QString &ProjectName, const QSt
     }
 
     TrafficData trafficData;
-    trafficData.fileName = fileName == "default" ? generateUniqueTrafficFilename(*proj) : fileName;
-
-    proj->trafficFilesList.push_back(trafficData);
-    emit currentProjectChanged(*proj);
+    trafficData.fileName = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
+    it->trafficFilesList.push_back(trafficData);
+    emit currentProjectChanged(*it);
 }
 
 QString AppSettings::generateUniqueTrafficFilename(const Project& project)

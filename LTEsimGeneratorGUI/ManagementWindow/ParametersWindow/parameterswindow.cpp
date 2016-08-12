@@ -476,7 +476,7 @@ void ParametersWindow::on_addTrafficButton_clicked()
     this->addTrafficFile();
     fileAdditionInProgress=false;
 
-    emit AddFile_Traffic(currentProject.name, "default");
+    emit AddFile_Traffic(currentProject.name, QString(""));
 }
 
 // "remove file" button clicked
