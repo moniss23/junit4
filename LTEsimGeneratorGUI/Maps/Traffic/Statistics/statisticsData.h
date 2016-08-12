@@ -38,7 +38,7 @@ class StatisticsData : public QObject, DataElementsInterface
     Q_OBJECT
     Q_ENUM(Stats_settings)
 public:
-    StatisticsData(QString &mapIndex, AppSettings *appSettings);
+    StatisticsData(QString &mapIndex, DataSystem *appSettings);
 
     StatisticsData& operator =(const StatisticsData& rhc);
 
@@ -71,7 +71,7 @@ private:
     QList<QDomText> textXmlList;
 
     ProjectReaderWriter* projectReaderWriter;
-    AppSettings *appSettings;
+    DataSystem *appSettings;
 
 };
 

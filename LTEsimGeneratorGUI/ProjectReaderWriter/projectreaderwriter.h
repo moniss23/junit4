@@ -4,20 +4,20 @@
 #include <CommonConstans/common_constans.h>
 #include <QFile>
 #include <QtXml>
-#include <AppSettings/appsettings.h>
+#include <DataSystem/datasystem.h>
 
 class ProjectReaderWriter
 {
 public:
 
-    ProjectReaderWriter(AppSettings *appSettings);
+    ProjectReaderWriter(DataSystem *appSettings);
     // ReaderWriterRefactor:  deleted static
     QByteArray readDataFromProj(const QString &beginningOfSector,const QString &endOfSector);
     QDomDocument readDataFromXml(const QString &beginningOfSector,const QString &endOfSector);
     void writeDataToXml(const QDomDocument xmlDocument);
 
 private:
-    AppSettings *appSettings;
+    DataSystem *appSettings;
 
 };
 

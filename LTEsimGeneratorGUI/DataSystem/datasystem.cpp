@@ -1,23 +1,23 @@
-#include "appsettings.h"
+#include "datasystem.h"
 #include "Data/appglobaldata.h"
 #include "Data/trafficdata.h"
 
-AppSettings::AppSettings()
+DataSystem::DataSystem()
 {
     settingsFileSetup();
     projectsFileSetup();
     projectsDirSetup();
 }
 
-AppSettings::~AppSettings() {
+DataSystem::~DataSystem() {
 }
 
-void AppSettings::LoadAppData() {
+void DataSystem::LoadAppData() {
     loadProjectsFile();
     emit currentProjects(projects);
 }
 
-void AppSettings::loadProjectsFile() {
+void DataSystem::loadProjectsFile() {
     QDataStream dataStream(fileManager.readFromFile(appGlobalData.getProjectsFile()));
 
     int projectsAmount;
@@ -33,7 +33,7 @@ void AppSettings::loadProjectsFile() {
     }
 }
 
-void AppSettings::saveProjectsFile() {
+void DataSystem::saveProjectsFile() {
     QBuffer rawDataBuff;
     rawDataBuff.open(QBuffer::WriteOnly);
     QDataStream dataStream(&rawDataBuff);
@@ -49,7 +49,7 @@ void AppSettings::saveProjectsFile() {
 }
 
 // Read the content of the project file, decrypt it and split into a list
-QStringList AppSettings::read_project_file(QString project_name, QString dir){
+QStringList DataSystem::read_project_file(QString project_name, QString dir){
 
     dir = (dir == "<default>") ? appGlobalData.getProjectsDirectory() : dir;
 
@@ -65,7 +65,7 @@ QStringList AppSettings::read_project_file(QString project_name, QString dir){
 }
 
 // encrypt the project data and write it into the file
-void AppSettings::write_project_file(QString project_name, QString project_content, QString dir){
+void DataSystem::write_project_file(QString project_name, QString project_content, QString dir){
 
     dir = (dir == "<default>") ? appGlobalData.getProjectsDirectory() : dir;
 
@@ -77,7 +77,7 @@ void AppSettings::write_project_file(QString project_name, QString project_conte
     project_file.close();
 }
 
-void AppSettings::write_settings_file(){
+void DataSystem::write_settings_file(){
     QFile file(appGlobalData.getSettingsFile());
     file.open(QIODevice::WriteOnly);
     QDataStream file_str(&file);
@@ -88,7 +88,7 @@ void AppSettings::write_settings_file(){
     file.close();
 }
 
-void AppSettings::read_settings_file(){
+void DataSystem::read_settings_file(){
     QFile file(appGlobalData.getSettingsFile());
     file.open(QIODevice::ReadOnly);
 
@@ -102,6 +102,7 @@ void AppSettings::read_settings_file(){
     defaultNewProjectDir = content_list[0];
 }
 
+<<<<<<< 78b02018b19a6d4149c82641a40cbf501a9a5474:LTEsimGeneratorGUI/AppSettings/appsettings.cpp
 // Returns pointer to a Project element or nullptr if not found
 Project* AppSettings::findProjectByName(const QString &projectName) {
     auto it = std::find_if(std::begin(projects), std::end(projects),
@@ -112,25 +113,42 @@ Project* AppSettings::findProjectByName(const QString &projectName) {
 
 
 QString AppSettings::get_project_dir(QListWidgetItem *item)
+=======
+QString DataSystem::get_project_dir(QListWidgetItem *item)
+>>>>>>> Renamed AppSettings to DataSystem:LTEsimGeneratorGUI/DataSystem/datasystem.cpp
 {
     auto proj = findProjectByName(item->text());
     return proj == nullptr ? QString() : proj->fullpath;
 }
 
-QString AppSettings::get_project_dir(QString project_name)
+QString DataSystem::get_project_dir(QString project_name)
 {
     auto proj = findProjectByName(project_name);
     return proj == nullptr ? QString() : proj->fullpath;
 }
 
+<<<<<<< 78b02018b19a6d4149c82641a40cbf501a9a5474:LTEsimGeneratorGUI/AppSettings/appsettings.cpp
 bool AppSettings::projectNameTaken(QString projectName)
 {
     auto proj = findProjectByName(projectName);
     return proj != nullptr;
+=======
+//Moved from projectManagement
+bool DataSystem::projectNameTaken(QString projectName){
+    bool taken=false;
+    for(auto i=0; i<projects.size(); i++){
+        if(projects[i].name == projectName)
+        {
+            taken=true;
+            break;
+        }
+    }
+    return taken;
+>>>>>>> Renamed AppSettings to DataSystem:LTEsimGeneratorGUI/DataSystem/datasystem.cpp
 }
 
 // check if the settings file exists, create it if it doesn't
-void AppSettings::settingsFileSetup() {
+void DataSystem::settingsFileSetup() {
     settings_file.setFileName(appGlobalData.getSettingsFile());
     if(!settings_file.exists()){
         setDefaultNewProjectDir("<default>");
@@ -141,7 +159,7 @@ void AppSettings::settingsFileSetup() {
 }
 
 // check if the projects file exists, create it if it doesn't
-void AppSettings::projectsFileSetup() {
+void DataSystem::projectsFileSetup() {
     projects_file.setFileName(appGlobalData.getProjectsFile());
 
     if(!projects_file.exists()) {
@@ -153,22 +171,22 @@ void AppSettings::projectsFileSetup() {
 }
 
 // create project dir if doesn't exist
-void AppSettings::projectsDirSetup() {
+void DataSystem::projectsDirSetup() {
     project_dir.mkdir(appGlobalData.getProjectsDirectory());
 }
 
-QString AppSettings::getProjectDirectory(const QString &projectName) {
+QString DataSystem::getProjectDirectory(const QString &projectName) {
     auto proj = findProjectByName(projectName);
     return proj == nullptr ? QString() : proj->fullpath;
 }
 
 // recursively remove entire directory and its content
-void AppSettings::removeDirectoryRecursively(QString dir_name){
+void DataSystem::removeDirectoryRecursively(QString dir_name){
     QDir directory("projects/" + dir_name);
     directory.removeRecursively();
 }
 
-QString AppSettings::readParametersFile()
+QString DataSystem::readParametersFile()
 {
     QFile param_template(appGlobalData.getProjectsFile());
     param_template.open(QIODevice::ReadOnly);
@@ -178,7 +196,7 @@ QString AppSettings::readParametersFile()
     return param_template_str.readAll();
 }
 
-AppGlobalData AppSettings::getAppGlobalData() const
+AppGlobalData DataSystem::getAppGlobalData() const
 {
     return appGlobalData;
 }
@@ -188,7 +206,7 @@ AppGlobalData AppSettings::getAppGlobalData() const
  *
  */
 
-QString AppSettings::GetDefaultParametersFileContent()
+QString DataSystem::GetDefaultParametersFileContent()
 {
     QFile param_template(":/RbFiles/parameters.rb");
     param_template.open(QIODevice::ReadOnly);
@@ -199,7 +217,7 @@ QString AppSettings::GetDefaultParametersFileContent()
     return content;
 }
 
-void AppSettings::createNewProject(const QString &projectName, const QString &directory) {
+void DataSystem::createNewProject(const QString &projectName, const QString &directory) {
 
     if(projectNameTaken(projectName)) {
         emit errorInData("Name already in use. Choose another one.");
@@ -247,32 +265,32 @@ void AppSettings::createNewProject(const QString &projectName, const QString &di
  *
  */
 
-QString AppSettings::getProjectFile() const
+QString DataSystem::getProjectFile() const
 {
     return projectFile;
 }
 
-void AppSettings::setProjectFile(const QString &value)
+void DataSystem::setProjectFile(const QString &value)
 {
     projectFile = value;
 }
 
-QString AppSettings::getProjectName() const
+QString DataSystem::getProjectName() const
 {
     return projectName;
 }
 
-void AppSettings::setProjectName(const QString &value)
+void DataSystem::setProjectName(const QString &value)
 {
     projectName = value;
 }
 
-void AppSettings::setNewDirForProjects(const QString& location)
+void DataSystem::setNewDirForProject(const QString &projectName)
 {
     appGlobalData.setDefaultNewProjectsPath(location);
 }
 
-void AppSettings::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
+void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
 {
     auto proj = findProjectByName(ProjectName);
 
@@ -287,7 +305,7 @@ void AppSettings::addToProject_TrafficFile(const QString &ProjectName, const QSt
     emit currentProjectChanged(*it);
 }
 
-QString AppSettings::generateUniqueTrafficFilename(const Project& project)
+QString DataSystem::generateUniqueTrafficFilename(const Project& project)
 {
     QString filename;
     bool filename_unique = false;
@@ -307,36 +325,36 @@ QString AppSettings::generateUniqueTrafficFilename(const Project& project)
     return filename;
 }
 
-QDir AppSettings::getProjectDir() const
+QDir DataSystem::getProjectDir() const
 {
     return projectDir;
 }
 
-void AppSettings::setProjectDir(const QDir &value)
+void DataSystem::setProjectDir(const QDir &value)
 {
     projectDir = value;
 }
 
-QString AppSettings::getDefaultNewProjectDir() const
+QString DataSystem::getDefaultNewProjectDir() const
 {
     return appGlobalData.getDefaultNewProjectsPath();
 }
 
-void AppSettings::setDefaultNewProjectDir(const QString &value)
+void DataSystem::setDefaultNewProjectDir(const QString &value)
 {
     appGlobalData.setDefaultNewProjectsPath(value);
 }
 
-QDir AppSettings::getProject_dir() const
+QDir DataSystem::getProject_dir() const
 {
     return project_dir;
 }
 
-void AppSettings::setProject_dir(const QDir &value)
+void DataSystem::setProject_dir(const QDir &value)
 {
     project_dir = value;
 }
-void AppSettings::deleteProject(const QString projectName)
+void DataSystem::deleteProject(const QString projectName)
 {
     removeDirectoryRecursively(projectName);
     auto proj = findProjectByName(projectName);
@@ -347,7 +365,7 @@ void AppSettings::deleteProject(const QString projectName)
     saveProjectsFile();
 }
 
-void AppSettings::findProject(const QString &projectName)
+void DataSystem::findProject(const QString &projectName)
 {
     auto proj = findProjectByName(projectName);
 
@@ -355,7 +373,7 @@ void AppSettings::findProject(const QString &projectName)
     emit currentProjectChanged(*proj);
 }
 
-void AppSettings::checkAndRenameIfFilenameUnique(const QString &newFilename, const QString &oldFilename, const QString& projectName) {
+void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, const QString &oldFilename, const QString& projectName) {
 
     if(newFilename == oldFilename) {
         emit errorInData("Filename not changed, can't rename.");

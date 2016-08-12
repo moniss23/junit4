@@ -92,7 +92,7 @@ extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
 extern QVector<QString> trafficFilesContent;
 extern ParametersWindow* p;
-Map_traffic::Map_traffic(AppSettings* appSettings, QWidget *parent) :
+Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Map_traffic),
     appSettings(appSettings)

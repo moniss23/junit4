@@ -1,6 +1,6 @@
 #include "handoverdata.h"
 
-HandoverData::HandoverData(QString name, AppSettings *appSettings) : appSettings(appSettings)
+HandoverData::HandoverData(QString name, DataSystem *appSettings) : appSettings(appSettings)
 {
     handoverParams.handoverName = name;
 

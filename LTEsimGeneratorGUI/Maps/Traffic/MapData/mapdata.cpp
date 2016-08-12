@@ -1,6 +1,6 @@
 #include "mapdata.h"
 
-MapData::MapData(const QString &name, AppSettings *appSettings) : appSettings(appSettings)
+MapData::MapData(const QString &name, DataSystem *appSettings) : appSettings(appSettings)
 {
     mapName = name;
     readyToSave = false;

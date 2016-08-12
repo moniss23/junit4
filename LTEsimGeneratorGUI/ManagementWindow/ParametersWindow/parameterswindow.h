@@ -12,7 +12,7 @@
 #include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
 #include <QCloseEvent>
 #include <QListWidgetItem>
-#include "AppSettings/appsettings.h"
+#include "DataSystem/datasystem.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -24,7 +24,7 @@ class ParametersWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ParametersWindow(AppSettings *appSettings, QWidget *parent = 0);
+    explicit ParametersWindow(DataSystem *appSettings, QWidget *parent = 0);
     ~ParametersWindow();
 
     void closeEvent(QCloseEvent *);//TODO: Check - remove or move to private
@@ -105,7 +105,7 @@ private slots:
 private:
     Ui::ParametersWindow *ui;
     HelpDialog viewHelp;
-    AppSettings *appSettings;
+    DataSystem *appSettings;
 
     Project currentProject;
 };

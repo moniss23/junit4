@@ -12,13 +12,13 @@
 #include "Data/filemanager.h"
 #include "Data/appglobaldata.h"
 
-class AppSettings : public QObject
+class DataSystem : public QObject
 {
     Q_OBJECT
 
 public:
-    AppSettings();
-    ~AppSettings();
+    DataSystem();
+    ~DataSystem();
 
     QVector<Project> projects;
 

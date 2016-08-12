@@ -44,7 +44,7 @@ QString pattern;      // tekst, który zamienimy na inny
 
 #include <QDebug> //THIS WILL STAY TILL THE END OF REFACTOR
 
-ParametersWindow::ParametersWindow(AppSettings *appSettings, QWidget *parent) :
+ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow),
     appSettings(appSettings)
 {

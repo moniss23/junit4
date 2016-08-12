@@ -6,7 +6,7 @@
 
 #include <CommonConstans/common_constans.h>
 #include <ProjectReaderWriter/projectreaderwriter.h>
-#include <AppSettings/appsettings.h>
+#include <DataSystem/datasystem.h>
 
 struct HandoverParams
 {
@@ -19,7 +19,7 @@ class HandoverData : public DataElementsInterface
 {
 public:
 
-    HandoverData(QString name, AppSettings *appSettings);
+    HandoverData(QString name, DataSystem *appSettings);
 
 //----------------------------Getters------------------------------------------------
 
@@ -57,7 +57,7 @@ private:
     HandoverParams handoverParams;
     ProjectReaderWriter* projectReaderWriter;
 
-    AppSettings *appSettings;
+    DataSystem *appSettings;
 
 };
 

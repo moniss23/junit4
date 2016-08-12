@@ -1,6 +1,6 @@
 #include "statisticsData.h"
 
-StatisticsData::StatisticsData(QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
+StatisticsData::StatisticsData(QString &mapIndex, DataSystem *appSettings) : appSettings(appSettings)
 {
     mapIndexCurrent = mapIndex;
     enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";

@@ -1,7 +1,7 @@
 #include "celldata.h"
 
 
-CellData::CellData(const QString &nameCell, const QString &nameCenter, AppSettings *appSettings) : appSettings(appSettings)
+CellData::CellData(const QString &nameCell, const QString &nameCenter, DataSystem *appSettings) : appSettings(appSettings)
 {
     cellParams.cellName = nameCell;
     cellParams.centerParams.centerName = nameCenter;

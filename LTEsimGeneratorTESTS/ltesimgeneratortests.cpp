@@ -6,7 +6,7 @@
 #include "UITests/projectmanagementwindowtest.h"
 #include "UITests/addprojectwindowtest.h"
 
-#include "AppSettings/appsettings.h"
+#include "DataSystem/datasystem.h"
 
 class LTEsimGeneratorTESTS : public QObject
 {
@@ -42,7 +42,7 @@ void LTEsimGeneratorTESTS::appSetttingsTest1_checkDefaultProjectDir()
 {
     qInfo() << "TEST FOR NEW PROJECT SETTINGS AND <DEFAULT> PROJECT DIR";
 
-    AppSettings appSettings;
+    DataSystem appSettings;
 
     QString dir = appSettings.getDefaultNewProjectDir();
     QCOMPARE(dir, QString("<default>"));

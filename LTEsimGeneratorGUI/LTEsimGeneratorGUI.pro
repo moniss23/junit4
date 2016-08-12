@@ -69,7 +69,6 @@ SOURCES += main.cpp\
     Maps/Traffic/MapComponents/addbutton.cpp \
     Maps/Traffic/MapComponents/cellarea.cpp \
     Maps/Traffic/MapComponents/handoverarea.cpp \
-    AppSettings/appsettings.cpp \
     my_qlabel.cpp \
     CommonConstans/common_constans.cpp \
     Maps/Traffic/Time/timeData.cpp \
@@ -88,7 +87,8 @@ SOURCES += main.cpp\
     Data/handover.cpp \
     UISystem/uisystem.cpp \
     Data/trafficdata.cpp \
-    ManagementWindow/ParametersWindow/renamedialog.cpp
+    ManagementWindow/ParametersWindow/renamedialog.cpp \
+    DataSystem/datasystem.cpp
 
 
 HEADERS  += \
@@ -149,7 +149,6 @@ HEADERS  += \
     Maps/Traffic/MapComponents/cellarea.h \
     Maps/Traffic/MapComponents/handoverarea.h \
     Maps/Traffic/MapComponents/compositionofareas.h \
-    AppSettings/appsettings.h \
     my_qlabel.h \
     CommonConstans/common_constans.h \
     Maps/Traffic/Time/timeData.h \
@@ -170,7 +169,8 @@ HEADERS  += \
     Data/handover.h \
     Data/trafficdata.h \
     UISystem/uisystem.h \
-    ManagementWindow/ParametersWindow/renamedialog.h
+    ManagementWindow/ParametersWindow/renamedialog.h \
+    DataSystem/datasystem.h
 
 
 

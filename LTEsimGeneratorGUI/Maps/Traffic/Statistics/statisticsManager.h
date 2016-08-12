@@ -17,7 +17,7 @@ public:
 
     void setCheckBoxActive(bool check);
     bool getCheckBoxActive();
-    void setParameters(StatisticsData* statistics, AppSettings* appSettings);
+    void setParameters(StatisticsData* statistics, DataSystem* appSettings);
 
 private slots:
     void on_restoreButton_clicked();

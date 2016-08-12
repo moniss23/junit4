@@ -1,6 +1,6 @@
 #include "uegroupdata.h"
 
-UEgroupData::UEgroupData(const QString &name, const QString &mapIndex, AppSettings *appSettings) : appSettings(appSettings)
+UEgroupData::UEgroupData(const QString &name, const QString &mapIndex, DataSystem *appSettings) : appSettings(appSettings)
 {
     ue.ueName = name;
     mapIndexConst = mapIndex;

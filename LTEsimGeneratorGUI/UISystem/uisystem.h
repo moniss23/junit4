@@ -1,7 +1,7 @@
 #ifndef UISYSTEM_H
 #define UISYSTEM_H
 
-#include "AppSettings/appsettings.h"
+#include "DataSystem/datasystem.h"
 #include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
 #include "ManagementWindow/ProjectManagement/importprojectwindow.h"
@@ -15,7 +15,7 @@ class UISystem : public QObject
     Q_OBJECT
 
 public:
-    UISystem(AppSettings *data);
+    UISystem(DataSystem *data);
     ~UISystem();
 
     void bindingObjects();
@@ -28,7 +28,7 @@ signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& currentProject = Project());
 
 private:
-    AppSettings* appSettings;
+    DataSystem* dataSystem;
     ProjectManagement projectUi;
     ImportProjectWindow importProject;
     ParametersWindow paramWindow;

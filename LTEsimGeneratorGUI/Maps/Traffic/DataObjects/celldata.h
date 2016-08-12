@@ -4,7 +4,7 @@
 #include <dataelementsinterface.h>
 #include <CommonConstans/common_constans.h>
 #include <ProjectReaderWriter/projectreaderwriter.h>
-#include <AppSettings/appsettings.h>
+#include <DataSystem/datasystem.h>
 #define numberOfCellParams 8
 #define numberOfCenterParams 5
 
@@ -43,7 +43,7 @@ class CellData : public DataElementsInterface
 
 public:
 
-    CellData(const QString &nameCell,const QString &nameCenter, AppSettings *appSettings);
+    CellData(const QString &nameCell,const QString &nameCenter, DataSystem *appSettings);
 
     //----------------------------Getters------------------------------------------------
 
@@ -101,7 +101,7 @@ private:
     CellParams cellParams;
     ProjectReaderWriter* projectReaderWriter;
 
-    AppSettings *appSettings;
+    DataSystem *appSettings;
 
 };
 

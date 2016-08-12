@@ -1,6 +1,6 @@
 #include "projectreaderwriter.h"
 
-ProjectReaderWriter::ProjectReaderWriter(AppSettings *appSettings) : appSettings(appSettings)
+ProjectReaderWriter::ProjectReaderWriter(DataSystem *appSettings) : appSettings(appSettings)
 {
 }
 

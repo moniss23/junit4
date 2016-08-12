@@ -33,7 +33,7 @@ class Map_traffic : public QMainWindow
 
 public:
 
-    explicit Map_traffic(AppSettings* appSettings, QWidget *parent = 0);
+    explicit Map_traffic(DataSystem* appSettings, QWidget *parent = 0);
     DragUELabel **tab_UE;
     DragUELabel *last_element_traffic;
     int counter_UE;
@@ -133,7 +133,7 @@ public:
 private:
     Ui::Map_traffic *ui;
 
-    AppSettings* appSettings;
+    DataSystem* appSettings;
 
     customModel** viewcustomModel;
     int number1;

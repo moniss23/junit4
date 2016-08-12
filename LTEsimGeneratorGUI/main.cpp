@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QString>
 
-#include "AppSettings/appsettings.h"
+#include "DataSystem/datasystem.h"
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Traffic/map_traffic.h"
 #include "Data/appglobaldata.h"
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    AppSettings appSettings;
+    DataSystem appSettings;
 
 
     /************************************

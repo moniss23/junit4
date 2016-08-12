@@ -19,7 +19,7 @@ StatisticsManager::~StatisticsManager() {
     delete ui;
 }
 
-void StatisticsManager::setParameters(StatisticsData *statistics, AppSettings* appsettings) {
+void StatisticsManager::setParameters(StatisticsData *statistics, DataSystem* appsettings) {
     this->statisticsPtr = statistics;
 
     QString mapIndex = statistics->getMapIndex();

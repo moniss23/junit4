@@ -33,7 +33,7 @@ public:
     bool readyToSave;
 
 public:
-    MapData(const QString &name, AppSettings *appSettings);
+    MapData(const QString &name, DataSystem *appSettings);
     ~MapData(){}
     void addUEGroup(const QString &UEName);
     void deleteUEGroup(const QString &UEName);
@@ -52,7 +52,7 @@ public:
 
 private:
     ProjectReaderWriter* projectReaderWriter;
-    AppSettings *appSettings;
+    DataSystem *appSettings;
 
 };
 
