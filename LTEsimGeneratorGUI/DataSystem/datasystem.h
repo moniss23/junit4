@@ -72,26 +72,10 @@ public:
     //-------------------------------------------------------------
     //-------------------------------------------------------------
 
-
-    QString getProjectFile() const;
-    void setProjectFile(const QString &value);
-
     QString getProjectName() const;
-
-    QDir getProjectDir() const;
-    void setProjectDir(const QDir &value);
 
     QString getDefaultNewProjectDir() const;
     void setDefaultNewProjectDir(const QString &value);
-
-    QDir getProject_dir() const;
-    void setProject_dir(const QDir &value);
-
-    QFile getProjects_file() const;
-    void setProjects_file(const QFile &value);
-
-    QFile getSettings_file() const;
-    void setSettings_file(const QFile &value);
 
     QString readParametersFile();
 
@@ -116,17 +100,8 @@ private:
     FileManager fileManager;
     AppGlobalData appGlobalData;
 
-    QFile project_file;
-    QFileInfoList projects_dir_content;
-    QStringList projects_file_content;
-    int projectC_file;
-    QDir project_dir;
-    QFile settings_file;
-    QFile projects_file;
     QString defaultNewProjectDir;
-    QString projectFile;
     QString projectName;
-    QDir projectDir;
 };
 
 #endif // APPSETTINGS_H

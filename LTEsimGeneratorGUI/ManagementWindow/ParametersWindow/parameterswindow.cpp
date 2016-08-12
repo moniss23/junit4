@@ -150,6 +150,7 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
 
     // read the project content from the project file
     QStringList project_content=appSettings->read_project_file(projectName,appSettings->getProjectDirectory(projectName));
+
     // read the default location for output .rb files
     QString ParamFileName = project_content[0];
     this->ui->radioButton_normalMap->setChecked(true);

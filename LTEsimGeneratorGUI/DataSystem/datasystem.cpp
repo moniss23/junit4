@@ -6,7 +6,6 @@ DataSystem::DataSystem()
 {
     settingsFileSetup();
     projectsFileSetup();
-    projectsDirSetup();
 }
 
 DataSystem::~DataSystem() {
@@ -82,9 +81,7 @@ void DataSystem::write_settings_file(){
     file.open(QIODevice::WriteOnly);
     QDataStream file_str(&file);
 
-    // #TUBYLCI
-    QString content(defaultNewProjectDir);
-    file_str << content;
+    file_str << defaultNewProjectDir;
     file.close();
 }
 
@@ -131,7 +128,8 @@ bool DataSystem::projectNameTaken(QString projectName)
 
 // check if the settings file exists, create it if it doesn't
 void DataSystem::settingsFileSetup() {
-    settings_file.setFileName(appGlobalData.getSettingsFile());
+    QFile settings_file(appGlobalData.getSettingsFile());
+
     if(!settings_file.exists()){
         setDefaultNewProjectDir("<default>");
         write_settings_file();
@@ -142,7 +140,7 @@ void DataSystem::settingsFileSetup() {
 
 // check if the projects file exists, create it if it doesn't
 void DataSystem::projectsFileSetup() {
-    projects_file.setFileName(appGlobalData.getProjectsFile());
+    QFile projects_file(appGlobalData.getProjectsFile());
 
     if(!projects_file.exists()) {
         projects_file.open(QIODevice::WriteOnly);
@@ -150,11 +148,6 @@ void DataSystem::projectsFileSetup() {
         str << "0";
         projects_file.close();
     }
-}
-
-// create project dir if doesn't exist
-void DataSystem::projectsDirSetup() {
-    project_dir.mkdir(appGlobalData.getProjectsDirectory());
 }
 
 QString DataSystem::getProjectDirectory(const QString &projectName) {
@@ -247,15 +240,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
  *
  */
 
-QString DataSystem::getProjectFile() const
-{
-    return projectFile;
-}
-
-void DataSystem::setProjectFile(const QString &value)
-{
-    projectFile = value;
-}
 
 QString DataSystem::getProjectName() const
 {
@@ -307,16 +291,6 @@ QString DataSystem::generateUniqueTrafficFilename(const Project& project)
     return filename;
 }
 
-QDir DataSystem::getProjectDir() const
-{
-    return projectDir;
-}
-
-void DataSystem::setProjectDir(const QDir &value)
-{
-    projectDir = value;
-}
-
 QString DataSystem::getDefaultNewProjectDir() const
 {
     return appGlobalData.getDefaultNewProjectsPath();
@@ -327,15 +301,6 @@ void DataSystem::setDefaultNewProjectDir(const QString &value)
     appGlobalData.setDefaultNewProjectsPath(value);
 }
 
-QDir DataSystem::getProject_dir() const
-{
-    return project_dir;
-}
-
-void DataSystem::setProject_dir(const QDir &value)
-{
-    project_dir = value;
-}
 void DataSystem::deleteProject(const QString projectName)
 {
     removeDirectoryRecursively(projectName);
