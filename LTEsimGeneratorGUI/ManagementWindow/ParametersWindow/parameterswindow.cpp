@@ -316,33 +316,9 @@ void ParametersWindow::on_removeFileButton_clicked()
     if(this->ui->projectsList->currentRow()>0){
 
         if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File will be removed from the project:\n"+(this->ui->projectsList->currentItem()->text())+"\n\nAre you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-
-            // delete file name from the vector
-            auto it=trafficFilesNames.begin();
-            it+=this->ui->projectsList->currentRow()-1;
-            QString* mem=trafficFilesNames[this->ui->projectsList->currentRow()-1];
-            trafficFilesNames.erase(it);
-            delete mem;
-
-            // delete file content from the vector
-            auto it2=trafficFilesContent.begin();
-            it2+=this->ui->projectsList->currentRow()-1;
-            trafficFilesContent.erase(it2);
-
-            // delete item from the UI list
-            delete this->ui->projectsList->takeItem(this->ui->projectsList->currentRow());
-
-            nrOfTrafficFiles--;
-
-            if(!changesPresent){
-                changesPresent=true;
-                this->setWindowTitle(this->windowTitle()+"*");
-            }
-
+            emit removeFile_TrafficFile(currentProject.name, this->ui->projectsList->currentItem()->text());
         }
-
     }
-
     // if the file is parameters
     else{
         return;//PSKAL: YOU DO NOT DELETE PARAMETERS FILE !

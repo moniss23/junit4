@@ -33,7 +33,7 @@ public slots:
     void LoadAppData();
     //----------PROJECTS---------------//
 
-    Project* findProjectByName(const QString &);
+
     void importProject(const QString &ProjectDirectory);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
@@ -43,6 +43,7 @@ public slots:
     void saveProjectsFile();
     //----------PROJECT TRAFFIC FILES--//
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
+    void removeFile_TrafficFile(const QString& ProjectName, const QString& fileName);
     void findProject(const QString& projectName);
     void checkAndRenameIfFilenameUnique(const QString &filename, const QString& oldFilename, const QString& projectName);
 
@@ -83,6 +84,8 @@ private:
     void loadProjectsFile();
 
     QString generateUniqueTrafficFilename(const Project& project);
+
+    Project* findProjectByName(const QString &);
 
 private:
     FileManager fileManager;

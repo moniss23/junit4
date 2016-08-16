@@ -51,6 +51,9 @@ void UISystem::bindingObjects()
     QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString)),&paramWindow,SLOT(getNewNameForFile(QString,QString)));
     QObject::connect(&paramWindow,SIGNAL(checkAndRenameIfFilenameUnique(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
 
+    //Delete TrafficFile
+    QObject::connect(&paramWindow,SIGNAL(removeFile_TrafficFile(QString,QString)),dataSystem,SLOT(removeFile_TrafficFile(QString,QString)));
+
     //Error window
     QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
 }

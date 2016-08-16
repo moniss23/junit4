@@ -53,6 +53,7 @@ Project* DataSystem::findProjectByName(const QString &projectName) {
     return it != std::end(projects) ? it : nullptr;
 }
 
+
 bool DataSystem::projectNameTaken(QString projectName) {
     auto proj = findProjectByName(projectName);
     return proj != nullptr;
@@ -95,6 +96,26 @@ QString DataSystem::readParametersFile()
  * Slots
  *
  */
+
+void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QString& fileName) {
+    auto project = findProjectByName(ProjectName);
+
+    if(project == nullptr) {
+        emit errorInData("Cannot find right Project");
+        return;
+    }
+
+    auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),[&fileName](const TrafficData& traffic)-> bool{
+         return traffic.fileName == fileName;
+    });
+    if(it == project->trafficFilesList.end()) {
+        emit errorInData("Cannot find right traffic file");
+        return;
+    }
+
+    project->trafficFilesList.erase(it);
+    emit currentProjectChanged(*project);
+}
 
 QString DataSystem::GetDefaultParametersFileContent()
 {
