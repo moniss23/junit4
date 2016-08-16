@@ -1,5 +1,5 @@
-#ifndef APPSETTINGS_H
-#define APPSETTINGS_H
+#ifndef DATASYSTEM_H
+#define DATASYSTEM_H
 
 #include <QString>
 #include <QDir>
@@ -51,8 +51,6 @@ public slots:
 public:
     QString GetDefaultParametersFileContent(); //TODO: move to private when You can
 
-    void write_settings_file();
-
     QString getProjectDir(QString project_name);
 
     bool projectNameTaken(QString projectName);
@@ -78,11 +76,9 @@ public:
      *          PRIVATE METHODS          *
      ************************************/
 private:
-    void settingsFileSetup();
     void projectsFileSetup();
     void projectsDirSetup();
     void removeDirectoryRecursively(QString dir_name);
-    void read_settings_file();
 
     void loadProjectsFile();
 
@@ -92,8 +88,7 @@ private:
     FileManager fileManager;
     AppGlobalData appGlobalData;
 
-    QString defaultNewProjectDir;
     QString projectName;
 };
 
-#endif // APPSETTINGS_H
+#endif // DATASYSTEM_H

@@ -3,7 +3,6 @@
 #include "Data/trafficdata.h"
 
 DataSystem::DataSystem() {
-    settingsFileSetup();
     projectsFileSetup();
 }
 
@@ -46,27 +45,6 @@ void DataSystem::saveProjectsFile() {
     fileManager.writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
 }
 
-void DataSystem::write_settings_file(){
-    QFile file(appGlobalData.getSettingsFile());
-    file.open(QIODevice::WriteOnly);
-    QDataStream file_str(&file);
-
-    file_str << defaultNewProjectDir;
-    file.close();
-}
-
-void DataSystem::read_settings_file(){
-    QFile file(appGlobalData.getSettingsFile());
-    file.open(QIODevice::ReadOnly);
-
-    QString settingsFileContent;
-    QDataStream file_str(&file);
-    file_str >> settingsFileContent;
-    file.close();
-
-    defaultNewProjectDir = settingsFileContent.split("\n")[0];
-}
-
 // Returns pointer to a Project element or nullptr if not found
 Project* DataSystem::findProjectByName(const QString &projectName) {
     auto it = std::find_if(std::begin(projects), std::end(projects),
@@ -83,17 +61,6 @@ bool DataSystem::projectNameTaken(QString projectName) {
 QString DataSystem::getProjectDir(QString project_name) {
     auto proj = findProjectByName(project_name);
     return proj == nullptr ? QString() : proj->fullpath;
-}
-
-void DataSystem::settingsFileSetup() {
-    QFile settings_file(appGlobalData.getSettingsFile());
-
-    if(!settings_file.exists()){
-        setDefaultNewProjectDir("<default>");
-        write_settings_file();
-    } else {
-        read_settings_file();
-    }
 }
 
 // check if the projects file exists, create it if it doesn't
