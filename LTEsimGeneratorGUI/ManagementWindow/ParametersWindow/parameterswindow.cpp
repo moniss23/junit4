@@ -1,17 +1,11 @@
 #include "parameterswindow.h"
 #include "ui_parameterswindow.h"
-#include <QTextStream>
 #include <QMessageBox>
-#include <QPushButton>
-#include <QVBoxLayout>
 #include <QFile>
 #include <QVector>
 #include <QString>
 #include <QStringList>
 #include <QListWidgetItem>
-#include <QCloseEvent>
-#include <QInputDialog>
-#include <cmath>
 
 #include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
@@ -38,7 +32,6 @@ extern MapWindow* map_w;
 extern Map_traffic* map_t;
 extern bool changesPresent;
 int nrOfTrafficFiles=0;
-void msg(QString content);
 QString text1;              // tekst znajdujący się w polu tekstowym
 QString pattern;      // tekst, który zamienimy na inny
 
@@ -913,4 +906,8 @@ void ParametersWindow::on_saveFileButton_clicked()
 void ParametersWindow::getNewNameForFile(const QString &newFilename, const QString &oldFilename)
 {
     emit checkAndRenameIfFilenameUnique(newFilename, oldFilename, currentProject.name);
+}
+
+void ParametersWindow::msg(QString content){
+    QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }

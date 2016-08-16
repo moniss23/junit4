@@ -14,7 +14,6 @@ QVector<QString*> trafficFilesNames;
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
 bool changesPresent = false;
-void msg(QString content);
 
 int main(int argc, char *argv[])
 {
@@ -32,9 +31,3 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
-
-// wrapper for displaying an alert/information message
-void msg(QString content){
-    QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
-}
-

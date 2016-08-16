@@ -103,6 +103,9 @@ private slots:
     void on_saveFileButton_clicked();
 
 private:
+    void msg(QString content);
+
+private:
     Ui::ParametersWindow *ui;
     HelpDialog viewHelp;
     DataSystem *appSettings;
