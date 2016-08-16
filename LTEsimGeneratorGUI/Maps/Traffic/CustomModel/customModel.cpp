@@ -53,9 +53,9 @@ customModel::customModel(QWidget *parent) :
     QciCurrentText[4]=&(CMStreamDlParams.currentQciTextStreamDl);
     QciCurrentText[5]=&(CMStreamUlParams.currentQciTextStreamUl);
     for(unsigned i=0;i<AmountOfQci;i++)
-        QciCurrentText[i+SyncedPingComboBoxOffsetInComboBoxForQci]=&(CMSyncedPingParams.currentQciTextSyncedPing[i]);
+        QciCurrentText[i+SyncedPingComboBoxOffset]=&(CMSyncedPingParams.currentQciTextSyncedPing[i]);
     for(unsigned i=0;i<AmountOfQci;i++)
-        QciCurrentText[i+ServiceReqComboBoxOffsetInComboBoxForQci]=&(CMServiceReqParams.currentQciTextServiceReq[i]);
+        QciCurrentText[i+ServiceReqComboBoxOffset]=&(CMServiceReqParams.currentQciTextServiceReq[i]);
 
     ui->lineEditPingInterval->setValidator(new QIntValidator(0, INT_MAX, this));
     ui->lineEditPingNumberOfPings->setValidator(new QIntValidator(0, INT_MAX, this));
