@@ -51,9 +51,6 @@ public slots:
 public:
     QString GetDefaultParametersFileContent(); //TODO: move to private when You can
 
-    void write_project_file(QString project_name, QString project_content, QString dir);
-    QStringList read_project_file(QString project_name, QString dir);
-
     void write_settings_file();
 
     QString getProjectDir(QString project_name);

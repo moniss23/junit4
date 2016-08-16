@@ -46,35 +46,6 @@ void DataSystem::saveProjectsFile() {
     fileManager.writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
 }
 
-// Read the content of the project file, decrypt it and split into a list
-QStringList DataSystem::read_project_file(QString project_name, QString dir){
-
-    dir = (dir == "<default>") ? appGlobalData.getProjectsDirectory() : dir;
-
-    QFile project_file(dir + "/" + project_name + "/" + project_name + appGlobalData.getProFileExt());
-    project_file.open(QIODevice::ReadOnly);
-    QDataStream project_file_stream(&project_file);
-
-    QString projFileContent;
-    project_file_stream >> projFileContent;
-
-    project_file.close();
-    return projFileContent.split('\n');
-}
-
-// encrypt the project data and write it into the file
-void DataSystem::write_project_file(QString project_name, QString project_content, QString dir){
-
-    dir = (dir == "<default>") ? appGlobalData.getProjectsDirectory() : dir;
-
-    QFile project_file(dir + "/" + project_name + "/" + project_name + appGlobalData.getProFileExt());
-    project_file.open(QIODevice::WriteOnly);
-    QDataStream project_file_stream(&project_file);
-
-    project_file_stream << project_content;
-    project_file.close();
-}
-
 void DataSystem::write_settings_file(){
     QFile file(appGlobalData.getSettingsFile());
     file.open(QIODevice::WriteOnly);
@@ -187,10 +158,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     new_project.parametersFile.content = param_template_content;
     projects.push_back(new_project);
 
-    QDir projectDir;
-    projectDir.setPath(dir=="<default>" ? appGlobalData.getProjectsDirectory() : dir);
-    projectDir.mkdir(projectName);
-
     QString project_content;
     project_content += "<default>\n";
     project_content += "normal\n";
@@ -199,10 +166,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     project_content += QString::number(param_template_content.split("\n").size()) + "\n";
     project_content += param_template_content + "\n";
 
-    write_project_file(projectName, project_content,
-                       dir=="<default>" ? getProjectDir(projectName) : dir);
-
-    // store the project name in a global variable for use by other files and methods
     setProjectName(projectName); //TODO: Should not be needed in good architecture
 
     emit currentProjects(projects);
@@ -228,6 +191,8 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
     trafficData.fileName = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
     proj->trafficFilesList.push_back(trafficData);
     emit currentProjectChanged(*proj);
+
+    saveProjectsFile();
 }
 
 QString DataSystem::generateUniqueTrafficFilename(const Project& project)
