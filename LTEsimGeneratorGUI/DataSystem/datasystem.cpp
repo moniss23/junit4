@@ -53,8 +53,7 @@ Project* DataSystem::findProjectByName(const QString &projectName) {
     return it != std::end(projects) ? it : nullptr;
 }
 
-
-bool DataSystem::projectNameTaken(QString projectName) {
+bool DataSystem::isProjectNameUsed(QString projectName) {
     auto proj = findProjectByName(projectName);
     return proj != nullptr;
 }
@@ -76,22 +75,6 @@ void DataSystem::projectsFileSetup() {
     }
 }
 
-// recursively remove entire directory and its content
-void DataSystem::removeDirectoryRecursively(QString dir_name){
-    QDir directory("projects/" + dir_name);
-    directory.removeRecursively();
-}
-
-QString DataSystem::readParametersFile()
-{
-    QFile param_template(appGlobalData.getProjectsFile());
-    param_template.open(QIODevice::ReadOnly);
-    QTextStream param_template_str(&param_template);
-    param_template.close();
-
-    return param_template_str.readAll();
-}
-
 /*
  * Slots
  *
@@ -105,9 +88,9 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
         return;
     }
 
-    auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),[&fileName](const TrafficFileData& traffic)-> bool{
-         return traffic.fileName == fileName;
-    });
+    auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),
+                           [&fileName](const auto &traffic)->bool{return traffic.fileName==fileName;});
+
     if(it == project->trafficFilesList.end()) {
         emit errorInData("Cannot find right traffic file");
         return;
@@ -117,7 +100,7 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
     emit currentProjectChanged(*project);
 }
 
-QString DataSystem::GetDefaultParametersFileContent()
+QString DataSystem::getDefaultParametersFileContent()
 {
     QFile param_template(":/RbFiles/parameters.rb");
     param_template.open(QIODevice::ReadOnly);
@@ -130,14 +113,14 @@ QString DataSystem::GetDefaultParametersFileContent()
 
 void DataSystem::createNewProject(const QString &projectName, const QString &directory) {
 
-    if(projectNameTaken(projectName)) {
+    if(isProjectNameUsed(projectName)) {
         emit errorInData("Name already in use. Choose another one.");
         return;
     }
 
     QString dir = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
 
-    QString param_template_content = GetDefaultParametersFileContent();
+    QString param_template_content = getDefaultParametersFileContent();
 
     Project new_project;
     new_project.name = projectName;
@@ -146,36 +129,11 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     new_project.parametersFile.content = param_template_content;
     projects.push_back(new_project);
 
-    QString project_content;
-    project_content += "<default>\n";
-    project_content += "normal\n";
-    project_content += "Parameters.rb\n";
-    project_content += "0\n";
-    project_content += QString::number(param_template_content.split("\n").size()) + "\n";
-    project_content += param_template_content + "\n";
-
     setProjectName(projectName); //TODO: Should not be needed in good architecture
 
     emit currentProjects(projects);
 
     saveProjectsFile();
-}
-
-/*
- *
- * Getters and Setters
- *
- */
-
-
-QString DataSystem::getProjectName() const
-{
-    return projectName;
-}
-
-void DataSystem::setProjectName(const QString &value)
-{
-    projectName = value;
 }
 
 void DataSystem::setNewDirForProjects(const QString &location)
@@ -195,18 +153,6 @@ void DataSystem::setNewDirForProjects(const QString &location)
     }
     appGlobalData.setDefaultNewProjectsPath(location);
     emit updateSettingsView(location);
-}
-
-QString DataSystem::getDefaultNewProjectDir() const {
-    return appGlobalData.getDefaultNewProjectsPath();
-}
-
-void DataSystem::setDefaultNewProjectDir(const QString &value) {
-    appGlobalData.setDefaultNewProjectsPath(value);
-}
-
-AppGlobalData DataSystem::getAppGlobalData() const {
-    return appGlobalData;
 }
 
 void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
@@ -242,10 +188,7 @@ QString DataSystem::generateUniqueTrafficFilename(const Project& project)
 
 void DataSystem::deleteProject(const QString projectName)
 {
-    removeDirectoryRecursively(projectName);
-    auto proj = findProjectByName(projectName);
-
-    projects.erase(proj);
+    projects.erase(findProjectByName(projectName));
     emit currentProjects(projects);
 
     saveProjectsFile();
@@ -294,4 +237,26 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
         }
     }
     emit errorInData("Can't find right trafficFile to rename!");
+}
+
+/*******************
+ GETTERS AND SETTERS
+ *******************/
+
+QString DataSystem::getProjectName() const {
+    return projectName;
+}
+void DataSystem::setProjectName(const QString &value) {
+    projectName = value;
+}
+
+QString DataSystem::getDefaultNewProjectDir() const {
+    return appGlobalData.getDefaultNewProjectsPath();
+}
+void DataSystem::setDefaultNewProjectDir(const QString &value) {
+    appGlobalData.setDefaultNewProjectsPath(value);
+}
+
+AppGlobalData DataSystem::getAppGlobalData() const {
+    return appGlobalData;
 }

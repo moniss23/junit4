@@ -33,64 +33,47 @@ signals:
 public slots:
 
     void LoadAppData();
-    //----------PROJECTS---------------//
+    void saveProjectsFile();
+    void setNewDirForProjects(const QString& location);
+
+    void findProject(const QString& projectName);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
-    //--------SETTINGS CLASS--------//
-    void setNewDirForProjects(const QString& location);
-    void saveProjectsFile();
-    //----------PROJECT TRAFFIC FILES--//
+
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
     void removeFile_TrafficFile(const QString& ProjectName, const QString& fileName);
-    void findProject(const QString& projectName);
+
     void checkAndRenameIfFilenameUnique(const QString &filename, const QString& oldFilename, const QString& projectName);
 
-
-
 public:
-    QString GetDefaultParametersFileContent(); //TODO: move to private when You can
-
+    QString getProjectName() const;
     QString getProjectDir(QString project_name);
 
-    bool projectNameTaken(QString projectName);
+    bool isProjectNameUsed(QString projectName);
 
     //Those functions need implementation.
     //-------------------------------------------------------------
     bool isProjectNameValid(const QString& projectName);
     bool isProjectDirValid(const QString& projectDir);
     //-------------------------------------------------------------
-    //-------------------------------------------------------------
-
-    QString getProjectName() const;
 
     QString getDefaultNewProjectDir() const;
     void setDefaultNewProjectDir(const QString &value);
 
-    QString readParametersFile();
-
     AppGlobalData getAppGlobalData() const;
 
-
-     /************************************
-     *          PRIVATE METHODS          *
-     ************************************/
 private:
-    void projectsFileSetup();
-    void projectsDirSetup();
-    void removeDirectoryRecursively(QString dir_name);
-
-    void loadProjectsFile();
-
-    QString generateUniqueTrafficFilename(const Project& project);
-
-    Project* findProjectByName(const QString &);
-
-private:
+    QString projectName;
     FileManager fileManager;
     AppGlobalData appGlobalData;
 
-    QString projectName;
+    void loadProjectsFile();
+    void projectsFileSetup();
+    QString getDefaultParametersFileContent();
+
+    Project* findProjectByName(const QString &projectName);
+    QString generateUniqueTrafficFilename(const Project& project);
 };
 
 #endif // DATASYSTEM_H

@@ -467,12 +467,9 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
 
             // ask for confirmation
             if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
-
-                QString fileContent=appSettings->GetDefaultParametersFileContent();
-                this->ui->filePreview->setText(fileContent);
+                this->ui->filePreview->setText(currentProject.parametersFile.content);
                 //parametersFileContent=fileContent;
                 // emit ProjectChanged(currentProject);
-
 
                 paramFileModified=false;
                 this->ui->resetDefaultsButton->setEnabled(false);
