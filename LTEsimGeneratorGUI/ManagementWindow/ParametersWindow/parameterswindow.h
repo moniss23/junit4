@@ -28,7 +28,6 @@ public:
     ~ParametersWindow();
 
     void closeEvent(QCloseEvent *);//TODO: Check - remove or move to private
-    void addTrafficFile();//TODO: Check - remove or move to private
     void refreshPreview();//TODO: Check - remove or move to private
     void saveProject(bool);//TODO: Check - remove or move to private
 

@@ -305,7 +305,7 @@ void ParametersWindow::previewTrafficFile(){
 // "add traffic file" button clicked
 void ParametersWindow::on_addTrafficButton_clicked()
 {
-    appSettings->addToProject_TrafficFile(currentProject.name, QString(""));
+    emit AddFile_Traffic(currentProject.name, QString(""));
 }
 
 // "remove file" button clicked
