@@ -228,22 +228,16 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
 
 QString DataSystem::generateUniqueTrafficFilename(const Project& project)
 {
-    QString filename;
-    bool filename_unique = false;
-    int i = 0;
-
-    while(!filename_unique){
-        filename="Traffic_"+QString::number(i)+".rb";
-        filename_unique=true;
-        for(auto &&it : project.trafficFilesList) {
-            if(filename == it.fileName){
-                filename_unique=false;
-                break;
-            }
+    for(unsigned i=0; i<UINT_MAX; ++i) {
+        QString filename = "Traffic_" + QString::number(i) + ".rb";
+        if(std::find_if(project.trafficFilesList.begin(), project.trafficFilesList.end(),
+        [&filename](const auto &td)->bool {return td.fileName==filename;}) == project.trafficFilesList.end()) {
+            return filename;
         }
-        i++;
     }
-    return filename;
+
+    emit errorInData("Cannot add more traffic files");
+    return QString();
 }
 
 void DataSystem::deleteProject(const QString projectName)
