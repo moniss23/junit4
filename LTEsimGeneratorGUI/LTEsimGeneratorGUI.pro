@@ -90,7 +90,8 @@ SOURCES += main.cpp\
     DataSystem/datasystem.cpp \
     Data/parametersfiledata.cpp \
     Data/trafficfiledata.cpp \
-    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp
+    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
+    Maps/Parameters/parametersfilemanagement.cpp
 
 
 HEADERS  += \
@@ -174,7 +175,8 @@ HEADERS  += \
     DataSystem/datasystem.h \
     Data/parametersfiledata.h \
     Data/trafficfiledata.h \
-    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h
+    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
+    Maps/Parameters/parametersfilemanagement.h
 
 
 
