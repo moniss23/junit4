@@ -105,7 +105,7 @@ void ParametersWindow::closeEvent (QCloseEvent *event){
 
         event->accept();
     }
-
+    emit saveProjects();
 }
 
 void ParametersWindow::loadProjectAndOpen(const QString &projectName){

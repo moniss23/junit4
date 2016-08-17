@@ -51,7 +51,7 @@ signals:
     void SaveFile();
     void checkAndRenameIfFilenameUnique(const QString& newFilename, const QString& oldFilename, const QString& projectName);
     void removeFile_TrafficFile(const QString& ProjectName, const QString& FileName);
-
+    void saveProjects();
 
     void updateCurrentProjects_RB_FilesLocation(const QString& location);
 
