@@ -89,7 +89,8 @@ SOURCES += main.cpp\
     ManagementWindow/ParametersWindow/renamedialog.cpp \
     DataSystem/datasystem.cpp \
     Data/parametersfiledata.cpp \
-    Data/trafficfiledata.cpp
+    Data/trafficfiledata.cpp \
+    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp
 
 
 HEADERS  += \
@@ -172,7 +173,8 @@ HEADERS  += \
     ManagementWindow/ParametersWindow/renamedialog.h \
     DataSystem/datasystem.h \
     Data/parametersfiledata.h \
-    Data/trafficfiledata.h
+    Data/trafficfiledata.h \
+    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h
 
 
 
