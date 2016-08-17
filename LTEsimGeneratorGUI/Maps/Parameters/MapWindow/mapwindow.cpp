@@ -232,7 +232,6 @@ void MapWindow::closeEvent(QCloseEvent *event)
     if (!anyChangesInMap) {
         enteringMapView=false;
         this->close();
-        p->show();
         event->accept();
         return;
     }
@@ -266,12 +265,10 @@ void MapWindow::closeEvent(QCloseEvent *event)
         event->accept();
         enteringMapView=false;
         saveCellsCheckboxes();
-        p->show();
         break;
     case QMessageBox::Discard:
         // Don't Save was clicked
         enteringMapView=false;
-        p->show();
         break;
     case QMessageBox::Cancel:
         // Cancel was clicked
@@ -622,10 +619,7 @@ void MapWindow::save_button_clicked()
     }
     enteringMapView=false;
     saveCellsCheckboxes();
-    p->refreshPreview();
     anyChangesInMap = false;
-
-    p->show();
     this->close();
 }
 void MapWindow::restore_button_clicked()

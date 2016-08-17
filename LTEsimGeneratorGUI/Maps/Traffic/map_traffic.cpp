@@ -4917,20 +4917,11 @@ void Map_traffic::closeEvent(QCloseEvent *event){
                         for(unsigned i=0;i<10;i++)
                             finalList.append(readyCMList[i]);
 
-
-
-                          trafficFilesContentLists[currentOpenedTrafficFile] = finalList;
-
-                          trafficFilesContent[currentOpenedTrafficFile] = finalList.join("\n");
-
-
                          //QMap<QString, QString> parsedCM1 = parseCM(readyCMList[0]);
                             for(unsigned i=0;i<10;i++)
                              readyCMList[i].clear();
 
                           // move changes to the global QString
-
-                          p->refreshPreview();
 
                           // tutaj nowy szit
 
@@ -4944,7 +4935,6 @@ void Map_traffic::closeEvent(QCloseEvent *event){
 
 
                        //   enteringMapView=false;
-                          p->show();
 
 
                 MainSaveWasClicked = true;

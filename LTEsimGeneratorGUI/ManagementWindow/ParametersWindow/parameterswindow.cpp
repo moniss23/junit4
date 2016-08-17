@@ -337,6 +337,9 @@ void ParametersWindow::on_renameFileButton_clicked()
 // preview a file in the right field
 void ParametersWindow::previewFile(QListWidgetItem* current){
 
+
+    this->ui->filePreview->clear();
+
     enableChangeRegistration=false;
     previewFileInProgress=true;
 
@@ -404,15 +407,6 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
         }
     }
 
-    else{
-        if(trafficFilesModified[this->ui->projectsList->currentRow()-1]){
-            this->ui->resetDefaultsButton->setEnabled(true);
-        }
-        else{
-            this->ui->resetDefaultsButton->setEnabled(false);
-        }
-    }
-
     this->previewFile(current);
 
 }
@@ -436,7 +430,6 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 
         // create a new map object and display it
         map_w=new MapWindow;
-        close();
         map_w->show();
     }
 
@@ -514,32 +507,14 @@ void ParametersWindow::on_filePreview_textChanged()
 {
 
     // detect whether previewing of file is in progress
-    if(previewFileInProgress){
+    if(previewFileInProgress || closingInProgress || !this->ui->filePreview->hasFocus()){
         return;
     }
-
-    // detect whether closing is in progress
-    if(closingInProgress){
-        return;
-    }
-
-    if(!this->ui->filePreview->hasFocus()){
-        return;
-    }
-
-    if(!changesPresent){
-        changesPresent=true;
-    }
-
-
-
+    changesPresent=true;
     // if it's a param file
     if(this->ui->projectsList->currentRow()==0){
-        if(!paramFileModified){
             paramFileModified=true;
             this->ui->resetDefaultsButton->setEnabled(true);
-        }
-
     }
 
     // if it's a traffic file
