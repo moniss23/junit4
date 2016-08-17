@@ -1,5 +1,9 @@
 #include "project.h"
 
+Project::Project() {
+    this->genScriptDir = "<default>";
+}
+
 QString Project::getElementType() const
 {
     return QString("Project");
@@ -11,7 +15,7 @@ QByteArray Project::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << name << fullpath << rbOutputDir << chosenMapType;
+    stream << name << fullpath << genScriptDir;
 
     stream << parametersFile.serializeData();
 
@@ -28,7 +32,7 @@ void Project::deserializeData(const QByteArray &rawData)
     int trafficFilesAmount;
     QByteArray rawParamFile;
     QDataStream stream(rawData);
-    stream >> name >> fullpath >> rbOutputDir >> chosenMapType;
+    stream >> name >> fullpath >> genScriptDir;
 
     stream >> rawParamFile;
     parametersFile.deserializeData(rawParamFile);

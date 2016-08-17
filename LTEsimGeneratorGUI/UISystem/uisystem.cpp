@@ -27,6 +27,9 @@ void UISystem::bindingObjects()
                      &projectUi,   SLOT(updateProjectLists(const QVector<Project>&)));
 
     // Settings
+    QObject::connect(dataSystem, SIGNAL(updateSettingsView(QString)), &settingsWindow, SLOT(UpdateNewProjectsLocation(QString)));
+    QObject::connect(&settingsWindow, SIGNAL(SetDefaultLocationFor_RB_Files(QString)), &paramWindow, SLOT(set_RB_FilesLocation(QString)));
+    QObject::connect(&paramWindow, SIGNAL(updateCurrentProjects_RB_FilesLocation(QString)), &settingsWindow, SLOT(Update_RB_FilesLocation(QString)));
     QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
     QObject::connect(&projectUi, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
     QObject::connect(&paramWindow, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));

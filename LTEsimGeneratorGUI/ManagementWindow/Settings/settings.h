@@ -26,7 +26,8 @@ signals:
 
 public slots:
     void ShowForProject(const AppGlobalData& globalProjectData , const Project &project = Project());//Project.name.isEmpty() == true
-
+    void Update_RB_FilesLocation(const QString& location);
+    void UpdateNewProjectsLocation(const QString& location);
     //***********************************************
     //***********************************************/
 

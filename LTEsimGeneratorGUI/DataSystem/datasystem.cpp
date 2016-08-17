@@ -161,9 +161,52 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     saveProjectsFile();
 }
 
-void DataSystem::importProject(const QString &project_directory) {
-    (void) project_directory;
-    // TODO: Implement adjusted to a new logic
+/*
+ *
+ * Getters and Setters
+ *
+ */
+
+
+QString DataSystem::getProjectName() const
+{
+    return projectName;
+}
+
+void DataSystem::setProjectName(const QString &value)
+{
+    projectName = value;
+}
+
+void DataSystem::setNewDirForProjects(const QString &location)
+{
+    if(location=="") {
+        QMessageBox(QMessageBox::Critical,"No directory specified!","You must specify the directory.",QMessageBox::Ok).exec();
+        emit updateSettingsView(location);
+        return;
+    }
+    if(location!="<default>") {
+        QDir new_dir(location);
+        if(!new_dir.exists()) {
+            QMessageBox(QMessageBox::Critical,"Directory does not exist!","Selected directory does not seem to exist.\nAre you sure you selected it right?",QMessageBox::Ok).exec();
+            emit updateSettingsView(location);
+            return;
+        }
+    }
+    appGlobalData.setDefaultNewProjectsPath(location);
+    emit updateSettingsView(location);
+}
+
+QString DataSystem::getDefaultNewProjectDir() const {
+    return appGlobalData.getDefaultNewProjectsPath();
+}
+
+void DataSystem::setDefaultNewProjectDir(const QString &value) {
+    appGlobalData.setDefaultNewProjectsPath(value);
+}
+
+AppGlobalData DataSystem::getAppGlobalData() const {
+    return appGlobalData;
 }
 
 void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
@@ -257,28 +300,4 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
         }
     }
     emit errorInData("Can't find right trafficFile to rename!");
-}
-
-/* ___ GETTERS & SETTERS ___ */
-
-QString DataSystem::getDefaultNewProjectDir() const {
-    return appGlobalData.getDefaultNewProjectsPath();
-}
-void DataSystem::setDefaultNewProjectDir(const QString &value) {
-    appGlobalData.setDefaultNewProjectsPath(value);
-}
-
-QString DataSystem::getProjectName() const {
-    return projectName;
-}
-void DataSystem::setProjectName(const QString &value) {
-    projectName = value;
-}
-
-AppGlobalData DataSystem::getAppGlobalData() const {
-    return appGlobalData;
-}
-
-void DataSystem::setNewDirForProjects(const QString &location) {
-    appGlobalData.setDefaultNewProjectsPath(location);
 }

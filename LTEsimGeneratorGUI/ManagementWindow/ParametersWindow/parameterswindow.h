@@ -53,6 +53,9 @@ signals:
     void removeFile_TrafficFile(const QString& ProjectName, const QString& FileName);
 
 
+    void updateCurrentProjects_RB_FilesLocation(const QString& location);
+
+
 public slots:
     void loadProjectAndOpen(const QString &projectName);
 
@@ -64,6 +67,8 @@ public slots:
     void refreshUI(const Project& project);//To refresh view when anyting changes
 
     void getNewNameForFile(const QString &newFilename, const QString& oldFilename);
+
+    void set_RB_FilesLocation(const QString& location);
 
 
     /***********************************************

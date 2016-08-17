@@ -561,7 +561,7 @@ void ParametersWindow::on_generateFileButton_clicked()
 {
 
     // if default dir is set
-    if(currentProject.rbOutputDir=="<default>"){
+    if(currentProject.genScriptDir=="<default>"){
 
         QString projectName = currentProject.name;
 
@@ -634,7 +634,7 @@ void ParametersWindow::on_generateFileButton_clicked()
     }
 
     // if the option is "individually"
-    else if(currentProject.rbOutputDir=="<individually>"){
+    else if(currentProject.genScriptDir=="<individually>"){
 
         QFileDialog dialog(this);
         dialog.setFileMode(QFileDialog::Directory);
@@ -672,7 +672,7 @@ void ParametersWindow::on_generateFileButton_clicked()
         // if the file is parameters
         if(this->ui->projectsList->currentRow()==0){
 
-            QFile file(currentProject.rbOutputDir+"/"+currentProject.parametersFile.fileName);
+            QFile file(currentProject.genScriptDir+"/"+currentProject.parametersFile.fileName);
             if(file.exists()){
                 if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                     return;
@@ -690,7 +690,7 @@ void ParametersWindow::on_generateFileButton_clicked()
         else{
 
             int file_index=this->ui->projectsList->currentRow()-1;
-            QFile file(currentProject.rbOutputDir+"/"+this->ui->projectsList->item(file_index+1)->text());
+            QFile file(currentProject.genScriptDir+"/"+this->ui->projectsList->item(file_index+1)->text());
             if(file.exists()){
                 if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                     return;
@@ -721,4 +721,9 @@ void ParametersWindow::getNewNameForFile(const QString &newFilename, const QStri
 
 void ParametersWindow::msg(QString content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
+}
+
+void ParametersWindow::set_RB_FilesLocation(const QString &location)
+{
+    emit updateCurrentProjects_RB_FilesLocation(location);
 }

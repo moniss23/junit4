@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QStringList>
 #include <QListWidgetItem>
+#include <QMessageBox>
 
 #include "Data/project.h"
 #include "Data/filemanager.h"
@@ -27,14 +28,12 @@ signals:
     void currentProjectChanged(const Project &current);
     void errorInData(const QString& errorDescription);
     void returnProject(const Project& project);
+    void updateSettingsView(const QString& path);
 
 public slots:
 
     void LoadAppData();
     //----------PROJECTS---------------//
-
-
-    void importProject(const QString &ProjectDirectory);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
     void setProjectName(const QString &value); //TODO: Should not be needed in good architecture

@@ -19,7 +19,7 @@ Settings::~Settings() {
 void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Project &project)
 {
     appGlobalData.setDefaultNewProjectsPath(globalProjectData.getDefaultNewProjectsPath());
-    current_RB_FilesLocation = project.rbOutputDir;
+    current_RB_FilesLocation = project.genScriptDir;
     bool secondTabActive = !project.name.isEmpty();
 
     this->ui->projectDirInput->setEnabled(false);
@@ -59,6 +59,16 @@ void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Proj
     this->show();
 }
 
+void Settings::Update_RB_FilesLocation(const QString &location)
+{
+    this->current_RB_FilesLocation = location;
+}
+
+void Settings::UpdateNewProjectsLocation(const QString &location)
+{
+    this->appGlobalData.setDefaultNewProjectsPath(location);
+}
+
 void Settings::on_globalCustomDirRadioButton_toggled(bool checked) {
     this->ui->globalDirInput->setEnabled(checked);
     this->ui->globalBrowseButton->setEnabled(checked);
@@ -72,7 +82,7 @@ void Settings::on_globalCustomDirRadioButton_toggled(bool checked) {
 void Settings::on_projectCustomDirRadioButton_toggled(bool checked) {
     this->ui->projectDirInput->setEnabled(checked);
     this->ui->projectBrowseButton->setEnabled(checked);
-    if(checked && current_RB_FilesLocation.isEmpty()) {
+    if(checked && !current_RB_FilesLocation.isEmpty()) {
         this->ui->projectDirInput->setText(current_RB_FilesLocation);
     }
 
@@ -85,28 +95,13 @@ void Settings::apply_settings(bool shouldClose) {
     if(this->ui->programsDirRadioButton->isChecked()) {
         location = "<default>";
     }else if(this->ui->globalCustomDirRadioButton->isChecked()) {
-        if(this->ui->globalDirInput->text()=="") {
-            if(!this->ui->globalTab->isVisible()) {
-                this->ui->settingsTabs->setCurrentIndex(0);
-            }
-            QMessageBox(QMessageBox::Critical,"No directory specified!","You must specify the directory.",QMessageBox::Ok).exec();
-            return;
-        }
-        QDir new_dir(this->ui->globalDirInput->text());
-        if(!new_dir.exists()) {
-            if(!this->ui->globalTab->isVisible()) {
-                this->ui->settingsTabs->setCurrentIndex(0);
-            }
-            QMessageBox(QMessageBox::Critical,"Directory does not exist!","Selected directory does not seem to exist.\nAre you sure you selected it right?",QMessageBox::Ok).exec();
-            return;
-        }
         location = this->ui->globalDirInput->text();
     }
     // if "project" tab is active (a project is opened)
     if(this->ui->projectTab->isEnabled()) {
         // project - project's directory is selected
         if(this->ui->projectsDirRadioButton->isChecked()) {
-            current_RB_FilesLocation = "<default>";
+            rbLocation = "<default>";
         }
         // project - custom directory is selected
         if (this->ui->projectCustomDirRadioButton->isChecked()) {
@@ -128,16 +123,16 @@ void Settings::apply_settings(bool shouldClose) {
         }
         // project - asking individually is selected
         if(this->ui->eachScriptIndividualDirRadioButton->isChecked()) {
-            current_RB_FilesLocation="<individually>";
+            rbLocation="<individually>";
         }
         // if second tab is active, also write project file with new settings
-        rbLocation = current_RB_FilesLocation;
+        rbLocation = this->ui->projectDirInput->text();
     }
 
-    //emit writeSettings(settings); ===> AppSettings
-
-    emit SetDefaultLocationFor_RB_Files(rbLocation);
     emit SetDefaultLocationForNewProjects(location);
+    emit SetDefaultLocationFor_RB_Files(rbLocation);
+
+    //emit writeSettings(settings); ===> DataSystem
 
     if(shouldClose) {
         this->close();

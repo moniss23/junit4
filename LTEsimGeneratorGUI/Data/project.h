@@ -16,10 +16,11 @@
 class Project : public SerializeInterface
 {
 public:
+    Project();
+
     QString name;
     QString fullpath;
-    QString rbOutputDir;
-    QString chosenMapType;
+    QString genScriptDir;
 
     TrafficData parametersFile;
     QVector<TrafficData> trafficFilesList;
