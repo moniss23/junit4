@@ -1,12 +1,11 @@
-#ifndef TRAFFICDATA_H
-#define TRAFFICDATA_H
+#ifndef PARAMETERSFILEDATA_H
+#define PARAMETERSFILEDATA_H
 
 #include <QString>
-#include <QStringList>
 
 #include <Data/serializeinterface.h>
 
-class TrafficData : public SerializeInterface
+class ParametersFileData : public SerializeInterface
 {
 public:
     QString fileName;
@@ -16,11 +15,11 @@ public:
      * SERIALIZATION INTERFACE  *
      ****************************/
 public:
-    ~TrafficData() {}
+    ~ParametersFileData() {}
 
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
 };
 
-#endif // TRAFFICDATA_H
+#endif // PARAMETERSFILEDATA_H

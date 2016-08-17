@@ -10,7 +10,8 @@
 #include <Data/center.h>
 #include <Data/handover.h>
 #include <Data/serializeinterface.h>
-#include <Data/trafficdata.h>
+#include <Data/trafficfiledata.h>
+#include <Data/parametersfiledata.h>
 
 
 class Project : public SerializeInterface
@@ -22,8 +23,10 @@ public:
     QString fullpath;
     QString genScriptDir;
 
-    TrafficData parametersFile;
-    QVector<TrafficData> trafficFilesList;
+    ParametersFileData parametersFile;
+    QVector<TrafficFileData> trafficFilesList;
+
+    ~Project() {}
 
     /****************************
      * SERIALIZATION INTERFACE  *

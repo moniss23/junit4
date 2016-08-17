@@ -26,13 +26,17 @@ SOURCES += \
     ../LTEsimGeneratorGUI/DataSystem/datasystem.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
-    ../LTEsimGeneratorGUI/Data/trafficdata.cpp \
+    ../LTEsimGeneratorGUI/Data/trafficfiledata.cpp \
+    ../LTEsimGeneratorGUI/Data/parametersfiledata.cpp \
     ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     ../LTEsimGeneratorGUI/Data/filemanager.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
-    UITests/projectmanagementwindowtest.cpp
+    UITests/projectmanagementwindowtest.cpp \
+    DataTests/projecttest.cpp \
+    DataTests/parametersfiledatatest.cpp \
+    DataTests/trafficfiledatatest.cpp
 
 HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
@@ -40,14 +44,18 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/DataSystem/datasystem.h \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/project.h \
-    ../LTEsimGeneratorGUI/Data/trafficdata.h \
+    ../LTEsimGeneratorGUI/Data/trafficfiledata.h \
+    ../LTEsimGeneratorGUI/Data/parametersfiledata.h \
     ../LTEsimGeneratorGUI/dataelementsinterface.h \
     ../LTEsimGeneratorGUI/Data/serializeinterface.h \
     ../LTEsimGeneratorGUI/Data/appglobaldata.h \
     ../LTEsimGeneratorGUI/Data/filemanager.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.h \
     UITests/addprojectwindowtest.h \
-    UITests/projectmanagementwindowtest.h
+    UITests/projectmanagementwindowtest.h \
+    DataTests/projecttest.h \
+    DataTests/parametersfiledatatest.h \
+    DataTests/trafficfiledatatest.h
 
 FORMS    += \
     ../LTEsimGeneratorGUI/Ui/helpdialog.ui \
@@ -74,4 +82,5 @@ DISTFILES += \
     ../LTEsimGeneratorGUI/Images/MapItems/slanted_line.png \
     ../LTEsimGeneratorGUI/Images/MapItems/srio.png \
     ../LTEsimGeneratorGUI/RbFiles/parameters.rb \
-    ../LTEsimGeneratorGUI/RbFiles/tune_traffic_models.rb
+    ../LTEsimGeneratorGUI/RbFiles/tune_traffic_models.rb \
+    DataTests/dsdf

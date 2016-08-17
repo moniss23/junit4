@@ -86,9 +86,10 @@ SOURCES += main.cpp\
     Data/center.cpp \
     Data/handover.cpp \
     UISystem/uisystem.cpp \
-    Data/trafficdata.cpp \
     ManagementWindow/ParametersWindow/renamedialog.cpp \
-    DataSystem/datasystem.cpp
+    DataSystem/datasystem.cpp \
+    Data/parametersfiledata.cpp \
+    Data/trafficfiledata.cpp
 
 
 HEADERS  += \
@@ -167,10 +168,11 @@ HEADERS  += \
     Data/cell.h \
     Data/center.h \
     Data/handover.h \
-    Data/trafficdata.h \
     UISystem/uisystem.h \
     ManagementWindow/ParametersWindow/renamedialog.h \
-    DataSystem/datasystem.h
+    DataSystem/datasystem.h \
+    Data/parametersfiledata.h \
+    Data/trafficfiledata.h
 
 
 

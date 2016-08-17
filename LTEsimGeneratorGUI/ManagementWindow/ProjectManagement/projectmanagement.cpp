@@ -133,7 +133,7 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
 
     ui->listWidget_2->addItem(it->parametersFile.fileName);
 
-    QVector<TrafficData> &trafficFiles = it->trafficFilesList;
+    QVector<TrafficFileData> &trafficFiles = it->trafficFilesList;
     for(auto &&trafficFile : trafficFiles){
         ui->listWidget_2->addItem(trafficFile.fileName);
     }

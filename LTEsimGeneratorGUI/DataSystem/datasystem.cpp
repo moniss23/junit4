@@ -1,6 +1,6 @@
 #include "datasystem.h"
 #include "Data/appglobaldata.h"
-#include "Data/trafficdata.h"
+#include "Data/trafficfiledata.h"
 
 DataSystem::DataSystem() {
     projectsFileSetup();
@@ -105,7 +105,7 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
         return;
     }
 
-    auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),[&fileName](const TrafficData& traffic)-> bool{
+    auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),[&fileName](const TrafficFileData& traffic)-> bool{
          return traffic.fileName == fileName;
     });
     if(it == project->trafficFilesList.end()) {
@@ -218,7 +218,7 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
         return;
     }
 
-    TrafficData trafficData;
+    TrafficFileData trafficData;
     trafficData.fileName = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
     proj->trafficFilesList.push_back(trafficData);
     emit currentProjectChanged(*proj);

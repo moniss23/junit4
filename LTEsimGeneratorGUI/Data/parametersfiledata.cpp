@@ -1,14 +1,14 @@
+#include "parametersfiledata.h"
+
 #include <QBuffer>
 #include <QDataStream>
 
-#include "trafficdata.h"
-
-QString TrafficData::getElementType() const
+QString ParametersFileData::getElementType() const
 {
-    return QString("TrafficData");
+    return QString("ParametersFileData");
 }
 
-QByteArray TrafficData::serializeData()
+QByteArray ParametersFileData::serializeData()
 {
     QBuffer serializedData;
     serializedData.open(QBuffer::WriteOnly);
@@ -19,7 +19,7 @@ QByteArray TrafficData::serializeData()
     return serializedData.buffer();
 }
 
-void TrafficData::deserializeData(const QByteArray &rawData)
+void ParametersFileData::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
     stream >> fileName >> content;

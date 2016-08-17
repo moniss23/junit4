@@ -5,6 +5,9 @@
 
 #include "UITests/projectmanagementwindowtest.h"
 #include "UITests/addprojectwindowtest.h"
+#include "DataTests/projecttest.h"
+#include "DataTests/parametersfiledatatest.h"
+#include "DataTests/trafficfiledatatest.h"
 
 #include "DataSystem/datasystem.h"
 
@@ -17,6 +20,9 @@ public:
 
     ProjectManagementWindowTest projectManagementWindowTest;
     AddProjectWindowTest addProjectWindowTest;
+    ProjectTest projectTest;
+    ParametersFileDataTest parametersFileDataTest;
+    TrafficFileDataTest trafficFileDataTest;
 
 private Q_SLOTS:
     void initTestCase();
@@ -28,6 +34,9 @@ LTEsimGeneratorTESTS::LTEsimGeneratorTESTS()
 {
     QTest::qExec(&projectManagementWindowTest);
     QTest::qExec(&addProjectWindowTest);
+    QTest::qExec(&projectTest);
+    QTest::qExec(&parametersFileDataTest);
+    QTest::qExec(&trafficFileDataTest);
 }
 
 void LTEsimGeneratorTESTS::initTestCase()

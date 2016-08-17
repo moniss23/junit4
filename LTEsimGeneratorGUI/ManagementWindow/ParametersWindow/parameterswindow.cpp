@@ -116,19 +116,18 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     });
 
     if(it==vec.end()) {return;}
-    Project &GivenProject = *it;
-    this->currentProject = GivenProject;
+    Project &givenProject = *it;
+    this->currentProject = givenProject;
 
     this->setWindowTitle(projectName);
     this->ui->radioButton_normalMap->setChecked(true);
 
    //-----------REFACTOR IN PROGRESS------------
-   ui->projectsList->addItem(GivenProject.parametersFile.fileName);
-   parametersFileContent = GivenProject.parametersFile.content;
+   ui->projectsList->addItem(givenProject.parametersFile.fileName);
+   parametersFileContent = givenProject.parametersFile.content;
    parametersFileContent += "\n";
 
-
-   for(auto &&traffic : GivenProject.trafficFilesList) {
+   for(auto &&traffic : givenProject.trafficFilesList) {
        this->ui->projectsList->addItem(traffic.fileName);
    }
    //-----------REFACTOR IN PROGRESS------------

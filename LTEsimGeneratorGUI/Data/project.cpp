@@ -42,8 +42,8 @@ void Project::deserializeData(const QByteArray &rawData)
         QByteArray rawTrafficFile;
         stream >> rawTrafficFile;
 
-        TrafficData td;
-        td.deserializeData(rawTrafficFile);
-        trafficFilesList.push_back(td);
+        TrafficFileData trafficFileData;
+        trafficFileData.deserializeData(rawTrafficFile);
+        trafficFilesList.push_back(trafficFileData);
     }
 }
