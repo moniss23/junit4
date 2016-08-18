@@ -33,7 +33,7 @@ void ParametersFileDataTest::ParametersFileDataTest2_serializeDataTest() {
     qInfo() << "TEST FOR serializeData METHOD.";
 
     ParametersFileData parametersFileData;
-    parametersFileData.fileName = "simple data";
+    parametersFileData.filename = "simple data";
     parametersFileData.content = "simple data";
 
     QByteArray byteArray = parametersFileData.serializeData();

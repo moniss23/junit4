@@ -131,11 +131,11 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
                  [&ProjectName](const Project &val){return val.name == ProjectName;});
     if(it==std::end(projects)) return;
 
-    ui->listWidget_2->addItem(it->parametersFile.fileName);
+    ui->listWidget_2->addItem(it->parametersFile.filename);
 
     QVector<TrafficFileData> &trafficFiles = it->trafficFilesList;
     for(auto &&trafficFile : trafficFiles){
-        ui->listWidget_2->addItem(trafficFile.fileName);
+        ui->listWidget_2->addItem(trafficFile.filename);
     }
 
 }

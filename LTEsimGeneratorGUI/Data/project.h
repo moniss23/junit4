@@ -31,10 +31,13 @@ public:
     /****************************
      * SERIALIZATION INTERFACE  *
      ****************************/
-public:
+
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
+private:
+    TrafficFileData* findTrafficFileByName(const QString &name);
 };
 
 

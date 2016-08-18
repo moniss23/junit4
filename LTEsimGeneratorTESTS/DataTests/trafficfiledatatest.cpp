@@ -35,7 +35,7 @@ void TrafficFileDataTest::TrafficFileDataTest2_serializeDataTest() {
     qInfo() << "TEST FOR serializeData METHOD.";
 
     TrafficFileData trafficFileData;
-    trafficFileData.fileName = "simple data";
+    trafficFileData.filename = "simple data";
     trafficFileData.content = "simple data";
 
     QByteArray byteArray = trafficFileData.serializeData();

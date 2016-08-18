@@ -89,7 +89,7 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
     }
 
     auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),
-                           [&fileName](const auto &traffic)->bool{return traffic.fileName==fileName;});
+                           [&fileName](const auto &traffic)->bool{return traffic.filename==fileName;});
 
     if(it == project->trafficFilesList.end()) {
         emit errorInData("Cannot find right traffic file");
@@ -125,7 +125,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     Project new_project;
     new_project.name = projectName;
     new_project.fullpath = dir;
-    new_project.parametersFile.fileName = "Parameters.rb";
+    new_project.parametersFile.filename = "Parameters.rb";
     new_project.parametersFile.content = param_template_content;
     projects.push_back(new_project);
 
@@ -165,7 +165,7 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
     }
 
     TrafficFileData trafficData;
-    trafficData.fileName = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
+    trafficData.filename = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
     proj->trafficFilesList.push_back(trafficData);
     emit currentProjectChanged(*proj);
 
@@ -177,7 +177,7 @@ QString DataSystem::generateUniqueTrafficFilename(const Project& project)
     for(unsigned i=0; i<UINT_MAX; ++i) {
         QString filename = "Traffic_" + QString::number(i) + ".rb";
         if(std::find_if(project.trafficFilesList.begin(), project.trafficFilesList.end(),
-        [&filename](const auto &td)->bool {return td.fileName==filename;}) == project.trafficFilesList.end()) {
+        [&filename](const auto &td)->bool {return td.filename==filename;}) == project.trafficFilesList.end()) {
             return filename;
         }
     }
@@ -217,20 +217,20 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
         return;
     }
 
-    if(proj->parametersFile.fileName == oldFilename) {
-        proj->parametersFile.fileName = newFilename;
+    if(proj->parametersFile.filename == oldFilename) {
+        proj->parametersFile.filename = newFilename;
         emit currentProjectChanged(*proj);
         return;
     } else {
         for(auto &&iterator : proj->trafficFilesList) {
-            if(iterator.fileName == newFilename) {
+            if(iterator.filename == newFilename) {
                 emit errorInData("Name already in use. Choose another one");
                 return;
             }
         }
         for(auto &&trafficfile : proj->trafficFilesList) {
-            if(trafficfile.fileName == oldFilename) {
-                trafficfile.fileName = newFilename;
+            if(trafficfile.filename == oldFilename) {
+                trafficfile.filename = newFilename;
                 emit currentProjectChanged(*proj);
                 return;
             }

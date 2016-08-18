@@ -8,7 +8,7 @@
 class TrafficFileData : public SerializeInterface
 {
 public:
-    QString fileName;
+    QString filename;
     QString content;
 
     /****************************

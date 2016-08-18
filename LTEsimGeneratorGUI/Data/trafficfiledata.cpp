@@ -14,7 +14,7 @@ QByteArray TrafficFileData::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << fileName << content;
+    stream << filename << content;
 
     return serializedData.buffer();
 }
@@ -22,5 +22,5 @@ QByteArray TrafficFileData::serializeData()
 void TrafficFileData::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> fileName >> content;
+    stream >> filename >> content;
 }

@@ -47,3 +47,10 @@ void Project::deserializeData(const QByteArray &rawData)
         trafficFilesList.push_back(trafficFileData);
     }
 }
+
+TrafficFileData* Project::findTrafficFileByName(const QString &name) {
+    auto trafficfile = std::find_if(std::begin(trafficFilesList), std::end(trafficFilesList),
+                                    [&name](const auto &traff)->bool{return traff.filename==name;});
+
+    return trafficfile==trafficFilesList.end() ? nullptr : trafficfile;
+}

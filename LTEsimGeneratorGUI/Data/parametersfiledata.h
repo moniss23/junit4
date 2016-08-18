@@ -8,7 +8,7 @@
 class ParametersFileData : public SerializeInterface
 {
 public:
-    QString fileName;
+    QString filename;
     QString content;
 
     /****************************

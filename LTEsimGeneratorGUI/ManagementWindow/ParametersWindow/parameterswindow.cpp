@@ -123,12 +123,12 @@ void ParametersWindow::loadProjectAndOpen(const QString &projectName){
     this->ui->radioButton_normalMap->setChecked(true);
 
    //-----------REFACTOR IN PROGRESS------------
-   ui->projectsList->addItem(givenProject.parametersFile.fileName);
+   ui->projectsList->addItem(givenProject.parametersFile.filename);
    parametersFileContent = givenProject.parametersFile.content;
    parametersFileContent += "\n";
 
    for(auto &&traffic : givenProject.trafficFilesList) {
-       this->ui->projectsList->addItem(traffic.fileName);
+       this->ui->projectsList->addItem(traffic.filename);
    }
    //-----------REFACTOR IN PROGRESS------------
 
@@ -151,11 +151,11 @@ void ParametersWindow::refreshUI(const Project &project)
     ui->projectsList->clear();
 
     //PARAMETERS FILE
-    ui->projectsList->addItem(currentProject.parametersFile.fileName);
+    ui->projectsList->addItem(currentProject.parametersFile.filename);
 
     //TRAFFIC FILES
     for(auto &&it:currentProject.trafficFilesList){
-        new QListWidgetItem(it.fileName, ui->projectsList);
+        new QListWidgetItem(it.filename, ui->projectsList);
     }
 
     ui->projectsList->item(0)->setSelected(true);
@@ -542,12 +542,12 @@ void ParametersWindow::on_generateFileButton_clicked()
             QFile file;
             // if the location of the project is default
             if(currentProject.fullpath=="<default>"){
-                file.setFileName("projects/"+currentProject.name+"/"+currentProject.parametersFile.fileName);
+                file.setFileName("projects/"+currentProject.name+"/"+currentProject.parametersFile.filename);
             }
             // if the project's location is custom
             else{
                 QString project_dir=currentProject.fullpath;
-                file.setFileName(project_dir+"/"+currentProject.name+"/"+currentProject.parametersFile.fileName);
+                file.setFileName(project_dir+"/"+currentProject.name+"/"+currentProject.parametersFile.filename);
             }
 
             if(file.exists()){
@@ -643,7 +643,7 @@ void ParametersWindow::on_generateFileButton_clicked()
         // if the file is parameters
         if(this->ui->projectsList->currentRow()==0){
 
-            QFile file(currentProject.genScriptDir+"/"+currentProject.parametersFile.fileName);
+            QFile file(currentProject.genScriptDir+"/"+currentProject.parametersFile.filename);
             if(file.exists()){
                 if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"","File already exists. Overwrite?",QMessageBox::Ok|QMessageBox::Cancel).exec()){
                     return;
