@@ -27,9 +27,14 @@ public:
     explicit ParametersWindow(DataSystem *appSettings, QWidget *parent = 0);
     ~ParametersWindow();
 
-    void closeEvent(QCloseEvent *);//TODO: Check - remove or move to private
     void refreshPreview();//TODO: Check - remove or move to private
-    void saveProject(bool);//TODO: Check - remove or move to private
+
+
+/********* DELETED **************/
+
+    //void saveProject(bool);//TODO: Check - remove or move to private
+
+/********* DELETED **************/
 
 
     /***********************************************

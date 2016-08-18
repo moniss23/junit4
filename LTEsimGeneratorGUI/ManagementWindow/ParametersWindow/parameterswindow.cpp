@@ -14,6 +14,9 @@
 
 
 QVector<QStringList> trafficFilesContentLists;
+
+
+
 int currentOpenedTrafficFile;
 QString parametersFileContent;
 QStringList parametersFileContentList;
@@ -51,61 +54,6 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
 
     this->ui->radioButton_normalMap->setChecked(true);
 
-}
-
-void ParametersWindow::closeEvent (QCloseEvent *event){
-
-    if(enteringMapView){
-        event->accept();
-    }
-
-    else if(changesPresent){
-        int ret=QMessageBox(QMessageBox::Information, "LTEsimGenerator", "There are unsaved changes in the project. Save?", QMessageBox::Cancel|QMessageBox::No|QMessageBox::Yes).exec();
-
-        if(ret==QMessageBox::Cancel){
-            event->ignore();
-        }
-        else{
-
-            enableChangeRegistration=false;
-            closingInProgress=true;
-
-            switch(ret){
-            case QMessageBox::Yes:
-
-                this->saveProject(false);
-
-                trafficFilesNames.clear();
-                nrOfTrafficFiles=0;
-                this->ui->projectsList->clear();
-
-                break;
-
-            case QMessageBox::No:
-
-                trafficFilesNames.clear();
-                nrOfTrafficFiles=0;
-                this->ui->projectsList->clear();
-
-                break;
-            }
-            event->accept();
-        }
-    }
-
-    else{
-
-        enableChangeRegistration=false;
-        closingInProgress=true;
-
-        trafficFilesNames.clear();
-        nrOfTrafficFiles=0;
-        this->ui->projectsList->clear();
-        this->close();
-
-        event->accept();
-    }
-    emit saveProjects();
 }
 
 void ParametersWindow::loadProjectAndOpen(const QString &projectName){
@@ -175,127 +123,25 @@ void ParametersWindow::on_actionAbout_triggered()
 {
     viewHelp.show();
 }
-
-void ParametersWindow::saveProject(bool singleFile=false){
-
-    // remove * symbol wherever it is present
-    if(this->windowTitle().endsWith("*")){
-        this->setWindowTitle(this->windowTitle().left(this->windowTitle().size()-1));
-    }
-
-    if(this->ui->projectsList->item(0)->text().endsWith("*")){
-        this->ui->projectsList->item(0)->setText(this->ui->projectsList->item(0)->text().left(this->ui->projectsList->item(0)->text().size()-1));
-    }
-
-    for(int i=0; i<nrOfTrafficFiles; i++){
-        if(this->ui->projectsList->item(i+1)->text().endsWith("*")){
-            this->ui->projectsList->item(i+1)->setText(this->ui->projectsList->item(i+1)->text().left(this->ui->projectsList->item(i+1)->text().size()-1));
-        }
-    }
-
-    for(int i=0; i<nrOfTrafficFiles; i++){
-        if(trafficFilesNames[i]->endsWith("*")){
-            (*trafficFilesNames[i])=(*trafficFilesNames[i]).left((*trafficFilesNames[i]).length()-1);
-        }
-    }
-
-    // save the content of currently selected file
-    if(this->ui->projectsList->currentRow()==0){
-
-    }
-    else{
-        int index=this->ui->projectsList->currentRow()-1;
-        trafficFilesContent[index]=this->ui->filePreview->toPlainText();
-    }
-
-    // if entire project is to be saved
-    if(!singleFile){
-
-        // set all "changed" flags to false
-        if(changesPresent){
-            changesPresent=false;
-        }
-
-        for(auto it=trafficFilesChanged.begin(); it!=trafficFilesChanged.end(); it++){
-            (*it)=false;
-        }
-
-        // copy all content from temp to actual
-        for(int i=0; i<nrOfTrafficFiles; i++){
-            savedTrafficFilesContent[i]=trafficFilesContent[i];
-        }
-    }
-
-    // if only one file is to be saved, only copy that file's content from temp to actual
-    else{
-            int file_index=this->ui->projectsList->currentRow()-1;
-            trafficFilesChanged[file_index]=false;
-            savedTrafficFilesContent[file_index]=trafficFilesContent[file_index];
-    }
-
-    appSettings->saveProjectsFile();
-}
-
 void ParametersWindow::on_actionOpen_triggered()
 {
-
-    if(changesPresent){
-
-        int ret=QMessageBox(QMessageBox::Information, "LTEsimGenerator", "There are unsaved changes in the project. Save?", QMessageBox::Cancel|QMessageBox::No|QMessageBox::Yes).exec();
-
-        switch(ret){
-        case QMessageBox::Yes:
-
-            enableChangeRegistration=false;
-            closingInProgress=true;
-
-            this->saveProject(true);
-
-            trafficFilesNames.clear();
-            nrOfTrafficFiles=0;
-            this->ui->projectsList->clear();
-            this->close();
-
-            break;
-
-        case QMessageBox::No:
-
-            enableChangeRegistration=false;
-
-            trafficFilesNames.clear();
-            nrOfTrafficFiles=0;
-            this->ui->projectsList->clear();
-            this->close();
-
-            break;
-
-        case QMessageBox::Cancel:
-
-            break;
-
-        }
-
-        changesPresent=false;
-        closingInProgress=false;
-    }
-
-    else{
-
-        enableChangeRegistration=false;
-        closingInProgress=true;
-
-        trafficFilesNames.clear();
-        nrOfTrafficFiles=0;
-        this->ui->projectsList->clear();
+    int ret=QMessageBox(QMessageBox::Information, "LTEsimGenerator", "There are unsaved changes in the project. Save?", QMessageBox::Cancel|QMessageBox::No|QMessageBox::Yes).exec();
+    switch(ret){
+    case QMessageBox::Yes:
+        emit saveProjects();
         this->close();
-
-        closingInProgress=false;
+        break;
+    case QMessageBox::No:
+        this->close();
+        break;
+    case QMessageBox::Cancel:
+        return;
     }
 }
 
 void ParametersWindow::on_actionSave_triggered()
 {
-    this->saveProject(true);
+    emit saveProjects();
 }
 
 void ParametersWindow::previewTrafficFile(){
