@@ -73,7 +73,7 @@ private:
     QString getDefaultParametersFileContent();
 
     Project* findProjectByName(const QString &projectName);
-    QString generateUniqueTrafficFilename(const Project& project);
+    QString generateUniqueTrafficFilename(Project *project);
 };
 
 #endif // DATASYSTEM_H

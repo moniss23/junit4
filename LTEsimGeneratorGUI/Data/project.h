@@ -36,7 +36,6 @@ public:
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
 
-private:
     TrafficFileData* findTrafficFileByName(const QString &name);
 };
 

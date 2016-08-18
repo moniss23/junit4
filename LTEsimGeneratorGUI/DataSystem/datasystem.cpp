@@ -81,22 +81,20 @@ void DataSystem::projectsFileSetup() {
  */
 
 void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QString& fileName) {
-    auto project = findProjectByName(ProjectName);
 
+    auto project = findProjectByName(ProjectName);
     if(project == nullptr) {
         emit errorInData("Cannot find right Project");
         return;
     }
 
-    auto it = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),
-                           [&fileName](const auto &traffic)->bool{return traffic.filename==fileName;});
-
-    if(it == project->trafficFilesList.end()) {
+    auto traffic = project->findTrafficFileByName(fileName);
+    if(traffic == nullptr) {
         emit errorInData("Cannot find right traffic file");
         return;
     }
 
-    project->trafficFilesList.erase(it);
+    project->trafficFilesList.erase(traffic);
     emit currentProjectChanged(*project);
 }
 
@@ -118,15 +116,11 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
         return;
     }
 
-    QString dir = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
-
-    QString param_template_content = getDefaultParametersFileContent();
-
     Project new_project;
     new_project.name = projectName;
-    new_project.fullpath = dir;
+    new_project.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
     new_project.parametersFile.filename = "Parameters.rb";
-    new_project.parametersFile.content = param_template_content;
+    new_project.parametersFile.content = getDefaultParametersFileContent();
     projects.push_back(new_project);
 
     setProjectName(projectName); //TODO: Should not be needed in good architecture
@@ -139,14 +133,16 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
 void DataSystem::setNewDirForProjects(const QString &location)
 {
     if(location=="") {
-        QMessageBox(QMessageBox::Critical,"No directory specified!","You must specify the directory.",QMessageBox::Ok).exec();
+        QMessageBox(QMessageBox::Critical, "No directory specified!",
+                    "You must specify the directory.", QMessageBox::Ok).exec();
         emit updateSettingsView(location);
         return;
     }
     if(location!="<default>") {
         QDir new_dir(location);
         if(!new_dir.exists()) {
-            QMessageBox(QMessageBox::Critical,"Directory does not exist!","Selected directory does not seem to exist.\nAre you sure you selected it right?",QMessageBox::Ok).exec();
+            QMessageBox(QMessageBox::Critical,"Directory does not exist!",
+                        "Selected directory does not seem to exist.", QMessageBox::Ok).exec();
             emit updateSettingsView(location);
             return;
         }
@@ -165,21 +161,18 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
     }
 
     TrafficFileData trafficData;
-    trafficData.filename = fileName.isEmpty() ? generateUniqueTrafficFilename(*proj) : fileName;
+    trafficData.filename = fileName.isEmpty() ? generateUniqueTrafficFilename(proj) : fileName;
     proj->trafficFilesList.push_back(trafficData);
     emit currentProjectChanged(*proj);
 
     saveProjectsFile();
 }
 
-QString DataSystem::generateUniqueTrafficFilename(const Project& project)
+QString DataSystem::generateUniqueTrafficFilename(Project *project)
 {
     for(unsigned i=0; i<UINT_MAX; ++i) {
-        QString filename = "Traffic_" + QString::number(i) + ".rb";
-        if(std::find_if(project.trafficFilesList.begin(), project.trafficFilesList.end(),
-        [&filename](const auto &td)->bool {return td.filename==filename;}) == project.trafficFilesList.end()) {
-            return filename;
-        }
+        const QString filename = "Traffic_" + QString::number(i) + ".rb";
+        if(project->findTrafficFileByName(filename) == nullptr) {return filename;}
     }
 
     emit errorInData("Cannot add more traffic files");
@@ -210,8 +203,6 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
     }
 
     auto proj = findProjectByName(projectName);
-
-
     if(proj == nullptr) {
         emit errorInData("Can't find right project while renaming a file");
         return;
@@ -221,21 +212,18 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
         proj->parametersFile.filename = newFilename;
         emit currentProjectChanged(*proj);
         return;
-    } else {
-        for(auto &&iterator : proj->trafficFilesList) {
-            if(iterator.filename == newFilename) {
-                emit errorInData("Name already in use. Choose another one");
-                return;
-            }
-        }
-        for(auto &&trafficfile : proj->trafficFilesList) {
-            if(trafficfile.filename == oldFilename) {
-                trafficfile.filename = newFilename;
-                emit currentProjectChanged(*proj);
-                return;
-            }
-        }
     }
+    else {
+        if(proj->findTrafficFileByName(newFilename) != nullptr) {
+            emit errorInData("Name already in use. Choose another one");
+            return;
+        }
+
+        proj->findTrafficFileByName(oldFilename)->filename = newFilename;
+        emit currentProjectChanged(*proj);
+        return;
+    }
+
     emit errorInData("Can't find right trafficFile to rename!");
 }
 
