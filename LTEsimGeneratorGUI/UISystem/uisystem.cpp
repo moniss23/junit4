@@ -60,6 +60,10 @@ void UISystem::bindingObjects()
     //Save Projects
     QObject::connect(&paramWindow,SIGNAL(saveProjects()),dataSystem,SLOT(saveProjectsFile()));
 
+    //Restore default param and traffic files content
+    QObject::connect(&paramWindow,SIGNAL(setDefaultParametersFileContent(QString)),dataSystem,SLOT(setDefaultParametersFileContent(QString)));
+    QObject::connect(&paramWindow,SIGNAL(setDefaultTrafficFileContent(QString,QString)),dataSystem,SLOT(setDefaultTrafficFileContent(QString,QString)));
+
     //Error window
     QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
 }

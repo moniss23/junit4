@@ -43,20 +43,18 @@ public slots:
 
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
     void removeFile_TrafficFile(const QString& ProjectName, const QString& fileName);
-
     void checkAndRenameIfFilenameUnique(const QString &filename, const QString& oldFilename, const QString& projectName);
+
+    void setDefaultTrafficFileContent(const QString &projectName, const QString &trafficName);
+
+    void setDefaultParametersFileContent(const QString &projectName);
 
 public:
     QString getProjectName() const;
+
     QString getProjectDir(QString project_name);
 
     bool isProjectNameUsed(QString projectName);
-
-    //Those functions need implementation.
-    //-------------------------------------------------------------
-    bool isProjectNameValid(const QString& projectName);
-    bool isProjectDirValid(const QString& projectDir);
-    //-------------------------------------------------------------
 
     QString getDefaultNewProjectDir() const;
     void setDefaultNewProjectDir(const QString &value);
@@ -71,6 +69,7 @@ private:
     void loadProjectsFile();
     void projectsFileSetup();
     QString getDefaultParametersFileContent();
+    QString getDefaultTrafficFileContent();
 
     Project* findProjectByName(const QString &projectName);
     QString generateUniqueTrafficFilename(Project *project);

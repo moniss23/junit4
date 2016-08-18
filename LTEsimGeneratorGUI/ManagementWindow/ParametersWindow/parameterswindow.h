@@ -59,6 +59,8 @@ signals:
     void saveProjects();
 
     void updateCurrentProjects_RB_FilesLocation(const QString& location);
+    void setDefaultParametersFileContent(const QString &projectName);
+    void setDefaultTrafficFileContent(const QString &projectName, const QString &trafficName);
 
 
 public slots:

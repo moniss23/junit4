@@ -302,48 +302,27 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
     }
 }
 
-// "defaults" button clicked
+/*
+ * Reset defaults button clicked
+ * CURRENTLY NOT IN USE
+ */
 void ParametersWindow::on_resetDefaultsButton_clicked()
 {
     // if the file is parameters
     if(this->ui->projectsList->currentRow()==0){
-
-        // only proceed if the file was modified relative to template
-        if(paramFileModified){
-
-            // ask for confirmation
-            if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
-                this->ui->filePreview->setText(currentProject.parametersFile.content);
-                //parametersFileContent=fileContent;
-                // emit ProjectChanged(currentProject);
-
-                paramFileModified=false;
-                this->ui->resetDefaultsButton->setEnabled(false);
-            }
+        if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
+            emit setDefaultParametersFileContent(currentProject.name);
+            paramFileModified=false;
+            this->ui->resetDefaultsButton->setEnabled(false);
         }
     }
-
     // if the file is traffic
     else{
-
-        // only proceed if the file was modified relative to template
-        if(trafficFilesModified[this->ui->projectsList->currentRow()-1]){
-
-            // ask for confirmation
-            if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
-                QFile file(":/RbFiles/tune_traffic_models.rb");
-                file.open((QIODevice::ReadOnly));
-                QTextStream s(&file);
-                QString fileContent=s.readAll();
-                this->ui->filePreview->setText(fileContent);
-                trafficFilesContent[this->ui->projectsList->currentRow()-1]=fileContent;
-                file.close();
-                trafficFilesModified[this->ui->projectsList->currentRow()-1]=false;
-                this->ui->resetDefaultsButton->setEnabled(false);
-            }
+        if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
+            emit setDefaultTrafficFileContent(currentProject.name, this->ui->projectsList->currentItem()->text());
+            this->ui->resetDefaultsButton->setEnabled(false);
         }
     }
-
 }
 
 void ParametersWindow::on_filePreview_textChanged()

@@ -80,6 +80,34 @@ void DataSystem::projectsFileSetup() {
  *
  */
 
+void DataSystem::setDefaultParametersFileContent(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+    project->parametersFile.content = getDefaultParametersFileContent();
+    emit currentProjectChanged(*project);
+}
+
+void DataSystem::setDefaultTrafficFileContent(const QString &projectName, const QString &trafficName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+    auto trafficFile = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),
+                                    [&trafficName](const TrafficFileData& trafficFileData)-> bool{
+        return (trafficName == trafficFileData.filename);
+    });
+    if(trafficFile == project->trafficFilesList.end()) {
+        emit errorInData("Can't find right traffic file");
+        return;
+    }
+    trafficFile->content = getDefaultTrafficFileContent();
+    emit currentProjectChanged(*project);
+}
+
 void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QString& fileName) {
 
     auto project = findProjectByName(ProjectName);
@@ -98,15 +126,28 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
     emit currentProjectChanged(*project);
 }
 
+//Currently not used, because restore defaults functionality in ParametersWindow is disabled
 QString DataSystem::getDefaultParametersFileContent()
 {
     QFile param_template(":/RbFiles/parameters.rb");
     param_template.open(QIODevice::ReadOnly);
     QTextStream param_template_str(&param_template);
-    QString content = param_template_str.readAll();
+    QString fileContent = param_template_str.readAll();
     param_template.close();
 
-    return content;
+    return fileContent;
+}
+
+//Currently not used, because restore defaults functionality in ParametersWindow is disabled
+QString DataSystem::getDefaultTrafficFileContent() {
+    QFile trafficTemplate(":/RbFiles/tune_traffic_models.rb");
+    trafficTemplate.open((QIODevice::ReadOnly));
+    QTextStream trafficTemplateStr(&trafficTemplate);
+    QString fileContent = trafficTemplateStr.readAll();
+    trafficTemplate.close();
+
+    return fileContent;
+
 }
 
 void DataSystem::createNewProject(const QString &projectName, const QString &directory) {
