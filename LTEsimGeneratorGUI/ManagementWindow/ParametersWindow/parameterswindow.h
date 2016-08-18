@@ -41,6 +41,7 @@ signals:
     void SpawnWindow_Settings(const QString& projectName = QString());
     void SpawnWindow_RenameFile(const QString& filename);
     void SpawnWindow_RemoveFile(const QString& filename);
+    void SpawnWindow_ProjectMng();
     /**
      * @brief AddFile_Traffic signal used to nofity system to add new traffic file
      * @param projectName name of project to add a new file

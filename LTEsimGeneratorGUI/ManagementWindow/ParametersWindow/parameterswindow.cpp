@@ -109,6 +109,7 @@ void ParametersWindow::closeEvent(QCloseEvent *event) {
     case QMessageBox::Cancel:
         return;
     }
+    emit SpawnWindow_ProjectMng();
     event->accept();
 }
 void ParametersWindow::on_actionOpen_triggered()

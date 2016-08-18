@@ -22,6 +22,10 @@ void UISystem::bindingObjects()
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(setProjectName(QString)));//TODO: this is global leftover, get rid of
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
+    //Spawning ProjectManagement after closing ParametersWindow
+    QObject::connect(&paramWindow,SIGNAL(SpawnWindow_ProjectMng()),dataSystem,SLOT(SpawnWindow_ProjectManagement()));
+    QObject::connect(dataSystem,SIGNAL(SpawnWindow_ProjectMng()),&projectUi,SLOT(show()));
+
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),dataSystem,SLOT(deleteProject(QString)));
     QObject::connect(dataSystem, SIGNAL(currentProjects(const QVector<Project> &)),

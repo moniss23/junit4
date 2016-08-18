@@ -29,6 +29,7 @@ signals:
     void errorInData(const QString& errorDescription);
     void returnProject(const Project& project);
     void updateSettingsView(const QString& path);
+    void SpawnWindow_ProjectMng();
 
 public slots:
 
@@ -49,6 +50,7 @@ public slots:
     void setDefaultParametersFileContent(const QString &projectName);
 
     void updateFileContent(const QString& projectName, const QString& fileName, const QString& content);
+    void SpawnWindow_ProjectManagement();
 
 public:
     QString getProjectName() const;

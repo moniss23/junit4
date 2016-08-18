@@ -99,6 +99,11 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
     emit currentProjectChanged(*project);
 }
 
+void DataSystem::SpawnWindow_ProjectManagement() {
+    emit currentProjects(projects);
+    emit SpawnWindow_ProjectMng();
+}
+
 void DataSystem::setDefaultParametersFileContent(const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {

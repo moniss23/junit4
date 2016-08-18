@@ -114,6 +114,7 @@ void ProjectManagement::open_project(){
 
     QString projectName = selected_item->text().split("\t")[0];
     emit SpawnWindow_OpenProject(projectName);
+    this->close();
 }
 
 // display project's files in the right view
@@ -147,4 +148,3 @@ void ProjectManagement::updateUiState()
     this->ui->deleteProject_Button->setEnabled(objects);
     this->previewProjectFiles(ui->listWidget->currentItem());
 }
-
