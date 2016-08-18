@@ -29,6 +29,7 @@ public:
 
     void refreshPreview();//TODO: Check - remove or move to private
 
+    void closeEvent(QCloseEvent *event);
 
 /********* DELETED **************/
 
@@ -100,7 +101,7 @@ private slots:
 
     void previewFile(QListWidgetItem* current);
 
-    void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_projectsList_currentItemChanged(QListWidgetItem *current);
 
     void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
 

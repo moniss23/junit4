@@ -230,7 +230,6 @@ void MapWindow::createUeSimulated()
 void MapWindow::closeEvent(QCloseEvent *event)
 {
     if (!anyChangesInMap) {
-        enteringMapView=false;
         this->close();
         event->accept();
         return;
@@ -263,12 +262,10 @@ void MapWindow::closeEvent(QCloseEvent *event)
 
         showList(parametersFileContentList);
         event->accept();
-        enteringMapView=false;
         saveCellsCheckboxes();
         break;
     case QMessageBox::Discard:
         // Don't Save was clicked
-        enteringMapView=false;
         break;
     case QMessageBox::Cancel:
         // Cancel was clicked
@@ -617,7 +614,6 @@ void MapWindow::save_button_clicked()
         changesPresent=true;
         parametersFileContent=new_parametersFileContent;
     }
-    enteringMapView=false;
     saveCellsCheckboxes();
     anyChangesInMap = false;
     this->close();

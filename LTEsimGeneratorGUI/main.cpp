@@ -10,7 +10,6 @@
 
 
 ParametersWindow *p;
-QVector<QString*> trafficFilesNames;
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
 bool changesPresent = false;

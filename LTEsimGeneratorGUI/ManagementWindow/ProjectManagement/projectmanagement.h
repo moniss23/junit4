@@ -69,7 +69,7 @@ private slots:
     void on_importProject_Button_clicked();
     void on_deleteProject_Button_clicked();
     void on_settings_Button_clicked();
-    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_listWidget_currentItemChanged(QListWidgetItem *current);
     void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
 

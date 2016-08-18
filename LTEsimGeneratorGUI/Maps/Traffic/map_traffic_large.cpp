@@ -24366,7 +24366,6 @@ void Map_traffic_large::closeEvent(QCloseEvent *event){
 
 //          showList(parametersFileContentList);
 //          event->accept();
-//          enteringMapView=false;
 //          p->show();
 //          break;
             counter_UE_large=1;
@@ -24376,7 +24375,6 @@ void Map_traffic_large::closeEvent(QCloseEvent *event){
             large = false;
       case QMessageBox::Discard:
           // Don't Save was clicked
-//          enteringMapView=false;
 //          p->show();
           break;
       case QMessageBox::Cancel:

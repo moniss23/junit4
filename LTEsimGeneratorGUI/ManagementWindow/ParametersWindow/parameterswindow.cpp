@@ -15,21 +15,12 @@
 
 QVector<QStringList> trafficFilesContentLists;
 
-
-
-int currentOpenedTrafficFile;
 QString parametersFileContent;
 QStringList parametersFileContentList;
-QVector<QString> trafficFilesContent;
 QVector<QString> savedTrafficFilesContent;
 bool paramFileModified;
-QVector<bool> trafficFilesChanged;
-QVector<bool> trafficFilesModified;
-bool enableChangeRegistration=true;
-bool previewFileInProgress=false;
 bool closingInProgress=false;
 bool fileAdditionInProgress=false;
-bool enteringMapView;
 extern QVector<QString*> trafficFilesNames;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
@@ -123,8 +114,7 @@ void ParametersWindow::on_actionAbout_triggered()
 {
     viewHelp.show();
 }
-void ParametersWindow::on_actionOpen_triggered()
-{
+void ParametersWindow::closeEvent(QCloseEvent *event) {
     int ret=QMessageBox(QMessageBox::Information, "LTEsimGenerator", "There are unsaved changes in the project. Save?", QMessageBox::Cancel|QMessageBox::No|QMessageBox::Yes).exec();
     switch(ret){
     case QMessageBox::Yes:
@@ -137,6 +127,10 @@ void ParametersWindow::on_actionOpen_triggered()
     case QMessageBox::Cancel:
         return;
     }
+    event->accept();
+}
+void ParametersWindow::on_actionOpen_triggered()
+{
 }
 
 void ParametersWindow::on_actionSave_triggered()
@@ -166,7 +160,8 @@ void ParametersWindow::on_removeFileButton_clicked()
     }
     // if the file is parameters
     else{
-        return;//PSKAL: YOU DO NOT DELETE PARAMETERS FILE !
+        QMessageBox(QMessageBox::Information,"Warning","Can't delete parameters file",QMessageBox::Ok).exec();
+        return;     //PSKAL: YOU DO NOT DELETE PARAMETERS FILE !
     }
 }
 
@@ -186,9 +181,6 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
 
     this->ui->filePreview->clear();
 
-    enableChangeRegistration=false;
-    previewFileInProgress=true;
-
     if(current==NULL || this->ui->projectsList->currentItem()->text()=="<none>" || this->ui->projectsList->currentItem()->text()=="<empty>"){
         this->ui->filePreview->clear();
         return;
@@ -203,58 +195,20 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
     else{
         for(int i=1; i<=nrOfTrafficFiles; i++){
             if(this->ui->projectsList->item(i)->text()==current->text()){
-                this->ui->filePreview->setText(trafficFilesContent[i-1]);
+                this->ui->filePreview->setText(currentProject.trafficFilesList[i-1].content);
                 break;
             }
         }
     }
-
-    enableChangeRegistration=true;
-    previewFileInProgress=false;
-
 }
 
 void ParametersWindow::refreshPreview(){
     this->previewFile(this->ui->projectsList->currentItem());
 }
 
-void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current)
 {
-
-    if(current==previous || closingInProgress || fileAdditionInProgress){
-        return;
-    }
-
-    // if the previous file was parameters
-    if(previous==this->ui->projectsList->item(0)){
-        parametersFileContent=this->ui->filePreview->toPlainText();
-    }
-
-    // if the file was traffic
-    else{
-
-        // find the index of the file which was being previewed and save the content of filePreview widget
-        for(int i=1; i<=nrOfTrafficFiles; i++){
-            if(previous==this->ui->projectsList->item(i)){
-                trafficFilesContent[i-1]=this->ui->filePreview->toPlainText();
-                break;
-            }
-        }
-
-    }
-
-    // if the new file is parameters
-    if(current==this->ui->projectsList->item(0)){
-        if(paramFileModified){
-            this->ui->resetDefaultsButton->setEnabled(true);
-        }
-        else{
-            this->ui->resetDefaultsButton->setEnabled(false);
-        }
-    }
-
     this->previewFile(current);
-
 }
 
 
@@ -265,40 +219,24 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 
     // parameters file double-clicked
     if(this->ui->projectsList->currentRow()==0){
-        enteringMapView=true;
         // if normal map is to be displayed
         // delete current map objects if they are present
         if(map_w!=NULL){
             delete map_w;
             map_w=NULL;
         }
-
-
         // create a new map object and display it
         map_w=new MapWindow;
         map_w->show();
     }
-
-    // traffic file double-clicked
-    else if(this->ui->projectsList->currentRow()>0){
-        // store the index of the opened traffic file in a global variable
-        currentOpenedTrafficFile=this->ui->projectsList->currentRow()-1;
-    }
-    if(this->ui->projectsList->currentRow()>0){
-        // store the index of the opened traffic file in a global variable
-        currentOpenedTrafficFile=this->ui->projectsList->currentRow()-1;
-
+    else{
         // delete current map objects if they are present
         if(map_t!=NULL){
             delete map_t;
             map_t=NULL;
-
         }
         map_t =new Map_traffic(appSettings);
         map_t->show();
-
-
-
     }
 }
 
@@ -318,6 +256,7 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
     }
     // if the file is traffic
     else{
+        // ask for confirmation
         if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
             emit setDefaultTrafficFileContent(currentProject.name, this->ui->projectsList->currentItem()->text());
             this->ui->resetDefaultsButton->setEnabled(false);
@@ -329,7 +268,7 @@ void ParametersWindow::on_filePreview_textChanged()
 {
 
     // detect whether previewing of file is in progress
-    if(previewFileInProgress || closingInProgress || !this->ui->filePreview->hasFocus()){
+    if(closingInProgress || !this->ui->filePreview->hasFocus()){
         return;
     }
     changesPresent=true;
@@ -337,18 +276,6 @@ void ParametersWindow::on_filePreview_textChanged()
     if(this->ui->projectsList->currentRow()==0){
             paramFileModified=true;
             this->ui->resetDefaultsButton->setEnabled(true);
-    }
-
-    // if it's a traffic file
-    else{
-        if(!trafficFilesChanged[this->ui->projectsList->currentRow()-1]){
-            trafficFilesChanged[this->ui->projectsList->currentRow()-1]=true;
-        }
-        if(!trafficFilesModified[this->ui->projectsList->currentRow()-1]){
-            trafficFilesModified[this->ui->projectsList->currentRow()-1]=true;
-            this->ui->resetDefaultsButton->setEnabled(true);
-        }
-
     }
 }
 
@@ -400,7 +327,7 @@ void ParametersWindow::on_generateFileButton_clicked()
                 }
                 file.open(QIODevice::WriteOnly);
                 QTextStream file_str(&file);
-                file_str<<trafficFilesContent[file_index];
+                file_str<<currentProject.trafficFilesList[file_index].content;
                 file.close();
                 msg("File generated:\n"+this->ui->projectsList->item(file_index+1)->text());
 
@@ -420,7 +347,7 @@ void ParametersWindow::on_generateFileButton_clicked()
                 }
                 file.open(QIODevice::WriteOnly);
                 QTextStream file_str(&file);
-                file_str<<trafficFilesContent[file_index];
+                file_str<<currentProject.trafficFilesList[file_index].content;
                 file.close();
                 msg("File generated:\n"+this->ui->projectsList->item(file_index+1)->text());
 
@@ -456,7 +383,7 @@ void ParametersWindow::on_generateFileButton_clicked()
             QFile ofile(output_dir+"/"+this->ui->projectsList->currentItem()->text());
             ofile.open(QIODevice::WriteOnly);
             QTextStream ofile_str(&ofile);
-            ofile_str<<trafficFilesContent[this->ui->projectsList->currentRow()-1];
+            ofile_str<<currentProject.trafficFilesList[this->ui->projectsList->currentRow()-1].content;
             ofile.close();
         }
         msg("File \""+output_dir+"/"+this->ui->projectsList->currentItem()->text()+"\" was successfully created.");
@@ -494,7 +421,7 @@ void ParametersWindow::on_generateFileButton_clicked()
             }
             file.open(QIODevice::WriteOnly);
             QTextStream file_str(&file);
-            file_str<<trafficFilesContent[file_index];
+            file_str<<currentProject.trafficFilesList[file_index].content;
             file.close();
             msg("File generated:\n"+this->ui->projectsList->item(file_index+1)->text());
         }

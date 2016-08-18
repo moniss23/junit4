@@ -109,7 +109,6 @@ void DataSystem::setDefaultTrafficFileContent(const QString &projectName, const 
 }
 
 void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QString& fileName) {
-
     auto project = findProjectByName(ProjectName);
     if(project == nullptr) {
         emit errorInData("Cannot find right Project");

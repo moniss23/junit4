@@ -70,14 +70,13 @@ void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
     this->open_project();
 }
 
-void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current)
 {
-    (void) previous;
 
     if(current==NULL || !ui->listWidget->count()){
         return;
     }
-
+    previewProjectFiles(current);
     updateUiState();
 }
 
