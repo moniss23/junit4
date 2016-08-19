@@ -1,54 +1,61 @@
 #ifndef CELL_H
 #define CELL_H
 
+#include <QList>
 #include <QString>
 #include <QVector>
-#include <QStringList>
-#include <QList>
 #include <QCheckBox>
-#include <Data/center.h>
+#include <QStringList>
+
+#include "Data/center.h"
 
 class Cell
 {
 public:
-    Cell(QString name);
     Cell();
+    Cell(const QString &name);
+
     ~Cell();
 
-    QString getCell();
-    QString *setParams();
+    Center* center;
+    QCheckBox* chBox;
+
     void resetParams();
+    QVector<QString> setParams();
+    bool wasThereChanges();
 
-     QString getSite();
-     QString getPci();
-     QString getPosition_X();
-     QString getPosition_Y();
-     QString getEarfcnDl();
-     QString getTransmitPower();
-     QString getUlNoiseAndInterference();
+    QString getCell();
+    void setCell(const QString &c);
 
-     void setCell(QString c);
-     void setSite(QString s);
-     void setPci(QString s);
-     void setPosition_X(QString px);
-     void setPosition_Y(QString py);
-     void setEarfcnDl(QString e);
-     void setTransmitPower(QString t);
-     void setUlNoiseAndInterference(QString u);
+    QString getSite();
+    void setSite(const QString &s);
 
+    QString getPci();
+    void setPci(const QString &s);
 
-     QCheckBox* chBox;
-     Center* center;
-     QString getCell_new_name() const;
-     void setCell_new_name(const QString &value);
+    QString getPosition_X();
+    void setPosition_X(const QString &p_x);
 
-     bool wasThereChanges();
+    QString getPosition_Y();
+    void setPosition_Y(const QString &p_y);
+
+    QString getEarfcnDl();
+    void setEarfcnDl(const QString &e);
+
+    QString getTransmitPower();
+    void setTransmitPower(const QString &t);
+
+    QString getUlNoiseAndInterference();
+    void setUlNoiseAndInterference(const QString &u);
+
+    QString getCell_new_name() const;
+    void setCell_new_name(const QString &value);
 
 private:
-    QString *tabParams;
     QString cell;
-    QString cell_new_name;
     QString site;
+    QString cell_new_name;
+
     int pci;
     int position_X;
     int position_Y;

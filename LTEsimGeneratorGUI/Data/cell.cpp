@@ -7,182 +7,129 @@
 
 extern QStringList parametersFileContentList;
 
+Cell::Cell() {}
+Cell::~Cell() {}
 
-Cell::Cell(QString name)
+Cell::Cell(const QString &name)
 {
-   cell = name;
-   setParams();
-}
-Cell::Cell()
-{
-
+    cell = name;
+    setParams();
 }
 
-Cell::~Cell()
-{
+QVector<QString> Cell::setParams() {
 
-}
-//------------Getters--------------------------------
-QString Cell::getCell(){
-    return cell;
-}
-QString Cell::getSite(){
-    return site;
-}
-QString Cell::getPci(){
-    return QString::number(pci);
-}
-QString Cell::getPosition_X(){
-    return QString::number(position_X);
-}
-QString Cell::getPosition_Y(){
-    return QString::number(position_Y);
-}
-QString Cell::getEarfcnDl(){
-    return QString::number(earfcnDl);
-}
-QString Cell::getTransmitPower(){
-    return QString::number(transmitPower);
-}
-QString Cell::getUlNoiseAndInterference(){
-    return QString::number(ulNoiseAndInterference);
-}
-//----------------Setters---------------------------
-void Cell::setCell(QString c){
-    cell = cell + " " + c;
-}
-void Cell::setSite(QString s){
-    site = s;
-}
-void Cell::setPci(QString p){
-     pci = p.toInt();
-}
-void Cell::setPosition_X(QString px){
-        position_X = px.toInt();
-}
-void Cell::setPosition_Y(QString py){
-        position_Y = py.toInt();
-}
-void Cell::setEarfcnDl(QString e){
-     earfcnDl = e.toInt();
-}
-void Cell::setTransmitPower(QString t){
-     transmitPower = t.toFloat();
-}
-void Cell::setUlNoiseAndInterference(QString u){
-     ulNoiseAndInterference = u.toFloat();
-}
-QString Cell::getCell_new_name() const
-{
-    return cell_new_name;
-}
+    QVector<QString> cellParams(8);
+    QString rbCellPattern = ":cell => \"" + cell;
 
-void Cell::setCell_new_name(const QString &value)
-{
-    cell_new_name = value;
-}
+    for(int i=0; i<parametersFileContentList.size(); i++) {
 
-
-QString* Cell::setParams(){
-//    QString name_search = ":cell => \"" +cell + "\""+",";
-    QString name_search = ":cell => \"" +cell;
-    tabParams = new QString [8];
-    for( int i=0; i<parametersFileContentList.size(); i++){
-        if(parametersFileContentList[i].contains(name_search)){
-            tabParams[0] = parametersFileContentList[i].trimmed();
-            tabParams[1] = parametersFileContentList[i+1].trimmed();
-            tabParams[2] = parametersFileContentList[i+2].trimmed();
-            tabParams[3] = parametersFileContentList[i+3].trimmed();
-            tabParams[4] = parametersFileContentList[i+4].trimmed();
-            tabParams[5] = parametersFileContentList[i+5].trimmed();
-            tabParams[6] = parametersFileContentList[i+6].trimmed();
-            tabParams[7] = parametersFileContentList[i+7].trimmed();
+        if(parametersFileContentList[i].contains(rbCellPattern)) {
+            cellParams[0] = parametersFileContentList[i].trimmed();
+            cellParams[1] = parametersFileContentList[i+1].trimmed();
+            cellParams[2] = parametersFileContentList[i+2].trimmed();
+            cellParams[3] = parametersFileContentList[i+3].trimmed();
+            cellParams[4] = parametersFileContentList[i+4].trimmed();
+            cellParams[5] = parametersFileContentList[i+5].trimmed();
+            cellParams[6] = parametersFileContentList[i+6].trimmed();
+            cellParams[7] = parametersFileContentList[i+7].trimmed();
+            break;
         }
     }
 
-    QStringList list;
-    for (int i=0; i<8; i++)
-    {
-        list = tabParams[i].trimmed().split(" ", QString::SkipEmptyParts);
-        if (list.size() > 3){
-            tabParams[i] = list[2];
-            list[3].remove(",");
-            cell_new_name = list[3].remove("\"");
-        }
-        else tabParams[i]= list[2];
-        tabParams[i].remove(QChar('"'));
-        tabParams[i].remove(QChar(','));
+    for(int i=0; i<cellParams.size(); i++) {
+        cellParams[i] = cellParams[i].split(' ', QString::SkipEmptyParts)[2];
+        cellParams[i].remove(QChar('"'));
+        cellParams[i].remove(QChar(','));
     }
-    cell = tabParams[0];
-    site = tabParams[1];
-    pci = tabParams[2].toInt();
-    position_X = tabParams[3].toInt();
-    position_Y = tabParams[4].toInt();
-    earfcnDl = tabParams[5].toInt();
-    transmitPower = tabParams[6].toFloat();
-    ulNoiseAndInterference = tabParams[7].toFloat();
 
+    cell_new_name = "";
+    cell = cellParams[0];
+    site = cellParams[1];
+    pci = cellParams[2].toInt();
+    position_X = cellParams[3].toInt();
+    position_Y = cellParams[4].toInt();
+    earfcnDl = cellParams[5].toInt();
+    transmitPower = cellParams[6].toFloat();
+    ulNoiseAndInterference = cellParams[7].toFloat();
 
-    return tabParams;
+    return cellParams;
 }
 
 void Cell::resetParams()
 {
-    QString name_search = ":cell => \"" +cell;
-    QString fileName = ":/RbFiles/parameters.rb";
-    QFile file1(fileName);
+    QString rbCellPattern = ":cell => \"" + cell;
 
-    if(!file1.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;              // if coudn't open file: stop loading file
+    // TODO: DataSystem::getDefaultParamContent() ?
+    QFile paramTemplateFile(":/RbFiles/parameters.rb");
+    if(!paramTemplateFile.open(QIODevice::ReadOnly | QIODevice::Text)) {return;}
 
-    QString text1="";
-    QTextStream stream(&file1);
-    QList <QString> fileParameters;
-    while(!stream.atEnd()){
-        text1 = stream.readLine();
-        fileParameters << text1.trimmed();
-   }
+    QTextStream stream(&paramTemplateFile);
+    QList <QString> parametersTemplateContentList;
+    while(not stream.atEnd()) {parametersTemplateContentList << stream.readLine().trimmed();}
 
-    tabParams = new QString [8];
-    for( int i=0; i<fileParameters.size(); i++){
-        if(fileParameters[i].contains(name_search)){
-            tabParams[0] = fileParameters[i].trimmed();
-            tabParams[1] = fileParameters[i+1].trimmed();
-            tabParams[2] = fileParameters[i+2].trimmed();
-            tabParams[3] = fileParameters[i+3].trimmed();
-            tabParams[4] = fileParameters[i+4].trimmed();
-            tabParams[5] = fileParameters[i+5].trimmed();
-            tabParams[6] = fileParameters[i+6].trimmed();
-            tabParams[7] = fileParameters[i+7].trimmed();
+    QVector<QString> cellParams(8);
+    for(int i=0; i<parametersTemplateContentList.size(); i++) {
+
+        if(parametersTemplateContentList[i].contains(rbCellPattern)) {
+            cellParams[0] = parametersTemplateContentList[i].trimmed();
+            cellParams[1] = parametersTemplateContentList[i+1].trimmed();
+            cellParams[2] = parametersTemplateContentList[i+2].trimmed();
+            cellParams[3] = parametersTemplateContentList[i+3].trimmed();
+            cellParams[4] = parametersTemplateContentList[i+4].trimmed();
+            cellParams[5] = parametersTemplateContentList[i+5].trimmed();
+            cellParams[6] = parametersTemplateContentList[i+6].trimmed();
+            cellParams[7] = parametersTemplateContentList[i+7].trimmed();
+            break;
         }
     }
 
-    QStringList list;
-    for (int i=0; i<8; i++)
-    {
-        list = tabParams[i].trimmed().split(" ", QString::SkipEmptyParts);
-        if (list.size() > 3){
-            tabParams[i] = list[2];
-            list[3].remove(",");
-            cell_new_name = list[3].remove("\"");
-        }
-        else tabParams[i]= list[2];
-        tabParams[i].remove(QChar('"'));
-        tabParams[i].remove(QChar(','));
+    for (int i=0; i<cellParams.size(); i++) {
+        cellParams[i] = cellParams[i].split(" ", QString::SkipEmptyParts)[2];
+        cellParams[i].remove(QChar('"'));
+        cellParams[i].remove(QChar(','));
     }
-    cell_new_name = "";
-    cell = tabParams[0];
+
+    cell = cellParams[0];
+    site = cellParams[1];
+    pci = cellParams[2].toInt();
+    position_X = cellParams[3].toInt();
+    position_Y = cellParams[4].toInt();
+    earfcnDl = cellParams[5].toInt();
+    transmitPower = cellParams[6].toFloat();
+    ulNoiseAndInterference = cellParams[7].toFloat();
+
     chBox->setText(cell);
-    site = tabParams[1];
-    pci = tabParams[2].toInt();
-    position_X = tabParams[3].toInt();
-    position_Y = tabParams[4].toInt();
-    earfcnDl = tabParams[5].toInt();
-    transmitPower = tabParams[6].toFloat();
-    ulNoiseAndInterference = tabParams[7].toFloat();
 }
 
-bool Cell::wasThereChanges()
-{
-  return false;
+bool Cell::wasThereChanges() {
+    return false;
 }
+
+/**** GETTERS && SETTERS ****/
+
+QString Cell::getCell() {return cell;}
+void Cell::setCell(const QString &c) {cell = cell + " " + c; }
+
+QString Cell::getSite() {return site;}
+void Cell::setSite(const QString &s) {site = s;}
+
+QString Cell::getPci() {return QString::number(pci);}
+void Cell::setPci(const QString &p) {pci = p.toInt();}
+
+QString Cell::getPosition_X() {return QString::number(position_X);}
+void Cell::setPosition_X(const QString &p_x) {position_X = p_x.toInt();}
+
+QString Cell::getPosition_Y() {return QString::number(position_Y);}
+void Cell::setPosition_Y(const QString &p_y) {position_Y = p_y.toInt();}
+
+QString Cell::getEarfcnDl() {return QString::number(earfcnDl);}
+void Cell::setEarfcnDl(const QString &e) {earfcnDl = e.toInt();}
+
+QString Cell::getTransmitPower() {return QString::number(transmitPower);}
+void Cell::setTransmitPower(const QString &t) {transmitPower = t.toFloat();}
+
+QString Cell::getUlNoiseAndInterference() {return QString::number(ulNoiseAndInterference);}
+void Cell::setUlNoiseAndInterference(const QString &u) {ulNoiseAndInterference = u.toFloat();}
+
+QString Cell::getCell_new_name() const { return cell_new_name; }
+void Cell::setCell_new_name(const QString &value) { cell_new_name = value; }
