@@ -56,6 +56,7 @@ signals:
     void updateCurrentProjects_RB_FilesLocation(const QString& location);
     void setDefaultParametersFileContent(const QString &projectName);
     void setDefaultTrafficFileContent(const QString &projectName, const QString &trafficName);
+    void updateFileContent(const QString& projectName, const QString& fileName, const QString& content);
 
 
 public slots:
@@ -94,7 +95,7 @@ private slots:
 
     void previewFile(QListWidgetItem* current);
 
-    void on_projectsList_currentItemChanged(QListWidgetItem *current);
+    void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
 
@@ -115,8 +116,9 @@ private:
     Ui::ParametersWindow *ui;
     HelpDialog viewHelp;
     DataSystem *appSettings;
-
     Project currentProject;
+
+    bool filePreviewChanged;
 };
 
 #endif // PARAMETERSWINDOW_H

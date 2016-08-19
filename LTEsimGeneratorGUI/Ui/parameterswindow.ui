@@ -58,6 +58,12 @@
         </item>
         <item row="0" column="1" rowspan="7">
          <widget class="QTextEdit" name="filePreview">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="cursor" stdset="0">
+           <cursorShape>ArrowCursor</cursorShape>
+          </property>
           <property name="focusPolicy">
            <enum>Qt::StrongFocus</enum>
           </property>
@@ -278,6 +284,7 @@
   </action>
  </widget>
  <resources>
+  <include location="../Resource.qrc"/>
   <include location="../Resource.qrc"/>
  </resources>
  <connections/>

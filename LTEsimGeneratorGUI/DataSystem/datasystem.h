@@ -46,8 +46,9 @@ public slots:
     void checkAndRenameIfFilenameUnique(const QString &filename, const QString& oldFilename, const QString& projectName);
 
     void setDefaultTrafficFileContent(const QString &projectName, const QString &trafficName);
-
     void setDefaultParametersFileContent(const QString &projectName);
+
+    void updateFileContent(const QString& projectName, const QString& fileName, const QString& content);
 
 public:
     QString getProjectName() const;

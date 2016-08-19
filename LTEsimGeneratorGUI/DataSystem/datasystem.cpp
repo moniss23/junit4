@@ -80,6 +80,25 @@ void DataSystem::projectsFileSetup() {
  *
  */
 
+void DataSystem::updateFileContent(const QString &projectName, const QString &fileName, const QString &content) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+    if(project->parametersFile.filename == fileName) {
+        project->parametersFile.content = content;
+    }else {
+        auto trafficFile = project->findTrafficFileByName(fileName);
+        if(trafficFile == nullptr) {
+            emit errorInData("Can't find right file");
+            return;
+        }
+        trafficFile->content = content;
+    }
+    emit currentProjectChanged(*project);
+}
+
 void DataSystem::setDefaultParametersFileContent(const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
@@ -96,11 +115,8 @@ void DataSystem::setDefaultTrafficFileContent(const QString &projectName, const 
         emit errorInData("Can't find right project");
         return;
     }
-    auto trafficFile = std::find_if(project->trafficFilesList.begin(), project->trafficFilesList.end(),
-                                    [&trafficName](const TrafficFileData& trafficFileData)-> bool{
-        return (trafficName == trafficFileData.filename);
-    });
-    if(trafficFile == project->trafficFilesList.end()) {
+    auto trafficFile = project->findTrafficFileByName(trafficName);
+    if(trafficFile == nullptr) {
         emit errorInData("Can't find right traffic file");
         return;
     }

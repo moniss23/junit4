@@ -38,6 +38,7 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
     ui->setupUi(this);
 
     changesPresent=false;
+    filePreviewChanged = false;
 
     this->ui->undoButton->setEnabled(false);
     this->ui->redoButton->setEnabled(false);
@@ -174,7 +175,7 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
 
     // if the file is traffic
     else{
-        for(int i=1; i<=nrOfTrafficFiles; i++){
+        for(int i=1; i<=currentProject.trafficFilesList.size(); i++){
             if(this->ui->projectsList->item(i)->text()==current->text()){
                 this->ui->filePreview->setText(currentProject.trafficFilesList[i-1].content);
                 break;
@@ -187,8 +188,23 @@ void ParametersWindow::refreshPreview(){
     this->previewFile(this->ui->projectsList->currentItem());
 }
 
-void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current)
+void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
 {
+    if(current == previous || previous == nullptr || current == nullptr) {
+        if(current != nullptr) {
+            this->previewFile(current);
+        }
+        return;
+    }
+    if(filePreviewChanged) {
+        if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File " +
+                                    previous->text() + " has been changed. Do you want to save it?\n",
+                                    QMessageBox::Yes|QMessageBox::No).exec()){
+            emit updateFileContent(currentProject.name, previous->text(), this->ui->filePreview->toPlainText());
+            emit saveProjects();
+        }
+    }
+    filePreviewChanged = false;
     this->previewFile(current);
 }
 
@@ -245,19 +261,14 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
     }
 }
 
+//Currently not is use but prepared for later.
 void ParametersWindow::on_filePreview_textChanged()
 {
-
-    // detect whether previewing of file is in progress
-    if(closingInProgress || !this->ui->filePreview->hasFocus()){
-        return;
+    if(this->ui->filePreview->hasFocus()){
+        filePreviewChanged=true;
+        this->ui->resetDefaultsButton->setEnabled(true);
     }
-    changesPresent=true;
-    // if it's a param file
-    if(this->ui->projectsList->currentRow()==0){
-            paramFileModified=true;
-            this->ui->resetDefaultsButton->setEnabled(true);
-    }
+    return;
 }
 
 // "generate file" button is clicked
