@@ -1,12 +1,12 @@
-#ifndef TUNINGTRAFFIC_H
-#define TUNINGTRAFFIC_H
+#ifndef TuningTrafficData_H
+#define TuningTrafficData_H
 #include <QString>
 #include <QComboBox>
-class Tuningtraffic
+class TuningTrafficData
 {
 public:
-    Tuningtraffic();
-    ~Tuningtraffic();
+    TuningTrafficData();
+    ~TuningTrafficData();
 
     //Public structs representing CS/PS/Area parameters
     struct CSParameters
@@ -109,4 +109,4 @@ private:
     QComboBox *combo;
 };
 
-#endif // TUNINGTRAFFIC_H
+#endif // TuningTrafficData_H

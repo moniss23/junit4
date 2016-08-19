@@ -89,6 +89,7 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
     appSettings(appSettings)
 {
         ui->setupUi(this);
+
         tuningtraffic = new Tuningtraffic();
         timetraffic = new TimeData();
         QString mapIndex("");

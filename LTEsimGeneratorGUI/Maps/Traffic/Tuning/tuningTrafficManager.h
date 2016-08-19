@@ -1,23 +1,23 @@
-#ifndef TUNINGTRAFFICFORM_H
-#define TUNINGTRAFFICFORM_H
+#ifndef TUNINGTRAFFICMANAGER_H
+#define TUNINGTRAFFICMANAGER_H
 
 #include <QWidget>
-#include "tuningtraffic.h"
+#include "tuningTrafficData.h"
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
 
 namespace Ui {
 class TuningTrafficForm;
 }
 
-class TuningTrafficForm : public QWidget
+class TuningTrafficManager : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit TuningTrafficForm(QWidget *parent = 0);
-    ~TuningTrafficForm();
+    explicit TuningTrafficManager(QWidget *parent = 0);
+    ~TuningTrafficManager();
     void setParameters();
-    void readTemporaryParameters(Tuningtraffic* tuningtraffic);
+    void readTemporaryParameters(TuningTrafficData* tuningTrafficData);
     void clearCSCombobox();
     void clearPSCombobox();
     void clearAreaCombobox();
@@ -25,11 +25,11 @@ public:
     void setCSCombobox();
     void setPSCombobox();
     void setAreaCombobox();
-    void initialize(Tuningtraffic* tuningtraffic);
-    void pushModel(Tuningtraffic* tuningtraffic);
-    void popCSModel(Tuningtraffic* tuningtraffic);
-    void popPSModel(Tuningtraffic* tuningtraffic);
-    void popArea(Tuningtraffic* tuningtraffic);
+    void initialize(TuningTrafficData* tuningTrafficData);
+    void pushModel(TuningTrafficData* tuningTrafficData);
+    void popCSModel(TuningTrafficData* tuningTrafficData);
+    void popPSModel(TuningTrafficData* tuningTrafficData);
+    void popArea(TuningTrafficData *tuningTrafficData);
     int get_csComboboxCount();
     int get_psComboboxCount();
     bool isinCsCombobox(QString value);
@@ -50,11 +50,11 @@ private slots:
 
 private:
     Ui::TuningTrafficForm *ui;
-    Tuningtraffic *tuningtraffic;
+    TuningTrafficData *tuningTrafficData;
     //Vectors for overall saved model parameters
-    QVector<Tuningtraffic::CSParameters* > CSSaveParameters;
-    QVector<Tuningtraffic::PSParameters* > PSSaveParameters;
-    QVector<Tuningtraffic::Areas* > areaSaveParameters;
+    QVector<TuningTrafficData::CSParameters* > CSSaveParameters;
+    QVector<TuningTrafficData::PSParameters* > PSSaveParameters;
+    QVector<TuningTrafficData::Areas* > areaSaveParameters;
 
     bool saveClicked;
     bool cancelClicked;
@@ -68,10 +68,10 @@ private:
 
     void SaveAll();
     void setParametersValidation();
-    void copyCSParams(const QVector<Tuningtraffic::CSParameters*>& value);
-    void copyPSParams(const QVector<Tuningtraffic::PSParameters*>& value);
-    void copyAreaParams(const QVector<Tuningtraffic::Areas*>& value);
+    void copyCSParams(const QVector<TuningTrafficData::CSParameters*>& value);
+    void copyPSParams(const QVector<TuningTrafficData::PSParameters*>& value);
+    void copyAreaParams(const QVector<TuningTrafficData::Areas*>& value);
     QString saveToString();
 };
 
-#endif // TUNINGTRAFFICFORM_H
+#endif // TUNINGTRAFFICMANAGER_H

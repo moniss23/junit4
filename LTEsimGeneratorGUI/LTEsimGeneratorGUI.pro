@@ -48,8 +48,6 @@ SOURCES += main.cpp\
     Maps/Traffic/CustomModel/addsyncedpingform.cpp \
     Maps/Traffic/CustomModel/addvoip.cpp \
     Maps/Traffic/CustomModel/addvoipform.cpp \
-    Maps/Traffic/Tuning/tuningtraffic.cpp \
-    Maps/Traffic/Tuning/tuningtrafficform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
     Maps/Traffic/UeParameters/UE_param_form.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
@@ -91,7 +89,9 @@ SOURCES += main.cpp\
     Data/parametersfiledata.cpp \
     Data/trafficfiledata.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
-    Maps/Parameters/parametersfilemanagement.cpp
+    Maps/Parameters/parametersfilemanagement.cpp \
+    Maps/Traffic/Tuning/tuningTrafficManager.cpp \
+    Maps/Traffic/Tuning/tuningTrafficData.cpp
 
 
 HEADERS  += \
@@ -128,8 +128,6 @@ HEADERS  += \
     Maps/Traffic/CustomModel/addsyncedpingform.h \
     Maps/Traffic/CustomModel/addvoip.h \
     Maps/Traffic/CustomModel/addvoipform.h \
-    Maps/Traffic/Tuning/tuningtraffic.h \
-    Maps/Traffic/Tuning/tuningtrafficform.h \
     Maps/Traffic/UeParameters/ue.h \
     Maps/Traffic/UeParameters/UE_param_form.h \
     Maps/Traffic/MapComponents/draguelabel.h \
@@ -176,7 +174,9 @@ HEADERS  += \
     Data/parametersfiledata.h \
     Data/trafficfiledata.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
-    Maps/Parameters/parametersfilemanagement.h
+    Maps/Parameters/parametersfilemanagement.h \
+    Maps/Traffic/Tuning/tuningTrafficData.h \
+    Maps/Traffic/Tuning/tuningTrafficManager.h
 
 
 

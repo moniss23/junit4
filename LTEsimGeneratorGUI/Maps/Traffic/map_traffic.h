@@ -13,7 +13,7 @@
 #include <Data/cell.h>
 #include <Data/center.h>
 #include <Maps/Traffic/Statistics/statisticsManager.h>
-#include <Maps/Traffic/Tuning/tuningtrafficform.h>
+#include <Maps/Traffic/Tuning/tuningTrafficManager.h>
 #include <Maps/Traffic/MapComponents/draguelabel.h>
 #include <Maps/Traffic/Time/timeData.h>
 #include <Maps/Traffic/Time/timeManager.h>
@@ -143,11 +143,11 @@ private:
     void getIndex();
 
     my_qlabel* my_label_array[10];
-    Tuningtraffic *tuningtraffic;
+    TuningTrafficData *tuningtraffic;
     TimeData* timetraffic;
     StatisticsData *statistics;
     StatisticsManager viewStatistics;
-    TuningTrafficForm viewTuningtraffic;
+    TuningTrafficManager viewTuningtraffic;
     TimeManager viewTimeTraffic;
 
     QComboBox* combo_box;
