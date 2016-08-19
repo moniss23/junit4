@@ -17,7 +17,8 @@ UISystem::~UISystem(){
 void UISystem::bindingObjects()
 {
     // Open project
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),&paramWindow,SLOT(loadProjectAndOpen(QString)));
+    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_OpenProject(Project)),&paramWindow,SLOT(loadProjectAndOpen(Project)));
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(setProjectName(QString)));//TODO: this is global leftover, get rid of
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
@@ -66,6 +67,18 @@ void UISystem::bindingObjects()
 
     //Error window
     QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
+}
+
+void UISystem::spawnWindow_OpenProject(const QString& projectName) {
+    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
+                                                                        (const Project& project)->bool {
+        return (project.name == projectName);
+    });
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnWindow_OpenProject(*project);
 }
 
 void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {

@@ -47,34 +47,15 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
 
 }
 
-void ParametersWindow::loadProjectAndOpen(const QString &projectName){
+void ParametersWindow::loadProjectAndOpen(const Project &project){
 
-    QVector<Project> &vec = appSettings->projects;
-    auto it = std::find_if(vec.begin(), vec.end(), [&projectName](const Project& project)-> bool {
-        return (project.name == projectName);
-    });
+    refreshUI(project);
 
-    if(it==vec.end()) {return;}
-    Project &givenProject = *it;
-    this->currentProject = givenProject;
+    //-----------REFACTOR IN PROGRESS------------
+    parametersFileContent = project.parametersFile.content;
+    parametersFileContent += "\n";
 
-    this->setWindowTitle(projectName);
-    this->ui->radioButton_normalMap->setChecked(true);
-
-   //-----------REFACTOR IN PROGRESS------------
-   ui->projectsList->addItem(givenProject.parametersFile.filename);
-   parametersFileContent = givenProject.parametersFile.content;
-   parametersFileContent += "\n";
-
-   for(auto &&traffic : givenProject.trafficFilesList) {
-       this->ui->projectsList->addItem(traffic.filename);
-   }
-   //-----------REFACTOR IN PROGRESS------------
-
-   parametersFileContentList = parametersFileContent.split('\n');
-
-    this->ui->projectsList->item(0)->setSelected(true);
-    this->ui->projectsList->setCurrentRow(0);
+    parametersFileContentList = parametersFileContent.split('\n');
 
     show();
 }

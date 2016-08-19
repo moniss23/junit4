@@ -31,13 +31,6 @@ public:
 
     void closeEvent(QCloseEvent *event);
 
-/********* DELETED **************/
-
-    //void saveProject(bool);//TODO: Check - remove or move to private
-
-/********* DELETED **************/
-
-
     /***********************************************
      *  WINDOW PUBLIC API
      ***********************************************/
@@ -50,13 +43,14 @@ signals:
     void SpawnWindow_RemoveFile(const QString& filename);
     /**
      * @brief AddFile_Traffic signal used to nofity system to add new traffic file
-     * @param ProjectName name of project to add a new file
+     * @param projectName name of project to add a new file
+     * @param fileName name of traffic file to add
      */
-    void AddFile_Traffic(const QString &ProjectName, const QString &fileName);
+    void AddFile_Traffic(const QString &projectName, const QString &fileName);
     void GenerateFile();
     void SaveFile();
     void checkAndRenameIfFilenameUnique(const QString& newFilename, const QString& oldFilename, const QString& projectName);
-    void removeFile_TrafficFile(const QString& ProjectName, const QString& FileName);
+    void removeFile_TrafficFile(const QString& projectName, const QString& fileName);
     void saveProjects();
 
     void updateCurrentProjects_RB_FilesLocation(const QString& location);
@@ -65,11 +59,10 @@ signals:
 
 
 public slots:
-    void loadProjectAndOpen(const QString &projectName);
+    void loadProjectAndOpen(const Project &project);
 
     /**
-     * @brief updateFilesList is used when window needs to refresh state
-     *
+     * @brief refreshUI is used when window needs to refresh state
      * @param project project that changed
      */
     void refreshUI(const Project& project);//To refresh view when anyting changes

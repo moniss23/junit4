@@ -23,9 +23,11 @@ public:
 public slots:
     void initialiseSettingsWindowSpawn(const QString& projectName = QString());
     void showErrorWindow(const QString& errorDescription);
+    void spawnWindow_OpenProject(const QString& projectName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& currentProject = Project());
+    void spawnWindow_OpenProject(const Project& project);
 
 private:
     DataSystem* dataSystem;
