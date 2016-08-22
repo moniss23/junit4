@@ -1,22 +1,23 @@
 #ifndef MAP_TRAFFIC_H
 #define MAP_TRAFFIC_H
 
-#include <QMainWindow>
+#include "Data/datasystem.h"
+#include "Data/Objects/cell.h"
+#include "Maps/Parameters/MapRange/maprange.h"
+#include "Maps/Traffic/CustomModel/customModel.h"
+#include "Maps/Traffic/MapComponents/draguelabel.h"
+#include "Maps/Traffic/Statistics/statisticsManager.h"
+#include "Maps/Traffic/Tuning/tuningTrafficManager.h"
+#include "Maps/Traffic/Time/timeManager.h"
+#include "Maps/Traffic/UeParameters/UE_param_form.h"
+
+#include <my_qlabel.h>
 #include <QComboBox>
 #include <QHash>
-#include <QtWidgets>
-#include <Maps/Traffic/UeParameters/UE_param_form.h>
-#include <Maps/Traffic/CustomModel/customModel.h>
-#include <Maps/Parameters/MapRange/maprange.h>
 #include <QList>
-#include <Data/Objects/cell.h>
-#include <Data/Objects/center.h>
-#include <Maps/Traffic/Statistics/statisticsManager.h>
-#include <Maps/Traffic/Tuning/tuningTrafficManager.h>
-#include <Maps/Traffic/MapComponents/draguelabel.h>
-#include <Maps/Traffic/Time/timeData.h>
-#include <Maps/Traffic/Time/timeManager.h>
-#include <my_qlabel.h>
+#include <QMainWindow>
+#include <QObject>
+#include <QtWidgets>
 
 class Custommodels;
 class customModel;

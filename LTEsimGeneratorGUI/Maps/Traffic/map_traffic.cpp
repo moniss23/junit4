@@ -91,8 +91,7 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
 
         tuningtraffic = new TuningTrafficData();
         timetraffic = new TimeData();
-        QString mapIndex("");
-        statistics = new StatisticsData(mapIndex,appSettings);
+        statistics = new StatisticsData();
         createCell();
 
         this->counter_UE=1;
@@ -5264,7 +5263,8 @@ void Map_traffic::parseListToAddPingEtcCM2(){
 void Map_traffic::on_bt_statistics_clicked()
 {
     viewStatistics.close();
-    viewStatistics.setParameters(statistics, appSettings);
+    viewStatistics.showStatisticsWindow(*(this->statistics));
+    //viewStatistics.setParameters(statistics, appSettings);
     viewStatistics.show();
 }
 

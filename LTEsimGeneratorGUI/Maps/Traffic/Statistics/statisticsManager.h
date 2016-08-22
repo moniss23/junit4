@@ -2,6 +2,7 @@
 #define STATISTICSFORM_H
 
 #include <QWidget>
+#include<QCheckBox>
 #include <Maps/Traffic/Statistics/statisticsData.h>
 namespace Ui {
 class StatisticsForm;
@@ -15,19 +16,20 @@ public:
     explicit StatisticsManager(QWidget *parent = 0);
     ~StatisticsManager();
 
-    void setCheckBoxActive(bool check);
-    bool getCheckBoxActive();
-    void setParameters(StatisticsData* statistics, DataSystem* appSettings);
+signals:
+    void restoreDefaultValues();
+    void updateStatisticsData(const StatisticsData& statisticsData);
+
+public slots:
+    void showStatisticsWindow(const StatisticsData& statisticsData);
 
 private slots:
     void on_restoreButton_clicked();
-
     void on_saveButton_clicked();
 
 private:
     Ui::StatisticsForm *ui;
-    StatisticsData* statisticsPtr;
-    StatisticsData* localStatistics;
+    StatisticsData localStats;
     QVector<QCheckBox*>* checkBoxes;
     bool isUiSetUp;
     bool wereChangesMade;

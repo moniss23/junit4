@@ -22,6 +22,7 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 SOURCES += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.cpp \
+#    ../LTEsimGeneratorGUI/Maps/Traffic/map_traffic.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.cpp \
     ../LTEsimGeneratorGUI/Data/datasystem.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
@@ -43,6 +44,7 @@ SOURCES += \
 
 HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
+#    ../LTEsimGeneratorGUI/Maps/Traffic/map_traffic.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.h \
     ../LTEsimGeneratorGUI/Data/datasystem.h \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
@@ -65,6 +67,7 @@ HEADERS  += \
 
 FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/helpdialog.ui \
+#    ../LTEsimGeneratorGUI/Ui/map_traffic.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/projectmanagement.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/addProjectWindow.ui \
     ../LTEsimGeneratorGUI/Ui/uctoolform.ui \

@@ -1,120 +1,58 @@
 #include "statisticsData.h"
 
-StatisticsData::StatisticsData(QString &mapIndex, DataSystem *appSettings) : appSettings(appSettings)
-{
-    mapIndexCurrent = mapIndex;
-    enumStatString << "listStatInfoForEachUE" << "resetAllStatCount" << "listStatOnNAS" << "listStatOnRRC" << "listMobStatPerModelAndArea" << "listThrStatPerAreaAndModel" << "listThrStatPerUeAndModel" << "listMobStatPerUE" << "listPsStatPerModel" << "listPsStatPerUE" << "listCsStatPerModel" << "listCsStatPerUE" << "ipgwtgProtStat" << "ipgwtgTguStat" << "ipgwtgContStat" << "pdcp_uProtStat" << "pdcp_uRohcProtStat" << "pdcp_uGenBearerInfo" << "pdcp_uBearerRohcInfo" << "pdcp_uBearerErrStat" << "pdcp_uContStat";
-    QString beginningOfStatSector = "<ST>";
-    projectReaderWriter = new ProjectReaderWriter(appSettings);
-    QDomDocument statisticsDocument = projectReaderWriter->readDataFromXml(beginningOfStatSector,endofStatSector);
-
-    if(statisticsDocument.isNull() == 0)
-    {
-        serializeFromProjectFileNew(statisticsDocument);
+StatisticsData::StatisticsData() {
+    this->statisticsMap.clear();
+    for (auto name: StatisticsData::namesList) {
+        auto tuple = std::make_tuple (name,false);
+        this->statisticsMap.append(tuple);
     }
-    else
-    {
-        for (int i = 0; i <= static_cast<int>( Stats_settings::pdcp_uContStat ); i++)
-        {
-            Stats_settings keyStat = static_cast<Stats_settings>( i );
-            statMap.insert(keyStat, false);
-        }
+}
+
+StatisticsData::StatisticsData(StatisticsData& statisticsData){
+    this->statisticsMap.clear();
+    for (auto name: StatisticsData::namesList) {
+        auto tuple = std::make_tuple (name,statisticsData.getStatMapFor(name));
+        this->statisticsMap.append(tuple);
     }
 }
 
 StatisticsData& StatisticsData::operator =(const StatisticsData& rhc) {
-    statMap = rhc.statMap;
+    statisticsMap = rhc.statisticsMap;
     return *this;
 }
 
-QString StatisticsData::getMapIndex() {
-    return mapIndexCurrent;
+bool StatisticsData::getStatMapFor(QString key) {
+    auto value = this->statisticsMap.at(StatisticsData::namesList.indexOf(QRegExp(key)));
+    return std::get<1>(value);
 }
 
-bool StatisticsData::getStatMap(enum Stats_settings &key)
-{
-    value = statMap.value(key);
-    return value;
+void StatisticsData::setStatMapFor(QString key, bool value) {
+    auto tuple = std::make_tuple (key,value);
+    this->statisticsMap.replace(StatisticsData::namesList.indexOf(QRegExp(key)),tuple);
 }
 
-void StatisticsData::setStatMap(enum Stats_settings &key, bool &value)
-{
-    statMap[key] = value;
+QString StatisticsData::getElementType() const {
+    return QString("SettingsData");
 }
 
-void StatisticsData::setStatMap(enum Stats_settings& key) {
-    statMap[key] = not statMap[key];
-}
-
-void StatisticsData::serializeToProjectFile()
-{
-    QDomElement rootElement = xmlStatisticsPart.createElement("statistics");
-    xmlStatisticsPart.appendChild(rootElement);
-    for(int i = 0; i < statMap.size(); i++)
-    {
-        QString keyMap = getStringFromEnum(i);
-        QDomElement statisticsElement = xmlStatisticsPart.createElement(keyMap);
-        rootElement.appendChild(statisticsElement);
-        QDomText statisticsElementXmlText = xmlStatisticsPart.createTextNode(boolToString(statMap[getEnumFromString(keyMap)]) );
-        statisticsElement.appendChild(statisticsElementXmlText);
-    }
-}
-
-void StatisticsData::serializeFromProjectFileOld(QByteArray rawData)
-{
-    (void) rawData;
-}
-
-void StatisticsData::serializeFromProjectFileNew(QDomDocument xmlDocument)
-{
-    xmlStatisticsPart = xmlDocument;
-    QDomElement rootElement = xmlStatisticsPart.firstChildElement();
-    QDomNodeList statistics = rootElement.childNodes();
-    for(int i = 0; i < statistics.size(); i++)
-    {
-        QDomElement statisticsElements = statistics.at(i).toElement();
-        QString keyString = enumStatString.at(i);
-        Stats_settings key = getEnumFromString(keyString);
-        QString valuestring = statisticsElements.text();
-        bool value = stringToBool(valuestring);
-        setStatMap(key, value);
-    }
-}
-
-void StatisticsData::setProjectReaderWriter(ProjectReaderWriter *value)
-{
-    projectReaderWriter = value;
-}
-
-// Additional methods for enum, string and bool variable
-//method converts enum to string
-QString StatisticsData::getStringFromEnum(int &enumVal)
-{
-    return enumStatString.at(enumVal);
-}
-//method converts string to enum
-Stats_settings StatisticsData::getEnumFromString(QString &stringVal)
-{
-    return static_cast<Stats_settings>( enumStatString.indexOf(stringVal) );
-}
-//method converts string to bool
-bool StatisticsData::stringToBool(QString &valString)
-{
-    if(valString == "true")
-        return true;
-    else
-        return false;
-}
-//method converts bool to string
-QString StatisticsData::boolToString(bool &valBool)
-{
-    if(valBool == true)
-        return "true";
-    else
-        return "false";
-}
-
-QString StatisticsData::getElementType() const
-{
-    return QString();
-}
+const QStringList StatisticsData::namesList = {"Listing Static Information for Each UE",
+                               "Resetting All Statistics Counters",
+                               "Listing Statistics on NAS",
+                               "Listing Statistics on RRC",
+                               "Listing Mobility Statistics per Model and Area",
+                               "Listing Throughput Statistics per Area and Model",
+                               "Listing Throughput Statistics per UE and Model",
+                               "Listing Mobility Statistics per UE",
+                               "Listing PS Statistics per Model",
+                               "Listing PS Statistics per UE",
+                               "Listing CS Statistics per Model",
+                               "Listing CS Statistics per UE",
+                               "Protocol Statistics",
+                               "TGU Statistics",
+                               "Countinuous Statistics",
+                               "Protocol Statistics",
+                               "ROHC Protocol Statistics",
+                               "General Bearer information",
+                               "Bearer ROHC information",
+                               "Bearer Error Statistics",
+                               "Continuous Statistics"};

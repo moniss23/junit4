@@ -19,53 +19,27 @@ StatisticsManager::~StatisticsManager() {
     delete ui;
 }
 
-void StatisticsManager::setParameters(StatisticsData *statistics, DataSystem* appsettings) {
-    this->statisticsPtr = statistics;
+void StatisticsManager::showStatisticsWindow(const StatisticsData &statisticsData)
+{
+    localStats = statisticsData;
 
-    QString mapIndex = statistics->getMapIndex();
-    localStatistics = new StatisticsData(mapIndex, appsettings);
-
-    //Check boxes in a vector.
     if(this->checkBoxes->empty()) {
-        for(int i=0;i<=20;i++) {
-        QCheckBox* checkBox = new QCheckBox();
-        checkBox->setObjectName(statisticsPtr->getStringFromEnum(i));
-        Stats_settings setting = static_cast<Stats_settings>(i);
-        checkBox->setChecked(statisticsPtr->getStatMap(setting));
-        connect(checkBox,&QCheckBox::clicked,[=]() {
-            QString* name = new QString(checkBox->objectName());
-            Stats_settings* setting = new Stats_settings(statisticsPtr->getEnumFromString(*name));
-            localStatistics->setStatMap(*setting);
-            wereChangesMade = true;
-        });
-        checkBoxes->push_back(checkBox);
+        for(auto name: statisticsData.namesList) {
+            QCheckBox* checkBox = new QCheckBox();
+            checkBox->setObjectName(name);
+            checkBox->setText(name);
+            checkBox->setChecked(localStats.getStatMapFor(name));
+            connect(checkBox,&QCheckBox::clicked,[=]() {
+                localStats.setStatMapFor(checkBox->objectName());
+                this->wereChangesMade = true;
+            });
+            checkBoxes->push_back(checkBox);
         }
-        checkBoxes->at(0)->setText("Listing Static Information for Each UE");
-        checkBoxes->at(1)->setText("Resetting All Statistics Counters");
-        checkBoxes->at(2)->setText("Listing Statistics on NAS");
-        checkBoxes->at(3)->setText("Listing Statistics on RRC");
-        checkBoxes->at(4)->setText("Listing Mobility Statistics per Model and Area");
-        checkBoxes->at(5)->setText("Listing Throughput Statistics per Area and Model");
-        checkBoxes->at(6)->setText("Listing Throughput Statistics per UE and Model");
-        checkBoxes->at(7)->setText("Listing Mobility Statistics per UE");
-        checkBoxes->at(8)->setText("Listing PS Statistics per Model");
-        checkBoxes->at(9)->setText("Listing PS Statistics per UE");
-        checkBoxes->at(10)->setText("Listing CS Statistics per Model");
-        checkBoxes->at(11)->setText("Listing CS Statistics per UE");
-        checkBoxes->at(12)->setText("Protocol Statistics");
-        checkBoxes->at(13)->setText("TGU Statistics");
-        checkBoxes->at(14)->setText("Countinuous Statistics");
-        checkBoxes->at(15)->setText("Protocol Statistics");
-        checkBoxes->at(16)->setText("ROHC Protocol Statistics");
-        checkBoxes->at(17)->setText("General Bearer information");
-        checkBoxes->at(18)->setText("Bearer ROHC information");
-        checkBoxes->at(19)->setText("Bearer Error Statistics");
-        checkBoxes->at(20)->setText("Continuous Statistics");
     }
 
-    int iter=0;
-
     if(!isUiSetUp) {
+        int iter=0;
+
         QWidget* generalSettingsTab = new QWidget();
         QWidget* IPGWTGSettingsTab = new QWidget();
         QWidget* PDCP_USettingsTab = new QWidget();
@@ -101,9 +75,7 @@ void StatisticsManager::setParameters(StatisticsData *statistics, DataSystem* ap
         this->isUiSetUp = true;
     }else {
         for(auto checkBox : *checkBoxes) {
-            Stats_settings setting = static_cast<Stats_settings>(iter);
-            checkBox->setChecked(statistics->getStatMap(setting));
-            iter++;
+            checkBox->setChecked(localStats.getStatMapFor(checkBox->objectName()));
         }
     }
     ui->statisticsTabs->setCurrentIndex(0);
@@ -111,9 +83,9 @@ void StatisticsManager::setParameters(StatisticsData *statistics, DataSystem* ap
 
 void StatisticsManager::on_saveButton_clicked()
 {
-    if(wereChangesMade) {
-        *statisticsPtr = *localStatistics;
-        wereChangesMade = false;
+    if(this->wereChangesMade) {
+        emit updateStatisticsData(localStats); // {TrafficWindow.TrafficFile.StatisticsData = localStats;}
+        this->wereChangesMade = false;
     }else {
         QMessageBox(QMessageBox::Warning,"Cannot save.","No changes were made.",QMessageBox::Ok);
     }
@@ -121,13 +93,8 @@ void StatisticsManager::on_saveButton_clicked()
 
 void StatisticsManager::on_restoreButton_clicked()
 {
-    int iter = 0;
+    emit restoreDefaultValues(); //{localStats = TraficWindow.TrafficFileData.StatisticsData;}
     for(auto checkBox : *checkBoxes) {
-        Stats_settings setting = static_cast<Stats_settings>(iter);
-        bool defaultValue = false;
-        localStatistics->setStatMap(setting, defaultValue);
-        checkBox->setChecked(false);
-        iter++;
+        checkBox->setChecked(localStats.getStatMapFor(checkBox->objectName()));
     }
-    *statisticsPtr = *localStatistics;
 }
