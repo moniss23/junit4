@@ -28,7 +28,6 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    changesPresent=false;
     filePreviewChanged = false;
 
     this->ui->undoButton->setEnabled(false);
@@ -228,7 +227,6 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
     if(this->ui->projectsList->currentRow()==0){
         if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
             emit setDefaultParametersFileContent(currentProject.name);
-            paramFileModified=false;
             this->ui->resetDefaultsButton->setEnabled(false);
         }
     }
