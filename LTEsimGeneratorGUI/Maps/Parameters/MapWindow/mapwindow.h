@@ -1,13 +1,15 @@
 #ifndef MAPWINDOW_H
 #define MAPWINDOW_H
 
-#include <QMainWindow>
 #include <QList>
+#include <QVector>
 #include <QMessageBox>
+#include <QMainWindow>
 
 #include <Data/cell.h>
 #include <Data/center.h>
 #include <Data/handover.h>
+#include <Data/project.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
@@ -22,8 +24,6 @@
 #include <Maps/Parameters/SimulatedUe/ipexform.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <Maps/Parameters/MapRange/maprangeform.h>
-
-#include "Data/project.h"
 
 namespace Ui {
 class MapWindow;
@@ -46,9 +46,9 @@ public:
     Ipgwtg *ipex;
     MapRange *mapRange;
 
-    Cell** tabCell;
-    Center** tabCenter;
-    Handover** tabHandover;
+    QVector<Cell*> tabCell;
+    QVector<Center*> tabCenter;
+    QVector<Handover*> tabHandover;
 
     void changeMapRange_x_northBoundMap();
     void changeMapRange_y_northBoundMap();

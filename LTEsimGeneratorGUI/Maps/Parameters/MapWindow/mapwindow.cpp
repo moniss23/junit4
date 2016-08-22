@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QString>
 #include <QCloseEvent>
 
@@ -86,7 +87,7 @@ MapWindow::MapWindow(QWidget *parent) :
     changeMapRange_x_northBoundMap();
 }
 void MapWindow::createHandover() {
-    tabHandover = new Handover*[21];
+    tabHandover.resize(21);
     tabHandover[0] = new Handover ("Handover11_12");
     tabHandover[1] = new Handover ("Handover11_21");
     tabHandover[2] = new Handover ("Handover12_21");
@@ -110,108 +111,39 @@ void MapWindow::createHandover() {
     tabHandover[20] = new Handover ("Handover61_62");
 }
 
+// Center11, Center12, Center21...
 void MapWindow::createCenter() {
-    tabCenter = new Center*[12];
-    tabCenter[0] = new Center ("Center11");
-    tabCenter[1] = new Center ("Center12");
-    tabCenter[2] = new Center ("Center21");
-    tabCenter[3] = new Center ("Center22");
-    tabCenter[4] = new Center ("Center31");
-    tabCenter[5] = new Center ("Center32");
-    tabCenter[6] = new Center ("Center41");
-    tabCenter[7] = new Center ("Center42");
-    tabCenter[8] = new Center ("Center51");
-    tabCenter[9] = new Center ("Center52");
-    tabCenter[10] = new Center ("Center61");
-    tabCenter[11] = new Center ("Center62");
+
+    tabCenter.resize(12);
+    for(int i=0; i<12; ++i) {
+        tabCenter[i] = new Center("Center"+QString::number(i/2 + 1)+QString::number(i%2 + 1));
+    }
 }
 
-void MapWindow::createCell(){
-    tabCell = new Cell *[12]; // TODO: QVector, optimized algorithm, in next commit
+// cell11, cell12, cell21...
+void MapWindow::createCell() {
 
-    tabCell[0] = new Cell ("cell11");
+    tabCell.resize(12);
+    for(int i=0; i<12; ++i) {
+        tabCell[i] = new Cell("cell"+QString::number(i/2+1) + QString::number(i%2+1));
+        tabCell[i]->center = tabCenter[i];
+        if(not tabCell[i]->getCell_new_name().isEmpty()) {
+            tabCell[i]->chBox->setText(tabCell[i]->getCell_new_name());
+        }
+    }
+
     tabCell[0]->chBox = ui->checkBoxCell11;
-    tabCell[0]->center = tabCenter[0];
-    if(!tabCell[0]->getCell_new_name().isEmpty()) {
-        tabCell[0]->chBox->setText(tabCell[0]->getCell_new_name());
-    }
-
-    tabCell[1] = new Cell ("cell12");
     tabCell[1]->chBox = ui->checkBoxCell12;
-    tabCell[1]->center = tabCenter[1];
-    if(!tabCell[1]->getCell_new_name().isEmpty()) {
-        tabCell[1]->chBox->setText(tabCell[1]->getCell_new_name());
-    }
-
-    tabCell[2] = new Cell ("cell21");
     tabCell[2]->chBox = ui->checkBoxCell21;
-    tabCell[2]->center = tabCenter[2];
-    if(!tabCell[2]->getCell_new_name().isEmpty()) {
-        tabCell[2]->chBox->setText(tabCell[2]->getCell_new_name());
-    }
-
-    tabCell[3] = new Cell ("cell22");
     tabCell[3]->chBox = ui->checkBoxCell22;
-    tabCell[3]->center = tabCenter[3];
-    if(!tabCell[3]->getCell_new_name().isEmpty()) {
-        tabCell[3]->chBox->setText(tabCell[3]->getCell_new_name());
-    }
-
-    tabCell[4] = new Cell ("cell31");
     tabCell[4]->chBox = ui->checkBoxCell31;
-    tabCell[4]->center = tabCenter[4];
-    if(!tabCell[4]->getCell_new_name().isEmpty()) {
-        tabCell[4]->chBox->setText(tabCell[4]->getCell_new_name());
-    }
-
-    tabCell[5] = new Cell ("cell32");
     tabCell[5]->chBox = ui->checkBoxCell32;
-    tabCell[5]->center = tabCenter[5];
-    if(!tabCell[5]->getCell_new_name().isEmpty()) {
-        tabCell[5]->chBox->setText(tabCell[5]->getCell_new_name());
-    }
-
-    tabCell[6] = new Cell ("cell41");
     tabCell[6]->chBox = ui->checkBoxCell41;
-    tabCell[6]->center = tabCenter[6];
-    if(!tabCell[6]->getCell_new_name().isEmpty()) {
-        tabCell[6]->chBox->setText(tabCell[6]->getCell_new_name());
-    }
-
-    tabCell[7] = new Cell ("cell42");
     tabCell[7]->chBox = ui->checkBoxCell42;
-    tabCell[7]->center = tabCenter[7];
-    if(!tabCell[7]->getCell_new_name().isEmpty()) {
-        tabCell[7]->chBox->setText(tabCell[7]->getCell_new_name());
-    }
-
-    tabCell[8] = new Cell ("cell51");
     tabCell[8]->chBox = ui->checkBoxCell51;
-    tabCell[8]->center = tabCenter[8];
-    if(!tabCell[8]->getCell_new_name().isEmpty()) {
-        tabCell[8]->chBox->setText(tabCell[8]->getCell_new_name());
-    }
-
-    tabCell[9] = new Cell ("cell52");
     tabCell[9]->chBox = ui->checkBoxCell52;
-    tabCell[9]->center = tabCenter[9];
-    if(!tabCell[9]->getCell_new_name().isEmpty()) {
-        tabCell[9]->chBox->setText(tabCell[9]->getCell_new_name());
-    }
-
-    tabCell[10] = new Cell ("cell61");
     tabCell[10]->chBox = ui->checkBoxCell61;
-    tabCell[10]->center = tabCenter[10];
-    if(!tabCell[10]->getCell_new_name().isEmpty()) {
-        tabCell[10]->chBox->setText(tabCell[10]->getCell_new_name());
-    }
-
-    tabCell[11] = new Cell ("cell62");
     tabCell[11]->chBox = ui->checkBoxCell62;
-    tabCell[11]->center = tabCenter[11];
-    if(!tabCell[11]->getCell_new_name().isEmpty()) {
-        tabCell[11]->chBox->setText(tabCell[11]->getCell_new_name());
-    }
 }
 
 void MapWindow::createCoreNetwork()
