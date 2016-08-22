@@ -2,16 +2,9 @@
 #define PARAMETERSWINDOW_H
 
 #include <QMainWindow>
-#include <QWidget>
-#include <QFileDialog>
 #include <QString>
-#include <QVBoxLayout>
-#include <QVector>
 
 #include "ManagementWindow/Helpdialog/helpdialog.h"
-#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
-#include <QCloseEvent>
-#include <QListWidgetItem>
 #include "DataSystem/datasystem.h"
 #include "Data/project.h"
 
@@ -26,8 +19,6 @@ class ParametersWindow : public QMainWindow
 public:
     explicit ParametersWindow(DataSystem *appSettings, QWidget *parent = 0);
     ~ParametersWindow();
-
-    void refreshPreview();//TODO: Check - remove or move to private
 
     void closeEvent(QCloseEvent *event);
 
@@ -79,39 +70,31 @@ public slots:
      ***********************************************/
 private slots:
     void on_actionNew_triggered();
-
     void on_actionAbout_triggered();
-
     void on_actionOpen_triggered();
-
     void on_actionSave_triggered();
-
-    void previewTrafficFile();
+    void on_actionPath_triggered();
 
     void on_addTrafficButton_clicked();
-
     void on_removeFileButton_clicked();
-
     void on_renameFileButton_clicked();
-
-    void previewFile(QListWidgetItem* current);
-
-    void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_resetDefaultsButton_clicked();
+    void on_generateFileButton_clicked();
+    void on_saveFileButton_clicked();
 
     void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
 
-    void on_resetDefaultsButton_clicked();
+    void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_filePreview_textChanged();
 
-    void on_generateFileButton_clicked();
 
-    void on_actionPath_triggered();
-
-    void on_saveFileButton_clicked();
-
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
-    void msg(QString content);
+    void msg(const QString &content);
+    void previewFile(QListWidgetItem* current);
 
 private:
     Ui::ParametersWindow *ui;

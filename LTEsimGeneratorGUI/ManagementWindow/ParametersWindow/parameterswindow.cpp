@@ -1,15 +1,12 @@
 #include "parameterswindow.h"
 #include "ui_parameterswindow.h"
+
 #include <QMessageBox>
 #include <QFile>
-#include <QVector>
-#include <QString>
 #include <QStringList>
 #include <QListWidgetItem>
 
-#include <ManagementWindow/ProjectManagement/projectmanagement.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <ManagementWindow/Settings/settings.h>
 #include <Maps/Traffic/map_traffic.h>
 
 
@@ -19,8 +16,7 @@ extern MapWindow* map_w;
 extern Map_traffic* map_t;
 QString text1;              // tekst znajdujący się w polu tekstowym
 QString pattern;      // tekst, który zamienimy na inny
-
-#include <QDebug> //THIS WILL STAY TILL THE END OF REFACTOR
+#include <QDebug>    //THIS WILL STAY TILL THE END OF REFACTOR
 
 ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow),
@@ -35,7 +31,6 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
     this->ui->resetDefaultsButton->setEnabled(false);
 
     this->ui->radioButton_normalMap->setChecked(true);
-
 }
 
 void ParametersWindow::loadProjectAndOpen(const Project &project){
@@ -100,13 +95,10 @@ void ParametersWindow::on_actionSave_triggered()
     emit saveProjects();
 }
 
-void ParametersWindow::previewTrafficFile(){
-}
-
 // "add traffic file" button clicked
 void ParametersWindow::on_addTrafficButton_clicked()
 {
-    emit AddFile_Traffic(currentProject.name, QString(""));
+    emit AddFile_Traffic(currentProject.name, QString());
 }
 
 // "remove file" button clicked
@@ -123,7 +115,7 @@ void ParametersWindow::on_removeFileButton_clicked()
     // if the file is parameters
     else{
         QMessageBox(QMessageBox::Information,"Warning","Can't delete parameters file",QMessageBox::Ok).exec();
-        return;     //PSKAL: YOU DO NOT DELETE PARAMETERS FILE !
+        return;
     }
 }
 
@@ -140,7 +132,6 @@ void ParametersWindow::on_renameFileButton_clicked()
 // preview a file in the right field
 void ParametersWindow::previewFile(QListWidgetItem* current){
 
-
     this->ui->filePreview->clear();
 
     if(current==NULL || this->ui->projectsList->currentItem()->text()=="<none>" || this->ui->projectsList->currentItem()->text()=="<empty>"){
@@ -152,7 +143,6 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
     if(this->ui->projectsList->item(0)->text()==current->text()){
         this->ui->filePreview->setText(currentProject.parametersFile.content);
     }
-
     // if the file is traffic
     else{
         for(int i=1; i<=currentProject.trafficFilesList.size(); i++){
@@ -162,10 +152,6 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
             }
         }
     }
-}
-
-void ParametersWindow::refreshPreview(){
-    this->previewFile(this->ui->projectsList->currentItem());
 }
 
 void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
@@ -256,8 +242,6 @@ void ParametersWindow::on_generateFileButton_clicked()
 
     // if default dir is set
     if(currentProject.genScriptDir=="<default>"){
-
-        QString projectName = currentProject.name;
 
         // if the file is parameters
         if(this->ui->projectsList->currentRow()==0){
@@ -413,7 +397,7 @@ void ParametersWindow::getNewNameForFile(const QString &newFilename, const QStri
     emit checkAndRenameIfFilenameUnique(newFilename, oldFilename, currentProject.name);
 }
 
-void ParametersWindow::msg(QString content){
+void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
