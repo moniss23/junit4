@@ -24359,7 +24359,6 @@ void Map_traffic_large::closeEvent(QCloseEvent *event){
 //              new_parametersFileContent+=parametersFileContentList[i];
 //          }
 //          if(new_parametersFileContent!=parametersFileContent){
-//              changesPresent=true;
 //              parametersFileContent=new_parametersFileContent;
 //          }
 //          p->refreshPreview();

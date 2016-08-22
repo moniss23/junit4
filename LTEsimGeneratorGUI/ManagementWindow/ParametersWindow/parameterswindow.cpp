@@ -24,6 +24,7 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     filePreviewChanged = false;
 
     this->ui->undoButton->setEnabled(false);

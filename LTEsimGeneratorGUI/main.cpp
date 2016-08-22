@@ -9,7 +9,6 @@
 #include "Maps/Traffic/map_traffic.h"
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
-bool changesPresent = false;
 
 int main(int argc, char *argv[])
 {

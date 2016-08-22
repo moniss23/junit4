@@ -13,7 +13,6 @@ extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
 extern QStringList savedParametersFileContentList;
 extern bool enteringMapView;
-extern bool changesPresent;
 
 //Temporary global variables for checkboxCells
 
@@ -190,7 +189,6 @@ void MapWindow::closeEvent(QCloseEvent *event)
             new_parametersFileContent+=parametersFileContentList[i];
         }
         if(new_parametersFileContent!=parametersFileContent){
-            changesPresent=true;
             parametersFileContent=new_parametersFileContent;
         }
 
@@ -545,7 +543,6 @@ void MapWindow::save_button_clicked()
         new_parametersFileContent+=parametersFileContentList[i];
     }
     if(new_parametersFileContent!=parametersFileContent){
-        changesPresent=true;
         parametersFileContent=new_parametersFileContent;
     }
     saveCellsCheckboxes();
