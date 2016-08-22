@@ -3,13 +3,10 @@
 #include <QString>
 
 #include "DataSystem/datasystem.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
-#include "Maps/Traffic/map_traffic.h"
-#include "Data/appglobaldata.h"
 #include "UISystem/uisystem.h"
 
-
-ParametersWindow *p;
+#include "Maps/Parameters/MapWindow/mapwindow.h"
+#include "Maps/Traffic/map_traffic.h"
 MapWindow* map_w          = NULL;
 Map_traffic* map_t        = NULL;
 bool changesPresent = false;

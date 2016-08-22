@@ -261,7 +261,6 @@ void MapWindow::closeEvent(QCloseEvent *event)
             changesPresent=true;
             parametersFileContent=new_parametersFileContent;
         }
-        p->refreshPreview();
 
         showList(parametersFileContentList);
         event->accept();

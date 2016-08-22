@@ -18,11 +18,14 @@ class LTEsimGeneratorTESTS : public QObject
 public:
     LTEsimGeneratorTESTS();
 
+    //------------------FORMS TESTS-------------------------//
     ProjectManagementWindowTest projectManagementWindowTest;
-    AddProjectWindowTest addProjectWindowTest;
-    ProjectTest projectTest;
+    AddProjectWindowTest        addProjectWindowTest;
+
+    //------------------DATA TESTS-------------------------//
+    ProjectTest            projectTest;
     ParametersFileDataTest parametersFileDataTest;
-    TrafficFileDataTest trafficFileDataTest;
+    TrafficFileDataTest    trafficFileDataTest;
 
 private Q_SLOTS:
     void initTestCase();
