@@ -10,8 +10,9 @@
 #include <QMessageBox>
 
 #include "Data/project.h"
-#include "Data/Managers/filemanager.h"
 #include "Data/appglobaldata.h"
+#include "Data/Managers/filemanager.h"
+#include "Data/Managers/scriptparsermanager.h"
 
 class DataSystem : public QObject
 {
@@ -68,6 +69,7 @@ private:
     QString projectName;
     FileManager fileManager;
     AppGlobalData appGlobalData;
+    ScriptParserManager scriptParserManager;
 
     void loadProjectsFile();
     void projectsFileSetup();

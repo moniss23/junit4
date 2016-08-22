@@ -31,6 +31,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.cpp \
+    ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -47,9 +48,10 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.h \
     ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.h \
     ../LTEsimGeneratorGUI/dataelementsinterface.h \
-    ../LTEsimGeneratorGUI/Data/serializeinterface.h \
+    ../LTEsimGeneratorGUI/Data/Interfaces/serializeinterface.h \
     ../LTEsimGeneratorGUI/Data/appglobaldata.h \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.h \
+    ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
