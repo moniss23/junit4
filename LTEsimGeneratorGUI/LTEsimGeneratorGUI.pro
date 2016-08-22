@@ -14,6 +14,18 @@ TEMPLATE = app
 
 CONFIG   += c++14
 
+#--------DATA SYSTEM--------#
+SOURCES += \
+    Data/Managers/filemanager.cpp \
+    Data/Objects/cell.cpp \
+    Data/Objects/center.cpp \
+    Data/Objects/handover.cpp \
+    Data/Objects/parametersfiledata.cpp \
+    Data/Objects/trafficfiledata.cpp \
+    Data/project.cpp \
+    Data/appglobaldata.cpp \
+    Data/datasystem.cpp
+
 SOURCES += main.cpp\
     ManagementWindow/ParametersWindow/parameterswindow.cpp \
     ManagementWindow/Helpdialog/helpdialog.cpp \
@@ -53,11 +65,9 @@ SOURCES += main.cpp\
     Maps/Traffic/MapComponents/draguelabel.cpp \
     Maps/Traffic/map_traffic.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
-    Maps/Traffic/DataObjects/handoverdata.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
     Maps/Traffic/DataObjects/celldata.cpp \
     ProjectReaderWriter/projectreaderwriter.cpp \
-    Maps/Traffic/MapData/mapdata.cpp \
     Maps/Traffic/MapComponents/mapmanagement.cpp \
     Maps/Traffic/MapComponents/myscrollareawidget.cpp \
     Maps/Traffic/MapComponents/custommodellabel.cpp \
@@ -72,27 +82,31 @@ SOURCES += main.cpp\
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
     ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
-    Data/project.cpp \
     Maps/Traffic/Statistics/statisticsManager.cpp \
     Maps/Traffic/Statistics/statisticsData.cpp  \
-    Data/appglobaldata.cpp \
     ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     Maps/Traffic/CustomModel/customModel.cpp \
     Maps/Traffic/CustomModel/oldcustommodels.cpp \
-    Data/filemanager.cpp \
-    Data/cell.cpp \
-    Data/center.cpp \
-    Data/handover.cpp \
     UISystem/uisystem.cpp \
     ManagementWindow/ParametersWindow/renamedialog.cpp \
-    DataSystem/datasystem.cpp \
-    Data/parametersfiledata.cpp \
-    Data/trafficfiledata.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Parameters/parametersfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
     Maps/Traffic/Tuning/tuningTrafficData.cpp
 
+
+#--------DATA SYSTEM--------#
+HEADERS  += \
+    Data/Managers/filemanager.h \
+    Data/Objects/cell.h \
+    Data/Objects/center.h \
+    Data/Objects/handover.h \
+    Data/Objects/parametersfiledata.h \
+    Data/Objects/trafficfiledata.h \
+    Data/project.h \
+    Data/Interfaces/serializeinterface.h \
+    Data/appglobaldata.h \
+    Data/datasystem.h
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
@@ -133,11 +147,9 @@ HEADERS  += \
     Maps/Traffic/MapComponents/draguelabel.h \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
-    Maps/Traffic/DataObjects/handoverdata.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
     Maps/Traffic/DataObjects/celldata.h \
     ProjectReaderWriter/projectreaderwriter.h \
-    Maps/Traffic/MapData/mapdata.h \
     Maps/Traffic/MapComponents/mapmanagement.h \
     Maps/Traffic/MapComponents/myscrollareawidget.h \
     Maps/Traffic/MapComponents/custommodellabel.h \
@@ -155,24 +167,14 @@ HEADERS  += \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
     ManagementWindow/AddProjectWindow/addProjectWindow.h \
-    Data/project.h \
     Maps/Traffic/Statistics/statisticsData.h \
     Maps/Traffic/Statistics/statisticsManager.h \
     dataelementsinterface.h \
-    Data/serializeinterface.h \
-    Data/appglobaldata.h \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/CustomModel/oldcustommodels.h \
-    Data/filemanager.h \
-    Data/cell.h \
-    Data/center.h \
-    Data/handover.h \
     UISystem/uisystem.h \
     ManagementWindow/ParametersWindow/renamedialog.h \
-    DataSystem/datasystem.h \
-    Data/parametersfiledata.h \
-    Data/trafficfiledata.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Parameters/parametersfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \

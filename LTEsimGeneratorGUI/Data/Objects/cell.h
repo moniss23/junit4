@@ -7,7 +7,7 @@
 #include <QCheckBox>
 #include <QStringList>
 
-#include "Data/center.h"
+#include "Data/Objects/center.h"
 
 class Cell
 {

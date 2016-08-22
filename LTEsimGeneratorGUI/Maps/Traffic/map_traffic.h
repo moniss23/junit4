@@ -10,8 +10,8 @@
 #include <Maps/Traffic/CustomModel/customModel.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <QList>
-#include <Data/cell.h>
-#include <Data/center.h>
+#include <Data/Objects/cell.h>
+#include <Data/Objects/center.h>
 #include <Maps/Traffic/Statistics/statisticsManager.h>
 #include <Maps/Traffic/Tuning/tuningTrafficManager.h>
 #include <Maps/Traffic/MapComponents/draguelabel.h>

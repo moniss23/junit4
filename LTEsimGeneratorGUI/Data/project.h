@@ -6,13 +6,12 @@
 #include <QDataStream>
 #include <QListWidgetItem>
 
-#include <Data/cell.h>
-#include <Data/center.h>
-#include <Data/handover.h>
-#include <Data/serializeinterface.h>
-#include <Data/trafficfiledata.h>
-#include <Data/parametersfiledata.h>
-
+#include "Data/Interfaces/serializeinterface.h"
+#include "Data/Objects/cell.h"
+#include "Data/Objects/center.h"
+#include "Data/Objects/handover.h"
+#include "Data/Objects/trafficfiledata.h"
+#include "Data/Objects/parametersfiledata.h"
 
 class Project : public SerializeInterface
 {

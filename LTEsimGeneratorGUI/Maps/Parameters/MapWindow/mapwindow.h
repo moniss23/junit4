@@ -6,10 +6,10 @@
 #include <QMessageBox>
 #include <QMainWindow>
 
-#include <Data/cell.h>
-#include <Data/center.h>
-#include <Data/handover.h>
 #include <Data/project.h>
+#include <Data/Objects/cell.h>
+#include <Data/Objects/center.h>
+#include <Data/Objects/handover.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>

@@ -1,8 +1,8 @@
 #include "settings.h"
 #include "ui_settings.h"
-#include <qfiledialog.h>
+
+#include <QFileDialog>
 #include <QMessageBox>
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
 
 Settings::Settings(QWidget *parent) :
     QDialog(parent), ui(new Ui::Settings)

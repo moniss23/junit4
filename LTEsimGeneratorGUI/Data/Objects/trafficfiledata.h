@@ -3,7 +3,7 @@
 
 #include <QString>
 
-#include <Data/serializeinterface.h>
+#include <Data/Interfaces/serializeinterface.h>
 
 class TrafficFileData : public SerializeInterface
 {

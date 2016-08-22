@@ -23,14 +23,14 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 SOURCES += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.cpp \
-    ../LTEsimGeneratorGUI/DataSystem/datasystem.cpp \
+    ../LTEsimGeneratorGUI/Data/datasystem.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
-    ../LTEsimGeneratorGUI/Data/trafficfiledata.cpp \
-    ../LTEsimGeneratorGUI/Data/parametersfiledata.cpp \
+    ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.cpp \
+    ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.cpp \
     ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.cpp \
-    ../LTEsimGeneratorGUI/Data/filemanager.cpp \
+    ../LTEsimGeneratorGUI/Data/Managers/filemanager.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -41,15 +41,15 @@ SOURCES += \
 HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.h \
-    ../LTEsimGeneratorGUI/DataSystem/datasystem.h \
+    ../LTEsimGeneratorGUI/Data/datasystem.h \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/project.h \
-    ../LTEsimGeneratorGUI/Data/trafficfiledata.h \
-    ../LTEsimGeneratorGUI/Data/parametersfiledata.h \
+    ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.h \
+    ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.h \
     ../LTEsimGeneratorGUI/dataelementsinterface.h \
     ../LTEsimGeneratorGUI/Data/serializeinterface.h \
     ../LTEsimGeneratorGUI/Data/appglobaldata.h \
-    ../LTEsimGeneratorGUI/Data/filemanager.h \
+    ../LTEsimGeneratorGUI/Data/Managers/filemanager.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \

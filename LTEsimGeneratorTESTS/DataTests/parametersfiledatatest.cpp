@@ -1,5 +1,5 @@
 #include "parametersfiledatatest.h"
-#include "Data/parametersfiledata.h"
+#include "Data/Objects/parametersfiledata.h"
 
 #include <QtTest>
 #include <QString>

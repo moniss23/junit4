@@ -1,7 +1,7 @@
 #ifndef UISYSTEM_H
 #define UISYSTEM_H
 
-#include "DataSystem/datasystem.h"
+#include "Data/datasystem.h"
 #include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
 #include "ManagementWindow/ProjectManagement/projectmanagement.h"
 #include "ManagementWindow/ProjectManagement/importprojectwindow.h"

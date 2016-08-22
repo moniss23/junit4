@@ -12,9 +12,8 @@
 
 #include <Maps/Traffic/MapComponents/draguelabel.h>
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
-#include <Maps/Traffic/DataObjects/handoverdata.h>
 #include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <Data/cell.h>
+#include <Data/Objects/cell.h>
 
 //externed checkbox settings from MapWindow
 extern bool tmp_chkCell11;

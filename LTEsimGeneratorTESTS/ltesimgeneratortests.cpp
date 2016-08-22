@@ -9,7 +9,7 @@
 #include "DataTests/parametersfiledatatest.h"
 #include "DataTests/trafficfiledatatest.h"
 
-#include "DataSystem/datasystem.h"
+#include "Data/datasystem.h"
 
 class LTEsimGeneratorTESTS : public QObject
 {
