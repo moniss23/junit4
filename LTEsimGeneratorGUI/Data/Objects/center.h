@@ -6,7 +6,7 @@ class Center
 public:
     Center();
     Center(QString name);
-    ~Center();
+
     QString getArea();
     QString getSouthBoundary();
     QString getNorthBoundary();

@@ -26,6 +26,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/datasystem.cpp \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
+    ../LTEsimGeneratorGUI/Data/Objects/center.cpp \
     ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.cpp \
     ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.cpp \
     ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
@@ -45,6 +46,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/datasystem.h \
     ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/project.h \
+    ../LTEsimGeneratorGUI/Data/Objects/center.h \
     ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.h \
     ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.h \
     ../LTEsimGeneratorGUI/dataelementsinterface.h \
