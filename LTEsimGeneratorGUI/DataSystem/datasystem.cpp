@@ -144,6 +144,8 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
 
     project->trafficFilesList.erase(traffic);
     emit currentProjectChanged(*project);
+
+    saveProjectsFile();
 }
 
 //Currently not used, because restore defaults functionality in ParametersWindow is disabled
@@ -272,6 +274,7 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
     if(proj->parametersFile.filename == oldFilename) {
         proj->parametersFile.filename = newFilename;
         emit currentProjectChanged(*proj);
+        saveProjectsFile();
         return;
     }
     else {
@@ -282,6 +285,7 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
 
         proj->findTrafficFileByName(oldFilename)->filename = newFilename;
         emit currentProjectChanged(*proj);
+        saveProjectsFile();
         return;
     }
 

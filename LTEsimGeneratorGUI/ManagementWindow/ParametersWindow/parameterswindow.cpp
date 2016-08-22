@@ -87,19 +87,8 @@ void ParametersWindow::on_actionAbout_triggered()
 {
     viewHelp.show();
 }
+
 void ParametersWindow::closeEvent(QCloseEvent *event) {
-    int ret=QMessageBox(QMessageBox::Information, "LTEsimGenerator", "There are unsaved changes in the project. Save?", QMessageBox::Cancel|QMessageBox::No|QMessageBox::Yes).exec();
-    switch(ret){
-    case QMessageBox::Yes:
-        emit saveProjects();
-        this->close();
-        break;
-    case QMessageBox::No:
-        this->close();
-        break;
-    case QMessageBox::Cancel:
-        return;
-    }
     emit SpawnWindow_ProjectMng();
     event->accept();
 }
