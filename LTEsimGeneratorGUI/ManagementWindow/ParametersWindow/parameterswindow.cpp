@@ -13,19 +13,10 @@
 #include <Maps/Traffic/map_traffic.h>
 
 
-QVector<QStringList> trafficFilesContentLists;
-
 QString parametersFileContent;
 QStringList parametersFileContentList;
-QVector<QString> savedTrafficFilesContent;
-bool paramFileModified;
-bool closingInProgress=false;
-bool fileAdditionInProgress=false;
-extern QVector<QString*> trafficFilesNames;
 extern MapWindow* map_w;
 extern Map_traffic* map_t;
-extern bool changesPresent;
-int nrOfTrafficFiles=0;
 QString text1;              // tekst znajdujący się w polu tekstowym
 QString pattern;      // tekst, który zamienimy na inny
 
