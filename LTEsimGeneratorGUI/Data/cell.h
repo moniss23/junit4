@@ -22,7 +22,6 @@ public:
 
     void resetParams();
     QVector<QString> setParams();
-    bool wasThereChanges();
 
     QString getCell();
     void setCell(const QString &c);

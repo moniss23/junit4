@@ -101,10 +101,6 @@ void Cell::resetParams()
     chBox->setText(cell);
 }
 
-bool Cell::wasThereChanges() {
-    return false;
-}
-
 /**** GETTERS && SETTERS ****/
 
 QString Cell::getCell() {return cell;}

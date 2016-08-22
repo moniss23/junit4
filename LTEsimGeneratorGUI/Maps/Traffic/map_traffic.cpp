@@ -59,22 +59,13 @@ QStringList savedFtpUlList;
 QStringList savedStreamDlList;
 QStringList savedStreamUlList;
 
-
-bool small;
 QWidget *pointerWinTitle;
 
-bool MainSaveWasClicked;
-
-//int UEindex;
 QString CMname;
 extern QStringList CMList;
 extern QStringList PS_List;
 
-//extern QString currentPS;
-
 extern bool isCMActive[10];
-
-
 
 my_qlabel *pointerCM[10];
 
@@ -86,19 +77,19 @@ class Form;
 int offset_x=40;
 int offset_x_2=40;
 DragUELabel *actualposition;
-//int UEindex;
+
 extern int currentOpenedTrafficFile;
 extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
 extern QVector<QString> trafficFilesContent;
 extern ParametersWindow* p;
+
 Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Map_traffic),
     appSettings(appSettings)
 {
         ui->setupUi(this);
-        //int n=12;
         tuningtraffic = new Tuningtraffic();
         timetraffic = new TimeData();
         QString mapIndex("");
@@ -112,7 +103,6 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
         tab_UE[0] = new DragUELabel("e1",ui->scrollAreaWidgetContents);
         tab_UE[0]->setGeometry(750,60,40,40);
 
-        small = true;
         pointerCM[0] = ui->CM_1;
         pointerCM[1] = ui->CM_2;
         pointerCM[2] = ui->CM_3;
@@ -124,36 +114,16 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
         pointerCM[8] = ui->CM_9;
         pointerCM[9] = ui->CM_10;
 
-        if(savedCM1List.size() > 0){
-            ui->CM_1->setStyleSheet(savedCM1List.at(2));
-        }
-        if(savedCM2List.size() > 0){
-            ui->CM_2->setStyleSheet(savedCM2List.at(2));
-        }
-        if(savedCM3List.size() > 0){
-            ui->CM_3->setStyleSheet(savedCM3List.at(2));
-        }
-        if(savedCM4List.size() > 0){
-            ui->CM_4->setStyleSheet(savedCM4List.at(2));
-        }
-        if(savedCM5List.size() > 0){
-            ui->CM_5->setStyleSheet(savedCM5List.at(2));
-        }
-        if(savedCM6List.size() > 0){
-            ui->CM_6->setStyleSheet(savedCM6List.at(2));
-        }
-        if(savedCM7List.size() > 0){
-            ui->CM_7->setStyleSheet(savedCM7List.at(2));
-        }
-        if(savedCM8List.size() > 0){
-            ui->CM_8->setStyleSheet(savedCM8List.at(2));
-        }
-        if(savedCM9List.size() > 0){
-            ui->CM_9->setStyleSheet(savedCM9List.at(2));
-        }
-        if(savedCM10List.size() > 0){
-            ui->CM_10->setStyleSheet(savedCM10List.at(2));
-        }
+        if(!savedCM1List.empty()) ui->CM_1->setStyleSheet(savedCM1List.at(2));
+        if(!savedCM2List.empty()) ui->CM_2->setStyleSheet(savedCM2List.at(2));
+        if(!savedCM3List.empty()) ui->CM_3->setStyleSheet(savedCM3List.at(2));
+        if(!savedCM4List.empty()) ui->CM_4->setStyleSheet(savedCM4List.at(2));
+        if(!savedCM5List.empty()) ui->CM_5->setStyleSheet(savedCM5List.at(2));
+        if(!savedCM6List.empty()) ui->CM_6->setStyleSheet(savedCM6List.at(2));
+        if(!savedCM7List.empty()) ui->CM_7->setStyleSheet(savedCM7List.at(2));
+        if(!savedCM8List.empty()) ui->CM_8->setStyleSheet(savedCM8List.at(2));
+        if(!savedCM9List.empty()) ui->CM_9->setStyleSheet(savedCM9List.at(2));
+        if(!savedCM10List.empty()) ui->CM_10->setStyleSheet(savedCM10List.at(2));
 
         readyCMList[0] = savedCM1List;
         readyCMList[1] = savedCM2List;
@@ -165,7 +135,6 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
         readyCMList[7] = savedCM8List;
         readyCMList[8] = savedCM9List;
         readyCMList[9] = savedCM10List;
-
 
         pointerUE1=&viewUE1;
         pointerUE2=&viewUE2;
@@ -276,103 +245,95 @@ Map_traffic::~Map_traffic()
     delete ui;
 }
 
-bool Map_traffic::toBool(QString value){
-    return value == QString("1");
-}
-
 void Map_traffic::createCell(){
-    cell61 = new Cell ("cell61");
-    cell61->chBox = ui->checkBoxCell61;
-    cell61->center = center61;
-    if(!cell61->getCell_new_name().isEmpty())
-        cell61->chBox->setText(cell61->getCell_new_name());
-    cell62 = new Cell ("cell62");
-    cell62->chBox = ui->checkBoxCell62;
-    cell62->center = center62;
-    if(!cell62->getCell_new_name().isEmpty())
-        cell62->chBox->setText(cell62->getCell_new_name());
-    cell52 = new Cell ("cell52");
-    cell52->chBox = ui->checkBoxCell52;
-    cell52->center = center52;
-    if(!cell52->getCell_new_name().isEmpty())
-        cell52->chBox->setText(cell52->getCell_new_name());
-    cell51 = new Cell ("cell51");
-    cell51->chBox = ui->checkBoxCell51;
-    cell51->center = center51;
-    if(!cell51->getCell_new_name().isEmpty())
-        cell51->chBox->setText(cell51->getCell_new_name());
-    cell42 = new Cell ("cell42");
-    cell42->chBox = ui->checkBoxCell42;
-    cell42->center = center42;
-    if(!cell42->getCell_new_name().isEmpty())
-        cell42->chBox->setText(cell42->getCell_new_name());
-    cell41 = new Cell ("cell41");
-    cell41->chBox = ui->checkBoxCell41;
-    cell41->center = center41;
-    if(!cell41->getCell_new_name().isEmpty())
-        cell41->chBox->setText(cell41->getCell_new_name());
-    cell32 = new Cell ("cell32");
-    cell32->chBox = ui->checkBoxCell32;
-    cell32->center = center32;
-    if(!cell32->getCell_new_name().isEmpty())
-        cell32->chBox->setText(cell32->getCell_new_name());
-    cell31 = new Cell ("cell31");
-    cell31->chBox = ui->checkBoxCell31;
-    cell31->center = center31;
-    if(!cell31->getCell_new_name().isEmpty())
-        cell31->chBox->setText(cell31->getCell_new_name());
-    cell22 = new Cell ("cell22");
-    cell22->chBox = ui->checkBoxCell22;
-    cell22->center = center22;
-    if(!cell22->getCell_new_name().isEmpty())
-        cell22->chBox->setText(cell22->getCell_new_name());
-    cell21 = new Cell ("cell21");
-    cell21->chBox = ui->checkBoxCell21;
-    cell21->center = center21;
-    if(!cell21->getCell_new_name().isEmpty())
-        cell21->chBox->setText(cell21->getCell_new_name());
-    cell12 = new Cell ("cell12");
-    cell12->chBox = ui->checkBoxCell12;
-    cell12->center = center12;
-    if(!cell12->getCell_new_name().isEmpty())
-        cell12->chBox->setText(cell12->getCell_new_name());
-    cell11 = new Cell ("cell11");
-    cell11->chBox = ui->checkBoxCell11;
-    cell11->center = center11;
-    if(!cell11->getCell_new_name().isEmpty())
-        cell11->chBox->setText(cell11->getCell_new_name());
     tabCell = new Cell *[12];
-    tabCell[0] = cell11;
-    tabCell[1] = cell12;
-    tabCell[2] = cell21;
-    tabCell[3] = cell22;
-    tabCell[4] = cell31;
-    tabCell[5] = cell32;
-    tabCell[6] = cell41;
-    tabCell[7] = cell42;
-    tabCell[8] = cell51;
-    tabCell[9] = cell52;
-    tabCell[10] = cell61;
-    tabCell[11] = cell62;
 
-    //    for(unsigned int i=0; i<cellCount; i++){
-    //        cellNames[i].name=tabCell[i]->getCell();
-    //        cellNames[i].obj=tabCell[i];
-    //    }
+    tabCell[0] = new Cell ("cell11");
+    tabCell[0]->chBox = ui->checkBoxCell11;
+    tabCell[0]->center = center11;
+    if(!tabCell[0]->getCell_new_name().isEmpty()) {
+        tabCell[0]->chBox->setText(tabCell[0]->getCell_new_name());
+    }
+
+    tabCell[1] = new Cell ("cell12");
+    tabCell[1]->chBox = ui->checkBoxCell12;
+    tabCell[1]->center = center12;
+    if(!tabCell[1]->getCell_new_name().isEmpty()) {
+        tabCell[1]->chBox->setText(tabCell[1]->getCell_new_name());
+    }
+
+    tabCell[2] = new Cell ("cell21");
+    tabCell[2]->chBox = ui->checkBoxCell21;
+    tabCell[2]->center = center21;
+    if(!tabCell[2]->getCell_new_name().isEmpty()) {
+        tabCell[2]->chBox->setText(tabCell[2]->getCell_new_name());
+    }
+
+    tabCell[3] = new Cell ("cell22");
+    tabCell[3]->chBox = ui->checkBoxCell22;
+    tabCell[3]->center = center22;
+    if(!tabCell[3]->getCell_new_name().isEmpty()) {
+        tabCell[3]->chBox->setText(tabCell[3]->getCell_new_name());
+    }
+
+    tabCell[4] = new Cell ("cell31");
+    tabCell[4]->chBox = ui->checkBoxCell31;
+    tabCell[4]->center = center31;
+    if(!tabCell[4]->getCell_new_name().isEmpty()) {
+        tabCell[4]->chBox->setText(cell31->getCell_new_name());
+    }
+
+    tabCell[5] = new Cell ("cell32");
+    tabCell[5]->chBox = ui->checkBoxCell32;
+    tabCell[5]->center = center32;
+    if(!tabCell[5]->getCell_new_name().isEmpty()) {
+        tabCell[5]->chBox->setText(tabCell[5]->getCell_new_name());
+    }
+
+    tabCell[6] = new Cell ("cell41");
+    tabCell[6]->chBox = ui->checkBoxCell41;
+    tabCell[6]->center = center41;
+    if(!tabCell[6]->getCell_new_name().isEmpty()) {
+        tabCell[6]->chBox->setText(tabCell[6]->getCell_new_name());
+    }
+
+    tabCell[7] = new Cell ("cell42");
+    tabCell[7]->chBox = ui->checkBoxCell42;
+    tabCell[7]->center = center42;
+    if(!tabCell[7]->getCell_new_name().isEmpty()) {
+        tabCell[7]->chBox->setText(tabCell[7]->getCell_new_name());
+    }
+
+    tabCell[8] = new Cell ("cell51");
+    tabCell[8]->chBox = ui->checkBoxCell51;
+    tabCell[8]->center = center51;
+    if(!tabCell[8]->getCell_new_name().isEmpty()) {
+        tabCell[8]->chBox->setText(tabCell[8]->getCell_new_name());
+    }
+
+    tabCell[9] = new Cell ("cell52");
+    tabCell[9]->chBox = ui->checkBoxCell52;
+    tabCell[9]->center = center52;
+    if(!tabCell[9]->getCell_new_name().isEmpty()) {
+        tabCell[9]->chBox->setText(tabCell[9]->getCell_new_name());
+    }
+
+    tabCell[10] = new Cell ("cell61");
+    tabCell[10]->chBox = ui->checkBoxCell61;
+    tabCell[10]->center = center61;
+    if(!tabCell[10]->getCell_new_name().isEmpty()) {
+        tabCell[10]->chBox->setText(tabCell[10]->getCell_new_name());
+    }
+
+    tabCell[11] = new Cell ("cell62");
+    tabCell[11]->chBox = ui->checkBoxCell62;
+    tabCell[11]->center = center62;
+    if(!tabCell[11]->getCell_new_name().isEmpty()) {
+        tabCell[11]->chBox->setText(tabCell[11]->getCell_new_name());
+    }
 }
-
-
-
-
-
-
-
-
-
-
 
 //Drag_UE_functions
-
 void Map_traffic::dragEnterEvent(QDragEnterEvent *event)
 {
     if (event->mimeData()->hasFormat("application/x-UE")) {
@@ -4905,20 +4866,13 @@ void Map_traffic::closeEvent(QCloseEvent *event){
 
     switch (ret) {
     case QMessageBox::Save:
-
         /****************** TO DO : Emit Save File **********************/
-
     case QMessageBox::Discard:
-        // Don't Save was clicked
-        //          p->show();
         break;
     case QMessageBox::Cancel:
-        // Cancel was clicked
-                small = false;
         event->ignore();
         break;
     default:
-        // should never be reached
         break;
     }
 }

@@ -127,62 +127,27 @@ void MapWindow::createCenter() {
 }
 
 void MapWindow::createCell(){
-    tabCell = new Cell *[12];
+    tabCell = new Cell *[12]; // TODO: QVector, optimized algorithm, in next commit
 
-    tabCell[11] = new Cell ("cell62");
-    tabCell[11]->chBox = ui->checkBoxCell62;
-    tabCell[11]->center = tabCenter[11];
-    if(!tabCell[11]->getCell_new_name().isEmpty()) {
-        tabCell[11]->chBox->setText(tabCell[11]->getCell_new_name());
+    tabCell[0] = new Cell ("cell11");
+    tabCell[0]->chBox = ui->checkBoxCell11;
+    tabCell[0]->center = tabCenter[0];
+    if(!tabCell[0]->getCell_new_name().isEmpty()) {
+        tabCell[0]->chBox->setText(tabCell[0]->getCell_new_name());
     }
 
-    tabCell[10] = new Cell ("cell61");
-    tabCell[10]->chBox = ui->checkBoxCell61;
-    tabCell[10]->center = tabCenter[10];
-    if(!tabCell[10]->getCell_new_name().isEmpty()) {
-        tabCell[10]->chBox->setText(tabCell[10]->getCell_new_name());
+    tabCell[1] = new Cell ("cell12");
+    tabCell[1]->chBox = ui->checkBoxCell12;
+    tabCell[1]->center = tabCenter[1];
+    if(!tabCell[1]->getCell_new_name().isEmpty()) {
+        tabCell[1]->chBox->setText(tabCell[1]->getCell_new_name());
     }
 
-    tabCell[9] = new Cell ("cell52");
-    tabCell[9]->chBox = ui->checkBoxCell52;
-    tabCell[9]->center = tabCenter[9];
-    if(!tabCell[9]->getCell_new_name().isEmpty()) {
-        tabCell[9]->chBox->setText(tabCell[9]->getCell_new_name());
-    }
-
-    tabCell[8] = new Cell ("cell51");
-    tabCell[8]->chBox = ui->checkBoxCell51;
-    tabCell[8]->center = tabCenter[8];
-    if(!tabCell[8]->getCell_new_name().isEmpty()) {
-        tabCell[8]->chBox->setText(tabCell[8]->getCell_new_name());
-    }
-
-    tabCell[7] = new Cell ("cell42");
-    tabCell[7]->chBox = ui->checkBoxCell42;
-    tabCell[7]->center = tabCenter[7];
-    if(!tabCell[7]->getCell_new_name().isEmpty()) {
-        tabCell[7]->chBox->setText(tabCell[7]->getCell_new_name());
-    }
-
-    tabCell[6] = new Cell ("cell41");
-    tabCell[6]->chBox = ui->checkBoxCell41;
-    tabCell[6]->center = tabCenter[6];
-    if(!tabCell[6]->getCell_new_name().isEmpty()) {
-        tabCell[6]->chBox->setText(tabCell[6]->getCell_new_name());
-    }
-
-    tabCell[5] = new Cell ("cell32");
-    tabCell[5]->chBox = ui->checkBoxCell32;
-    tabCell[5]->center = tabCenter[5];
-    if(!tabCell[5]->getCell_new_name().isEmpty()) {
-        tabCell[5]->chBox->setText(tabCell[5]->getCell_new_name());
-    }
-
-    tabCell[4] = new Cell ("cell31");
-    tabCell[4]->chBox = ui->checkBoxCell31;
-    tabCell[4]->center = tabCenter[4];
-    if(!tabCell[4]->getCell_new_name().isEmpty()) {
-        tabCell[4]->chBox->setText(tabCell[4]->getCell_new_name());
+    tabCell[2] = new Cell ("cell21");
+    tabCell[2]->chBox = ui->checkBoxCell21;
+    tabCell[2]->center = tabCenter[2];
+    if(!tabCell[2]->getCell_new_name().isEmpty()) {
+        tabCell[2]->chBox->setText(tabCell[2]->getCell_new_name());
     }
 
     tabCell[3] = new Cell ("cell22");
@@ -192,23 +157,61 @@ void MapWindow::createCell(){
         tabCell[3]->chBox->setText(tabCell[3]->getCell_new_name());
     }
 
-    tabCell[2] = new Cell ("cell21");
-    tabCell[2]->chBox = ui->checkBoxCell21;
-    tabCell[2]->center = tabCenter[2];
-    if(!tabCell[2]->getCell_new_name().isEmpty())
-        tabCell[2]->chBox->setText(tabCell[2]->getCell_new_name());
+    tabCell[4] = new Cell ("cell31");
+    tabCell[4]->chBox = ui->checkBoxCell31;
+    tabCell[4]->center = tabCenter[4];
+    if(!tabCell[4]->getCell_new_name().isEmpty()) {
+        tabCell[4]->chBox->setText(tabCell[4]->getCell_new_name());
+    }
 
-    tabCell[1] = new Cell ("cell12");
-    tabCell[1]->chBox = ui->checkBoxCell12;
-    tabCell[1]->center = tabCenter[1];
-    if(!tabCell[1]->getCell_new_name().isEmpty())
-        tabCell[1]->chBox->setText(tabCell[1]->getCell_new_name());
+    tabCell[5] = new Cell ("cell32");
+    tabCell[5]->chBox = ui->checkBoxCell32;
+    tabCell[5]->center = tabCenter[5];
+    if(!tabCell[5]->getCell_new_name().isEmpty()) {
+        tabCell[5]->chBox->setText(tabCell[5]->getCell_new_name());
+    }
 
-    tabCell[0] = new Cell ("cell11");
-    tabCell[0]->chBox = ui->checkBoxCell11;
-    tabCell[0]->center = tabCenter[0];
-    if(!tabCell[0]->getCell_new_name().isEmpty())
-        tabCell[0]->chBox->setText(tabCell[0]->getCell_new_name());
+    tabCell[6] = new Cell ("cell41");
+    tabCell[6]->chBox = ui->checkBoxCell41;
+    tabCell[6]->center = tabCenter[6];
+    if(!tabCell[6]->getCell_new_name().isEmpty()) {
+        tabCell[6]->chBox->setText(tabCell[6]->getCell_new_name());
+    }
+
+    tabCell[7] = new Cell ("cell42");
+    tabCell[7]->chBox = ui->checkBoxCell42;
+    tabCell[7]->center = tabCenter[7];
+    if(!tabCell[7]->getCell_new_name().isEmpty()) {
+        tabCell[7]->chBox->setText(tabCell[7]->getCell_new_name());
+    }
+
+    tabCell[8] = new Cell ("cell51");
+    tabCell[8]->chBox = ui->checkBoxCell51;
+    tabCell[8]->center = tabCenter[8];
+    if(!tabCell[8]->getCell_new_name().isEmpty()) {
+        tabCell[8]->chBox->setText(tabCell[8]->getCell_new_name());
+    }
+
+    tabCell[9] = new Cell ("cell52");
+    tabCell[9]->chBox = ui->checkBoxCell52;
+    tabCell[9]->center = tabCenter[9];
+    if(!tabCell[9]->getCell_new_name().isEmpty()) {
+        tabCell[9]->chBox->setText(tabCell[9]->getCell_new_name());
+    }
+
+    tabCell[10] = new Cell ("cell61");
+    tabCell[10]->chBox = ui->checkBoxCell61;
+    tabCell[10]->center = tabCenter[10];
+    if(!tabCell[10]->getCell_new_name().isEmpty()) {
+        tabCell[10]->chBox->setText(tabCell[10]->getCell_new_name());
+    }
+
+    tabCell[11] = new Cell ("cell62");
+    tabCell[11]->chBox = ui->checkBoxCell62;
+    tabCell[11]->center = tabCenter[11];
+    if(!tabCell[11]->getCell_new_name().isEmpty()) {
+        tabCell[11]->chBox->setText(tabCell[11]->getCell_new_name());
+    }
 }
 
 void MapWindow::createCoreNetwork()

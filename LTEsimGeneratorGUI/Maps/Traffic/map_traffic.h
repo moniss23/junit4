@@ -192,8 +192,6 @@ private:
     int tmp_counter_UE;
     int divisor;
 
-    bool toBool(QString value);
-
 signals:
     void Mouse_Pressed();
     void pressed();

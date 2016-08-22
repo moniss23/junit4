@@ -26,7 +26,6 @@ bool addVoipCheckbox;
 extern bool small;
 
 QStringList customModelList;
-
 QStringList readyCMList[10];
 
 extern QList<QString> PingList;
@@ -39,10 +38,8 @@ extern QList<QString> FtpUlList;
 extern QList<QString> FtpDlList;
 
 bool isSaved[10];
-
 bool restoreClicked;
 
-extern bool MainSaveWasClicked;
 
 Custommodels::Custommodels(QWidget *parent) :
     QWidget(parent),
