@@ -193,25 +193,20 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     saveProjectsFile();
 }
 
-void DataSystem::setNewDirForProjects(const QString &location)
+void DataSystem::setGlobalLocationForNewProjects(const QString &location)
 {
-    if(location=="") {
-        QMessageBox(QMessageBox::Critical, "No directory specified!",
-                    "You must specify the directory.", QMessageBox::Ok).exec();
-        emit updateSettingsView(location);
+    if(location.isEmpty()) {
+        emit errorInData("You must specify the directory.");
         return;
     }
     if(location!="<default>") {
         QDir new_dir(location);
         if(!new_dir.exists()) {
-            QMessageBox(QMessageBox::Critical,"Directory does not exist!",
-                        "Selected directory does not seem to exist.", QMessageBox::Ok).exec();
-            emit updateSettingsView(location);
+            emit errorInData("Selected directory does not seem to exist.");
             return;
         }
     }
     appGlobalData.setDefaultNewProjectsPath(location);
-    emit updateSettingsView(location);
 }
 
 void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
@@ -290,6 +285,29 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
     }
 
     emit errorInData("Can't find right trafficFile to rename!");
+}
+
+void DataSystem::set_RB_FilesLocationForProject(const QString& projectName, const QString& location) {
+
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+    if(location.isEmpty()) {
+        emit errorInData("You must specify the directory.");
+        return;
+    }
+    if(location!="<default>" && location!="<individually>") {
+        QDir new_dir(location);
+        if(!new_dir.exists()) {
+            emit errorInData("Selected directory does not seem to exist.");
+            return;
+        }
+    }
+    project->genScriptDir = location;
+    saveProjectsFile();
+    emit currentProjectChanged(*project);
 }
 
 /*******************

@@ -26,7 +26,7 @@ public slots:
     void spawnWindow_OpenProject(const QString& projectName);
 
 signals:
-    void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& currentProject = Project());
+    void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_OpenProject(const Project& project);
 
 private:

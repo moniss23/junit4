@@ -31,12 +31,14 @@ signals:
     void returnProject(const Project& project);
     void updateSettingsView(const QString& path);
     void SpawnWindow_ProjectMng();
+    void update_RB_FilesLocation(const QString& location);
 
 public slots:
 
     void LoadAppData();
     void saveProjectsFile();
-    void setNewDirForProjects(const QString& location);
+    void setGlobalLocationForNewProjects(const QString& location);
+    void set_RB_FilesLocationForProject(const QString& projectName, const QString& location);
 
     void findProject(const QString& projectName);
     void createNewProject(const QString &projectName, const QString & directory);

@@ -32,13 +32,11 @@ void UISystem::bindingObjects()
                      &projectUi,   SLOT(updateProjectLists(const QVector<Project>&)));
 
     // Settings
-    QObject::connect(dataSystem, SIGNAL(updateSettingsView(QString)), &settingsWindow, SLOT(UpdateNewProjectsLocation(QString)));
-    QObject::connect(&settingsWindow, SIGNAL(SetDefaultLocationFor_RB_Files(QString)), &paramWindow, SLOT(set_RB_FilesLocation(QString)));
-    QObject::connect(&paramWindow, SIGNAL(updateCurrentProjects_RB_FilesLocation(QString)), &settingsWindow, SLOT(Update_RB_FilesLocation(QString)));
-    QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
     QObject::connect(&projectUi, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
     QObject::connect(&paramWindow, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
-    QObject::connect(&settingsWindow, SIGNAL(SetDefaultLocationForNewProjects(QString)), dataSystem, SLOT(setNewDirForProjects(QString)));
+    QObject::connect(&settingsWindow, SIGNAL(SetGlobalLocationForNewProjects(QString)), dataSystem, SLOT(setGlobalLocationForNewProjects(QString)));
+    QObject::connect(&settingsWindow, SIGNAL(Set_RB_FilesLocationForProject(QString,QString)), dataSystem, SLOT(set_RB_FilesLocationForProject(QString,QString)));
+    QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
 
     // Import Project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
@@ -91,14 +89,18 @@ void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {
     AppGlobalData data = dataSystem->getAppGlobalData();
     if(projectName.isEmpty()) {
         emit spawnSettingsWindowForProject(data);
+        return;
     }else {
-        Project currentProject;
-        for(auto project: dataSystem->projects) {
-            if(project.name == projectName) {
-                currentProject = project;
-            }
+        auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
+                                    (const Project& project)->bool {
+            return (project.name == projectName);
+        });
+        if(project == nullptr) {
+            dataSystem->errorInData("Can't find right project");
+            return;
         }
-        emit spawnSettingsWindowForProject(data, currentProject);
+        emit spawnSettingsWindowForProject(data, *project);
+        return;
     }
 }
 
