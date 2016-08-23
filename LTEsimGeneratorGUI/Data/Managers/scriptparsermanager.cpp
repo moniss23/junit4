@@ -19,7 +19,7 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &scriptConte
             cellParams[6] = scriptContentLines[i+6].trimmed(); // :transmitPower
             cellParams[7] = scriptContentLines[i+7].trimmed(); // :ulNoiseAndInterference
 
-            for(auto param: cellParams) {
+            for(auto &&param: cellParams) {
                 param = param.split(" ")[2];
                 param.remove(QChar('"'));
                 param.remove(QChar(','));
@@ -48,7 +48,7 @@ QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptC
     QStringList scriptContentLines = scriptContent.split('\n');
 
     for(int i=0; i<scriptContentLines.size(); ++i) {
-        if(scriptContentLines[i].contains(":area => \"")) {      // center found
+        if(scriptContentLines[i].contains(":area => \"Center")) {
             QVector<QString> centerParams(5);
             centerParams[0] = scriptContentLines[i].trimmed();   // :area
             centerParams[1] = scriptContentLines[i+1].trimmed(); // :southBoundary
@@ -56,7 +56,7 @@ QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptC
             centerParams[3] = scriptContentLines[i+3].trimmed(); // :westBoundary
             centerParams[4] = scriptContentLines[i+4].trimmed(); // :eastBoundary
 
-            for(auto param: centerParams) {
+            for(auto &&param: centerParams) {
                 param = param.split(" ")[2];
                 param.remove(QChar('"'));
                 param.remove(QChar(','));
@@ -64,8 +64,8 @@ QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptC
 
             Center center;
             center.setArea(centerParams[0]);
-            center.setNorthBoundary(centerParams[1]);
-            center.setSouthBoundary(centerParams[2]);
+            center.setSouthBoundary(centerParams[1]);
+            center.setNorthBoundary(centerParams[2]);
             center.setWestBoundary(centerParams[3]);
             center.setEastBoundary(centerParams[4]);
 
@@ -78,6 +78,36 @@ QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptC
 }
 
 QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &scriptContent) {
-    (void) scriptContent;
-    return QVector<Handover>();
+    QVector<Handover> handovers;
+    QStringList scriptContentLines = scriptContent.split('\n');
+
+    for(int i=0; i<scriptContentLines.size(); ++i) {
+        if(scriptContentLines[i].contains(":area => \"Handover")) {
+            QVector<QString> handoverParams(5);
+            handoverParams[0] = scriptContentLines[i].trimmed();   // :area
+            handoverParams[1] = scriptContentLines[i+1].trimmed(); // :southBoundary
+            handoverParams[2] = scriptContentLines[i+2].trimmed(); // :northBoundary
+            handoverParams[3] = scriptContentLines[i+3].trimmed(); // :westBoundary
+            handoverParams[4] = scriptContentLines[i+4].trimmed(); // :eastBoundary
+
+
+            for(auto &&param: handoverParams) {
+                param = param.split(" ")[2];
+                param.remove(QChar('"'));
+                param.remove(QChar(','));
+            }
+
+            Handover handover;
+            handover.setArea(handoverParams[0]);
+            handover.setSouthBoundary(handoverParams[1]);
+            handover.setNorthBoundary(handoverParams[2]);
+            handover.setWestBoundary(handoverParams[3]);
+            handover.setEastBoundary(handoverParams[4]);
+
+            handovers.append(handover);
+            i += 5;
+        }
+    }
+
+    return handovers;
 }
