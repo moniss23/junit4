@@ -1,16 +1,11 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include <QList>
 #include <QString>
-#include <QVector>
 #include <QCheckBox>
-#include <QStringList>
-
 #include "Data/Objects/center.h"
 
-class Cell
-{
+class Cell {
 public:
     Cell();
     Cell(const QString &name);
@@ -20,34 +15,27 @@ public:
     Center* center;
     QCheckBox* chBox;
 
+    void setParams();
     void resetParams();
-    QVector<QString> setParams();
 
     QString getCell();
-    void setCell(const QString &c);
-
     QString getSite();
-    void setSite(const QString &s);
-
     QString getPci();
-    void setPci(const QString &s);
-
     QString getPosition_X();
-    void setPosition_X(const QString &p_x);
-
     QString getPosition_Y();
-    void setPosition_Y(const QString &p_y);
-
     QString getEarfcnDl();
-    void setEarfcnDl(const QString &e);
-
     QString getTransmitPower();
-    void setTransmitPower(const QString &t);
-
     QString getUlNoiseAndInterference();
-    void setUlNoiseAndInterference(const QString &u);
-
     QString getCell_new_name() const;
+
+    void setCell(const QString &c);
+    void setSite(const QString &s);
+    void setPci(const QString &s);
+    void setPosition_X(const QString &p_x);
+    void setPosition_Y(const QString &p_y);
+    void setEarfcnDl(const QString &e);
+    void setTransmitPower(const QString &t);
+    void setUlNoiseAndInterference(const QString &u);
     void setCell_new_name(const QString &value);
 
 private:
