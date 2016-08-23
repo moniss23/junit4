@@ -152,10 +152,6 @@ HEADERS  += \
 
 
 FORMS    += \
-    Ui/parameterswindow.ui \
-    Ui/helpdialog.ui \
-    Ui/projectmanagement.ui \
-    Ui/settings.ui \
     Ui/channelmodelform.ui \
     Ui/mmeform.ui \
     Ui/ipexform.ui \
@@ -173,10 +169,14 @@ FORMS    += \
     Ui/UE_param_form.ui \
     Ui/managementtemplate.ui \
     Ui/timeForm.ui \
-    Ui/addProjectWindow.ui \
     Ui/statisticsForm.ui \
     Ui/customModel.ui \
-    Ui/renamedialog.ui
+    Ui/renamedialog.ui \
+    Ui/Windows/addProjectWindow.ui \
+    Ui/Windows/parameterswindow.ui \
+    Ui/Windows/settings.ui \
+    Ui/Windows/projectmanagement.ui \
+    Ui/Windows/helpdialog.ui
 
 
 OTHER_FILES += \

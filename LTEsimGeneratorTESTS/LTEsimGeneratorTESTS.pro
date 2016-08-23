@@ -62,9 +62,9 @@ HEADERS  += \
     DataTests/trafficfiledatatest.h
 
 FORMS    += \
-    ../LTEsimGeneratorGUI/Ui/helpdialog.ui \
-    ../LTEsimGeneratorGUI/Ui/projectmanagement.ui \
-    ../LTEsimGeneratorGUI/Ui/addProjectWindow.ui \
+    ../LTEsimGeneratorGUI/Ui/Windows/helpdialog.ui \
+    ../LTEsimGeneratorGUI/Ui/Windows/projectmanagement.ui \
+    ../LTEsimGeneratorGUI/Ui/Windows/addProjectWindow.ui \
     ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
 
 OTHER_FILES += \
