@@ -3,10 +3,11 @@
 
 #include <QMainWindow>
 #include <QString>
-
+#include <memory>
 #include "ManagementWindow/Helpdialog/helpdialog.h"
 #include "Data/datasystem.h"
 #include "Data/project.h"
+#include "rubysyntaxhighlighter.h"
 
 namespace Ui {
 class ParametersWindow;
@@ -149,6 +150,9 @@ private:
     HelpDialog viewHelp;                        ///< Local instance of HelpDialog
     DataSystem *appSettings;//TODO:get rid of that. It's used only while constructing map.
     Project currentProject;                     ///< Local instance of project
+
+    std::unique_ptr<RubySyntaxHighlighter> highlighter;
+
 
     bool filePreviewChanged;                    ///< Flag which represent changes in file preview editor
 };

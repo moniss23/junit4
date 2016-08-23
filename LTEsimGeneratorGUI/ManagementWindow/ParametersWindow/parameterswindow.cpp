@@ -9,7 +9,7 @@
 
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <Maps/Traffic/map_traffic.h>
-
+#include <ManagementWindow/ParametersWindow/rubysyntaxhighlighter.h>
 
 QString parametersFileContent;
 QStringList parametersFileContentList;
@@ -33,6 +33,12 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
     this->ui->resetDefaultsButton->setEnabled(false);
 
     this->ui->radioButton_normalMap->setChecked(true);
+
+
+
+    this->ui->filePreview->setReadOnly(false);
+    highlighter =  std::make_unique<RubySyntaxHighlighter>(this->ui->filePreview->document());
+
 }
 
 void ParametersWindow::loadProjectAndOpen(const Project &project){
@@ -68,6 +74,8 @@ void ParametersWindow::refreshUI(const Project &project)
 
     ui->projectsList->item(0)->setSelected(true);
     ui->projectsList->setCurrentRow(0);
+
+
 }
 
 ParametersWindow::~ParametersWindow()
@@ -133,7 +141,6 @@ void ParametersWindow::on_renameFileButton_clicked()
 
 // preview a file in the right field
 void ParametersWindow::previewFile(QListWidgetItem* current){
-
     this->ui->filePreview->clear();
 
     if(current==NULL || this->ui->projectsList->currentItem()->text()=="<none>" || this->ui->projectsList->currentItem()->text()=="<empty>"){
@@ -235,13 +242,15 @@ void ParametersWindow::on_filePreview_textChanged()
         filePreviewChanged=true;
         this->ui->resetDefaultsButton->setEnabled(true);
     }
+
+   //highlighter->highlightBlock(this->ui->filePreview->toPlainText());
+
     return;
 }
 
 // "generate file" button is clicked
 void ParametersWindow::on_generateFileButton_clicked()
 {
-
     // if default dir is set
     if(currentProject.genScriptDir=="<default>"){
 
