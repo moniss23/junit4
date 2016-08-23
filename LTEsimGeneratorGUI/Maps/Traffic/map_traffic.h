@@ -9,15 +9,11 @@
 #include "Maps/Traffic/Statistics/statisticsManager.h"
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 #include "Maps/Traffic/Time/timeManager.h"
-#include "Maps/Traffic/UeParameters/UE_param_form.h"
+#include "my_qlabel.h"
 
-#include <my_qlabel.h>
 #include <QComboBox>
-#include <QHash>
-#include <QList>
 #include <QMainWindow>
 #include <QObject>
-#include <QtWidgets>
 
 class Custommodels;
 class customModel;

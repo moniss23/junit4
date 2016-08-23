@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include <QFile>
+#include <QFileDialog>
 #include <QStringList>
 #include <QListWidgetItem>
 
