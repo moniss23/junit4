@@ -25,7 +25,8 @@ SOURCES += \
     Data/project.cpp \
     Data/appglobaldata.cpp \
     Data/datasystem.cpp \
-    Data/Managers/scriptparsermanager.cpp
+    Data/Managers/scriptparsermanager.cpp \
+    Data/ProjectSettings/datageneratorsettings.cpp
 
 SOURCES += main.cpp\
     ManagementWindow/ParametersWindow/parameterswindow.cpp \
@@ -90,7 +91,8 @@ HEADERS  += \
     Data/Interfaces/serializeinterface.h \
     Data/appglobaldata.h \
     Data/datasystem.h \
-    Data/Managers/scriptparsermanager.h
+    Data/Managers/scriptparsermanager.h \
+    Data/ProjectSettings/datageneratorsettings.h
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
