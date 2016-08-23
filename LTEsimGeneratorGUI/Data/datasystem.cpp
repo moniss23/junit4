@@ -75,10 +75,9 @@ void DataSystem::projectsFileSetup() {
     }
 }
 
-/*
- * Slots
- *
- */
+/*********
+ * SLOTS *
+ *********/
 
 void DataSystem::updateFileContent(const QString &projectName, const QString &fileName, const QString &content) {
     auto project = findProjectByName(projectName);
@@ -148,7 +147,6 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
     saveProjectsFile();
 }
 
-//Currently not used, because restore defaults functionality in ParametersWindow is disabled
 QString DataSystem::getDefaultParametersFileContent()
 {
     QFile param_template(":/RbFiles/parameters.rb");
@@ -188,7 +186,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     projects.push_back(new_project);
 
     setProjectName(projectName); //TODO: Should not be needed in good architecture
-
     emit currentProjects(projects);
 
     saveProjectsFile();
@@ -311,9 +308,9 @@ void DataSystem::set_RB_FilesLocationForProject(const QString& projectName, cons
     emit currentProjectChanged(*project);
 }
 
-/*******************
- GETTERS AND SETTERS
- *******************/
+/**********************
+ * GETTERS AND SETTERS
+ **********************/
 
 QString DataSystem::getProjectName() const {
     return projectName;

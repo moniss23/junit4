@@ -7,19 +7,18 @@ ScriptParserManager::~ScriptParserManager() {}
 
 QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &scriptContent) {
     QVector<Cell> cells;
-    QStringList scriptContentLines = scriptContent.split('\n');
+    QString pattern = ":cell => \"";
+    QStringList scriptLines = scriptContent.split('\n');
 
-    for(int i=0; i<scriptContentLines.size(); ++i) {
-        if(scriptContentLines[i].contains(":cell => \"")) {           // cell found
+    const int cellParamsLines = 7;
+    for(int i=0; i+cellParamsLines<scriptLines.size(); ++i) {
+        if(scriptLines[i].contains(pattern) && (!scriptLines.contains("#") or
+            (scriptLines[i].indexOf(pattern) < scriptLines[i].indexOf("#"))))
+        {
             QVector<QString> cellParams(8);
-            cellParams[0] = scriptContentLines[i].trimmed();   // :cell
-            cellParams[1] = scriptContentLines[i+1].trimmed(); // :site
-            cellParams[2] = scriptContentLines[i+2].trimmed(); // :pci
-            cellParams[3] = scriptContentLines[i+3].trimmed(); // :position_X
-            cellParams[4] = scriptContentLines[i+4].trimmed(); // :position_Y
-            cellParams[5] = scriptContentLines[i+5].trimmed(); // :earfcnDl
-            cellParams[6] = scriptContentLines[i+6].trimmed(); // :transmitPower
-            cellParams[7] = scriptContentLines[i+7].trimmed(); // :ulNoiseAndInterference
+            for(int j=0; j<cellParams.size(); ++j) {
+                cellParams[j] = scriptLines[i+j].trimmed();
+            }
 
             for(auto &&param: cellParams) {
                 param = param.split(" ")[2];
@@ -47,16 +46,18 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &scriptConte
 
 QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptContent) {
     QVector<Center> centers;
-    QStringList scriptContentLines = scriptContent.split('\n');
+    QString pattern = ":area => \"Center";
+    QStringList scriptLines = scriptContent.split('\n');
 
-    for(int i=0; i<scriptContentLines.size(); ++i) {
-        if(scriptContentLines[i].contains(":area => \"Center")) {
+    const int centersParamsLines = 4;
+    for(int i=0; i+centersParamsLines<scriptLines.size(); ++i) {
+        if(scriptLines[i].contains(pattern) && (!scriptLines.contains("#") or
+            (scriptLines[i].indexOf(pattern) < scriptLines[i].indexOf("#"))))
+        {
             QVector<QString> centerParams(5);
-            centerParams[0] = scriptContentLines[i].trimmed();   // :area
-            centerParams[1] = scriptContentLines[i+1].trimmed(); // :southBoundary
-            centerParams[2] = scriptContentLines[i+2].trimmed(); // :northBoundary
-            centerParams[3] = scriptContentLines[i+3].trimmed(); // :westBoundary
-            centerParams[4] = scriptContentLines[i+4].trimmed(); // :eastBoundary
+            for(int j=0; j<centerParams.size(); ++j) {
+                centerParams[j] = scriptLines[i+j].trimmed();
+            }
 
             for(auto &&param: centerParams) {
                 param = param.split(" ")[2];
@@ -81,17 +82,18 @@ QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptC
 
 QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &scriptContent) {
     QVector<Handover> handovers;
-    QStringList scriptContentLines = scriptContent.split('\n');
+    QString pattern = ":area => \"Handover";
+    QStringList scriptLines = scriptContent.split('\n');
 
-    for(int i=0; i<scriptContentLines.size(); ++i) {
-        if(scriptContentLines[i].contains(":area => \"Handover")) {
+    const int hoParamsLines = 4;
+    for(int i=0; i+hoParamsLines<scriptLines.size(); ++i) {
+        if(scriptLines[i].contains(pattern) && (!scriptLines.contains("#") or
+            (scriptLines[i].indexOf(pattern) < scriptLines[i].indexOf("#"))))
+        {
             QVector<QString> handoverParams(5);
-            handoverParams[0] = scriptContentLines[i].trimmed();   // :area
-            handoverParams[1] = scriptContentLines[i+1].trimmed(); // :southBoundary
-            handoverParams[2] = scriptContentLines[i+2].trimmed(); // :northBoundary
-            handoverParams[3] = scriptContentLines[i+3].trimmed(); // :westBoundary
-            handoverParams[4] = scriptContentLines[i+4].trimmed(); // :eastBoundary
-
+            for(int j=0; j<handoverParams.size(); ++j) {
+                handoverParams[j] = scriptLines[i+j].trimmed();
+            }
 
             for(auto &&param: handoverParams) {
                 param = param.split(" ")[2];
