@@ -9,10 +9,6 @@ void TestRunner::runTests()
     ManagementTemplate_Test managementTemplateTest(managementTemplate);
     QTest::qExec(&managementTemplateTest);
 
-    //Tests for HandoverData class
-    HandoverData_Test handoverTest(appSettings);
-    QTest::qExec(&handoverTest);
-
     //Test for UEgroupData class
     UEgroupData_Test ueGroupDataTest(appSettings);
     QTest::qExec(&ueGroupDataTest);

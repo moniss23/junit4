@@ -51,7 +51,6 @@ SOURCES += main.cpp\
     Maps/Traffic/map_traffic.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
-    Maps/Traffic/DataObjects/celldata.cpp \
     ProjectReaderWriter/projectreaderwriter.cpp \
     Maps/Traffic/MapComponents/mapmanagement.cpp \
     Maps/Traffic/MapComponents/myscrollareawidget.cpp \
@@ -117,7 +116,6 @@ HEADERS  += \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/DataObjects/celldata.h \
     ProjectReaderWriter/projectreaderwriter.h \
     Maps/Traffic/MapComponents/mapmanagement.h \
     Maps/Traffic/MapComponents/myscrollareawidget.h \

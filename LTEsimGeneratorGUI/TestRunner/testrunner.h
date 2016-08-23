@@ -1,7 +1,6 @@
 #ifndef TESTRUNNER_H
 #define TESTRUNNER_H
 #include <QTest>
-#include <Maps/Traffic/MapTest/DataObjectsTest/HandoverDataTest/handoverdata_test.h>
 
 #include <Maps/Traffic/MapTest/MapComponentsTest/mapmanagement_test.h>
 #include <Maps/Traffic/MapTest/MapComponentsTest/myscrollareawidget_test.h>
