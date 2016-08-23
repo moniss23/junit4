@@ -9,7 +9,6 @@ class Cell {
 public:
     Cell();
     Cell(const QString &name);
-
     ~Cell();
 
     Center* center;
@@ -18,14 +17,14 @@ public:
     void setParams();
     void resetParams();
 
-    QString getCell();
-    QString getSite();
-    QString getPci();
-    QString getPosition_X();
-    QString getPosition_Y();
-    QString getEarfcnDl();
-    QString getTransmitPower();
-    QString getUlNoiseAndInterference();
+    QString getCell() const;
+    QString getSite() const;
+    QString getPci() const;
+    QString getPosition_X() const;
+    QString getPosition_Y() const;
+    QString getEarfcnDl() const;
+    QString getTransmitPower() const;
+    QString getUlNoiseAndInterference() const;
     QString getCell_new_name() const;
 
     void setCell(const QString &c);
@@ -49,7 +48,6 @@ private:
     int earfcnDl;
     float transmitPower;
     float ulNoiseAndInterference;
-
 };
 
 #endif // CELL_H
