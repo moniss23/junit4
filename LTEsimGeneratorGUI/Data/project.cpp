@@ -9,6 +9,13 @@ QString Project::getElementType() const
     return QString("Project");
 }
 
+TrafficFileData* Project::findTrafficFileByName(const QString &name) {
+    auto trafficfile = std::find_if(trafficFilesList.begin(), trafficFilesList.end(),
+                        [&name](const auto &traff)->bool{return traff.filename==name;});
+
+    return trafficfile==trafficFilesList.end() ? nullptr : trafficfile;
+}
+
 QByteArray Project::serializeData()
 {
     QBuffer serializedData;
@@ -46,11 +53,4 @@ void Project::deserializeData(const QByteArray &rawData)
         trafficFileData.deserializeData(rawTrafficFile);
         trafficFilesList.push_back(trafficFileData);
     }
-}
-
-TrafficFileData* Project::findTrafficFileByName(const QString &name) {
-    auto trafficfile = std::find_if(std::begin(trafficFilesList), std::end(trafficFilesList),
-                                    [&name](const auto &traff)->bool{return traff.filename==name;});
-
-    return trafficfile==trafficFilesList.end() ? nullptr : trafficfile;
 }

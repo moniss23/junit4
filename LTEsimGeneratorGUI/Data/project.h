@@ -17,15 +17,18 @@ class Project : public SerializeInterface
 {
 public:
     Project();
+    ~Project() {}
 
     QString name;
     QString fullpath;
     QString genScriptDir;
 
+    QVector<Cell> cells;
+    QVector<Center> centers;
+    QVector<Handover> handovers;
+
     ParametersFileData parametersFile;
     QVector<TrafficFileData> trafficFilesList;
-
-    ~Project() {}
 
     /****************************
      * SERIALIZATION INTERFACE  *
