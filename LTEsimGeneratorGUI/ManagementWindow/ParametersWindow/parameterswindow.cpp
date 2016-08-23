@@ -127,7 +127,7 @@ void ParametersWindow::on_renameFileButton_clicked()
         return;
     }
 
-    emit SpawnWindow_RenameFile(ui->projectsList->currentItem()->text());
+    emit SpawnWindow_RenameFile(ui->projectsList->currentItem()->text(), currentProject.name);
 }
 
 // preview a file in the right field
@@ -393,16 +393,6 @@ void ParametersWindow::on_saveFileButton_clicked()
     //TODO: implement file saving on button click
 }
 
-void ParametersWindow::getNewNameForFile(const QString &newFilename, const QString &oldFilename)
-{
-    emit checkAndRenameIfFilenameUnique(newFilename, oldFilename, currentProject.name);
-}
-
 void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
-}
-
-void ParametersWindow::set_RB_FilesLocation(const QString &location)
-{
-    emit updateCurrentProjects_RB_FilesLocation(location);
 }

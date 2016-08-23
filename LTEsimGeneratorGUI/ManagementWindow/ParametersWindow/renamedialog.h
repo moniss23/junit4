@@ -28,10 +28,10 @@ public:
     QString getRbFileExt() const;
 
 signals:
-    void changedFilename(const QString& newFilename, const QString& oldFilename);
+    void changedFilename(const QString& newFilename, const QString& oldFilename, const QString& projectName);
 
 public slots:
-    void initWindow(const QString &filename);
+    void initWindow(const QString &filename, const QString& projectName);
 
 private slots:
     void on_buttonBox_rejected();
@@ -41,6 +41,7 @@ private:
 
 private:
     Ui::RenameDialog *ui;
+    QString currentProjectName;      ///< current project name
 
     const QString rbFileExt = ".rb"; ///< Extension for rb files.
 
