@@ -15,7 +15,7 @@ public:
     ~DataGeneratorSettings() {}
 
     QString dataGenerator;
-    QString userDataGenerator;
+    QStringList userDataGenerator;
     QString ipgwtg_IP_Address;
 
     int ipgwtgPort;

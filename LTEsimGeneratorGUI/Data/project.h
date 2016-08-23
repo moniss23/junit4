@@ -12,6 +12,7 @@
 #include "Data/Objects/handover.h"
 #include "Data/Objects/trafficfiledata.h"
 #include "Data/Objects/parametersfiledata.h"
+#include "Data/ProjectSettings/datageneratorsettings.h"
 
 class Project : public SerializeInterface
 {
@@ -26,6 +27,8 @@ public:
     QVector<Cell> cells;
     QVector<Center> centers;
     QVector<Handover> handovers;
+
+    DataGeneratorSettings dataGeneratorSettings;
 
     ParametersFileData parametersFile;
     QVector<TrafficFileData> trafficFilesList;

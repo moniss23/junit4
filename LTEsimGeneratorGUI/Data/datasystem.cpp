@@ -184,6 +184,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     new_project.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
     new_project.parametersFile.filename = "Parameters.rb";
     new_project.parametersFile.content = getDefaultParametersFileContent();
+    new_project.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(new_project.parametersFile.content);
     projects.push_back(new_project);
 
     setProjectName(projectName); //TODO: Should not be needed in good architecture

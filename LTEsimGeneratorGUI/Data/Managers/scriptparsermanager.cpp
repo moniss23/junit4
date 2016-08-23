@@ -1,5 +1,7 @@
 #include "scriptparsermanager.h"
 
+#include <QDebug>
+
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -110,4 +112,99 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &scr
     }
 
     return handovers;
+}
+
+DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(const QString &scriptContent)
+{
+    DataGeneratorSettings dataGeneratorSettings;
+    QStringList scriptContentLines = scriptContent.split("\n");
+
+    int startIndex, endIndex;
+    QString value;
+
+    for(int i=0; i<scriptContentLines.size(); ++i) {
+        if(scriptContentLines[i].contains("default[:dataGenerator]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            startIndex = scriptContentLines[i].indexOf("\"");
+            startIndex++;
+            endIndex = scriptContentLines[i].lastIndexOf("\"");
+            value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
+            dataGeneratorSettings.dataGenerator = value;
+        }
+        else if(scriptContentLines[i].contains("default[:userDataGen]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            int j = i;
+            do {
+                startIndex = scriptContentLines[j].indexOf("\"");
+                startIndex++;
+                endIndex  = scriptContentLines[j].lastIndexOf("\"");
+                value = scriptContentLines[j].mid(startIndex, endIndex - startIndex);
+                value.chop(2);
+                dataGeneratorSettings.userDataGenerator.push_back(value);
+            }while(scriptContentLines[j++].contains("+"));
+            for(int k = 0; k < dataGeneratorSettings.userDataGenerator.size(); k++) {
+            }
+        }
+        else if(scriptContentLines[i].contains("default[:start_isp_simulator]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if(scriptContentLines[i].contains("true")) {
+                dataGeneratorSettings.startIspSimulator = true;
+            } else {
+                dataGeneratorSettings.startIspSimulator = false;
+            }
+        }
+        else if(scriptContentLines[i].contains("default[:ipgwtg_ipAddress]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            startIndex = scriptContentLines[i].indexOf("\"");
+            startIndex++;
+            endIndex = scriptContentLines[i].lastIndexOf("\"");
+            value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
+            dataGeneratorSettings.ipgwtg_IP_Address = value;
+        }
+        else if(scriptContentLines[i].contains("default[:ipgwtg_inband_signaling]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if(scriptContentLines[i].contains("true")) {
+                dataGeneratorSettings.ipgwtgInbandSignaling = true;
+            } else {
+                dataGeneratorSettings.ipgwtgInbandSignaling = false;
+            }
+        }
+        else if(scriptContentLines[i].contains("default[:ipgwtg_port]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            startIndex = scriptContentLines[i].indexOf("=");
+            startIndex++;
+            value = scriptContentLines[i].mid(startIndex, scriptContentLines[i].size() - startIndex);
+            dataGeneratorSettings.ipgwtgPort = value.toInt();
+        }
+        else if(scriptContentLines[i].contains("default[:ipgwtg_ftp_sender_connect_put]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if(scriptContentLines[i].contains("true")) {
+                dataGeneratorSettings.ipgwtgFtpSenderConnectPut = true;
+            } else {
+                dataGeneratorSettings.ipgwtgFtpSenderConnectPut = false;
+            }
+        }
+    }
+    return dataGeneratorSettings;
 }
