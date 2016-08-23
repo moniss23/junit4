@@ -5,37 +5,34 @@ class Center
 {
 public:
     Center();
-    Center(QString name);
+    Center(const QString &name);
 
-    QString getArea();
-    QString getSouthBoundary();
-    QString getNorthBoundary();
-    QString getWestBoundary();
-    QString getEastBoundary();
+    QString getArea() const;
+    QString getSouthBoundary() const;
+    QString getNorthBoundary() const;
+    QString getWestBoundary() const;
+    QString getEastBoundary() const;
+    QString getNew_name_area() const;
 
-    void setArea(QString value);
-    void setSouthBoundary(QString s);
-    void setNorthBoundary(QString n);
-    void setWestBoundary(QString w);
-    void setEastBoundary(QString e);
-
-    bool wasThereParametersChange();
+    void setArea(const QString &value);
+    void setEastBoundary(const QString &east);
+    void setWestBoundary(const QString &west);
+    void setNorthBoundary(const QString &north);
+    void setSouthBoundary(const QString &south);
+    void setNew_name_area(const QString &value);
 
     void resetParams();
 
-    QString getNew_name_area() const;
-    void setNew_name_area(const QString &value);
-
 private:
-    QString new_name_area;
     QString area;
+    QString new_name_area;
+
     int southBoundary;
     int northBoundary;
     int westBoundary;
     int eastBoundary;
 
     void setParams();
-    QString *tabParams;
 };
 
 #endif // CENTER_H
