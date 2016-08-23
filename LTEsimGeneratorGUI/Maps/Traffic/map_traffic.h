@@ -6,7 +6,6 @@
 #include <QHash>
 #include <QtWidgets>
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
-#include <Maps/Traffic/CustomModel/oldcustommodels.h>
 #include <Maps/Traffic/CustomModel/customModel.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <QList>
@@ -59,7 +58,6 @@ public:
     void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
     void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseDoubleClickEvent(QMouseEvent * event ) Q_DECL_OVERRIDE;
 
     void closeEvent(QCloseEvent *event);
 

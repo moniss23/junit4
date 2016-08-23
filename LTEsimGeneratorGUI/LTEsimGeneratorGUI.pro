@@ -45,22 +45,6 @@ SOURCES += main.cpp\
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
     Maps/Parameters/MapRange/maprangeform.cpp \
-    Maps/Traffic/CustomModel/addftpdl.cpp \
-    Maps/Traffic/CustomModel/addftpdlform.cpp \
-    Maps/Traffic/CustomModel/addftpul.cpp \
-    Maps/Traffic/CustomModel/addftpulform.cpp \
-    Maps/Traffic/CustomModel/addping.cpp \
-    Maps/Traffic/CustomModel/addpingform.cpp \
-    Maps/Traffic/CustomModel/addservicereq.cpp \
-    Maps/Traffic/CustomModel/addservicereqform.cpp \
-    Maps/Traffic/CustomModel/addstreamdl.cpp \
-    Maps/Traffic/CustomModel/addstreamdlform.cpp \
-    Maps/Traffic/CustomModel/addstreamul.cpp \
-    Maps/Traffic/CustomModel/addstreamulform.cpp \
-    Maps/Traffic/CustomModel/addsyncedping.cpp \
-    Maps/Traffic/CustomModel/addsyncedpingform.cpp \
-    Maps/Traffic/CustomModel/addvoip.cpp \
-    Maps/Traffic/CustomModel/addvoipform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
     Maps/Traffic/UeParameters/UE_param_form.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
@@ -87,7 +71,6 @@ SOURCES += main.cpp\
     Maps/Traffic/Statistics/statisticsData.cpp  \
     ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     Maps/Traffic/CustomModel/customModel.cpp \
-    Maps/Traffic/CustomModel/oldcustommodels.cpp \
     UISystem/uisystem.cpp \
     ManagementWindow/ParametersWindow/renamedialog.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
@@ -128,22 +111,6 @@ HEADERS  += \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
-    Maps/Traffic/CustomModel/addftpdl.h \
-    Maps/Traffic/CustomModel/addftpdlform.h \
-    Maps/Traffic/CustomModel/addftpul.h \
-    Maps/Traffic/CustomModel/addftpulform.h \
-    Maps/Traffic/CustomModel/addping.h \
-    Maps/Traffic/CustomModel/addpingform.h \
-    Maps/Traffic/CustomModel/addservicereq.h \
-    Maps/Traffic/CustomModel/addservicereqform.h \
-    Maps/Traffic/CustomModel/addstreamdl.h \
-    Maps/Traffic/CustomModel/addstreamdlform.h \
-    Maps/Traffic/CustomModel/addstreamul.h \
-    Maps/Traffic/CustomModel/addstreamulform.h \
-    Maps/Traffic/CustomModel/addsyncedping.h \
-    Maps/Traffic/CustomModel/addsyncedpingform.h \
-    Maps/Traffic/CustomModel/addvoip.h \
-    Maps/Traffic/CustomModel/addvoipform.h \
     Maps/Traffic/UeParameters/ue.h \
     Maps/Traffic/UeParameters/UE_param_form.h \
     Maps/Traffic/MapComponents/draguelabel.h \
@@ -174,7 +141,6 @@ HEADERS  += \
     dataelementsinterface.h \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
-    Maps/Traffic/CustomModel/oldcustommodels.h \
     UISystem/uisystem.h \
     ManagementWindow/ParametersWindow/renamedialog.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
@@ -202,14 +168,6 @@ FORMS    += \
     Ui/maprangelargeform.ui \
     Ui/map_traffic.ui \
     Ui/map_traffic_large.ui \
-    Ui/addftpdlform.ui \
-    Ui/addftpulform.ui \
-    Ui/addpingform.ui \
-    Ui/addservicereqform.ui \
-    Ui/addstreamdlform.ui \
-    Ui/addstreamulform.ui \
-    Ui/addsyncedpingform.ui \
-    Ui/addvoipform.ui \
     Ui/custommodels.ui \
     Ui/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
