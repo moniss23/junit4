@@ -19,6 +19,7 @@ private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
     void scriptParserManagerTest1_getDataGeneratorSettingsFromScript();
+    void scriptParserManagerTest2_getDataGeneratorSettingsFromScript();
 };
 
 #endif // SCRIPTPARSERMANAGERTEST_H
