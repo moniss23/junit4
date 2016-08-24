@@ -8,6 +8,7 @@
 #include "DataTests/projecttest.h"
 #include "DataTests/parametersfiledatatest.h"
 #include "DataTests/trafficfiledatatest.h"
+#include "DataTests/ManagersTests/scriptparsermanagertest.h"
 
 #include "Data/datasystem.h"
 
@@ -27,6 +28,9 @@ public:
     ParametersFileDataTest parametersFileDataTest;
     TrafficFileDataTest    trafficFileDataTest;
 
+    //-----------------MANAGER TESTS-----------------------//
+    ScriptParserManagerTest scriptParserManagerTest;
+
 private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
@@ -40,6 +44,7 @@ LTEsimGeneratorTESTS::LTEsimGeneratorTESTS()
     QTest::qExec(&projectTest);
     QTest::qExec(&parametersFileDataTest);
     QTest::qExec(&trafficFileDataTest);
+    QTest::qExec(&scriptParserManagerTest);
 }
 
 void LTEsimGeneratorTESTS::initTestCase()

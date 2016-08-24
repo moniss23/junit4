@@ -42,7 +42,8 @@ SOURCES += \
     UITests/projectmanagementwindowtest.cpp \
     DataTests/projecttest.cpp \
     DataTests/parametersfiledatatest.cpp \
-    DataTests/trafficfiledatatest.cpp
+    DataTests/trafficfiledatatest.cpp \
+    DataTests/ManagersTests/scriptparsermanagertest.cpp
 
 HEADERS  += \
     ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
@@ -67,7 +68,8 @@ HEADERS  += \
     UITests/projectmanagementwindowtest.h \
     DataTests/projecttest.h \
     DataTests/parametersfiledatatest.h \
-    DataTests/trafficfiledatatest.h
+    DataTests/trafficfiledatatest.h \
+    DataTests/ManagersTests/scriptparsermanagertest.h
 
 FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/helpdialog.ui \
