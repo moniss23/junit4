@@ -27,15 +27,21 @@ SOURCES += \
     Data/datasystem.cpp \
     Data/Managers/scriptparsermanager.cpp \
     Data/ProjectSettings/datageneratorsettings.cpp \
-    ManagementWindow/ParametersWindow/rubysyntaxhighlighter.cpp \
-    Data/ProjectSettings/sgwsettings.cpp
+    Data/ProjectSettings/sgwsettings.cpp \
 
+#--------UI SYSTEM--------#
+SOURCES += \
+    UISystem/uisystem.cpp \
+    UISystem/Windows/addProjectWindow.cpp \
+    UISystem/Windows/helpdialog.cpp \
+    UISystem/Windows/importprojectwindow.cpp \
+    UISystem/Windows/parameterswindow.cpp \
+    UISystem/Windows/projectmanagement.cpp \
+    UISystem/Windows/renamedialog.cpp \
+    UISystem/Windows/settings.cpp \
+    UISystem/Helpers/rubysyntaxhighlighter.cpp
 
 SOURCES += main.cpp\
-    ManagementWindow/ParametersWindow/parameterswindow.cpp \
-    ManagementWindow/Helpdialog/helpdialog.cpp \
-    ManagementWindow/ProjectManagement/projectmanagement.cpp \
-    ManagementWindow/Settings/settings.cpp \
     Maps/Parameters/ChannelModel/channelmodel.cpp \
     Maps/Parameters/ChannelModel/channelmodelform.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
@@ -67,13 +73,9 @@ SOURCES += main.cpp\
     my_qlabel.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
-    ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
     Maps/Traffic/Statistics/statisticsManager.cpp \
     Maps/Traffic/Statistics/statisticsData.cpp  \
-    ManagementWindow/ProjectManagement/importprojectwindow.cpp \
     Maps/Traffic/CustomModel/customModel.cpp \
-    UISystem/uisystem.cpp \
-    ManagementWindow/ParametersWindow/renamedialog.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Parameters/parametersfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
@@ -94,14 +96,21 @@ HEADERS  += \
     Data/datasystem.h \
     Data/Managers/scriptparsermanager.h \
     Data/ProjectSettings/datageneratorsettings.h \
-    ManagementWindow/ParametersWindow/rubysyntaxhighlighter.h \
-    Data/ProjectSettings/sgwsettings.h
+    Data/ProjectSettings/sgwsettings.h \
+
+#--------UI SYSTEM--------#
+HEADERS  += \
+    UISystem/uisystem.h \
+    UISystem/Windows/addProjectWindow.h \
+    UISystem/Windows/helpdialog.h \
+    UISystem/Windows/importprojectwindow.h \
+    UISystem/Windows/parameterswindow.h \
+    UISystem/Windows/projectmanagement.h \
+    UISystem/Windows/renamedialog.h \
+    UISystem/Windows/settings.h \
+    UISystem/Helpers/rubysyntaxhighlighter.h
 
 HEADERS  += \
-    ManagementWindow/ParametersWindow/parameterswindow.h \
-    ManagementWindow/Helpdialog/helpdialog.h \
-    ManagementWindow/ProjectManagement/projectmanagement.h \
-    ManagementWindow/Settings/settings.h \
     Maps/Parameters/ChannelModel/channelmodel.h \
     Maps/Parameters/ChannelModel/channelmodelform.h \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \
@@ -136,12 +145,10 @@ HEADERS  += \
     my_qlabel.h \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
-    ManagementWindow/AddProjectWindow/addProjectWindow.h \
     Maps/Traffic/Statistics/statisticsData.h \
     Maps/Traffic/Statistics/statisticsManager.h \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
-    UISystem/uisystem.h \
     ManagementWindow/ParametersWindow/renamedialog.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Parameters/parametersfilemanagement.h \
@@ -149,17 +156,13 @@ HEADERS  += \
     Maps/Traffic/Tuning/tuningTrafficManager.h
 
 
-
-
 FORMS    += \
     Ui/channelmodelform.ui \
     Ui/mmeform.ui \
-    Ui/ipexform.ui \
     Ui/ubsimform.ui \
     Ui/uctoolform.ui \
     Ui/mapwindow.ui \
     Ui/mapwindowlarge.ui \
-    Ui/sgwform.ui \
     Ui/maprangeform.ui \
     Ui/maprangelargeform.ui \
     Ui/map_traffic.ui \
@@ -176,7 +179,9 @@ FORMS    += \
     Ui/Windows/settings.ui \
     Ui/Windows/projectmanagement.ui \
     Ui/Windows/helpdialog.ui \
-    Ui/statistics.ui
+    Ui/statistics.ui \
+    Ui/DataForms/ipexform.ui \
+    Ui/DataForms/sgwform.ui
 
 
 OTHER_FILES += \

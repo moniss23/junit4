@@ -7,9 +7,10 @@
 #include <QStringList>
 #include <QListWidgetItem>
 
+#include <UISystem/Helpers/rubysyntaxhighlighter.h>
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 #include <Maps/Traffic/map_traffic.h>
-#include <ManagementWindow/ParametersWindow/rubysyntaxhighlighter.h>
+
 
 QString parametersFileContent;
 QStringList parametersFileContentList;

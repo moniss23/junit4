@@ -5,7 +5,7 @@
 #include "mapwindow.h"
 #include "ui_mapwindow.h"
 #include <Data/Objects/cell.h>
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
+#include <UISystem/Windows/parameterswindow.h>
 
 extern ParametersWindow* p;
 

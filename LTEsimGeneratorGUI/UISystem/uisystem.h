@@ -2,14 +2,14 @@
 #define UISYSTEM_H
 
 #include "Data/datasystem.h"
-#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
-#include "ManagementWindow/ProjectManagement/projectmanagement.h"
-#include "ManagementWindow/ProjectManagement/importprojectwindow.h"
-#include "ManagementWindow/ParametersWindow/parameterswindow.h"
-#include "ManagementWindow/Settings/settings.h"
-#include "ManagementWindow/ParametersWindow/renamedialog.h"
 #include "Maps/Parameters/SimulatedUe/ipexform.h"
-#include "Data/ProjectSettings/datageneratorsettings.h"
+#include "UISystem/Windows/addProjectWindow.h"
+#include "UISystem/Windows/projectmanagement.h"
+#include "UISystem/Windows/importprojectwindow.h"
+#include "UISystem/Windows/parameterswindow.h"
+#include "UISystem/Windows/settings.h"
+#include "UISystem/Windows/renamedialog.h"
+
 
 class UISystem : public QObject
 {

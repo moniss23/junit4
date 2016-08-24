@@ -4,7 +4,7 @@
 #include <QCloseEvent>
 #include <QFile>
 #include <QtWidgets>
-#include "QRect"
+#include <QRect>
 #include <QPoint>
 #include <QSettings>
 #include <QMessageBox>
@@ -12,8 +12,8 @@
 
 #include <Maps/Traffic/MapComponents/draguelabel.h>
 #include <Maps/Traffic/UeParameters/UE_param_form.h>
-#include <ManagementWindow/ParametersWindow/parameterswindow.h>
-#include <Data/Objects/cell.h>
+#include "UISystem/Windows/parameterswindow.h"
+#include "Data/Objects/cell.h"
 
 //externed checkbox settings from MapWindow
 extern bool tmp_chkCell11;

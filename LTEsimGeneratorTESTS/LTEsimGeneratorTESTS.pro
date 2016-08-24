@@ -21,11 +21,10 @@ INCLUDEPATH += ../LTEsimGeneratorGUI
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 SOURCES += \
-    ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.cpp \
-#    ../LTEsimGeneratorGUI/Maps/Traffic/map_traffic.cpp \
-    ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.cpp \
-    ../LTEsimGeneratorGUI/Data/datasystem.cpp \
-    ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
+    ../LTEsimGeneratorGUI/UISystem/Windows/helpdialog.cpp \
+    ../LTEsimGeneratorGUI/UISystem/Windows/projectmanagement.cpp \
+    ../LTEsimGeneratorGUI/UISystem/Windows/importprojectwindow.cpp \
+    ../LTEsimGeneratorGUI/UISystem/Windows/addProjectWindow.cpp \
     ../LTEsimGeneratorGUI/Data/project.cpp \
     ../LTEsimGeneratorGUI/Data/Objects/cell.cpp \
     ../LTEsimGeneratorGUI/Data/Objects/center.cpp \
@@ -33,7 +32,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.cpp \
     ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.cpp \
     ../LTEsimGeneratorGUI/Data/appglobaldata.cpp \
-    ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.cpp \
+    ../LTEsimGeneratorGUI/Data/datasystem.cpp \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.cpp \
     ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.cpp \
@@ -47,11 +46,11 @@ SOURCES += \
     DataTests/ManagersTests/scriptparsermanagertest.cpp
 
 HEADERS  += \
-    ../LTEsimGeneratorGUI/ManagementWindow/Helpdialog/helpdialog.h \
-#    ../LTEsimGeneratorGUI/Maps/Traffic/map_traffic.h \
-    ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/projectmanagement.h \
+    ../LTEsimGeneratorGUI/UISystem/Windows/helpdialog.h \
+    ../LTEsimGeneratorGUI/UISystem/Windows/projectmanagement.h \
+    ../LTEsimGeneratorGUI/UISystem/Windows/importprojectwindow.h \
+    ../LTEsimGeneratorGUI/UISystem/Windows/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/datasystem.h \
-    ../LTEsimGeneratorGUI/ManagementWindow/AddProjectWindow/addProjectWindow.h \
     ../LTEsimGeneratorGUI/Data/project.h \
     ../LTEsimGeneratorGUI/Data/Objects/cell.h \
     ../LTEsimGeneratorGUI/Data/Objects/center.h \
@@ -64,7 +63,6 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.h \
     ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/sgwsettings.h \
-    ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
@@ -75,7 +73,6 @@ HEADERS  += \
 
 FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/helpdialog.ui \
-#    ../LTEsimGeneratorGUI/Ui/map_traffic.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/projectmanagement.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/addProjectWindow.ui \
     ../LTEsimGeneratorGUI/Ui/uctoolform.ui \

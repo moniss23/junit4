@@ -4,10 +4,11 @@
 #include <QMainWindow>
 #include <QString>
 #include <memory>
-#include "ManagementWindow/Helpdialog/helpdialog.h"
+
+#include "UISystem/Windows/helpdialog.h"
+#include "UISystem/Helpers/rubysyntaxhighlighter.h"
 #include "Data/datasystem.h"
 #include "Data/project.h"
-#include "rubysyntaxhighlighter.h"
 
 namespace Ui {
 class ParametersWindow;

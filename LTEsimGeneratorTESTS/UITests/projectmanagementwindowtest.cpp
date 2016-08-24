@@ -4,7 +4,7 @@
 #include <QPushButton>
 
 #include "Data/datasystem.h"
-#include "ManagementWindow/ProjectManagement/projectmanagement.h"
+#include "UISystem/Windows/projectmanagement.h"
 
 
 ProjectManagementWindowTest::ProjectManagementWindowTest(){

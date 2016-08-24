@@ -1,5 +1,5 @@
 #include "addprojectwindowtest.h"
-#include "ManagementWindow/AddProjectWindow/addProjectWindow.h"
+#include "UISystem/Windows/addProjectWindow.h"
 
 #include <QtTest>
 #include <QSignalSpy>
