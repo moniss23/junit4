@@ -177,17 +177,19 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
         return;
     }
 
-    Project new_project;
-    new_project.name = projectName;
-    new_project.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
-    new_project.parametersFile.filename = "Parameters.rb";
-    new_project.parametersFile.content = getDefaultParametersFileContent();
-    new_project.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(new_project.parametersFile.content);
-    projects.push_back(new_project);
-
+    Project newProject;
+    newProject.name = projectName;
+    newProject.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
+    newProject.parametersFile.filename = "Parameters.rb";
+    newProject.parametersFile.content = getDefaultParametersFileContent();
     setProjectName(projectName); //TODO: Should not be needed in good architecture
-    emit currentProjects(projects);
 
+    newProject.sgwSettings = scriptParserManager.getSgwSettings(newProject.parametersFile.content);
+    newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(newProject.parametersFile.content);
+    projects.push_back(newProject);
+
+
+    emit currentProjects(projects);
     saveProjectsFile();
 }
 

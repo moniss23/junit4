@@ -1,5 +1,4 @@
 #include "rubysyntaxhighlighter.h"
-#include <QDebug>
 
 RubySyntaxHighlighter::RubySyntaxHighlighter(QTextDocument *parent)
     : QSyntaxHighlighter(parent)

@@ -8,6 +8,7 @@
 #include "Data/Objects/center.h"
 #include "Data/Objects/handover.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
+#include "Data/ProjectSettings/sgwsettings.h"
 
 class ScriptParserManager
 {
@@ -19,6 +20,7 @@ public:
     QVector<Center> getCentersFromScript(const QString &scriptContent);
     QVector<Handover> getHandoversFromScript(const QString &scriptContent);
     DataGeneratorSettings getDataGeneratorSettingsFromScript(const QString &scriptContent);
+    SgwSettings getSgwSettings(const QString &scriptContent);
 };
 
 #endif // SCRIPTPARSERMANAGER_H

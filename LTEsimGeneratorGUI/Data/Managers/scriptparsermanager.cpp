@@ -1,7 +1,5 @@
 #include "scriptparsermanager.h"
 
-#include <QDebug>
-
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -209,4 +207,40 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
         }
     }
     return dataGeneratorSettings;
+}
+SgwSettings ScriptParserManager::getSgwSettings(const QString &scriptContent){
+    SgwSettings sgwSettings;
+    int len;
+    QStringList scriptContentLines = scriptContent.split('\n');
+    for(int i=0; i<scriptContentLines.size(); ++i) {
+        if(scriptContentLines[i].contains("default[:sgw_names]")) {
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            sgwSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+        }
+        else if (scriptContentLines[i].contains("default[:sgw_ipAddresses]")) {
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            sgwSettings.ipAdress = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+        }
+        else if (scriptContentLines[i].contains("default[:apn_lists]")) {
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            QStringList temp = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split(",");
+            for (int j=0;j<temp.size();j+=2){
+                sgwSettings.apnList.append(QPair<QString,QString>(temp[j],temp[j+1]));
+                sgwSettings.apnList[j].second.chop(1);
+            }
+        }
+        else if (scriptContentLines[i].contains("default[:sgw_LDIs]")) {
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            sgwSettings.ldi = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len).toInt();
+        }
+        else if (scriptContentLines[i].contains("default[:core_network_gateway]")) {
+            if (scriptContentLines[i].contains("false")){
+                sgwSettings.coreNetworkGateway=false;
+            }
+            else{
+                sgwSettings.coreNetworkGateway=true;
+            }
+        }
+    }
+    return sgwSettings;
 }

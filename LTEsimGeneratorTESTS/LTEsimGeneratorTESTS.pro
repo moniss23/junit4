@@ -37,6 +37,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.cpp \
     ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/sgwsettings.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -62,6 +63,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/appglobaldata.h \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.h \
     ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/sgwsettings.h \
     ../LTEsimGeneratorGUI/ManagementWindow/ProjectManagement/importprojectwindow.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     UITests/addprojectwindowtest.h \

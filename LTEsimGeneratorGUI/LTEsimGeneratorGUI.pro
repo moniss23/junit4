@@ -27,7 +27,8 @@ SOURCES += \
     Data/datasystem.cpp \
     Data/Managers/scriptparsermanager.cpp \
     Data/ProjectSettings/datageneratorsettings.cpp \
-    ManagementWindow/ParametersWindow/rubysyntaxhighlighter.cpp
+    ManagementWindow/ParametersWindow/rubysyntaxhighlighter.cpp \
+    Data/ProjectSettings/sgwsettings.cpp
 
 
 SOURCES += main.cpp\
@@ -95,7 +96,8 @@ HEADERS  += \
     Data/datasystem.h \
     Data/Managers/scriptparsermanager.h \
     Data/ProjectSettings/datageneratorsettings.h \
-    ManagementWindow/ParametersWindow/rubysyntaxhighlighter.h
+    ManagementWindow/ParametersWindow/rubysyntaxhighlighter.h \
+    Data/ProjectSettings/sgwsettings.h
 
 HEADERS  += \
     ManagementWindow/ParametersWindow/parameterswindow.h \
