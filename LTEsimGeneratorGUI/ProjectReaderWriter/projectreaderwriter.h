@@ -1,7 +1,6 @@
 #ifndef PROJECTREADERWRITER_H
 #define PROJECTREADERWRITER_H
 #include <QByteArray>
-#include <CommonConstans/common_constans.h>
 #include <QFile>
 #include <QtXml>
 #include <Data/datasystem.h>

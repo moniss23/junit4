@@ -1,5 +1,7 @@
 #include "uegroupdata.h"
 
+const QString endOfUESector = "</UE>\n";
+
 UEgroupData::UEgroupData(const QString &name, const QString &mapIndex, DataSystem *appSettings) : appSettings(appSettings)
 {
     ue.ueName = name;

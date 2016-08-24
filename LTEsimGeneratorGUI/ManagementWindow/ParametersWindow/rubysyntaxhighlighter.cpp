@@ -38,10 +38,15 @@ RubySyntaxHighlighter::RubySyntaxHighlighter(QTextDocument *parent)
         highlightingRules.append(rule);
     }
 
+    // INDEXES
+    keywordFormat.setForeground(Qt::darkBlue);
+    rule.pattern = QRegExp("\\[:\\w*\\]");
+    rule.format = keywordFormat;
+    highlightingRules.append(rule);
 
     // NUMBERS
-    keywordFormat.setForeground(Qt::darkBlue);
-    rule.pattern = QRegExp("= [0-9]+");
+    keywordFormat.setForeground(Qt::darkGreen);
+    rule.pattern = QRegExp("\\d+");
     rule.format = keywordFormat;
     highlightingRules.append(rule);
 
@@ -63,10 +68,9 @@ RubySyntaxHighlighter::RubySyntaxHighlighter(QTextDocument *parent)
     rule.format = keywordFormat;
     highlightingRules.append(rule);
 
-
     // ASSIGN
     keywordFormat.setForeground(Qt::darkCyan);
-    rule.pattern = QRegExp("=>.*$");
+    rule.pattern = QRegExp("=>");
     rule.format = keywordFormat;
     highlightingRules.append(rule);
 
@@ -77,9 +81,8 @@ RubySyntaxHighlighter::RubySyntaxHighlighter(QTextDocument *parent)
     rule.format = keywordFormat;
     highlightingRules.append(rule);
 
-
-    // COMENT
-    keywordFormat.setForeground(Qt::darkGreen);
+    // COMMENT
+    keywordFormat.setForeground(QColor(160,82,45, 255));
     rule.pattern = QRegExp("#.*$");
     rule.format = keywordFormat;
     highlightingRules.append(rule);

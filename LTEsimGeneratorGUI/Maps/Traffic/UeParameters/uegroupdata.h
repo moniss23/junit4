@@ -1,10 +1,9 @@
 #ifndef UEGROUPDATA_H
 #define UEGROUPDATA_H
 #include <QString>
-#include <dataelementsinterface.h>
 #include <QtXml>
 #include <ProjectReaderWriter/projectreaderwriter.h>
-#include <CommonConstans/common_constans.h>
+
 struct UEgroupParams
 {
     QString ueName;
@@ -17,7 +16,7 @@ struct UEgroupParams
     QString area;
 };
 
-class UEgroupData : DataElementsInterface
+class UEgroupData //TODO: it seems this class is not used, obsolete
 {
 public:
     UEgroupData(const QString &name, const QString &mapIndex, DataSystem *appSettings);
@@ -43,11 +42,11 @@ public:
     void setArea(const QString &areaCurrent);
 
     //interface methods
-    QString getElementType() const override;
-    void serializeToProjectFile() override;
-    void serializeFromProjectFileOld(QByteArray rawData) override;
-    void serializeFromProjectFileNew(QDomDocument xmlDocument) override;
-    void serializeToScriptCommands() override {}
+    QString getElementType() const;
+    void serializeToProjectFile();
+    void serializeFromProjectFileOld(QByteArray rawData);
+    void serializeFromProjectFileNew(QDomDocument xmlDocument);
+    void serializeToScriptCommands() {}
 
     void setProjectReaderWriter(ProjectReaderWriter *value);
 

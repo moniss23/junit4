@@ -66,7 +66,6 @@ SOURCES += main.cpp\
     Maps/Traffic/MapComponents/cellarea.cpp \
     Maps/Traffic/MapComponents/handoverarea.cpp \
     my_qlabel.cpp \
-    CommonConstans/common_constans.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
     ManagementWindow/AddProjectWindow/addProjectWindow.cpp \
@@ -137,13 +136,11 @@ HEADERS  += \
     Maps/Traffic/MapComponents/handoverarea.h \
     Maps/Traffic/MapComponents/compositionofareas.h \
     my_qlabel.h \
-    CommonConstans/common_constans.h \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
     ManagementWindow/AddProjectWindow/addProjectWindow.h \
     Maps/Traffic/Statistics/statisticsData.h \
     Maps/Traffic/Statistics/statisticsManager.h \
-    dataelementsinterface.h \
     ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
     UISystem/uisystem.h \
