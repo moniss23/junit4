@@ -1761,10 +1761,7 @@ void MapWindow::on_lblChannelModel_clicked()
 
 void MapWindow::on_lblIpex_clicked()
 {
-    viewIpex.close();
-    viewIpex.setParameters(ipex, ue->getStart_ue_component());
-    viewIpex.set_checkboxactive(this->ui->checkBoxUE_simulated->isChecked());
-    viewIpex.show();
+    emit SpawnWindow_Ipex(project.name);
 }
 
 void MapWindow::on_axis_y_clicked()

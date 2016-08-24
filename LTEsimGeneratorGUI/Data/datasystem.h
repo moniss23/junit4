@@ -13,6 +13,7 @@
 #include "Data/appglobaldata.h"
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
+#include "Data/ProjectSettings/datageneratorsettings.h"
 
 class DataSystem : public QObject
 {
@@ -54,6 +55,8 @@ public slots:
 
     void updateFileContent(const QString& projectName, const QString& fileName, const QString& content);
     void SpawnWindow_ProjectManagement();
+
+    void updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
 
 public:
     QString getProjectName() const;

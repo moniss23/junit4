@@ -310,6 +310,16 @@ void DataSystem::set_RB_FilesLocationForProject(const QString& projectName, cons
     emit currentProjectChanged(*project);
 }
 
+void DataSystem::updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    project->dataGeneratorSettings = dataGeneratorSettings;
+    //Maybe emit signal that refresh map UI but not sure yet if we need this
+}
+
 /**********************
  * GETTERS AND SETTERS
  **********************/

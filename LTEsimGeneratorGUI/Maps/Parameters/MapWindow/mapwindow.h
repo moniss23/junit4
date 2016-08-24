@@ -61,6 +61,10 @@ public:
     void resetFlags();                 //Reset falgs Core Network and Simulate Core
     QList<QString> outputList;
     void showList(QList<QString> list);
+
+signals:
+    void SpawnWindow_Ipex(const QString& projectName);
+
 private slots:
 
     void on_Center61_clicked();
@@ -216,7 +220,7 @@ private:
     UCtoolForm viewUCtool;
     UBsimForm viewUBsim;
     ChannelModelForm viewCannelModel;
-    ipexForm viewIpex;
+    IpexForm viewIpex;
     MapRangeForm viewMapRange;
 
     //values use to change values in object if we change scale map

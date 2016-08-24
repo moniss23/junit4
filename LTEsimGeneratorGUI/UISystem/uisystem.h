@@ -8,6 +8,8 @@
 #include "ManagementWindow/ParametersWindow/parameterswindow.h"
 #include "ManagementWindow/Settings/settings.h"
 #include "ManagementWindow/ParametersWindow/renamedialog.h"
+#include "Maps/Parameters/SimulatedUe/ipexform.h"
+#include "Data/ProjectSettings/datageneratorsettings.h"
 
 class UISystem : public QObject
 {
@@ -24,10 +26,12 @@ public slots:
     void initialiseSettingsWindowSpawn(const QString& projectName = QString());
     void showErrorWindow(const QString& errorDescription);
     void spawnWindow_OpenProject(const QString& projectName);
+    void spawnWindow_Ipex(const QString& projectName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_OpenProject(const Project& project);
+    void spawnWindow_Ipex(const DataGeneratorSettings& dataGeneratorSettings, const QString &projectName);
 
 private:
     DataSystem* dataSystem;
@@ -37,6 +41,7 @@ private:
     AddProjectWindow addProjectWindow;
     Settings settingsWindow;
     RenameDialog renameDialog;
+    IpexForm ipexForm;
 };
 
 #endif // UISYSTEM_H
