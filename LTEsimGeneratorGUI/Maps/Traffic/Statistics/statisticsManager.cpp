@@ -1,11 +1,11 @@
 #include "statisticsManager.h"
-#include "ui_statisticsForm.h"
+#include "ui_statistics.h"
 #include <QLabel>
 #include <QMessageBox>
 
 StatisticsManager::StatisticsManager(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::StatisticsForm)
+    ui(new Ui::Statistics)
 {
     ui->setupUi(this);
     this->setFixedSize(360, 400);
