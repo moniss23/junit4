@@ -198,7 +198,7 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
             map_w=NULL;
         }
         // create a new map object and display it
-        map_w=new MapWindow;
+        map_w=new MapWindow(currentProject);
         map_w->show();
     }
     else{

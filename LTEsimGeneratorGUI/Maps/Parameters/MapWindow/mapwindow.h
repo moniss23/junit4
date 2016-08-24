@@ -24,6 +24,7 @@
 #include <Maps/Parameters/SimulatedUe/ipexform.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <Maps/Parameters/MapRange/maprangeform.h>
+#include "Data/project.h"
 
 namespace Ui {
 class MapWindow;
@@ -36,7 +37,7 @@ class MapWindow : public QMainWindow
 public:
     void closeEvent(QCloseEvent *event);
 
-    explicit MapWindow(QWidget *parent = 0);
+    explicit MapWindow(const Project &project, QWidget *parent = 0);
     ~MapWindow();
     QMessageBox k;
     Mme* mme;
@@ -192,6 +193,8 @@ private:
     QMessageBox msgBox;
     QList <QString> listErrors;
     QMessageBox msgExit;
+
+    const Project &project;
 
     bool validationPosition(QString textForValidation);
     bool validationTransmitPower(QString textForValidation);

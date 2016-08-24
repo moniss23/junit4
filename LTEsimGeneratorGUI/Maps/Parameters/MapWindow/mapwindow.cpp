@@ -35,11 +35,12 @@ Cell *openCell;
 Center *openCenter;
 Handover *openHandover;
 
-MapWindow::MapWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MapWindow)
+MapWindow::MapWindow(const Project &project, QWidget *parent) : QMainWindow(parent),
+    ui(new Ui::MapWindow),
+    project(project)
 {
     ui->setupUi(this);
+
     ui->mapObjectsWidget->hide();
     ui->mapObjectsWidget->removeTab(0);
     ui->mapObjectsWidget->removeTab(1);
