@@ -44,7 +44,6 @@ public slots:
     void findProject(const QString& projectName);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
-    void setProjectName(const QString &value); //TODO: Should not be needed in good architecture
 
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);
     void removeFile_TrafficFile(const QString& ProjectName, const QString& fileName);
@@ -59,21 +58,14 @@ public slots:
     void updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
 
 public:
-    QString getProjectName() const;
-
-    QString getProjectDir(QString project_name);
-
     bool isProjectNameUsed(QString projectName);
-
     QString getDefaultNewProjectDir() const;
-    void setDefaultNewProjectDir(const QString &value);
-
     AppGlobalData getAppGlobalData() const;
 
 private:
-    QString projectName;
-    FileManager fileManager;
-    AppGlobalData appGlobalData;
+    AppGlobalData       appGlobalData;
+
+    FileManager         fileManager;
     ScriptParserManager scriptParserManager;
 
     void loadProjectsFile();

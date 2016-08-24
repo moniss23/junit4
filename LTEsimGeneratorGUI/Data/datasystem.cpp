@@ -58,11 +58,6 @@ bool DataSystem::isProjectNameUsed(QString projectName) {
     return proj != nullptr;
 }
 
-QString DataSystem::getProjectDir(QString project_name) {
-    auto proj = findProjectByName(project_name);
-    return proj == nullptr ? QString() : proj->fullpath;
-}
-
 // check if the projects file exists, create it if it doesn't
 void DataSystem::projectsFileSetup() {
     QFile projects_file(appGlobalData.getProjectsFile());
@@ -182,8 +177,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     newProject.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
     newProject.parametersFile.filename = "Parameters.rb";
     newProject.parametersFile.content = getDefaultParametersFileContent();
-    setProjectName(projectName); //TODO: Should not be needed in good architecture
-
     newProject.sgwSettings = scriptParserManager.getSgwSettings(newProject.parametersFile.content);
     newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(newProject.parametersFile.content);
     projects.push_back(newProject);
@@ -324,18 +317,9 @@ void DataSystem::updateDataGeneratorSettings(const DataGeneratorSettings &dataGe
  * GETTERS AND SETTERS
  **********************/
 
-QString DataSystem::getProjectName() const {
-    return projectName;
-}
-void DataSystem::setProjectName(const QString &value) {
-    projectName = value;
-}
 
 QString DataSystem::getDefaultNewProjectDir() const {
     return appGlobalData.getDefaultNewProjectsPath();
-}
-void DataSystem::setDefaultNewProjectDir(const QString &value) {
-    appGlobalData.setDefaultNewProjectsPath(value);
 }
 
 AppGlobalData DataSystem::getAppGlobalData() const {
