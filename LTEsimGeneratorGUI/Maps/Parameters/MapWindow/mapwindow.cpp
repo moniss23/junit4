@@ -7,15 +7,10 @@
 #include <Data/Objects/cell.h>
 #include <UISystem/Windows/parameterswindow.h>
 
-extern ParametersWindow* p;
-
 extern QString parametersFileContent;
 extern QStringList parametersFileContentList;
-extern QStringList savedParametersFileContentList;
-extern bool enteringMapView;
 
 //Temporary global variables for checkboxCells
-
 bool tmp_chkCell11 = true;
 bool tmp_chkCell12 = true;
 bool tmp_chkCell21 = true;
@@ -28,15 +23,14 @@ bool tmp_chkCell51 = true;
 bool tmp_chkCell52 = true;
 bool tmp_chkCell61 = true;
 bool tmp_chkCell62 = true;
-
 //.........
 
 Cell *openCell;
 Center *openCenter;
 Handover *openHandover;
 
-MapWindow::MapWindow(const Project &project, QWidget *parent) : QMainWindow(parent),
-    ui(new Ui::MapWindow),
+MapWindow::MapWindow(const Project &project, QWidget *parent)
+    : QMainWindow(parent), ui(new Ui::MapWindow),
     project(project)
 {
     ui->setupUi(this);
@@ -193,7 +187,6 @@ void MapWindow::closeEvent(QCloseEvent *event)
             parametersFileContent=new_parametersFileContent;
         }
 
-        showList(parametersFileContentList);
         event->accept();
         saveCellsCheckboxes();
         break;
@@ -209,12 +202,6 @@ void MapWindow::closeEvent(QCloseEvent *event)
         break;
     }
 
-}
-void MapWindow::showList(QList<QString> list)
-{
-    QString str;
-    for(int i=0; i<list.size(); i++)
-        str += list[i];
 }
 
 MapWindow::~MapWindow()

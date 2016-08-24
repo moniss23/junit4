@@ -60,7 +60,6 @@ public:
 
     void resetFlags();                 //Reset falgs Core Network and Simulate Core
     QList<QString> outputList;
-    void showList(QList<QString> list);
 
 signals:
     void SpawnWindow_Ipex(const QString& projectName);
