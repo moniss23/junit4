@@ -1,7 +1,6 @@
 #include "datasystem.h"
 #include "Data/appglobaldata.h"
 #include "Data/Objects/trafficfiledata.h"
-
 DataSystem::DataSystem() {
     projectsFileSetup();
 }
@@ -328,4 +327,12 @@ QString DataSystem::getDefaultNewProjectDir() const {
 
 AppGlobalData DataSystem::getAppGlobalData() const {
     return appGlobalData;
+}
+void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString &projectName){
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    project->sgwSettings = sgwSettings;
 }

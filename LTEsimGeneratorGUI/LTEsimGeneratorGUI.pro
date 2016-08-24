@@ -50,7 +50,6 @@ SOURCES += main.cpp\
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/UcTool/uctoolform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
-    Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
     Maps/Parameters/MapRange/maprangeform.cpp \
@@ -118,7 +117,6 @@ HEADERS  += \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/UcTool/uctoolform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
-    Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
@@ -145,9 +143,7 @@ HEADERS  += \
     Maps/Traffic/Time/timeManager.h \
     Maps/Traffic/Statistics/statisticsData.h \
     Maps/Traffic/Statistics/statisticsManager.h \
-    ManagementWindow/ProjectManagement/importprojectwindow.h \
     Maps/Traffic/CustomModel/customModel.h \
-    ManagementWindow/ParametersWindow/renamedialog.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Parameters/parametersfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \

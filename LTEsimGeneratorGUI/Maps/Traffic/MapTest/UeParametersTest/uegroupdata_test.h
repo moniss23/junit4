@@ -1,6 +1,5 @@
 #ifndef UEGROUPDATA_TEST_H
 #define UEGROUPDATA_TEST_H
-#include <dataelementsinterface.h>
 #include <QtTest/QtTest>
 #include <QObject>
 #include <Maps/Traffic/UeParameters/uegroupdata.h>

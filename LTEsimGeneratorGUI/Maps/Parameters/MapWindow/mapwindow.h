@@ -11,9 +11,9 @@
 #include <Data/Objects/center.h>
 #include <Data/Objects/handover.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
-#include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h>
+#include <Data/ProjectSettings/sgwsettings.h>
 #include <Maps/Parameters/SimulatedUe/ubsimform.h>
 #include <UISystem/DataForms/ipexform.h>
 #include <Maps/Parameters/UcTool/uctoolform.h>
@@ -40,7 +40,6 @@ public:
     ~MapWindow();
     QMessageBox k;
     Mme* mme;
-    Sgw* sgw;
     Ue* ue;
     ChannelModel *chmod;
     MapRange *mapRange;
@@ -61,7 +60,7 @@ public:
 
 signals:
     void SpawnWindow_Ipex(const QString& projectName);
-
+    void spawnSgwWindow(const QString& projectName);
 private slots:
 
     void on_Center61_clicked();
@@ -186,7 +185,6 @@ private slots:
 
     void on_axis_y_clicked();
     void on_axis_x_clicked();
-
 
 
 private:

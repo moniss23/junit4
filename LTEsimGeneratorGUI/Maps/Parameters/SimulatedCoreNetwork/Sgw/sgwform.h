@@ -2,8 +2,8 @@
 #define SGWFORM_H
 
 #include <QWidget>
-#include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgw.h>
 #include <QMessageBox>
+#include <Data/ProjectSettings/sgwsettings.h>
 namespace Ui {
 class SGWForm;
 }
@@ -14,9 +14,9 @@ class SGWForm : public QWidget
 
 public:
     explicit SGWForm(QWidget *parent = 0);
-    void setParameters(Sgw *sgw);
     void set_checkboxactive(bool check);
     bool get_checkboxactive();
+    void setDefaultParameters();
     ~SGWForm();
 private slots:
     void on_tet_sgw_names_returnPressed();
@@ -29,13 +29,15 @@ private slots:
     void on_pbReset_clicked();
 
     void on_buttonBox_rejected();
-    bool wasChangesBeforeAccept();
     void setChanges();
-
+    void loadAndSpawn(const SgwSettings & sgwSettings, const QString &projectName);
+signals:
+    void updateSgw(const SgwSettings &sgwSettings,const QString &projectName);
 private:
     Ui::SGWForm *ui;
-    Sgw *sgw;
     QMessageBox msg,msgBox;
+    SgwSettings sgwSettings;
+    QString projectName;
     bool flagConfirmNewValue;
     bool checkboxactive;
     bool wasThereChanges;

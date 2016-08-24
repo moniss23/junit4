@@ -1,6 +1,8 @@
 #include "sgwform.h"
 #include "ui_sgwform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
+#include <QRegExp>
+#include <QPair>
 extern MapWindow *map_w;
 SGWForm::SGWForm(QWidget *parent) :
     QWidget(parent),
@@ -17,16 +19,6 @@ SGWForm::SGWForm(QWidget *parent) :
     this->ui->lblSgw_LDIs->setToolTip("e.g. \"30\"");
 }
 
-void SGWForm::setParameters(Sgw *sgw)
-{
-    this->sgw = sgw;
-    ui->tet_sgw_names->setText(sgw->getNames().trimmed());
-    ui->tet_sgw_ipAddresses->setText(sgw->getIpAddresses().trimmed());
-    ui->tet_sgw_apn_lists->setText(sgw->getApnLists().trimmed());
-    ui->tet_sgw_LDIs->setText(sgw->getLDIs().trimmed());
-
-    ui->gbSGW->setEnabled(sgw->getCore_network_gateway());
-}
 
 void SGWForm::set_checkboxactive(bool check)
 {
@@ -45,7 +37,7 @@ SGWForm::~SGWForm()
 }
 
 void SGWForm::on_tet_sgw_names_returnPressed()
-{
+{/*
     if(flagConfirmNewValue && (ui->tet_sgw_names->text() != sgw->getNames())){
          sgw->setNames(ui->tet_sgw_names->text());
          wasThereChanges=true;
@@ -53,10 +45,11 @@ void SGWForm::on_tet_sgw_names_returnPressed()
          msg.exec();
     }
     sgw->setNames(ui->tet_sgw_names->text());
+    */
 }
 
 void SGWForm::on_tet_sgw_ipAddresses_returnPressed()
-{
+{/*
     if(flagConfirmNewValue && (ui->tet_sgw_ipAddresses->text() != sgw->getIpAddresses())){
         sgw->setIpAddresses(ui->tet_sgw_ipAddresses->text());
         wasThereChanges=true;
@@ -64,10 +57,11 @@ void SGWForm::on_tet_sgw_ipAddresses_returnPressed()
         msg.exec();
     }
     sgw->setIpAddresses(ui->tet_sgw_ipAddresses->text());
+*/
 }
 
 void SGWForm::on_tet_sgw_apn_lists_returnPressed()
-{
+{/*
     if(flagConfirmNewValue && (ui->tet_sgw_apn_lists->text()!= sgw->getApnLists())){
         sgw->setApn_lists(ui->tet_sgw_apn_lists->text());
         wasThereChanges=true;
@@ -75,10 +69,11 @@ void SGWForm::on_tet_sgw_apn_lists_returnPressed()
         msg.exec();
     }
     sgw->setApn_lists(ui->tet_sgw_apn_lists->text());
+    */
 }
 
 void SGWForm::on_tet_sgw_LDIs_returnPressed()
-{
+{/*
      if(flagConfirmNewValue && (ui->tet_sgw_LDIs->text() != sgw->getLDIs())){
          sgw->setLDIs(ui->tet_sgw_LDIs->text());
          wasThereChanges=true;
@@ -86,117 +81,55 @@ void SGWForm::on_tet_sgw_LDIs_returnPressed()
          msg.exec();
      }
     sgw->setLDIs(ui->tet_sgw_LDIs->text());
+    */
 }
 
 void SGWForm::on_buttonBox_accepted()
 {
-    if(wasChangesBeforeAccept())
-        setChanges();
+    setChanges();
     msg.setText("Changes has been succesfully approved ");
-    if(flagConfirmNewValue && checkboxactive && wasThereChanges)
-        msg.exec();
+    msg.exec();
     this->close();
-    wasThereChanges=false;
 }
-
-void SGWForm::saveAll()
-{
-    sgw->setNames(ui->tet_sgw_names->text());
-    sgw->setIpAddresses(ui->tet_sgw_ipAddresses->text());
-    sgw->setApn_lists(ui->tet_sgw_apn_lists->text());
-    sgw->setLDIs(ui->tet_sgw_LDIs->text());
+void SGWForm::on_buttonBox_rejected(){
+    this->close();
 }
 
 void SGWForm::on_pbReset_clicked()
 {
-
-    sgw->resetParams();
-    setParameters(sgw);
-    if(map_w!=NULL)
-        map_w->resetFlags();
-    if(checkboxactive){
-        sgw->resetParams();
-        setParameters(sgw);
-        map_w->resetFlags();
-    }
-}
-
-void SGWForm::on_buttonBox_rejected()
-{
-    if(wasChangesBeforeAccept())
-    {
-        msgBox.setWindowTitle("Warning");
-        msgBox.setIcon(QMessageBox::Question);
-        msgBox.setText(trUtf8(("File was changed")));
-        msgBox.setInformativeText(trUtf8("Do you want to save changes?"));
-        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-        msgBox.setDefaultButton(QMessageBox::Save);
-
-    int ret = msgBox.exec();
-
-    switch (ret) {
-      case QMessageBox::Save:
-           setChanges();
-           this->close();
-         break;
-      case QMessageBox::Discard:
-            this->close();
-         break;
-      case QMessageBox::Cancel:
-           msgBox.close();
-         break;
-      default:
-         // this part should never work
-         break;
-                }
-    }else
-    {
-        this->close();
-    }
-    wasThereChanges=false;
-}
-
-bool SGWForm::wasChangesBeforeAccept()
-{
-    if(ui->tet_sgw_names->text() != sgw->getNames())
-    {
-        wasThereChanges=true;
-        return true;
-    }else if(ui->tet_sgw_ipAddresses->text() != sgw->getIpAddresses())
-    {
-        wasThereChanges=true;
-        return true;
-    }else if(ui->tet_sgw_apn_lists->text()!= sgw->getApnLists())
-    {
-        wasThereChanges=true;
-        return true;
-    }else if(ui->tet_sgw_LDIs->text() != sgw->getLDIs())
-    {
-            wasThereChanges=true;
-            return true;
-    }else
-    {
-        return false;
-    }
 }
 
 void SGWForm::setChanges()
 {
-    if(ui->tet_sgw_names->text() != sgw->getNames())
-    {
-        sgw->setNames(ui->tet_sgw_names->text());
+    if(ui->tet_sgw_names->text() != sgwSettings.name) {
+        sgwSettings.name=this->ui->tet_sgw_names->text();
     }
-    if(ui->tet_sgw_ipAddresses->text() != sgw->getIpAddresses())
-    {
-        sgw->setIpAddresses(ui->tet_sgw_ipAddresses->text());
+    if(ui->tet_sgw_ipAddresses->text() != sgwSettings.ipAdress) {
+        sgwSettings.ipAdress=this->ui->tet_sgw_ipAddresses->text();
     }
-    if(ui->tet_sgw_apn_lists->text()!= sgw->getApnLists())
-    {
-        sgw->setApn_lists(ui->tet_sgw_apn_lists->text());
-    }else if(ui->tet_sgw_LDIs->text() != sgw->getLDIs())
-    {
-        sgw->setLDIs(ui->tet_sgw_LDIs->text());
+    else if(ui->tet_sgw_LDIs->text() != QString::number(sgwSettings.ldi)) {
+        sgwSettings.ldi = ui->tet_sgw_LDIs->text().toInt();
     }
+    QRegExp separator("(,|:)");
+    QStringList apnListToSave = (ui->tet_sgw_apn_lists->text()).split(separator,QString::SkipEmptyParts);
+    sgwSettings.apnList.clear();
+    for (int i=0;i<apnListToSave.size();i+=2){
+        sgwSettings.apnList.append(QPair<QString,QString>(apnListToSave[i],apnListToSave[i+1]));
+    }
+    emit updateSgw(sgwSettings,projectName);
+}
+void SGWForm::setDefaultParameters(){
+    this->ui->tet_sgw_names->setText(sgwSettings.name);
+    this->ui->tet_sgw_ipAddresses->setText(sgwSettings.ipAdress);
+    this->ui->tet_sgw_LDIs->setText(QString::number(sgwSettings.ldi));
+    for (int i=0;i<sgwSettings.apnList.size();i++){
+        this->ui->tet_sgw_apn_lists->setText(this->ui->tet_sgw_apn_lists->text()+sgwSettings.apnList[i].first+":"+sgwSettings.apnList[i].second+",");
+    }
+}
 
-
+void SGWForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projectName){
+    this->sgwSettings = sgwSettings;
+    this->projectName = projectName;
+    this->setDefaultParameters();
+    this->show();
 }

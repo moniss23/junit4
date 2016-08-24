@@ -29,6 +29,13 @@ void UISystem::bindingObjects()
     QObject::connect(&paramWindow,SIGNAL(SpawnWindow_ProjectMng()),dataSystem,SLOT(SpawnWindow_ProjectManagement()));
     QObject::connect(dataSystem,SIGNAL(SpawnWindow_ProjectMng()),&projectUi,SLOT(show()));
 
+    // Spawning Sgw in Parameters map
+    QObject::connect(this, SIGNAL(spawnSgwWindow(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
+    // Update SgwSettings in DataSystem
+    QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
+    // Enable/Disable Core Network
+    QObject::connect(map_w,SIGNAL(coreNetworkEnabled(bool)),&sgwForm,SLOT(coreNetworkEnabled(bool)));
+
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),dataSystem,SLOT(deleteProject(QString)));
     QObject::connect(dataSystem, SIGNAL(currentProjects(const QVector<Project> &)),
@@ -125,7 +132,6 @@ void UISystem::spawnWindow_Ipex(const QString& projectName)
     emit spawnWindow_Ipex(project->dataGeneratorSettings, project->name);
     return;
 }
-
 void UISystem::spawnWindow_ParamMap(const QString &projectName)
 {
     auto project = findProjectByName(projectName);
@@ -140,9 +146,23 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     }
     map_w = new MapWindow(*project);
     QObject::connect(map_w, SIGNAL(SpawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_ParamMap()), map_w, SLOT(show()));
-    emit spawnWindow_ParamMap();
+    QObject::connect(map_w,SIGNAL(spawnSgwWindow(QString)),this,SLOT(spawnWindow_Sgw(QString)));
+    map_w->show();
 }
+
+void UISystem::spawnWindow_Sgw(const QString &projectName){
+    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
+                                (const Project& project)->bool {
+        return (project.name == projectName);
+    });
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnSgwWindow(project->sgwSettings, project->name);
+    return;
+}
+
 
 Project* UISystem::findProjectByName(const QString &projectName)
 {

@@ -227,8 +227,7 @@ void ParametersWindow::on_filePreview_textChanged()
     }
 
    //highlighter->highlightBlock(this->ui->filePreview->toPlainText());
-
-    return;
+   return;
 }
 
 // "generate file" button is clicked

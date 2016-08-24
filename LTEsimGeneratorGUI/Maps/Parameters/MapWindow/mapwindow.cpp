@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QString>
 #include <QCloseEvent>
 
@@ -142,7 +141,6 @@ void MapWindow::createCell() {
 void MapWindow::createCoreNetwork()
 {
     mme = new Mme;
-    sgw = new Sgw;
 
     ui->checkBoxCoreNetwork->setChecked(mme->getSimulate_core());
     on_checkBoxCoreNetwork_clicked();
@@ -262,7 +260,13 @@ QStringList MapWindow::generateParams(){
     outputList<<"\n\t\t default[:s1ap_checkASN1_constraints] = " + convertBoolToText(mme->getS1ap_checkASN1_constraints());
     outputList<<"\n\t\t default[:bundle_paging] = " + convertBoolToText(mme->getBundle_paging());
     outputList <<"\n\t\treturn default\n\tend\n";
+
+
+
     //---------------------------------SGW------------------------------------------------------------
+    /******************** WORK IN PROGRESS *****************
+
+
     outputList<< "\tdef Parameters.getSgwParameters()\n";
     outputList<<"\n\t\tdefault = {}";
     outputList<<"\n\t\tdefault[:sgw_names] = [\"" + sgw->getNames() + "\"]";
@@ -271,6 +275,11 @@ QStringList MapWindow::generateParams(){
     outputList<<"\n\t\tdefault[:sgw_LDIs] = [\"" + sgw->getLDIs() + "\"]";
     outputList<<"\n\t\tdefault[:core_network_gateway] = " + convertBoolToText(sgw->getCore_network_gateway());
     outputList <<"\n\t\treturn default\n\tend\n";
+
+
+    ******************** WORK IN PROGRESS *****************/
+
+
     //---------------------------------UE-------------------------------------------------------------
     outputList<< "\tdef Parameters.getUeParameters()\n";
     outputList<<"\n\t\tdefault = {}";
@@ -1643,14 +1652,12 @@ void MapWindow::changeCenterValue_X(int scale)
 //--------------------Reset flag for Core Network and UE simulated-----------------------
 void MapWindow::resetFlags()
 {
-    if (mme->getSimulate_core() && sgw->getCore_network_gateway()){
+    if (mme->getSimulate_core()){
         ui->checkBoxCoreNetwork->setChecked(true);
         mme->setSimulate_core(true);
-        sgw->setCore_network_gateway(true);
     }else {
         ui->checkBoxCoreNetwork->setChecked(false);
         mme->setSimulate_core(false);
-        sgw->setCore_network_gateway(false);
     }
     ui->checkBoxUE_simulated->setChecked(ue->getStart_ue_component());
 }
@@ -1662,19 +1669,14 @@ void MapWindow::on_checkBoxCoreNetwork_clicked()
 {
     if(!ui->checkBoxCoreNetwork->isChecked()){
         ui->checkBoxCoreNetwork->setText("Simulated Core Network Off");
-        mme->setSimulate_core(false);
-        mme->setGenerate_pagings(false);
-        sgw->setCore_network_gateway(false);
-        ui->frame_Core_Network->setFrameStyle(QFrame::WinPanel | QFrame::Raised);
+        ui->lblSGW1->setEnabled(false);
+        ui->lblMME1->setEnabled(false);
     }else{
         ui->checkBoxCoreNetwork->setText("Simulated Core Network On");
-        mme->setSimulate_core(true);
-        sgw->setCore_network_gateway(true);
-        ui->frame_Core_Network->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
-        }
-    viewSGW.setParameters(sgw);
+        ui->lblSGW1->setEnabled(true);
+        ui->lblMME1->setEnabled(true);
     viewMME.setParameters(mme);
-
+}
 }
 //----------------------ON/OFF UE Simulated -------------------------------------------
 void MapWindow::on_checkBoxUE_simulated_clicked()
@@ -1703,11 +1705,7 @@ void MapWindow::on_lblMME_clicked(){
 
 void MapWindow::on_lblSGW_clicked()
 {
-    viewSGW.close();
-    sgw->setCore_network_gateway(mme->getSimulate_core());
-    viewSGW.setParameters(sgw);
-    viewSGW.set_checkboxactive(this->ui->checkBoxCoreNetwork->isChecked());
-    viewSGW.show();
+    emit spawnSgwWindow(project.name);
 }
 void MapWindow::on_lblUCtool_clicked(){
     viewUCtool.close();

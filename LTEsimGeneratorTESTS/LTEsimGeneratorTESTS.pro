@@ -57,7 +57,6 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/Objects/handover.h \
     ../LTEsimGeneratorGUI/Data/Objects/trafficfiledata.h \
     ../LTEsimGeneratorGUI/Data/Objects/parametersfiledata.h \
-    ../LTEsimGeneratorGUI/dataelementsinterface.h \
     ../LTEsimGeneratorGUI/Data/Interfaces/serializeinterface.h \
     ../LTEsimGeneratorGUI/Data/appglobaldata.h \
     ../LTEsimGeneratorGUI/Data/Managers/filemanager.h \

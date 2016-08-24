@@ -56,7 +56,7 @@ public slots:
     void SpawnWindow_ProjectManagement();
 
     void updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
-
+    void updateSgwSettings(const SgwSettings &sgwSettings,const QString &projectName);
 public:
     bool isProjectNameUsed(QString projectName);
     QString getDefaultNewProjectDir() const;
