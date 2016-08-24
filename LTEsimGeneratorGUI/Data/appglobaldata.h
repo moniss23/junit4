@@ -2,9 +2,6 @@
 #define APPGLOBALDATA_H
 
 #include <QString>
-#include <QFile>
-#include <QDataStream>
-
 
 class AppGlobalData
 {

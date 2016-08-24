@@ -2,7 +2,6 @@
 #define UEGROUPDATA_H
 #include <QString>
 #include <QtXml>
-#include <ProjectReaderWriter/projectreaderwriter.h>
 
 struct UEgroupParams
 {
@@ -19,7 +18,7 @@ struct UEgroupParams
 class UEgroupData //TODO: it seems this class is not used, obsolete
 {
 public:
-    UEgroupData(const QString &name, const QString &mapIndex, DataSystem *appSettings);
+    UEgroupData(const QString &name, const QString &mapIndex);
 
     //getters
     QString getUEname() const;
@@ -48,15 +47,11 @@ public:
     void serializeFromProjectFileNew(QDomDocument xmlDocument);
     void serializeToScriptCommands() {}
 
-    void setProjectReaderWriter(ProjectReaderWriter *value);
-
 private:
     UEgroupParams ue;
     QString mapIndexConst;
     QDomDocument xmlUePart;
-    ProjectReaderWriter* projectReaderWriter;
 
-    DataSystem *appSettings;
 };
 
 #endif // UEGROUPDATA_H
