@@ -2,7 +2,6 @@
 
 UCToolSettings::UCToolSettings()
 {
-
 }
 
 QString UCToolSettings::getElementType() const

@@ -5,6 +5,8 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QStringList>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 #include <QListWidgetItem>
 
 #include <UISystem/Helpers/rubysyntaxhighlighter.h>
@@ -31,8 +33,6 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
     this->ui->redoButton->setEnabled(false);
     this->ui->resetDefaultsButton->setEnabled(false);
 
-    this->ui->radioButton_normalMap->setChecked(true);
-
     this->ui->filePreview->setReadOnly(false);
     highlighter =  std::make_unique<RubySyntaxHighlighter>(this->ui->filePreview->document());
 }
@@ -56,7 +56,6 @@ void ParametersWindow::refreshUI(const Project &project)
 
     //BASIC UI REFRESH
     this->setWindowTitle(project.name);
-    this->ui->radioButton_normalMap->setChecked(true);
 
     ui->projectsList->clear();
 
@@ -387,4 +386,15 @@ void ParametersWindow::on_saveFileButton_clicked()
 
 void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
+}
+
+void ParametersWindow::on_showCellMapButton_clicked()
+{
+    QGraphicsView *view = new QGraphicsView();
+    QGraphicsScene *scene = new QGraphicsScene();
+    view->setScene(scene);
+
+    scene->setSceneRect(-10, -10, 600, 600);
+    view->setMinimumSize(600, 600);
+    view->show();
 }

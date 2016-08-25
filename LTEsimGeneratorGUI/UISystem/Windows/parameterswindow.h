@@ -130,15 +130,17 @@ private slots:
     void on_saveFileButton_clicked();
 
     void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
-
     void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_filePreview_textChanged();
 
+    void on_showCellMapButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+
+
 private:
     void msg(const QString &content);//TODO: get rid of that. It's used only while generating script.
     /**
