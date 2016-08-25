@@ -85,12 +85,11 @@ void UISystem::bindingObjects()
 
     //Open Ipex window
     QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings,QString)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings,QString)));
+    QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
 
     //Open UCTool window
     QObject::connect(this, SIGNAL(spawnWindow_ucTool(UCToolSettings,QString)), &ucToolForm, SLOT(loadAndOpen(UCToolSettings,QString)));
-
-    //Update Project Data
-    QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
+    QObject::connect(&ucToolForm, SIGNAL(updateUCToolSettings(UCToolSettings,QString)), dataSystem, SLOT(updateUCToolSettings(UCToolSettings,QString)));
 
 }
 

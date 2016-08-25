@@ -318,6 +318,17 @@ void DataSystem::updateDataGeneratorSettings(const DataGeneratorSettings &dataGe
     //Maybe emit signal that refresh map UI but not sure yet if we need this
 }
 
+void DataSystem::updateUCToolSettings(const UCToolSettings &ucToolSettings, const QString &projectName)
+{
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    project->ucToolSettings = ucToolSettings;
+    saveProjectsFile();
+}
+
 /**********************
  * GETTERS AND SETTERS
  **********************/

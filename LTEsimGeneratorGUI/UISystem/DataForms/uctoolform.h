@@ -21,6 +21,9 @@ public:
 public slots:
     void loadAndOpen(const UCToolSettings &ucToolSettings, const QString &projectName);
 
+signals:
+    void updateUCToolSettings(const UCToolSettings &ucToolSettings, const QString & projectName);
+
 private slots:
 
     void on_buttonBox_accepted();
@@ -29,6 +32,7 @@ private slots:
 
 private:
     void setDefaultParameters();
+    void getParameters();
 
 private:
     Ui::UCtoolForm *ui;

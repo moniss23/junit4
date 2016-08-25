@@ -57,6 +57,7 @@ public slots:
 
     void updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
     void updateSgwSettings(const SgwSettings &sgwSettings,const QString &projectName);
+    void updateUCToolSettings(const UCToolSettings & ucToolSettings, const QString &projectName);
 public:
     bool isProjectNameUsed(QString projectName);
     QString getDefaultNewProjectDir() const;
