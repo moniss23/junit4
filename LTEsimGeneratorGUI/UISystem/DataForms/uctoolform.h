@@ -19,9 +19,19 @@ public:
     ~UCtoolForm();
 
 public slots:
+    /**
+     * @brief loadAndOpen is used to load data and show window
+     * @param ucToolSettings data that will be changed
+     * @param projectName name of current project
+     */
     void loadAndOpen(const UCToolSettings &ucToolSettings, const QString &projectName);
 
 signals:
+    /**
+     * @brief updateUCToolSettings signal to update current project ucToolSettings
+     * @param ucToolSettings data with new values
+     * @param projectName name of project too be updated
+     */
     void updateUCToolSettings(const UCToolSettings &ucToolSettings, const QString & projectName);
 
 private slots:
@@ -31,13 +41,20 @@ private slots:
     void on_pbReset_clicked();
 
 private:
+    /**
+     * @brief setDefaultParameters fill ui fields with values from ucToolSettings object
+     */
     void setDefaultParameters();
+
+    /**
+     * @brief getParameters takes data from ui and put into ucToolSettings object
+     */
     void getParameters();
 
 private:
-    Ui::UCtoolForm *ui;
-    UCToolSettings ucToolSettings;
-    QString projectName;
+    Ui::UCtoolForm *ui;                 ///< GUI form pointer
+    UCToolSettings ucToolSettings;      ///< Local copy of data
+    QString projectName;                ///< Current project name
 };
 
 #endif // UCTOOLFORM_H
