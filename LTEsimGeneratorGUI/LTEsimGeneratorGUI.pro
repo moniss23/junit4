@@ -28,6 +28,7 @@ SOURCES += \
     Data/Managers/scriptparsermanager.cpp \
     Data/ProjectSettings/datageneratorsettings.cpp \
     Data/ProjectSettings/sgwsettings.cpp \
+    UISystem/Widgets/cellrepresentation.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -95,6 +96,7 @@ HEADERS  += \
     Data/Managers/scriptparsermanager.h \
     Data/ProjectSettings/datageneratorsettings.h \
     Data/ProjectSettings/sgwsettings.h \
+    UISystem/Widgets/cellrepresentation.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
