@@ -30,6 +30,7 @@ public:
     QVector<Handover> handovers;
     DataGeneratorSettings dataGeneratorSettings;
     SgwSettings sgwSettings;
+
     ParametersFileData parametersFile;
     QVector<TrafficFileData> trafficFilesList;
 

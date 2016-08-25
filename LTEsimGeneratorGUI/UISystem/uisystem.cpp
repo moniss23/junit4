@@ -33,8 +33,6 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnSgwWindow(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
     // Update SgwSettings in DataSystem
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
-    // Enable/Disable Core Network
-    QObject::connect(map_w,SIGNAL(coreNetworkEnabled(bool)),&sgwForm,SLOT(coreNetworkEnabled(bool)));
 
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),dataSystem,SLOT(deleteProject(QString)));

@@ -313,6 +313,7 @@ void DataSystem::updateDataGeneratorSettings(const DataGeneratorSettings &dataGe
         return;
     }
     project->dataGeneratorSettings = dataGeneratorSettings;
+    saveProjectsFile();
     //Maybe emit signal that refresh map UI but not sure yet if we need this
 }
 
@@ -335,4 +336,5 @@ void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString
         return;
     }
     project->sgwSettings = sgwSettings;
+    saveProjectsFile();
 }

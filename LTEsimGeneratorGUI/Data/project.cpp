@@ -32,6 +32,7 @@ QByteArray Project::serializeData()
     }
 
     stream << dataGeneratorSettings.serializeData();
+    stream << sgwSettings.serializeData();
 
     return serializedData.buffer();
 }
@@ -41,6 +42,7 @@ void Project::deserializeData(const QByteArray &rawData)
     int trafficFilesAmount;
     QByteArray rawParamFile;
     QByteArray rawDataGeneratorSettings;
+    QByteArray rawSgwSettings;
     QDataStream stream(rawData);
     stream >> name >> fullpath >> genScriptDir;
 
@@ -59,4 +61,7 @@ void Project::deserializeData(const QByteArray &rawData)
 
     stream >> rawDataGeneratorSettings;
     dataGeneratorSettings.deserializeData(rawDataGeneratorSettings);
+
+    stream >> rawSgwSettings;
+    sgwSettings.deserializeData(rawSgwSettings);
 }

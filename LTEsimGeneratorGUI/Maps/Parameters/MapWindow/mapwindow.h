@@ -61,8 +61,8 @@ public:
 signals:
     void SpawnWindow_Ipex(const QString& projectName);
     void spawnSgwWindow(const QString& projectName);
-private slots:
 
+private slots:
     void on_Center61_clicked();
     void on_Center62_clicked();
     void on_Center52_clicked();
