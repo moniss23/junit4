@@ -332,6 +332,16 @@ void DataSystem::updateUCToolSettings(const UCToolSettings &ucToolSettings, cons
     saveProjectsFile();
 }
 
+void DataSystem::generateParametersScript(const Project &project)
+{
+    fileManager.generateParametersScript(project);
+}
+
+void DataSystem::generateTrafficScript(const Project &project, const int &indexOfFile)
+{
+    fileManager.generateTrafficScript(project,indexOfFile);
+}
+
 /**********************
  * GETTERS AND SETTERS
  **********************/

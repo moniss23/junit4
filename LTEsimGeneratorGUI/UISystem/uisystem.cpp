@@ -95,6 +95,10 @@ void UISystem::bindingObjects()
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
 
+    //Generating scripts
+    QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project)), dataSystem, SLOT(generateParametersScript(Project)));
+    QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
+
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

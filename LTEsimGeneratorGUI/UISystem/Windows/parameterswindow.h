@@ -98,7 +98,17 @@ signals:
      * @param content new content for a file
      */
     void updateFileContent(const QString& projectName, const QString& fileName, const QString& content);
-
+    /**
+     * @brief generateParametersScript is sent to dataSystem to tell it to generate  new script
+     * @param currentProject is sent to provide all necessary data need to creat a script
+     */
+    void generateParametersScript(const Project& currentProject);
+    /**
+     * @brief generateTrafficScript is sent to dataSystem to tell it to generate  new script
+     * @param currentProject is sent to provide all necessary data need to create a script
+     * @param indexOfFile is sent to provide information about index of traffic file user wants to generate script
+     */
+    void generateTrafficScript(const Project& currentProject, const int& indexOfFile);
 
 public slots:
     /**

@@ -61,6 +61,11 @@ public slots:
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
+
+    //Scripts generation
+    void generateParametersScript(const Project& project);
+    void generateTrafficScript(const Project& project, const int& indexOfFile);
+
 public:
     bool isProjectNameUsed(QString projectName);
     QString getDefaultNewProjectDir() const;
