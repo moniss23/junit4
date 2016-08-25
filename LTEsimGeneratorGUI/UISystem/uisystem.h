@@ -10,6 +10,8 @@
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
 #include "Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h"
+#include "UISystem/DataForms/uctoolform.h"
+
 class UISystem : public QObject
 {
 
@@ -26,12 +28,14 @@ public slots:
     void showErrorWindow(const QString& errorDescription);
     void spawnWindow_OpenProject(const QString& projectName);
     void spawnWindow_Ipex(const QString& projectName);
+    void spawnWindow_ucTool(const QString &projectName);
     void spawnWindow_ParamMap(const QString &projectName);
     void spawnWindow_Sgw(const QString& projectName);
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_OpenProject(const Project& project);
     void spawnWindow_Ipex(const DataGeneratorSettings& dataGeneratorSettings, const QString &projectName);
+    void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
     void spawnSgwWindow(const SgwSettings& sgwSettings, const QString &projectName);
 private:
@@ -46,7 +50,7 @@ private:
     RenameDialog renameDialog;
     IpexForm ipexForm;
     SGWForm sgwForm;
-
+    UCtoolForm ucToolForm;
 };
 
 #endif // UISYSTEM_H

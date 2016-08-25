@@ -16,7 +16,7 @@
 #include <Data/ProjectSettings/sgwsettings.h>
 #include <Maps/Parameters/SimulatedUe/ubsimform.h>
 #include <UISystem/DataForms/ipexform.h>
-#include <Maps/Parameters/UcTool/uctoolform.h>
+#include <UISystem/DataForms/uctoolform.h>
 #include <Maps/Traffic/UeParameters/ue.h>
 #include <Maps/Parameters/ChannelModel/channelmodel.h>
 #include <Maps/Parameters/ChannelModel/channelmodelform.h>
@@ -60,6 +60,7 @@ public:
 
 signals:
     void SpawnWindow_Ipex(const QString& projectName);
+    void spawnWindow_ucTool(const QString &projectName);
     void spawnSgwWindow(const QString& projectName);
 
 private slots:
@@ -212,10 +213,8 @@ private:
 
     MmeForm viewMME;
     SGWForm viewSGW;
-    UCtoolForm viewUCtool;
     UBsimForm viewUBsim;
     ChannelModelForm viewCannelModel;
-    IpexForm viewIpex;
     MapRangeForm viewMapRange;
 
     //values use to change values in object if we change scale map

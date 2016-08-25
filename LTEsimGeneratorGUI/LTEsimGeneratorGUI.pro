@@ -28,7 +28,7 @@ SOURCES += \
     Data/Managers/scriptparsermanager.cpp \
     Data/ProjectSettings/datageneratorsettings.cpp \
     Data/ProjectSettings/sgwsettings.cpp \
-    UISystem/Widgets/cellrepresentation.cpp
+    UISystem/Widgets/cellrepresentation.cpp \
     Data/ProjectSettings/uctoolsettings.cpp
 
 #--------UI SYSTEM--------#
@@ -42,6 +42,7 @@ SOURCES += \
     UISystem/Windows/renamedialog.cpp \
     UISystem/Windows/settings.cpp \
     UISystem/DataForms/ipexform.cpp \
+    UISystem/DataForms/uctoolform.cpp \
     UISystem/Helpers/rubysyntaxhighlighter.cpp
 
 SOURCES += main.cpp\
@@ -50,7 +51,6 @@ SOURCES += main.cpp\
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.cpp \
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
-    Maps/Parameters/UcTool/uctoolform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
@@ -97,7 +97,7 @@ HEADERS  += \
     Data/Managers/scriptparsermanager.h \
     Data/ProjectSettings/datageneratorsettings.h \
     Data/ProjectSettings/sgwsettings.h \
-    UISystem/Widgets/cellrepresentation.h
+    UISystem/Widgets/cellrepresentation.h \
     Data/ProjectSettings/uctoolsettings.h
 
 #--------UI SYSTEM--------#
@@ -111,6 +111,7 @@ HEADERS  += \
     UISystem/Windows/renamedialog.h \
     UISystem/Windows/settings.h \
     UISystem/DataForms/ipexform.h \
+    UISystem/DataForms/uctoolform.h \
     UISystem/Helpers/rubysyntaxhighlighter.h
 
 HEADERS  += \
@@ -119,7 +120,6 @@ HEADERS  += \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h \
     Maps/Parameters/SimulatedUe/ubsimform.h \
-    Maps/Parameters/UcTool/uctoolform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
     Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \

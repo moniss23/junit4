@@ -240,3 +240,49 @@ SgwSettings ScriptParserManager::getSgwSettings(const QString &scriptContent){
     }
     return sgwSettings;
 }
+
+UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(const QString &scriptContent)
+{
+    UCToolSettings ucToolSettings;
+    QStringList scriptContentLines = scriptContent.split("\n");
+
+    int startIndex, endIndex;
+    QString value;
+
+    for(int i=0; i<scriptContentLines.size(); ++i) {
+        if(scriptContentLines[i].contains("default[:uctool_ip]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+        startIndex = scriptContentLines[i].indexOf("{");
+        startIndex++;
+        endIndex = scriptContentLines[i].lastIndexOf("}");
+        value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
+        ucToolSettings.ucToolIP = value;
+        }
+        else if(scriptContentLines[i].contains("default[:uctool_cIds]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+        startIndex = scriptContentLines[i].indexOf("{");
+        startIndex++;
+        endIndex = scriptContentLines[i].lastIndexOf("}");
+        value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
+        ucToolSettings.ucToolCIds = value;
+        }
+        else if(scriptContentLines[i].contains("default[:uctool_service_ip]")) {
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+        startIndex = scriptContentLines[i].indexOf("{");
+        startIndex++;
+        endIndex = scriptContentLines[i].lastIndexOf("}");
+        value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
+        ucToolSettings.ucToolServiceIp = value;
+        }
+    }
+    return ucToolSettings;
+}

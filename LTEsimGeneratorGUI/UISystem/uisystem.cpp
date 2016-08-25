@@ -86,6 +86,9 @@ void UISystem::bindingObjects()
     //Open Ipex window
     QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings,QString)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings,QString)));
 
+    //Open UCTool window
+    QObject::connect(this, SIGNAL(spawnWindow_ucTool(UCToolSettings,QString)), &ucToolForm, SLOT(loadAndOpen(UCToolSettings,QString)));
+
     //Update Project Data
     QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
 
@@ -130,6 +133,19 @@ void UISystem::spawnWindow_Ipex(const QString& projectName)
     emit spawnWindow_Ipex(project->dataGeneratorSettings, project->name);
     return;
 }
+
+void UISystem::spawnWindow_ucTool(const QString& projectName)
+{
+    auto project = findProjectByName(projectName);
+
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnWindow_ucTool(project->ucToolSettings, project->name);
+    return;
+}
+
 void UISystem::spawnWindow_ParamMap(const QString &projectName)
 {
     auto project = findProjectByName(projectName);
@@ -145,6 +161,7 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     map_w = new MapWindow(*project);
     QObject::connect(map_w, SIGNAL(SpawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
     QObject::connect(map_w,SIGNAL(spawnSgwWindow(QString)),this,SLOT(spawnWindow_Sgw(QString)));
+    QObject::connect(map_w, SIGNAL(spawnWindow_ucTool(QString)), this, SLOT(spawnWindow_ucTool(QString)));
     map_w->show();
 }
 

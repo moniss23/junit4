@@ -1691,8 +1691,6 @@ void MapWindow::on_checkBoxUE_simulated_clicked()
         ui->frame_UE_simulated->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
     }
     viewUBsim.setParameters(ue);
-    viewUCtool.setParameters(ue);
-
 }
 
 //--------------------------OPEN MME WINDOW ---------------------------------------
@@ -1708,10 +1706,7 @@ void MapWindow::on_lblSGW_clicked()
     emit spawnSgwWindow(project.name);
 }
 void MapWindow::on_lblUCtool_clicked(){
-    viewUCtool.close();
-    viewUCtool.setParameters(ue);
-    viewUCtool.set_checkboxactive(this->ui->checkBoxUE_simulated->isChecked());
-    viewUCtool.show();
+    emit spawnWindow_ucTool(project.name);
 }
 
 void MapWindow::on_lblUBsim_clicked()

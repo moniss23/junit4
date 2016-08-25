@@ -14,7 +14,7 @@ public:
     ~UCToolSettings() {}
 
     QString ucToolIP;
-    QString ucToolClds;
+    QString ucToolCIds;
     QString ucToolServiceIp;
 
     /****************************

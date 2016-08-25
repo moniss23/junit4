@@ -16,7 +16,7 @@ QByteArray UCToolSettings::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << ucToolIP << ucToolClds << ucToolServiceIp;
+    stream << ucToolIP << ucToolCIds << ucToolServiceIp;
 
     return serializedData.buffer();
 }
@@ -24,5 +24,5 @@ QByteArray UCToolSettings::serializeData()
 void UCToolSettings::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> ucToolIP >> ucToolClds >> ucToolServiceIp;
+    stream >> ucToolIP >> ucToolCIds >> ucToolServiceIp;
 }

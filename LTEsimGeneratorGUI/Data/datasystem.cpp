@@ -183,6 +183,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
 
     newProject.sgwSettings = scriptParserManager.getSgwSettings(newProject.parametersFile.content);
     newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(newProject.parametersFile.content);
+    newProject.ucToolSettings = scriptParserManager.getUCToolSettingsFromScript(newProject.parametersFile.content);
 
     projects.push_back(newProject);
     emit currentProjects(projects);
