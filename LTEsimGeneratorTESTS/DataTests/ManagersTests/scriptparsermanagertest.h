@@ -22,6 +22,8 @@ private Q_SLOTS:
     void scriptParserManagerTest2_getDataGeneratorSettingsFromScript();
     void scriptParserManagerTest3_getSgwSettingsFromScript();
     void scriptParserManagerTesr4_getSgwSettingsFromScript();
+    void scriptParserManagerTest5_getUCToolsSettingsFromScript();
+    void scriptParserManagerTest6_getUCToolsSettingsFromScript();
 };
 
 #endif // SCRIPTPARSERMANAGERTEST_H

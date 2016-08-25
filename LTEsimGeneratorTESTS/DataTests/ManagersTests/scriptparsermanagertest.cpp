@@ -13,7 +13,7 @@ void ScriptParserManagerTest::cleanupTestCase() {
 
 void ScriptParserManagerTest::scriptParserManagerTest1_getDataGeneratorSettingsFromScript() {
 
-    qInfo() << "TEST FOR PARSER getDataGeneratorSettingsFromScript METHOD(SUCCESS)";
+    qInfo() << "TEST FOR PARSER getDataGeneratorSettingsFromScript METHOD(SUCCESSFUL PARSE TEST)";
 
     ScriptParserManager scriptParserManager;
     DataGeneratorSettings dataGeneratorSettings;
@@ -72,6 +72,7 @@ void ScriptParserManagerTest::scriptParserManagerTest2_getDataGeneratorSettingsF
 
     QVERIFY(true);
 }
+
 void ScriptParserManagerTest::scriptParserManagerTest3_getSgwSettingsFromScript(){
     qInfo() << "TEST FOR PARSER getSgwSettings METHOD(SUCCESS)";
     ScriptParserManager scriptParserManager;
@@ -101,6 +102,7 @@ void ScriptParserManagerTest::scriptParserManagerTest3_getSgwSettingsFromScript(
     // if all test passed
     QVERIFY(true);
 }
+
 void ScriptParserManagerTest::scriptParserManagerTesr4_getSgwSettingsFromScript(){
     qInfo() << "TEST FOR PARSER getSgwSettings METHOD(UNSUCCESSFUL PARSE TEST)";
     ScriptParserManager scriptParserManager;
@@ -128,5 +130,57 @@ void ScriptParserManagerTest::scriptParserManagerTesr4_getSgwSettingsFromScript(
     }
 
     // if all test passed
+    QVERIFY(true);
+}
+
+void ScriptParserManagerTest::scriptParserManagerTest5_getUCToolsSettingsFromScript()
+{
+    qInfo() << "TEST FOR PARSER getUCToolSettingsFromScript METHOD(SUCCESSFUL PARSE TEST)";
+
+    ScriptParserManager scriptParserManager;
+    UCToolSettings ucToolSettings;
+
+    const QString scriptContent =                                   "# UCTool specific parameters\n"
+            "default[:uctool_ip] = \"{uctool1;192.168.3.5}\"         # UCTOOL device name the IP address of the UCtool.\n"
+                                                                    "# NOTE! If only IP address is given then the IP address will be\n"
+                                                                    "# applicable for all UCTOOL managers.\n"
+            "default[:uctool_cIds] = \"{uctool1;cell11,cell12}\"     # UCTOOL device name and cell names used to map.\n"
+                                                                    "# the UCTOOL cells to corresponding cells in the REC.\n"
+            "default[:uctool_service_ip] = \"{uctool1;192.168.3.19}\"# UCTOOL device name and the IP address of the service requested.\n"
+                                                                    "# NOTE! If only IP address is given then the IP address will be\n"
+                                                                    "# applicable for all UCTOOLs.\n";
+
+    ucToolSettings = scriptParserManager.getUCToolSettingsFromScript(scriptContent);
+
+    if(ucToolSettings.ucToolIP != "uctool1;192.168.3.5") QVERIFY(false);
+    else if(ucToolSettings.ucToolCIds != "uctool1;cell11,cell12") QVERIFY(false);
+    else if(ucToolSettings.ucToolServiceIp != "uctool1;192.168.3.19") QVERIFY(false);
+
+    QVERIFY(true);
+}
+
+void ScriptParserManagerTest::scriptParserManagerTest6_getUCToolsSettingsFromScript()
+{
+    qInfo() << "TEST FOR PARSER getUCToolSettingsFromScript METHOD(UNSUCCESSFUL PARSE TEST)";
+
+    ScriptParserManager scriptParserManager;
+    UCToolSettings ucToolSettings;
+
+    const QString scriptContent =                                   "# UCTool specific parameters\n"
+            "default[:u_ip] = \"{uctool1;192.168.3.5}\"         # UCTOOL device name the IP address of the UCtool.\n"
+                                                                    "# NOTE! If only IP address is given then the IP address will be\n"
+                                                                    "# applicable for all UCTOOL managers.\n"
+            "default[:uctool_cIds] = \"{uctool11,cell12}\"     # UCTOOL device name and cell names used to map.\n"
+                                                                    "# the UCTOOL cells to corresponding cells in the REC.\n"
+            "default[:uctool_service_ip] = \"{uctool1;192.}168.3.19\"# UCTOOL device name and the IP address of the service requested.\n"
+                                                                    "# NOTE! If only IP address is given then the IP address will be\n"
+                                                                    "# applicable for all UCTOOLs.\n";
+
+    ucToolSettings = scriptParserManager.getUCToolSettingsFromScript(scriptContent);
+
+    if(ucToolSettings.ucToolIP == "uctool1;192.168.3.5") QVERIFY(false);
+    else if(ucToolSettings.ucToolCIds == "uctool1;cell11,cell12") QVERIFY(false);
+    else if(ucToolSettings.ucToolServiceIp == "uctool1;192.168.3.19") QVERIFY(false);
+
     QVERIFY(true);
 }
