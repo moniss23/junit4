@@ -1,28 +1,40 @@
+#include <QRegExp>
 #include "scriptparsermanager.h"
 
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
-QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &scriptContent) {
+QString ScriptParserManager::findRegexInText(QString pattern, const QString &text, int pos) {
+    QRegExp regex(pattern);
+    regex.setMinimal(true);
+
+    if(regex.indexIn(text) >= 0) {
+        QString foundPattern = regex.cap(pos);
+        foundPattern.remove(QRegExp("[\"\\],}]"));
+        return foundPattern;
+    }
+
+    return QString();
+}
+
+QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &rbContent) {
     QVector<Cell> cells;
-    QString pattern = ":cell => \"";
-    QStringList scriptLines = scriptContent.split('\n');
+    QStringList rbLines = rbContent.split('\n');
 
-    const int cellParamsLines = 7;
-    for(int i=0; i+cellParamsLines<scriptLines.size(); ++i) {
-        if(scriptLines[i].contains(pattern) && (!scriptLines.contains("#") or
-            (scriptLines[i].indexOf(pattern) < scriptLines[i].indexOf("#"))))
-        {
-            QVector<QString> cellParams(8);
-            for(int j=0; j<cellParams.size(); ++j) {
-                cellParams[j] = scriptLines[i+j].trimmed();
-            }
+    for(int i=0; i<rbLines.size(); ++i) {
+        QString startPattern(":cell => \"(.*)\",");
+        if(QRegExp(startPattern).indexIn(rbLines[i]) >= 0) {
 
-            for(auto &&param: cellParams) {
-                param = param.split(" ")[2];
-                param.remove(QChar('"'));
-                param.remove(QChar(','));
-            }
+            QVector<QString> cellParams = {
+                findRegexInText(startPattern, rbLines[i], 1),
+                findRegexInText(":site => \"(.*)\"[,]", rbLines[i+1], 1),
+                findRegexInText(":pci => (.*)[,]", rbLines[i+2], 1),
+                findRegexInText(":position_X => (.*)[,]", rbLines[i+3], 1),
+                findRegexInText(":position_Y => (.*)[,]", rbLines[i+4], 1),
+                findRegexInText(":earfcnDl => (.*)[,]", rbLines[i+5], 1),
+                findRegexInText(":transmitPower => (.*)([,}]|$)", rbLines[i+6], 1),
+                findRegexInText(":ulNoiseAndInterference => (.*)([,}]|$)", rbLines[i+7], 1)
+            };
 
             Cell cell;
             cell.setCell(cellParams[0]);
@@ -33,81 +45,65 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &scriptConte
             cell.setEarfcnDl(cellParams[5]);
             cell.setTransmitPower(cellParams[6]);
             cell.setUlNoiseAndInterference(cellParams[7]);
-
             cells.append(cell);
-            i += 8;
         }
     }
 
     return cells;
 }
 
-QVector<Center> ScriptParserManager::getCentersFromScript(const QString &scriptContent) {
+QVector<Center> ScriptParserManager::getCentersFromScript(const QString &rbContent) {
     QVector<Center> centers;
-    QString pattern = ":area => \"Center";
-    QStringList scriptLines = scriptContent.split('\n');
+    QStringList rbLines = rbContent.split('\n');
 
-    const int centersParamsLines = 4;
-    for(int i=0; i+centersParamsLines<scriptLines.size(); ++i) {
-        if(scriptLines[i].contains(pattern) && (!scriptLines.contains("#") or
-            (scriptLines[i].indexOf(pattern) < scriptLines[i].indexOf("#"))))
-        {
-            QVector<QString> centerParams(5);
-            for(int j=0; j<centerParams.size(); ++j) {
-                centerParams[j] = scriptLines[i+j].trimmed();
-            }
+    for(int i=0; i<rbLines.size(); ++i) {
+        QString startPattern(":area => \"Center(.*)\",");
+        if(QRegExp(startPattern).indexIn(rbLines[i]) >= 0) {
 
-            for(auto &&param: centerParams) {
-                param = param.split(" ")[2];
-                param.remove(QChar('"'));
-                param.remove(QChar(','));
-            }
+            QVector<QString> centerParams = {
+                findRegexInText(startPattern, rbLines[i], 1),
+                findRegexInText(":southBoundary => (.*)([,}]|$)", rbLines[i+1], 1),
+                findRegexInText(":northBoundary => (.*)([,}]|$)", rbLines[i+2], 1),
+                findRegexInText(":westBoundary => (.*)([,}]|$)", rbLines[i+3], 1),
+                findRegexInText(":eastBoundary => (.*)([,}]|$)", rbLines[i+4], 1)
+            };
 
             Center center;
-            center.setArea(centerParams[0]);
+            center.setArea("Center" + centerParams[0]);
             center.setSouthBoundary(centerParams[1]);
             center.setNorthBoundary(centerParams[2]);
             center.setWestBoundary(centerParams[3]);
             center.setEastBoundary(centerParams[4]);
-
             centers.append(center);
-            i += 5;
         }
     }
 
     return centers;
 }
 
-QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &scriptContent) {
+QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &rbContent) {
     QVector<Handover> handovers;
-    QString pattern = ":area => \"Handover";
-    QStringList scriptLines = scriptContent.split('\n');
+    QStringList rbLines = rbContent.split('\n');
 
-    const int hoParamsLines = 4;
-    for(int i=0; i+hoParamsLines<scriptLines.size(); ++i) {
-        if(scriptLines[i].contains(pattern) && (!scriptLines.contains("#") or
-            (scriptLines[i].indexOf(pattern) < scriptLines[i].indexOf("#"))))
-        {
-            QVector<QString> handoverParams(5);
-            for(int j=0; j<handoverParams.size(); ++j) {
-                handoverParams[j] = scriptLines[i+j].trimmed();
-            }
+    for(int i=0; i<rbLines.size(); ++i) {
+        QString startPattern(":area => \"Handover(.*)\",");
+        if(QRegExp(startPattern).indexIn(rbLines[i]) >= 0) {
 
-            for(auto &&param: handoverParams) {
-                param = param.split(" ")[2];
-                param.remove(QChar('"'));
-                param.remove(QChar(','));
-            }
+            QVector<QString> handoverParams = {
+                findRegexInText(startPattern, rbLines[i], 1),
+                findRegexInText(":southBoundary => (.*)([,}]|$)", rbLines[i+1], 1),
+                findRegexInText(":northBoundary => (.*)([,}]|$)", rbLines[i+2], 1),
+                findRegexInText(":westBoundary => (.*)([,}]|$)", rbLines[i+3], 1),
+                findRegexInText(":eastBoundary => (.*)([,}]|$)", rbLines[i+4], 1)
+            };
 
-            Handover handover;
-            handover.setArea(handoverParams[0]);
+           Handover handover;
+            handover.setArea("Handover" + handoverParams[0]);
             handover.setSouthBoundary(handoverParams[1]);
             handover.setNorthBoundary(handoverParams[2]);
             handover.setWestBoundary(handoverParams[3]);
             handover.setEastBoundary(handoverParams[4]);
-
             handovers.append(handover);
-            i += 5;
         }
     }
 

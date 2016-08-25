@@ -21,6 +21,9 @@ public:
     QVector<Handover> getHandoversFromScript(const QString &scriptContent);
     DataGeneratorSettings getDataGeneratorSettingsFromScript(const QString &scriptContent);
     SgwSettings getSgwSettings(const QString &scriptContent);
+
+private:
+    QString findRegexInText(QString pattern, const QString &text, int pos);
 };
 
 #endif // SCRIPTPARSERMANAGER_H

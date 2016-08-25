@@ -177,11 +177,15 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     newProject.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
     newProject.parametersFile.filename = "Parameters.rb";
     newProject.parametersFile.content = getDefaultParametersFileContent();
+
+    newProject.cells = scriptParserManager.getCellsFromScript(newProject.parametersFile.content);
+    newProject.centers = scriptParserManager.getCentersFromScript(newProject.parametersFile.content);
+    newProject.handovers = scriptParserManager.getHandoversFromScript(newProject.parametersFile.content);
+
     newProject.sgwSettings = scriptParserManager.getSgwSettings(newProject.parametersFile.content);
     newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(newProject.parametersFile.content);
+
     projects.push_back(newProject);
-
-
     emit currentProjects(projects);
     saveProjectsFile();
 }
