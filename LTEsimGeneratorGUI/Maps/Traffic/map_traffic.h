@@ -29,11 +29,10 @@ class Map_traffic : public QMainWindow
 
 public:
 
-    explicit Map_traffic(DataSystem* appSettings, QWidget *parent = 0);
+    explicit Map_traffic(QWidget *parent = 0);
     DragUELabel **tab_UE;
     DragUELabel *last_element_traffic;
     int counter_UE;
-    //QString tab_position_names[12];
     MapRange *mapRange_traffic;
     QComboBox *combo_pointer;
 
@@ -98,28 +97,6 @@ public:
     void show_UE_params8();
     void show_UE_params9();
     void show_UE_params10();
-//    void show_UE_params11_12();
-//    void show_UE_params11_21();
-//    void show_UE_params12_21();
-//    void show_UE_params12_22();
-//    void show_UE_params21_22();
-//    void show_UE_params21_31();
-//    void show_UE_params21_32();
-//    void show_UE_params22_32();
-//    void show_UE_params31_32();
-//    void show_UE_params31_41();
-//    void show_UE_params32_41();
-//    void show_UE_params32_42();
-//    void show_UE_params41_42();
-//    void show_UE_params41_51();
-//    void show_UE_params41_52();
-//    void show_UE_params42_52();
-//    void show_UE_params51_52();
-//    void show_UE_params51_61();
-//    void show_UE_params52_61();
-//    void show_UE_params52_62();
-//    void show_UE_params61_62();
-
 
     //Map_scale
     void changeMapRange_x_northBoundMap();
@@ -127,11 +104,7 @@ public:
 
 private:
     Ui::Map_traffic *ui;
-
-    DataSystem* appSettings;
-
     customModel** viewcustomModel;
-    int number1;
 
     QMap<QString, QString>* parseCM(QStringList customModelListToParse);
     void parseSavedList();
@@ -159,10 +132,6 @@ private:
     Form viewUE9;
     Form viewUE10;
 
-    Form viewempty;
-
-
-
     Form* pointerUE1;
     Form* pointerUE2;
     Form* pointerUE3;
@@ -174,18 +143,11 @@ private:
     Form* pointerUE9;
     Form* pointerUE10;
 
-    Form* pointerempty;
-
     QVector<DragUELabel*> vectorUE;
     customModel* viewcustomModel1;
     QMessageBox msgExit;
 
-    //values use to change values in object if we change scale map
-    int counter_cell;
-    int counter_center;
-    int couter_handover;
     int tmp_counter_UE;
-    int divisor;
 
 signals:
     void Mouse_Pressed();

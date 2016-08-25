@@ -82,10 +82,9 @@ extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
 extern QVector<QString> trafficFilesContent;
 
-Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
+Map_traffic::Map_traffic(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Map_traffic),
-    appSettings(appSettings)
+    ui(new Ui::Map_traffic)
 {
         ui->setupUi(this);
 
@@ -138,8 +137,6 @@ Map_traffic::Map_traffic(DataSystem* appSettings, QWidget *parent) :
 
         changeMapRange_y_northBoundMap();
         changeMapRange_x_northBoundMap();
-
-        this->number1 =0;
 
         viewcustomModel = new customModel*[10];
         viewcustomModel[0] = new customModel();
@@ -4434,14 +4431,6 @@ void Map_traffic::changeMapRange_x_northBoundMap()
     ui->y_4->setText(QString::number(position_zero +3*scale));
     ui->y_5->setText(QString::number(position_zero +4*scale));
     ui->y_6->setText(QString::number(position_zero +5*scale));
-
-    counter_cell = 0;
-    counter_center = 0;
-    couter_handover = 0;
-    divisor = 0;
-    //for (int i = 0; i<6 ; i++)
-    //changeCenterValue_Y(position_zero + scale*i);
-
 }
 
 void Map_traffic::changeMapRange_y_northBoundMap()
@@ -4452,13 +4441,6 @@ void Map_traffic::changeMapRange_y_northBoundMap()
     ui->x_2->setText(QString::number(2*scale));
     ui->x_3->setText(QString::number(3*scale));
     ui->x_4->setText(QString::number(4*scale));
-
-    counter_cell =0;
-    counter_center =0;
-    couter_handover =0;
-    divisor = 0;
-    //for (int i= 1; i<=2;i++)
-    //changeCenterValue_X(scale*i);
 }
 
 void Map_traffic::closeEvent(QCloseEvent *event){

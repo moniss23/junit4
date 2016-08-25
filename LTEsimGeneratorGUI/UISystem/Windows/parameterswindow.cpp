@@ -14,7 +14,6 @@
 
 QString parametersFileContent;
 QStringList parametersFileContentList;
-extern MapWindow* map_w;
 extern Map_traffic* map_t;
 QString text1;              // tekst znajdujący się w polu tekstowym
 QString pattern;      // tekst, który zamienimy na inny
@@ -180,30 +179,16 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
     this->previewFile(current);
 }
 
-
 // file in the project double-clicked
 void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 {
     (void) item;
 
-    // parameters file double-clicked
-    if(this->ui->projectsList->currentRow()==0){
-        // if normal map is to be displayed
-        // delete current map objects if they are present
-        if(map_w!=NULL){
-            delete map_w;
-            map_w=NULL;
-        }
-        // create a new map object and display it
+    if(this->ui->projectsList->currentRow()==0) {
         emit SpawnWindow_ParamMap(currentProject.name);
     }
-    else{
-        // delete current map objects if they are present
-        if(map_t!=NULL){
-            delete map_t;
-            map_t=NULL;
-        }
-        map_t =new Map_traffic(appSettings);
+    else {
+        map_t = new Map_traffic();
         map_t->show();
     }
 }
