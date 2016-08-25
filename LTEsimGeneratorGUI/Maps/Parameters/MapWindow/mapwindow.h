@@ -15,12 +15,12 @@
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h>
 #include <Maps/Parameters/SimulatedUe/ubsimform.h>
-#include <Maps/Parameters/SimulatedUe/ipexform.h>
+#include <UISystem/DataForms/ipexform.h>
 #include <Maps/Parameters/UcTool/uctoolform.h>
 #include <Maps/Traffic/UeParameters/ue.h>
 #include <Maps/Parameters/ChannelModel/channelmodel.h>
 #include <Maps/Parameters/ChannelModel/channelmodelform.h>
-#include <Maps/Parameters/SimulatedUe/ipexform.h>
+#include <UISystem/DataForms/ipexform.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <Maps/Parameters/MapRange/maprangeform.h>
 #include "Data/project.h"
