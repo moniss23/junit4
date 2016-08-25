@@ -77,6 +77,11 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
 
     changeMapRange_y_northBoundMap();
     changeMapRange_x_northBoundMap();
+
+    ui->checkBoxUE_simulated->setChecked(project.SimulatedUe);
+    ui->checkBoxCoreNetwork->setChecked(project.SimulatedCoreNetwork);
+
+
 }
 void MapWindow::createHandover() {
     tabHandover.resize(21);
@@ -141,8 +146,6 @@ void MapWindow::createCell() {
 void MapWindow::createCoreNetwork()
 {
     mme = new Mme;
-
-    ui->checkBoxCoreNetwork->setChecked(mme->getSimulate_core());
     on_checkBoxCoreNetwork_clicked();
 }
 
@@ -1653,10 +1656,8 @@ void MapWindow::changeCenterValue_X(int scale)
 void MapWindow::resetFlags()
 {
     if (mme->getSimulate_core()){
-        ui->checkBoxCoreNetwork->setChecked(true);
         mme->setSimulate_core(true);
     }else {
-        ui->checkBoxCoreNetwork->setChecked(false);
         mme->setSimulate_core(false);
     }
     ui->checkBoxUE_simulated->setChecked(ue->getStart_ue_component());
@@ -1671,10 +1672,12 @@ void MapWindow::on_checkBoxCoreNetwork_clicked()
         ui->checkBoxCoreNetwork->setText("Simulated Core Network Off");
         ui->lblSGW1->setEnabled(false);
         ui->lblMME1->setEnabled(false);
+        emit updateSimulatedCoreNetworkState(project.name,false);
     }else{
         ui->checkBoxCoreNetwork->setText("Simulated Core Network On");
         ui->lblSGW1->setEnabled(true);
         ui->lblMME1->setEnabled(true);
+        emit updateSimulatedCoreNetworkState(project.name,true);
     viewMME.setParameters(mme);
 }
 }
@@ -1685,10 +1688,12 @@ void MapWindow::on_checkBoxUE_simulated_clicked()
         ui->checkBoxUE_simulated->setText(" Simulated UE Off");
         ue->setStart_ue_component(false);
         ui->frame_UE_simulated->setFrameStyle(QFrame::Panel | QFrame::Raised);
+        emit updateSimulatedUeState(project.name,false);
     }else{
         ui->checkBoxUE_simulated->setText(" Simulated UE On");
         ue->setStart_ue_component(true);
         ui->frame_UE_simulated->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
+        emit updateSimulatedUeState(project.name,true);
     }
     viewUBsim.setParameters(ue);
 }
@@ -1697,7 +1702,6 @@ void MapWindow::on_checkBoxUE_simulated_clicked()
 void MapWindow::on_lblMME_clicked(){
     viewMME.close();
     viewMME.setParameters(mme);
-    viewMME.set_checkboxactive(this->ui->checkBoxCoreNetwork->isChecked());
     viewMME.show();
 }
 

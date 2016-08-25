@@ -165,6 +165,8 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     QObject::connect(map_w, SIGNAL(spawnWindow_ucTool(QString)), this, SLOT(spawnWindow_ucTool(QString)));
     QObject::connect(map_w, SIGNAL(spawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
     QObject::connect(map_w,SIGNAL(spawnWindow_Sgw(QString)),this,SLOT(spawnWindow_Sgw(QString)));
+    QObject::connect(map_w,SIGNAL(updateSimulatedCoreNetworkState(QString,bool)),dataSystem,SLOT(updateSimulatedCoreNetworkState(QString,bool)));
+    QObject::connect(map_w,SIGNAL(updateSimulatedUeState(QString,bool)),dataSystem,SLOT(updateSimulatedUeState(QString,bool)));
     map_w->show();
 }
 

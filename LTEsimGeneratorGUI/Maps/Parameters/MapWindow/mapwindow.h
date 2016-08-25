@@ -63,6 +63,8 @@ signals:
     void spawnWindow_Ipex(const QString& projectName);
     void spawnWindow_Sgw(const QString& projectName);
 
+    void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
+    void updateSimulatedUeState(const QString& projectName,bool state);
 private slots:
     void on_Center61_clicked();
     void on_Center62_clicked();

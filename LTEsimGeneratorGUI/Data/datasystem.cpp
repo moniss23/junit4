@@ -350,3 +350,11 @@ void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString
     project->sgwSettings = sgwSettings;
     saveProjectsFile();
 }
+void DataSystem::updateSimulatedCoreNetworkState(const QString &projectName, bool state){
+    auto project = findProjectByName(projectName);
+    project->SimulatedCoreNetwork = state;
+}
+void DataSystem::updateSimulatedUeState(const QString &projectName, bool state){
+    auto project = findProjectByName(projectName);
+    project->SimulatedUe=state;
+}

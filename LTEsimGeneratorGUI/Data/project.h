@@ -32,7 +32,8 @@ public:
     DataGeneratorSettings dataGeneratorSettings;
     UCToolSettings ucToolSettings;
     SgwSettings sgwSettings;
-
+    bool SimulatedCoreNetwork = false;
+    bool SimulatedUe = false;
     ParametersFileData parametersFile;
     QVector<TrafficFileData> trafficFilesList;
 

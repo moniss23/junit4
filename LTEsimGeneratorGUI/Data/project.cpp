@@ -36,7 +36,7 @@ QByteArray Project::serializeData()
     stream << dataGeneratorSettings.serializeData();
     stream << sgwSettings.serializeData();
     stream << ucToolSettings.serializeData();
-
+    stream << SimulatedCoreNetwork << SimulatedUe;
     return serializedData.buffer();
 }
 
@@ -73,4 +73,6 @@ void Project::deserializeData(const QByteArray &rawData)
 
     stream >> rawUCToolSettings;
     ucToolSettings.deserializeData(rawUCToolSettings);
+
+    stream >> SimulatedCoreNetwork >> SimulatedUe;
 }
