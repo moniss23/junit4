@@ -29,6 +29,7 @@ SOURCES += \
     Data/ProjectSettings/datageneratorsettings.cpp \
     Data/ProjectSettings/sgwsettings.cpp \
     UISystem/Widgets/cellrepresentation.cpp
+    Data/ProjectSettings/uctoolsettings.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -97,6 +98,7 @@ HEADERS  += \
     Data/ProjectSettings/datageneratorsettings.h \
     Data/ProjectSettings/sgwsettings.h \
     UISystem/Widgets/cellrepresentation.h
+    Data/ProjectSettings/uctoolsettings.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \

@@ -14,6 +14,7 @@
 #include "Data/Objects/parametersfiledata.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/sgwsettings.h"
+#include "Data/ProjectSettings/uctoolsettings.h"
 
 class Project : public SerializeInterface
 {
@@ -29,6 +30,7 @@ public:
     QVector<Center> centers;
     QVector<Handover> handovers;
     DataGeneratorSettings dataGeneratorSettings;
+    UCToolSettings ucToolSettings;
     SgwSettings sgwSettings;
 
     ParametersFileData parametersFile;

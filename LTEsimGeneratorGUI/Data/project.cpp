@@ -33,6 +33,7 @@ QByteArray Project::serializeData()
 
     stream << dataGeneratorSettings.serializeData();
     stream << sgwSettings.serializeData();
+    stream << ucToolSettings.serializeData();
 
     return serializedData.buffer();
 }
@@ -43,6 +44,7 @@ void Project::deserializeData(const QByteArray &rawData)
     QByteArray rawParamFile;
     QByteArray rawDataGeneratorSettings;
     QByteArray rawSgwSettings;
+    QByteArray rawUCToolSettings;
     QDataStream stream(rawData);
     stream >> name >> fullpath >> genScriptDir;
 
@@ -64,4 +66,7 @@ void Project::deserializeData(const QByteArray &rawData)
 
     stream >> rawSgwSettings;
     sgwSettings.deserializeData(rawSgwSettings);
+
+    stream >> rawUCToolSettings;
+    ucToolSettings.deserializeData(rawUCToolSettings);
 }
