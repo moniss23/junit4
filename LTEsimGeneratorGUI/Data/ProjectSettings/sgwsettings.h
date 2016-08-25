@@ -1,8 +1,10 @@
 #ifndef SGWSETTINGS_H
 #define SGWSETTINGS_H
+
 #include <QString>
 #include <QVector>
 #include <QPair>
+
 #include "Data/Interfaces/serializeinterface.h"
 
 class SgwSettings : public SerializeInterface

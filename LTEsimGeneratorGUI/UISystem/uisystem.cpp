@@ -21,18 +21,13 @@ UISystem::~UISystem(){
 void UISystem::bindingObjects()
 {
     // Open project
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
+    QObject::connect(&projectUi,SIGNAL(spawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
     QObject::connect(this,SIGNAL(spawnWindow_OpenProject(Project)),&paramWindow,SLOT(loadProjectAndOpen(Project)));
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
+    QObject::connect(&projectUi,SIGNAL(spawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
     //Spawning ProjectManagement after closing ParametersWindow
-    QObject::connect(&paramWindow,SIGNAL(SpawnWindow_ProjectMng()),dataSystem,SLOT(SpawnWindow_ProjectManagement()));
-    QObject::connect(dataSystem,SIGNAL(SpawnWindow_ProjectMng()),&projectUi,SLOT(show()));
-
-    // Spawning Sgw in Parameters map
-    QObject::connect(this, SIGNAL(spawnSgwWindow(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
-    // Update SgwSettings in DataSystem
-    QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
+    QObject::connect(&paramWindow,SIGNAL(spawnWindow_ProjectMng()),dataSystem,SLOT(spawnWindow_ProjectManagement()));
+    QObject::connect(dataSystem,SIGNAL(spawnWindow_ProjectMng()),&projectUi,SLOT(show()));
 
     // Delete project
     QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),dataSystem,SLOT(deleteProject(QString)));
@@ -40,18 +35,18 @@ void UISystem::bindingObjects()
                      &projectUi,   SLOT(updateProjectLists(const QVector<Project>&)));
 
     // Settings
-    QObject::connect(&projectUi, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
-    QObject::connect(&paramWindow, SIGNAL(SpawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
+    QObject::connect(&projectUi, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowspawn(QString)));
+    QObject::connect(&paramWindow, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowspawn(QString)));
     QObject::connect(&settingsWindow, SIGNAL(SetGlobalLocationForNewProjects(QString)), dataSystem, SLOT(setGlobalLocationForNewProjects(QString)));
     QObject::connect(&settingsWindow, SIGNAL(Set_RB_FilesLocationForProject(QString,QString)), dataSystem, SLOT(set_RB_FilesLocationForProject(QString,QString)));
     QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
 
     // Import Project
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
+    QObject::connect(&projectUi,SIGNAL(spawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
     QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), dataSystem, SLOT(importProject(const QString&)));
 
     // New Project
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
+    QObject::connect(&projectUi,SIGNAL(spawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),dataSystem,SLOT(createNewProject(QString,QString)));
     QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)), &addProjectWindow, SLOT(close()));
 
@@ -60,7 +55,7 @@ void UISystem::bindingObjects()
     QObject::connect(dataSystem, SIGNAL(currentProjectChanged(Project)),&paramWindow, SLOT(refreshUI(Project)));
 
     //Rename file
-    QObject::connect(&paramWindow,SIGNAL(SpawnWindow_RenameFile(QString,QString)),&renameDialog,SLOT(initWindow(QString,QString)));
+    QObject::connect(&paramWindow,SIGNAL(spawnWindow_RenameFile(QString,QString)),&renameDialog,SLOT(initWindow(QString,QString)));
     QObject::connect(dataSystem,SIGNAL(currentProjectChanged(Project)),&renameDialog,SLOT(close()));
     QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
 
@@ -81,7 +76,7 @@ void UISystem::bindingObjects()
     QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
 
     //Open Param Map
-    QObject::connect(&paramWindow, SIGNAL(SpawnWindow_ParamMap(QString)), this, SLOT(spawnWindow_ParamMap(QString)));
+    QObject::connect(&paramWindow, SIGNAL(spawnWindow_ParamMap(QString)), this, SLOT(spawnWindow_ParamMap(QString)));
 
     //Open Ipex window
     QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings,QString)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings,QString)));
@@ -90,6 +85,15 @@ void UISystem::bindingObjects()
     //Open UCTool window
     QObject::connect(this, SIGNAL(spawnWindow_ucTool(UCToolSettings,QString)), &ucToolForm, SLOT(loadAndOpen(UCToolSettings,QString)));
     QObject::connect(&ucToolForm, SIGNAL(updateUCToolSettings(UCToolSettings,QString)), dataSystem, SLOT(updateUCToolSettings(UCToolSettings,QString)));
+
+    //Update Project IpexData
+    QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
+
+    //Open Sgw widnow
+    QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
+
+    //Update Project SgwData
+    QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
 
 }
 
@@ -158,9 +162,9 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
         map_w=NULL;
     }
     map_w = new MapWindow(*project);
-    QObject::connect(map_w, SIGNAL(SpawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
-    QObject::connect(map_w,SIGNAL(spawnSgwWindow(QString)),this,SLOT(spawnWindow_Sgw(QString)));
     QObject::connect(map_w, SIGNAL(spawnWindow_ucTool(QString)), this, SLOT(spawnWindow_ucTool(QString)));
+    QObject::connect(map_w, SIGNAL(spawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
+    QObject::connect(map_w,SIGNAL(spawnWindow_Sgw(QString)),this,SLOT(spawnWindow_Sgw(QString)));
     map_w->show();
 }
 
@@ -173,7 +177,7 @@ void UISystem::spawnWindow_Sgw(const QString &projectName){
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnSgwWindow(project->sgwSettings, project->name);
+    emit spawnWindow_Sgw(project->sgwSettings, project->name);
     return;
 }
 

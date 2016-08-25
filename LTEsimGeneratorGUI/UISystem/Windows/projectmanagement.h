@@ -28,18 +28,18 @@ signals:
     /**
      * @brief SpawnWindow_NewProject - when user wants to add a project
      */
-    void SpawnWindow_NewProject();
+    void spawnWindow_NewProject();
 
     /**
      * @brief SpawnWindow_OpenProject - when user wants to open given project
      * @param ProjectName
      */
-    void SpawnWindow_OpenProject(const QString &ProjectName);
+    void spawnWindow_OpenProject(const QString &ProjectName);
 
     /**
      * @brief SpawnWindow_ImportProject - used when user wants to import other project
      */
-    void SpawnWindow_ImportProject();
+    void spawnWindow_ImportProject();
 
     /**
      * @brief deleteProject - used
@@ -50,7 +50,7 @@ signals:
     /**
      * @brief SpawnWindow_Settings
      */
-    void SpawnWindow_Settings(const QString& projectName = QString());
+    void spawnWindow_Settings(const QString& projectName = QString());
 
 public slots:
     /**

@@ -1,11 +1,11 @@
 #include "sgwsettings.h"
+
 #include <QBuffer>
 #include <QDataStream>
-SgwSettings::SgwSettings()
-{
+
+SgwSettings::SgwSettings() {
 }
-SgwSettings::~SgwSettings()
-{
+SgwSettings::~SgwSettings() {
 }
 QString SgwSettings::getElementType() const
 {

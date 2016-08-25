@@ -23,7 +23,7 @@ ProjectManagement::~ProjectManagement()
 // "new project" button clicked
 void ProjectManagement::on_newProject_Button_clicked()
 {
-    emit SpawnWindow_NewProject();
+    emit spawnWindow_NewProject();
 }
 
 void ProjectManagement::on_openProject_Button_clicked()
@@ -50,13 +50,13 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
 // "import project" button is clicked
 void ProjectManagement::on_importProject_Button_clicked()
 {
-    emit SpawnWindow_ImportProject();
+    emit spawnWindow_ImportProject();
 }
 
 // "settings" button clicked
 void ProjectManagement::on_settings_Button_clicked()
 {
-    emit SpawnWindow_Settings();
+    emit spawnWindow_Settings();
 }
 
 
@@ -113,7 +113,7 @@ void ProjectManagement::open_project(){
     }
 
     QString projectName = selected_item->text().split("\t")[0];
-    emit SpawnWindow_OpenProject(projectName);
+    emit spawnWindow_OpenProject(projectName);
     this->close();
 }
 

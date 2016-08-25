@@ -31,7 +31,7 @@ signals:
     void errorInData(const QString& errorDescription);
     void returnProject(const Project& project);
     void updateSettingsView(const QString& path);
-    void SpawnWindow_ProjectMng();
+    void spawnWindow_ProjectMng();
     void update_RB_FilesLocation(const QString& location);
 
 public slots:
@@ -53,7 +53,7 @@ public slots:
     void setDefaultParametersFileContent(const QString &projectName);
 
     void updateFileContent(const QString& projectName, const QString& fileName, const QString& content);
-    void SpawnWindow_ProjectManagement();
+    void spawnWindow_ProjectManagement();
 
     void updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
     void updateSgwSettings(const SgwSettings &sgwSettings,const QString &projectName);

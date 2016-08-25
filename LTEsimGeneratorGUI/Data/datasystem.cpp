@@ -92,9 +92,9 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
     emit currentProjectChanged(*project);
 }
 
-void DataSystem::SpawnWindow_ProjectManagement() {
+void DataSystem::spawnWindow_ProjectManagement() {
     emit currentProjects(projects);
-    emit SpawnWindow_ProjectMng();
+    emit spawnWindow_ProjectMng();
 }
 
 void DataSystem::setDefaultParametersFileContent(const QString &projectName) {

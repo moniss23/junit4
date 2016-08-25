@@ -25,7 +25,7 @@ void ProjectManagementWindowTest::ProjectManagementTest1_checkNewProjectSignal()
     ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("newProject_Button");
-    QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_NewProject()));
+    QSignalSpy spy(&projectManagement, SIGNAL(spawnWindow_NewProject()));
 
     newProjectButton->click();
 
@@ -39,7 +39,7 @@ void ProjectManagementWindowTest::ProjectManagementTest2_checkOpenProjectSignal(
     ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("openProject_Button");
-    QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_OpenProject(const QString)));
+    QSignalSpy spy(&projectManagement, SIGNAL(spawnWindow_OpenProject(const QString)));
 
     newProjectButton->click();
 
@@ -52,7 +52,7 @@ void ProjectManagementWindowTest::ProjectManagementTest3_checkImportProjectSigna
     ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("importProject_Button");
-    QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_ImportProject()));
+    QSignalSpy spy(&projectManagement, SIGNAL(spawnWindow_ImportProject()));
 
     newProjectButton->click();
 
@@ -79,7 +79,7 @@ void ProjectManagementWindowTest::ProjectManagementTest5_checkSettingsSignal()
     ProjectManagement projectManagement;
 
     QPushButton* newProjectButton = projectManagement.findChild<QPushButton *>("settings_Button");
-    QSignalSpy spy(&projectManagement, SIGNAL(SpawnWindow_Settings()));
+    QSignalSpy spy(&projectManagement, SIGNAL(spawnWindow_Settings()));
 
     newProjectButton->click();
 

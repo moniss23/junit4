@@ -8,6 +8,7 @@
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/sgwsettings.h"
+
 class ScriptParserManagerTest : public QObject
 {
     Q_OBJECT
@@ -21,9 +22,7 @@ private Q_SLOTS:
     void scriptParserManagerTest1_getDataGeneratorSettingsFromScript();
     void scriptParserManagerTest2_getDataGeneratorSettingsFromScript();
     void scriptParserManagerTest3_getSgwSettingsFromScript();
-    void scriptParserManagerTesr4_getSgwSettingsFromScript();
-    void scriptParserManagerTest5_getUCToolsSettingsFromScript();
-    void scriptParserManagerTest6_getUCToolsSettingsFromScript();
+    void scriptParserManagerTest4_getSgwSettingsFromScript();
 };
 
 #endif // SCRIPTPARSERMANAGERTEST_H

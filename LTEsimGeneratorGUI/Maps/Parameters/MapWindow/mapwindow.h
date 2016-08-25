@@ -12,7 +12,7 @@
 #include <Data/Objects/handover.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
-#include <Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h>
+#include "UISystem/DataForms/sgwform.h"
 #include <Data/ProjectSettings/sgwsettings.h>
 #include <Maps/Parameters/SimulatedUe/ubsimform.h>
 #include <UISystem/DataForms/ipexform.h>
@@ -59,9 +59,9 @@ public:
     QList<QString> outputList;
 
 signals:
-    void SpawnWindow_Ipex(const QString& projectName);
     void spawnWindow_ucTool(const QString &projectName);
-    void spawnSgwWindow(const QString& projectName);
+    void spawnWindow_Ipex(const QString& projectName);
+    void spawnWindow_Sgw(const QString& projectName);
 
 private slots:
     void on_Center61_clicked();
@@ -212,7 +212,8 @@ private:
 
 
     MmeForm viewMME;
-    SGWForm viewSGW;
+    SgwForm viewSGW;
+    UCtoolForm viewUCtool;
     UBsimForm viewUBsim;
     ChannelModelForm viewCannelModel;
     MapRangeForm viewMapRange;

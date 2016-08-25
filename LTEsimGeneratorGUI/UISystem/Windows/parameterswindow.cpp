@@ -89,7 +89,7 @@ void ParametersWindow::on_actionAbout_triggered()
 }
 
 void ParametersWindow::closeEvent(QCloseEvent *event) {
-    emit SpawnWindow_ProjectMng();
+    emit spawnWindow_ProjectMng();
     event->accept();
 }
 void ParametersWindow::on_actionOpen_triggered()
@@ -132,7 +132,7 @@ void ParametersWindow::on_renameFileButton_clicked()
         return;
     }
 
-    emit SpawnWindow_RenameFile(ui->projectsList->currentItem()->text(), currentProject.name);
+    emit spawnWindow_RenameFile(ui->projectsList->currentItem()->text(), currentProject.name);
 }
 
 // preview a file in the right field
@@ -187,7 +187,7 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
     if(this->ui->projectsList->currentRow()==0) {
     // parameters file double-clicked
     // create a new map object and display it
-        emit SpawnWindow_ParamMap(currentProject.name);
+        emit spawnWindow_ParamMap(currentProject.name);
     }
     else {
         map_t = new Map_traffic();
@@ -378,7 +378,7 @@ void ParametersWindow::on_generateFileButton_clicked()
 // "settings" opened
 void ParametersWindow::on_actionPath_triggered()
 {
-    emit SpawnWindow_Settings(currentProject.name);
+    emit spawnWindow_Settings(currentProject.name);
 }
 void ParametersWindow::on_saveFileButton_clicked()
 {

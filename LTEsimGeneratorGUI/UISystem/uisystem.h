@@ -9,8 +9,8 @@
 #include "UISystem/Windows/parameterswindow.h"
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
-#include "Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h"
 #include "UISystem/DataForms/uctoolform.h"
+#include "UISystem/DataForms/sgwform.h"
 
 class UISystem : public QObject
 {
@@ -37,7 +37,7 @@ signals:
     void spawnWindow_Ipex(const DataGeneratorSettings& dataGeneratorSettings, const QString &projectName);
     void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
-    void spawnSgwWindow(const SgwSettings& sgwSettings, const QString &projectName);
+    void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
 private:
     Project* findProjectByName(const QString &projectName);
 private:
@@ -49,8 +49,8 @@ private:
     Settings settingsWindow;
     RenameDialog renameDialog;
     IpexForm ipexForm;
-    SGWForm sgwForm;
     UCtoolForm ucToolForm;
+    SgwForm sgwForm;
 };
 
 #endif // UISYSTEM_H

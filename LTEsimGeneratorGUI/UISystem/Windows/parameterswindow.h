@@ -29,33 +29,33 @@ public:
      ***********************************************/
 signals:
     /**
-     * @brief SpawnWindow_ParamMap signal used to nofity system to show parameters map
+     * @brief spawnWindow_ParamMap signal used to nofity system to show parameters map
      * @param projectName name of current opened project
      */
-    void SpawnWindow_ParamMap(const QString &projectName);
+    void spawnWindow_ParamMap(const QString &projectName);
     /**
-     * @brief SpawnWindow_TrafficMap signal used to nofity system to show traffic map
+     * @brief spawnWindow_TrafficMap signal used to nofity system to show traffic map
      */
-    void SpawnWindow_TrafficMap();
+    void spawnWindow_TrafficMap();
     /**
-     * @brief SpawnWindow_About signal used to nofity system to show window with about program text
+     * @brief spawnWindow_About signal used to nofity system to show window with about program text
      */
-    void SpawnWindow_About();
+    void spawnWindow_About();
     /**
-     * @brief SpawnWindow_Settings signal used to nofity system to show settings window
+     * @brief spawnWindow_Settings signal used to nofity system to show settings window
      * @param projectName name of project which settings are going to be updated, if projectName is empty global settings will be updated
      */
-    void SpawnWindow_Settings(const QString& projectName = QString());
+    void spawnWindow_Settings(const QString& projectName = QString());
     /**
-     * @brief SpawnWindow_RenameFile signal used to nofity system to show rename file window
+     * @brief spawnWindow_RenameFile signal used to nofity system to show rename file window
      * @param filename name of file which we rename
      * @param projectName name of project to rename a file
      */
-    void SpawnWindow_RenameFile(const QString& filename, const QString& projectName);
+    void spawnWindow_RenameFile(const QString& filename, const QString& projectName);
     /**
-     * @brief SpawnWindow_ProjectMng signal used to nofity system to show project management window
+     * @brief spawnWindow_ProjectMng signal used to nofity system to show project management window
      */
-    void SpawnWindow_ProjectMng();
+    void spawnWindow_ProjectMng();
     /**
      * @brief AddFile_Traffic signal used to nofity system to add new traffic file
      * @param projectName name of project to add a new file

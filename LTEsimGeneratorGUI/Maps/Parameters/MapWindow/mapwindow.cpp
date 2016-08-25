@@ -1703,7 +1703,7 @@ void MapWindow::on_lblMME_clicked(){
 
 void MapWindow::on_lblSGW_clicked()
 {
-    emit spawnSgwWindow(project.name);
+    emit spawnWindow_Sgw(project.name);
 }
 void MapWindow::on_lblUCtool_clicked(){
     emit spawnWindow_ucTool(project.name);
@@ -1726,7 +1726,7 @@ void MapWindow::on_lblChannelModel_clicked()
 
 void MapWindow::on_lblIpex_clicked()
 {
-    emit SpawnWindow_Ipex(project.name);
+    emit spawnWindow_Ipex(project.name);
 }
 
 void MapWindow::on_axis_y_clicked()

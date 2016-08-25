@@ -52,7 +52,7 @@ SOURCES += main.cpp\
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.cpp \
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
-    Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.cpp \
+    UISystem/DataForms/sgwform.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
     Maps/Parameters/MapRange/maprangeform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
@@ -121,7 +121,7 @@ HEADERS  += \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
-    Maps/Parameters/SimulatedCoreNetwork/Sgw/sgwform.h \
+    UISystem/DataForms/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
     Maps/Traffic/UeParameters/ue.h \
