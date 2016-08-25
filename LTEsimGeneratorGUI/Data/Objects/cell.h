@@ -37,7 +37,7 @@ public:
     void setUlNoiseAndInterference(const QString &u);
     void setCell_new_name(const QString &value);
 
-private:
+public:
     QString cell;
     QString site;
     QString cell_new_name;
@@ -49,5 +49,8 @@ private:
     float transmitPower;
     float ulNoiseAndInterference;
 };
+
+QDataStream &operator<<(QDataStream &out, const Cell &cell);
+QDataStream &operator>>(QDataStream &in, Cell &cell);
 
 #endif // CELL_H

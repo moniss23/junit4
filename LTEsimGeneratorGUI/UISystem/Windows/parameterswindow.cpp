@@ -422,9 +422,7 @@ void ParametersWindow::on_showCellMapButton_clicked()
     scene->setSceneRect(-10, -10, 600, 600);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    // TODO: jak kazdy Project bedzie mial uzupelniony QVector<Cell> zamienic na
-    // for(int i=0; i<currentProject.cells.size(); ++i) {
-    for(int i=0; i<9; ++i) {
+    for(int i=0; i<currentProject.cells.size(); ++i) {
         int row = i / numberOfCols;
         int col = i % numberOfCols;
         int evenRow = row % 2;

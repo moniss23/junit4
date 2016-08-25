@@ -31,6 +31,8 @@ QByteArray Project::serializeData()
         stream << file.serializeData();
     }
 
+    stream << cells;
+
     stream << dataGeneratorSettings.serializeData();
     stream << sgwSettings.serializeData();
     stream << ucToolSettings.serializeData();
@@ -60,6 +62,8 @@ void Project::deserializeData(const QByteArray &rawData)
         trafficFileData.deserializeData(rawTrafficFile);
         trafficFilesList.push_back(trafficFileData);
     }
+
+    stream >> cells;
 
     stream >> rawDataGeneratorSettings;
     dataGeneratorSettings.deserializeData(rawDataGeneratorSettings);
