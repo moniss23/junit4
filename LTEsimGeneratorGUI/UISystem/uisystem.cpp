@@ -23,7 +23,6 @@ void UISystem::bindingObjects()
     // Open project
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
     QObject::connect(this,SIGNAL(spawnWindow_OpenProject(Project)),&paramWindow,SLOT(loadProjectAndOpen(Project)));
-    QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(setProjectName(QString)));//TODO: this is global leftover, get rid of
     QObject::connect(&projectUi,SIGNAL(SpawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
     //Spawning ProjectManagement after closing ParametersWindow
@@ -134,6 +133,10 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
+    }
+    if(map_w!=NULL){
+        delete map_w;
+        map_w=NULL;
     }
     map_w = new MapWindow(*project);
     QObject::connect(map_w, SIGNAL(SpawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));

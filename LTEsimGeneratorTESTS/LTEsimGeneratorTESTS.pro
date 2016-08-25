@@ -75,7 +75,7 @@ FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/helpdialog.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/projectmanagement.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/addProjectWindow.ui \
-    ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
+  #  ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
 
 OTHER_FILES += \
     ../LTEsimGeneratorGUI/logoLTEsim.png

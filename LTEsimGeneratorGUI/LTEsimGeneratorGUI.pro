@@ -158,13 +158,9 @@ FORMS    += \
     Ui/channelmodelform.ui \
     Ui/mmeform.ui \
     Ui/ubsimform.ui \
-    Ui/uctoolform.ui \
     Ui/mapwindow.ui \
-    Ui/mapwindowlarge.ui \
     Ui/maprangeform.ui \
-    Ui/maprangelargeform.ui \
     Ui/map_traffic.ui \
-    Ui/map_traffic_large.ui \
     Ui/custommodels.ui \
     Ui/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
@@ -179,7 +175,8 @@ FORMS    += \
     Ui/Windows/helpdialog.ui \
     Ui/statistics.ui \
     Ui/DataForms/ipexform.ui \
-    Ui/DataForms/sgwform.ui
+    Ui/DataForms/sgwform.ui \
+    Ui/DataForms/uctoolform.ui
 
 
 OTHER_FILES += \

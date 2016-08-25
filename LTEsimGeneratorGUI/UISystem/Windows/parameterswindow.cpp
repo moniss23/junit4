@@ -185,6 +185,8 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
     (void) item;
 
     if(this->ui->projectsList->currentRow()==0) {
+    // parameters file double-clicked
+    // create a new map object and display it
         emit SpawnWindow_ParamMap(currentProject.name);
     }
     else {
