@@ -155,7 +155,6 @@ HEADERS  += \
 
 
 FORMS    += \
-    Ui/channelmodelform.ui \
     Ui/mmeform.ui \
     Ui/ubsimform.ui \
     Ui/mapwindow.ui \
@@ -176,7 +175,8 @@ FORMS    += \
     Ui/statistics.ui \
     Ui/DataForms/ipexform.ui \
     Ui/DataForms/sgwform.ui \
-    Ui/DataForms/uctoolform.ui
+    Ui/DataForms/uctoolform.ui \
+    Ui/DataForms/channelmodelform.ui
 
 
 OTHER_FILES += \
