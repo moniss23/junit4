@@ -26,7 +26,6 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
 {
     ui->setupUi(this);
 
-
     filePreviewChanged = false;
 
     this->ui->undoButton->setEnabled(false);
@@ -35,11 +34,8 @@ ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
 
     this->ui->radioButton_normalMap->setChecked(true);
 
-
-
     this->ui->filePreview->setReadOnly(false);
     highlighter =  std::make_unique<RubySyntaxHighlighter>(this->ui->filePreview->document());
-
 }
 
 void ParametersWindow::loadProjectAndOpen(const Project &project){
@@ -199,8 +195,7 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
             map_w=NULL;
         }
         // create a new map object and display it
-        map_w=new MapWindow(currentProject);
-        map_w->show();
+        emit SpawnWindow_ParamMap(currentProject.name);
     }
     else{
         // delete current map objects if they are present

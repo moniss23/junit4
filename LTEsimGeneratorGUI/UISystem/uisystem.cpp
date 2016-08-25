@@ -76,9 +76,11 @@ void UISystem::bindingObjects()
     //Error window
     QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
 
+    //Open Param Map
+    QObject::connect(&paramWindow, SIGNAL(SpawnWindow_ParamMap(QString)), this, SLOT(spawnWindow_ParamMap(QString)));
+
     //Open Ipex window
-    QObject::connect(map_w, SIGNAL(SpawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings)));
+    QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings,QString)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings,QString)));
 
     //Update Project Data
     QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
@@ -86,10 +88,8 @@ void UISystem::bindingObjects()
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
-    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                                                        (const Project& project)->bool {
-        return (project.name == projectName);
-    });
+    auto project = findProjectByName(projectName);
+
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
@@ -103,10 +103,9 @@ void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {
         emit spawnSettingsWindowForProject(data);
         return;
     }else {
-        auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                    (const Project& project)->bool {
-            return (project.name == projectName);
-        });
+
+        auto project = findProjectByName(projectName);
+
         if(project == nullptr) {
             dataSystem->errorInData("Can't find right project");
             return;
@@ -118,16 +117,37 @@ void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {
 
 void UISystem::spawnWindow_Ipex(const QString& projectName)
 {
-    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                (const Project& project)->bool {
-        return (project.name == projectName);
-    });
+    auto project = findProjectByName(projectName);
+
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
     emit spawnWindow_Ipex(project->dataGeneratorSettings, project->name);
     return;
+}
+
+void UISystem::spawnWindow_ParamMap(const QString &projectName)
+{
+    auto project = findProjectByName(projectName);
+
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    map_w = new MapWindow(*project);
+    QObject::connect(map_w, SIGNAL(SpawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_ParamMap()), map_w, SLOT(show()));
+    emit spawnWindow_ParamMap();
+}
+
+Project* UISystem::findProjectByName(const QString &projectName)
+{
+    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
+                                (const Project& project)->bool {
+        return (project.name == projectName);
+    });
+    return project != std::end(dataSystem->projects) ? project : nullptr;
 }
 
 void UISystem::showErrorWindow(const QString &errorDescription)

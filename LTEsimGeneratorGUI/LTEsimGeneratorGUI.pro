@@ -47,7 +47,6 @@ SOURCES += main.cpp\
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.cpp \
     Maps/Parameters/SimulatedUe/ipexform.cpp \
-    Maps/Parameters/SimulatedUe/ipgwtg.cpp \
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/UcTool/uctoolform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
@@ -116,7 +115,6 @@ HEADERS  += \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h \
     Maps/Parameters/SimulatedUe/ipexform.h \
-    Maps/Parameters/SimulatedUe/ipgwtg.h \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/UcTool/uctoolform.h \
     Maps/Parameters/MapWindow/mapwindow.h \

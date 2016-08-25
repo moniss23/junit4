@@ -47,7 +47,6 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     createCoreNetwork();
     createUeSimulated();
     chmod = new ChannelModel();
-    ipex = new Ipgwtg();
     mapRange = new MapRange();
 
     anyChangesInMap = false;
@@ -330,20 +329,6 @@ QStringList MapWindow::generateParams(){
         if (i != number_of_Handover-1)
             outputList << "\n\t\t},{";
     }
-   //---------------------------------Ipex-----------------------------------------------------------------
-    QStringList tmp = ipex->getUserDataGen().replace("\n", "\\n\" +*\n\t\t\t\t\"").split("*");
-    outputList <<"\n\t\t}";
-    outputList <<"\n\t\tdefault[:dataGenerator] = \"" + ipex->getDataGenerator()+"\"";
-    outputList <<"\n\t\tdefault[:userDataGen] = \"" + tmp[0];
-    for(int i=1; i<tmp.size();i++)
-        outputList << tmp[i];
-    outputList.last() += "\"";
-    outputList <<"\n\t\tdefault[:start_isp_simulator] = " + convertBoolToText(ipex->getStart_isp_simulator());
-    outputList <<"\n\t\tdefault[:ipgwtg_ipAddress] = \"" + ipex->getIpgwtg_ipAddress() + "\"";
-    outputList <<"\n\t\tdefault[:ipgwtg_inband_signaling] = " + convertBoolToText(ipex->getIpgwtg_inband_signaling());
-    outputList <<"\n\t\tdefault[:ipgwtg_port] = " + ipex->getIpgwtg_port();
-    outputList <<"\n\t\tdefault[:ipgwtg_ftp_sender_connect_put] = " +convertBoolToText(ipex->getIpgwtg_ftp_sender_connect_put());
-    outputList <<"\n\t\treturn default\n\tend";
     //--------------------------------UBsim------------------------------------------------------------------
     outputList <<"\n\n\tdef Parameters.getUbsimConfigParameters()";
     outputList <<"\n\t\tdefault = {}";

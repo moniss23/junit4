@@ -27,11 +27,16 @@ public slots:
     void showErrorWindow(const QString& errorDescription);
     void spawnWindow_OpenProject(const QString& projectName);
     void spawnWindow_Ipex(const QString& projectName);
+    void spawnWindow_ParamMap(const QString &projectName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_OpenProject(const Project& project);
     void spawnWindow_Ipex(const DataGeneratorSettings& dataGeneratorSettings, const QString &projectName);
+    void spawnWindow_ParamMap();
+
+private:
+    Project* findProjectByName(const QString &projectName);
 
 private:
     DataSystem* dataSystem;

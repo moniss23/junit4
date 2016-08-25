@@ -20,7 +20,6 @@
 #include <Maps/Traffic/UeParameters/ue.h>
 #include <Maps/Parameters/ChannelModel/channelmodel.h>
 #include <Maps/Parameters/ChannelModel/channelmodelform.h>
-#include <Maps/Parameters/SimulatedUe/ipgwtg.h>
 #include <Maps/Parameters/SimulatedUe/ipexform.h>
 #include <Maps/Parameters/MapRange/maprange.h>
 #include <Maps/Parameters/MapRange/maprangeform.h>
@@ -44,7 +43,6 @@ public:
     Sgw* sgw;
     Ue* ue;
     ChannelModel *chmod;
-    Ipgwtg *ipex;
     MapRange *mapRange;
 
     QVector<Cell*> tabCell;

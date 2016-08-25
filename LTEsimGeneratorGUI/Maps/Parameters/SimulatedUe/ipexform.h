@@ -1,7 +1,6 @@
 #ifndef IPEXFORM_H
 #define IPEXFORM_H
 
-#include "Maps/Parameters/SimulatedUe/ipgwtg.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
 
 #include <QWidget>

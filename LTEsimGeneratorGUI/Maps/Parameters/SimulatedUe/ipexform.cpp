@@ -35,6 +35,7 @@ void IpexForm::on_buttonBox_accepted()
 {
     this->getParameters();
     emit updateDataGeneratorSettings(dataGeneratorSettings, projectName);
+    this->close();
 }
 
 void IpexForm::getParameters()
@@ -43,9 +44,9 @@ void IpexForm::getParameters()
     dataGeneratorSettings.userDataGenerator = this->ui->tet_userDataGen->toPlainText().split("\n");
     dataGeneratorSettings.ipgwtg_IP_Address = this->ui->tet_ipgwtg_ipAddress->text();
     dataGeneratorSettings.ipgwtgPort = this->ui->tet_ipgwtg_port->text().toInt();
-    dataGeneratorSettings.ipgwtgFtpSenderConnectPut = this->ui->checkBox_ipgwtg_ftp_sender_connect_put->isChecked() ? "true" : "false";
-    dataGeneratorSettings.ipgwtgInbandSignaling = this->ui->checkBox_ipgwtg_inband_signaling->isChecked() ? "true" : "false";
-    dataGeneratorSettings.startIspSimulator = this->ui->checkBox_start_isp_simulator->isChecked() ? "true" : "false";
+    dataGeneratorSettings.ipgwtgFtpSenderConnectPut = (this->ui->checkBox_ipgwtg_ftp_sender_connect_put->isChecked() ? true : false);
+    dataGeneratorSettings.ipgwtgInbandSignaling = (this->ui->checkBox_ipgwtg_inband_signaling->isChecked() ? true : false);
+    dataGeneratorSettings.startIspSimulator = (this->ui->checkBox_start_isp_simulator->isChecked() ? true : false);
 }
 
 void IpexForm::setDefaultParameters()
