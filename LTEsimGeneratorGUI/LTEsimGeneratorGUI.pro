@@ -30,7 +30,8 @@ SOURCES += \
     Data/ProjectSettings/sgwsettings.cpp \
     UISystem/Widgets/cellrepresentation.cpp \
     Data/ProjectSettings/uctoolsettings.cpp \
-    Data/ProjectSettings/channelmodelsettings.cpp
+    Data/ProjectSettings/channelmodelsettings.cpp \
+    Data/ProjectSettings/pagingsettings.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -99,7 +100,8 @@ HEADERS  += \
     Data/ProjectSettings/sgwsettings.h \
     UISystem/Widgets/cellrepresentation.h \
     Data/ProjectSettings/uctoolsettings.h \
-    Data/ProjectSettings/channelmodelsettings.h
+    Data/ProjectSettings/channelmodelsettings.h \
+    Data/ProjectSettings/pagingsettings.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
