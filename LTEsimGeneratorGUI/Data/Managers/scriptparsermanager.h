@@ -7,9 +7,11 @@
 #include "Data/Objects/cell.h"
 #include "Data/Objects/center.h"
 #include "Data/Objects/handover.h"
-#include "Data/ProjectSettings/datageneratorsettings.h"
+
 #include "Data/ProjectSettings/sgwsettings.h"
 #include "Data/ProjectSettings/uctoolsettings.h"
+#include "Data/ProjectSettings/channelmodelsettings.h"
+#include "Data/ProjectSettings/datageneratorsettings.h"
 
 class ScriptParserManager
 {
@@ -17,12 +19,15 @@ public:
     ScriptParserManager();
     ~ScriptParserManager();
 
-    QVector<Cell> getCellsFromScript(const QString &scriptContent);
-    QVector<Center> getCentersFromScript(const QString &scriptContent);
-    QVector<Handover> getHandoversFromScript(const QString &scriptContent);
-    DataGeneratorSettings getDataGeneratorSettingsFromScript(const QString &scriptContent);
-    UCToolSettings getUCToolSettingsFromScript(const QString &scriptContent);
+    QVector<Cell> getCellsFromScript(const QString &rbContent);
+    QVector<Center> getCentersFromScript(const QString &rbContent);
+    QVector<Handover> getHandoversFromScript(const QString &rbContent);
+
+
     SgwSettings getSgwSettings(const QString &scriptContent);
+    UCToolSettings getUCToolSettingsFromScript(const QString &scriptContent);
+    ChannelModelSettings getChannelModelSettingsFromScript(const QString &rbContent);
+    DataGeneratorSettings getDataGeneratorSettingsFromScript(const QString &scriptContent);
 
 private:
     QString findRegexInText(QString pattern, const QString &text, int pos);
