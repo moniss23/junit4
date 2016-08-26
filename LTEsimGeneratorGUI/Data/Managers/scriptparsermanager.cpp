@@ -1,3 +1,4 @@
+#include <QDebug>
 #include <QRegExp>
 #include "scriptparsermanager.h"
 
@@ -10,7 +11,10 @@ QString ScriptParserManager::findRegexInText(QString pattern, const QString &tex
 
     if(regex.indexIn(text) >= 0) {
         QString foundPattern = regex.cap(pos);
-        foundPattern.remove(QRegExp("[\"\\],}]"));
+        foundPattern.remove('"');
+        foundPattern.remove(']');
+        foundPattern.remove(',');
+        foundPattern.remove('}');
         return foundPattern;
     }
 
@@ -292,81 +296,80 @@ ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(cons
     QStringList rbLines = rbContent.split('\n');
 
     for(int i=0; i<rbLines.size(); ++i) {
-        if(QRegExp("[:model_set_name] = \"(.*)\"$").indexIn(rbLines[i]) >= 0) {
-            settings.setModel_set_name(
-                findRegexInText("[:model_set_name] = \"(.*)\"$", rbLines[i], 1));
+        if(QRegExp("\\[:model_set_name\\] = \"(.*)\"$").indexIn(rbLines[i]) >= 0) {
+            settings.model_set_name = findRegexInText("\\[:model_set_name\\] = \"(.*)\"$", rbLines[i], 1);
         }
-        else if(QRegExp("[:pdcch_drop_dl_assignment_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPdcch_drop_dl_assignment_rate(
-                findRegexInText("[::pdcch_drop_dl_assignment_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:pdcch_drop_dl_assignment_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.pdcch_drop_dl_assignment_rate =  findRegexInText(
+                        "\\[:pdcch_drop_dl_assignment_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:pdcch_drop_grant_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPdcch_drop_grant_rate(
-                        findRegexInText("[:pdcch_drop_grant_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:pdcch_drop_grant_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.pdcch_drop_grant_rate = findRegexInText(
+                        "\\[:pdcch_drop_grant_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:pdsch_transport_block_decoded_error_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPdsch_transport_block_decoded_error_rate(
-                        findRegexInText("[:pdsch_transport_block_decoded_error_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:pdsch_transport_block_decoded_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.pdsch_transport_block_decoded_error_rate =  findRegexInText(
+                        "\\[:pdsch_transport_block_decoded_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:phich_nack_to_ack_error_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPhich_nack_to_ack_error_rate(
-                        findRegexInText("[:phich_nack_to_ack_error_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:phich_nack_to_ack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.phich_nack_to_ack_error_rate =  findRegexInText(
+                        "\\[:phich_nack_to_ack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:phich_drop_harq_feedback_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPhich_drop_harq_feedback_rate(
-                        findRegexInText("[:phich_drop_harq_feedback_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:phich_drop_harq_feedback_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.phich_drop_harq_feedback_rate =  findRegexInText(
+                        "\\[:phich_drop_harq_feedback_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:pusch_transport_block_decoded_error_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPusch_transport_block_decoded_error_rate(
-                        findRegexInText("[:pusch_transport_block_decoded_error_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:pusch_transport_block_decoded_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.pusch_transport_block_decoded_error_rate =  findRegexInText(
+                        "\\[:pusch_transport_block_decoded_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:pusch_drop_transport_block_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPusch_drop_transport_block_rate(
-                        findRegexInText("[:pusch_drop_transport_block_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:pusch_drop_transport_block_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.pusch_drop_transport_block_rate = findRegexInText(
+                        "\\[:pusch_drop_transport_block_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:puxch_nack_to_ack_error_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPuxch_nack_to_ack_error_rate(
-                        findRegexInText("[:puxch_nack_to_ack_error_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:puxch_nack_to_ack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.puxch_nack_to_ack_error_rate = findRegexInText(
+                        "\\[:puxch_nack_to_ack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:puxch_dtx_to_ack_error_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPuxch_dtx_to_ack_error_rate(
-                        findRegexInText("[:puxch_dtx_to_ack_error_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:puxch_dtx_to_ack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.puxch_dtx_to_ack_error_rate =  findRegexInText(
+                        "\\[:puxch_dtx_to_ack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:puxch_ack_to_nack_error_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPuxch_ack_to_nack_error_rate(
-                        findRegexInText("[:puxch_ack_to_nack_error_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:puxch_ack_to_nack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.puxch_ack_to_nack_error_rate =  findRegexInText(
+                        "\\[:puxch_ack_to_nack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:puxch_drop_scheduling_request_rate] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPuxch_drop_scheduling_request_rate(
-                        findRegexInText("[:puxch_drop_scheduling_request_rate] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:puxch_drop_scheduling_request_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.puxch_drop_scheduling_request_rate = findRegexInText(
+                        "\\[:puxch_drop_scheduling_request_rate\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:dlni_noise] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setDlni_noise(
-                        findRegexInText("[:dlni_noise] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:dlni_noise\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.dlni_noise =  findRegexInText(
+                        "\\[:dlni_noise\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:dlni_interference] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setDlni_interference(
-                        findRegexInText("[:dlni_interference] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:dlni_interference\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.dlni_interference =  findRegexInText(
+                        "\\[:dlni_interference\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:dl_pathloss_min_pathloss] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setDl_pathloss_min_pathloss(
-                        findRegexInText("[:dl_pathloss_min_pathloss] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:dl_pathloss_min_pathloss\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.dl_pathloss_min_pathloss = findRegexInText(
+                        "\\[:dl_pathloss_min_pathloss\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:dl_pathloss_max_pathloss] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setDl_pathloss_max_pathloss(
-                        findRegexInText("[:dl_pathloss_max_pathloss] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:dl_pathloss_max_pathloss\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.dl_pathloss_max_pathloss = findRegexInText(
+                        "\\[:dl_pathloss_max_pathloss\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:dl_pathloss_time_min_to_max] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setDl_pathloss_time_min_to_max(
-                        findRegexInText("[:dl_pathloss_time_min_to_max] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:dl_pathloss_time_min_to_max\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.dl_pathloss_time_min_to_max =  findRegexInText(
+                        "\\[:dl_pathloss_time_min_to_max\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:dl_pathloss_distribute_ues] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setDl_pathloss_time_min_to_max(
-                        findRegexInText("[:dl_pathloss_distribute_ues] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:dl_pathloss_distribute_ues\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.dl_pathloss_time_min_to_max = findRegexInText(
+                        "\\[:dl_pathloss_distribute_ues\\] = (.*)$", rbLines[i], 1).toDouble();
         }
-        else if(QRegExp("[:pathloss_based_feedback_sinr_threshold] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.setPathloss_based_feedback_sinr_threshold(
-                        findRegexInText("[:pathloss_based_feedback_sinr_threshold] = (.*)$", rbLines[i], 1));
+        else if(QRegExp("\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+            settings.pathloss_based_feedback_sinr_threshold =  findRegexInText(
+                        "\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$", rbLines[i], 1).toDouble();
         }
     }
 

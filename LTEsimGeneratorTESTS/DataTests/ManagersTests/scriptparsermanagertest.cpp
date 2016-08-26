@@ -129,3 +129,53 @@ void ScriptParserManagerTest::scriptParserManagerTest4_getSgwSettingsFromScript(
     // if all test passed
     QVERIFY(true);
 }
+
+void ScriptParserManagerTest::scriptParserManagerTest5_getChannelModelSettingsFromScript() {
+    qInfo() << "TEST FOR PARSER getChannelModelSettings METHOD(SUCCESS)";
+
+    ScriptParserManager scriptParserManager;
+    ChannelModelSettings channelModelSettings;
+
+    const QString scriptContent = "default[:model_set_name] = \"default_error_set\"\n\
+                                default[:pdcch_drop_dl_assignment_rate] = 1.0\n\
+                                default[:pdcch_drop_grant_rate] = 1.0\n\
+                                default[:pdsch_transport_block_decoded_error_rate] = 1.0\n\
+                                default[:phich_nack_to_ack_error_rate] = 1.0\n\
+                                default[:phich_drop_harq_feedback_rate] = 1.0\n\
+                                default[:pusch_transport_block_decoded_error_rate] = 1.0\n\
+                                default[:pusch_drop_transport_block_rate] = 1.0\n\
+                                default[:puxch_nack_to_ack_error_rate] = 1.0\n\
+                                default[:puxch_dtx_to_ack_error_rate] = 1.0\n\
+                                default[:puxch_ack_to_nack_error_rate] = 1.0\n\
+                                default[:puxch_drop_scheduling_request_rate] = 1.0\n\
+                                default[:dlni_noise] = 1.0\n\
+                                default[:dlni_interference] = 1.0\n\
+                                default[:dl_pathloss_min_pathloss] = 1.00\n\
+                                default[:dl_pathloss_max_pathloss] = 20.0\n\
+                                default[:dl_pathloss_time_min_to_max] = 1000\n\
+                                default[:dl_pathloss_distribute_ues] = true\n\
+                                default[:pathloss_based_feedback_sinr_threshold] = 1.0\n";
+
+    channelModelSettings = scriptParserManager.getChannelModelSettingsFromScript(scriptContent);
+
+    if(channelModelSettings.model_set_name != "default_error_set") QVERIFY(false);
+    if(channelModelSettings.pdcch_drop_dl_assignment_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.pdcch_drop_grant_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.pdsch_transport_block_decoded_error_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.phich_nack_to_ack_error_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.phich_drop_harq_feedback_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.pusch_transport_block_decoded_error_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.pusch_drop_transport_block_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.puxch_nack_to_ack_error_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.puxch_dtx_to_ack_error_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.puxch_ack_to_nack_error_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.puxch_drop_scheduling_request_rate != 1.0) QVERIFY(false);
+    if(channelModelSettings.dlni_noise != 1.0) QVERIFY(false);
+    if(channelModelSettings.dlni_interference != 1.0) QVERIFY(false);
+    if(channelModelSettings.dl_pathloss_min_pathloss != 1.0) QVERIFY(false);
+    if(channelModelSettings.dl_pathloss_max_pathloss != 20.0) QVERIFY(false);
+//    if(channelModelSettings.dl_pathloss_time_min_to_max != 1000.0) QVERIFY(false);
+    if(channelModelSettings.dl_pathloss_distribute_ues != true) QVERIFY(false);
+    if(channelModelSettings.pathloss_based_feedback_sinr_threshold != 1.0) QVERIFY(false);
+    QVERIFY(true);
+}

@@ -5,9 +5,10 @@
 #include <QtTest>
 #include <QString>
 
+#include "Data/ProjectSettings/sgwsettings.h"
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
-#include "Data/ProjectSettings/sgwsettings.h"
+#include "Data/ProjectSettings/channelmodelsettings.h"
 
 class ScriptParserManagerTest : public QObject
 {
@@ -23,6 +24,9 @@ private Q_SLOTS:
     void scriptParserManagerTest2_getDataGeneratorSettingsFromScript();
     void scriptParserManagerTest3_getSgwSettingsFromScript();
     void scriptParserManagerTest4_getSgwSettingsFromScript();
+    void scriptParserManagerTest5_getChannelModelSettingsFromScript();
+
+
 };
 
 #endif // SCRIPTPARSERMANAGERTEST_H

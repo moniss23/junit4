@@ -63,27 +63,20 @@ public:
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
 
-private:
     QString model_set_name;
     double pdcch_drop_grant_rate;
     double pdcch_drop_dl_assignment_rate;
-
     double pdsch_transport_block_decoded_error_rate;
-
     double phich_nack_to_ack_error_rate;
     double phich_drop_harq_feedback_rate;
-
     double pusch_drop_transport_block_rate;
     double pusch_transport_block_decoded_error_rate;
-
     double puxch_nack_to_ack_error_rate;
     double puxch_dtx_to_ack_error_rate;
     double puxch_ack_to_nack_error_rate;
     double puxch_drop_scheduling_request_rate;
-
     double dlni_noise;
     double dlni_interference;
-
     double dl_pathloss_min_pathloss;
     double dl_pathloss_max_pathloss;
     double dl_pathloss_time_min_to_max;
