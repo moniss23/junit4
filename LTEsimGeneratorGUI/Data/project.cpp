@@ -36,20 +36,21 @@ QByteArray Project::serializeData()
     stream << dataGeneratorSettings.serializeData();
     stream << sgwSettings.serializeData();
     stream << ucToolSettings.serializeData();
+    stream << channelModelSettings.serializeData();
+
     stream << SimulatedCoreNetwork << SimulatedUe;
+
     return serializedData.buffer();
 }
 
 void Project::deserializeData(const QByteArray &rawData)
 {
     int trafficFilesAmount;
-    QByteArray rawParamFile;
-    QByteArray rawDataGeneratorSettings;
-    QByteArray rawSgwSettings;
-    QByteArray rawUCToolSettings;
+
     QDataStream stream(rawData);
     stream >> name >> fullpath >> genScriptDir;
 
+    QByteArray rawParamFile;
     stream >> rawParamFile;
     parametersFile.deserializeData(rawParamFile);
 
@@ -65,14 +66,21 @@ void Project::deserializeData(const QByteArray &rawData)
 
     stream >> cells;
 
+    QByteArray rawDataGeneratorSettings;
     stream >> rawDataGeneratorSettings;
     dataGeneratorSettings.deserializeData(rawDataGeneratorSettings);
 
+    QByteArray rawSgwSettings;
     stream >> rawSgwSettings;
     sgwSettings.deserializeData(rawSgwSettings);
 
+    QByteArray rawUCToolSettings;
     stream >> rawUCToolSettings;
     ucToolSettings.deserializeData(rawUCToolSettings);
+
+    QByteArray rawChannelModelSettings;
+    stream >> rawChannelModelSettings;
+    channelModelSettings.deserializeData(rawChannelModelSettings);
 
     stream >> SimulatedCoreNetwork >> SimulatedUe;
 }

@@ -38,6 +38,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/sgwsettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/uctoolsettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.cpp \
     ..//LTEsimGeneratorGUI/UISystem/DataForms/sgwform.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
@@ -67,6 +68,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/uctoolsettings.h \
     ..//LTEsimGeneratorGUI/UISystem/DataForms/sgwform.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
     DataTests/projecttest.h \

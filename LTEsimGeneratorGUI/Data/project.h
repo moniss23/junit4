@@ -12,9 +12,11 @@
 #include "Data/Objects/handover.h"
 #include "Data/Objects/trafficfiledata.h"
 #include "Data/Objects/parametersfiledata.h"
-#include "Data/ProjectSettings/datageneratorsettings.h"
+
 #include "Data/ProjectSettings/sgwsettings.h"
 #include "Data/ProjectSettings/uctoolsettings.h"
+#include "Data/ProjectSettings/channelmodelsettings.h"
+#include "Data/ProjectSettings/datageneratorsettings.h"
 
 class Project : public SerializeInterface
 {
@@ -26,20 +28,23 @@ public:
     QString name;
     QString fullpath;
     QString genScriptDir;
+
     //-- Project objects  --//
     QVector<Cell>     cells;
     QVector<Center>   centers;
     QVector<Handover> handovers;
+
     //-- Project  data --//
-    DataGeneratorSettings dataGeneratorSettings;
-    UCToolSettings        ucToolSettings;
     SgwSettings           sgwSettings;
+    UCToolSettings        ucToolSettings;
+    ChannelModelSettings  channelModelSettings;
+    DataGeneratorSettings dataGeneratorSettings;
     bool                  SimulatedCoreNetwork = false;
     bool                  SimulatedUe          = false;
+
     //-- Project  files --//
     ParametersFileData       parametersFile;
     QVector<TrafficFileData> trafficFilesList;
-
 
     /****************************
      * SERIALIZATION INTERFACE  *
