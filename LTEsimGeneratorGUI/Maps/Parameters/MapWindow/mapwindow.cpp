@@ -45,7 +45,7 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     createHandover();
     createCoreNetwork();
     createUeSimulated();
-    chmod = new ChannelModel();
+    chmod = new ChannelModelSettings();
     mapRange = new MapRange();
 
     anyChangesInMap = false;

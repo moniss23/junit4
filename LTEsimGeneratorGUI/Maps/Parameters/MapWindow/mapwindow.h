@@ -10,6 +10,7 @@
 #include <Data/Objects/cell.h>
 #include <Data/Objects/center.h>
 #include <Data/Objects/handover.h>
+#include "Data/ProjectSettings/channelmodelsettings.h"
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
 #include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
 #include "UISystem/DataForms/sgwform.h"
@@ -18,7 +19,6 @@
 #include <UISystem/DataForms/ipexform.h>
 #include <UISystem/DataForms/uctoolform.h>
 #include <Maps/Traffic/UeParameters/ue.h>
-#include <Maps/Parameters/ChannelModel/channelmodel.h>
 #include <Maps/Parameters/ChannelModel/channelmodelform.h>
 #include <UISystem/DataForms/ipexform.h>
 #include <Maps/Parameters/MapRange/maprange.h>
@@ -41,7 +41,7 @@ public:
     QMessageBox k;
     Mme* mme;
     Ue* ue;
-    ChannelModel *chmod;
+    ChannelModelSettings *chmod;
     MapRange *mapRange;
 
     QVector<Cell*> tabCell;

@@ -17,7 +17,7 @@ ChannelModelForm::~ChannelModelForm()
     delete ui;
 }
 
-void ChannelModelForm::setParameters(ChannelModel *chmod)
+void ChannelModelForm::setParameters(ChannelModelSettings *chmod)
 {
     this->chmod = chmod;
 
@@ -60,8 +60,8 @@ void ChannelModelForm::on_buttonBox_accepted()
 void ChannelModelForm::on_buttonBox_clicked(QAbstractButton * button)
 {
     if((QPushButton *)button== ui->buttonBox->button(QDialogButtonBox::RestoreDefaults) ){
-      chmod->resetParams();
-      setParameters(chmod);
+      //chmod->resetParams();
+      //setParameters(chmod);
     }
 }
 

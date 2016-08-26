@@ -2,8 +2,9 @@
 #define CHANNELMODELFORM_H
 
 #include <QWidget>
-#include "channelmodel.h"
 #include <QMessageBox>
+
+#include "Data/ProjectSettings/channelmodelsettings.h"
 
 namespace Ui {
 class ChannelModelForm;
@@ -16,7 +17,7 @@ class ChannelModelForm : public QWidget
 public:
     explicit ChannelModelForm(QWidget *parent = 0);
     ~ChannelModelForm();
-    void setParameters(ChannelModel *chmod);
+    void setParameters(ChannelModelSettings *chmod);
 
 private slots:
     void on_buttonBox_accepted();
@@ -50,7 +51,7 @@ private slots:
 private:
     Ui::ChannelModelForm *ui;
 
-    ChannelModel *chmod;
+    ChannelModelSettings *chmod;
     bool flagConfirmNewValue;
     QMessageBox msg,msgBox;
     bool wasThereChanges;

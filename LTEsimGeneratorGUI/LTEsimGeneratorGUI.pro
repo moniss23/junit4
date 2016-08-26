@@ -29,7 +29,8 @@ SOURCES += \
     Data/ProjectSettings/datageneratorsettings.cpp \
     Data/ProjectSettings/sgwsettings.cpp \
     UISystem/Widgets/cellrepresentation.cpp \
-    Data/ProjectSettings/uctoolsettings.cpp
+    Data/ProjectSettings/uctoolsettings.cpp \
+    Data/ProjectSettings/channelmodelsettings.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -46,7 +47,6 @@ SOURCES += \
     UISystem/Helpers/rubysyntaxhighlighter.cpp
 
 SOURCES += main.cpp\
-    Maps/Parameters/ChannelModel/channelmodel.cpp \
     Maps/Parameters/ChannelModel/channelmodelform.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.cpp \
@@ -98,7 +98,8 @@ HEADERS  += \
     Data/ProjectSettings/datageneratorsettings.h \
     Data/ProjectSettings/sgwsettings.h \
     UISystem/Widgets/cellrepresentation.h \
-    Data/ProjectSettings/uctoolsettings.h
+    Data/ProjectSettings/uctoolsettings.h \
+    Data/ProjectSettings/channelmodelsettings.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -115,7 +116,6 @@ HEADERS  += \
     UISystem/Helpers/rubysyntaxhighlighter.h
 
 HEADERS  += \
-    Maps/Parameters/ChannelModel/channelmodel.h \
     Maps/Parameters/ChannelModel/channelmodelform.h \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \
     Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h \
