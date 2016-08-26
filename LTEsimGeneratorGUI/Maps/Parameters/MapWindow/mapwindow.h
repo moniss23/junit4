@@ -6,23 +6,23 @@
 #include <QMessageBox>
 #include <QMainWindow>
 
-#include <Data/project.h>
-#include <Data/Objects/cell.h>
-#include <Data/Objects/center.h>
-#include <Data/Objects/handover.h>
-#include "Data/ProjectSettings/channelmodelsettings.h"
-#include <Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h>
-#include <Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h>
+#include "Data/project.h"
+#include "Data/Objects/cell.h"
+#include "Data/Objects/center.h"
+#include "Data/Objects/handover.h"
+#include "Data/ProjectSettings/mmesettings.h"
+#include "UISystem/DataForms/mmeform.h"
 #include "UISystem/DataForms/sgwform.h"
-#include <Data/ProjectSettings/sgwsettings.h>
-#include <Maps/Parameters/SimulatedUe/ubsimform.h>
-#include <UISystem/DataForms/ipexform.h>
-#include <UISystem/DataForms/uctoolform.h>
-#include <Maps/Traffic/UeParameters/ue.h>
-#include <Maps/Parameters/ChannelModel/channelmodelform.h>
-#include <UISystem/DataForms/ipexform.h>
-#include <Maps/Parameters/MapRange/maprange.h>
-#include <Maps/Parameters/MapRange/maprangeform.h>
+#include "Data/ProjectSettings/sgwsettings.h"
+#include "Maps/Parameters/SimulatedUe/ubsimform.h"
+#include "UISystem/DataForms/ipexform.h"
+#include "UISystem/DataForms/uctoolform.h"
+#include "Maps/Traffic/UeParameters/ue.h"
+#include "Data/ProjectSettings/channelmodelsettings.h"
+#include "Maps/Parameters/ChannelModel/channelmodelform.h"
+#include "UISystem/DataForms/ipexform.h"
+#include "Maps/Parameters/MapRange/maprange.h"
+#include "Maps/Parameters/MapRange/maprangeform.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -39,7 +39,6 @@ public:
     explicit MapWindow(const Project &project, QWidget *parent = 0);
     ~MapWindow();
     QMessageBox k;
-    Mme* mme;
     Ue* ue;
     ChannelModelSettings *chmod;
     MapRange *mapRange;
@@ -55,13 +54,13 @@ public:
     void changeCenterValue_Y(int scale);
     void changeCenterValue_X(int scale);
 
-    void resetFlags();                 //Reset falgs Core Network and Simulate Core
     QList<QString> outputList;
 
 signals:
     void spawnWindow_ucTool(const QString &projectName);
     void spawnWindow_Ipex(const QString& projectName);
     void spawnWindow_Sgw(const QString& projectName);
+    void spawnWindow_Mme(const QString& projectName);
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);

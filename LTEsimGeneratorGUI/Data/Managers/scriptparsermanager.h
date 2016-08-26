@@ -12,6 +12,7 @@
 #include "Data/ProjectSettings/uctoolsettings.h"
 #include "Data/ProjectSettings/channelmodelsettings.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
+#include "Data/ProjectSettings/mmesettings.h"
 
 class ScriptParserManager
 {
@@ -28,6 +29,7 @@ public:
     UCToolSettings getUCToolSettingsFromScript(const QString &scriptContent);
     ChannelModelSettings getChannelModelSettingsFromScript(const QString &rbContent);
     DataGeneratorSettings getDataGeneratorSettingsFromScript(const QString &scriptContent);
+    MmeSettings getMmeSettings(const QString &scriptContent);
 
 private:
     QString findRegexInText(QString pattern, const QString &text, int pos);

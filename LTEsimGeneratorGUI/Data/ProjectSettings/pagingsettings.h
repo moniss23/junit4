@@ -3,7 +3,7 @@
 #include <QString>
 #include <QVector>
 #include "Data/Interfaces/serializeinterface.h"
-class PagingSettings :SerializeInterface
+class PagingSettings : public SerializeInterface
 {
 public:
     PagingSettings();

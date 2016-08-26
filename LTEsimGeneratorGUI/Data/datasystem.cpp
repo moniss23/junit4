@@ -187,7 +187,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     newProject.ucToolSettings = scriptParserManager.getUCToolSettingsFromScript(rbContent);
     newProject.channelModelSettings = scriptParserManager.getChannelModelSettingsFromScript(rbContent);
     newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(rbContent);
-
+    newProject.mmeSettings = scriptParserManager.getMmeSettings(newProject.parametersFile.content);
     projects.push_back(newProject);
     emit currentProjects(projects);
     saveProjectsFile();
@@ -370,4 +370,13 @@ void DataSystem::updateSimulatedCoreNetworkState(const QString &projectName, boo
 void DataSystem::updateSimulatedUeState(const QString &projectName, bool state){
     auto project = findProjectByName(projectName);
     project->SimulatedUe=state;
+}
+void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    project->mmeSettings = mmeSettings;
+    saveProjectsFile();
 }

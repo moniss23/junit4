@@ -17,6 +17,7 @@
 #include "Data/ProjectSettings/uctoolsettings.h"
 #include "Data/ProjectSettings/channelmodelsettings.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
+#include "Data/ProjectSettings/mmesettings.h"
 
 class Project : public SerializeInterface
 {
@@ -35,15 +36,16 @@ public:
     QVector<Handover> handovers;
 
     //-- Project  data --//
-    SgwSettings           sgwSettings;
-    UCToolSettings        ucToolSettings;
-    ChannelModelSettings  channelModelSettings;
-    DataGeneratorSettings dataGeneratorSettings;
-    bool                  SimulatedCoreNetwork = false;
-    bool                  SimulatedUe          = false;
+    SgwSettings             sgwSettings;
+    UCToolSettings          ucToolSettings;
+    ChannelModelSettings    channelModelSettings;
+    DataGeneratorSettings   dataGeneratorSettings;
+    MmeSettings             mmeSettings;
+    bool                    SimulatedCoreNetwork = false;
+    bool                    SimulatedUe = false;
 
-    //-- Project  files --//
-    ParametersFileData       parametersFile;
+    //-- Project files --//
+    ParametersFileData      parametersFile;
     QVector<TrafficFileData> trafficFilesList;
 
     /****************************

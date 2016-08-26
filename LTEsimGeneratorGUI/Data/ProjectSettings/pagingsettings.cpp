@@ -6,7 +6,13 @@ PagingSettings::PagingSettings()
 {
 
 }
-PagingSettings PagingSettings::getElementType() const
+
+PagingSettings::~PagingSettings()
+{
+
+}
+
+QString PagingSettings::getElementType() const
 {
     return QString("PagingSettings");
 }

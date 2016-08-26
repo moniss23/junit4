@@ -81,8 +81,8 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     ui->checkBoxUE_simulated->setChecked(project.SimulatedUe);
     ui->checkBoxCoreNetwork->setChecked(project.SimulatedCoreNetwork);
 
-
 }
+
 void MapWindow::createHandover() {
     tabHandover.resize(21);
     tabHandover[0] = new Handover ("Handover11_12");
@@ -145,7 +145,6 @@ void MapWindow::createCell() {
 
 void MapWindow::createCoreNetwork()
 {
-    mme = new Mme;
     on_checkBoxCoreNetwork_clicked();
 }
 
@@ -240,48 +239,6 @@ QStringList MapWindow::generateParams(){
     int number_of_Handover=21;     //21
     outputList<<"require 'etc'\n";
     outputList<<"module Parameters\n";
-    //---------------------------------MME-----------------------------------------------------------
-    outputList<< "\tdef Parameters.getMmeParameters() \n";
-    outputList<<"\n\t\tdefault = {}";
-    outputList<<"\n\t\tdefault[:simulate_core] = " + convertBoolToText(mme->getSimulate_core());
-    outputList<<"\n\t\tdefault[:mme_names] = [\"" + mme->getMme_names() +"\"]";
-    outputList<<"\n\t\tdefault[:mme_tais] = [\"" + mme->getMme_tais() +"\"]";
-    outputList<<"\n\t\tdefault[:mmes] = " + mme->getMmes();
-    outputList<<"\n\t\tdefault[:mme_s1ap_uris] = [\"" + mme->getMme_s1ap_uris() +"\"]";
-    outputList<<"\n\t\tdefault[:s1ap_pluginFilterPath] = \"" + mme->getS1ap_pluginFilterPath() +"\"\n";
-    outputList <<"\n\t\treturn default\n\tend\n";
-    //---------------------------------Paging---------------------------------------------------------
-    outputList<< "\tdef Parameters.getPagingGeneratorParameters()\n";
-    outputList<<"\n\t\tdefault = {}";
-    outputList<<"\n\t\t default[:generate_pagings] = " + convertBoolToText(mme->getGenerate_pagings());
-    outputList<<"\n\t\t default[:generators] = " + mme->getGenerators();
-    outputList<<"\n\t\t default[:paging_generator_names] = [\"" + mme->getPaging_generator_names().replace(", ","\", \"") + "\"]";
-    outputList<<"\n\t\t default[:imsi_ranges] = [\"" + mme->getImsi_ranges().replace(", ","\", \"") + "\"]";
-    outputList<<"\n\t\t default[:mme_codes] = [\"" + mme->getMme_codes().replace(", ","\", \"") + "\"]";
-    outputList<<"\n\t\t default[:ue_paging_identity] = \"" + mme->getUe_paging_identity() + "\"";
-    outputList<<"\n\t\t default[:paging_s1ap_uris] = [\"" + mme->getPaging_s1ap_uris().replace(", ","\", \"") + "\"]";
-    outputList<<"\n\t\t default[:s1ap_checkASN1_constraints] = " + convertBoolToText(mme->getS1ap_checkASN1_constraints());
-    outputList<<"\n\t\t default[:bundle_paging] = " + convertBoolToText(mme->getBundle_paging());
-    outputList <<"\n\t\treturn default\n\tend\n";
-
-
-
-    //---------------------------------SGW------------------------------------------------------------
-    /******************** WORK IN PROGRESS *****************
-
-
-    outputList<< "\tdef Parameters.getSgwParameters()\n";
-    outputList<<"\n\t\tdefault = {}";
-    outputList<<"\n\t\tdefault[:sgw_names] = [\"" + sgw->getNames() + "\"]";
-    outputList<<"\n\t\tdefault[:sgw_ipAddresses] = [\"" + sgw->getIpAddresses() + "\"]";
-    outputList<<"\n\t\tdefault[:apn_lists] = [\"" + sgw->getApnLists() + "\"]";
-    outputList<<"\n\t\tdefault[:sgw_LDIs] = [\"" + sgw->getLDIs() + "\"]";
-    outputList<<"\n\t\tdefault[:core_network_gateway] = " + convertBoolToText(sgw->getCore_network_gateway());
-    outputList <<"\n\t\treturn default\n\tend\n";
-
-
-    ******************** WORK IN PROGRESS *****************/
-
 
     //---------------------------------UE-------------------------------------------------------------
     outputList<< "\tdef Parameters.getUeParameters()\n";
@@ -1648,23 +1605,6 @@ void MapWindow::changeCenterValue_X(int scale)
     couter_handover += 4;
 }
 
-
-
-
-
-//--------------------Reset flag for Core Network and UE simulated-----------------------
-void MapWindow::resetFlags()
-{
-    if (mme->getSimulate_core()){
-        mme->setSimulate_core(true);
-    }else {
-        mme->setSimulate_core(false);
-    }
-    ui->checkBoxUE_simulated->setChecked(ue->getStart_ue_component());
-}
-
-
-
 //--------------------ON/OFF MME, SGW and Paging-----------------------------------------
 void MapWindow::on_checkBoxCoreNetwork_clicked()
 {
@@ -1678,7 +1618,8 @@ void MapWindow::on_checkBoxCoreNetwork_clicked()
         ui->lblSGW1->setEnabled(true);
         ui->lblMME1->setEnabled(true);
         emit updateSimulatedCoreNetworkState(project.name,true);
-    viewMME.setParameters(mme);
+
+    //viewMME.setParameters(mme);
 }
 }
 //----------------------ON/OFF UE Simulated -------------------------------------------
@@ -1700,9 +1641,7 @@ void MapWindow::on_checkBoxUE_simulated_clicked()
 
 //--------------------------OPEN MME WINDOW ---------------------------------------
 void MapWindow::on_lblMME_clicked(){
-    viewMME.close();
-    viewMME.setParameters(mme);
-    viewMME.show();
+    emit spawnWindow_Mme(project.name);
 }
 
 void MapWindow::on_lblSGW_clicked()

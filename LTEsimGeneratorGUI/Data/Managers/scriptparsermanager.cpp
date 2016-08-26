@@ -1,7 +1,7 @@
 #include <QDebug>
 #include <QRegExp>
 #include "scriptparsermanager.h"
-
+#include <QDebug>
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -374,4 +374,59 @@ ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(cons
     }
 
     return settings;
+}
+MmeSettings ScriptParserManager::getMmeSettings(const QString &scriptContent){
+    MmeSettings mmeSettings;
+    int len;
+    int startIndex;
+
+    QStringList scriptContentLines = scriptContent.split('\n');
+    for (int i=0; i<scriptContentLines.size();i++){
+        if (scriptContentLines[i].contains("default[:mme_names] =")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            mmeSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+            if (scriptContentLines[i-1].contains("true")){
+                mmeSettings.simulatedCoreNetwork = false;
+            }
+            else if (scriptContentLines[i-1].contains("true")){
+                mmeSettings.simulatedCoreNetwork = true;
+            }
+        }
+
+        else if (scriptContentLines[i].contains("default[:mme_tais] = ")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            mmeSettings.tais = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+        }
+        else if (scriptContentLines[i].contains("default[:mmes] = ")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            mmeSettings.numberOfMme = QString(scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).toInt();
+        }
+        else if (scriptContentLines[i].contains("default[:mme_s1ap_uris] = ")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            mmeSettings.uris = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+        }
+        else if (scriptContentLines[i].contains("default[:s1ap_pluginFilterPath] = ")){
+            len = (scriptContentLines[i].indexOf("\""))-(scriptContentLines[i].lastIndexOf("\"")-4);
+            QRegExp pluginRegExp("\".*\"");
+            int pos = pluginRegExp.indexIn(scriptContentLines[i]);
+            if (pos > -1) {
+                mmeSettings.pluginFilterPath = pluginRegExp.capturedTexts()[0].mid(1,pluginRegExp.capturedTexts()[0].length()-2);
+            }
+        }
+
+    }
+
+    return mmeSettings;
 }

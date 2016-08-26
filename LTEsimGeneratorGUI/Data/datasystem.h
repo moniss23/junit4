@@ -62,6 +62,8 @@ public slots:
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
 
+    void updateMme(const MmeSettings& mmeSettings,QString projectName);
+
     //Scripts generation
     void generateParametersScript(const Project& project);
     void generateTrafficScript(const Project& project, const int& indexOfFile);

@@ -263,12 +263,9 @@ void UBsimForm::on_pbReset_clicked()
 
     ue->resetParamsUBSIM();
     setParameters(ue);
-    if (map_w!=NULL)
-        map_w->resetFlags();
     if(checkboxactive){
         ue->resetParamsUBSIM();
         setParameters(ue);
-        map_w->resetFlags();
         wasThereChanges=false;
     }
 }

@@ -11,6 +11,8 @@
 #include "UISystem/Windows/renamedialog.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/sgwform.h"
+#include "UISystem/DataForms/mmeform.h"
+
 
 class UISystem : public QObject
 {
@@ -31,6 +33,7 @@ public slots:
     void spawnWindow_ucTool(const QString &projectName);
     void spawnWindow_ParamMap(const QString &projectName);
     void spawnWindow_Sgw(const QString& projectName);
+    void spawnWindow_Mme(const QString& projectName);
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_OpenProject(const Project& project);
@@ -38,6 +41,7 @@ signals:
     void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
+    void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName);
 private:
     Project* findProjectByName(const QString &projectName);
 private:
@@ -51,6 +55,7 @@ private:
     IpexForm ipexForm;
     UCtoolForm ucToolForm;
     SgwForm sgwForm;
+    MmeForm mmeForm;
 };
 
 #endif // UISYSTEM_H

@@ -31,8 +31,8 @@ SOURCES += \
     UISystem/Widgets/cellrepresentation.cpp \
     Data/ProjectSettings/uctoolsettings.cpp \
     Data/ProjectSettings/channelmodelsettings.cpp \
-    Data/ProjectSettings/pagingsettings.cpp
-
+    Data/ProjectSettings/pagingsettings.cpp \
+    Data/ProjectSettings/mmesettings.cpp
 #--------UI SYSTEM--------#
 SOURCES += \
     UISystem/uisystem.cpp \
@@ -45,15 +45,14 @@ SOURCES += \
     UISystem/Windows/settings.cpp \
     UISystem/DataForms/ipexform.cpp \
     UISystem/DataForms/uctoolform.cpp \
-    UISystem/Helpers/rubysyntaxhighlighter.cpp
+    UISystem/DataForms/mmeform.cpp \
+    UISystem/Helpers/rubysyntaxhighlighter.cpp \
+    UISystem/DataForms/sgwform.cpp
 
 SOURCES += main.cpp\
     Maps/Parameters/ChannelModel/channelmodelform.cpp \
-    Maps/Parameters/SimulatedCoreNetwork/Mme/mme.cpp \
-    Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.cpp \
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
-    UISystem/DataForms/sgwform.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
     Maps/Parameters/MapRange/maprangeform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
@@ -101,7 +100,8 @@ HEADERS  += \
     UISystem/Widgets/cellrepresentation.h \
     Data/ProjectSettings/uctoolsettings.h \
     Data/ProjectSettings/channelmodelsettings.h \
-    Data/ProjectSettings/pagingsettings.h
+    Data/ProjectSettings/pagingsettings.h \
+    Data/ProjectSettings/mmesettings.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -115,12 +115,11 @@ HEADERS  += \
     UISystem/Windows/settings.h \
     UISystem/DataForms/ipexform.h \
     UISystem/DataForms/uctoolform.h \
+    UISystem/DataForms/mmeform.h \
     UISystem/Helpers/rubysyntaxhighlighter.h
 
 HEADERS  += \
     Maps/Parameters/ChannelModel/channelmodelform.h \
-    Maps/Parameters/SimulatedCoreNetwork/Mme/mme.h \
-    Maps/Parameters/SimulatedCoreNetwork/Mme/mmeform.h \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
     UISystem/DataForms/sgwform.h \
@@ -157,7 +156,6 @@ HEADERS  += \
 
 
 FORMS    += \
-    Ui/mmeform.ui \
     Ui/ubsimform.ui \
     Ui/mapwindow.ui \
     Ui/maprangeform.ui \
@@ -177,6 +175,7 @@ FORMS    += \
     Ui/statistics.ui \
     Ui/DataForms/ipexform.ui \
     Ui/DataForms/sgwform.ui \
+    Ui/DataForms/mmeform.ui \
     Ui/DataForms/uctoolform.ui \
     Ui/DataForms/channelmodelform.ui
 

@@ -39,6 +39,7 @@ QByteArray Project::serializeData()
     stream << channelModelSettings.serializeData();
 
     stream << SimulatedCoreNetwork << SimulatedUe;
+    stream << mmeSettings.serializeData();
 
     return serializedData.buffer();
 }
@@ -47,10 +48,10 @@ void Project::deserializeData(const QByteArray &rawData)
 {
     int trafficFilesAmount;
 
+    QByteArray rawParamFile;
     QDataStream stream(rawData);
     stream >> name >> fullpath >> genScriptDir;
 
-    QByteArray rawParamFile;
     stream >> rawParamFile;
     parametersFile.deserializeData(rawParamFile);
 
@@ -83,4 +84,9 @@ void Project::deserializeData(const QByteArray &rawData)
     channelModelSettings.deserializeData(rawChannelModelSettings);
 
     stream >> SimulatedCoreNetwork >> SimulatedUe;
+
+
+    QByteArray rawMmeSettings;
+    stream >> rawMmeSettings;
+    mmeSettings.deserializeData(rawMmeSettings);
 }

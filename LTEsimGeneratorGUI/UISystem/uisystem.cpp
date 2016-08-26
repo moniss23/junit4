@@ -89,8 +89,14 @@ void UISystem::bindingObjects()
     //Update Project IpexData
     QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
 
-    //Open Sgw widnow
+    //Open Sgw window
     QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
+
+    //Opne Mme window
+    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,QString)));
+
+    //Update Mme
+    QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings,QString)),dataSystem,SLOT(updateMme(MmeSettings,QString)));
 
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
@@ -152,6 +158,17 @@ void UISystem::spawnWindow_ucTool(const QString& projectName)
     emit spawnWindow_ucTool(project->ucToolSettings, project->name);
     return;
 }
+void UISystem::spawnWindow_Mme(const QString &projectName){
+    auto project = findProjectByName(projectName);
+
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnWindow_Mme(project->mmeSettings,project->name);
+    return;
+}
+
 
 void UISystem::spawnWindow_ParamMap(const QString &projectName)
 {
@@ -171,6 +188,7 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     QObject::connect(map_w,SIGNAL(spawnWindow_Sgw(QString)),this,SLOT(spawnWindow_Sgw(QString)));
     QObject::connect(map_w,SIGNAL(updateSimulatedCoreNetworkState(QString,bool)),dataSystem,SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(map_w,SIGNAL(updateSimulatedUeState(QString,bool)),dataSystem,SLOT(updateSimulatedUeState(QString,bool)));
+    QObject::connect(map_w,SIGNAL(spawnWindow_Mme(QString)),this,SLOT(spawnWindow_Mme(QString)));
     map_w->show();
 }
 
