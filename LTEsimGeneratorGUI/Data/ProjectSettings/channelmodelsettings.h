@@ -71,8 +71,8 @@ private:
     double dl_pathloss_min_pathloss;
     double dl_pathloss_max_pathloss;
     double dl_pathloss_time_min_to_max;
-    bool dl_pathloss_distribute_ues;
     double pathloss_based_feedback_sinr_threshold;
+    bool   dl_pathloss_distribute_ues;
 
     /****************************
      * SERIALIZATION INTERFACE  *

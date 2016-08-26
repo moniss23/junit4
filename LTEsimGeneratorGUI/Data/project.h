@@ -22,25 +22,28 @@ public:
     Project();
     ~Project() {}
 
+    //-- Project info --//
     QString name;
     QString fullpath;
     QString genScriptDir;
-
-    QVector<Cell> cells;
-    QVector<Center> centers;
+    //-- Project objects  --//
+    QVector<Cell>     cells;
+    QVector<Center>   centers;
     QVector<Handover> handovers;
+    //-- Project  data --//
     DataGeneratorSettings dataGeneratorSettings;
-    UCToolSettings ucToolSettings;
-    SgwSettings sgwSettings;
-    bool SimulatedCoreNetwork = false;
-    bool SimulatedUe = false;
-    ParametersFileData parametersFile;
+    UCToolSettings        ucToolSettings;
+    SgwSettings           sgwSettings;
+    bool                  SimulatedCoreNetwork = false;
+    bool                  SimulatedUe          = false;
+    //-- Project  files --//
+    ParametersFileData       parametersFile;
     QVector<TrafficFileData> trafficFilesList;
+
 
     /****************************
      * SERIALIZATION INTERFACE  *
      ****************************/
-
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
