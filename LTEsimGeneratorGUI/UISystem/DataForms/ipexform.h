@@ -17,6 +17,10 @@ public:
     explicit IpexForm(QWidget *parent = 0);
     ~IpexForm();
 
+
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
 signals:
     /**
      * @brief updateDataGeneratorSettings this signal is used to update DataGeneratorSettings in project
@@ -33,14 +37,21 @@ public slots:
      */
     void loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
 
-private slots:
 
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
+private slots:
     void on_buttonBox_rejected();
 
     void on_pbReset_clicked();
 
     void on_buttonBox_accepted();
 
+
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
     /**
      * @brief setDefaultParameters takes data from dataGeneratorSettings and update ui

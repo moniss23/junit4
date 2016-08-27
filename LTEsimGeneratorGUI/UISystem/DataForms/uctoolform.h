@@ -18,6 +18,9 @@ public:
     explicit UCtoolForm(QWidget *parent = 0);
     ~UCtoolForm();
 
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
 public slots:
     /**
      * @brief loadAndOpen is used to load data and show window
@@ -34,12 +37,19 @@ signals:
      */
     void updateUCToolSettings(const UCToolSettings &ucToolSettings, const QString & projectName);
 
-private slots:
 
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
+private slots:
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();
     void on_pbReset_clicked();
 
+
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
     /**
      * @brief setDefaultParameters fill ui fields with values from ucToolSettings object

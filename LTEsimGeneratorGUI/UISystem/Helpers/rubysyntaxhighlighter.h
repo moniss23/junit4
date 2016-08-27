@@ -11,22 +11,22 @@ public:
 
     RubySyntaxHighlighter(QTextDocument *parent=0);
 
-    QStringList keywords;
-    QVector<QString> inputText;
-    std::set<QString> reservedKeywords;
-    std::set<QString> functionKeywords;
 protected:
     void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
+
 private:
     struct HighlightingRule
-        {
-            QRegExp pattern;
-            QTextCharFormat format;
-        };
+    {
+        QRegExp pattern;
+        QTextCharFormat format;
+    };
+
     QTextCharFormat keywordFormat;
 
-    HighlightingRule rule;
     QVector<HighlightingRule> highlightingRules;
+
+    std::set<QString> reservedKeywords;
+    std::set<QString> functionKeywords;
 };
 
 #endif // RUBYSYNTAXHIGHLIGHTER_H

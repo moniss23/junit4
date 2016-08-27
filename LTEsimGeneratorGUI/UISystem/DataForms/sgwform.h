@@ -9,11 +9,11 @@
 namespace Ui {
 class SGWForm;
 }
+
 /**
  * @brief The SgwForm class is responsible for drawing UI form
  *        for Sgw configuration.
  */
-
 class SgwForm : public QWidget
 {
     Q_OBJECT
@@ -21,6 +21,11 @@ class SgwForm : public QWidget
 public:
     explicit SgwForm(QWidget *parent = 0);
     ~SgwForm();
+
+
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
 signals:
     /**
      * @brief updateSgw signal used to get information from Window and update it in project
@@ -28,21 +33,6 @@ signals:
      * @param QString with current project name
      */
     void updateSgw(const SgwSettings &sgwSettings,const QString &projectName);
-
-
-
-private slots:
-
-    /***********************************************
-     *  BINDINGS TO UI BUTTONS AND LISTS
-     ***********************************************/
-
-    void on_buttonBox_accepted();
-    void on_pbReset_clicked();
-    void on_buttonBox_rejected();
-
-
-
 public slots:
     /**
      * @brief loadAndSpawn slot is called by spawnWindow_Mme in MapWindow
@@ -50,6 +40,20 @@ public slots:
      *
      */
     void loadAndSpawn(const SgwSettings & sgwSettings, const QString &projectName);
+
+
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
+private slots:
+    void on_buttonBox_accepted();
+    void on_pbReset_clicked();
+    void on_buttonBox_rejected();
+
+
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
     /**
      * @brief setChanges function to override changes from ui to SgwSettings configuration class
@@ -64,9 +68,6 @@ private:
      */
     void setDefaultParameters();
 
-    /***********************************************
-     *  INTERNAL CLASS LOGIC
-     ***********************************************/
 private:
     Ui::SGWForm *ui;            //< GUI form pointer
     QMessageBox msg;            //< MsgBox to inform user about window status (config saved etc.)

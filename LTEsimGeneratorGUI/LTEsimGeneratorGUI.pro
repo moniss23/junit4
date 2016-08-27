@@ -33,6 +33,7 @@ SOURCES += \
     Data/ProjectSettings/channelmodelsettings.cpp \
     Data/ProjectSettings/pagingsettings.cpp \
     Data/ProjectSettings/mmesettings.cpp
+
 #--------UI SYSTEM--------#
 SOURCES += \
     UISystem/uisystem.cpp \
@@ -48,7 +49,10 @@ SOURCES += \
     UISystem/DataForms/mmeform.cpp \
     UISystem/DataForms/sgwform.cpp \
     UISystem/DataForms/channelmodelform.cpp \
-    UISystem/Helpers/rubysyntaxhighlighter.cpp
+    UISystem/Helpers/rubysyntaxhighlighter.cpp \
+    UISystem/DataForms/sgwform.cpp \
+    UISystem/Widgets/mapview.cpp
+
 
 SOURCES += main.cpp\
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
@@ -103,6 +107,7 @@ HEADERS  += \
     Data/ProjectSettings/pagingsettings.h \
     Data/ProjectSettings/mmesettings.h
 
+
 #--------UI SYSTEM--------#
 HEADERS  += \
     UISystem/uisystem.h \
@@ -117,7 +122,9 @@ HEADERS  += \
     UISystem/DataForms/uctoolform.h \
     UISystem/DataForms/mmeform.h \
     UISystem/DataForms/channelmodelform.h \
-    UISystem/Helpers/rubysyntaxhighlighter.h
+    UISystem/Helpers/rubysyntaxhighlighter.h \
+    UISystem/Widgets/mapview.h
+
 
 HEADERS  += \
     Maps/Parameters/SimulatedUe/ubsimform.h \

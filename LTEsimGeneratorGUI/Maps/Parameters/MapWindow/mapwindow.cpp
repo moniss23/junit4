@@ -6,9 +6,6 @@
 #include <Data/Objects/cell.h>
 #include <UISystem/Windows/parameterswindow.h>
 
-extern QString parametersFileContent;
-extern QStringList parametersFileContentList;
-
 //Temporary global variables for checkboxCells
 bool tmp_chkCell11 = true;
 bool tmp_chkCell12 = true;
@@ -175,16 +172,8 @@ void MapWindow::closeEvent(QCloseEvent *event)
     case QMessageBox::Save:
         // Save was clicked
         anyChangesInMap=true;
-        parametersFileContentList=this->generateParams();
 
-        // move changes to the global QString
-        new_parametersFileContent="";
-        for(int i=0; i<parametersFileContentList.size(); i++){
-            new_parametersFileContent+=parametersFileContentList[i];
-        }
-        if(new_parametersFileContent!=parametersFileContent){
-            parametersFileContent=new_parametersFileContent;
-        }
+
 
         event->accept();
         saveCellsCheckboxes();
@@ -454,17 +443,7 @@ void MapWindow::showMessageError(QList<QString> listErrors){
 //-----------------------SAVE/RESTORE----------------------------
 void MapWindow::save_button_clicked()
 {
-    QString new_parametersFileContent;
-    parametersFileContentList=this->generateParams();
 
-    // move changes to the global QString
-    new_parametersFileContent.clear();
-    for(int i=0; i<parametersFileContentList.size(); i++){
-        new_parametersFileContent+=parametersFileContentList[i];
-    }
-    if(new_parametersFileContent!=parametersFileContent){
-        parametersFileContent=new_parametersFileContent;
-    }
     saveCellsCheckboxes();
     anyChangesInMap = false;
     this->close();
@@ -475,7 +454,7 @@ void MapWindow::restore_button_clicked()
     msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
     int restoreDefault = msgBox.exec();
     if (restoreDefault==QMessageBox::Yes){
-        parametersFileContentList=this->generateParams();
+
     }
 }
 

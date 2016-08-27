@@ -254,7 +254,7 @@ void ParametersWindow::msg(const QString &content){
 
 void ParametersWindow::on_showCellMapButton_clicked()
 {
-    const int sceneXMax = 600;
+    //const int sceneXMax = 600;
     const int sceneYMax = 600;
 
     const int size = 120;

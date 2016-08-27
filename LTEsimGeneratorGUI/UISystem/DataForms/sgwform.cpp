@@ -3,9 +3,6 @@
 
 #include "sgwform.h"
 #include "ui_sgwform.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
-
-extern MapWindow *map_w;
 
 SgwForm::SgwForm(QWidget *parent) :
     QWidget(parent),
