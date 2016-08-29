@@ -63,7 +63,8 @@ public slots:
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
 
-    void updateMme(const MmeSettings& mmeSettings,QString projectName);
+    void updateMme(const MmeSettings& mmeSettings, QString projectName);
+    void updatePaging(const PagingSettings& pagingSettings, QString projectName);
 
     //Scripts generation
     void generateParametersScript(const Project& project);

@@ -6,6 +6,7 @@
 #include <QString>
 
 #include "Data/ProjectSettings/mmesettings.h"
+#include "Data/ProjectSettings/pagingsettings.h"
 
 namespace Ui {
 class MmeForm;
@@ -27,10 +28,16 @@ signals:
 
     /**
      * @brief updateMme signal used to get information from Window and update it in project
-     * @param mmeSettings with MMe configuration from Ui
+     * @param mmeSettings with Mme configuration from Ui
      * @param QString with current project name
      */
     void updateMme(const MmeSettings &mmeSettings, const QString &projectName);
+    /**
+     * @brief updatePaging signal used to get information from Window and update it in project
+     * @param pagingSettings with Paging configuration from Ui
+     * @param QString with current project name
+     */
+    void updatePaging(const PagingSettings &pagingSettings, const QString &projectName);
 
 private slots:
 
@@ -48,19 +55,34 @@ public slots:
      * copy MmeSettings configuration class from project and spawn MME window
      *
      */
-    void loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName);
+    void loadAndSpawn(const MmeSettings &mmeSettings,const PagingSettings& pagingSettings, const QString &projectName);
 
 private:
     /**
-     * @brief setChanges function to override changes from ui to MmeSettings configuration class
+     * @brief setMmeChanges function to override changes from ui to MmeSettings configuration class
      *
      */
-    void setChanges();
+    void setMmeChanges();
+
     /**
-     * @brief setDefaultParameters function to copy configuration to from mmeSettings gived as argument
+     * @brief setPagingChanges function to override changes from ui to PagingSettings configuration class
      *
      */
-    void setParameters(MmeSettings mmeSettings);
+    void setPagingChanges();
+
+    /**
+     * @brief setMmeParameters function to copy configuration to from mmeSettings gived as argument
+     *
+     */
+    void setMmeParameters(MmeSettings mmeSettings);
+
+    /**
+     * @brief setPagingParameters function to copy configuration to from pagingSettings gived as argument
+     *
+     */
+    void setPagingParameters(PagingSettings pagingSettings);
+
+
     /**
      * @brief setDefaultParameters function to restore configuration to state before users changes
      *
@@ -70,6 +92,7 @@ private:
 private:
     Ui::MmeForm *ui;                //< GUI form pointer
     MmeSettings mmeSettings;        //< MmeSettings class to store Mme configuration
+    PagingSettings pagingSettings;  //< PagingSettings class to store Paging configuration
     QMessageBox msg;                //< MsgBox to inform user about window status (config saved etc.)
     QString projectName;            //< Current project name
 };

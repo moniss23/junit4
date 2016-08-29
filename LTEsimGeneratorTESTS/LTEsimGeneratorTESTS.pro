@@ -41,6 +41,8 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.cpp \
     ../LTEsimGeneratorGUI/UISystem/DataForms/sgwform.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/mmesettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.cpp \
+    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -71,6 +73,8 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/mmesettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.h \
+    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
     DataTests/projecttest.h \

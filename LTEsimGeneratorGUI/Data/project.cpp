@@ -37,9 +37,10 @@ QByteArray Project::serializeData()
     stream << sgwSettings.serializeData();
     stream << ucToolSettings.serializeData();
     stream << channelModelSettings.serializeData();
+    stream << mmeSettings.serializeData();
+    stream << pagingSettings.serializeData();
 
     stream << SimulatedCoreNetwork << SimulatedUe;
-    stream << mmeSettings.serializeData();
 
     return serializedData.buffer();
 }
@@ -83,10 +84,13 @@ void Project::deserializeData(const QByteArray &rawData)
     stream >> rawChannelModelSettings;
     channelModelSettings.deserializeData(rawChannelModelSettings);
 
-    stream >> SimulatedCoreNetwork >> SimulatedUe;
-
-
     QByteArray rawMmeSettings;
     stream >> rawMmeSettings;
     mmeSettings.deserializeData(rawMmeSettings);
+
+    QByteArray rawPagingSettings;
+    stream >> rawPagingSettings;
+    pagingSettings.deserializeData(rawPagingSettings);
+
+    stream >> SimulatedCoreNetwork >> SimulatedUe;
 }

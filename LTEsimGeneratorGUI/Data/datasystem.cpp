@@ -188,6 +188,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     newProject.channelModelSettings = scriptParserManager.getChannelModelSettingsFromScript(rbContent);
     newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(rbContent);
     newProject.mmeSettings = scriptParserManager.getMmeSettings(newProject.parametersFile.content);
+    newProject.pagingSettings = scriptParserManager.getPaggingSettings(newProject.parametersFile.content);
     projects.push_back(newProject);
     emit currentProjects(projects);
     saveProjectsFile();
@@ -388,5 +389,14 @@ void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){
         return;
     }
     project->mmeSettings = mmeSettings;
+    saveProjectsFile();
+}
+void DataSystem::updatePaging(const PagingSettings &pagingSettings, QString projectName){
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    project->pagingSettings = pagingSettings;
     saveProjectsFile();
 }

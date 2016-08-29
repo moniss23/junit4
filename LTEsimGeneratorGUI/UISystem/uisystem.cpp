@@ -1,6 +1,5 @@
 #include "uisystem.h"
 #include <QMessageBox>
-
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 
 extern MapWindow* map_w;
@@ -99,10 +98,11 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
 
     //Opne Mme window
-    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,PagingSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,PagingSettings,QString)));
 
-    //Update Mme
-    QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings,QString)),dataSystem,SLOT(updateMme(MmeSettings,QString)));
+    //Update Mme and Paging
+    QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings, QString)),dataSystem,SLOT(updateMme(MmeSettings,QString)));
+    QObject::connect(&mmeForm,SIGNAL(updatePaging(PagingSettings,QString)),dataSystem,SLOT(updatePaging(PagingSettings,QString)));
 
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
@@ -171,7 +171,7 @@ void UISystem::spawnWindow_Mme(const QString &projectName){
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Mme(project->mmeSettings,project->name);
+    emit spawnWindow_Mme(project->mmeSettings,project->pagingSettings, project->name);
     return;
 }
 

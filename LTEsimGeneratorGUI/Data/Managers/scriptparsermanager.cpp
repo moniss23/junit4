@@ -1,7 +1,7 @@
-#include <QDebug>
 #include <QRegExp>
+
 #include "scriptparsermanager.h"
-#include <QDebug>
+
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -430,4 +430,89 @@ MmeSettings ScriptParserManager::getMmeSettings(const QString &scriptContent){
     }
 
     return mmeSettings;
+}
+PagingSettings ScriptParserManager::getPaggingSettings(const QString &scriptContent){
+    PagingSettings pagingSettings;
+    int len;
+    int startIndex;
+
+    QStringList scriptContentLines = scriptContent.split('\n');
+    for (int i=0; i<scriptContentLines.size();i++){
+        if (scriptContentLines[i].contains("[:generate_pagings]")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="false"){
+                pagingSettings.isUsedInConfiguration = false;
+
+            }
+            else if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="true"){
+                pagingSettings.isUsedInConfiguration = true;
+
+            }
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+        }
+        else if (scriptContentLines[i].contains("[:generators]")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            QRegExp generatorsRegExp("[0-9]+");
+            int pos = generatorsRegExp.indexIn(scriptContentLines[i]);
+            if (pos > -1) {
+                pagingSettings.generators = generatorsRegExp.capturedTexts()[0].toInt();
+            }
+        }
+        else if (scriptContentLines[i].contains("[:paging_generator_names]")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            QStringList generatorNames = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
+            for (QString name: generatorNames){
+                pagingSettings.names.append(name);
+            }
+        }
+        else if (scriptContentLines[i].contains("[:imsi_ranges]")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            QStringList imsiRanges = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
+            for (QString range: imsiRanges){
+                pagingSettings.imsiRanges.append(range);
+            }
+        }
+        else if (scriptContentLines[i].contains("[:ue_paging_identity]")){
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (scriptContentLines[i].contains("IMSI")){
+                pagingSettings.uePagingIdentity = "IMSI";
+            }
+            else if (scriptContentLines[i].contains("STMSI")){
+                pagingSettings.uePagingIdentity = "STMSI";
+            }
+        }
+        else if (scriptContentLines[i].contains("[:paging_s1ap_uris]")){
+            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
+            QStringList pagingUris = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
+            for (QString ur: pagingUris){
+                pagingSettings.pagingSlapUris.append(ur);
+            }
+        }
+        else if (scriptContentLines[i].contains("[:bundle_paging]")){
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (scriptContentLines[i].contains("true")){
+                pagingSettings.bundlePaging=true;
+            }
+            else if (scriptContentLines[i].contains("false")){
+                pagingSettings.bundlePaging = false;
+            }
+        }
+
+    }
+    return pagingSettings;
+
+
 }

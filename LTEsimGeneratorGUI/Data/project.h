@@ -18,6 +18,7 @@
 #include "Data/ProjectSettings/channelmodelsettings.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/mmesettings.h"
+#include "Data/ProjectSettings/pagingsettings.h"
 
 class Project : public SerializeInterface
 {
@@ -41,6 +42,7 @@ public:
     ChannelModelSettings    channelModelSettings;
     DataGeneratorSettings   dataGeneratorSettings;
     MmeSettings             mmeSettings;
+    PagingSettings          pagingSettings;
     bool                    SimulatedCoreNetwork = false;
     bool                    SimulatedUe = false;
 

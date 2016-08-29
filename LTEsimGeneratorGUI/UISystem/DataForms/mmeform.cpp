@@ -36,9 +36,28 @@ void MmeForm::setDefaultParameters()
     this->ui->tetMme_tais->setText(mmeSettings.tais);
     this->ui->tetMme_s1ap_uris->setText(mmeSettings.uris);
     this->ui->tetS1ap_pluginFilterPath->setText(mmeSettings.pluginFilterPath);
+    this->ui->tet_generators->setText(QString::number(pagingSettings.generators));
+    QString pagingNames;
+    for (QString name:pagingSettings.names) {
+        pagingNames+=(name+",");
+    }
+    this->ui->tet_paging_generator_names->setText(pagingNames);
+    QString pagingRanges;
+    for (QString range:pagingSettings.imsiRanges) {
+        pagingRanges+=(range+",");
+    }
+    this->ui->tet_imsi_ranges->setText(pagingRanges);
+    this->ui->tet_ue_paging_identity->setText(pagingSettings.uePagingIdentity);
+    QString pagingUris;
+    for (QString ur:pagingSettings.pagingSlapUris) {
+        pagingUris+=(ur+",");
+    }
+    this->ui->tet_paging_s1ap_uris->setText(pagingUris);
+
 }
-void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName){
+void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const PagingSettings &pagingSettings, const QString &projectName){
     this->mmeSettings=mmeSettings;
+    this->pagingSettings=pagingSettings;
     this->projectName=projectName;
     this->setDefaultParameters();
     this->show();
@@ -47,7 +66,8 @@ void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projec
 
 void MmeForm::on_buttonBox_accepted()
 {
-    setChanges();
+    setMmeChanges();
+    setPagingChanges();
     msg.setText("Changes has been succesfully approved ");
     msg.exec();
     this->close();
@@ -65,11 +85,25 @@ void MmeForm::on_pbReset_clicked()
     setDefaultParameters();
 }
 
-void MmeForm::setChanges(){
+void MmeForm::setMmeChanges(){
 
     mmeSettings.name = this->ui->tetMme_names->text();
     mmeSettings.tais=this->ui->tetMme_tais->text();
     mmeSettings.uris=this->ui->tetMme_s1ap_uris->text();
     mmeSettings.pluginFilterPath=this->ui->tetS1ap_pluginFilterPath->text();
     emit updateMme(mmeSettings,projectName);
+}
+void MmeForm::setPagingChanges(){
+    pagingSettings.generators = this->ui->tet_generators->text().toInt();
+    pagingSettings.names = this->ui->tet_paging_generator_names->text().split(",");
+    pagingSettings.imsiRanges = this->ui->tet_imsi_ranges->text().split(",");
+    if (this->ui->tet_ue_paging_identity->text() == "IMSI") {
+        pagingSettings.uePagingIdentity = "IMSI";
+    }
+    else if (this->ui->tet_ue_paging_identity->text() == "STMSI") {
+        pagingSettings.uePagingIdentity = "STMSI";
+    }
+    pagingSettings.pagingSlapUris = this->ui->tet_paging_s1ap_uris->text().split(",");
+    emit updatePaging(pagingSettings,projectName);
+
 }

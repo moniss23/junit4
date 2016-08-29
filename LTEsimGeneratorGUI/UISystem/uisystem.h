@@ -43,9 +43,8 @@ signals:
     void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
-    void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName);
-    void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
-
+    void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString&);
+    void spawnWindow_Mme(const MmeSettings& mmeSettings,const PagingSettings& pagingSettings, const QString &projectName);
 private:
     Project* findProjectByName(const QString &projectName);
 private:
