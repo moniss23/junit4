@@ -308,29 +308,7 @@ QStringList MapWindow::generateParams(){
     outputList <<"\n\t\tdefault[:visualization] = " + convertBoolToText(ue->getVisualization());
     outputList <<"\n\t\tdefault[:ubsim_patches] = \"" + ue->getUbsim_patches()+ "\"";
     outputList <<"\n\t\treturn default\n\tend";
-    //--------------------------------ChanelModel-------------------------------------------------------------
-    outputList <<"\n\n\tdef Parameters.getChannelModelConfigParameters()";
-    outputList <<"\n\t\tdefault = {}";
-    outputList <<"\n\t\tdefault[:model_set_name] = \"" + chmod->getModel_set_name() + "\"";
-    outputList <<"\n\t\tdefault[:pdcch_drop_dl_assignment_rate] = " + chmod->getPdcch_drop_dl_assignment_rate();
-    outputList <<"\n\t\tdefault[:pdcch_drop_grant_rate] = " + chmod->getPdcch_drop_grant_rate();
-    outputList <<"\n\t\tdefault[:pdsch_transport_block_decoded_error_rate] = " + chmod->getPdsch_transport_block_decoded_error_rate();
-    outputList <<"\n\t\tdefault[:phich_nack_to_ack_error_rate] = " + chmod->getPhich_nack_to_ack_error_rate();
-    outputList <<"\n\t\tdefault[:phich_drop_harq_feedback_rate] = " + chmod->getPhich_drop_harq_feedback_rate();
-    outputList <<"\n\t\tdefault[:pusch_transport_block_decoded_error_rate] = " + chmod->getPusch_transport_block_decoded_error_rate();
-    outputList <<"\n\t\tdefault[:pusch_drop_transport_block_rate] = " + chmod->getPusch_drop_transport_block_rate();
-    outputList <<"\n\t\tdefault[:puxch_nack_to_ack_error_rate] = " + chmod->getPuxch_nack_to_ack_error_rate();
-    outputList <<"\n\t\tdefault[:puxch_dtx_to_ack_error_rate] = " + chmod->getPuxch_dtx_to_ack_error_rate();
-    outputList <<"\n\t\tdefault[:puxch_ack_to_nack_error_rate] = " + chmod->getPuxch_ack_to_nack_error_rate();
-    outputList <<"\n\t\tdefault[:puxch_drop_scheduling_request_rate] = " +chmod->getPuxch_drop_scheduling_request_rate();
-    outputList <<"\n\t\tdefault[:dlni_noise] = " + chmod->getDlni_noise();
-    outputList <<"\n\t\tdefault[:dlni_interference] = " + chmod->getDlni_interference();
-    outputList <<"\n\t\tdefault[:dl_pathloss_min_pathloss] = " + chmod->getDl_pathloss_min_pathloss();
-    outputList <<"\n\t\tdefault[:dl_pathloss_max_pathloss] = " + chmod->getDl_pathloss_max_pathloss();
-    outputList <<"\n\t\tdefault[:dl_pathloss_time_min_to_max] = " + chmod->getDl_pathloss_time_min_to_max();
-    outputList <<"\n\t\tdefault[:dl_pathloss_distribute_ues] = " + convertBoolToText(chmod->getDl_pathloss_distribute_ues());
-    outputList <<"\n\t\tdefault[:pathloss_based_feedback_sinr_threshold] = " + chmod->getPathloss_based_feedback_sinr_threshold();
-    outputList <<"\n\t\treturn default\n\tend";
+
     outputList <<"\nend";
 
     return outputList;
@@ -1662,9 +1640,7 @@ void MapWindow::on_lblUBsim_clicked()
 
 void MapWindow::on_lblChannelModel_clicked()
 {
-    viewCannelModel.close();
-    viewCannelModel.setParameters(chmod);
-    viewCannelModel.show();
+    emit spawnWindow_ChannelModel(project.name);
 }
 
 void MapWindow::on_lblIpex_clicked()

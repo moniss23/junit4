@@ -86,6 +86,12 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnWindow_ucTool(UCToolSettings,QString)), &ucToolForm, SLOT(loadAndOpen(UCToolSettings,QString)));
     QObject::connect(&ucToolForm, SIGNAL(updateUCToolSettings(UCToolSettings,QString)), dataSystem, SLOT(updateUCToolSettings(UCToolSettings,QString)));
 
+    //Open ChannelModel window
+    QObject::connect(this, SIGNAL(spawnWindow_ChannelModel(ChannelModelSettings,QString)), &channelModelForm, SLOT(loadAndOpen(ChannelModelSettings,QString)));
+
+    //Update ChannelModelSettings
+    QObject::connect(&channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)), dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
+
     //Update Project IpexData
     QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
 
@@ -189,14 +195,12 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     QObject::connect(map_w,SIGNAL(updateSimulatedCoreNetworkState(QString,bool)),dataSystem,SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(map_w,SIGNAL(updateSimulatedUeState(QString,bool)),dataSystem,SLOT(updateSimulatedUeState(QString,bool)));
     QObject::connect(map_w,SIGNAL(spawnWindow_Mme(QString)),this,SLOT(spawnWindow_Mme(QString)));
+    QObject::connect(map_w, SIGNAL(spawnWindow_ChannelModel(QString)), this, SLOT(spawnWindow_ChannelModel(QString)));
     map_w->show();
 }
 
 void UISystem::spawnWindow_Sgw(const QString &projectName){
-    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                (const Project& project)->bool {
-        return (project.name == projectName);
-    });
+    auto project = findProjectByName(projectName);
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
@@ -205,6 +209,15 @@ void UISystem::spawnWindow_Sgw(const QString &projectName){
     return;
 }
 
+void UISystem::spawnWindow_ChannelModel(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project.");
+        return;
+    }
+    emit spawnWindow_ChannelModel(project->channelModelSettings, project->name);
+    return;
+}
 
 Project* UISystem::findProjectByName(const QString &projectName)
 {

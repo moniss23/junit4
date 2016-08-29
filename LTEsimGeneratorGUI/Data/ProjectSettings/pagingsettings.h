@@ -3,6 +3,7 @@
 #include <QString>
 #include <QVector>
 #include "Data/Interfaces/serializeinterface.h"
+
 class PagingSettings : public SerializeInterface
 {
 public:
@@ -22,9 +23,6 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
-
-
-
 };
 
 #endif // PAGINGSETTINGS_H

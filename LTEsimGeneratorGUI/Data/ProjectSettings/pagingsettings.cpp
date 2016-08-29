@@ -6,7 +6,6 @@ PagingSettings::PagingSettings()
 {
 
 }
-
 PagingSettings::~PagingSettings()
 {
 

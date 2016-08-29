@@ -58,6 +58,7 @@ public slots:
     void updateDataGeneratorSettings(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
     void updateSgwSettings(const SgwSettings &sgwSettings,const QString &projectName);
     void updateUCToolSettings(const UCToolSettings & ucToolSettings, const QString &projectName);
+    void updateChannelModelSettings(const ChannelModelSettings &channelModelSettings, const QString &projectName);
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);

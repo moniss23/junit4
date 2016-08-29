@@ -332,6 +332,16 @@ void DataSystem::updateUCToolSettings(const UCToolSettings &ucToolSettings, cons
     saveProjectsFile();
 }
 
+void DataSystem::updateChannelModelSettings(const ChannelModelSettings &channelModelSettings, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project.\nDatanot saved.");
+        return;
+    }
+    project->channelModelSettings = channelModelSettings;
+    saveProjectsFile();
+}
+
 void DataSystem::generateParametersScript(const Project &project)
 {
     fileManager.generateParametersScript(project);

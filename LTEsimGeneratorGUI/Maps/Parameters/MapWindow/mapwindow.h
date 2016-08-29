@@ -23,6 +23,7 @@
 #include "UISystem/DataForms/ipexform.h"
 #include "Maps/Parameters/MapRange/maprange.h"
 #include "Maps/Parameters/MapRange/maprangeform.h"
+#include "UISystem/DataForms/channelmodelform.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -61,6 +62,7 @@ signals:
     void spawnWindow_Ipex(const QString& projectName);
     void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Mme(const QString& projectName);
+    void spawnWindow_ChannelModel(const QString& projectName);
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);

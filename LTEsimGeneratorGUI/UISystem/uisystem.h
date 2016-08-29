@@ -12,7 +12,7 @@
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "UISystem/DataForms/mmeform.h"
-
+#include "UISystem/DataForms/channelmodelform.h"
 
 class UISystem : public QObject
 {
@@ -34,6 +34,8 @@ public slots:
     void spawnWindow_ParamMap(const QString &projectName);
     void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Mme(const QString& projectName);
+    void spawnWindow_ChannelModel(const QString& projectName);
+
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_OpenProject(const Project& project);
@@ -42,6 +44,8 @@ signals:
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
     void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName);
+    void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
+
 private:
     Project* findProjectByName(const QString &projectName);
 private:
@@ -56,6 +60,7 @@ private:
     UCtoolForm ucToolForm;
     SgwForm sgwForm;
     MmeForm mmeForm;
+    ChannelModelForm channelModelForm;
 };
 
 #endif // UISYSTEM_H
