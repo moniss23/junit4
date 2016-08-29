@@ -50,7 +50,6 @@ SOURCES += \
     UISystem/DataForms/sgwform.cpp \
     UISystem/DataForms/channelmodelform.cpp \
     UISystem/Helpers/rubysyntaxhighlighter.cpp \
-    UISystem/DataForms/sgwform.cpp \
     UISystem/Widgets/mapview.cpp
 
 
@@ -121,6 +120,7 @@ HEADERS  += \
     UISystem/DataForms/ipexform.h \
     UISystem/DataForms/uctoolform.h \
     UISystem/DataForms/mmeform.h \
+    UISystem/DataForms/sgwform.h \
     UISystem/DataForms/channelmodelform.h \
     UISystem/Helpers/rubysyntaxhighlighter.h \
     UISystem/Widgets/mapview.h
@@ -129,7 +129,6 @@ HEADERS  += \
 HEADERS  += \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
-    UISystem/DataForms/sgwform.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
     Maps/Traffic/UeParameters/ue.h \

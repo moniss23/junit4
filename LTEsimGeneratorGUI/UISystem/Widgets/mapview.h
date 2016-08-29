@@ -35,9 +35,6 @@ private:
 };
 
 
-#include <QMainWindow>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 
 
 

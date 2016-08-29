@@ -33,6 +33,7 @@ signals:
      * @param QString with current project name
      */
     void updateSgw(const SgwSettings &sgwSettings,const QString &projectName);
+
 public slots:
     /**
      * @brief loadAndSpawn slot is called by spawnWindow_Mme in MapWindow
