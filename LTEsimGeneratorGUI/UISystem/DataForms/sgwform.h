@@ -45,7 +45,7 @@ private slots:
 
 public slots:
     /**
-     * @brief loadAndSpawn slot is called by spawnSgwWindow in MapWindow
+     * @brief loadAndSpawn slot is called by spawnWindow_Mme in MapWindow
      * copy SgwSettings configuration class from project and spawn SGW window
      *
      */
@@ -55,15 +55,13 @@ private:
      * @brief setChanges function to override changes from ui to SgwSettings configuration class
      *
      */
-
-
-
     void setChanges();
+
+
     /**
      * @brief setDefaultParameters function to restore configuration to state before users changes
      *
      */
-
     void setDefaultParameters();
 
     /***********************************************

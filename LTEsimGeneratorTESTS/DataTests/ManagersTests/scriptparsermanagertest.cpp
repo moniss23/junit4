@@ -179,3 +179,49 @@ void ScriptParserManagerTest::scriptParserManagerTest5_getChannelModelSettingsFr
     if(channelModelSettings.pathloss_based_feedback_sinr_threshold != 1.0) QVERIFY(false);
     QVERIFY(true);
 }
+
+void ScriptParserManagerTest::scriptParserManagerTest6_getMmeSettingsFromScript(){
+    qInfo() << "TEST FOR PARSER getMmeSettings METHOD(SUCCESS)";
+
+    ScriptParserManager scriptParserManager;
+    MmeSettings mmeSettings;
+
+    const QString scriptContent = "default[:simulate_core] = false\n"
+        "default[:mme_names] = [\"mme1\"]\n"
+        "default[:mme_tais] = [\"62F2281200\"]\n"
+        "default[:mmes] = 1\n"
+        "default[:mme_s1ap_uris] = [\"sctp://127.0.0.1:36412\"]\n"
+        "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter\"\n";
+    mmeSettings = scriptParserManager.getMmeSettings(scriptContent);
+    if (mmeSettings.name != "mme1")                     QVERIFY(false);
+    if (mmeSettings.tais != "62F2281200")               QVERIFY(false);
+    if (mmeSettings.uris != "sctp://127.0.0.1:36412")   QVERIFY(false);
+    if (mmeSettings.pluginFilterPath !=
+            "/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter" )
+                                                        QVERIFY(false);
+    QVERIFY(true);
+}
+
+void ScriptParserManagerTest::scriptParserManagerTest7_getMmeSettingsFromScript(){
+    qInfo() << "TEST FOR PARSER getMmeSettings METHOD(UNSUCCESFUL PARSE TEST)";
+
+    ScriptParserManager scriptParserManager;
+    MmeSettings mmeSettings;
+
+    const QString scriptContent = "default[:simulate_core] = false\n"
+        "default[:mme_names] = [\"mme1\"\n"
+        "default[:mme_tais] = [\"[62F2281200]\"]\n"
+        "default[:mmes] = avs\n"
+        "default[:mme_s1ap_uris] = [\"sctps://127.0.0.1:36412\"]\n"
+        "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter/\"\n";
+    mmeSettings = scriptParserManager.getMmeSettings(scriptContent);
+    if (mmeSettings.name == "mme1")                     QVERIFY(false);
+    if (mmeSettings.tais == "62F2281200")               QVERIFY(false);
+    if (mmeSettings.uris == "sctp://127.0.0.1:36412")   QVERIFY(false);
+    if (mmeSettings.pluginFilterPath ==
+            "/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter" )
+                                                        QVERIFY(false);
+    QVERIFY(true);
+
+}
+

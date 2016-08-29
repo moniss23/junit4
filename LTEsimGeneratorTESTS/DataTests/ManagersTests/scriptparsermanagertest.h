@@ -25,7 +25,8 @@ private Q_SLOTS:
     void scriptParserManagerTest3_getSgwSettingsFromScript();
     void scriptParserManagerTest4_getSgwSettingsFromScript();
     void scriptParserManagerTest5_getChannelModelSettingsFromScript();
-
+    void scriptParserManagerTest6_getMmeSettingsFromScript();
+    void scriptParserManagerTest7_getMmeSettingsFromScript();
 
 };
 
