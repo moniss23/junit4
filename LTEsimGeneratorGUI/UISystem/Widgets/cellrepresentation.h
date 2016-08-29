@@ -1,7 +1,7 @@
 #ifndef CELLREPRESENTATION_H
 #define CELLREPRESENTATION_H
-#include <QGraphicsObject>
 
+#include <QGraphicsObject>
 
 class CellRepresentation : public QGraphicsObject
 {

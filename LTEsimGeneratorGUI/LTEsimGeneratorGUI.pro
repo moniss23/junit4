@@ -32,7 +32,8 @@ SOURCES += \
     Data/ProjectSettings/uctoolsettings.cpp \
     Data/ProjectSettings/channelmodelsettings.cpp \
     Data/ProjectSettings/pagingsettings.cpp \
-    Data/ProjectSettings/mmesettings.cpp
+    Data/ProjectSettings/mmesettings.cpp \
+    UISystem/Widgets/handoverrepresentation.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -104,7 +105,8 @@ HEADERS  += \
     Data/ProjectSettings/uctoolsettings.h \
     Data/ProjectSettings/channelmodelsettings.h \
     Data/ProjectSettings/pagingsettings.h \
-    Data/ProjectSettings/mmesettings.h
+    Data/ProjectSettings/mmesettings.h \
+    UISystem/Widgets/handoverrepresentation.h
 
 
 #--------UI SYSTEM--------#
