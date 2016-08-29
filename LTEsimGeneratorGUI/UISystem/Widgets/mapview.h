@@ -1,16 +1,16 @@
 #ifndef MAPVIEW_H
 #define MAPVIEW_H
 
-#include <QWidget>
+#include <QGraphicsView>
 
-class MapView : public QWidget
+class MapView : public QGraphicsView
 {
     Q_OBJECT
 public:
     explicit MapView(QWidget *parent = 0);
 
 
- //   void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent* event);
 
  //   void setXYaxisPosition();
  //   void printNewMap();

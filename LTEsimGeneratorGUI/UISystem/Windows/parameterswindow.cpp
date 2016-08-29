@@ -14,12 +14,8 @@
 #include <Maps/Traffic/map_traffic.h>
 #include "UISystem/Widgets/cellrepresentation.h"
 
-
-QString parametersFileContent;
 QStringList parametersFileContentList;
 extern Map_traffic* map_t;
-QString text1;              // tekst znajdujący się w polu tekstowym
-QString pattern;      // tekst, który zamienimy na inny
 #include <QDebug>    //THIS WILL STAY TILL THE END OF REFACTOR
 
 ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
@@ -43,9 +39,7 @@ void ParametersWindow::loadProjectAndOpen(const Project &project){
     refreshUI(project);
 
     //-----------REFACTOR IN PROGRESS------------
-    parametersFileContent = project.parametersFile.content;
-    parametersFileContent += "\n";
-
+    QString parametersFileContent = project.parametersFile.content +"\n";
     parametersFileContentList = parametersFileContent.split('\n');
 
     show();
@@ -225,9 +219,6 @@ void ParametersWindow::on_filePreview_textChanged()
         filePreviewChanged=true;
         this->ui->resetDefaultsButton->setEnabled(true);
     }
-
-    //highlighter->highlightBlock(this->ui->filePreview->toPlainText());
-    return;
 }
 
 // "generate file" button is clicked
@@ -238,6 +229,7 @@ void ParametersWindow::on_generateFileButton_clicked()
     else
         emit generateTrafficScript(currentProject, this->ui->projectsList->currentRow()-1);
 }
+
 // "settings" opened
 void ParametersWindow::on_actionPath_triggered()
 {
@@ -254,10 +246,8 @@ void ParametersWindow::msg(const QString &content){
 
 void ParametersWindow::on_showCellMapButton_clicked()
 {
-    //const int sceneXMax = 600;
     const int sceneYMax = 600;
 
-    const int size = 120;
     const int numberOfCols = 3;
     const int evenOffset = 40;
     const int startOffset = 120;
@@ -268,7 +258,7 @@ void ParametersWindow::on_showCellMapButton_clicked()
 
     // CONFIGURE VIEW
     view->setScene(scene);
-    view->setMinimumSize(650, 650);
+   // view->setMinimumSize(650, 650);
 
     // CONFIGURE SCENE
     QPointF coordinateStart(0,590);
