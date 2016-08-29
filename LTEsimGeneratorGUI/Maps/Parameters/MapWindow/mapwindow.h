@@ -19,7 +19,7 @@
 #include "UISystem/DataForms/uctoolform.h"
 #include "Maps/Traffic/UeParameters/ue.h"
 #include "Data/ProjectSettings/channelmodelsettings.h"
-#include "Maps/Parameters/ChannelModel/channelmodelform.h"
+#include "UISystem/DataForms/channelmodelform.h"
 #include "UISystem/DataForms/ipexform.h"
 #include "Maps/Parameters/MapRange/maprange.h"
 #include "Maps/Parameters/MapRange/maprangeform.h"

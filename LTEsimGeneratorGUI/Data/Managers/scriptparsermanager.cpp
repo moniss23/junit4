@@ -364,8 +364,9 @@ ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(cons
                         "\\[:dl_pathloss_time_min_to_max\\] = (.*)$", rbLines[i], 1).toDouble();
         }
         else if(QRegExp("\\[:dl_pathloss_distribute_ues\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
-            settings.dl_pathloss_time_min_to_max = findRegexInText(
-                        "\\[:dl_pathloss_distribute_ues\\] = (.*)$", rbLines[i], 1).toDouble();
+            settings.dl_pathloss_distribute_ues = findRegexInText(
+                        "\\[:dl_pathloss_distribute_ues\\] = (.*)$", rbLines[i], 1) == "true" ?
+                        true : false;
         }
         else if(QRegExp("\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
             settings.pathloss_based_feedback_sinr_threshold =  findRegexInText(

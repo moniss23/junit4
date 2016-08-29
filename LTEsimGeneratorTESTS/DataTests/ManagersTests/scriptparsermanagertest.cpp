@@ -174,7 +174,7 @@ void ScriptParserManagerTest::scriptParserManagerTest5_getChannelModelSettingsFr
     if(channelModelSettings.dlni_interference != 1.0) QVERIFY(false);
     if(channelModelSettings.dl_pathloss_min_pathloss != 1.0) QVERIFY(false);
     if(channelModelSettings.dl_pathloss_max_pathloss != 20.0) QVERIFY(false);
-//    if(channelModelSettings.dl_pathloss_time_min_to_max != 1000.0) QVERIFY(false);
+    if(channelModelSettings.dl_pathloss_time_min_to_max != 1000.0) QVERIFY(false);
     if(channelModelSettings.dl_pathloss_distribute_ues != true) QVERIFY(false);
     if(channelModelSettings.pathloss_based_feedback_sinr_threshold != 1.0) QVERIFY(false);
     QVERIFY(true);

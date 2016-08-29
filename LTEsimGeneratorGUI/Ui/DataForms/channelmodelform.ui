@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>569</height>
+    <width>549</width>
+    <height>718</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Channel Models Settings</string>
+   <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
@@ -20,13 +20,6 @@
       <string>Channel Models</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="checkBox_dl_pathloss_distribute_ues">
-        <property name="text">
-         <string>dl_pathloss_distribute_ues</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -327,15 +320,33 @@
         </item>
        </layout>
       </item>
-      <item row="2" column="0">
-       <widget class="QDialogButtonBox" name="buttonBox">
-        <property name="standardButtons">
-         <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkBox_dl_pathloss_distribute_ues">
+        <property name="text">
+         <string>dl_pathloss_distribute_ues</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Restore Default</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

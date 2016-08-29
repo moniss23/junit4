@@ -50,7 +50,7 @@ SOURCES += \
     UISystem/DataForms/sgwform.cpp
 
 SOURCES += main.cpp\
-    Maps/Parameters/ChannelModel/channelmodelform.cpp \
+    UISystem/DataForms/channelmodelform.cpp \
     Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
@@ -119,7 +119,7 @@ HEADERS  += \
     UISystem/Helpers/rubysyntaxhighlighter.h
 
 HEADERS  += \
-    Maps/Parameters/ChannelModel/channelmodelform.h \
+    UISystem/DataForms/channelmodelform.h \
     Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
     UISystem/DataForms/sgwform.h \
