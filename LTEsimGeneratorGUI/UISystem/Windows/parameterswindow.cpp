@@ -7,13 +7,12 @@
 #include <QGraphicsScene>
 #include <QListWidgetItem>
 
+#include "Maps/Traffic/map_traffic.h"
+#include "Maps/Parameters/MapWindow/mapwindow.h"
+#include "UISystem/Widgets/mapview.h"
 #include "UISystem/Helpers/rubysyntaxhighlighter.h"
 #include "UISystem/Widgets/cellrepresentation.h"
-
-#include "Maps/Parameters/MapWindow/mapwindow.h"
-#include "Maps/Traffic/map_traffic.h"
-#include "UISystem/Widgets/mapview.h"
-
+#include "UISystem/Widgets/handoverrepresentation.h"
 
 QStringList parametersFileContentList;
 #include <QDebug>    //THIS WILL STAY TILL THE END OF REFACTOR

@@ -1,7 +1,6 @@
 #ifndef HANDOVERREPRESENTATION_H
 #define HANDOVERREPRESENTATION_H
 
-#include <QString>
 #include <QGraphicsScene>
 #include <QGraphicsObject>
 
@@ -11,6 +10,8 @@ public:
     HandoverRepresentation(QGraphicsObject *parent = 0);
 
     int type() const { return UserType; }
+    QRectF boundingRect() const Q_DECL_OVERRIDE;
+    QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
 
 protected:
@@ -20,8 +21,8 @@ protected:
 
 private:
     QString name;
-    const int width = 50;
-    const int height = 120;
+    int width = 70;
+    int height = 100;
 };
 
 #endif // HANDOVERREPRESENTATION_H

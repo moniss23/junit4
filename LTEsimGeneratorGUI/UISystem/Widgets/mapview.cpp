@@ -1,6 +1,7 @@
 #include "mapview.h"
 
-#include <UISystem/Widgets/cellrepresentation.h>
+#include "UISystem/Widgets/cellrepresentation.h"
+#include "UISystem/Widgets/handoverrepresentation.h"
 
 MapView::MapView(QWidget *parent) : QGraphicsView(parent),
     solidPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
@@ -31,6 +32,7 @@ void MapView::printNewMap()
     this->DrawAxis();
     this->DrawMapLines();
     this->DrawCellRepresentations();
+    this->DrawHandoverRepresentations();
 
     this->setScene(scene);
 }
@@ -159,4 +161,10 @@ void MapView::DrawCellRepresentations()
         //              shift for even row  + shift for columnt + start offset , - start offset - row offset
         node1->setPos( evenRow*evenOffset+ col*elementOffset +startOffset,  - startOffset       -(elementOffset*row));
     }
+}
+
+void MapView::DrawHandoverRepresentations() {
+    HandoverRepresentation *ho = new HandoverRepresentation();
+    scene->addItem(ho);
+    ho->setPos(200, -200);
 }

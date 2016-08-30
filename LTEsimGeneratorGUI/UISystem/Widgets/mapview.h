@@ -21,6 +21,7 @@ public slots:
     void loadAndOpen(const Project &project);
 
 private:
+    void DrawHandoverRepresentations();
     void DrawCellRepresentations();
     void DrawMapLines();
     void DrawAxis();

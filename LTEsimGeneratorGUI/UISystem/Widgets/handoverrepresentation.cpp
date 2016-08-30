@@ -10,14 +10,27 @@ HandoverRepresentation::HandoverRepresentation(QGraphicsObject *parent)
     setZValue(1);
 }
 
+QRectF HandoverRepresentation::boundingRect() const {
+    return QRectF(-width/2, -height/2, width, height);
+}
+
+QPainterPath HandoverRepresentation::shape() const {
+    QPainterPath path;
+    QRectF rect(-width/2, -height/2, width, height);
+
+    path.addRect(rect);
+    return path;
+}
+
 void HandoverRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
     (void) option;
     (void) widget;
 
     QRectF rect(-width/2, -height/2, width, height);
 
-    painter->drawRoundedRect(rect, 5, 5);
-    painter->fillRect(rect, QBrush(Qt::blue));
+    painter->setPen(QPen(Qt::gray, 0));
+    painter->drawRoundedRect(rect, 3, 3);
+    painter->fillRect(rect, QBrush(QColor(51, 153, 204, 180)));
 }
 
 void HandoverRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
