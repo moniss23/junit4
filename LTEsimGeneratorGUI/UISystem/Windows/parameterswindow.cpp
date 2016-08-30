@@ -12,6 +12,7 @@
 
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 #include "Maps/Traffic/map_traffic.h"
+#include "UISystem/Widgets/mapview.h"
 
 
 QStringList parametersFileContentList;
@@ -249,45 +250,5 @@ void ParametersWindow::msg(const QString &content){
 
 void ParametersWindow::on_showCellMapButton_clicked()
 {
-    const int sceneYMax = 600;
-
-    const int numberOfCols = 3;
-    const int evenOffset = 40;
-    const int startOffset = 120;
-    const int elementOffset = 160;
-
-    QGraphicsView *view = new QGraphicsView();
-    QGraphicsScene *scene = new QGraphicsScene();
-
-    // CONFIGURE VIEW
-    view->setScene(scene);
-   // view->setMinimumSize(650, 650);
-
-    // CONFIGURE SCENE
-    QPointF coordinateStart(0,590);
-    QPointF coordinateXend(0,0);
-    QPointF coordinateYend(590, 590);
-
-    QLineF line(coordinateStart,coordinateXend);
-    QLineF line2(coordinateStart,coordinateYend);
-    QPen solid(Qt::black, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
-    QPen solid2(Qt::black, 3, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin);
-
-    scene->addLine(line,solid);
-    scene->addLine(line2,solid2);
-    scene->setSceneRect(-10, -10, 600, 600);
-    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-
-    for(int i=0; i<currentProject.cells.size(); ++i) {
-        int row = i / numberOfCols;
-        int col = i % numberOfCols;
-        int evenRow = row % 2;
-
-        CellRepresentation *node = new CellRepresentation();
-        scene->addItem(node);
-        node->setPos(evenRow*evenOffset+col*elementOffset+startOffset,
-                     sceneYMax - startOffset - (elementOffset * row));
-    }
-
-    view->show();
+    emit spawnWindow_MapView(currentProject.name);
 }

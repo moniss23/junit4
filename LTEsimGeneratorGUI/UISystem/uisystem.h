@@ -14,6 +14,7 @@
 #include "UISystem/DataForms/mmeform.h"
 #include "UISystem/DataForms/channelmodelform.h"
 #include "UISystem/DataForms/ubsimform.h"
+#include "UISystem/Widgets/mapview.h"
 
 class UISystem : public QObject
 {
@@ -37,6 +38,7 @@ public slots:
     void spawnWindow_Mme(const QString& projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
+    void spawnWindow_MapView(const QString& projectName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -48,6 +50,7 @@ signals:
     void spawnWindow_Mme(const MmeSettings& mmeSettings,const PagingSettings& pagingSettings, const QString &projectName);
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings, const QString &projectName);
+    void spawnWindow_MapView(const Project &project);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -66,6 +69,7 @@ private:
     MmeForm mmeForm;
     ChannelModelForm channelModelForm;
     UBsimForm ubSimForm;
+    MapView mapView;
 };
 
 #endif // UISYSTEM_H

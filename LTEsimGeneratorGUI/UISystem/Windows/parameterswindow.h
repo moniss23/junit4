@@ -33,6 +33,8 @@ signals:
      * @param projectName name of current opened project
      */
     void spawnWindow_ParamMap(const QString &projectName);
+
+    void spawnWindow_MapView(const QString &projectName);
     /**
      * @brief spawnWindow_TrafficMap signal used to nofity system to show traffic map
      */

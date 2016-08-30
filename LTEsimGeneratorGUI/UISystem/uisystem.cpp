@@ -111,6 +111,10 @@ void UISystem::bindingObjects()
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
 
+    //Open MapView
+    QObject::connect(this, SIGNAL(spawnWindow_MapView(Project)), &mapView, SLOT(loadAndOpen(Project)));
+    QObject::connect(&paramWindow, SIGNAL(spawnWindow_MapView(QString)), this, SLOT(spawnWindow_MapView(QString)));
+
     //Generating scripts
     QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project)), dataSystem, SLOT(generateParametersScript(Project)));
     QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
@@ -232,6 +236,16 @@ void UISystem::spawnWindow_UBSim(const QString &projectName) {
         return;
     }
     emit spawnWindow_UBSim(project->ubSimSettings, project->name);
+    return;
+}
+
+void UISystem::spawnWindow_MapView(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project.");
+        return;
+    }
+    emit spawnWindow_MapView(*project);
     return;
 }
 

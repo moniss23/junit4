@@ -2,6 +2,9 @@
 #define MAPVIEW_H
 
 #include <QGraphicsView>
+#include <QGraphicsScene>
+
+#include <Data/project.h>
 
 class MapView : public QGraphicsView
 {
@@ -9,33 +12,31 @@ class MapView : public QGraphicsView
 public:
     explicit MapView(QWidget *parent = 0);
 
-
     void resizeEvent(QResizeEvent* event);
 
- //   void setXYaxisPosition();
- //   void printNewMap();
-
-
-signals:
+    void printNewMap();
 
 public slots:
 
+    void loadAndOpen(const Project &project);
+
 private:
-    QPointF coordinateStart;
-    QPointF coordinateXend;
-    QPointF coordinateYend;
-    QPointF start, end, start2, end2, endText;
-    QLineF line;
-    QLineF line2;
-//    QPen solid;
-//    QPen solid2;
-//    QPen dot;
-    const int maxX = 37000;
-    const int maxY = 28000;
+    void DrawCellRepresentations();
+    void DrawMapLines();
+    void DrawAxis();
+
+private:
+    QGraphicsScene *scene;
+    QLineF x_AxisLine;
+    QLineF y_AxisLine;
+    QPointF gridLineStart, gridLineEnd, tickMarkStart, tickMarkEnd, textPoint;
+    QPen solidPen;
+    QPen solid2;
+    QPen dotPen;
+    int maxX = 26000;
+    int maxY = 37000;
+
+    Project project;
 };
-
-
-
-
 
 #endif // MAPVIEW_H
