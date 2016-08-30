@@ -21,6 +21,9 @@ public:
     explicit ChannelModelForm(QWidget *parent = 0);
     ~ChannelModelForm();
 
+    /***********************************************
+     *  WINDOW PUBLIC API
+     ***********************************************/
 public slots:
     /**
      * @brief loadAndOpen is used to load data and show window.
@@ -37,11 +40,17 @@ signals:
      */
     void updateChannelModelSettings(const ChannelModelSettings &channelModelSettings, const QString &projectName);
 
+    /***********************************************
+     *  BINDINGS TO UI BUTTONS AND LISTS
+     ***********************************************/
 private slots:
     void on_buttonBox_accepted();
     void on_buttonBox_rejected();
     void on_restoreDefaults_clicked();
 
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
 private:
     /**
      * @brief setParameters is used to set ui fields from channelModelSettings data

@@ -9,7 +9,9 @@
 namespace Ui {
 class UCtoolForm;
 }
-
+/**
+ *  UCtoolForm class is responsible for showing and managing UCToolSettings data.
+ */
 class UCtoolForm : public QWidget
 {
     Q_OBJECT

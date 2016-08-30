@@ -8,7 +8,9 @@
 namespace Ui {
 class ipexForm;
 }
-
+/**
+ *  IpexForm class is responsible for showing and managing IpexSettings data.
+ */
 class IpexForm : public QWidget
 {
     Q_OBJECT
