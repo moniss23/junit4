@@ -2,7 +2,6 @@
 #include "ui_ubsimform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
-extern MapWindow *map_w;
 UBsimForm::UBsimForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::UBsimForm)

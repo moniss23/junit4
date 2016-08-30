@@ -2,8 +2,6 @@
 #include "ui_mmeform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
-extern MapWindow* map_w;
-
 MmeForm::MmeForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MmeForm)

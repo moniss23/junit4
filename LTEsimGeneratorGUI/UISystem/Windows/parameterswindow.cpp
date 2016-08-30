@@ -2,20 +2,19 @@
 #include "ui_parameterswindow.h"
 
 #include <QMessageBox>
-#include <QFile>
-#include <QFileDialog>
 #include <QStringList>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QListWidgetItem>
 
-#include <UISystem/Helpers/rubysyntaxhighlighter.h>
-#include <Maps/Parameters/MapWindow/mapwindow.h>
-#include <Maps/Traffic/map_traffic.h>
+#include "UISystem/Helpers/rubysyntaxhighlighter.h"
 #include "UISystem/Widgets/cellrepresentation.h"
 
+#include "Maps/Parameters/MapWindow/mapwindow.h"
+#include "Maps/Traffic/map_traffic.h"
+
+
 QStringList parametersFileContentList;
-extern Map_traffic* map_t;
 #include <QDebug>    //THIS WILL STAY TILL THE END OF REFACTOR
 
 ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
@@ -178,12 +177,16 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 {
     (void) item;
 
+    //TODO: change how Map_traffic is spawned
+
+
     if(this->ui->projectsList->currentRow()==0) {
         // parameters file double-clicked
         // create a new map object and display it
         emit spawnWindow_ParamMap(currentProject.name);
     }
     else {
+        Map_traffic* map_t;
         map_t = new Map_traffic();
         map_t->show();
     }

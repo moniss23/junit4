@@ -1,7 +1,7 @@
 #include "maprangeform.h"
 #include "ui_maprangeform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
-extern MapWindow *map_w;
+
 MapRangeForm::MapRangeForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MapRangeForm)
@@ -39,8 +39,6 @@ void MapRangeForm::on_buttonBox_accepted()
     mapRange->setNorthBoundMap(ui->tet_northBoundMap->value());
     mapRange->setSouthBoundMap(ui->tet_southBoundMap->value());
     mapRange->setWestBoundMap(ui->tet_westBoundMap->value());
-    map_w->changeMapRange_x_northBoundMap();
-    map_w->changeMapRange_y_northBoundMap();
     this->close();
 }
 
@@ -52,13 +50,11 @@ void MapRangeForm::on_buttonBox_rejected()
 void MapRangeForm::on_tet_northBoundMap_valueChanged(double arg1)
 {
     mapRange->setNorthBoundMap(arg1);
-    map_w->changeMapRange_x_northBoundMap();
 }
 
 void MapRangeForm::on_tet_eastBoundMap_valueChanged(double arg1)
 {
     mapRange->setEastBoundMap(arg1);
-    map_w->changeMapRange_y_northBoundMap();
 }
 
 

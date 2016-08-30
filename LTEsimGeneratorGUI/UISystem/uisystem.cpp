@@ -2,8 +2,6 @@
 #include <QMessageBox>
 #include "Maps/Parameters/MapWindow/mapwindow.h"
 
-extern MapWindow* map_w;
-
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
     paramWindow(dataSystem)
@@ -184,6 +182,7 @@ void UISystem::spawnWindow_Mme(const QString &projectName){
 
 void UISystem::spawnWindow_ParamMap(const QString &projectName)
 {
+    MapWindow* map_w          = NULL;
     auto project = findProjectByName(projectName);
 
     if(project == nullptr) {
