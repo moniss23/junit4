@@ -28,9 +28,10 @@ void ScriptParserManagerTest::scriptParserManagerTest1_getDataGeneratorSettingsF
                                   "default[:ipgwtg_ipAddress] = \"10.10.0.1\"         # IP address of the interface that can reach the PGW\n"
                                   "default[:ipgwtg_inband_signaling] = false\n"
                                   "default[:ipgwtg_port] = 32000\n"
-                                  "default[:ipgwtg_ftp_sender_connect_put] = true\n";
+                                  "default[:ipgwtg_ftp_sender_connect_put] = true\n"
+                                  "end";
 
-    dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(scriptContent);
+    dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(0,scriptContent.split("\n"));
 
     if(dataGeneratorSettings.dataGenerator != "ipgwtg") QVERIFY(false);
     else if(dataGeneratorSettings.startIspSimulator != true) QVERIFY(false);
@@ -56,11 +57,12 @@ void ScriptParserManagerTest::scriptParserManagerTest2_getDataGeneratorSettingsF
                                   "ipex.isp.qci5.port    = 31050\n\"\n"
                                   "default[:start_isp_simulator] = true\n"
                                   "default[:ipgwtg_ip] = \"10.10.0.1\"         # IP address of the interface that can reach the PGW\n"
-                                  "default[:ipgwtg_inband_signal] = false\n"
+                                  "default[:ipgwtg_inband_signaling] = true\n"
                                   "default[:ipgwtg_port] = 64000\n"
-                                  "default[:ipgwtg_ftp_sender_connect_put] = false\n";
+                                  "default[:ipgwtg_ftp_sender_connect_put] = false\n"
+                                  "end";
 
-    dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(scriptContent);
+    dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(0,scriptContent.split("\n"));
 
     if(dataGeneratorSettings.dataGenerator == "ipgwtg") QVERIFY(false);
     else if(dataGeneratorSettings.startIspSimulator == false) QVERIFY(false);
@@ -82,8 +84,9 @@ void ScriptParserManagerTest::scriptParserManagerTest3_getSgwSettingsFromScript(
                                   "default[:sgw_ipAddresses] = [\"127.255.255.1\"]\n"
                                   "default[:apn_lists] = [\"ltesim-core-network,172.17.0.1/16;\"]\n"
                                   "default[:sgw_LDIs] = [\"30\"]\n"
-                                  "default[:core_network_gateway] = false\n";
-    sgwSettings = scriptParserManager.getSgwSettings(scriptContent);
+                                  "default[:core_network_gateway] = false\n"
+                                  "end";
+    sgwSettings = scriptParserManager.getSgwSettings(0,scriptContent.split("\n"));
     if (sgwSettings.name != "sgw224") QVERIFY(false);
     else if (sgwSettings.ipAdress != "127.255.255.1") QVERIFY(false);
     else if (sgwSettings.ldi != 30) QVERIFY(false);
@@ -111,8 +114,9 @@ void ScriptParserManagerTest::scriptParserManagerTest4_getSgwSettingsFromScript(
                                   "default[:sgw_ipAddresses] = [\"127.256.255.1\"\n"
                                   "default[:apn_lissssts] = [\"ltesim-core-network,172.17.277.1/16;\"]\n"
                                   "default[:sgw_LDIs] = [\"30-2\"]\n"
-                                  "default[:core_network_gateway] = true\n";
-    sgwSettings = scriptParserManager.getSgwSettings(scriptContent);
+                                  "default[:core_network_gateway] = true\n"
+                                  "end";
+    sgwSettings = scriptParserManager.getSgwSettings(0,scriptContent.split("\n"));
     if (sgwSettings.name == "sgw224") QVERIFY(false);
     else if (sgwSettings.ipAdress == "127.255.255.1") QVERIFY(false);
     else if (sgwSettings.ldi == 30) QVERIFY(false);
@@ -154,9 +158,10 @@ void ScriptParserManagerTest::scriptParserManagerTest5_getChannelModelSettingsFr
                                 default[:dl_pathloss_max_pathloss] = 20.0\n\
                                 default[:dl_pathloss_time_min_to_max] = 1000\n\
                                 default[:dl_pathloss_distribute_ues] = true\n\
-                                default[:pathloss_based_feedback_sinr_threshold] = 1.0\n";
+                                default[:pathloss_based_feedback_sinr_threshold] = 1.0\n\
+                                end";
 
-    channelModelSettings = scriptParserManager.getChannelModelSettingsFromScript(scriptContent);
+    channelModelSettings = scriptParserManager.getChannelModelSettingsFromScript(0,scriptContent.split("\n"));
 
     if(channelModelSettings.model_set_name != "default_error_set") QVERIFY(false);
     if(channelModelSettings.pdcch_drop_dl_assignment_rate != 1.0) QVERIFY(false);
@@ -191,8 +196,9 @@ void ScriptParserManagerTest::scriptParserManagerTest6_getMmeSettingsFromScript(
         "default[:mme_tais] = [\"62F2281200\"]\n"
         "default[:mmes] = 1\n"
         "default[:mme_s1ap_uris] = [\"sctp://127.0.0.1:36412\"]\n"
-        "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter\"\n";
-    mmeSettings = scriptParserManager.getMmeSettings(scriptContent);
+        "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter\"\n"
+        "end";
+    mmeSettings = scriptParserManager.getMmeSettings(0,scriptContent.split("\n"));
     if (mmeSettings.name != "mme1")                     QVERIFY(false);
     if (mmeSettings.tais != "62F2281200")               QVERIFY(false);
     if (mmeSettings.uris != "sctp://127.0.0.1:36412")   QVERIFY(false);
@@ -213,8 +219,9 @@ void ScriptParserManagerTest::scriptParserManagerTest7_getMmeSettingsFromScript(
         "default[:mme_tais] = [\"[62F2281200]\"]\n"
         "default[:mmes] = avs\n"
         "default[:mme_s1ap_uris] = [\"sctps://127.0.0.1:36412\"]\n"
-        "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter/\"\n";
-    mmeSettings = scriptParserManager.getMmeSettings(scriptContent);
+        "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter/\"\n"
+        "end";
+    mmeSettings = scriptParserManager.getMmeSettings(0,scriptContent.split("\n"));
     if (mmeSettings.name == "mme1")                     QVERIFY(false);
     if (mmeSettings.tais == "62F2281200")               QVERIFY(false);
     if (mmeSettings.uris == "sctp://127.0.0.1:36412")   QVERIFY(false);
@@ -234,8 +241,9 @@ void ScriptParserManagerTest::scriptParserManagerTest8_getPagingSettingsFromScri
         "default[:paging_generator_names] = [\"pagings1\", \"pagings2\", \"pagings3\"]\n"
         "default[:imsi_ranges] = [\"100000+100\", \"200000+100\", \"300000+100\"]\n"
         "default[:ue_paging_identity] = \"IMSI\"\n"
-        "default[:paging_s1ap_uris] = [\"sctp://127.0.1.1:36412\", \"sctp://127.0.1.2:36412\", \"sctp://127.0.1.3:36412\"]";
-    pagingSettings = scriptParserManager.getPaggingSettings(scriptContent);
+        "default[:paging_s1ap_uris] = [\"sctp://127.0.1.1:36412\", \"sctp://127.0.1.2:36412\", \"sctp://127.0.1.3:36412\"]\n"
+        "end";
+    pagingSettings = scriptParserManager.getPagingSettings(0,scriptContent.split("\n"));
     if (pagingSettings.generators != 3)                                         QVERIFY(false);
     else if (pagingSettings.names[0] != "pagings1")                             QVERIFY(false);
     else if (pagingSettings.names[1] != "pagings2")                             QVERIFY(false);
@@ -261,8 +269,9 @@ void ScriptParserManagerTest::scriptParserManagerTest9_getPagingSettingsFromScri
         "default[:paging_generator_names] = [\"pagings1\", \"paings2\", \"pagings 3\"]\n"
         "default[:imsi_ranges] = [\"100000+100\", \"200000+100\", \"300000+100\"]\n"
         "default[:ue_paging_identity] = \"IMSI\"\n"
-        "default[:paging_s1ap_uris] = [\"sctp://127.0.1.1.36412\", \"sctp://127.0.1.2 : 36412\", \"sctp://127.0.1.3\"]";
-    pagingSettings = scriptParserManager.getPaggingSettings(scriptContent);
+        "default[:paging_s1ap_uris] = [\"sctp://127.0.1.1.36412\", \"sctp://127.0.1.2 : 36412\", \"sctp://127.0.1.3\"]\n"
+        "end";
+    pagingSettings = scriptParserManager.getPagingSettings(0,scriptContent.split("\n"));
     if (pagingSettings.generators == 3)                                         QVERIFY(false);
     else if (pagingSettings.names[0] == "pagings")                              QVERIFY(false);
     else if (pagingSettings.names[1] == "pagings2")                             QVERIFY(false);
@@ -277,3 +286,4 @@ void ScriptParserManagerTest::scriptParserManagerTest9_getPagingSettingsFromScri
 
     QVERIFY(true);
 }
+

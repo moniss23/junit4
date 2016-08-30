@@ -20,24 +20,62 @@ QString ScriptParserManager::findRegexInText(QString pattern, const QString &tex
 
     return QString();
 }
+void ScriptParserManager::parseFromScript(const QString &scriptContent, Project &project){
 
-QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &rbContent) {
+    QStringList scriptContentLines = scriptContent.split("\n");
+
+    QString cellStartPattern(":cell => \"(.*)\",");
+    QString centerStartPattern(":area => \"Center(.*)\",");
+    QString handoverStartPattern(":area => \"Handover(.*)\",");
+
+    for (int i=0;i<scriptContentLines.size();i++){
+        if(scriptContentLines[i].contains("default[:model_set_name]")) {
+            project.channelModelSettings = getChannelModelSettingsFromScript(i,scriptContentLines);
+        }
+        else if (scriptContentLines[i].contains("default[:mme_names] =")){
+            project.mmeSettings = getMmeSettings(i,scriptContentLines);
+        }
+        else if(QRegExp(cellStartPattern).indexIn(scriptContentLines[i]) >= 0) {
+            project.cells = getCellsFromScript(i,scriptContentLines);
+        }
+        else if(QRegExp(centerStartPattern).indexIn(scriptContentLines[i]) >= 0) {
+            project.centers = getCentersFromScript(i,scriptContentLines);
+        }
+        else if(QRegExp(handoverStartPattern).indexIn(scriptContentLines[i]) >= 0) {
+            project.handovers = getHandoversFromScript(i,scriptContentLines);
+        }
+        else if(scriptContentLines[i].contains("default[:dataGenerator]")) {
+            project.dataGeneratorSettings = getDataGeneratorSettingsFromScript(i,scriptContentLines);
+        }
+        else if(scriptContentLines[i].contains("default[:sgw_names]")) {
+            project.sgwSettings = getSgwSettings(i,scriptContentLines);
+        }
+        else if(scriptContentLines[i].contains("default[:uctool_ip]")) {
+            project.ucToolSettings = getUCToolSettingsFromScript(i,scriptContentLines);
+        }
+        else if (scriptContentLines[i].contains("[:generate_pagings]")){
+            project.pagingSettings = getPagingSettings(i,scriptContentLines);
+        }
+    }
+}
+
+QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList scriptContent) {
+
     QVector<Cell> cells;
-    QStringList rbLines = rbContent.split('\n');
 
-    for(int i=0; i<rbLines.size(); ++i) {
-        QString startPattern(":cell => \"(.*)\",");
-        if(QRegExp(startPattern).indexIn(rbLines[i]) >= 0) {
+    QString cellStartPattern(":cell => \"(.*)\",");
+    while (!scriptContent[i].contains("end")){
+        if(QRegExp(cellStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> cellParams = {
-                findRegexInText(startPattern, rbLines[i], 1),
-                findRegexInText(":site => \"(.*)\"[,]", rbLines[i+1], 1),
-                findRegexInText(":pci => (.*)[,]", rbLines[i+2], 1),
-                findRegexInText(":position_X => (.*)[,]", rbLines[i+3], 1),
-                findRegexInText(":position_Y => (.*)[,]", rbLines[i+4], 1),
-                findRegexInText(":earfcnDl => (.*)[,]", rbLines[i+5], 1),
-                findRegexInText(":transmitPower => (.*)([,}]|$)", rbLines[i+6], 1),
-                findRegexInText(":ulNoiseAndInterference => (.*)([,}]|$)", rbLines[i+7], 1)
+                findRegexInText(cellStartPattern, scriptContent[i], 1),
+                findRegexInText(":site => \"(.*)\"[,]", scriptContent[i+1], 1),
+                findRegexInText(":pci => (.*)[,]", scriptContent[i+2], 1),
+                findRegexInText(":position_X => (.*)[,]", scriptContent[i+3], 1),
+                findRegexInText(":position_Y => (.*)[,]", scriptContent[i+4], 1),
+                findRegexInText(":earfcnDl => (.*)[,]", scriptContent[i+5], 1),
+                findRegexInText(":transmitPower => (.*)([,}]|$)", scriptContent[i+6], 1),
+                findRegexInText(":ulNoiseAndInterference => (.*)([,}]|$)", scriptContent[i+7], 1)
             };
 
             Cell cell;
@@ -50,26 +88,29 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(const QString &rbContent) 
             cell.setTransmitPower(cellParams[6]);
             cell.setUlNoiseAndInterference(cellParams[7]);
             cells.append(cell);
+            i+=8;
         }
+        else i++;
     }
 
     return cells;
 }
 
-QVector<Center> ScriptParserManager::getCentersFromScript(const QString &rbContent) {
-    QVector<Center> centers;
-    QStringList rbLines = rbContent.split('\n');
+QVector<Center> ScriptParserManager::getCentersFromScript(int i,const QStringList scriptContent) {
 
-    for(int i=0; i<rbLines.size(); ++i) {
+    QVector<Center> centers;
+
+    QString centerStartPattern(":area => \"Center(.*)\",");
+    while (!scriptContent.contains("end")) {
         QString startPattern(":area => \"Center(.*)\",");
-        if(QRegExp(startPattern).indexIn(rbLines[i]) >= 0) {
+        if(QRegExp(centerStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> centerParams = {
-                findRegexInText(startPattern, rbLines[i], 1),
-                findRegexInText(":southBoundary => (.*)([,}]|$)", rbLines[i+1], 1),
-                findRegexInText(":northBoundary => (.*)([,}]|$)", rbLines[i+2], 1),
-                findRegexInText(":westBoundary => (.*)([,}]|$)", rbLines[i+3], 1),
-                findRegexInText(":eastBoundary => (.*)([,}]|$)", rbLines[i+4], 1)
+                findRegexInText(startPattern, scriptContent[i], 1),
+                findRegexInText(":southBoundary => (.*)([,}]|$)", scriptContent[i+1], 1),
+                findRegexInText(":northBoundary => (.*)([,}]|$)", scriptContent[i+2], 1),
+                findRegexInText(":westBoundary => (.*)([,}]|$)", scriptContent[i+3], 1),
+                findRegexInText(":eastBoundary => (.*)([,}]|$)", scriptContent[i+4], 1)
             };
 
             Center center;
@@ -79,26 +120,28 @@ QVector<Center> ScriptParserManager::getCentersFromScript(const QString &rbConte
             center.setWestBoundary(centerParams[3]);
             center.setEastBoundary(centerParams[4]);
             centers.append(center);
+            i+=5;
         }
+        else i++;
     }
 
     return centers;
 }
 
-QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &rbContent) {
-    QVector<Handover> handovers;
-    QStringList rbLines = rbContent.split('\n');
+QVector<Handover> ScriptParserManager::getHandoversFromScript(int i, const QStringList scriptContent) {
 
-    for(int i=0; i<rbLines.size(); ++i) {
-        QString startPattern(":area => \"Handover(.*)\",");
-        if(QRegExp(startPattern).indexIn(rbLines[i]) >= 0) {
+    QVector<Handover> handovers;
+
+    QString handoverStartPattern(":area => \"Handover(.*)\",");
+    while (!scriptContent[i].contains("end")){
+        if(QRegExp(handoverStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> handoverParams = {
-                findRegexInText(startPattern, rbLines[i], 1),
-                findRegexInText(":southBoundary => (.*)([,}]|$)", rbLines[i+1], 1),
-                findRegexInText(":northBoundary => (.*)([,}]|$)", rbLines[i+2], 1),
-                findRegexInText(":westBoundary => (.*)([,}]|$)", rbLines[i+3], 1),
-                findRegexInText(":eastBoundary => (.*)([,}]|$)", rbLines[i+4], 1)
+                findRegexInText(handoverStartPattern, scriptContent[i], 1),
+                findRegexInText(":southBoundary => (.*)([,}]|$)", scriptContent[i+1], 1),
+                findRegexInText(":northBoundary => (.*)([,}]|$)", scriptContent[i+2], 1),
+                findRegexInText(":westBoundary => (.*)([,}]|$)", scriptContent[i+3], 1),
+                findRegexInText(":eastBoundary => (.*)([,}]|$)", scriptContent[i+4], 1)
             };
 
            Handover handover;
@@ -108,21 +151,22 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(const QString &rbC
             handover.setWestBoundary(handoverParams[3]);
             handover.setEastBoundary(handoverParams[4]);
             handovers.append(handover);
+            i+=5;
         }
+        else i++;
     }
 
     return handovers;
 }
 
-DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(const QString &scriptContent)
+DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(int i, QStringList scriptContentLines)
 {
     DataGeneratorSettings dataGeneratorSettings;
-    QStringList scriptContentLines = scriptContent.split("\n");
 
     int startIndex, endIndex;
     QString value;
 
-    for(int i=0; i<scriptContentLines.size(); ++i) {
+    while (!(QRegExp("^end").indexIn(scriptContentLines[i])>-1)){
         if(scriptContentLines[i].contains("default[:dataGenerator]")) {
             if(scriptContentLines[i].contains("#")) {
                 startIndex = scriptContentLines[i].indexOf("#");
@@ -158,7 +202,7 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
             }
             if(scriptContentLines[i].contains("true")) {
                 dataGeneratorSettings.startIspSimulator = true;
-            } else {
+            } else if (scriptContentLines[i].contains("false")) {
                 dataGeneratorSettings.startIspSimulator = false;
             }
         }
@@ -180,7 +224,7 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
             }
             if(scriptContentLines[i].contains("true")) {
                 dataGeneratorSettings.ipgwtgInbandSignaling = true;
-            } else {
+            } else if (scriptContentLines[i].contains("false")) {
                 dataGeneratorSettings.ipgwtgInbandSignaling = false;
             }
         }
@@ -205,14 +249,16 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
                 dataGeneratorSettings.ipgwtgFtpSenderConnectPut = false;
             }
         }
+        i++;
     }
     return dataGeneratorSettings;
 }
-SgwSettings ScriptParserManager::getSgwSettings(const QString &scriptContent){
+SgwSettings ScriptParserManager::getSgwSettings(int i,const QStringList scriptContentLines){
+
     SgwSettings sgwSettings;
+
     int len;
-    QStringList scriptContentLines = scriptContent.split('\n');
-    for(int i=0; i<scriptContentLines.size(); ++i) {
+    while (!scriptContentLines[i].contains("end")) {
         if(scriptContentLines[i].contains("default[:sgw_names]")) {
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             sgwSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
@@ -241,19 +287,19 @@ SgwSettings ScriptParserManager::getSgwSettings(const QString &scriptContent){
                 sgwSettings.coreNetworkGateway=true;
             }
         }
+        i++;
     }
     return sgwSettings;
 }
 
-UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(const QString &scriptContent)
+UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(int i, QStringList scriptContentLines)
 {
     UCToolSettings ucToolSettings;
-    QStringList scriptContentLines = scriptContent.split("\n");
 
     int startIndex, endIndex;
     QString value;
 
-    for(int i=0; i<scriptContentLines.size(); ++i) {
+    while (!scriptContentLines[i].contains ("end") ) {
         if(scriptContentLines[i].contains("default[:uctool_ip]")) {
             if(scriptContentLines[i].contains("#")) {
                 startIndex = scriptContentLines[i].indexOf("#");
@@ -287,102 +333,105 @@ UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(const QString &s
         value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
         ucToolSettings.ucToolServiceIp = value;
         }
+        i++;
     }
     return ucToolSettings;
 }
 
-ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(const QString &rbContent) {
-    ChannelModelSettings settings;
-    QStringList rbLines = rbContent.split('\n');
+ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(int i,const QStringList content) {
 
-    for(int i=0; i<rbLines.size(); ++i) {
-        if(QRegExp("\\[:model_set_name\\] = \"(.*)\"$").indexIn(rbLines[i]) >= 0) {
-            settings.model_set_name = findRegexInText("\\[:model_set_name\\] = \"(.*)\"$", rbLines[i], 1);
+    ChannelModelSettings settings;
+
+    while (!content[i].contains("end")){
+        if(QRegExp("\\[:model_set_name\\] = \"(.*)\"$").indexIn(content[i]) >= 0) {
+            settings.model_set_name = findRegexInText("\\[:model_set_name\\] = \"(.*)\"$", content[i], 1);
         }
-        else if(QRegExp("\\[:pdcch_drop_dl_assignment_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:pdcch_drop_dl_assignment_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.pdcch_drop_dl_assignment_rate =  findRegexInText(
-                        "\\[:pdcch_drop_dl_assignment_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:pdcch_drop_dl_assignment_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:pdcch_drop_grant_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:pdcch_drop_grant_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.pdcch_drop_grant_rate = findRegexInText(
-                        "\\[:pdcch_drop_grant_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:pdcch_drop_grant_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:pdsch_transport_block_decoded_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:pdsch_transport_block_decoded_error_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.pdsch_transport_block_decoded_error_rate =  findRegexInText(
-                        "\\[:pdsch_transport_block_decoded_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:pdsch_transport_block_decoded_error_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:phich_nack_to_ack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:phich_nack_to_ack_error_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.phich_nack_to_ack_error_rate =  findRegexInText(
-                        "\\[:phich_nack_to_ack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:phich_nack_to_ack_error_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:phich_drop_harq_feedback_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:phich_drop_harq_feedback_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.phich_drop_harq_feedback_rate =  findRegexInText(
-                        "\\[:phich_drop_harq_feedback_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:phich_drop_harq_feedback_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:pusch_transport_block_decoded_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:pusch_transport_block_decoded_error_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.pusch_transport_block_decoded_error_rate =  findRegexInText(
-                        "\\[:pusch_transport_block_decoded_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:pusch_transport_block_decoded_error_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:pusch_drop_transport_block_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:pusch_drop_transport_block_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.pusch_drop_transport_block_rate = findRegexInText(
-                        "\\[:pusch_drop_transport_block_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:pusch_drop_transport_block_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:puxch_nack_to_ack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:puxch_nack_to_ack_error_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.puxch_nack_to_ack_error_rate = findRegexInText(
-                        "\\[:puxch_nack_to_ack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:puxch_nack_to_ack_error_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:puxch_dtx_to_ack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:puxch_dtx_to_ack_error_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.puxch_dtx_to_ack_error_rate =  findRegexInText(
-                        "\\[:puxch_dtx_to_ack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:puxch_dtx_to_ack_error_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:puxch_ack_to_nack_error_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:puxch_ack_to_nack_error_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.puxch_ack_to_nack_error_rate =  findRegexInText(
-                        "\\[:puxch_ack_to_nack_error_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:puxch_ack_to_nack_error_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:puxch_drop_scheduling_request_rate\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:puxch_drop_scheduling_request_rate\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.puxch_drop_scheduling_request_rate = findRegexInText(
-                        "\\[:puxch_drop_scheduling_request_rate\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:puxch_drop_scheduling_request_rate\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:dlni_noise\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:dlni_noise\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.dlni_noise =  findRegexInText(
-                        "\\[:dlni_noise\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:dlni_noise\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:dlni_interference\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:dlni_interference\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.dlni_interference =  findRegexInText(
-                        "\\[:dlni_interference\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:dlni_interference\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:dl_pathloss_min_pathloss\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:dl_pathloss_min_pathloss\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.dl_pathloss_min_pathloss = findRegexInText(
-                        "\\[:dl_pathloss_min_pathloss\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:dl_pathloss_min_pathloss\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:dl_pathloss_max_pathloss\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:dl_pathloss_max_pathloss\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.dl_pathloss_max_pathloss = findRegexInText(
-                        "\\[:dl_pathloss_max_pathloss\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:dl_pathloss_max_pathloss\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:dl_pathloss_time_min_to_max\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:dl_pathloss_time_min_to_max\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.dl_pathloss_time_min_to_max =  findRegexInText(
-                        "\\[:dl_pathloss_time_min_to_max\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:dl_pathloss_time_min_to_max\\] = (.*)$", content[i], 1).toDouble();
         }
-        else if(QRegExp("\\[:dl_pathloss_distribute_ues\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:dl_pathloss_distribute_ues\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.dl_pathloss_distribute_ues = findRegexInText(
-                        "\\[:dl_pathloss_distribute_ues\\] = (.*)$", rbLines[i], 1) == "true" ?
+                        "\\[:dl_pathloss_distribute_ues\\] = (.*)$", content[i], 1) == "true" ?
                         true : false;
         }
-        else if(QRegExp("\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$").indexIn(rbLines[i]) >= 0) {
+        else if(QRegExp("\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$").indexIn(content[i]) >= 0) {
             settings.pathloss_based_feedback_sinr_threshold =  findRegexInText(
-                        "\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$", rbLines[i], 1).toDouble();
+                        "\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$", content[i], 1).toDouble();
         }
+
+        i++;
     }
 
     return settings;
-}
-MmeSettings ScriptParserManager::getMmeSettings(const QString &scriptContent){
-    MmeSettings mmeSettings;
-    int len;
-    int startIndex;
 
-    QStringList scriptContentLines = scriptContent.split('\n');
-    for (int i=0; i<scriptContentLines.size();i++){
+}
+MmeSettings ScriptParserManager::getMmeSettings(int i, QStringList scriptContentLines){
+
+    MmeSettings mmeSettings;
+
+    int len, startIndex;
+    while (!scriptContentLines[i].contains("end")){
         if (scriptContentLines[i].contains("default[:mme_names] =")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             mmeSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
@@ -426,18 +475,18 @@ MmeSettings ScriptParserManager::getMmeSettings(const QString &scriptContent){
                 mmeSettings.pluginFilterPath = pluginRegExp.capturedTexts()[0].mid(1,pluginRegExp.capturedTexts()[0].length()-2);
             }
         }
-
+        i++;
     }
 
     return mmeSettings;
 }
-PagingSettings ScriptParserManager::getPaggingSettings(const QString &scriptContent){
-    PagingSettings pagingSettings;
-    int len;
-    int startIndex;
+PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptContentLines){
 
-    QStringList scriptContentLines = scriptContent.split('\n');
-    for (int i=0; i<scriptContentLines.size();i++){
+    PagingSettings pagingSettings;
+
+    int startIndex,len;
+
+    while (!scriptContentLines[i].contains("end")){
         if (scriptContentLines[i].contains("[:generate_pagings]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="false"){
@@ -510,6 +559,7 @@ PagingSettings ScriptParserManager::getPaggingSettings(const QString &scriptCont
                 pagingSettings.bundlePaging = false;
             }
         }
+        i++;
 
     }
     return pagingSettings;

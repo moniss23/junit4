@@ -8,7 +8,7 @@ StatisticsData::StatisticsData() {
     }
 }
 
-StatisticsData::StatisticsData(StatisticsData& statisticsData){
+StatisticsData::StatisticsData(const StatisticsData& statisticsData){
     this->statisticsMap.clear();
     for (auto name: StatisticsData::namesList) {
         auto tuple = std::make_tuple (name,statisticsData.getStatMapFor(name));
@@ -21,7 +21,7 @@ StatisticsData& StatisticsData::operator =(const StatisticsData& rhc) {
     return *this;
 }
 
-bool StatisticsData::getStatMapFor(QString key) {
+bool StatisticsData::getStatMapFor(QString key) const {
     auto value = this->statisticsMap.at(StatisticsData::namesList.indexOf(QRegExp(key)));
     return std::get<1>(value);
 }

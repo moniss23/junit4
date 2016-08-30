@@ -4,6 +4,7 @@
 #include <QString>
 
 #include <Data/Interfaces/serializeinterface.h>
+#include "Maps/Traffic/Statistics/statisticsData.h"
 
 class TrafficFileData : public SerializeInterface
 {

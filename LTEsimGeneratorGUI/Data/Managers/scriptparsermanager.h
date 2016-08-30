@@ -14,24 +14,25 @@
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/mmesettings.h"
 #include "Data/ProjectSettings/pagingsettings.h"
+#include "Data/project.h"
 
 class ScriptParserManager
 {
 public:
     ScriptParserManager();
     ~ScriptParserManager();
+    void parseFromScript(const QString &scriptContent, Project &project);
 
-    QVector<Cell> getCellsFromScript(const QString &rbContent);
-    QVector<Center> getCentersFromScript(const QString &rbContent);
-    QVector<Handover> getHandoversFromScript(const QString &rbContent);
+    QVector<Cell> getCellsFromScript(int i, const QStringList scriptContent);
+    QVector<Center> getCentersFromScript(int i,const QStringList scriptContent);
+    QVector<Handover> getHandoversFromScript(int i, const QStringList scriptContent);
 
-
-    SgwSettings getSgwSettings(const QString &scriptContent);
-    UCToolSettings getUCToolSettingsFromScript(const QString &scriptContent);
-    ChannelModelSettings getChannelModelSettingsFromScript(const QString &rbContent);
-    DataGeneratorSettings getDataGeneratorSettingsFromScript(const QString &scriptContent);
-    MmeSettings getMmeSettings(const QString &scriptContent);
-    PagingSettings getPaggingSettings(const QString &scriptContent);
+    SgwSettings getSgwSettings(int i, const QStringList scriptContentLines);
+    UCToolSettings getUCToolSettingsFromScript(int i, QStringList scriptContent);
+    ChannelModelSettings getChannelModelSettingsFromScript(int i, const QStringList content);
+    DataGeneratorSettings getDataGeneratorSettingsFromScript(int i, QStringList scriptContentLines);
+    MmeSettings getMmeSettings(int i, QStringList scriptContentLines);
+    PagingSettings getPagingSettings(int i, QStringList scriptContentLines);
 
 private:
     QString findRegexInText(QString pattern, const QString &text, int pos);

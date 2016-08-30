@@ -10,7 +10,7 @@ class StatisticsData
 {
 public:
     StatisticsData();
-    StatisticsData(StatisticsData& statisticsData);
+    StatisticsData(const StatisticsData& statisticsData);
 
     /**
      * @brief operator = is used to copy StatisticsData to a local object
@@ -22,7 +22,7 @@ public:
      * @brief getStatMapFor returns bool type value
      * @param key is a "key" in statisticsMap
      */
-    bool getStatMapFor(QString key);
+    bool getStatMapFor(QString key) const;
     /**
      * @brief setStatMapFor sets new value in statisticsMap
      * @param key is a "key" in statisticsMap

@@ -179,16 +179,8 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
 
     QString rbContent = newProject.parametersFile.content;
 
-    newProject.cells = scriptParserManager.getCellsFromScript(rbContent);
-    newProject.centers = scriptParserManager.getCentersFromScript(rbContent);
-    newProject.handovers = scriptParserManager.getHandoversFromScript(rbContent);
+    scriptParserManager.parseFromScript(rbContent,newProject);
 
-    newProject.sgwSettings = scriptParserManager.getSgwSettings(rbContent);
-    newProject.ucToolSettings = scriptParserManager.getUCToolSettingsFromScript(rbContent);
-    newProject.channelModelSettings = scriptParserManager.getChannelModelSettingsFromScript(rbContent);
-    newProject.dataGeneratorSettings = scriptParserManager.getDataGeneratorSettingsFromScript(rbContent);
-    newProject.mmeSettings = scriptParserManager.getMmeSettings(newProject.parametersFile.content);
-    newProject.pagingSettings = scriptParserManager.getPaggingSettings(newProject.parametersFile.content);
     projects.push_back(newProject);
     emit currentProjects(projects);
     saveProjectsFile();
