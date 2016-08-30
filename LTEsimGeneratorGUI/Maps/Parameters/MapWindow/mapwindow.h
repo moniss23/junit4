@@ -7,23 +7,10 @@
 #include <QMainWindow>
 
 #include "Data/project.h"
-#include "Data/Objects/cell.h"
-#include "Data/Objects/center.h"
-#include "Data/Objects/handover.h"
-#include "Data/ProjectSettings/mmesettings.h"
-#include "UISystem/DataForms/mmeform.h"
-#include "UISystem/DataForms/sgwform.h"
-#include "Data/ProjectSettings/sgwsettings.h"
-#include "UISystem/DataForms/ubsimform.h"
-#include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "Maps/Traffic/UeParameters/ue.h"
-#include "Data/ProjectSettings/channelmodelsettings.h"
-#include "UISystem/DataForms/channelmodelform.h"
-#include "UISystem/DataForms/ipexform.h"
 #include "Maps/Parameters/MapRange/maprange.h"
 #include "Maps/Parameters/MapRange/maprangeform.h"
-#include "UISystem/DataForms/channelmodelform.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -41,7 +28,6 @@ public:
     ~MapWindow();
     QMessageBox k;
     Ue* ue;
-    ChannelModelSettings *chmod;
     MapRange *mapRange;
 
     QVector<Cell*> tabCell;
@@ -67,6 +53,7 @@ signals:
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
+
 private slots:
     void on_Center61_clicked();
     void on_Center62_clicked();
@@ -214,12 +201,7 @@ private:
     bool wasChangeonCenter();
     bool wasChangeonHandover();
 
-
-    MmeForm viewMME;
-    SgwForm viewSGW;
     UCtoolForm viewUCtool;
-    UBsimForm viewUBsim;
-    ChannelModelForm viewCannelModel;
     MapRangeForm viewMapRange;
 
     //values use to change values in object if we change scale map

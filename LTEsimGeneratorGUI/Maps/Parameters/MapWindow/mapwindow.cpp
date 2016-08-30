@@ -42,7 +42,6 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     createHandover();
     createCoreNetwork();
     createUeSimulated();
-    chmod = new ChannelModelSettings();
     mapRange = new MapRange();
 
     anyChangesInMap = false;
@@ -221,7 +220,7 @@ void MapWindow::showHandoverTabWiget()
 }
 //----------------- Myfunction -----------------
 
-QStringList MapWindow::generateParams(){
+QStringList MapWindow::generateParams(){  //TODO: move this to parser !
 
     int number_of_cell =12;      //12
     int number_of_Center=12;       //12

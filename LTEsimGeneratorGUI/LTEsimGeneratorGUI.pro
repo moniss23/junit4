@@ -176,7 +176,6 @@ FORMS    += \
     Ui/managementtemplate.ui \
     Ui/timeForm.ui \
     Ui/customModel.ui \
-    Ui/renamedialog.ui \
     Ui/Windows/addProjectWindow.ui \
     Ui/Windows/parameterswindow.ui \
     Ui/Windows/settings.ui \
@@ -188,7 +187,8 @@ FORMS    += \
     Ui/DataForms/mmeform.ui \
     Ui/DataForms/uctoolform.ui \
     Ui/DataForms/ubsimform.ui \
-    Ui/DataForms/channelmodelform.ui
+    Ui/DataForms/channelmodelform.ui \
+    Ui/SmallDialogs/renamedialog.ui
 
 
 OTHER_FILES += \
