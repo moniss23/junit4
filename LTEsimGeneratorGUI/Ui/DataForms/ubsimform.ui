@@ -451,7 +451,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_Visualization">
+           <widget class="QCheckBox" name="ubSimGuiCheckbox">
             <property name="text">
              <string>UBsim GUI </string>
             </property>

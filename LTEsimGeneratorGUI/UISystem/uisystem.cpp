@@ -107,6 +107,12 @@ void UISystem::bindingObjects()
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
 
+    //Open UBSim
+    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,QString)));
+
+    //Update UBsimSettings
+    QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
+
     //Generating scripts
     QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project)), dataSystem, SLOT(generateParametersScript(Project)));
     QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
@@ -196,6 +202,7 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     QObject::connect(map_w,SIGNAL(updateSimulatedUeState(QString,bool)),dataSystem,SLOT(updateSimulatedUeState(QString,bool)));
     QObject::connect(map_w,SIGNAL(spawnWindow_Mme(QString)),this,SLOT(spawnWindow_Mme(QString)));
     QObject::connect(map_w, SIGNAL(spawnWindow_ChannelModel(QString)), this, SLOT(spawnWindow_ChannelModel(QString)));
+    QObject::connect(map_w,SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
     map_w->show();
 }
 
@@ -216,6 +223,16 @@ void UISystem::spawnWindow_ChannelModel(const QString &projectName) {
         return;
     }
     emit spawnWindow_ChannelModel(project->channelModelSettings, project->name);
+    return;
+}
+
+void UISystem::spawnWindow_UBSim(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project.");
+        return;
+    }
+    emit spawnWindow_UBSim(project->ubSimSettings, project->name);
     return;
 }
 

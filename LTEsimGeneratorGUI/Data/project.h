@@ -19,6 +19,7 @@
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/mmesettings.h"
 #include "Data/ProjectSettings/pagingsettings.h"
+#include "Data/ProjectSettings/ubsimsettings.h"
 
 class Project : public SerializeInterface
 {
@@ -43,6 +44,8 @@ public:
     DataGeneratorSettings   dataGeneratorSettings;
     MmeSettings             mmeSettings;
     PagingSettings          pagingSettings;
+    UBSimSettings           ubSimSettings;
+
     bool                    SimulatedCoreNetwork = false;
     bool                    SimulatedUe = false;
 

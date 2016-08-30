@@ -343,6 +343,16 @@ void DataSystem::updateChannelModelSettings(const ChannelModelSettings &channelM
     saveProjectsFile();
 }
 
+void DataSystem::updateUBSimSettings(const UBSimSettings &ubSimSettings, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project.\nDatanot saved.");
+        return;
+    }
+    project->ubSimSettings = ubSimSettings;
+    saveProjectsFile();
+}
+
 void DataSystem::generateParametersScript(const Project &project)
 {
     fileManager.generateParametersScript(project);

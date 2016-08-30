@@ -33,7 +33,9 @@ SOURCES += \
     Data/ProjectSettings/channelmodelsettings.cpp \
     Data/ProjectSettings/pagingsettings.cpp \
     Data/ProjectSettings/mmesettings.cpp \
+    Data/ProjectSettings/ubsimsettings.cpp \
     UISystem/Widgets/handoverrepresentation.cpp
+
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -50,12 +52,12 @@ SOURCES += \
     UISystem/DataForms/mmeform.cpp \
     UISystem/DataForms/sgwform.cpp \
     UISystem/DataForms/channelmodelform.cpp \
+    UISystem/DataForms/ubsimform.cpp \
     UISystem/Helpers/rubysyntaxhighlighter.cpp \
     UISystem/Widgets/mapview.cpp
 
 
 SOURCES += main.cpp\
-    Maps/Parameters/SimulatedUe/ubsimform.cpp \
     Maps/Parameters/MapWindow/mapwindow.cpp \
     Maps/Parameters/MapRange/maprange.cpp \
     Maps/Parameters/MapRange/maprangeform.cpp \
@@ -106,6 +108,7 @@ HEADERS  += \
     Data/ProjectSettings/channelmodelsettings.h \
     Data/ProjectSettings/pagingsettings.h \
     Data/ProjectSettings/mmesettings.h \
+    Data/ProjectSettings/ubsimsettings.h \
     UISystem/Widgets/handoverrepresentation.h
 
 
@@ -124,12 +127,12 @@ HEADERS  += \
     UISystem/DataForms/mmeform.h \
     UISystem/DataForms/sgwform.h \
     UISystem/DataForms/channelmodelform.h \
+    UISystem/DataForms/ubsimform.h \
     UISystem/Helpers/rubysyntaxhighlighter.h \
     UISystem/Widgets/mapview.h
 
 
 HEADERS  += \
-    Maps/Parameters/SimulatedUe/ubsimform.h \
     Maps/Parameters/MapWindow/mapwindow.h \
     Maps/Parameters/MapRange/maprange.h \
     Maps/Parameters/MapRange/maprangeform.h \
@@ -164,7 +167,6 @@ HEADERS  += \
 
 
 FORMS    += \
-    Ui/ubsimform.ui \
     Ui/mapwindow.ui \
     Ui/maprangeform.ui \
     Ui/map_traffic.ui \
@@ -185,6 +187,7 @@ FORMS    += \
     Ui/DataForms/sgwform.ui \
     Ui/DataForms/mmeform.ui \
     Ui/DataForms/uctoolform.ui \
+    Ui/DataForms/ubsimform.ui \
     Ui/DataForms/channelmodelform.ui
 
 

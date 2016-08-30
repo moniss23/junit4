@@ -14,7 +14,7 @@
 #include "UISystem/DataForms/mmeform.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "Data/ProjectSettings/sgwsettings.h"
-#include "Maps/Parameters/SimulatedUe/ubsimform.h"
+#include "UISystem/DataForms/ubsimform.h"
 #include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "Maps/Traffic/UeParameters/ue.h"
@@ -63,6 +63,7 @@ signals:
     void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Mme(const QString& projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
+    void spawnWindow_UBSim(const QString& projectName);
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);

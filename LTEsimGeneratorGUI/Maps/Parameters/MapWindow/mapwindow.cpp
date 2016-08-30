@@ -287,17 +287,6 @@ QStringList MapWindow::generateParams(){
         if (i != number_of_Handover-1)
             outputList << "\n\t\t},{";
     }
-    //--------------------------------UBsim------------------------------------------------------------------
-    outputList <<"\n\n\tdef Parameters.getUbsimConfigParameters()";
-    outputList <<"\n\t\tdefault = {}";
-    outputList <<"\n\t\tdefault[:ueTypesDir] = \"" + ue->getUeTypesDir() + "\"";
-    outputList <<"\n\t\tdefault[:csTrafficModelsDir] = \"" + ue->getCsTrafficModelsDir()+ "\"";
-    outputList <<"\n\t\tdefault[:psTrafficModelsDir] = \"" + ue->getPsTrafficModelsDir()+ "\"";
-    outputList <<"\n\t\tdefault[:mobilityModelsDir] = \"" + ue->getMobilityModelsDir()+ "\"";
-    outputList <<"\n\t\tdefault[:visualization] = " + convertBoolToText(ue->getVisualization());
-    outputList <<"\n\t\tdefault[:ubsim_patches] = \"" + ue->getUbsim_patches()+ "\"";
-    outputList <<"\n\t\treturn default\n\tend";
-
     outputList <<"\nend";
 
     return outputList;
@@ -1593,7 +1582,6 @@ void MapWindow::on_checkBoxUE_simulated_clicked()
         ui->frame_UE_simulated->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
         emit updateSimulatedUeState(project.name,true);
     }
-    viewUBsim.setParameters(ue);
 }
 
 //--------------------------OPEN MME WINDOW ---------------------------------------
@@ -1611,10 +1599,7 @@ void MapWindow::on_lblUCtool_clicked(){
 
 void MapWindow::on_lblUBsim_clicked()
 {
-    viewUBsim.close();
-    viewUBsim.setParameters(ue);
-    viewUBsim.set_checkboxactive(this->ui->checkBoxUE_simulated->isChecked());
-    viewUBsim.show();
+    emit spawnWindow_UBSim(project.name);
 }
 
 void MapWindow::on_lblChannelModel_clicked()

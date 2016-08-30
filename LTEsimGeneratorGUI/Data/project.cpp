@@ -39,6 +39,7 @@ QByteArray Project::serializeData()
     stream << channelModelSettings.serializeData();
     stream << mmeSettings.serializeData();
     stream << pagingSettings.serializeData();
+    stream << ubSimSettings.serializeData();
 
     stream << SimulatedCoreNetwork << SimulatedUe;
 
@@ -91,6 +92,10 @@ void Project::deserializeData(const QByteArray &rawData)
     QByteArray rawPagingSettings;
     stream >> rawPagingSettings;
     pagingSettings.deserializeData(rawPagingSettings);
+
+    QByteArray rawUBSimSettings;
+    stream >> rawUBSimSettings;
+    ubSimSettings.deserializeData(rawUBSimSettings);
 
     stream >> SimulatedCoreNetwork >> SimulatedUe;
 }
