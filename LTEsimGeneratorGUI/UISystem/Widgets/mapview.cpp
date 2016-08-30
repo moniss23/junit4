@@ -94,14 +94,12 @@ void MapView::DrawMapLines()
         textPoint.setX(x_AxisLine.x1() - 60);
         textPoint.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i) - 10);
 
-        //Tu sa dynamicznie tworzone te textItemy. Gdy probowalem zrobic obiekt to tekst sie nie pokazywal na ekranie.
-        //Pewnie trzeba bedzie tu cos pozmieniac
         QGraphicsTextItem *textItem = scene->addText(QString::number(7000 * (i)));
 
         //Setting start, end points
         gridLine.setPoints(gridLineStart, gridLineEnd);
         tickMarkLine.setPoints(tickMarkStart, tickMarkEnd);
-//        textItem->setPos(textPoint);
+        textItem->setPos(textPoint);
 
         //Adding lines to scene
         scene->addLine(gridLine, dotPen);
@@ -131,12 +129,10 @@ void MapView::DrawMapLines()
         textPoint.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i) - 20);
         textPoint.setY(y_AxisLine.y1() + 15);
 
-        //Tu sa dynamicznie tworzone te textItemy. Gdy probowalem zrobic obiekt to tekst sie nie pokazywal na ekranie.
-        //Pewnie trzeba bedzie tu cos pozmieniac
         QGraphicsTextItem *textItem = scene->addText(QString::number(7000 * i));
 
         //Settings start, end points
-//        textItem->setPos(textPoint);
+        textItem->setPos(textPoint);
         gridLine.setPoints(gridLineStart, gridLineEnd);
         tickMarkLine.setPoints(tickMarkStart, tickMarkEnd);
 
