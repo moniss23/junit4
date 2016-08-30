@@ -20,6 +20,8 @@ protected:
 
 private:
     QString name;
+    const int width = 50;
+    const int height = 120;
 };
 
 #endif // HANDOVERREPRESENTATION_H
