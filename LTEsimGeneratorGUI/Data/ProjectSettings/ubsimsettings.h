@@ -35,7 +35,7 @@ public:
     QString mobilityModelsDir;          // Directory containing users Mobility Models
     bool UBSimGui;                      // UBsim GUI
 
-    QString ubsim_patches;              // patches to use when starting UBsim
+    QStringList ubsim_patches;              // patches to use when starting UBsim
                                         // Given as a Java classpath, multiple element separated by ':'
 
     /****************************

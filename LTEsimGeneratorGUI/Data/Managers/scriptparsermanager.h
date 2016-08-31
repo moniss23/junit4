@@ -14,6 +14,7 @@
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/mmesettings.h"
 #include "Data/ProjectSettings/pagingsettings.h"
+#include "Data/ProjectSettings/ubsimsettings.h"
 #include "Data/project.h"
 
 class ScriptParserManager
@@ -33,7 +34,7 @@ public:
     DataGeneratorSettings getDataGeneratorSettingsFromScript(int i, QStringList scriptContentLines);
     MmeSettings getMmeSettings(int i, QStringList scriptContentLines);
     PagingSettings getPagingSettings(int i, QStringList scriptContentLines);
-
+    UBSimSettings getUBSimSettings(int i,QStringList scriptContentLines);
 private:
     QString findRegexInText(QString pattern, const QString &text, int pos);
 };

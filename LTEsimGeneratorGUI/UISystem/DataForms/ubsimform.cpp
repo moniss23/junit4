@@ -68,7 +68,7 @@ void UBsimForm::getParameters()
     this->ubSimSettings.psTrafficModelsDir = this->ui->tet_psTrafficModelsDir->text();
     this->ubSimSettings.mobilityModelsDir = this->ui->tet_mobilityModelsDir->text();
     this->ubSimSettings.UBSimGui = this->ui->ubSimGuiCheckbox->isChecked();
-    this->ubSimSettings.ubsim_patches = this->ui->tet_ubsim_patches->text();
+    this->ubSimSettings.ubsim_patches = this->ui->tet_ubsim_patches->text().split(":");
 }
 
 void UBsimForm::setParameters()
@@ -86,5 +86,9 @@ void UBsimForm::setParameters()
     this->ui->tet_psTrafficModelsDir->setText(this->ubSimSettings.psTrafficModelsDir);
     this->ui->tet_mobilityModelsDir->setText(this->ubSimSettings.mobilityModelsDir);
     this->ui->ubSimGuiCheckbox->setChecked(this->ubSimSettings.UBSimGui);
-    this->ui->tet_ubsim_patches->setText(this->ubSimSettings.ubsim_patches);
+    QString ubSimPatches;
+    for (int i=0;i<ubSimSettings.ubsim_patches.size();i++){
+        ubSimPatches.append(ubSimSettings.ubsim_patches[i]+":");
+    }
+    this->ui->tet_ubsim_patches->setText(ubSimPatches);
 }

@@ -1,5 +1,4 @@
 #include <QRegExp>
-
 #include "scriptparsermanager.h"
 
 ScriptParserManager::ScriptParserManager() {}
@@ -24,7 +23,6 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
 
     QStringList scriptContentLines = scriptContent.split("\n");
 
-    QString cellStartPattern(":cell => \"(.*)\",");
     QString centerStartPattern(":area => \"Center(.*)\",");
     QString handoverStartPattern(":area => \"Handover(.*)\",");
 
@@ -35,7 +33,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
         else if (scriptContentLines[i].contains("default[:mme_names] =")){
             project.mmeSettings = getMmeSettings(i,scriptContentLines);
         }
-        else if(QRegExp(cellStartPattern).indexIn(scriptContentLines[i]) >= 0) {
+        else if(scriptContentLines[i].contains("default[:rec]")) {
             project.cells = getCellsFromScript(i,scriptContentLines);
         }
         else if(QRegExp(centerStartPattern).indexIn(scriptContentLines[i]) >= 0) {
@@ -56,6 +54,9 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
         else if (scriptContentLines[i].contains("[:generate_pagings]")){
             project.pagingSettings = getPagingSettings(i,scriptContentLines);
         }
+        else if (scriptContentLines[i].contains("getUbsimConfigParameters()")){
+            project.ubSimSettings = getUBSimSettings(i,scriptContentLines);
+        }
     }
 }
 
@@ -64,7 +65,7 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList s
     QVector<Cell> cells;
 
     QString cellStartPattern(":cell => \"(.*)\",");
-    while (!scriptContent[i].contains("end")){
+    while (!(QRegExp("^end").indexIn(scriptContent[i])>-1)){
         if(QRegExp(cellStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> cellParams = {
@@ -101,7 +102,7 @@ QVector<Center> ScriptParserManager::getCentersFromScript(int i,const QStringLis
     QVector<Center> centers;
 
     QString centerStartPattern(":area => \"Center(.*)\",");
-    while (!scriptContent.contains("end")) {
+    while (!scriptContent.contains("Handover") && !(QRegExp("^end").indexIn(scriptContent[i])>-1)) {
         QString startPattern(":area => \"Center(.*)\",");
         if(QRegExp(centerStartPattern).indexIn(scriptContent[i]) >= 0) {
 
@@ -133,7 +134,7 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(int i, const QStri
     QVector<Handover> handovers;
 
     QString handoverStartPattern(":area => \"Handover(.*)\",");
-    while (!scriptContent[i].contains("end")){
+    while (!(QRegExp("^end").indexIn(scriptContent[i])>-1)){
         if(QRegExp(handoverStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> handoverParams = {
@@ -565,4 +566,77 @@ PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptCo
     return pagingSettings;
 
 
+}
+
+UBSimSettings ScriptParserManager::getUBSimSettings(int i, QStringList scriptContentLines){
+
+    UBSimSettings ubSimSettings;
+
+    int startIndex;
+    while (!(QRegExp("^end").indexIn(scriptContentLines[i])>-1)) {
+        if (scriptContentLines[i].contains("[:ueTypesDir]")){
+            QRegExp quoteRegExp("\".*\"");
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ubSimSettings.ueTypesDir = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:csTrafficModelsDir]")){
+            QRegExp quoteRegExp("\".*\"");
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ubSimSettings.csTrafficModelsDir = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:psTrafficModelsDir]")){
+            QRegExp quoteRegExp("\".*\"");
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ubSimSettings.psTrafficModelsDir = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:mobilityModelsDir]")){
+            QRegExp quoteRegExp("\".*\"");
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ubSimSettings.mobilityModelsDir = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:visualization]")){
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (scriptContentLines[i].contains("true")){
+                ubSimSettings.UBSimGui = true;
+            }
+            else if (scriptContentLines[i].contains("false")){
+                ubSimSettings.UBSimGui = false;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:ubsim_patches]")){
+            QRegExp quoteRegExp("\".*\"");
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ubSimSettings.ubsim_patches = quoteRegExp.capturedTexts();
+            }
+        }
+        i++;
+    }
+    return ubSimSettings;
 }
