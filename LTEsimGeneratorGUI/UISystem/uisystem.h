@@ -18,6 +18,8 @@
 #include "UISystem/DataForms/ubsimform.h"
 #include "UISystem/Widgets/mapview.h"
 
+#include "Maps/Parameters/MapWindow/newmapwindow.h"
+
 class UISystem : public QObject
 {
 
@@ -53,6 +55,7 @@ signals:
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings, const QString &projectName);
     void spawnWindow_MapView(const Project &project);
+    void spawnWindow_MapWindow(const Project &project);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -71,7 +74,8 @@ private:
     MmeForm mmeForm;
     ChannelModelForm channelModelForm;
     UBsimForm ubSimForm;
-    MapView mapView;
+    NewMapWindow newMapWindow;
+//    MapView mapView;
 };
 
 #endif // UISYSTEM_H

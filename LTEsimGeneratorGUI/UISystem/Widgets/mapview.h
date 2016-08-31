@@ -10,15 +10,11 @@ class MapView : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit MapView(QWidget *parent = 0);
+    explicit MapView(const Project& project, QWidget *parent = 0);
 
     void resizeEvent(QResizeEvent* event);
 
     void printNewMap();
-
-public slots:
-
-    void loadAndOpen(const Project &project);
 
 private:
     void DrawHandoverRepresentations();

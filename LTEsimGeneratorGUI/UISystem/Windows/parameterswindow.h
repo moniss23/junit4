@@ -8,6 +8,7 @@
 #include "UISystem/Windows/helpdialog.h"
 #include "UISystem/Helpers/rubysyntaxhighlighter.h"
 #include "Data/project.h"
+#include "Maps/Parameters/MapWindow/newmapwindow.h"
 
 namespace Ui {
 class ParametersWindow;
@@ -166,7 +167,7 @@ private:
     Project currentProject;                     ///< Local instance of project
 
     std::unique_ptr<RubySyntaxHighlighter> highlighter;
-
+    NewMapWindow *newMapWindow;
 
     bool filePreviewChanged;                    ///< Flag which represent changes in file preview editor
 };

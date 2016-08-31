@@ -33,7 +33,7 @@ void HandoverRepresentation::paint(QPainter *painter, const QStyleOptionGraphics
     painter->setPen(QPen(Qt::gray, 0));
     painter->drawRoundedRect(rect, 3, 3);
 
-    painter->fillRect(rect, QBrush(QColor(51, 153, 204, 255)));
+    painter->fillRect(rect, QBrush(QColor(51, 153, 204, 205)));
     painter->drawImage(rect, this->icon);
 }
 

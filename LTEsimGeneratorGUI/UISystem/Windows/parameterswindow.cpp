@@ -6,8 +6,10 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QListWidgetItem>
+#include <QGridLayout>
 
 #include "Maps/Traffic/map_traffic.h"
+#include "Maps/Parameters/MapWindow/newmapwindow.h"
 
 #include "UISystem/Helpers/rubysyntaxhighlighter.h"
 
@@ -184,6 +186,7 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
         // parameters file double-clicked
         // create a new map object and display it
         emit spawnWindow_ParamMap(currentProject.name);
+
     }
     else {
         Map_traffic* map_t;

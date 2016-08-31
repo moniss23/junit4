@@ -3,7 +3,7 @@
 #include "UISystem/Widgets/cellrepresentation.h"
 #include "UISystem/Widgets/handoverrepresentation.h"
 
-MapView::MapView(QWidget *parent) : QGraphicsView(parent),
+MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
     solidPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
     solid2(Qt::black, 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
     dotPen(Qt::black, 1, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin)
@@ -11,12 +11,9 @@ MapView::MapView(QWidget *parent) : QGraphicsView(parent),
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setCacheMode(QGraphicsView::CacheBackground);
-}
-
-void MapView::loadAndOpen(const Project &project) {
+    this->setMinimumSize(600,600);
     scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    this->project = project;
     this->printNewMap();
     this->show();
 }
@@ -146,11 +143,11 @@ void MapView::DrawMapLines()
 
 void MapView::DrawCellRepresentations()
 {
-    int numberOfCells = project.cells.size();
+    int numberOfCells = 12;
     int startOffset = 100;
     int elementOffset = 160;
     int evenOffset = 40;
-    int numberOfCols = 6;
+    int numberOfCols = 4;
     for(int i = 0; i<numberOfCells; i++) {
         int col = i%numberOfCols;
         int row = i/numberOfCols;

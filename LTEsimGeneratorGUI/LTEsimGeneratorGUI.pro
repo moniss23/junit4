@@ -34,7 +34,8 @@ SOURCES += \
     Data/ProjectSettings/pagingsettings.cpp \
     Data/ProjectSettings/mmesettings.cpp \
     Data/ProjectSettings/ubsimsettings.cpp \
-    UISystem/Widgets/handoverrepresentation.cpp
+    UISystem/Widgets/handoverrepresentation.cpp \
+    Maps/Parameters/MapWindow/newmapwindow.cpp
 
 
 #--------UI SYSTEM--------#
@@ -109,7 +110,8 @@ HEADERS  += \
     Data/ProjectSettings/pagingsettings.h \
     Data/ProjectSettings/mmesettings.h \
     Data/ProjectSettings/ubsimsettings.h \
-    UISystem/Widgets/handoverrepresentation.h
+    UISystem/Widgets/handoverrepresentation.h \
+    Maps/Parameters/MapWindow/newmapwindow.h
 
 
 #--------UI SYSTEM--------#
@@ -188,7 +190,8 @@ FORMS    += \
     Ui/DataForms/uctoolform.ui \
     Ui/DataForms/ubsimform.ui \
     Ui/DataForms/channelmodelform.ui \
-    Ui/SmallDialogs/renamedialog.ui
+    Ui/SmallDialogs/renamedialog.ui \
+    Maps/Parameters/MapWindow/newmapwindow.ui
 
 
 OTHER_FILES += \
