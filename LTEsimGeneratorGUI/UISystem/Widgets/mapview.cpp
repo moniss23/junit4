@@ -8,14 +8,14 @@ MapView::MapView(QWidget *parent) : QGraphicsView(parent),
     solid2(Qt::black, 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
     dotPen(Qt::black, 1, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin)
 {
-    scene = new QGraphicsScene();
-    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setCacheMode(QGraphicsView::CacheBackground);
 }
 
 void MapView::loadAndOpen(const Project &project) {
+    scene = new QGraphicsScene(this);
+    scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     this->project = project;
     this->printNewMap();
     this->show();
