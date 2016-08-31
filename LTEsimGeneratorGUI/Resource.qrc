@@ -25,5 +25,6 @@
         <file>Images/MapItems/round2.png</file>
         <file>Images/MapItems/slanted_line.png</file>
         <file>Images/MapItems/srio.png</file>
+        <file>Images/handover.png</file>
     </qresource>
 </RCC>

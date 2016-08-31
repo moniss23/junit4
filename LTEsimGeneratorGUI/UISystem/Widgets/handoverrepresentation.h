@@ -20,9 +20,11 @@ protected:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
 private:
+    QImage icon;
     QString name;
-    int width = 70;
-    int height = 100;
+
+    int width = 60;
+    int height = 110;
 };
 
 #endif // HANDOVERREPRESENTATION_H
