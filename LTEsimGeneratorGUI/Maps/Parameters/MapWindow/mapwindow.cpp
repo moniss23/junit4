@@ -141,7 +141,8 @@ void MapWindow::createCell() {
 
 void MapWindow::createCoreNetwork()
 {
-    on_checkBoxCoreNetwork_clicked();
+    this->ui->lblMME1->setEnabled(project.SimulatedCoreNetwork);
+    this->ui->lblSGW1->setEnabled(project.SimulatedCoreNetwork);
 }
 
 void MapWindow::createUeSimulated()
