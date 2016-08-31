@@ -32,6 +32,8 @@ QByteArray Project::serializeData()
     }
 
     stream << cells;
+    stream << centers;
+    stream << handovers;
 
     stream << dataGeneratorSettings.serializeData();
     stream << sgwSettings.serializeData();
@@ -68,6 +70,8 @@ void Project::deserializeData(const QByteArray &rawData)
     }
 
     stream >> cells;
+    stream >> centers;
+    stream >> handovers;
 
     QByteArray rawDataGeneratorSettings;
     stream >> rawDataGeneratorSettings;

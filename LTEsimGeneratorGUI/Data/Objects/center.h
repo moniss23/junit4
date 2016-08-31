@@ -19,4 +19,7 @@ public:
     int eastBoundary;
 };
 
+QDataStream &operator>>(QDataStream &in, Center &center);
+QDataStream &operator<<(QDataStream &out, const Center &center);
+
 #endif // CENTER_H

@@ -20,4 +20,7 @@ public:
     int eastBoundary;
 };
 
+QDataStream &operator>>(QDataStream &in, Handover &handover);
+QDataStream &operator<<(QDataStream &out, const Handover &handover);
+
 #endif // HANDOVER_H
