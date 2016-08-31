@@ -1,13 +1,7 @@
-#include <QVector>
 #include <QApplication>
-#include <QString>
 
 #include "Data/datasystem.h"
 #include "UISystem/uisystem.h"
-
-#include "Maps/Parameters/MapWindow/mapwindow.h"
-#include "Maps/Traffic/map_traffic.h"
-
 
 int main(int argc, char *argv[])
 {

@@ -2,13 +2,15 @@
 #define UISYSTEM_H
 
 #include "Data/datasystem.h"
-#include "UISystem/DataForms/ipexform.h"
+
 #include "UISystem/Windows/addProjectWindow.h"
 #include "UISystem/Windows/projectmanagement.h"
 #include "UISystem/Windows/importprojectwindow.h"
 #include "UISystem/Windows/parameterswindow.h"
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
+
+#include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "UISystem/DataForms/mmeform.h"
