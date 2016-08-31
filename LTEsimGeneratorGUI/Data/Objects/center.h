@@ -13,8 +13,6 @@ public:
 
 public:
     QString area;
-    QString new_name_area;
-
     int southBoundary;
     int northBoundary;
     int westBoundary;

@@ -120,9 +120,6 @@ void MapWindow::createCell() {
     for(int i=0; i<12; ++i) {
         tabCell[i] = new Cell("cell"+QString::number(i/2+1) + QString::number(i%2+1));
         tabCell[i]->center = tabCenter[i];
-        if(not tabCell[i]->cell_new_name.isEmpty()) {
-            tabCell[i]->chBox->setText(tabCell[i]->cell_new_name);
-        }
     }
 
     tabCell[0]->chBox = ui->checkBoxCell11;
@@ -199,7 +196,7 @@ MapWindow::~MapWindow()
 //--------------Show function  ---------------
 void MapWindow::showCellTabWiget()
 {
-    ui->mapObjectsWidget->insertTab(0,ui->tab, (openCell->cell_new_name.isEmpty()) ? openCell->cell : openCell->cell_new_name);
+    ui->mapObjectsWidget->insertTab(0,ui->tab, openCell->cell);
     ui->mapObjectsWidget->removeTab(1);
     ui->mapObjectsWidget->removeTab(2);
     ui->mapObjectsWidget->show();
@@ -207,7 +204,7 @@ void MapWindow::showCellTabWiget()
 }
 void MapWindow::showCenterTabWiget()
 {
-    ui->mapObjectsWidget->insertTab(0,ui->tab_2, (openCenter->new_name_area.isEmpty()) ? openCenter->area : openCenter->new_name_area);
+    ui->mapObjectsWidget->insertTab(0,ui->tab_2, openCenter->area);
     ui->mapObjectsWidget->removeTab(1);
     ui->mapObjectsWidget->removeTab(2);
     ui->mapObjectsWidget->show();
@@ -248,7 +245,7 @@ QStringList MapWindow::generateParams(){  //TODO: move this to parser !
     outputList << "\n\tdef Parameters.getRecParameters() \n";
     outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
     for(int i =0; i<number_of_cell; i++){
-        outputList << "\t\t\t:cell => \"" + tabCell[i]->cell + " " +tabCell[i]->cell_new_name +"\",\n";
+        outputList << "\t\t\t:cell => \"" + tabCell[i]->cell + "\",\n";
         outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
         outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
         outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
@@ -271,7 +268,7 @@ QStringList MapWindow::generateParams(){  //TODO: move this to parser !
 
    outputList <<"\n\t\tdefault[:areas] = [ \n\t\t{";
    for(int i =0 ; i<number_of_Center ; i++){
-        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + " " +tabCenter[i]->new_name_area + "\",";
+        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + "\",";
         outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabCenter[i]->southBoundary) + ",";
         outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabCenter[i]->northBoundary) + ",";
         outputList <<"\n\t\t\t:westBoundary => " + QString::number(tabCenter[i]->westBoundary) + ",";
@@ -318,13 +315,8 @@ void MapWindow::fillParams(Handover *object){
    showHandoverTabWiget();
 }
 void MapWindow::fillParams(Cell *object){
-    if(object->cell_new_name.isEmpty()) {
-        ui->cell->setText(object->cell);
-    }
-    else {
-        ui->cell->setText(object->cell_new_name);
-    }
 
+    ui->cell->setText(object->cell);
     ui->site->setText(object->site);
     ui->pci->setText(QString::number(object->pci));
     ui->position_X->setText(QString::number(object->position_X));
@@ -399,9 +391,7 @@ void MapWindow::saveParams(Handover *object){
 void MapWindow::saveParams(Cell *object){
     listErrors.clear();
     if (validationNameCell(ui->cell->text())) {
-        object->cell_new_name = ui->cell->text();
         object->chBox->setText(ui->cell->text());
-        object->center->new_name_area = QString("center" + ui->cell->text().remove(QString("cell")));
         ui->mapObjectsWidget->setTabText(0 , ui->cell->text());
     }
     else listErrors <<" Name Cell: " +ui->cell->text()+"\n";
@@ -1677,11 +1667,7 @@ void MapWindow::on_axis_x_clicked()
 
 bool MapWindow::wasChangeonCell()
 {
-    if(openCell->cell_new_name.isEmpty() && openCell->cell.trimmed() != ui->cell->text().trimmed()) {
-        return true;
-    }
-
-    if(openCell->cell_new_name.trimmed() != ui->cell->text().trimmed()) {
+    if(openCell->cell.trimmed() != ui->cell->text().trimmed()) {
         return true;
     }
 

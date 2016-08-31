@@ -20,7 +20,6 @@ public:
 public:
     QString cell;
     QString site;
-    QString cell_new_name;
 
     int pci;
     int position_X;
