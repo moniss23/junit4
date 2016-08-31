@@ -120,8 +120,8 @@ void MapWindow::createCell() {
     for(int i=0; i<12; ++i) {
         tabCell[i] = new Cell("cell"+QString::number(i/2+1) + QString::number(i%2+1));
         tabCell[i]->center = tabCenter[i];
-        if(not tabCell[i]->getCell_new_name().isEmpty()) {
-            tabCell[i]->chBox->setText(tabCell[i]->getCell_new_name());
+        if(not tabCell[i]->cell_new_name.isEmpty()) {
+            tabCell[i]->chBox->setText(tabCell[i]->cell_new_name);
         }
     }
 
@@ -199,7 +199,7 @@ MapWindow::~MapWindow()
 //--------------Show function  ---------------
 void MapWindow::showCellTabWiget()
 {
-    ui->mapObjectsWidget->insertTab(0,ui->tab, (openCell->getCell_new_name().isEmpty()) ? openCell->getCell() : openCell->getCell_new_name());
+    ui->mapObjectsWidget->insertTab(0,ui->tab, (openCell->cell_new_name.isEmpty()) ? openCell->cell : openCell->cell_new_name);
     ui->mapObjectsWidget->removeTab(1);
     ui->mapObjectsWidget->removeTab(2);
     ui->mapObjectsWidget->show();
@@ -207,14 +207,14 @@ void MapWindow::showCellTabWiget()
 }
 void MapWindow::showCenterTabWiget()
 {
-    ui->mapObjectsWidget->insertTab(0,ui->tab_2, ((openCenter->getNew_name_area().isEmpty()) ? openCenter->getArea() : openCenter->getNew_name_area()));
+    ui->mapObjectsWidget->insertTab(0,ui->tab_2, (openCenter->new_name_area.isEmpty()) ? openCenter->area : openCenter->new_name_area);
     ui->mapObjectsWidget->removeTab(1);
     ui->mapObjectsWidget->removeTab(2);
     ui->mapObjectsWidget->show();
 }
 void MapWindow::showHandoverTabWiget()
 {
-    ui->mapObjectsWidget->insertTab(0,ui->tab_3, openHandover->getArea());
+    ui->mapObjectsWidget->insertTab(0,ui->tab_3, openHandover->area);
     ui->mapObjectsWidget->removeTab(1);
     ui->mapObjectsWidget->removeTab(2);
     ui->mapObjectsWidget->show();
@@ -248,14 +248,14 @@ QStringList MapWindow::generateParams(){  //TODO: move this to parser !
     outputList << "\n\tdef Parameters.getRecParameters() \n";
     outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
     for(int i =0; i<number_of_cell; i++){
-        outputList << "\t\t\t:cell => \"" + tabCell[i]->getCell() + " " +tabCell[i]->getCell_new_name() +"\",\n";
-        outputList << "\t\t\t:site => \"" + tabCell[i]->getSite() +"\",\n";
-        outputList << "\t\t\t:pci => " + tabCell[i]->getPci() +",\n";
-        outputList << "\t\t\t:position_X => " + tabCell[i]->getPosition_X() +",\n";
-        outputList << "\t\t\t:position_Y => " + tabCell[i]->getPosition_Y() +",\n";
-        outputList << "\t\t\t:earfcnDl => " + tabCell[i]->getEarfcnDl() + +",\n";
-        outputList << "\t\t\t:transmitPower => " + tabCell[i]->getTransmitPower() +",\n";
-        outputList << "\t\t\t:ulNoiseAndInterference => " + tabCell[i]->getUlNoiseAndInterference()+"\n";
+        outputList << "\t\t\t:cell => \"" + tabCell[i]->cell + " " +tabCell[i]->cell_new_name +"\",\n";
+        outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
+        outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
+        outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
+        outputList << "\t\t\t:position_Y => " + QString::number(tabCell[i]->position_Y) +",\n";
+        outputList << "\t\t\t:earfcnDl => " + QString::number(tabCell[i]->earfcnDl) + +",\n";
+        outputList << "\t\t\t:transmitPower => " + QString::number(tabCell[i]->transmitPower) +",\n";
+        outputList << "\t\t\t:ulNoiseAndInterference => " + QString::number(tabCell[i]->ulNoiseAndInterference) +"\n";
         if (i != number_of_cell-1)
             outputList << "\t\t}.{\n";
     }
@@ -271,19 +271,19 @@ QStringList MapWindow::generateParams(){  //TODO: move this to parser !
 
    outputList <<"\n\t\tdefault[:areas] = [ \n\t\t{";
    for(int i =0 ; i<number_of_Center ; i++){
-        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->getArea() + " " +tabCenter[i]->getNew_name_area() + "\",";
-        outputList <<"\n\t\t\t:southBoundary => " +tabCenter[i]->getSouthBoundary() + ",";
-        outputList <<"\n\t\t\t:northBoundary => " +tabCenter[i]->getNorthBoundary() + ",";
-        outputList <<"\n\t\t\t:westBoundary => " +tabCenter[i]->getWestBoundary() + ",";
-        outputList <<"\n\t\t\t:eastBoundary => " +tabCenter[i]->getEastBoundary();
+        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + " " +tabCenter[i]->new_name_area + "\",";
+        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabCenter[i]->southBoundary) + ",";
+        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabCenter[i]->northBoundary) + ",";
+        outputList <<"\n\t\t\t:westBoundary => " + QString::number(tabCenter[i]->westBoundary) + ",";
+        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabCenter[i]->eastBoundary);
         outputList <<"\n\t\t},{";
     }
    for(int i =0 ; i<number_of_Handover ; i++){
-        outputList <<"\n\t\t\t:area => \"" +tabHandover[i]->getArea() + "\",";
-        outputList <<"\n\t\t\t:southBoundary => " +tabHandover[i]->getSouthBoundary() + ",";
-        outputList <<"\n\t\t\t:northBoundary => " +tabHandover[i]->getNorthBoundary() + ",";
-        outputList <<"\n\t\t\t:westBoundary => " +tabHandover[i]->getWestBoundary() + ",";
-        outputList <<"\n\t\t\t:eastBoundary => " +tabHandover[i]->getEastBoundary();
+        outputList <<"\n\t\t\t:area => \"" +tabHandover[i]->area + "\",";
+        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabHandover[i]->southBoundary) + ",";
+        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabHandover[i]->northBoundary) + ",";
+        outputList <<"\n\t\t\t:westBoundary => "+ QString::number(tabHandover[i]->westBoundary) + ",";
+        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabHandover[i]->eastBoundary);
         if (i != number_of_Handover-1)
             outputList << "\n\t\t},{";
     }
@@ -302,119 +302,159 @@ QString MapWindow::convertBoolToText(bool value){
 
 //------------Fill functions------------------------------------------------------
 void MapWindow::fillParams(Center *object){
-   ui->mapObjectsWidget->setTabText(1, object->getArea());
-   ui->eastBoundary->setText(object->getEastBoundary());
-   ui->westBoundary->setText(object->getWestBoundary());
-   ui->southBoundary->setText(object->getSouthBoundary());
-   ui->northBoundary->setText(object->getNorthBoundary());
+   ui->mapObjectsWidget->setTabText(1, object->area);
+   ui->eastBoundary->setText(QString::number(object->eastBoundary));
+   ui->westBoundary->setText(QString::number(object->westBoundary));
+   ui->southBoundary->setText(QString::number(object->southBoundary));
+   ui->northBoundary->setText(QString::number(object->northBoundary));
    showCenterTabWiget();
 }
 void MapWindow::fillParams(Handover *object){
 
-   ui->eastHandovernoundary->setText(object->getEastBoundary());
-   ui->westHandovernoundary->setText(object->getWestBoundary());
-   ui->soutHandovernoundary->setText(object->getSouthBoundary());
-   ui->northHandovernoundary->setText(object->getNorthBoundary());
+   ui->eastHandovernoundary->setText(QString::number(object->eastBoundary));
+   ui->westHandovernoundary->setText(QString::number(object->westBoundary));
+   ui->soutHandovernoundary->setText(QString::number(object->southBoundary));
+   ui->northHandovernoundary->setText(QString::number(object->northBoundary));
    showHandoverTabWiget();
 }
 void MapWindow::fillParams(Cell *object){
-    if(object->getCell_new_name().isEmpty())
-        ui->cell->setText(object->getCell());
-    else ui->cell->setText(object->getCell_new_name());
-    ui->site->setText(object->getSite());
-    ui->pci->setText(object->getPci());
-    ui->position_X->setText(object->getPosition_X());
-    ui->position_Y->setText(object->getPosition_Y());
-    ui->earfcnDl->setText(object->getEarfcnDl());
-    ui->transmitPower->setText(object->getTransmitPower());
-    ui->ulNoiseAndInterference->setText(object->getUlNoiseAndInterference());
+    if(object->cell_new_name.isEmpty()) {
+        ui->cell->setText(object->cell);
+    }
+    else {
+        ui->cell->setText(object->cell_new_name);
+    }
+
+    ui->site->setText(object->site);
+    ui->pci->setText(QString::number(object->pci));
+    ui->position_X->setText(QString::number(object->position_X));
+    ui->position_Y->setText(QString::number(object->position_Y));
+    ui->earfcnDl->setText(QString::number(object->earfcnDl));
+    ui->transmitPower->setText(QString::number(object->transmitPower));
+    ui->ulNoiseAndInterference->setText(QString::number(object->ulNoiseAndInterference));
+
     showCellTabWiget();
 }
+
 //------------Save functions--------------------------------------------------
 void MapWindow::saveParams(Center *object){
     listErrors.clear();
-    if (validationPosition(ui->eastBoundary->text()))
-        object->setEastBoundary(ui->eastBoundary->text());
-            else listErrors << "East boundary of area: "+ui->eastBoundary->text() +"\n";
-    if (validationPosition(ui->northBoundary->text()))
-        object->setNorthBoundary(ui->northBoundary->text());
-            else listErrors << "North boundary of area: "+ui->northBoundary->text() +"\n";
-    if (validationPosition(ui->southBoundary->text()))
-        object->setSouthBoundary(ui->southBoundary->text());
-            else listErrors << "South boundary of area: "+ui->southBoundary->text() +"\n";
-    if (validationPosition(ui->westBoundary->text()))
-        object->setWestBoundary(ui->westBoundary->text());
-            else listErrors << "West boundary of area: "+ui->westBoundary->text() +"\n";
-    if (!listErrors.isEmpty()){
+
+    if (validationPosition(ui->eastBoundary->text())) {
+        object->eastBoundary = ui->eastBoundary->text().toInt();
+    }
+    else listErrors << "East boundary of area: " + ui->eastBoundary->text() +"\n";
+
+    if (validationPosition(ui->northBoundary->text())) {
+        object->northBoundary = ui->northBoundary->text().toInt();
+    }
+    else listErrors << "North boundary of area: " + ui->northBoundary->text() +"\n";
+
+    if (validationPosition(ui->southBoundary->text())) {
+        object->southBoundary = ui->southBoundary->text().toInt();
+    }
+    else listErrors << "South boundary of area: " + ui->southBoundary->text() +"\n";
+
+    if (validationPosition(ui->westBoundary->text())) {
+        object->westBoundary = ui->westBoundary->text().toInt();
+    }
+    else listErrors << "West boundary of area: " + ui->westBoundary->text() +"\n";
+
+    if (!listErrors.isEmpty()) {
         showMessageError(listErrors);
     }
+
     anyChangesInMap = true;
 }
+
 void MapWindow::saveParams(Handover *object){
     listErrors.clear();
-    if (validationPosition(ui->eastHandovernoundary->text()))
-        object->setEastBoundary(ui->eastHandovernoundary->text());
-            else listErrors << "East boundary of area: "+ui->eastHandovernoundary->text() +"\n";
-    if(validationPosition(ui->northHandovernoundary->text()))
-        object->setNorthBoundary(ui->northHandovernoundary->text());
-            else listErrors << "North boundary of area: "+ui->northHandovernoundary->text() +"\n";
-    if(validationPosition(ui->soutHandovernoundary->text()))
-        object->setSouthBoundary(ui->soutHandovernoundary->text());
-            else listErrors << "West boundary of area: "+ui->soutHandovernoundary->text() +"\n";
-    if(validationPosition(ui->westHandovernoundary->text()))
-        object->setWestBoundary(ui->westHandovernoundary->text());
-            else listErrors << "North boundary of area: "+ui->westHandovernoundary->text() +"\n";
+    if (validationPosition(ui->eastHandovernoundary->text())) {
+        object->eastBoundary = ui->eastHandovernoundary->text().toInt();
+    }
+    else listErrors << "East boundary of area: "+ui->eastHandovernoundary->text() +"\n";
+
+    if(validationPosition(ui->northHandovernoundary->text())) {
+        object->northBoundary = ui->northHandovernoundary->text().toInt();
+    }
+    else listErrors << "North boundary of area: "+ui->northHandovernoundary->text() +"\n";
+
+    if(validationPosition(ui->soutHandovernoundary->text())) {
+        object->southBoundary = ui->soutHandovernoundary->text().toInt();
+    }
+    else listErrors << "West boundary of area: "+ui->soutHandovernoundary->text() +"\n";
+
+    if(validationPosition(ui->westHandovernoundary->text())) {
+        object->westBoundary = ui->westHandovernoundary->text().toInt();
+    }
+    else listErrors << "North boundary of area: "+ui->westHandovernoundary->text() +"\n";
+
     if (!listErrors.isEmpty()){
         showMessageError(listErrors);
     }
+
     anyChangesInMap = true;
 }
+
 void MapWindow::saveParams(Cell *object){
     listErrors.clear();
-    if (validationNameCell(ui->cell->text())){
- //       object->setCell(ui->cell->text());
-        object->setCell_new_name(ui->cell->text());
-        object->chBox->setText(ui->cell->text());                                       //change name CheckBox
-        object->center->setNew_name_area("center" + ui->cell->text().remove(QString("cell")));   //change name Center
-        ui->mapObjectsWidget->setTabText( 0 , ui->cell->text());                               //change naem tabWiget
-    }else listErrors <<" Name Cell: " +ui->cell->text()+"\n";
-    object->setSite(ui->site->text());
-    object->setPci(ui->pci->text());
-    if (validationPosition(ui->position_X->text()))
-        object->setPosition_X(ui->position_X->text()); else listErrors <<" Position X: " +ui->position_X->text()+"\n";
-    if (validationPosition(ui->position_Y->text()))
-        object->setPosition_Y(ui->position_Y->text()); else listErrors.append(" Position Y: " + ui->position_Y->text() +"\n");
-    object->setEarfcnDl(ui->earfcnDl->text());
-    if (validationTransmitPower(ui->transmitPower->text()))
-        object->setTransmitPower(ui->transmitPower->text()); else listErrors << " Transmit Power: " + ui->transmitPower->text() +"\n";
-    object->setUlNoiseAndInterference(ui->ulNoiseAndInterference->text());
+    if (validationNameCell(ui->cell->text())) {
+        object->cell_new_name = ui->cell->text();
+        object->chBox->setText(ui->cell->text());
+        object->center->new_name_area = QString("center" + ui->cell->text().remove(QString("cell")));
+        ui->mapObjectsWidget->setTabText(0 , ui->cell->text());
+    }
+    else listErrors <<" Name Cell: " +ui->cell->text()+"\n";
+
+    object->site = ui->site->text();
+    object->pci = ui->pci->text().toInt();
+
+    if (validationPosition(ui->position_X->text())) {
+        object->position_X = ui->position_X->text().toInt();
+    }
+    else listErrors <<" Position X: " +ui->position_X->text()+"\n";
+
+    if (validationPosition(ui->position_Y->text())) {
+        object->position_Y = ui->position_Y->text().toInt();
+    }
+    else listErrors.append(" Position Y: " + ui->position_Y->text() +"\n");
+
+    object->earfcnDl = ui->earfcnDl->text().toInt();
+
+    if (validationTransmitPower(ui->transmitPower->text())) {
+        object->transmitPower = ui->transmitPower->text().toFloat();
+    }
+    else listErrors << " Transmit Power: " + ui->transmitPower->text() +"\n";
+
+    object->ulNoiseAndInterference = ui->ulNoiseAndInterference->text().toFloat();
+
     if (!listErrors.isEmpty()){
         showMessageError(listErrors);
     }
     anyChangesInMap = true;
 }
+
 //--------------------------------------------------------------------------
 bool MapWindow::validationPosition(QString textForValidation){
-        QRegExp rx("^\\d\\d?\\d?\\d?\\d?$");
-        if (rx.indexIn(textForValidation) <0){
-            return false;
-        }else return true;
+    QRegExp rx("^\\d\\d?\\d?\\d?\\d?$");
+    return (rx.indexIn(textForValidation) >= 0);
 }
+
 bool MapWindow::validationTransmitPower(QString textForValidation){
-     QRegExp rx("^-?\\d\\d?\\d?$");
-    if (rx.indexIn(textForValidation) <0){
-                return false;
-    }else return true;
+    QRegExp rx("^-?\\d\\d?\\d?$");
+    return rx.indexIn(textForValidation) >= 0;
 }
 
 bool MapWindow::validationNameCell(QString textForValidation)
 {
-    if( openCell->getCell() == textForValidation)
+    if(openCell->cell == textForValidation)
         return true;
-    for (int i = 0; i< 12; i++){
-        if(textForValidation == tabCell[i]->getCell())
-           return false;
+
+    for (int i = 0; i< 12; i++) {
+        if(textForValidation == tabCell[i]->cell)
+            return false;
     }
+
     return true;
 }
 
@@ -429,14 +469,15 @@ void MapWindow::showMessageError(QList<QString> listErrors){
     msgBox.exec();
     listErrors.clear();
 }
+
 //-----------------------SAVE/RESTORE----------------------------
 void MapWindow::save_button_clicked()
 {
-
     saveCellsCheckboxes();
     anyChangesInMap = false;
     this->close();
 }
+
 void MapWindow::restore_button_clicked()
 {
     msgBox.setText("Are you sure?");
@@ -1482,22 +1523,25 @@ void MapWindow::saveCellsCheckboxes()
 void MapWindow::changeCenterValue_Y(int scale)
 {
     divisor+=1;
-    tabCenter[counter_center]->setSouthBoundary(QString::number(scale+100));
-    tabCenter[counter_center++]->setNorthBoundary(QString::number(scale-100));
-    tabCenter[counter_center]->setSouthBoundary(QString::number(scale+100));
-    tabCenter[counter_center++]->setNorthBoundary(QString::number(scale-100));
-    tabCell[counter_cell++]->setPosition_Y(QString::number(scale));
-    tabCell[counter_cell++]->setPosition_Y(QString::number(scale));
-    tabHandover[couter_handover]->setSouthBoundary(QString::number(scale-500));
-    tabHandover[couter_handover++]->setNorthBoundary(QString::number(scale+500));
-    if(couter_handover==21)
-        return;
-    tabHandover[couter_handover]->setSouthBoundary(QString::number(scale + (scale/divisor -4500)/2));
-    tabHandover[couter_handover++]->setNorthBoundary(QString::number(scale + scale/divisor - (scale/divisor -4500)/2));
-    tabHandover[couter_handover]->setSouthBoundary(QString::number(scale + (scale/divisor -4500)/2));
-    tabHandover[couter_handover++]->setNorthBoundary(QString::number(scale +  scale/divisor - (scale/divisor -4500)/2));
-    tabHandover[couter_handover]->setSouthBoundary(QString::number(scale + (scale/divisor -4500)/2));
-    tabHandover[couter_handover++]->setNorthBoundary(QString::number(scale +  scale/divisor - (scale/divisor -4500)/2));
+    tabCenter[counter_center]->southBoundary = scale + 100;
+    tabCenter[counter_center++]->northBoundary = scale - 100;
+    tabCenter[counter_center]->southBoundary = scale + 100;
+    tabCenter[counter_center++]->northBoundary = scale - 100;
+
+    tabCell[counter_cell++]->position_Y = scale;
+    tabCell[counter_cell++]->position_Y = scale;
+
+    tabHandover[couter_handover]->southBoundary = scale - 500;
+    tabHandover[couter_handover++]->northBoundary = scale + 500;
+
+    if(couter_handover==21) return;
+
+    tabHandover[couter_handover]->southBoundary = scale + (scale/divisor -4500)/2;
+    tabHandover[couter_handover++]->northBoundary = scale + scale/divisor - (scale/divisor-4500)/2;
+    tabHandover[couter_handover]->southBoundary = scale + (scale/divisor -4500)/2;
+    tabHandover[couter_handover++]->northBoundary = scale +  scale/divisor - (scale/divisor-4500)/2;
+    tabHandover[couter_handover]->southBoundary = scale + (scale/divisor -4500)/2;
+    tabHandover[couter_handover++]->northBoundary = scale +  scale/divisor - (scale/divisor-4500)/2;
 }
 
 void MapWindow::changeCenterValue_X(int scale)
@@ -1505,46 +1549,50 @@ void MapWindow::changeCenterValue_X(int scale)
     divisor+=2;
 
     for (int i = counter_cell; i<12 ; i+= 4){
-        tabCell[i]->setPosition_X(QString::number(scale));
-        tabCenter[i]->setWestBoundary(QString::number(scale-100));
-        tabCenter[i]->setEastBoundary(QString::number(scale+100));
+        tabCell[i]->position_X = scale;
+        tabCenter[i]->westBoundary = scale - 100;
+        tabCenter[i]->eastBoundary = scale + 100;
     }
+
     for (int i = counter_cell + 2; i<12 ; i+= 4){
-        tabCell[i]->setPosition_X(QString::number(scale/divisor + scale));
-        tabCenter[i]->setWestBoundary(QString::number(scale/divisor + scale -100));
-        tabCenter[i]->setEastBoundary(QString::number(scale/divisor + scale -100));
+        tabCell[i]->position_X = scale/divisor + scale;
+        tabCenter[i]->westBoundary = scale/divisor + scale -100;
+        tabCenter[i]->eastBoundary = scale/divisor + scale -100;
     }
+
     counter_cell++;
     int scale_1 = scale/(divisor-1);
-    for(int i = couter_handover; i<=22; i+=8){
-        if(couter_handover == 0){
-            tabHandover[i]->setWestBoundary(QString::number(scale + (scale_1 -4500)/2));
-            tabHandover[i]->setEastBoundary(QString::number(scale + scale_1 - (scale_1-4500)/2));
 
-            tabHandover[i+1]->setWestBoundary(QString::number(scale+1000));
-            tabHandover[i+1]->setEastBoundary(QString::number(scale+2000));
+    for(int i = couter_handover; i<=22; i+=8) {
+        if(couter_handover == 0){
+            tabHandover[i]->westBoundary = scale + (scale_1 -4500)/2;
+            tabHandover[i]->eastBoundary = scale + scale_1 - (scale_1-4500)/2;
+
+            tabHandover[i+1]->westBoundary = scale+1000;
+            tabHandover[i+1]->eastBoundary = scale+2000;
+
             if(i<16){
-            tabHandover[i+5]->setWestBoundary(QString::number(scale+1000));
-            tabHandover[i+5]->setEastBoundary(QString::number(scale+2000));
+            tabHandover[i+5]->westBoundary = scale+1000;
+            tabHandover[i+5]->eastBoundary = scale+2000;
             }
 
-        }else{
-            tabHandover[i]->setWestBoundary(QString::number(scale - scale_1/2 + (scale_1-4500)/2));
-            tabHandover[i]->setEastBoundary(QString::number(scale + scale_1/2 - (scale_1-4500)/2));
+        } else {
+            tabHandover[i]->westBoundary = scale - scale_1/2 + (scale_1-4500)/2;
+            tabHandover[i]->eastBoundary = scale + scale_1/2 - (scale_1-4500)/2;
             if (i<14){
-                tabHandover[i-1]->setWestBoundary(QString::number(scale+1000));
-                tabHandover[i-1]->setEastBoundary(QString::number(scale+2000));
-                tabHandover[i-2]->setWestBoundary(QString::number(scale-2000));
-                tabHandover[i-2]->setEastBoundary(QString::number(scale-1000));
+                tabHandover[i-1]->westBoundary = scale+1000;
+                tabHandover[i-1]->eastBoundary = scale+2000;
+                tabHandover[i-2]->westBoundary = scale-2000;
+                tabHandover[i-2]->eastBoundary = scale-1000;
 
-                tabHandover[i+2]->setWestBoundary(QString::number(scale-2000));
-                tabHandover[i+2]->setEastBoundary(QString::number(scale-1000));
-                tabHandover[i+3]->setWestBoundary(QString::number(scale+1000));
-                tabHandover[i+3]->setEastBoundary(QString::number(scale+2000));
-                tabHandover[i+6]->setWestBoundary(QString::number(scale-2000));
-                tabHandover[i+6]->setEastBoundary(QString::number(scale-1000));
-                tabHandover[i+7]->setWestBoundary(QString::number(scale+1000));
-                tabHandover[i+7]->setEastBoundary(QString::number(scale+2000));
+                tabHandover[i+2]->westBoundary = scale-2000;
+                tabHandover[i+2]->eastBoundary = scale-1000;
+                tabHandover[i+3]->westBoundary = scale+1000;
+                tabHandover[i+3]->eastBoundary = scale+2000;
+                tabHandover[i+6]->westBoundary = scale-2000;
+                tabHandover[i+6]->eastBoundary = scale-1000;
+                tabHandover[i+7]->westBoundary = scale+1000;
+                tabHandover[i+7]->eastBoundary = scale+2000;
             }
         }
     }
@@ -1564,10 +1612,9 @@ void MapWindow::on_checkBoxCoreNetwork_clicked()
         ui->lblSGW1->setEnabled(true);
         ui->lblMME1->setEnabled(true);
         emit updateSimulatedCoreNetworkState(project.name,true);
+    }
+}
 
-    //viewMME.setParameters(mme);
-}
-}
 //----------------------ON/OFF UE Simulated -------------------------------------------
 void MapWindow::on_checkBoxUE_simulated_clicked()
 {
@@ -1630,60 +1677,47 @@ void MapWindow::on_axis_x_clicked()
 
 bool MapWindow::wasChangeonCell()
 {
-    if(openCell->getCell_new_name().isEmpty()){
-        if(openCell->getCell().trimmed() != ui->cell->text().trimmed()){
-            return true;
-        }
-    }else{
-        if(openCell->getCell_new_name().trimmed() != ui->cell->text().trimmed())
-            return true;
+    if(openCell->cell_new_name.isEmpty() && openCell->cell.trimmed() != ui->cell->text().trimmed()) {
+        return true;
     }
-    if (openCell->getSite().trimmed() != ui->site->text().trimmed()){
+
+    if(openCell->cell_new_name.trimmed() != ui->cell->text().trimmed()) {
         return true;
-    }else if (openCell->getPci().trimmed() != ui->pci->text().trimmed()){
-        return true;
-    }else if (openCell->getPosition_X().trimmed() != ui->position_X->text().trimmed()){
-        return true;
-    }else if (openCell->getPosition_Y().trimmed()!= ui->position_Y->text().trimmed()){
-        return true;
-    }else if (openCell->getEarfcnDl().trimmed() != ui->earfcnDl->text().trimmed()){
-        return true;
-    }else if (openCell->getTransmitPower().trimmed() != ui->transmitPower->text().trimmed()){
-        return true;
-    }else if (openCell->getUlNoiseAndInterference().trimmed() != ui->ulNoiseAndInterference->text().trimmed()){
-        return true;
-    }else{
-        return false;
     }
+
+    if (openCell->site.trimmed() != ui->site->text().trimmed()
+            or QString::number(openCell->pci) != ui->pci->text().trimmed()
+            or QString::number(openCell->position_X) != ui->position_X->text().trimmed()
+            or QString::number(openCell->position_Y) != ui->position_Y->text().trimmed()
+            or QString::number(openCell->earfcnDl) != ui->earfcnDl->text().trimmed()
+            or QString::number(openCell->transmitPower) != ui->transmitPower->text().trimmed()
+            or QString::number(openCell->ulNoiseAndInterference) != ui->ulNoiseAndInterference->text().trimmed()) {
+        return true;
+    }
+
+    return false;
 }
 
 bool MapWindow::wasChangeonCenter()
 {
-    if(openCenter->getSouthBoundary().trimmed() != ui->southBoundary->text().trimmed()){
+    if(QString::number(openCenter->southBoundary) != ui->southBoundary->text().trimmed()
+            or QString::number(openCenter->northBoundary) != ui->northBoundary->text().trimmed()
+            or QString::number(openCenter->westBoundary) != ui->westBoundary->text().trimmed()
+            or QString::number(openCenter->eastBoundary) != ui->eastBoundary->text().trimmed()) {
         return true;
-    }else if(openCenter->getNorthBoundary().trimmed() != ui->northBoundary->text().trimmed()){
-        return true;
-    }else if(openCenter->getWestBoundary().trimmed() != ui->westBoundary->text().trimmed()){
-        return true;
-    }else if(openCenter->getEastBoundary().trimmed() != ui->eastBoundary->text().trimmed()){
-        return true;
-    }else{
-        return false;
     }
+
+    return false;
 }
 
 bool MapWindow::wasChangeonHandover()
 {
-    if(openHandover->getEastBoundary().trimmed() != ui->eastHandovernoundary->text().trimmed()){
+    if(QString::number(openHandover->eastBoundary) != ui->eastHandovernoundary->text().trimmed()
+            or QString::number(openHandover->northBoundary) != ui->northHandovernoundary->text().trimmed()
+            or QString::number(openHandover->southBoundary) != ui->soutHandovernoundary->text().trimmed()
+            or QString::number(openHandover->westBoundary) != ui->westHandovernoundary->text().trimmed()) {
         return true;
-    }else if(openHandover->getNorthBoundary().trimmed() != ui->northHandovernoundary->text().trimmed()){
-        return true;
-    }else if(openHandover->getSouthBoundary().trimmed() != ui->soutHandovernoundary->text().trimmed()){
-        return true;
-    }else if(openHandover->getWestBoundary().trimmed() != ui->westHandovernoundary->text().trimmed()){
-        return true;
-    }else{
-        return false;
     }
 
+    return false;
 }

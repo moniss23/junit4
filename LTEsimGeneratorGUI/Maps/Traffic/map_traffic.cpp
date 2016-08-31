@@ -235,85 +235,85 @@ void Map_traffic::createCell(){
     tabCell[0] = new Cell ("cell11");
     tabCell[0]->chBox = ui->checkBoxCell11;
     tabCell[0]->center = center11;
-    if(!tabCell[0]->getCell_new_name().isEmpty()) {
-        tabCell[0]->chBox->setText(tabCell[0]->getCell_new_name());
+    if(!tabCell[0]->cell_new_name.isEmpty()) {
+        tabCell[0]->chBox->setText(tabCell[0]->cell_new_name);
     }
 
     tabCell[1] = new Cell ("cell12");
     tabCell[1]->chBox = ui->checkBoxCell12;
     tabCell[1]->center = center12;
-    if(!tabCell[1]->getCell_new_name().isEmpty()) {
-        tabCell[1]->chBox->setText(tabCell[1]->getCell_new_name());
+    if(!tabCell[1]->cell_new_name.isEmpty()) {
+        tabCell[1]->chBox->setText(tabCell[1]->cell_new_name);
     }
 
     tabCell[2] = new Cell ("cell21");
     tabCell[2]->chBox = ui->checkBoxCell21;
     tabCell[2]->center = center21;
-    if(!tabCell[2]->getCell_new_name().isEmpty()) {
-        tabCell[2]->chBox->setText(tabCell[2]->getCell_new_name());
+    if(!tabCell[2]->cell_new_name.isEmpty()) {
+        tabCell[2]->chBox->setText(tabCell[2]->cell_new_name);
     }
 
     tabCell[3] = new Cell ("cell22");
     tabCell[3]->chBox = ui->checkBoxCell22;
     tabCell[3]->center = center22;
-    if(!tabCell[3]->getCell_new_name().isEmpty()) {
-        tabCell[3]->chBox->setText(tabCell[3]->getCell_new_name());
+    if(!tabCell[3]->cell_new_name.isEmpty()) {
+        tabCell[3]->chBox->setText(tabCell[3]->cell_new_name);
     }
 
     tabCell[4] = new Cell ("cell31");
     tabCell[4]->chBox = ui->checkBoxCell31;
     tabCell[4]->center = center31;
-    if(!tabCell[4]->getCell_new_name().isEmpty()) {
-        tabCell[4]->chBox->setText(cell31->getCell_new_name());
+    if(!tabCell[4]->cell_new_name.isEmpty()) {
+        tabCell[4]->chBox->setText(cell31->cell_new_name);
     }
 
     tabCell[5] = new Cell ("cell32");
     tabCell[5]->chBox = ui->checkBoxCell32;
     tabCell[5]->center = center32;
-    if(!tabCell[5]->getCell_new_name().isEmpty()) {
-        tabCell[5]->chBox->setText(tabCell[5]->getCell_new_name());
+    if(!tabCell[5]->cell_new_name.isEmpty()) {
+        tabCell[5]->chBox->setText(tabCell[5]->cell_new_name);
     }
 
     tabCell[6] = new Cell ("cell41");
     tabCell[6]->chBox = ui->checkBoxCell41;
     tabCell[6]->center = center41;
-    if(!tabCell[6]->getCell_new_name().isEmpty()) {
-        tabCell[6]->chBox->setText(tabCell[6]->getCell_new_name());
+    if(!tabCell[6]->cell_new_name.isEmpty()) {
+        tabCell[6]->chBox->setText(tabCell[6]->cell_new_name);
     }
 
     tabCell[7] = new Cell ("cell42");
     tabCell[7]->chBox = ui->checkBoxCell42;
     tabCell[7]->center = center42;
-    if(!tabCell[7]->getCell_new_name().isEmpty()) {
-        tabCell[7]->chBox->setText(tabCell[7]->getCell_new_name());
+    if(!tabCell[7]->cell_new_name.isEmpty()) {
+        tabCell[7]->chBox->setText(tabCell[7]->cell_new_name);
     }
 
     tabCell[8] = new Cell ("cell51");
     tabCell[8]->chBox = ui->checkBoxCell51;
     tabCell[8]->center = center51;
-    if(!tabCell[8]->getCell_new_name().isEmpty()) {
-        tabCell[8]->chBox->setText(tabCell[8]->getCell_new_name());
+    if(!tabCell[8]->cell_new_name.isEmpty()) {
+        tabCell[8]->chBox->setText(tabCell[8]->cell_new_name);
     }
 
     tabCell[9] = new Cell ("cell52");
     tabCell[9]->chBox = ui->checkBoxCell52;
     tabCell[9]->center = center52;
-    if(!tabCell[9]->getCell_new_name().isEmpty()) {
-        tabCell[9]->chBox->setText(tabCell[9]->getCell_new_name());
+    if(!tabCell[9]->cell_new_name.isEmpty()) {
+        tabCell[9]->chBox->setText(tabCell[9]->cell_new_name);
     }
 
     tabCell[10] = new Cell ("cell61");
     tabCell[10]->chBox = ui->checkBoxCell61;
     tabCell[10]->center = center61;
-    if(!tabCell[10]->getCell_new_name().isEmpty()) {
-        tabCell[10]->chBox->setText(tabCell[10]->getCell_new_name());
+    if(!tabCell[10]->cell_new_name.isEmpty()) {
+        tabCell[10]->chBox->setText(tabCell[10]->cell_new_name);
     }
 
     tabCell[11] = new Cell ("cell62");
     tabCell[11]->chBox = ui->checkBoxCell62;
     tabCell[11]->center = center62;
-    if(!tabCell[11]->getCell_new_name().isEmpty()) {
-        tabCell[11]->chBox->setText(tabCell[11]->getCell_new_name());
+    if(!tabCell[11]->cell_new_name.isEmpty()) {
+        tabCell[11]->chBox->setText(tabCell[11]->cell_new_name);
     }
 }
 

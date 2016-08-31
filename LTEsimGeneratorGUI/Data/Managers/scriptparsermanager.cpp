@@ -80,14 +80,14 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList s
             };
 
             Cell cell;
-            cell.setCell(cellParams[0]);
-            cell.setSite(cellParams[1]);
-            cell.setPci(cellParams[2]);
-            cell.setPosition_X(cellParams[3]);
-            cell.setPosition_Y(cellParams[4]);
-            cell.setEarfcnDl(cellParams[5]);
-            cell.setTransmitPower(cellParams[6]);
-            cell.setUlNoiseAndInterference(cellParams[7]);
+            cell.cell = cellParams[0];
+            cell.site = cellParams[1];
+            cell.pci = cellParams[2].toInt();
+            cell.position_X = cellParams[3].toInt();
+            cell.position_Y = cellParams[4].toInt();
+            cell.earfcnDl = cellParams[5].toInt();
+            cell.transmitPower = cellParams[6].toFloat();
+            cell.ulNoiseAndInterference = cellParams[7].toFloat();
             cells.append(cell);
             i+=8;
         }
@@ -115,11 +115,11 @@ QVector<Center> ScriptParserManager::getCentersFromScript(int i,const QStringLis
             };
 
             Center center;
-            center.setArea("Center" + centerParams[0]);
-            center.setSouthBoundary(centerParams[1]);
-            center.setNorthBoundary(centerParams[2]);
-            center.setWestBoundary(centerParams[3]);
-            center.setEastBoundary(centerParams[4]);
+            center.area = QString("Center" + centerParams[0]);
+            center.southBoundary = centerParams[1].toInt();
+            center.northBoundary = centerParams[2].toInt();
+            center.westBoundary = centerParams[3].toInt();
+            center.eastBoundary = centerParams[4].toInt();
             centers.append(center);
             i+=5;
         }
@@ -146,11 +146,11 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(int i, const QStri
             };
 
            Handover handover;
-            handover.setArea("Handover" + handoverParams[0]);
-            handover.setSouthBoundary(handoverParams[1]);
-            handover.setNorthBoundary(handoverParams[2]);
-            handover.setWestBoundary(handoverParams[3]);
-            handover.setEastBoundary(handoverParams[4]);
+            handover.area = QString("Handover" + handoverParams[0]);
+            handover.southBoundary = handoverParams[1].toInt();
+            handover.northBoundary = handoverParams[2].toInt();
+            handover.westBoundary = handoverParams[3].toInt();
+            handover.eastBoundary = handoverParams[4].toInt();
             handovers.append(handover);
             i+=5;
         }
