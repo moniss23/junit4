@@ -44,6 +44,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.cpp \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -77,6 +78,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.h \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
     DataTests/projecttest.h \

@@ -14,6 +14,7 @@
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
+#include "Data/ProjectSettings/generalconfigurationparameters.h"
 
 class DataSystem : public QObject
 {
@@ -60,6 +61,7 @@ public slots:
     void updateUCToolSettings(const UCToolSettings & ucToolSettings, const QString &projectName);
     void updateChannelModelSettings(const ChannelModelSettings &channelModelSettings, const QString &projectName);
     void updateUBSimSettings(const UBSimSettings &ubSimSettings, const QString &projectName);
+    void updateGeneralConfigurationParameters(const GeneralConfigurationParameters &generalConfigurationParameters, const QString &projectName);
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);

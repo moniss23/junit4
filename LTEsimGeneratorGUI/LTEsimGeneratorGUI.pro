@@ -35,7 +35,8 @@ SOURCES += \
     Data/ProjectSettings/mmesettings.cpp \
     Data/ProjectSettings/ubsimsettings.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
-    Maps/Parameters/MapWindow/newmapwindow.cpp
+    Maps/Parameters/MapWindow/newmapwindow.cpp \
+    Data/ProjectSettings/generalconfigurationparameters.cpp
 
 
 #--------UI SYSTEM--------#
@@ -111,8 +112,8 @@ HEADERS  += \
     Data/ProjectSettings/mmesettings.h \
     Data/ProjectSettings/ubsimsettings.h \
     UISystem/Widgets/handoverrepresentation.h \
-    Maps/Parameters/MapWindow/newmapwindow.h
-
+    Maps/Parameters/MapWindow/newmapwindow.h \
+    Data/ProjectSettings/generalconfigurationparameters.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \

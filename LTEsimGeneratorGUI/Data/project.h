@@ -20,6 +20,7 @@
 #include "Data/ProjectSettings/mmesettings.h"
 #include "Data/ProjectSettings/pagingsettings.h"
 #include "Data/ProjectSettings/ubsimsettings.h"
+#include "Data/ProjectSettings/generalconfigurationparameters.h"
 
 class Project : public SerializeInterface
 {
@@ -38,16 +39,16 @@ public:
     QVector<Handover> handovers;
 
     //-- Project  data --//
-    SgwSettings             sgwSettings;
-    UCToolSettings          ucToolSettings;
-    ChannelModelSettings    channelModelSettings;
-    DataGeneratorSettings   dataGeneratorSettings;
-    MmeSettings             mmeSettings;
-    PagingSettings          pagingSettings;
-    UBSimSettings           ubSimSettings;
-
-    bool                    SimulatedCoreNetwork = false;
-    bool                    SimulatedUe = false;
+    SgwSettings                     sgwSettings;
+    UCToolSettings                  ucToolSettings;
+    ChannelModelSettings            channelModelSettings;
+    DataGeneratorSettings           dataGeneratorSettings;
+    MmeSettings                     mmeSettings;
+    PagingSettings                  pagingSettings;
+    UBSimSettings                   ubSimSettings;
+    GeneralConfigurationParameters  generalConfiguration;
+    bool                            SimulatedCoreNetwork = false;
+    bool                            SimulatedUe = false;
 
     //-- Project files --//
     ParametersFileData      parametersFile;

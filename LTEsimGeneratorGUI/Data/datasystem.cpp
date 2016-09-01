@@ -345,6 +345,16 @@ void DataSystem::updateUBSimSettings(const UBSimSettings &ubSimSettings, const Q
     saveProjectsFile();
 }
 
+void DataSystem::updateGeneralConfigurationParameters(const GeneralConfigurationParameters &generalConfigurationParameters, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project.\nDatanot saved.");
+        return;
+    }
+    project->generalConfiguration = generalConfigurationParameters;
+    saveProjectsFile();
+}
+
 void DataSystem::generateParametersScript(const Project &project)
 {
     fileManager.generateParametersScript(project);
