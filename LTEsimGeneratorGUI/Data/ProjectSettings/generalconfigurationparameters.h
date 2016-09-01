@@ -2,7 +2,7 @@
 #define GENERALCONFIGURATIONPARAMETERS_H
 
 #include <QString>
-
+#include <QPair>
 #include "Data/Interfaces/serializeinterface.h"
 
 class GeneralConfigurationParameters: public SerializeInterface
@@ -16,7 +16,7 @@ public:
     QString jvmParameters;
     QString loggerHandlerSet;
     int loggerFileCount;
-    QString loggerFileSizeLimit;
+    QPair<int,int> loggerFileSizeLimit;
     bool loggerFileGzipEnabled;
 
 

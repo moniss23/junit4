@@ -15,6 +15,7 @@
 #include "Data/ProjectSettings/mmesettings.h"
 #include "Data/ProjectSettings/pagingsettings.h"
 #include "Data/ProjectSettings/ubsimsettings.h"
+#include "Data/ProjectSettings/generalconfigurationparameters.h"
 #include "Data/project.h"
 
 class ScriptParserManager
@@ -36,7 +37,7 @@ public:
     MmeSettings getMmeSettings(int i, QStringList scriptContentLines);
     PagingSettings getPagingSettings(int i, QStringList scriptContentLines);
     UBSimSettings getUBSimSettings(int i,QStringList scriptContentLines);
-
+    GeneralConfigurationParameters getGeneralConfigurationSettings(int i,QStringList scriptContentLines);
 private:
     QVector<QPair<Cell, Center>> matchCellsToCenters(auto cells, auto centers);
 
