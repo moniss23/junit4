@@ -4,7 +4,7 @@
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
-    paramWindow(dataSystem)
+    paramWindow()
 {
     settingsWindow.setWindowModality(Qt::WindowModal);
     this->bindingObjects();

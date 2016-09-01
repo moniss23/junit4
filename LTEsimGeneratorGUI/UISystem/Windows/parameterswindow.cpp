@@ -18,9 +18,8 @@
 QStringList parametersFileContentList;
 #include <QDebug>    //THIS WILL STAY TILL THE END OF REFACTOR
 
-ParametersWindow::ParametersWindow(DataSystem *appSettings, QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::ParametersWindow),
-    appSettings(appSettings)
+ParametersWindow::ParametersWindow(QWidget *parent) :
+    QMainWindow(parent), ui(new Ui::ParametersWindow)
 {
     ui->setupUi(this);
 

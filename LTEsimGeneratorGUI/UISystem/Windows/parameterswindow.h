@@ -7,7 +7,6 @@
 
 #include "UISystem/Windows/helpdialog.h"
 #include "UISystem/Helpers/rubysyntaxhighlighter.h"
-#include "Data/datasystem.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -19,7 +18,7 @@ class ParametersWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ParametersWindow(DataSystem *appSettings, QWidget *parent = 0);
+    explicit ParametersWindow(QWidget *parent = 0);
     ~ParametersWindow();
 
     void closeEvent(QCloseEvent *event);
@@ -164,7 +163,6 @@ private:
 private:
     Ui::ParametersWindow *ui;                   ///< GUI form pointer
     HelpDialog viewHelp;                        ///< Local instance of HelpDialog
-    DataSystem *appSettings;//TODO:get rid of that. It's used only while constructing map.
     Project currentProject;                     ///< Local instance of project
 
     std::unique_ptr<RubySyntaxHighlighter> highlighter;
