@@ -36,10 +36,8 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
         else if(scriptContentLines[i].contains("default[:rec]")) {
             project.cells = getCellsFromScript(i,scriptContentLines);
         }
-        else if(QRegExp(centerStartPattern).indexIn(scriptContentLines[i]) >= 0) {
+        else if(scriptContentLines[i].contains("default[:areas]")) {
             project.centers = getCentersFromScript(i,scriptContentLines);
-        }
-        else if(QRegExp(handoverStartPattern).indexIn(scriptContentLines[i]) >= 0) {
             project.handovers = getHandoversFromScript(i,scriptContentLines);
         }
         else if(scriptContentLines[i].contains("default[:dataGenerator]")) {
