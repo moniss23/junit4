@@ -36,5 +36,53 @@ void NewMapWindow::loadAndOpen(const Project &project)
     hBoxLayout->addLayout(vBoxLayout);
     vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400);
+
+    this->ui->ueCheckbox->setChecked(~project.SimulatedUe);
+    this->ui->ueCheckbox->setChecked(project.SimulatedUe);
+    this->ui->coreNetworkCheckbox->setChecked(~project.SimulatedCoreNetwork);
+    this->ui->coreNetworkCheckbox->setChecked(project.SimulatedCoreNetwork);
+
     this->show();
+}
+
+void NewMapWindow::on_channelModelsButton_pressed()
+{
+    emit spawnWindow_ChannelModel(project.name);
+}
+
+void NewMapWindow::on_ucToolButton_pressed()
+{
+    emit spawnWindow_ucTool(project.name);
+}
+
+void NewMapWindow::on_ipexButton_pressed()
+{
+    emit spawnWindow_Ipex(project.name);
+}
+
+void NewMapWindow::on_ubSimButton_pressed()
+{
+    emit spawnWindow_UBSim(project.name);
+}
+
+void NewMapWindow::on_sgwButton_pressed()
+{
+    emit spawnWindow_Sgw(project.name);
+}
+
+void NewMapWindow::on_mmeButton_pressed()
+{
+    emit spawnWindow_Mme(project.name);
+}
+
+void NewMapWindow::on_coreNetworkCheckbox_toggled(bool checked)
+{
+    ui->mmeButton->setEnabled(checked);
+    ui->sgwButton->setEnabled(checked);
+}
+
+void NewMapWindow::on_ueCheckbox_toggled(bool checked)
+{
+    ui->ubSimButton->setEnabled(checked);
+    ui->ipexButton->setEnabled(checked);
 }

@@ -20,6 +20,27 @@ public:
 public slots:
     void loadAndOpen(const Project &project);
 
+signals:
+    void spawnWindow_ucTool(const QString &projectName);
+    void spawnWindow_Ipex(const QString& projectName);
+    void spawnWindow_Sgw(const QString& projectName);
+    void spawnWindow_Mme(const QString& projectName);
+    void spawnWindow_ChannelModel(const QString& projectName);
+    void spawnWindow_UBSim(const QString& projectName);
+
+private slots:
+
+    void on_channelModelsButton_pressed();
+    void on_ucToolButton_pressed();
+    void on_ipexButton_pressed();
+    void on_ubSimButton_pressed();
+    void on_sgwButton_pressed();
+    void on_mmeButton_pressed();
+
+    void on_coreNetworkCheckbox_toggled(bool checked);
+
+    void on_ueCheckbox_toggled(bool checked);
+
 private:
     Ui::NewMapWindow *ui;
     QHBoxLayout *hBoxLayout;
