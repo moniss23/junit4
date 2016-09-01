@@ -196,7 +196,7 @@ MapWindow::~MapWindow()
 //--------------Show function  ---------------
 void MapWindow::showCellTabWiget()
 {
-    ui->mapObjectsWidget->insertTab(0,ui->tab, openCell->cell);
+    ui->mapObjectsWidget->insertTab(0,ui->tab, openCell->name);
     ui->mapObjectsWidget->removeTab(1);
     ui->mapObjectsWidget->removeTab(2);
     ui->mapObjectsWidget->show();
@@ -245,7 +245,7 @@ QStringList MapWindow::generateParams(){  //TODO: move this to parser !
     outputList << "\n\tdef Parameters.getRecParameters() \n";
     outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
     for(int i =0; i<number_of_cell; i++){
-        outputList << "\t\t\t:cell => \"" + tabCell[i]->cell + "\",\n";
+        outputList << "\t\t\t:cell => \"" + tabCell[i]->name + "\",\n";
         outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
         outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
         outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
@@ -316,7 +316,7 @@ void MapWindow::fillParams(Handover *object){
 }
 void MapWindow::fillParams(Cell *object){
 
-    ui->cell->setText(object->cell);
+    ui->cell->setText(object->name);
     ui->site->setText(object->site);
     ui->pci->setText(QString::number(object->pci));
     ui->position_X->setText(QString::number(object->position_X));
@@ -437,11 +437,11 @@ bool MapWindow::validationTransmitPower(QString textForValidation){
 
 bool MapWindow::validationNameCell(QString textForValidation)
 {
-    if(openCell->cell == textForValidation)
+    if(openCell->name == textForValidation)
         return true;
 
     for (int i = 0; i< 12; i++) {
-        if(textForValidation == tabCell[i]->cell)
+        if(textForValidation == tabCell[i]->name)
             return false;
     }
 
@@ -1667,7 +1667,7 @@ void MapWindow::on_axis_x_clicked()
 
 bool MapWindow::wasChangeonCell()
 {
-    if(openCell->cell.trimmed() != ui->cell->text().trimmed()) {
+    if(openCell->name.trimmed() != ui->cell->text().trimmed()) {
         return true;
     }
 

@@ -34,9 +34,8 @@ public:
     QString genScriptDir;
 
     //-- Project objects  --//
-    QVector<Cell>     cells;
-    QVector<Center>   centers;
     QVector<Handover> handovers;
+    QVector<QPair<Cell, Center>> cellsInfo;
 
     //-- Project  data --//
     SgwSettings                     sgwSettings;

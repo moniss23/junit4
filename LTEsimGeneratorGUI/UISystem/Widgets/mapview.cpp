@@ -144,17 +144,16 @@ void MapView::drawMapLines()
 
 void MapView::drawCellRepresentations()
 {
-    int numberOfCells = 12;
     int startOffset = 100;
     int elementOffset = 160;
     int evenOffset = 40;
     int numberOfCols = 4;
-    for(int i = 0; i<numberOfCells; i++) {
+    for(int i = 0; i<project.cellsInfo.size(); i++) {
         int col = i%numberOfCols;
         int row = i/numberOfCols;
         int evenRow= row%2;
 
-        CellRepresentation *node1 = new CellRepresentation(project.cells[i]);
+        CellRepresentation *node1 = new CellRepresentation(project.cellsInfo[i].first);
         scene->addItem(node1);
         // shift for even row  + shift for columnt + start offset , - start offset - row offset
         node1->setPos( evenRow*evenOffset+ col*elementOffset +startOffset,  - startOffset       -(elementOffset*row));
@@ -162,9 +161,9 @@ void MapView::drawCellRepresentations()
 }
 
 void MapView::drawHandoverRepresentations() {
-    for(int i=0; i<project.handovers.size(); ++i) {
-        HandoverRepresentation *ho = new HandoverRepresentation(project.handovers[i]);
-        scene->addItem(ho);
-        ho->setPos(200+i, -200+i);
-    }
+//    for(int i=0; i<project.handovers.size(); ++i) {
+    HandoverRepresentation *ho = new HandoverRepresentation(project.handovers[0]);
+    scene->addItem(ho);
+    ho->setPos(200, -200);
+//    }
 }

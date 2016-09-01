@@ -18,7 +18,7 @@ public:
     void resetParams();
 
 public:
-    QString cell;
+    QString name;
     QString site;
 
     int pci;

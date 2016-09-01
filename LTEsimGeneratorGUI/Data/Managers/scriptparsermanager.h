@@ -22,6 +22,7 @@ class ScriptParserManager
 public:
     ScriptParserManager();
     ~ScriptParserManager();
+
     void parseFromScript(const QString &scriptContent, Project &project);
 
     QVector<Cell> getCellsFromScript(int i, const QStringList scriptContent);
@@ -35,7 +36,10 @@ public:
     MmeSettings getMmeSettings(int i, QStringList scriptContentLines);
     PagingSettings getPagingSettings(int i, QStringList scriptContentLines);
     UBSimSettings getUBSimSettings(int i,QStringList scriptContentLines);
+
 private:
+    QVector<QPair<Cell, Center>> matchCellsToCenters(auto cells, auto centers);
+
     QString findRegexInText(QString pattern, const QString &text, int pos);
 };
 

@@ -72,7 +72,7 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->drawRoundedRect(rectangle,3,3);
 
     painter->setPen(QPen(Qt::black, 0));
-    painter->drawText(-centersize,-centersize, this->cellObject.cell);
+    painter->drawText(-centersize,-centersize, this->cellObject.name);
 }
 
 QVariant CellRepresentation::itemChange(GraphicsItemChange change, const QVariant &value)

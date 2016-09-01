@@ -16,6 +16,7 @@ TrafficFileData* Project::findTrafficFileByName(const QString &name) {
     return trafficfile==trafficFilesList.end() ? nullptr : trafficfile;
 }
 
+
 QByteArray Project::serializeData()
 {
     QBuffer serializedData;
@@ -31,8 +32,7 @@ QByteArray Project::serializeData()
         stream << file.serializeData();
     }
 
-    stream << cells;
-    stream << centers;
+    stream << cellsInfo;
     stream << handovers;
 
     stream << dataGeneratorSettings.serializeData();
@@ -70,8 +70,7 @@ void Project::deserializeData(const QByteArray &rawData)
         trafficFilesList.push_back(trafficFileData);
     }
 
-    stream >> cells;
-    stream >> centers;
+    stream >> cellsInfo;
     stream >> handovers;
 
     QByteArray rawDataGeneratorSettings;
@@ -105,7 +104,6 @@ void Project::deserializeData(const QByteArray &rawData)
     QByteArray rawGeneralConfigurationParameters;
     stream >> rawGeneralConfigurationParameters;
     generalConfiguration.deserializeData(rawGeneralConfigurationParameters);
-
 
     stream >> SimulatedCoreNetwork >> SimulatedUe;
 }

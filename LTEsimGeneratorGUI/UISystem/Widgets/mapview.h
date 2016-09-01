@@ -22,17 +22,15 @@ private:
     void drawHandoverRepresentations();
 
 private:
+    Project project;
+
     QGraphicsScene *scene;
-    QLineF x_AxisLine;
-    QLineF y_AxisLine;
+    QLineF x_AxisLine, y_AxisLine;
+    QPen solidPen, solid2, dotPen;
     QPointF gridLineStart, gridLineEnd, tickMarkStart, tickMarkEnd, textPoint;
-    QPen solidPen;
-    QPen solid2;
-    QPen dotPen;
+
     int maxX = 28000;
     int maxY = 35000;
-
-    Project project;
 };
 
 #endif // MAPVIEW_H

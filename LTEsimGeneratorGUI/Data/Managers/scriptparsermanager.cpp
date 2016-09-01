@@ -19,8 +19,33 @@ QString ScriptParserManager::findRegexInText(QString pattern, const QString &tex
 
     return QString();
 }
+
+QVector<QPair<Cell, Center>> ScriptParserManager::matchCellsToCenters(auto cells, auto centers) {
+    QVector<QPair<Cell, Center>> cellsInfo;
+
+    for(auto &cell : cells) {
+        QString cellNumber = cell.name;
+        cellNumber.remove("cell", Qt::CaseInsensitive);
+
+        auto centerFound = std::find_if(centers.begin(), centers.end(), [&cellNumber](auto &center)
+        {
+            QString centerNumber = center.area;
+            centerNumber.remove("Center", Qt::CaseInsensitive);
+            return cellNumber == centerNumber;
+        });
+
+        if(centerFound != centers.end()) {
+            cellsInfo.append(qMakePair(cell, *centerFound));
+        }
+    }
+
+    return cellsInfo;
+}
+
 void ScriptParserManager::parseFromScript(const QString &scriptContent, Project &project){
 
+    QVector<Cell> cells;
+    QVector<Center> centers;
     QStringList scriptContentLines = scriptContent.split("\n");
 
     QString centerStartPattern(":area => \"Center(.*)\",");
@@ -34,10 +59,10 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.mmeSettings = getMmeSettings(i,scriptContentLines);
         }
         else if(scriptContentLines[i].contains("default[:rec]")) {
-            project.cells = getCellsFromScript(i,scriptContentLines);
+            cells = getCellsFromScript(i,scriptContentLines);
         }
         else if(scriptContentLines[i].contains("default[:areas]")) {
-            project.centers = getCentersFromScript(i,scriptContentLines);
+            centers = getCentersFromScript(i,scriptContentLines);
             project.handovers = getHandoversFromScript(i,scriptContentLines);
         }
         else if(scriptContentLines[i].contains("default[:dataGenerator]")) {
@@ -56,6 +81,8 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.ubSimSettings = getUBSimSettings(i,scriptContentLines);
         }
     }
+
+    project.cellsInfo = this->matchCellsToCenters(cells, centers);
 }
 
 QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList scriptContent) {
@@ -78,7 +105,7 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList s
             };
 
             Cell cell;
-            cell.cell = cellParams[0];
+            cell.name = cellParams[0];
             cell.site = cellParams[1];
             cell.pci = cellParams[2].toInt();
             cell.position_X = cellParams[3].toInt();

@@ -53,8 +53,7 @@ Project* DataSystem::findProjectByName(const QString &projectName) {
 }
 
 bool DataSystem::isProjectNameUsed(QString projectName) {
-    auto proj = findProjectByName(projectName);
-    return proj != nullptr;
+    return findProjectByName(projectName) != nullptr;
 }
 
 // check if the projects file exists, create it if it doesn't
