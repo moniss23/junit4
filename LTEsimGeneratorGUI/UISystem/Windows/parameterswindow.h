@@ -146,8 +146,6 @@ private slots:
 
     void on_filePreview_textChanged();
 
-    void on_showCellMapButton_clicked();
-
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/

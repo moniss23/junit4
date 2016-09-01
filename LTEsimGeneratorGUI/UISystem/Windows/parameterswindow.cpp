@@ -249,8 +249,3 @@ void ParametersWindow::on_saveFileButton_clicked()
 void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
-
-void ParametersWindow::on_showCellMapButton_clicked()
-{
-    emit spawnWindow_MapView(currentProject.name);
-}

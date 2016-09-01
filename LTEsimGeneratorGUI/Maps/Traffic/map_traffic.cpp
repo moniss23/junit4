@@ -255,7 +255,7 @@ void Map_traffic::createCell(){
     tabCell[4] = new Cell ("cell31");
     tabCell[4]->chBox = ui->checkBoxCell31;
     tabCell[4]->center = center31;
-    tabCell[4]->chBox->setText(cell31->name);
+    tabCell[4]->chBox->setText(tabCell[4]->name);
 
     tabCell[5] = new Cell ("cell32");
     tabCell[5]->chBox = ui->checkBoxCell32;
