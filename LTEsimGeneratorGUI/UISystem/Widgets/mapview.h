@@ -29,8 +29,8 @@ private:
     QPen solidPen;
     QPen solid2;
     QPen dotPen;
-    int maxX = 26000;
-    int maxY = 37000;
+    int maxX = 28000;
+    int maxY = 35000;
 
     Project project;
 };

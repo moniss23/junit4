@@ -1,6 +1,5 @@
 #include "newmapwindow.h"
 #include "ui_newmapwindow.h"
-#include <QDebug>
 
 #include "UISystem/Widgets/mapview.h"
 
@@ -20,9 +19,12 @@ void NewMapWindow::loadAndOpen(const Project &project)
 {
     this->project = project;
     mapView = new MapView(project, this);
-    QGridLayout* layout = this->findChild<QGridLayout*>("mainGridLayout");
-    layout->addWidget(mapView,0,0);
-    QTabWidget* tabWidget = this->findChild<QTabWidget*>("mapObjectsWidget");
-    layout->addWidget(tabWidget,0,1);
+    hBoxLayout = new QHBoxLayout(this);
+    this->ui->centralwidget->setLayout(hBoxLayout);
+    hBoxLayout->addWidget(mapView);
+    vBoxLayout = new QVBoxLayout(this);
+    hBoxLayout->addLayout(vBoxLayout);
+    vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400);
+    vBoxLayout->addWidget(this->ui->rbsWidget, 400);
     this->show();
 }

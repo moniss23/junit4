@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "UISystem/Widgets/mapview.h"
+#include <QHBoxLayout>
 
 namespace Ui {
 class NewMapWindow;
@@ -21,6 +22,8 @@ public slots:
 
 private:
     Ui::NewMapWindow *ui;
+    QHBoxLayout *hBoxLayout;
+    QVBoxLayout *vBoxLayout;
     MapView *mapView;
     Project project;
 };
