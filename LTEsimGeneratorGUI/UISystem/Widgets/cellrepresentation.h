@@ -3,10 +3,12 @@
 
 #include <QGraphicsObject>
 
+#include "Data/Objects/cell.h"
+
 class CellRepresentation : public QGraphicsObject
 {
 public:
-    CellRepresentation(QGraphicsObject *parent = 0);
+    CellRepresentation(Cell &cell, QGraphicsObject *parent = 0);
 
     int type() const { return UserType; }
 
@@ -21,9 +23,9 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
 
 private:
+    Cell cellObject;
     static const int circlesize = 210;
     static const int centersize = 30;
-    QString name;
 
 };
 

@@ -4,10 +4,12 @@
 #include <QGraphicsScene>
 #include <QGraphicsObject>
 
+#include "Data/Objects/handover.h"
+
 class HandoverRepresentation : public QGraphicsObject
 {
 public:
-    HandoverRepresentation(QGraphicsObject *parent = 0);
+    HandoverRepresentation(Handover &handover, QGraphicsObject *parent = 0);
 
     int type() const { return UserType; }
     QRectF boundingRect() const Q_DECL_OVERRIDE;
@@ -22,9 +24,10 @@ protected:
 private:
     QImage icon;
     QString name;
+    Handover handoverObject;
 
-    int width = 60;
-    int height = 110;
+    static const int width = 60;
+    static const int height = 110;
 };
 
 #endif // HANDOVERREPRESENTATION_H

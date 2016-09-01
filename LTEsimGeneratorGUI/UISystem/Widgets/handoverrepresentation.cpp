@@ -1,8 +1,10 @@
 #include <QPainter>
+
 #include "handoverrepresentation.h"
 
-HandoverRepresentation::HandoverRepresentation(QGraphicsObject *parent)
-    : QGraphicsObject(parent)
+HandoverRepresentation::HandoverRepresentation(Handover &handover, QGraphicsObject *parent)
+    : QGraphicsObject(parent),
+      handoverObject(handover)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);

@@ -26,15 +26,15 @@ void MapView::resizeEvent(QResizeEvent *event)
 
 void MapView::printNewMap()
 {
-    this->DrawAxis();
-    this->DrawMapLines();
-    this->DrawCellRepresentations();
-    this->DrawHandoverRepresentations();
+    this->drawAxis();
+    this->drawMapLines();
+    this->drawCellRepresentations();
+    this->drawHandoverRepresentations();
 
     this->setScene(scene);
 }
 
-void MapView::DrawAxis()
+void MapView::drawAxis()
 {
     QPointF widgetOffset(30.0, -15.0);
     QPointF Xend(600.0 , 0.0);
@@ -65,11 +65,11 @@ void MapView::DrawAxis()
     scene->addPolygon(QPolygonF() << y_AxisLine.p2() << destArrowP1 << destArrowP2, solid2, QBrush(Qt::SolidPattern));
 }
 
-void MapView::DrawMapLines()
+void MapView::drawMapLines()
 {
     int distanceBetweenGridLines;
 
-    //Printing horizontal lines
+    //Drawing horizontal lines
     for(int i = 1; i < (maxY / 7000) + 1; i++) {
 
         QLineF tickMarkLine;
@@ -104,7 +104,8 @@ void MapView::DrawMapLines()
         scene->addLine(gridLine, dotPen);
         scene->addLine(tickMarkLine, solidPen);
     }
-    //Printing vertical lines
+
+    //Drawing vertical lines
     for(int i = 1; i < (maxX / 7000) + 1; i++) {
 
         QLineF gridLine;
@@ -141,7 +142,7 @@ void MapView::DrawMapLines()
     }
 }
 
-void MapView::DrawCellRepresentations()
+void MapView::drawCellRepresentations()
 {
     int numberOfCells = 12;
     int startOffset = 100;
@@ -153,15 +154,17 @@ void MapView::DrawCellRepresentations()
         int row = i/numberOfCols;
         int evenRow= row%2;
 
-        CellRepresentation *node1 = new CellRepresentation();
+        CellRepresentation *node1 = new CellRepresentation(project.cells[i]);
         scene->addItem(node1);
-        //              shift for even row  + shift for columnt + start offset , - start offset - row offset
+        // shift for even row  + shift for columnt + start offset , - start offset - row offset
         node1->setPos( evenRow*evenOffset+ col*elementOffset +startOffset,  - startOffset       -(elementOffset*row));
     }
 }
 
-void MapView::DrawHandoverRepresentations() {
-    HandoverRepresentation *ho = new HandoverRepresentation();
-    scene->addItem(ho);
-    ho->setPos(200, -200);
+void MapView::drawHandoverRepresentations() {
+    for(int i=0; i<project.handovers.size(); ++i) {
+        HandoverRepresentation *ho = new HandoverRepresentation(project.handovers[i]);
+        scene->addItem(ho);
+        ho->setPos(200+i, -200+i);
+    }
 }

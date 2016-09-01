@@ -4,7 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 
-#include <Data/project.h>
+#include "Data/project.h"
 
 class MapView : public QGraphicsView
 {
@@ -12,15 +12,14 @@ class MapView : public QGraphicsView
 public:
     explicit MapView(const Project& project, QWidget *parent = 0);
 
+    void printNewMap();
     void resizeEvent(QResizeEvent* event);
 
-    void printNewMap();
-
 private:
-    void DrawHandoverRepresentations();
-    void DrawCellRepresentations();
-    void DrawMapLines();
-    void DrawAxis();
+    void drawAxis();
+    void drawMapLines();
+    void drawCellRepresentations();
+    void drawHandoverRepresentations();
 
 private:
     QGraphicsScene *scene;

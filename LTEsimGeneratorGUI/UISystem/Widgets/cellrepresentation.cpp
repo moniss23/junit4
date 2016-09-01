@@ -1,16 +1,15 @@
 #include "cellrepresentation.h"
 
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
 #include <QPainter>
-#include <QStyleOption>
-#include <QGraphicsProxyWidget>
-
-#include <QDebug>
 #include <QPushButton>
+#include <QStyleOption>
+#include <QGraphicsScene>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsSceneMouseEvent>
 
-CellRepresentation::CellRepresentation(QGraphicsObject *parent)
-    :QGraphicsObject(parent)
+CellRepresentation::CellRepresentation(Cell &cell, QGraphicsObject *parent)
+    : QGraphicsObject(parent),
+      cellObject(cell)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -26,13 +25,12 @@ CellRepresentation::CellRepresentation(QGraphicsObject *parent)
 
 QRectF CellRepresentation::boundingRect() const
 {
-
     return QRectF( -circlesize/2 , -circlesize/2 , circlesize , circlesize );
 }
 
 QPainterPath CellRepresentation::shape() const
 {
-     QRectF rectangle(-centersize/2 , -centersize/2 , centersize, centersize);
+    QRectF rectangle(-centersize/2 , -centersize/2 , centersize, centersize);
 
     QPainterPath path;
     //path.addEllipse(boundingRect());
@@ -65,36 +63,20 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
         gradient.setColorAt(1, Qt::darkYellow);
     }
 
-
     painter->setBrush(gradient);
-
     painter->setPen(QPen(Qt::white, 0));
     painter->drawEllipse( -circlesize/2 , -circlesize/2 , circlesize, circlesize);
-
 
     painter->setBrush(QBrush(center));
     QRectF rectangle(-centersize/2 , -centersize/2 , centersize, centersize);
     painter->drawRoundedRect(rectangle,3,3);
 
-
-
     painter->setPen(QPen(Qt::black, 0));
-    painter->drawText(-centersize,-centersize, "cell12");
+    painter->drawText(-centersize,-centersize, this->cellObject.cell);
 }
-
-
-
 
 QVariant CellRepresentation::itemChange(GraphicsItemChange change, const QVariant &value)
 {
-    switch (change) {
-    case ItemPositionHasChanged:
-        qDebug()<<"Position has changed to:"<<pos();
-        break;
-    default:
-        break;
-    };
-
     return QGraphicsItem::itemChange(change, value);
 }
 
@@ -107,5 +89,3 @@ void CellRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
 }
-
-
