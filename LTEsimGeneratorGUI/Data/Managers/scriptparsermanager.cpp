@@ -1,6 +1,6 @@
 #include <QRegExp>
 #include "scriptparsermanager.h"
-
+#include <QDebug>
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -48,37 +48,83 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
     QVector<Center> centers;
     QStringList scriptContentLines = scriptContent.split("\n");
 
-    QString centerStartPattern(":area => \"Center(.*)\",");
-    QString handoverStartPattern(":area => \"Handover(.*)\",");
+    int len =0,startIndex =0;
 
     for (int i=0;i<scriptContentLines.size();i++){
         if(scriptContentLines[i].contains("default[:model_set_name]")) {
-            project.channelModelSettings = getChannelModelSettingsFromScript(i,scriptContentLines);
+            startIndex=i;
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.channelModelSettings = getChannelModelSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("default[:mme_names] =")){
-            project.mmeSettings = getMmeSettings(i,scriptContentLines);
+            startIndex=i;
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.mmeSettings = getMmeSettings(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:rec]")) {
-            cells = getCellsFromScript(i,scriptContentLines);
-        }
+            startIndex=i;
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            cells = getCellsFromScript(scriptContentLines);        }
         else if(scriptContentLines[i].contains("default[:areas]")) {
-            centers = getCentersFromScript(i,scriptContentLines);
-            project.handovers = getHandoversFromScript(i,scriptContentLines);
+            startIndex=i;
+            while ((!(QRegExp("Common").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            centers = getCentersFromScript(scriptContentLines);
+            project.handovers = getHandoversFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:dataGenerator]")) {
-            project.dataGeneratorSettings = getDataGeneratorSettingsFromScript(i,scriptContentLines);
+            startIndex=i;
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.dataGeneratorSettings = getDataGeneratorSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:sgw_names]")) {
-            project.sgwSettings = getSgwSettings(i,scriptContentLines);
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.sgwSettings = getSgwSettings(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:uctool_ip]")) {
-            project.ucToolSettings = getUCToolSettingsFromScript(i,scriptContentLines);
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.ucToolSettings = getUCToolSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("[:generate_pagings]")){
-            project.pagingSettings = getPagingSettings(i,scriptContentLines);
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.pagingSettings = getPagingSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("getUbsimConfigParameters()")){
-            project.ubSimSettings = getUBSimSettings(i,scriptContentLines);
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.ubSimSettings = getUBSimSettings(scriptContentLines.mid(startIndex,len));
+        }
+        else if (scriptContentLines[i].contains("getGeneralParameters")){
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("getGeneralParameters")){
             project.generalConfiguration = getGeneralConfigurationSettings(i,scriptContentLines);
@@ -88,12 +134,12 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
     project.cellsInfo = this->matchCellsToCenters(cells, centers);
 }
 
-QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList scriptContent) {
+QVector<Cell> ScriptParserManager::getCellsFromScript(const QStringList scriptContent) {
 
     QVector<Cell> cells;
 
     QString cellStartPattern(":cell => \"(.*)\",");
-    while (!(QRegExp("^end").indexIn(scriptContent[i])>-1)){
+    for (int i = 0;i<scriptContent.size();i++) {
         if(QRegExp(cellStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> cellParams = {
@@ -119,18 +165,16 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(int i, const QStringList s
             cells.append(cell);
             i+=8;
         }
-        else i++;
     }
-
     return cells;
 }
 
-QVector<Center> ScriptParserManager::getCentersFromScript(int i,const QStringList scriptContent) {
+QVector<Center> ScriptParserManager::getCentersFromScript(const QStringList scriptContent) {
 
     QVector<Center> centers;
 
     QString centerStartPattern(":area => \"Center(.*)\",");
-    while (!scriptContent.contains("Handover") && !(QRegExp("^end").indexIn(scriptContent[i])>-1)) {
+    for (int i = 0;i<scriptContent.size();i++)  {
         QString startPattern(":area => \"Center(.*)\",");
         if(QRegExp(centerStartPattern).indexIn(scriptContent[i]) >= 0) {
 
@@ -151,18 +195,17 @@ QVector<Center> ScriptParserManager::getCentersFromScript(int i,const QStringLis
             centers.append(center);
             i+=5;
         }
-        else i++;
     }
 
     return centers;
 }
 
-QVector<Handover> ScriptParserManager::getHandoversFromScript(int i, const QStringList scriptContent) {
+QVector<Handover> ScriptParserManager::getHandoversFromScript(const QStringList scriptContent) {
 
     QVector<Handover> handovers;
 
     QString handoverStartPattern(":area => \"Handover(.*)\",");
-    while (!(QRegExp("^end").indexIn(scriptContent[i])>-1)){
+    for (int i = 0;i<scriptContent.size();i++) {
         if(QRegExp(handoverStartPattern).indexIn(scriptContent[i]) >= 0) {
 
             QVector<QString> handoverParams = {
@@ -173,7 +216,7 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(int i, const QStri
                 findRegexInText(":eastBoundary => (.*)([,}]|$)", scriptContent[i+4], 1)
             };
 
-           Handover handover;
+            Handover handover;
             handover.area = QString("Handover" + handoverParams[0]);
             handover.southBoundary = handoverParams[1].toInt();
             handover.northBoundary = handoverParams[2].toInt();
@@ -182,53 +225,35 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(int i, const QStri
             handovers.append(handover);
             i+=5;
         }
-        else i++;
     }
 
     return handovers;
 }
 
-DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(int i, QStringList scriptContentLines)
+DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(const QStringList scriptContentLines)
 {
     DataGeneratorSettings dataGeneratorSettings;
 
-    int startIndex, endIndex;
-    QString value;
-
-    while (!(QRegExp("^end").indexIn(scriptContentLines[i])>-1)){
+    for (int i = 0;i<scriptContentLines.size();i++) {
         if(scriptContentLines[i].contains("default[:dataGenerator]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                dataGeneratorSettings.dataGenerator = quoteRegExp.capturedTexts()[0].remove("\"");
             }
-            startIndex = scriptContentLines[i].indexOf("\"");
-            startIndex++;
-            endIndex = scriptContentLines[i].lastIndexOf("\"");
-            value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
-            dataGeneratorSettings.dataGenerator = value;
         }
         else if(scriptContentLines[i].contains("default[:userDataGen]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                dataGeneratorSettings.userDataGenerator = quoteRegExp.capturedTexts();
             }
-            int j = i;
-            do {
-                startIndex = scriptContentLines[j].indexOf("\"");
-                startIndex++;
-                endIndex  = scriptContentLines[j].lastIndexOf("\"");
-                value = scriptContentLines[j].mid(startIndex, endIndex - startIndex);
-                value.chop(2);
-                dataGeneratorSettings.userDataGenerator.push_back(value);
-            }while(scriptContentLines[j++].contains("+"));
-            for(int k = 0; k < dataGeneratorSettings.userDataGenerator.size(); k++) {
+        }
+        else if(scriptContentLines[i].contains("default[:ipgwtg_port]")) {
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i])>-1){
+                dataGeneratorSettings.ipgwtgPort= numberRegExp.capturedTexts()[0].toInt();
             }
         }
         else if(scriptContentLines[i].contains("default[:start_isp_simulator]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if(scriptContentLines[i].contains("true")) {
                 dataGeneratorSettings.startIspSimulator = true;
             } else if (scriptContentLines[i].contains("false")) {
@@ -236,142 +261,104 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(in
             }
         }
         else if(scriptContentLines[i].contains("default[:ipgwtg_ipAddress]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                dataGeneratorSettings.ipgwtg_IP_Address = quoteRegExp.capturedTexts()[0].remove("\"");
             }
-            startIndex = scriptContentLines[i].indexOf("\"");
-            startIndex++;
-            endIndex = scriptContentLines[i].lastIndexOf("\"");
-            value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
-            dataGeneratorSettings.ipgwtg_IP_Address = value;
         }
         else if(scriptContentLines[i].contains("default[:ipgwtg_inband_signaling]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if(scriptContentLines[i].contains("true")) {
                 dataGeneratorSettings.ipgwtgInbandSignaling = true;
             } else if (scriptContentLines[i].contains("false")) {
                 dataGeneratorSettings.ipgwtgInbandSignaling = false;
             }
         }
-        else if(scriptContentLines[i].contains("default[:ipgwtg_port]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
-            startIndex = scriptContentLines[i].indexOf("=");
-            startIndex++;
-            value = scriptContentLines[i].mid(startIndex, scriptContentLines[i].size() - startIndex);
-            dataGeneratorSettings.ipgwtgPort = value.toInt();
-        }
         else if(scriptContentLines[i].contains("default[:ipgwtg_ftp_sender_connect_put]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if(scriptContentLines[i].contains("true")) {
                 dataGeneratorSettings.ipgwtgFtpSenderConnectPut = true;
             } else {
                 dataGeneratorSettings.ipgwtgFtpSenderConnectPut = false;
             }
         }
-        i++;
     }
     return dataGeneratorSettings;
 }
-SgwSettings ScriptParserManager::getSgwSettings(int i,const QStringList scriptContentLines){
+SgwSettings ScriptParserManager::getSgwSettings(const QStringList scriptContentLines){
 
     SgwSettings sgwSettings;
 
-    int len;
-    while (!scriptContentLines[i].contains("end")) {
+    for (int i = 0;i<scriptContentLines.size();i++)  {
         if(scriptContentLines[i].contains("default[:sgw_names]")) {
-            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            sgwSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                sgwSettings.name = quoteRegExp.capturedTexts()[0].remove("\"");
+            }
         }
         else if (scriptContentLines[i].contains("default[:sgw_ipAddresses]")) {
-            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            sgwSettings.ipAdress = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                sgwSettings.ipAdress = quoteRegExp.capturedTexts()[0].remove("\"");
+            }
         }
         else if (scriptContentLines[i].contains("default[:apn_lists]")) {
-            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            QStringList temp = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split(",");
-            for (int j=0;j<temp.size();j+=2){
-                sgwSettings.apnList.append(QPair<QString,QString>(temp[j],temp[j+1]));
-                sgwSettings.apnList[j].second.chop(1);
+            QRegExp quoteRegExp("\".*\"");
+            for (int i=0;i<quoteRegExp.capturedTexts().size();i+=2) {
+                if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                    sgwSettings.apnList.append(QPair<QString,QString>(quoteRegExp.capturedTexts()[i].split(",")[0],quoteRegExp.capturedTexts()[i].split(",")[0]));
+                }
             }
         }
         else if (scriptContentLines[i].contains("default[:sgw_LDIs]")) {
-            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            sgwSettings.ldi = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len).toInt();
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i])>-1){
+                qDebug()<<numberRegExp.capturedTexts()[0];
+                sgwSettings.ldi = numberRegExp.capturedTexts()[0].toInt();
+            }
         }
         else if (scriptContentLines[i].contains("default[:core_network_gateway]")) {
-            if (scriptContentLines[i].contains("false")){
-                sgwSettings.coreNetworkGateway=false;
-            }
-            else{
+            if (scriptContentLines[i].contains("true")){
                 sgwSettings.coreNetworkGateway=true;
             }
+            else{
+                sgwSettings.coreNetworkGateway=false;
+            }
         }
-        i++;
     }
     return sgwSettings;
 }
 
-UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(int i, QStringList scriptContentLines)
+UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(const QStringList scriptContentLines)
 {
     UCToolSettings ucToolSettings;
 
-    int startIndex, endIndex;
-    QString value;
-
-    while (!scriptContentLines[i].contains ("end") ) {
+    for (int i = 0;i<scriptContentLines.size();i++)  {
         if(scriptContentLines[i].contains("default[:uctool_ip]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ucToolSettings.ucToolIP = quoteRegExp.capturedTexts()[0];
             }
-        startIndex = scriptContentLines[i].indexOf("{");
-        startIndex++;
-        endIndex = scriptContentLines[i].lastIndexOf("}");
-        value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
-        ucToolSettings.ucToolIP = value;
         }
         else if(scriptContentLines[i].contains("default[:uctool_cIds]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ucToolSettings.ucToolCIds = quoteRegExp.capturedTexts()[0];
             }
-        startIndex = scriptContentLines[i].indexOf("{");
-        startIndex++;
-        endIndex = scriptContentLines[i].lastIndexOf("}");
-        value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
-        ucToolSettings.ucToolCIds = value;
         }
         else if(scriptContentLines[i].contains("default[:uctool_service_ip]")) {
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                ucToolSettings.ucToolServiceIp = quoteRegExp.capturedTexts()[0];
             }
-        startIndex = scriptContentLines[i].indexOf("{");
-        startIndex++;
-        endIndex = scriptContentLines[i].lastIndexOf("}");
-        value = scriptContentLines[i].mid(startIndex, endIndex - startIndex);
-        ucToolSettings.ucToolServiceIp = value;
         }
-        i++;
     }
     return ucToolSettings;
 }
 
-ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(int i,const QStringList content) {
+ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(const QStringList content) {
 
     ChannelModelSettings settings;
 
-    while (!content[i].contains("end")){
+    for (int i = 0;i<content.size();i++) {
         if(QRegExp("\\[:model_set_name\\] = \"(.*)\"$").indexIn(content[i]) >= 0) {
             settings.model_set_name = findRegexInText("\\[:model_set_name\\] = \"(.*)\"$", content[i], 1);
         }
@@ -448,52 +435,39 @@ ChannelModelSettings ScriptParserManager::getChannelModelSettingsFromScript(int 
             settings.pathloss_based_feedback_sinr_threshold =  findRegexInText(
                         "\\[:pathloss_based_feedback_sinr_threshold\\] = (.*)$", content[i], 1).toDouble();
         }
-
-        i++;
     }
 
     return settings;
 
 }
-MmeSettings ScriptParserManager::getMmeSettings(int i, QStringList scriptContentLines){
+MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentLines){
 
     MmeSettings mmeSettings;
 
-    int len, startIndex;
-    while (!scriptContentLines[i].contains("end")){
+    int len;
+    for (int i=0;i<scriptContentLines.size();i++) {
         if (scriptContentLines[i].contains("default[:mme_names] =")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             mmeSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
-            if (scriptContentLines[i-1].contains("true")){
+        }
+        else if (scriptContentLines[i].contains("default[:simulate_core] = ")){
+            if (scriptContentLines[i].contains("true")){
                 mmeSettings.simulatedCoreNetwork = false;
             }
-            else if (scriptContentLines[i-1].contains("true")){
+            else if (scriptContentLines[i].contains("true")){
                 mmeSettings.simulatedCoreNetwork = true;
             }
         }
-
         else if (scriptContentLines[i].contains("default[:mme_tais] = ")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             mmeSettings.tais = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
         }
         else if (scriptContentLines[i].contains("default[:mmes] = ")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             mmeSettings.numberOfMme = QString(scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).toInt();
         }
         else if (scriptContentLines[i].contains("default[:mme_s1ap_uris] = ")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             mmeSettings.uris = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
         }
         else if (scriptContentLines[i].contains("default[:s1ap_pluginFilterPath] = ")){
@@ -504,18 +478,16 @@ MmeSettings ScriptParserManager::getMmeSettings(int i, QStringList scriptContent
                 mmeSettings.pluginFilterPath = pluginRegExp.capturedTexts()[0].mid(1,pluginRegExp.capturedTexts()[0].length()-2);
             }
         }
-        i++;
     }
 
     return mmeSettings;
 }
-PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptContentLines){
+PagingSettings ScriptParserManager::getPagingSettings(const QStringList scriptContentLines){
 
     PagingSettings pagingSettings;
 
-    int startIndex,len;
-
-    while (!scriptContentLines[i].contains("end")){
+    int len;
+    for (int i = 0;i<scriptContentLines.size();i++)  {
         if (scriptContentLines[i].contains("[:generate_pagings]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="false"){
@@ -524,19 +496,10 @@ PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptCo
             }
             else if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="true"){
                 pagingSettings.isUsedInConfiguration = true;
-
-            }
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
             }
         }
         else if (scriptContentLines[i].contains("[:generators]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             QRegExp generatorsRegExp("[0-9]+");
             int pos = generatorsRegExp.indexIn(scriptContentLines[i]);
             if (pos > -1) {
@@ -558,10 +521,6 @@ PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptCo
             }
         }
         else if (scriptContentLines[i].contains("[:ue_paging_identity]")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (scriptContentLines[i].contains("IMSI")){
                 pagingSettings.uePagingIdentity = "IMSI";
             }
@@ -577,10 +536,6 @@ PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptCo
             }
         }
         else if (scriptContentLines[i].contains("[:bundle_paging]")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (scriptContentLines[i].contains("true")){
                 pagingSettings.bundlePaging=true;
             }
@@ -588,65 +543,42 @@ PagingSettings ScriptParserManager::getPagingSettings(int i,QStringList scriptCo
                 pagingSettings.bundlePaging = false;
             }
         }
-        i++;
-
     }
     return pagingSettings;
 
 
 }
 
-UBSimSettings ScriptParserManager::getUBSimSettings(int i, QStringList scriptContentLines){
+UBSimSettings ScriptParserManager::getUBSimSettings(const QStringList scriptContentLines){
 
     UBSimSettings ubSimSettings;
 
-    int startIndex;
-    while (!(QRegExp("^end").indexIn(scriptContentLines[i])>-1)) {
+    for (int i = 0;i<scriptContentLines.size();i++)  {
         if (scriptContentLines[i].contains("[:ueTypesDir]")){
             QRegExp quoteRegExp("\".*\"");
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.ueTypesDir = quoteRegExp.capturedTexts()[0];
             }
         }
         else if (scriptContentLines[i].contains("[:csTrafficModelsDir]")){
             QRegExp quoteRegExp("\".*\"");
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.csTrafficModelsDir = quoteRegExp.capturedTexts()[0];
             }
         }
         else if (scriptContentLines[i].contains("[:psTrafficModelsDir]")){
             QRegExp quoteRegExp("\".*\"");
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.psTrafficModelsDir = quoteRegExp.capturedTexts()[0];
             }
         }
         else if (scriptContentLines[i].contains("[:mobilityModelsDir]")){
             QRegExp quoteRegExp("\".*\"");
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.mobilityModelsDir = quoteRegExp.capturedTexts()[0];
             }
         }
         else if (scriptContentLines[i].contains("[:visualization]")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (scriptContentLines[i].contains("true")){
                 ubSimSettings.UBSimGui = true;
             }
@@ -656,17 +588,70 @@ UBSimSettings ScriptParserManager::getUBSimSettings(int i, QStringList scriptCon
         }
         else if (scriptContentLines[i].contains("[:ubsim_patches]")){
             QRegExp quoteRegExp("\".*\"");
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.ubsim_patches = quoteRegExp.capturedTexts();
             }
         }
-        i++;
     }
     return ubSimSettings;
+}
+GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSettings(QStringList scriptContentLines){
+    GeneralConfigurationParameters generalConfiguration;
+    int startIndex;
+    for (int i = 0;i<scriptContentLines.size();i++) {
+        if (scriptContentLines[i].contains("log_dir")){
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            generalConfiguration.logDir = scriptContentLines[i];
+        }
+        else if (scriptContentLines[i].contains("[:coreParameters]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                generalConfiguration.coreParameters = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:jvm_parameters]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                generalConfiguration.jvmParameters = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:logger_handlersSet]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                generalConfiguration.loggerHandlerSet = quoteRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:logger_file_count]")){
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
+                generalConfiguration.loggerHandlerSet = numberRegExp.capturedTexts()[0];
+            }
+        }
+        else if (scriptContentLines[i].contains("[:logger_file_sizeLimit]")){
+            if(scriptContentLines[i].contains("#")) {
+                startIndex = scriptContentLines[i].indexOf("#");
+                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
+            }
+            QRegExp regExp("[0-9]+**[0-9]+");
+            if (regExp.lastIndexIn(scriptContentLines[i]) > -1){
+                generalConfiguration.loggerFileSizeLimit.first = regExp.capturedTexts()[0].split("**")[0].toInt();
+                generalConfiguration.loggerFileSizeLimit.second = regExp.capturedTexts()[0].split("**")[1].toInt();
+            }
+        }
+        else if (scriptContentLines[i].contains("[:logger_file_gzipEnabled]")){
+            if (scriptContentLines[i].contains("true")){
+                generalConfiguration.loggerFileGzipEnabled = true;
+            }
+            else if (scriptContentLines[i].contains("false")){
+                generalConfiguration.loggerFileGzipEnabled = false;
+            }
+        }
+    }
+
+    return generalConfiguration;
 }
 GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSettings(int i, QStringList scriptContentLines){
     GeneralConfigurationParameters generalConfiguration;

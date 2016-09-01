@@ -26,18 +26,18 @@ public:
 
     void parseFromScript(const QString &scriptContent, Project &project);
 
-    QVector<Cell> getCellsFromScript(int i, const QStringList scriptContent);
-    QVector<Center> getCentersFromScript(int i,const QStringList scriptContent);
-    QVector<Handover> getHandoversFromScript(int i, const QStringList scriptContent);
+    QVector<Cell> getCellsFromScript(const QStringList scriptContent);
+    QVector<Center> getCentersFromScript(const QStringList scriptContent);
+    QVector<Handover> getHandoversFromScript(const QStringList scriptContent);
 
-    SgwSettings getSgwSettings(int i, const QStringList scriptContentLines);
-    UCToolSettings getUCToolSettingsFromScript(int i, QStringList scriptContent);
-    ChannelModelSettings getChannelModelSettingsFromScript(int i, const QStringList content);
-    DataGeneratorSettings getDataGeneratorSettingsFromScript(int i, QStringList scriptContentLines);
-    MmeSettings getMmeSettings(int i, QStringList scriptContentLines);
-    PagingSettings getPagingSettings(int i, QStringList scriptContentLines);
-    UBSimSettings getUBSimSettings(int i,QStringList scriptContentLines);
-    GeneralConfigurationParameters getGeneralConfigurationSettings(int i,QStringList scriptContentLines);
+    SgwSettings getSgwSettings(const QStringList scriptContentLines);
+    UCToolSettings getUCToolSettingsFromScript(const QStringList scriptContent);
+    ChannelModelSettings getChannelModelSettingsFromScript(const QStringList content);
+    DataGeneratorSettings getDataGeneratorSettingsFromScript(const QStringList scriptContentLines);
+    MmeSettings getMmeSettings(const QStringList scriptContentLines);
+    PagingSettings getPagingSettings(const QStringList scriptContentLines);
+    UBSimSettings getUBSimSettings(const QStringList scriptContentLines);
+    GeneralConfigurationParameters getGeneralConfigurationSettings(const QStringList scriptContentLines);
 private:
     QVector<QPair<Cell, Center>> matchCellsToCenters(auto cells, auto centers);
 
