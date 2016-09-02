@@ -29,8 +29,11 @@ private:
     QPen solidPen, solid2, dotPen;
     QPointF gridLineStart, gridLineEnd, textPoint;
 
-    int maxX = 28000;
-    int maxY = 35000;
+    const int scale = 7000;
+    int circleSize;
+
+    int maxX = 50000;
+    int maxY = 70000;
 };
 
 #endif // MAPVIEW_H

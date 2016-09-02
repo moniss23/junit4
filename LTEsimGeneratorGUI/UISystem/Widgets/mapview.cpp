@@ -40,13 +40,14 @@ void MapView::printNewMap()
 
 void MapView::drawAxis()
 {
-    double mapHeight = scene->sceneRect().height();
-    qDebug() << "mapHeight - " << mapHeight;
-    double mapWidth = scene->sceneRect().width();
-    qDebug() << "mapWidth - " << mapWidth;
-    QPointF widgetOffset(30.0, -15.0);
-    QPointF Xend(mapWidth, 0.0);
-    QPointF Yend(0.0, -mapHeight);
+    double mapHeight = scene->sceneRect().height() - CellRepresentation::circlesize;
+    double mapWidth = scene->sceneRect().width() - CellRepresentation::circlesize;
+
+    double widthScale = (maxX - (maxX%scale)) / mapWidth;
+    double heightScale = (maxY - (maxY%scale)) / mapHeight;
+
+    QPointF Xend(mapWidth * widthScale, 0.0);
+    QPointF Yend(0.0, -mapHeight * heightScale);
 
     x_AxisLine.setPoints(QPointF(0.0, 0.0), Xend);
     y_AxisLine.setPoints(QPointF(0.0, 0.0), Yend);
