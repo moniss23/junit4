@@ -3,8 +3,6 @@
 #include "UISystem/Widgets/cellrepresentation.h"
 #include "UISystem/Widgets/handoverrepresentation.h"
 
-#include <QDebug>
-
 MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
     solidPen(Qt::black, 50, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
     solid2(Qt::black, 50, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
@@ -22,8 +20,6 @@ MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent
 
 void MapView::resizeEvent(QResizeEvent *event)
 {
-    qDebug() << "w resizeEvent scene.width - " << scene->sceneRect().width();
-    qDebug() << "w resizeEvent scene.height - " << scene->sceneRect().height();
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
@@ -43,8 +39,8 @@ void MapView::drawAxis()
     double mapHeight = scene->sceneRect().height() - CellRepresentation::circlesize;
     double mapWidth = scene->sceneRect().width() - CellRepresentation::circlesize;
 
-    double widthScale = (maxX - (maxX%scale)) / mapWidth;
-    double heightScale = (maxY - (maxY%scale)) / mapHeight;
+    double widthScale = (project.mapRange.eastBoundMap - (project.mapRange.eastBoundMap%scale)) / mapWidth;
+    double heightScale = (project.mapRange.northBoundMap - (project.mapRange.northBoundMap%scale)) / mapHeight;
 
     QPointF Xend(mapWidth * widthScale, 0.0);
     QPointF Yend(0.0, -mapHeight * heightScale);
@@ -79,10 +75,10 @@ void MapView::drawMapLines()
     int distanceBetweenGridLines;
 
     //Drawing horizontal lines
-    for(int i = 1; i < (maxY / 7000) + 1; i++) {
+    for(int i = 1; i < (project.mapRange.northBoundMap / scale) + 1; i++) {
 
         QLineF gridLine;
-        distanceBetweenGridLines = y_AxisLine.length() / (maxY / 7000);
+        distanceBetweenGridLines = y_AxisLine.length() / (project.mapRange.northBoundMap / scale);
 
         //Grid line start, end points
         gridLineStart.setX(x_AxisLine.x1());
@@ -94,7 +90,7 @@ void MapView::drawMapLines()
         textPoint.setX(x_AxisLine.x1() - scene->sceneRect().height() / 15);
         textPoint.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i) - scene->sceneRect().height() / 100);
 
-        QGraphicsTextItem *textItem = scene->addText(QString::number(7000 * (i)));
+        QGraphicsTextItem *textItem = scene->addText(QString::number(scale * (i)));
         auto textFont = textItem->font();
         textFont.setPointSize(scene->sceneRect().height() / 70);
         textItem->setFont(textFont);
@@ -108,10 +104,10 @@ void MapView::drawMapLines()
     }
 
     //Drawing vertical lines
-    for(int i = 1; i < (maxX / 7000) + 1; i++) {
+    for(int i = 1; i < (project.mapRange.eastBoundMap / scale) + 1; i++) {
 
         QLineF gridLine;
-        distanceBetweenGridLines = x_AxisLine.length() / (maxX / 7000);
+        distanceBetweenGridLines = x_AxisLine.length() / (project.mapRange.eastBoundMap / scale);
 
         //Grid line start, end points
         gridLineStart.setX(y_AxisLine.x1() + (distanceBetweenGridLines * i));
@@ -123,7 +119,7 @@ void MapView::drawMapLines()
         textPoint.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i) - scene->sceneRect().width() / 35);
         textPoint.setY(y_AxisLine.y1());
 
-        QGraphicsTextItem *textItem = scene->addText(QString::number(7000 * i));
+        QGraphicsTextItem *textItem = scene->addText(QString::number(scale * i));
         auto textFont = textItem->font();
         textFont.setPointSize(scene->sceneRect().height() / 70);
         textItem->setFont(textFont);

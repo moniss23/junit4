@@ -9,6 +9,7 @@ class MapRange : public SerializeInterface
 public:
     MapRange();
     ~MapRange() {}
+
     int northBoundMap;
     int southBoundMap;
     int eastBoundMap;

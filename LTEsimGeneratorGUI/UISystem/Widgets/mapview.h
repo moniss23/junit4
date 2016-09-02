@@ -30,10 +30,6 @@ private:
     QPointF gridLineStart, gridLineEnd, textPoint;
 
     const int scale = 7000;
-    int circleSize;
-
-    int maxX = 50000;
-    int maxY = 70000;
 };
 
 #endif // MAPVIEW_H
