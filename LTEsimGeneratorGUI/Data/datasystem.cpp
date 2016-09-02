@@ -411,3 +411,12 @@ void DataSystem::updatePaging(const PagingSettings &pagingSettings, QString proj
     project->pagingSettings = pagingSettings;
     saveProjectsFile();
 }
+void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    project->mapRange = mapRange;
+    saveProjectsFile();
+}

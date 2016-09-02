@@ -43,6 +43,7 @@ QByteArray Project::serializeData()
     stream << pagingSettings.serializeData();
     stream << ubSimSettings.serializeData();
     stream << generalConfiguration.serializeData();
+    stream << mapRange.serializeData();
 
     stream << SimulatedCoreNetwork << SimulatedUe;
 
@@ -104,6 +105,10 @@ void Project::deserializeData(const QByteArray &rawData)
     QByteArray rawGeneralConfigurationParameters;
     stream >> rawGeneralConfigurationParameters;
     generalConfiguration.deserializeData(rawGeneralConfigurationParameters);
+
+    QByteArray rawMapRange;
+    stream >> rawMapRange;
+    mapRange.deserializeData(rawMapRange);
 
     stream >> SimulatedCoreNetwork >> SimulatedUe;
 }

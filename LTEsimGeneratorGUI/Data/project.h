@@ -21,6 +21,7 @@
 #include "Data/ProjectSettings/pagingsettings.h"
 #include "Data/ProjectSettings/ubsimsettings.h"
 #include "Data/ProjectSettings/generalconfigurationparameters.h"
+#include "Data/ProjectSettings/maprange.h"
 
 class Project : public SerializeInterface
 {
@@ -46,6 +47,7 @@ public:
     PagingSettings                  pagingSettings;
     UBSimSettings                   ubSimSettings;
     GeneralConfigurationParameters  generalConfiguration;
+    MapRange                        mapRange;
     bool                            SimulatedCoreNetwork = false;
     bool                            SimulatedUe = false;
 

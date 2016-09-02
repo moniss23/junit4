@@ -3,7 +3,7 @@
 
 #include "Data/datasystem.h"
 #include "Data/Objects/cell.h"
-#include "Maps/Parameters/MapRange/maprange.h"
+#include "Data/ProjectSettings/maprange.h"
 #include "Maps/Traffic/CustomModel/customModel.h"
 #include "Maps/Traffic/MapComponents/draguelabel.h"
 #include "Maps/Traffic/Statistics/statisticsManager.h"
@@ -33,7 +33,6 @@ public:
     DragUELabel **tab_UE;
     DragUELabel *last_element_traffic;
     int counter_UE;
-    MapRange *mapRange_traffic;
     QComboBox *combo_pointer;
 
     void parseListToAddPingEtcCM1();
@@ -97,10 +96,6 @@ public:
     void show_UE_params8();
     void show_UE_params9();
     void show_UE_params10();
-
-    //Map_scale
-    void changeMapRange_x_northBoundMap();
-    void changeMapRange_y_northBoundMap();
 
 private:
     Ui::Map_traffic *ui;

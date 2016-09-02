@@ -42,7 +42,6 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     createHandover();
     createCoreNetwork();
     createUeSimulated();
-    mapRange = new MapRange();
 
     anyChangesInMap = false;
 
@@ -71,8 +70,8 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     connect(ui->SaveButton,SIGNAL (clicked()), this, SLOT(save_button_clicked()));
     connect(ui->RestoreButton,SIGNAL (clicked()), this, SLOT(restore_button_clicked()));
 
-    changeMapRange_y_northBoundMap();
-    changeMapRange_x_northBoundMap();
+    //changeMapRange_y_northBoundMap();
+    //changeMapRange_x_northBoundMap();
 
     ui->checkBoxUE_simulated->setChecked(project.SimulatedUe);
     ui->checkBoxCoreNetwork->setChecked(project.SimulatedCoreNetwork);
@@ -218,76 +217,82 @@ void MapWindow::showHandoverTabWiget()
 }
 //----------------- Myfunction -----------------
 
-QStringList MapWindow::generateParams(){  //TODO: move this to parser !
+QStringList MapWindow::generateParams(){ } //TODO: move this to parser !
 
-    int number_of_cell =12;      //12
-    int number_of_Center=12;       //12
-    int number_of_Handover=21;     //21
-    outputList<<"require 'etc'\n";
-    outputList<<"module Parameters\n";
+// AKTUALNIE ZOSTAWIAM TĄ CZĘŚĆ WYRZUCĘ JĄ PRZY GENEROWANIU PARAMETERS RB
+// ALE Z UWAGI NA POZOSTAŁOŚCI I MOŻLIWOŚĆ SPRAWDZENIA JAK TO MNIEJ WIĘCEJ TO BYŁO ROBIONE
+// ZOSTAWIAM
 
-    //---------------------------------UE-------------------------------------------------------------
-    outputList<< "\tdef Parameters.getUeParameters()\n";
-    outputList<<"\n\t\tdefault = {}";
-    outputList<<"\n\t\tdefault[:start_ue_component] = " + convertBoolToText(ue->getStart_ue_component());
-    outputList<<"\n\t\tdefault[:name] = \"" + ue->getName() +"\"";
-    outputList<<"\n\t\tdefault[:l1l2_managers] = \"" + ue->getL1l2_managers() +"\"";
-    outputList<<"\n\t\tdefault[:default[:rrc_pluginFilterPath] = \"" + ue->getRrc_pluginFilterPath() +"\"";
-    outputList<<"\n\t\tdefault[:uctool_ip] = \"" + ue->getUctool_ip() +"\"";
-    outputList<<"\n\t\tdefault[:uctool_cIds] = \"" + ue->getUctool_cIds() +"\"";
-    outputList<<"\n\t\tdefault[:uctool_service_ip] = \"" + ue->getUctool_service_ip() +"\"";
-    outputList<<"\n\t\tdefault[:ue_network_capability] = \"" + ue->getUe_network_capability() +"\"";
-    outputList<<"\n\t\tdefault[:ue_keyDerivationAlgorithm] = \"" + ue->getUe_keyDerivationAlgorithm() +"\"";
-    outputList<<"\n\t\tdefault[:ue_key] = \"" + ue->getUe_key() +"\"";
-    outputList<<"\n\t\tdefault[:ue_op] = \"" + ue->getUe_op() +"\"";
-    outputList <<"\n\t\treturn default\n\tend\n";
-    //---------------------------------Cell objects---------------------------------------------------
-    outputList << "\n\tdef Parameters.getRecParameters() \n";
-    outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
-    for(int i =0; i<number_of_cell; i++){
-        outputList << "\t\t\t:cell => \"" + tabCell[i]->name + "\",\n";
-        outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
-        outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
-        outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
-        outputList << "\t\t\t:position_Y => " + QString::number(tabCell[i]->position_Y) +",\n";
-        outputList << "\t\t\t:earfcnDl => " + QString::number(tabCell[i]->earfcnDl) + +",\n";
-        outputList << "\t\t\t:transmitPower => " + QString::number(tabCell[i]->transmitPower) +",\n";
-        outputList << "\t\t\t:ulNoiseAndInterference => " + QString::number(tabCell[i]->ulNoiseAndInterference) +"\n";
-        if (i != number_of_cell-1)
-            outputList << "\t\t}.{\n";
-    }
-    outputList << "\t\t}\n\t\t] \n\treturn default \n\tend";
 
-    outputList << "\n\tdef Parameters.getTraffBehaviourParameters() \n\t\tdefault = {}";
-    outputList << "\n\t\tdefault[:imsiMapRange] = \"" + ue->getImsiMapRange() +"\"\n";
 
-   outputList <<"\n\t\tdefault[:southBoundMap] = " + QString::number(mapRange->getSouthBoundMap());
-   outputList <<"\n\t\tdefault[:northBoundMap] = " + QString::number(mapRange->getNorthBoundMap());
-   outputList <<"\n\t\tdefault[:westBoundMap] = " + QString::number(mapRange->getWestBoundMap());
-   outputList <<"\n\t\tdefault[:eastBoundMap] = " + QString::number(mapRange->getEastBoundMap());
+//    int number_of_cell =12;      //12
+//    int number_of_Center=12;       //12
+//    int number_of_Handover=21;     //21
+//    outputList<<"require 'etc'\n";
+//    outputList<<"module Parameters\n";
 
-   outputList <<"\n\t\tdefault[:areas] = [ \n\t\t{";
-   for(int i =0 ; i<number_of_Center ; i++){
-        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + "\",";
-        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabCenter[i]->southBoundary) + ",";
-        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabCenter[i]->northBoundary) + ",";
-        outputList <<"\n\t\t\t:westBoundary => " + QString::number(tabCenter[i]->westBoundary) + ",";
-        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabCenter[i]->eastBoundary);
-        outputList <<"\n\t\t},{";
-    }
-   for(int i =0 ; i<number_of_Handover ; i++){
-        outputList <<"\n\t\t\t:area => \"" +tabHandover[i]->area + "\",";
-        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabHandover[i]->southBoundary) + ",";
-        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabHandover[i]->northBoundary) + ",";
-        outputList <<"\n\t\t\t:westBoundary => "+ QString::number(tabHandover[i]->westBoundary) + ",";
-        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabHandover[i]->eastBoundary);
-        if (i != number_of_Handover-1)
-            outputList << "\n\t\t},{";
-    }
-    outputList <<"\nend";
+//    //---------------------------------UE-------------------------------------------------------------
+//    outputList<< "\tdef Parameters.getUeParameters()\n";
+//    outputList<<"\n\t\tdefault = {}";
+//    outputList<<"\n\t\tdefault[:start_ue_component] = " + convertBoolToText(ue->getStart_ue_component());
+//    outputList<<"\n\t\tdefault[:name] = \"" + ue->getName() +"\"";
+//    outputList<<"\n\t\tdefault[:l1l2_managers] = \"" + ue->getL1l2_managers() +"\"";
+//    outputList<<"\n\t\tdefault[:default[:rrc_pluginFilterPath] = \"" + ue->getRrc_pluginFilterPath() +"\"";
+//    outputList<<"\n\t\tdefault[:uctool_ip] = \"" + ue->getUctool_ip() +"\"";
+//    outputList<<"\n\t\tdefault[:uctool_cIds] = \"" + ue->getUctool_cIds() +"\"";
+//    outputList<<"\n\t\tdefault[:uctool_service_ip] = \"" + ue->getUctool_service_ip() +"\"";
+//    outputList<<"\n\t\tdefault[:ue_network_capability] = \"" + ue->getUe_network_capability() +"\"";
+//    outputList<<"\n\t\tdefault[:ue_keyDerivationAlgorithm] = \"" + ue->getUe_keyDerivationAlgorithm() +"\"";
+//    outputList<<"\n\t\tdefault[:ue_key] = \"" + ue->getUe_key() +"\"";
+//    outputList<<"\n\t\tdefault[:ue_op] = \"" + ue->getUe_op() +"\"";
+//    outputList <<"\n\t\treturn default\n\tend\n";
+//    //---------------------------------Cell objects---------------------------------------------------
+//    outputList << "\n\tdef Parameters.getRecParameters() \n";
+//    outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
+//    for(int i =0; i<number_of_cell; i++){
+//        outputList << "\t\t\t:cell => \"" + tabCell[i]->name + "\",\n";
+//        outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
+//        outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
+//        outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
+//        outputList << "\t\t\t:position_Y => " + QString::number(tabCell[i]->position_Y) +",\n";
+//        outputList << "\t\t\t:earfcnDl => " + QString::number(tabCell[i]->earfcnDl) + +",\n";
+//        outputList << "\t\t\t:transmitPower => " + QString::number(tabCell[i]->transmitPower) +",\n";
+//        outputList << "\t\t\t:ulNoiseAndInterference => " + QString::number(tabCell[i]->ulNoiseAndInterference) +"\n";
+//        if (i != number_of_cell-1)
+//            outputList << "\t\t}.{\n";
+//    }
+//    outputList << "\t\t}\n\t\t] \n\treturn default \n\tend";
 
-    return outputList;
-}
+//    outputList << "\n\tdef Parameters.getTraffBehaviourParameters() \n\t\tdefault = {}";
+//    outputList << "\n\t\tdefault[:imsiMapRange] = \"" + ue->getImsiMapRange() +"\"\n";
+
+//   outputList <<"\n\t\tdefault[:southBoundMap] = " + QString::number(mapRange->getSouthBoundMap());
+//   outputList <<"\n\t\tdefault[:northBoundMap] = " + QString::number(mapRange->getNorthBoundMap());
+//   outputList <<"\n\t\tdefault[:westBoundMap] = " + QString::number(mapRange->getWestBoundMap());
+//   outputList <<"\n\t\tdefault[:eastBoundMap] = " + QString::number(mapRange->getEastBoundMap());
+
+//   outputList <<"\n\t\tdefault[:areas] = [ \n\t\t{";
+//   for(int i =0 ; i<number_of_Center ; i++){
+//        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + "\",";
+//        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabCenter[i]->southBoundary) + ",";
+//        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabCenter[i]->northBoundary) + ",";
+//        outputList <<"\n\t\t\t:westBoundary => " + QString::number(tabCenter[i]->westBoundary) + ",";
+//        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabCenter[i]->eastBoundary);
+//        outputList <<"\n\t\t},{";
+//    }
+//   for(int i =0 ; i<number_of_Handover ; i++){
+//        outputList <<"\n\t\t\t:area => \"" +tabHandover[i]->area + "\",";
+//        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabHandover[i]->southBoundary) + ",";
+//        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabHandover[i]->northBoundary) + ",";
+//        outputList <<"\n\t\t\t:westBoundary => "+ QString::number(tabHandover[i]->westBoundary) + ",";
+//        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabHandover[i]->eastBoundary);
+//        if (i != number_of_Handover-1)
+//            outputList << "\n\t\t},{";
+//    }
+//    outputList <<"\nend";
+
+//    return outputList;
+//}
 
 QString MapWindow::convertBoolToText(bool value){
     QString result;
@@ -876,26 +881,7 @@ void MapWindow::on_pbSetCellParams_clicked()
    saveParams(openCell);
 }
 //------------------------end edit parameters ------------------------------------
-void MapWindow::on_southBoundary_returnPressed()
-{
 
-    saveParams(openCenter);
-}
-
-void MapWindow::on_northBoundary_returnPressed()
-{
-    saveParams(openCenter);
-}
-
-void MapWindow::on_westBoundary_returnPressed()
-{
-    saveParams(openCenter);
-}
-
-void MapWindow::on_eastBoundary_returnPressed()
-{
-    saveParams(openCenter);
-}
 
 void MapWindow::on_pbSetCenterParams_clicked()
 {
@@ -1455,44 +1441,44 @@ void MapWindow::showActiveLine()
 
     }
 }
-//----------------change Map scale ---------------------------------------------------------------
-void MapWindow::changeMapRange_x_northBoundMap()
-{
-    int max_map = mapRange->getNorthBoundMap();
-    int scale = max_map/7;
-    int position_zero = 1000+scale;
-    ui->y->setText(QString::number(position_zero));
-    ui->y_2->setText(QString::number(position_zero +scale));
-    ui->y_3->setText(QString::number(position_zero +2*scale));
-    ui->y_4->setText(QString::number(position_zero +3*scale));
-    ui->y_5->setText(QString::number(position_zero +4*scale));
-    ui->y_6->setText(QString::number(position_zero +5*scale));
+////----------------change Map scale ---------------------------------------------------------------
+//void MapWindow::changeMapRange_x_northBoundMap()
+//{
+//    int max_map = mapRange->getNorthBoundMap();
+//    int scale = max_map/7;
+//    int position_zero = 1000+scale;
+//    ui->y->setText(QString::number(position_zero));
+//    ui->y_2->setText(QString::number(position_zero +scale));
+//    ui->y_3->setText(QString::number(position_zero +2*scale));
+//    ui->y_4->setText(QString::number(position_zero +3*scale));
+//    ui->y_5->setText(QString::number(position_zero +4*scale));
+//    ui->y_6->setText(QString::number(position_zero +5*scale));
 
-    counter_cell = 0;
-    counter_center = 0;
-    couter_handover = 0;
-    divisor = 0;
-    for (int i = 0; i<6 ; i++)
-        changeCenterValue_Y(position_zero + scale*i);
+//    counter_cell = 0;
+//    counter_center = 0;
+//    couter_handover = 0;
+//    divisor = 0;
+//    for (int i = 0; i<6 ; i++)
+//        changeCenterValue_Y(position_zero + scale*i);
 
-}
+//}
 
-void MapWindow::changeMapRange_y_northBoundMap()
-{
-    int max_map = this->mapRange->getEastBoundMap();
-    int scale = max_map/5;
-    ui->x->setText(QString::number(scale));
-    ui->x_2->setText(QString::number(2*scale));
-    ui->x_3->setText(QString::number(3*scale));
-    ui->x_4->setText(QString::number(4*scale));
+//void MapWindow::changeMapRange_y_northBoundMap()
+//{
+//    int max_map = this->mapRange->getEastBoundMap();
+//    int scale = max_map/5;
+//    ui->x->setText(QString::number(scale));
+//    ui->x_2->setText(QString::number(2*scale));
+//    ui->x_3->setText(QString::number(3*scale));
+//    ui->x_4->setText(QString::number(4*scale));
 
-    counter_cell =0;
-    counter_center =0;
-    couter_handover =0;
-    divisor = 0;
-    for (int i= 1; i<=2;i++)
-        changeCenterValue_X(scale*i);
-}
+//    counter_cell =0;
+//    counter_center =0;
+//    couter_handover =0;
+//    divisor = 0;
+//    for (int i= 1; i<=2;i++)
+//        changeCenterValue_X(scale*i);
+//}
 
 void MapWindow::saveCellsCheckboxes()
 {
@@ -1651,18 +1637,12 @@ void MapWindow::on_lblIpex_clicked()
 
 void MapWindow::on_axis_y_clicked()
 {
-    viewMapRange.close();
-    viewMapRange.setParameters(mapRange, 1);
-    viewMapRange.show();
-    changeMapRange_x_northBoundMap();
+    emit spawnWindow_MapRange(project.name);
 }
 
 void MapWindow::on_axis_x_clicked()
 {
-    viewMapRange.close();
-    viewMapRange.setParameters(mapRange, 0);
-    viewMapRange.show();
-    changeMapRange_y_northBoundMap();
+    emit spawnWindow_MapRange(project.name);
 }
 
 bool MapWindow::wasChangeonCell()

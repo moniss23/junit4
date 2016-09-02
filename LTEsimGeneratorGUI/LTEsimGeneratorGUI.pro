@@ -33,11 +33,11 @@ SOURCES += \
     Data/ProjectSettings/channelmodelsettings.cpp \
     Data/ProjectSettings/pagingsettings.cpp \
     Data/ProjectSettings/mmesettings.cpp \
+    Data/ProjectSettings/maprange.cpp \
     Data/ProjectSettings/ubsimsettings.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     Maps/Parameters/MapWindow/newmapwindow.cpp \
     Data/ProjectSettings/generalconfigurationparameters.cpp
-
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -55,14 +55,13 @@ SOURCES += \
     UISystem/DataForms/sgwform.cpp \
     UISystem/DataForms/channelmodelform.cpp \
     UISystem/DataForms/ubsimform.cpp \
+    UISystem/DataForms/maprangeform.cpp \
     UISystem/Helpers/rubysyntaxhighlighter.cpp \
     UISystem/Widgets/mapview.cpp
 
 
 SOURCES += main.cpp\
     Maps/Parameters/MapWindow/mapwindow.cpp \
-    Maps/Parameters/MapRange/maprange.cpp \
-    Maps/Parameters/MapRange/maprangeform.cpp \
     Maps/Traffic/UeParameters/ue.cpp \
     Maps/Traffic/UeParameters/UE_param_form.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
@@ -111,6 +110,7 @@ HEADERS  += \
     Data/ProjectSettings/pagingsettings.h \
     Data/ProjectSettings/mmesettings.h \
     Data/ProjectSettings/ubsimsettings.h \
+    Data/ProjectSettings/maprange.h \
     UISystem/Widgets/handoverrepresentation.h \
     Maps/Parameters/MapWindow/newmapwindow.h \
     Data/ProjectSettings/generalconfigurationparameters.h
@@ -131,14 +131,13 @@ HEADERS  += \
     UISystem/DataForms/sgwform.h \
     UISystem/DataForms/channelmodelform.h \
     UISystem/DataForms/ubsimform.h \
+    UISystem/DataForms/maprangeform.h \
     UISystem/Helpers/rubysyntaxhighlighter.h \
     UISystem/Widgets/mapview.h
 
 
 HEADERS  += \
     Maps/Parameters/MapWindow/mapwindow.h \
-    Maps/Parameters/MapRange/maprange.h \
-    Maps/Parameters/MapRange/maprangeform.h \
     Maps/Traffic/UeParameters/ue.h \
     Maps/Traffic/UeParameters/UE_param_form.h \
     Maps/Traffic/MapComponents/draguelabel.h \
@@ -171,7 +170,6 @@ HEADERS  += \
 
 FORMS    += \
     Ui/mapwindow.ui \
-    Ui/maprangeform.ui \
     Ui/map_traffic.ui \
     Ui/custommodels.ui \
     Ui/tuningtrafficform.ui \
@@ -188,6 +186,7 @@ FORMS    += \
     Ui/DataForms/ipexform.ui \
     Ui/DataForms/sgwform.ui \
     Ui/DataForms/mmeform.ui \
+    Ui/DataForms/maprangeform.ui \
     Ui/DataForms/uctoolform.ui \
     Ui/DataForms/ubsimform.ui \
     Ui/DataForms/channelmodelform.ui \

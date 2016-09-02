@@ -133,11 +133,6 @@ Map_traffic::Map_traffic(QWidget *parent) :
         pointerUE9=&viewUE9;
         pointerUE10=&viewUE10;
 
-        mapRange_traffic = new MapRange();
-
-        changeMapRange_y_northBoundMap();
-        changeMapRange_x_northBoundMap();
-
         viewcustomModel = new customModel*[10];
         viewcustomModel[0] = new customModel();
         viewcustomModel[1] = new customModel();
@@ -4393,30 +4388,6 @@ void Map_traffic::dropEvent(QDropEvent *event)
     } else {
         event->ignore();
     }
-}
-
-//----------------change Map scale ---------------------------------------------------------------
-void Map_traffic::changeMapRange_x_northBoundMap()
-{
-    int max_map = mapRange_traffic->getNorthBoundMap();
-    int scale = max_map/7;
-    int position_zero = 1000+scale;
-    ui->y->setText(QString::number(position_zero));
-    ui->y_2->setText(QString::number(position_zero +scale));
-    ui->y_3->setText(QString::number(position_zero +2*scale));
-    ui->y_4->setText(QString::number(position_zero +3*scale));
-    ui->y_5->setText(QString::number(position_zero +4*scale));
-    ui->y_6->setText(QString::number(position_zero +5*scale));
-}
-
-void Map_traffic::changeMapRange_y_northBoundMap()
-{
-    int max_map = this->mapRange_traffic->getEastBoundMap();
-    int scale = max_map/5;
-    ui->x->setText(QString::number(scale));
-    ui->x_2->setText(QString::number(2*scale));
-    ui->x_3->setText(QString::number(3*scale));
-    ui->x_4->setText(QString::number(4*scale));
 }
 
 void Map_traffic::closeEvent(QCloseEvent *event){

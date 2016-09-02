@@ -95,7 +95,7 @@ void UISystem::bindingObjects()
     //Open Sgw window
     QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
 
-    //Opne Mme window
+    //Open Mme window
     QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,PagingSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,PagingSettings,QString)));
 
     //Update Mme and Paging
@@ -110,6 +110,13 @@ void UISystem::bindingObjects()
 
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
+
+
+    //Open Map Range
+    QObject::connect(this,SIGNAL(spawnWindow_MapRange(MapRange,QString)),&mapRangeForm,SLOT(loadAndSpawn(MapRange,QString)));
+    //Update Map Range
+    QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
+
 
     //Open MapView
 //    QObject::connect(this, SIGNAL(spawnWindow_MapView(Project)), &mapView, SLOT(loadAndOpen(Project)));
@@ -209,6 +216,7 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     QObject::connect(map_w,SIGNAL(spawnWindow_Mme(QString)),this,SLOT(spawnWindow_Mme(QString)));
     QObject::connect(map_w, SIGNAL(spawnWindow_ChannelModel(QString)), this, SLOT(spawnWindow_ChannelModel(QString)));
     QObject::connect(map_w,SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
+    QObject::connect(map_w,SIGNAL(spawnWindow_MapRange(QString)),this,SLOT(spawnWindow_MapRange(QString)));
     map_w->show();
     emit spawnWindow_MapWindow(*project);
 }
@@ -251,6 +259,14 @@ void UISystem::spawnWindow_MapView(const QString &projectName) {
     }
     emit spawnWindow_MapView(*project);
     return;
+}
+void UISystem::spawnWindow_MapRange(const QString &projectName){
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnWindow_MapRange(project->mapRange,project -> name);
 }
 
 Project* UISystem::findProjectByName(const QString &projectName)

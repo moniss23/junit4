@@ -41,6 +41,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.cpp \
     ../LTEsimGeneratorGUI/UISystem/DataForms/sgwform.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/mmesettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/maprange.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.cpp \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
@@ -71,7 +72,8 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/Managers/scriptparsermanager.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/sgwsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/uctoolsettings.h \
-    ..//LTEsimGeneratorGUI/UISystem/DataForms/sgwform.h \
+    ../LTEsimGeneratorGUI/UISystem/DataForms/sgwform.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/maprange.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/mmesettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
@@ -91,7 +93,8 @@ FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/projectmanagement.ui \
     ../LTEsimGeneratorGUI/Ui/Windows/addProjectWindow.ui \
     ../LTEsimGeneratorGUI/Ui/DataForms/sgwform.ui \
-    ../LTEsimGeneratorGUI/Ui/DataForms/mmeform.ui
+    ../LTEsimGeneratorGUI/Ui/DataForms/mmeform.ui \
+    ../LTEsimGeneratorGUI/Ui/DataForms/maprangeform.ui
   #  ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
 
 OTHER_FILES += \

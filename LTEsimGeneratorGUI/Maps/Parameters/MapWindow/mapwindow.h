@@ -9,8 +9,7 @@
 #include "Data/project.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "Maps/Traffic/UeParameters/ue.h"
-#include "Maps/Parameters/MapRange/maprange.h"
-#include "Maps/Parameters/MapRange/maprangeform.h"
+#include "Data/ProjectSettings/maprange.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -28,14 +27,11 @@ public:
     ~MapWindow();
     QMessageBox k;
     Ue* ue;
-    MapRange *mapRange;
 
     QVector<Cell*> tabCell;
     QVector<Center*> tabCenter;
     QVector<Handover*> tabHandover;
 
-    void changeMapRange_x_northBoundMap();
-    void changeMapRange_y_northBoundMap();
     void saveCellsCheckboxes();
 
     void changeCenterValue_Y(int scale);
@@ -50,7 +46,7 @@ signals:
     void spawnWindow_Mme(const QString& projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
-
+    void spawnWindow_MapRange(const QString& projectName);
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
 
@@ -134,11 +130,6 @@ private slots:
     void on_Handover12_22_clicked();
     void on_Handover11_12_clicked();
 
-    void on_southBoundary_returnPressed();
-    void on_northBoundary_returnPressed();
-    void on_westBoundary_returnPressed();
-    void on_eastBoundary_returnPressed();
-
     void on_soutHandovernoundary_returnPressed();
     void on_northHandovernoundary_returnPressed();
     void on_westHandovernoundary_returnPressed();
@@ -202,7 +193,6 @@ private:
     bool wasChangeonHandover();
 
     UCtoolForm viewUCtool;
-    MapRangeForm viewMapRange;
 
     //values use to change values in object if we change scale map
     int counter_cell;
