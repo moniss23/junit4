@@ -196,24 +196,6 @@ module Parameters
         :transmitPower => -75.0,
         :ulNoiseAndInterference => -116.0
       },{
-        :cell => "cell13",
-        :site => "site13",
-        :pci => 13,
-        :position_X => 21000,
-        :position_Y => 7000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell14",
-        :site => "site14",
-        :pci => 14,
-        :position_X => 28000,
-        :position_Y => 7000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
         :cell => "cell21",
         :site => "site21",
         :pci => 21,
@@ -227,24 +209,6 @@ module Parameters
         :site => "site22",
         :pci => 22,
         :position_X => 17500,
-        :position_Y => 13000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell23",
-        :site => "site23",
-        :pci => 23,
-        :position_X => 24500,
-        :position_Y => 13000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell24",
-        :site => "site24",
-        :pci => 24,
-        :position_X => 31500,
         :position_Y => 13000,
         :earfcnDl => 2050,
         :transmitPower => -75.0,
@@ -268,24 +232,6 @@ module Parameters
         :transmitPower => -75.0,
         :ulNoiseAndInterference => -116.0
       },{
-        :cell => "cell33",
-        :site => "site33",
-        :pci => 33,
-        :position_X => 21000,
-        :position_Y => 19000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell34",
-        :site => "site34",
-        :pci => 34,
-        :position_X => 28000,
-        :position_Y => 19000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
         :cell => "cell41",
         :site => "site41",
         :pci => 41,
@@ -299,24 +245,6 @@ module Parameters
         :site => "site42",
         :pci => 42,
         :position_X => 17500,
-        :position_Y => 25000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell43",
-        :site => "site43",
-        :pci => 43,
-        :position_X => 24500,
-        :position_Y => 25000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell44",
-        :site => "site44",
-        :pci => 44,
-        :position_X => 31500,
         :position_Y => 25000,
         :earfcnDl => 2050,
         :transmitPower => -75.0,
@@ -340,24 +268,6 @@ module Parameters
         :transmitPower => -75.0,
         :ulNoiseAndInterference => -116.0
       },{
-        :cell => "cell53",
-        :site => "site53",
-        :pci => 53,
-        :position_X => 21000,
-        :position_Y => 31000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell54",
-        :site => "site54",
-        :pci => 54,
-        :position_X => 28000,
-        :position_Y => 31000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
         :cell => "cell61",
         :site => "site61",
         :pci => 61,
@@ -371,24 +281,6 @@ module Parameters
         :site => "site62",
         :pci => 62,
         :position_X => 17500,
-        :position_Y => 37000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell63",
-        :site => "site63",
-        :pci => 63,
-        :position_X => 24500,
-        :position_Y => 37000,
-        :earfcnDl => 2050,
-        :transmitPower => -75.0,
-        :ulNoiseAndInterference => -116.0
-      },{
-        :cell => "cell64",
-        :site => "site64",
-        :pci => 64,
-        :position_X => 31500,
         :position_Y => 37000,
         :earfcnDl => 2050,
         :transmitPower => -75.0,
@@ -456,18 +348,6 @@ module Parameters
         :westBoundary => 13900,
         :eastBoundary => 14100
       },{
-        :area => "Center13",
-        :southBoundary => 6900,
-        :northBoundary => 7100,
-        :westBoundary => 20900,
-        :eastBoundary => 21100
-      },{
-        :area => "Center14",
-        :southBoundary => 6900,
-        :northBoundary => 7100,
-        :westBoundary => 27900,
-        :eastBoundary => 28100
-      },{
         :area => "Center21",
         :southBoundary => 12900,
         :northBoundary => 13100,
@@ -480,18 +360,6 @@ module Parameters
         :westBoundary => 17400,
         :eastBoundary => 17600
       },{
-        :area => "Center23",
-        :southBoundary => 12900,
-        :northBoundary => 13100,
-        :westBoundary => 24400,
-        :eastBoundary => 24600
-      },{
-        :area => "Center24",
-        :southBoundary => 12900,
-        :northBoundary => 13100,
-        :westBoundary => 31400,
-        :eastBoundary => 31600
-      },{
         :area => "Center31",
         :southBoundary => 18900,
         :northBoundary => 19100,
@@ -503,18 +371,6 @@ module Parameters
         :northBoundary => 19100,
         :westBoundary => 13900,
         :eastBoundary => 14100
-      },{
-        :area => "Center33",
-        :southBoundary => 18900,
-        :northBoundary => 19100,
-        :westBoundary => 20900,
-        :eastBoundary => 21100
-      },{
-        :area => "Center34",
-        :southBoundary => 18900,
-        :northBoundary => 19100,
-        :westBoundary => 27900,
-        :eastBoundary => 28100
       },{      
         :area => "Center41",
         :southBoundary => 24900,
@@ -528,18 +384,6 @@ module Parameters
         :westBoundary => 17400,
         :eastBoundary => 17600
       },{
-        :area => "Center43",
-        :southBoundary => 24900,
-        :northBoundary => 25100,
-        :westBoundary => 24400,
-        :eastBoundary => 24600
-      },{
-        :area => "Center44",
-        :southBoundary => 24900,
-        :northBoundary => 25100,
-        :westBoundary => 31400,
-        :eastBoundary => 31600
-      },{
         :area => "Center51",
         :southBoundary => 30900,
         :northBoundary => 31100,
@@ -552,18 +396,6 @@ module Parameters
         :westBoundary => 13900,
         :eastBoundary => 14100
       },{
-        :area => "Center53",
-        :southBoundary => 30900,
-        :northBoundary => 31100,
-        :westBoundary => 20900,
-        :eastBoundary => 21100
-      },{
-        :area => "Center54",
-        :southBoundary => 30900,
-        :northBoundary => 31100,
-        :westBoundary => 27900,
-        :eastBoundary => 28100
-      },{
         :area => "Center61",
         :southBoundary => 36900,
         :northBoundary => 37100,
@@ -575,18 +407,6 @@ module Parameters
         :northBoundary => 37100,
         :westBoundary => 17400,
         :eastBoundary => 17600
-      },{
-        :area => "Center63",
-        :southBoundary => 36900,
-        :northBoundary => 37100,
-        :westBoundary => 24400,
-        :eastBoundary => 24600
-      },{
-        :area => "Center64",
-        :southBoundary => 36900,
-        :northBoundary => 37100,
-        :westBoundary => 31400,
-        :eastBoundary => 31600
       },{
         :area => "Handover11_21",
         :southBoundary => 7750,
@@ -713,198 +533,6 @@ module Parameters
         :northBoundary => 36250,
         :westBoundary => 15000,
         :eastBoundary => 16000
-      },{
-        :area => "Handover12_13",
-        :southBoundary => 6500,
-        :northBoundary => 7500,
-        :westBoundary => 15250,
-        :eastBoundary => 19750
-      },{
-        :area => "Handover13_14",
-        :southBoundary => 6500,
-        :northBoundary => 7500,
-        :westBoundary => 22250,
-        :eastBoundary => 26750
-      },{
-        :area => "Handover22_23",
-        :southBoundary => 12500,
-        :northBoundary => 13500,
-        :westBoundary => 18750,
-        :eastBoundary => 23250
-      },{
-        :area => "Handover23_24",
-        :southBoundary => 12500,
-        :northBoundary => 13500,
-        :westBoundary => 25750,
-        :eastBoundary => 30250
-      },{
-        :area => "Handover32_33",
-        :southBoundary => 18500,
-        :northBoundary => 19500,
-        :westBoundary => 15250,
-        :eastBoundary => 19750
-      },{
-        :area => "Handover33_34",
-        :southBoundary => 18500,
-        :northBoundary => 19500,
-        :westBoundary => 22250,
-        :eastBoundary => 26750
-      },{
-        :area => "Handover42_43",
-        :southBoundary => 24500,
-        :northBoundary => 25500,
-        :westBoundary => 18750,
-        :eastBoundary => 23250
-      },{
-        :area => "Handover43_44",
-        :southBoundary => 24500,
-        :northBoundary => 25500,
-        :westBoundary => 25750,
-        :eastBoundary => 30250
-      },{
-       :area => "Handover52_53",
-        :southBoundary => 30500,
-        :northBoundary => 31500,
-        :westBoundary => 15250,
-        :eastBoundary => 19750
-      },{
-       :area => "Handover53_54",
-        :southBoundary => 30500,
-        :northBoundary => 31500,
-        :westBoundary => 22250,
-        :eastBoundary => 26750
-      },{
-        :area => "Handover62_63",
-        :southBoundary => 36500,
-        :northBoundary => 37500,
-        :westBoundary => 18750,
-        :eastBoundary => 23250
-      },{
-        :area => "Handover63_64",
-        :southBoundary => 36500,
-        :northBoundary => 37500,
-        :westBoundary => 25750,
-        :eastBoundary => 30250
-      },{
-        :area => "Handover13_22",
-        :southBoundary => 7750,
-        :northBoundary => 12250,
-        :westBoundary =>  18500,
-        :eastBoundary => 19500
-      },{
-        :area => "Handover13_23",
-        :southBoundary => 7750,
-        :northBoundary => 12250,
-        :westBoundary =>  22000,
-        :eastBoundary => 23000
-      },{
-        :area => "Handover14_23",
-        :southBoundary => 7750,
-        :northBoundary => 12250,
-        :westBoundary =>  25500,
-        :eastBoundary => 26500
-      },{
-        :area => "Handover14_24",
-        :southBoundary => 7750,
-        :northBoundary => 12250,
-        :westBoundary =>  29000,
-        :eastBoundary => 30000
-      },{
-        :area => "Handover22_33",
-        :southBoundary => 13750,
-        :northBoundary => 18250,
-        :westBoundary => 18500,
-        :eastBoundary => 19500
-      },{
-        :area => "Handover23_33",
-        :southBoundary => 13750,
-        :northBoundary => 18250,
-        :westBoundary => 22000,
-        :eastBoundary => 23000
-      },{
-        :area => "Handover23_34",
-        :southBoundary => 13750,
-        :northBoundary => 18250,
-        :westBoundary => 25500,
-        :eastBoundary => 26500
-      },{
-        :area => "Handover24_34",
-        :southBoundary => 13750,
-        :northBoundary => 18250,
-        :westBoundary => 29000,
-        :eastBoundary => 30000
-      },{
-        :area => "Handover33_42",
-        :southBoundary => 19750,
-        :northBoundary => 24250,
-        :westBoundary => 18500,
-        :eastBoundary => 19500
-      },{
-        :area => "Handover33_43",
-        :southBoundary => 19750,
-        :northBoundary => 24250,
-        :westBoundary => 22000,
-        :eastBoundary => 23000
-      },{
-        :area => "Handover34_43",
-        :southBoundary => 19750,
-        :northBoundary => 24250,
-        :westBoundary => 25500,
-        :eastBoundary => 26500
-      },{ 
-        :area => "Handover34_44",
-        :southBoundary => 19750,
-        :northBoundary => 24250,
-        :westBoundary => 29000,
-        :eastBoundary => 30000
-      },{
-        :area => "Handover42_53",
-        :southBoundary => 25750,
-        :northBoundary => 30250,
-        :westBoundary => 18500,
-        :eastBoundary => 19500
-      },{
-        :area => "Handover43_53",
-        :southBoundary => 25750,
-        :northBoundary => 30250,
-        :westBoundary => 22000,
-        :eastBoundary => 23000
-      },{
-        :area => "Handover43_54",
-        :southBoundary => 25750,
-        :northBoundary => 30250,
-        :westBoundary => 25500,
-        :eastBoundary => 26500
-      },{
-        :area => "Handover44_54",
-        :southBoundary => 25750,
-        :northBoundary => 30250,
-        :westBoundary => 29000,
-        :eastBoundary => 30000
-      },{
-        :area => "Handover53_62",
-        :southBoundary => 31750,
-        :northBoundary => 36250,
-        :westBoundary => 18500,
-        :eastBoundary => 19500
-      },{
-        :area => "Handover53_63",
-        :southBoundary => 31750,
-        :northBoundary => 36250,
-        :westBoundary => 22000,
-        :eastBoundary => 23000
-      },{
-        :area => "Handover54_63",
-        :southBoundary => 31750,
-        :northBoundary => 36250,
-        :westBoundary => 25500,
-        :eastBoundary => 26500
-      },{
-        :area => "Handover54_64",
-        :southBoundary => 31750,
-        :northBoundary => 36250,
-        :westBoundary => 29000,
-        :eastBoundary => 30000
       },{
         :area => "Common",
         :southBoundary => 6500,
