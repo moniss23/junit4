@@ -27,7 +27,7 @@ private:
     QGraphicsScene *scene;
     QLineF x_AxisLine, y_AxisLine;
     QPen solidPen, solid2, dotPen;
-    QPointF gridLineStart, gridLineEnd, tickMarkStart, tickMarkEnd, textPoint;
+    QPointF gridLineStart, gridLineEnd, textPoint;
 
     int maxX = 28000;
     int maxY = 35000;

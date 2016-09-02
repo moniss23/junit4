@@ -55,7 +55,7 @@ void MapView::drawAxis()
 
 
     static const double Pi = 3.14159265358979323846264338327950288419717;
-    qreal arrowSize = 10;
+    qreal arrowSize = 500;
 
     // Draw the arrows
     double angle = ::acos(x_AxisLine.dx() / x_AxisLine.length());
@@ -80,9 +80,7 @@ void MapView::drawMapLines()
     //Drawing horizontal lines
     for(int i = 1; i < (maxY / 7000) + 1; i++) {
 
-        QLineF tickMarkLine;
         QLineF gridLine;
-
         distanceBetweenGridLines = y_AxisLine.length() / (maxY / 7000);
 
         //Grid line start, end points
@@ -91,34 +89,27 @@ void MapView::drawMapLines()
         gridLineEnd.setX(x_AxisLine.x2());
         gridLineEnd.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i));
 
-        //Tick mark start,end points
-        tickMarkStart.setX(x_AxisLine.x1() + 5);
-        tickMarkStart.setY(x_AxisLine.y1() - (distanceBetweenGridLines * i));
-        tickMarkEnd.setX(x_AxisLine.x1() - 5);
-        tickMarkEnd.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i));
-
         //coordinate system scale point
-        textPoint.setX(x_AxisLine.x1() - 60);
-        textPoint.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i) - 10);
+        textPoint.setX(x_AxisLine.x1() - scene->sceneRect().height() / 15);
+        textPoint.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i) - scene->sceneRect().height() / 100);
 
         QGraphicsTextItem *textItem = scene->addText(QString::number(7000 * (i)));
+        auto textFont = textItem->font();
+        textFont.setPointSize(scene->sceneRect().height() / 70);
+        textItem->setFont(textFont);
 
         //Setting start, end points
         gridLine.setPoints(gridLineStart, gridLineEnd);
-        tickMarkLine.setPoints(tickMarkStart, tickMarkEnd);
         textItem->setPos(textPoint);
 
         //Adding lines to scene
         scene->addLine(gridLine, dotPen);
-        scene->addLine(tickMarkLine, solidPen);
     }
 
     //Drawing vertical lines
     for(int i = 1; i < (maxX / 7000) + 1; i++) {
 
         QLineF gridLine;
-        QLineF tickMarkLine;
-
         distanceBetweenGridLines = x_AxisLine.length() / (maxX / 7000);
 
         //Grid line start, end points
@@ -127,26 +118,21 @@ void MapView::drawMapLines()
         gridLineEnd.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i));
         gridLineEnd.setY(y_AxisLine.y2());
 
-        //Tick mark start,end points
-        tickMarkStart.setX(y_AxisLine.x1() + (distanceBetweenGridLines * i));
-        tickMarkStart.setY(y_AxisLine.y1() + 5);
-        tickMarkEnd.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i));
-        tickMarkEnd.setY(y_AxisLine.y1() - 5);
-
         //Coordinate system scale point
-        textPoint.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i) - 20);
-        textPoint.setY(y_AxisLine.y1() + 15);
+        textPoint.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i) - scene->sceneRect().width() / 35);
+        textPoint.setY(y_AxisLine.y1());
 
         QGraphicsTextItem *textItem = scene->addText(QString::number(7000 * i));
+        auto textFont = textItem->font();
+        textFont.setPointSize(scene->sceneRect().height() / 70);
+        textItem->setFont(textFont);
 
         //Settings start, end points
         textItem->setPos(textPoint);
         gridLine.setPoints(gridLineStart, gridLineEnd);
-        tickMarkLine.setPoints(tickMarkStart, tickMarkEnd);
 
         //Adding lines to scene
         scene->addLine(gridLine, dotPen);
-        scene->addLine(tickMarkLine, solidPen);
     }
 }
 
