@@ -8,8 +8,8 @@
 
 #include "Data/project.h"
 #include "UISystem/DataForms/uctoolform.h"
-#include "Maps/Traffic/UeParameters/ue.h"
 #include "Data/ProjectSettings/maprange.h"
+#include "Data/ProjectSettings/ueparameters.h"
 #include "Data/project.h"
 
 namespace Ui {
@@ -26,7 +26,6 @@ public:
     explicit MapWindow(const Project &project, QWidget *parent = 0);
     ~MapWindow();
     QMessageBox k;
-    Ue* ue;
 
     QVector<Cell*> tabCell;
     QVector<Center*> tabCenter;
@@ -184,7 +183,6 @@ private:
     void showMessageError(QList<QString> listErrors);
 
     void createCoreNetwork();
-    void createUeSimulated();
 
     void showActiveLine();
 

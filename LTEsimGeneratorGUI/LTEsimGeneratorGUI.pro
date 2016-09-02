@@ -37,7 +37,8 @@ SOURCES += \
     Data/ProjectSettings/ubsimsettings.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     Maps/Parameters/MapWindow/newmapwindow.cpp \
-    Data/ProjectSettings/generalconfigurationparameters.cpp
+    Data/ProjectSettings/generalconfigurationparameters.cpp \
+    Data/ProjectSettings/ueparameters.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -57,13 +58,12 @@ SOURCES += \
     UISystem/DataForms/ubsimform.cpp \
     UISystem/DataForms/maprangeform.cpp \
     UISystem/Helpers/rubysyntaxhighlighter.cpp \
+    UISystem/DataForms/UE_param_form.cpp \
     UISystem/Widgets/mapview.cpp
 
 
 SOURCES += main.cpp\
     Maps/Parameters/MapWindow/mapwindow.cpp \
-    Maps/Traffic/UeParameters/ue.cpp \
-    Maps/Traffic/UeParameters/UE_param_form.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
     Maps/Traffic/map_traffic.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
@@ -113,7 +113,8 @@ HEADERS  += \
     Data/ProjectSettings/maprange.h \
     UISystem/Widgets/handoverrepresentation.h \
     Maps/Parameters/MapWindow/newmapwindow.h \
-    Data/ProjectSettings/generalconfigurationparameters.h
+    Data/ProjectSettings/generalconfigurationparameters.h \
+    Data/ProjectSettings/ueparameters.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -132,14 +133,13 @@ HEADERS  += \
     UISystem/DataForms/channelmodelform.h \
     UISystem/DataForms/ubsimform.h \
     UISystem/DataForms/maprangeform.h \
+    UISystem/DataForms/UE_param_form.h \
     UISystem/Helpers/rubysyntaxhighlighter.h \
     UISystem/Widgets/mapview.h
 
 
 HEADERS  += \
     Maps/Parameters/MapWindow/mapwindow.h \
-    Maps/Traffic/UeParameters/ue.h \
-    Maps/Traffic/UeParameters/UE_param_form.h \
     Maps/Traffic/MapComponents/draguelabel.h \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \

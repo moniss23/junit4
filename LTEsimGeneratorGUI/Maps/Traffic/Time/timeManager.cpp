@@ -1,6 +1,6 @@
 #include "timeManager.h"
 #include "ui_timeForm.h"
-#include <Maps/Traffic/UeParameters/UE_param_form.h>
+#include <UISystem/DataForms/UE_param_form.h>
 #include <QMessageBox>
 
 QStringList timeParametersContentList;

@@ -11,7 +11,7 @@
 #include <QInputDialog>
 
 #include <Maps/Traffic/MapComponents/draguelabel.h>
-#include <Maps/Traffic/UeParameters/UE_param_form.h>
+#include <UISystem/DataForms/UE_param_form.h>
 #include "UISystem/Windows/parameterswindow.h"
 #include "Data/Objects/cell.h"
 

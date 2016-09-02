@@ -54,7 +54,7 @@ signals:
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
     void spawnWindow_Mme(const MmeSettings& mmeSettings,const PagingSettings& pagingSettings, const QString &projectName);
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
-    void spawnWindow_UBSim(const UBSimSettings &ubSimSettings, const QString &projectName);
+    void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName);
     void spawnWindow_MapView(const Project &project);
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);

@@ -2,6 +2,8 @@
 #include "ui_ubsimform.h"
 #include <Maps/Parameters/MapWindow/mapwindow.h>
 
+#include <QStringList>
+
 UBsimForm::UBsimForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::UBsimForm)
@@ -27,8 +29,9 @@ UBsimForm::~UBsimForm()
     delete ui;
 }
 
-void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName) {
+void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameters &ueParameters, const QString &projectName) {
     this->ubSimSettings = ubSimSettings;
+    this->ueParameters = ueParameters;
     this->projectName = projectName;
     this->setParameters();
     this->show();
@@ -55,13 +58,18 @@ void UBsimForm::on_pbReset_clicked()
 
 void UBsimForm::getParameters()
 {
-    this->ubSimSettings.name = this->ui->tet_name->text();
-    this->ubSimSettings.l1l2_managers = this->ui->tet_l1l2_managers->text();
-    this->ubSimSettings.rrc_pluginFilterPath = this->ui->tet_rrc_pluginFilterPath->text();
-    this->ubSimSettings.ue_network_capability = this->ui->tet_ue_network_capability->text();
-    this->ubSimSettings.ue_keyDerivationAlgorithm = this->ui->tet_ue_keyDerivationAlgorithm->text();
-    this->ubSimSettings.ue_key = this->ui->tet_ue_key->text();
-    this->ubSimSettings.ue_op = this->ui->tet_ue_op->text();
+    this->ueParameters.name = this->ui->tet_name->text();
+
+    QStringList managersList = this->ui->tet_l1l2_managers->text().split(",");
+    for (int i=0;i<managersList.size();i++){
+        ueParameters.managers.append(QPair<QString,QString> (managersList[i].split(";")[0],managersList[i].split(";")[1]));
+    }
+    this->ueParameters.pluginFilterPath = this->ui->tet_rrc_pluginFilterPath->text();
+    this->ueParameters.ueNetworkCapability = this->ui->tet_ue_network_capability->text();
+    this->ueParameters.ueKeyDerivationAlgorithm = this->ui->tet_ue_keyDerivationAlgorithm->text();
+    this->ueParameters.ueKey = this->ui->tet_ue_key->text();
+    this->ueParameters.ueOp = this->ui->tet_ue_op->text();
+
     this->ubSimSettings.imsiMapRange = this->ui->tet_imsiMapRange->text();
     this->ubSimSettings.ueTypesDir = this->ui->tet_ueTypesDir->text();
     this->ubSimSettings.csTrafficModelsDir = this->ui->tet_csTrafficModelsDir->text();
@@ -73,13 +81,18 @@ void UBsimForm::getParameters()
 
 void UBsimForm::setParameters()
 {
-    this->ui->tet_name->setText(this->ubSimSettings.name);
-    this->ui->tet_l1l2_managers->setText(this->ubSimSettings.l1l2_managers);
-    this->ui->tet_rrc_pluginFilterPath->setText(this->ubSimSettings.rrc_pluginFilterPath);
-    this->ui->tet_ue_network_capability->setText(this->ubSimSettings.ue_network_capability);
-    this->ui->tet_ue_keyDerivationAlgorithm->setText(this->ubSimSettings.ue_keyDerivationAlgorithm);
-    this->ui->tet_ue_key->setText(this->ubSimSettings.ue_key);
-    this->ui->tet_ue_op->setText(this->ubSimSettings.ue_op);
+    this->ui->tet_name->setText(this->ueParameters.name);
+    QString managersList;
+    for (int i=0;i<ueParameters.managers.size();i++){
+        managersList+=(ueParameters.managers[i].first + ";" + ueParameters.managers[i].second + ",");
+    }
+    this->ui->tet_l1l2_managers->setText(managersList);
+    this->ui->tet_rrc_pluginFilterPath->setText(this->ueParameters.pluginFilterPath);
+    this->ui->tet_ue_network_capability->setText(this->ueParameters.ueNetworkCapability);
+    this->ui->tet_ue_keyDerivationAlgorithm->setText(this->ueParameters.ueKeyDerivationAlgorithm);
+    this->ui->tet_ue_key->setText(this->ueParameters.ueKey);
+    this->ui->tet_ue_op->setText(this->ueParameters.ueOp);
+
     this->ui->tet_imsiMapRange->setText(this->ubSimSettings.imsiMapRange);
     this->ui->tet_ueTypesDir->setText(this->ubSimSettings.ueTypesDir);
     this->ui->tet_csTrafficModelsDir->setText(this->ubSimSettings.csTrafficModelsDir);

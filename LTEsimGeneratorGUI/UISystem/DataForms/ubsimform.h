@@ -5,6 +5,7 @@
 #include <QString>
 
 #include "Data/ProjectSettings/ubsimsettings.h"
+#include "Data/ProjectSettings/ueparameters.h"
 
 namespace Ui {
 class UBsimForm;
@@ -29,7 +30,7 @@ public slots:
      * @param ubSimSettings is data that we are working on
      * @param projectName is current project name
      */
-    void loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName);
+    void loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters,const QString &projectName);
 
 signals:
     /**
@@ -62,7 +63,8 @@ private:
 
 private:
     Ui::UBsimForm *ui;                      //<<< GUI form pointer
-    UBSimSettings ubSimSettings;            //<<< Local copy of data
+    UBSimSettings ubSimSettings;            //<<< UBSIM Settings
+    UeParameters  ueParameters;                 //<<< Ue Settings
     QString projectName;                    //<<< Current project name
 };
 

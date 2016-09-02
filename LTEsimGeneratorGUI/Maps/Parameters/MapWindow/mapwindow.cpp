@@ -41,7 +41,6 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
 
     createHandover();
     createCoreNetwork();
-    createUeSimulated();
 
     anyChangesInMap = false;
 
@@ -141,13 +140,6 @@ void MapWindow::createCoreNetwork()
     this->ui->lblSGW1->setEnabled(project.SimulatedCoreNetwork);
 }
 
-void MapWindow::createUeSimulated()
-{
-    ue = new Ue();
-    ui->checkBoxUE_simulated->setChecked(ue->getStart_ue_component());
-    on_checkBoxUE_simulated_clicked();
-}
-
 void MapWindow::closeEvent(QCloseEvent *event)
 {
     if (!anyChangesInMap) {
@@ -222,7 +214,6 @@ QStringList MapWindow::generateParams(){ } //TODO: move this to parser !
 // AKTUALNIE ZOSTAWIAM TĄ CZĘŚĆ WYRZUCĘ JĄ PRZY GENEROWANIU PARAMETERS RB
 // ALE Z UWAGI NA POZOSTAŁOŚCI I MOŻLIWOŚĆ SPRAWDZENIA JAK TO MNIEJ WIĘCEJ TO BYŁO ROBIONE
 // ZOSTAWIAM
-
 
 
 //    int number_of_cell =12;      //12
@@ -1596,12 +1587,10 @@ void MapWindow::on_checkBoxUE_simulated_clicked()
 {
     if(!ui->checkBoxUE_simulated->isChecked()){
         ui->checkBoxUE_simulated->setText(" Simulated UE Off");
-        ue->setStart_ue_component(false);
         ui->frame_UE_simulated->setFrameStyle(QFrame::Panel | QFrame::Raised);
         emit updateSimulatedUeState(project.name,false);
     }else{
         ui->checkBoxUE_simulated->setText(" Simulated UE On");
-        ue->setStart_ue_component(true);
         ui->frame_UE_simulated->setFrameStyle(QFrame::WinPanel | QFrame::Sunken);
         emit updateSimulatedUeState(project.name,true);
     }

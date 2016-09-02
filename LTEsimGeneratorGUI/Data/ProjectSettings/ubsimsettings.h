@@ -11,21 +11,6 @@ public:
     UBSimSettings();
     ~UBSimSettings() {}
 
-    QString name;                        // Name of the UE component
-    QString l1l2_managers;               // Space separated string with TYPE;instance tuples where allowed values of TYPE is UCTOOL.
-    QString rrc_pluginFilterPath;
-
-    //###### Security related parameters ###################################################################################
-    QString ue_network_capability;      // UE network capabilities. See 3GPP 24.008 for more details
-                                        // Used to control which integrity protection and ciphering algorithms a UE supports.
-
-    QString ue_keyDerivationAlgorithm;  // The algorithm used during EPS AKA procedure.
-                                        // Supported algorithms:
-                                        // * TEST_ALGORITHM - The test algorithm defined in TS 34.108.
-                                        // * MILENAGE - The milenage algorithm defined in TS 35.205.
-                                        // Also used in simulated MME.
-    QString ue_key;
-    QString ue_op;
     QString imsiMapRange;
 
     //-------------------------Retrieve default parameters for UBsim configuration------------------------------------------

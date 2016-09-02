@@ -22,7 +22,7 @@
 #include "Data/ProjectSettings/ubsimsettings.h"
 #include "Data/ProjectSettings/generalconfigurationparameters.h"
 #include "Data/ProjectSettings/maprange.h"
-
+#include "Data/ProjectSettings/ueparameters.h"
 class Project : public SerializeInterface
 {
 public:
@@ -48,6 +48,7 @@ public:
     UBSimSettings                   ubSimSettings;
     GeneralConfigurationParameters  generalConfiguration;
     MapRange                        mapRange;
+    UeParameters                    ueParameters;
     bool                            SimulatedCoreNetwork = false;
     bool                            SimulatedUe = false;
 

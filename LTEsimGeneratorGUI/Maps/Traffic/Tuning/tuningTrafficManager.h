@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "tuningTrafficData.h"
-#include <Maps/Traffic/UeParameters/UE_param_form.h>
+#include <UISystem/DataForms/UE_param_form.h>
 
 namespace Ui {
 class TuningTrafficForm;

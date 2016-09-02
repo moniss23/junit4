@@ -113,8 +113,8 @@ void UISystem::bindingObjects()
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
 
     //Open UBSim
-    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,QString)));
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,UeParameters,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,UeParameters,QString)));
 
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
@@ -255,7 +255,7 @@ void UISystem::spawnWindow_UBSim(const QString &projectName) {
         dataSystem->errorInData("Can't find right project.");
         return;
     }
-    emit spawnWindow_UBSim(project->ubSimSettings, project->name);
+    emit spawnWindow_UBSim(project->ubSimSettings,project->ueParameters, project->name);
     return;
 }
 
