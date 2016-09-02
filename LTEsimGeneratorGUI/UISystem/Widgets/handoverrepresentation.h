@@ -21,13 +21,13 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
-private:
+public:
     QImage icon;
     QString name;
     Handover handoverObject;
 
-    static const int width = 60;
-    static const int height = 110;
+    int width, height;
+    int position_X, position_Y;
 };
 
 #endif // HANDOVERREPRESENTATION_H

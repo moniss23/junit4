@@ -12,6 +12,16 @@ HandoverRepresentation::HandoverRepresentation(Handover &handover, QGraphicsObje
     setZValue(1);
 
     icon.load(":/Images/handover.png");
+
+    width = handoverObject.eastBoundary - handoverObject.westBoundary;
+    height = handoverObject.northBoundary - handoverObject.southBoundary;
+
+    position_X = handoverObject.westBoundary + width/2;
+    position_Y = handoverObject.northBoundary - height/2;
+
+    if(width > height) {
+        icon = icon.transformed(QMatrix().rotate(90.0));
+    }
 }
 
 QRectF HandoverRepresentation::boundingRect() const {

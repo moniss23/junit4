@@ -15,16 +15,6 @@ CellRepresentation::CellRepresentation(Cell &cell, QGraphicsObject *parent)
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
     setZValue(-1);
-
-    QPushButton *button = new QPushButton("OK");
-    auto font = button->font();
-    font.setPointSize(circlesize / 20);
-    button->setFont(font);
-    button->setFixedSize(circlesize / 2.5,circlesize / 8);
-    QGraphicsProxyWidget *widget =new QGraphicsProxyWidget(this);
-    widget->setWidget(button);
-    widget->setPos(centersize / 10, centersize);
-
 }
 
 QRectF CellRepresentation::boundingRect() const

@@ -31,9 +31,9 @@ void MapView::resizeEvent(QResizeEvent *event)
 void MapView::printNewMap()
 {
     this->drawCellRepresentations();
+    this->drawHandoverRepresentations();
     this->drawAxis();
     this->drawMapLines();
-//    this->drawHandoverRepresentations();
 
     this->setScene(scene);
 }
@@ -138,17 +138,18 @@ void MapView::drawMapLines()
 
 void MapView::drawCellRepresentations()
 {
-    for(int i = 0; i<project.cellsInfo.size(); i++) {
-        CellRepresentation *node1 = new CellRepresentation(project.cellsInfo[i].first);
-        scene->addItem(node1);
-        node1->setPos(project.cellsInfo[i].first.position_X, - project.cellsInfo[i].first.position_Y);
+    for(auto &cellCenter : project.cellsInfo) {
+        CellRepresentation *cellRep = new CellRepresentation(cellCenter.first);
+        scene->addItem(cellRep);
+        cellRep->setPos(cellRep->cellObject.position_X, -cellRep->cellObject.position_Y);
     }
 }
 
-void MapView::drawHandoverRepresentations() {
-//    for(int i=0; i<project.handovers.size(); ++i) {
-    HandoverRepresentation *ho = new HandoverRepresentation(project.handovers[0]);
-    scene->addItem(ho);
-    ho->setPos(200, -200);
-//    }
+void MapView::drawHandoverRepresentations()
+{
+    for(auto &handover : project.handovers) {
+        HandoverRepresentation *hoRep = new HandoverRepresentation(handover);
+        scene->addItem(hoRep);
+        hoRep->setPos(hoRep->position_X, -hoRep->position_Y);
+    }
 }
