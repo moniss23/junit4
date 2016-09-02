@@ -24,8 +24,8 @@ protected:
 
 private:
     Cell cellObject;
-    static const int circlesize = 210;
-    static const int centersize = 30;
+    static const int circlesize = 8500;
+    static const int centersize = 1500;
 
 };
 

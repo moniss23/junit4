@@ -17,9 +17,13 @@ CellRepresentation::CellRepresentation(Cell &cell, QGraphicsObject *parent)
     setZValue(-1);
 
     QPushButton *button = new QPushButton("OK");
+    auto font = button->font();
+    font.setPointSize(circlesize / 20);
+    button->setFont(font);
+    button->setFixedSize(circlesize / 2.5,circlesize / 8);
     QGraphicsProxyWidget *widget =new QGraphicsProxyWidget(this);
     widget->setWidget(button);
-    widget->setPos(30,30);
+    widget->setPos(centersize / 10, centersize);
 
 }
 
@@ -49,7 +53,7 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     QColor col =  QColor(Qt::yellow).lighter(120);
     col.setAlpha(125);
 
-    QColor co2l =  QColor(Qt::red).lighter(90);
+    //QColor co2l =  QColor(Qt::red).lighter(90);
     QColor center(245,175,85);
 
     QRadialGradient gradient(-10, -10, circlesize);
@@ -71,7 +75,10 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     QRectF rectangle(-centersize/2 , -centersize/2 , centersize, centersize);
     painter->drawRoundedRect(rectangle,3,3);
 
-    painter->setPen(QPen(Qt::black, 0));
+    painter->setPen(QPen(Qt::black, 1));
+    auto font = painter->font();
+    font.setPointSize(circlesize / 15);
+    painter->setFont(font);
     painter->drawText(-centersize,-centersize, this->cellObject.name);
 }
 

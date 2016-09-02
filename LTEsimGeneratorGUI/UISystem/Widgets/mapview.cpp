@@ -3,10 +3,12 @@
 #include "UISystem/Widgets/cellrepresentation.h"
 #include "UISystem/Widgets/handoverrepresentation.h"
 
+#include <QDebug>
+
 MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
-    solidPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
-    solid2(Qt::black, 2, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
-    dotPen(Qt::black, 1, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin)
+    solidPen(Qt::black, 50, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
+    solid2(Qt::black, 50, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
+    dotPen(Qt::black, 25, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin)
 {
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -20,28 +22,34 @@ MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent
 
 void MapView::resizeEvent(QResizeEvent *event)
 {
+    qDebug() << "w resizeEvent scene.width - " << scene->sceneRect().width();
+    qDebug() << "w resizeEvent scene.height - " << scene->sceneRect().height();
     this->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
     QGraphicsView::resizeEvent(event);
 }
 
 void MapView::printNewMap()
 {
+    this->drawCellRepresentations();
     this->drawAxis();
     this->drawMapLines();
-    this->drawCellRepresentations();
-    this->drawHandoverRepresentations();
+//    this->drawHandoverRepresentations();
 
     this->setScene(scene);
 }
 
 void MapView::drawAxis()
 {
+    double mapHeight = scene->sceneRect().height();
+    qDebug() << "mapHeight - " << mapHeight;
+    double mapWidth = scene->sceneRect().width();
+    qDebug() << "mapWidth - " << mapWidth;
     QPointF widgetOffset(30.0, -15.0);
-    QPointF Xend(600.0 , 0.0);
-    QPointF Yend(0.0, -500.0);
+    QPointF Xend(mapWidth, 0.0);
+    QPointF Yend(0.0, -mapHeight);
 
-    x_AxisLine.setPoints(QPointF(0.0, 0.0)+widgetOffset, Xend+widgetOffset);
-    y_AxisLine.setPoints(QPointF(0.0, 0.0)+widgetOffset, Yend+widgetOffset);
+    x_AxisLine.setPoints(QPointF(0.0, 0.0), Xend);
+    y_AxisLine.setPoints(QPointF(0.0, 0.0), Yend);
     scene->addLine(x_AxisLine, solidPen);
     scene->addLine(y_AxisLine, solidPen);
 
@@ -144,19 +152,10 @@ void MapView::drawMapLines()
 
 void MapView::drawCellRepresentations()
 {
-    int startOffset = 100;
-    int elementOffset = 160;
-    int evenOffset = 40;
-    int numberOfCols = 4;
     for(int i = 0; i<project.cellsInfo.size(); i++) {
-        int col = i%numberOfCols;
-        int row = i/numberOfCols;
-        int evenRow= row%2;
-
         CellRepresentation *node1 = new CellRepresentation(project.cellsInfo[i].first);
         scene->addItem(node1);
-        // shift for even row  + shift for columnt + start offset , - start offset - row offset
-        node1->setPos( evenRow*evenOffset+ col*elementOffset +startOffset,  - startOffset       -(elementOffset*row));
+        node1->setPos(project.cellsInfo[i].first.position_X, - project.cellsInfo[i].first.position_Y);
     }
 }
 
