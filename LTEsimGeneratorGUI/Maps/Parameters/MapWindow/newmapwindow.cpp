@@ -8,6 +8,11 @@ NewMapWindow::NewMapWindow(QWidget *parent) :
     ui(new Ui::NewMapWindow)
 {
     ui->setupUi(this);
+
+
+    hBoxLayout = NULL;
+    vBoxLayout  = NULL;
+    mapView = NULL;
 }
 
 NewMapWindow::~NewMapWindow()
@@ -17,6 +22,11 @@ NewMapWindow::~NewMapWindow()
 
 void NewMapWindow::loadAndOpen(const Project &project)
 {
+   delete vBoxLayout;
+   delete hBoxLayout;
+   delete mapView;
+
+
     this->project = project;
     mapView = new MapView(project, this);
     hBoxLayout = new QHBoxLayout(this);
