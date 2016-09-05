@@ -50,6 +50,8 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
 
     int len =0,startIndex =0;
 
+    project.mapRange = getMapRange(scriptContentLines);
+
     for (int i=0;i<scriptContentLines.size();i++){
         if(scriptContentLines[i].contains("default[:model_set_name]")) {
             startIndex=i;
@@ -648,4 +650,36 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
     }
 
     return generalConfiguration;
+}
+
+MapRange ScriptParserManager::getMapRange(const QStringList scriptContentLines) {
+    MapRange mapRange;
+
+    for (int i = 0;i<scriptContentLines.size();i++) {
+        if (scriptContentLines[i].contains("default[:southBoundMap]")){
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
+                 mapRange.southBoundMap = numberRegExp.capturedTexts()[0].toInt();
+            }
+        }
+        else if(scriptContentLines[i].contains("default[:northBoundMap]")){
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
+                mapRange.northBoundMap = numberRegExp.capturedTexts()[0].toInt();
+            }
+        }
+        else if(scriptContentLines[i].contains("default[:westBoundMap]")){
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
+                mapRange.westBoundMap = numberRegExp.capturedTexts()[0].toInt();
+            }
+        }
+        else if(scriptContentLines[i].contains("default[:eastBoundMap]")){
+            QRegExp numberRegExp("[0-9]+");
+            if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
+                mapRange.eastBoundMap = numberRegExp.capturedTexts()[0].toInt();
+            }
+        }
+    }
+    return mapRange;
 }

@@ -38,6 +38,7 @@ public:
     PagingSettings getPagingSettings(const QStringList scriptContentLines);
     UBSimSettings getUBSimSettings(const QStringList scriptContentLines);
     GeneralConfigurationParameters getGeneralConfigurationSettings(const QStringList scriptContentLines);
+    MapRange getMapRange(const QStringList scriptContentLines);
 private:
     QVector<QPair<Cell, Center>> matchCellsToCenters(auto cells, auto centers);
 

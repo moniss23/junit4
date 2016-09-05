@@ -8,10 +8,11 @@ class MapRange : public SerializeInterface
 {
 public:
     MapRange();
-    double northBoundMap;
-    double southBoundMap;
-    double eastBoundMap;
-    double westBoundMap;
+    ~MapRange() {}
+    int northBoundMap;
+    int southBoundMap;
+    int eastBoundMap;
+    int westBoundMap;
 
 
     /****************************
@@ -20,9 +21,6 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
-
-
-
 };
 
 #endif // MAPRANGE_H
