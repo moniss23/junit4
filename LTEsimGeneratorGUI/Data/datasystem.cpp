@@ -370,9 +370,10 @@ void DataSystem::updateGeneralConfigurationParameters(const GeneralConfiguration
     saveProjectsFile();
 }
 
-void DataSystem::generateParametersScript(const Project &project)
+void DataSystem::generateParametersScript(Project &project)
 {
-    fileManager.generateParametersScript(project);
+    QString content = scriptParserManager.GenerateParametersQString(project);
+    fileManager.generateParametersScript(project.fullpath,project.name,content);
 }
 
 void DataSystem::generateTrafficScript(const Project &project, const int &indexOfFile)

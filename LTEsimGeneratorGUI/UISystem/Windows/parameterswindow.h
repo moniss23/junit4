@@ -104,7 +104,7 @@ signals:
      * @brief generateParametersScript is sent to dataSystem to tell it to generate  new script
      * @param currentProject is sent to provide all necessary data need to creat a script
      */
-    void generateParametersScript(const Project& currentProject);
+    void generateParametersScript(Project& currentProject);
     /**
      * @brief generateTrafficScript is sent to dataSystem to tell it to generate  new script
      * @param currentProject is sent to provide all necessary data need to create a script

@@ -73,7 +73,7 @@ public slots:
     void updateHandover(const Handover &handover, const QString &projectName);
 
     //Scripts generation
-    void generateParametersScript(const Project& project);
+    void generateParametersScript(Project &project);
     void generateTrafficScript(const Project& project, const int& indexOfFile);
 
 public:

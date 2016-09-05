@@ -3,7 +3,6 @@
 
 #include <QString>
 #include <QVector>
-
 #include "Data/Objects/cell.h"
 #include "Data/Objects/center.h"
 #include "Data/Objects/handover.h"
@@ -40,6 +39,8 @@ public:
     GeneralConfigurationParameters getGeneralConfigurationSettings(const QStringList scriptContentLines);
     MapRange getMapRange(const QStringList scriptContentLines);
     UeParameters getUeParameters(const QStringList &scriptContentLines);
+    QString GenerateParametersQString(Project &project);
+
 private:
     QVector<QPair<Cell, Center>> matchCellsToCenters(auto cells, auto centers);
 

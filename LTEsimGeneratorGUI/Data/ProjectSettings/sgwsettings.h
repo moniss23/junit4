@@ -6,15 +6,16 @@
 #include <QPair>
 
 #include "Data/Interfaces/serializeinterface.h"
+#include "Data/Interfaces/scriptable.h"
 
-class SgwSettings : public SerializeInterface
+class SgwSettings : public SerializeInterface, public Scriptable
 {
 public:
     SgwSettings();
     ~SgwSettings();
     QString name;
     QString ipAdress;
-    QVector<QPair<QString,QString>> apnList;
+    QString apnList;
     int ldi;
     bool coreNetworkGateway;
 
@@ -25,6 +26,12 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
+    /****************************
+    *   PARSING INTERFACE       *
+    ****************************/
+
+    virtual QString ParseToScript();
 
 };
 

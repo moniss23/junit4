@@ -1,6 +1,5 @@
-#include <QRegExp>
 #include "scriptparsermanager.h"
-#include <QDebug>
+#include <QRegExp>
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -53,9 +52,17 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
     project.mapRange = getMapRange(scriptContentLines);
 
     for (int i=0;i<scriptContentLines.size();i++){
-        if(scriptContentLines[i].contains("default[:model_set_name]")) {
+        if (scriptContentLines[i].contains("getGeneralParameters()")){
             startIndex=i;
-            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+            while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
+        }
+        else if(scriptContentLines[i].contains("default[:model_set_name]")) {
+            startIndex=i;
+            while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
@@ -63,7 +70,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
         }
         else if (scriptContentLines[i].contains("default[:mme_names] =")){
             startIndex=i;
-            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+            while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
@@ -94,6 +101,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.dataGeneratorSettings = getDataGeneratorSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:sgw_names]")) {
+            startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
@@ -101,6 +109,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.sgwSettings = getSgwSettings(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:uctool_ip]")) {
+            startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
@@ -108,6 +117,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.ucToolSettings = getUCToolSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("[:generate_pagings]")){
+            startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
@@ -115,6 +125,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.pagingSettings = getPagingSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("getUbsimConfigParameters()")){
+            startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
@@ -122,6 +133,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.ubSimSettings = getUBSimSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("getGeneralParameters")){
+            startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
@@ -129,6 +141,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("Parameters.getUeParameters()")){
+            startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
@@ -307,16 +320,13 @@ SgwSettings ScriptParserManager::getSgwSettings(const QStringList scriptContentL
         }
         else if (scriptContentLines[i].contains("default[:apn_lists]")) {
             QRegExp quoteRegExp("\".*\"");
-            for (int i=0;i<quoteRegExp.capturedTexts().size();i+=2) {
-                if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
-                    sgwSettings.apnList.append(QPair<QString,QString>(quoteRegExp.capturedTexts()[i].split(",")[0],quoteRegExp.capturedTexts()[i].split(",")[0]));
-                }
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                sgwSettings.apnList=quoteRegExp.capturedTexts()[0].remove("\"");
             }
         }
         else if (scriptContentLines[i].contains("default[:sgw_LDIs]")) {
             QRegExp numberRegExp("[0-9]+");
             if (numberRegExp.indexIn(scriptContentLines[i])>-1){
-                qDebug()<<numberRegExp.capturedTexts()[0];
                 sgwSettings.ldi = numberRegExp.capturedTexts()[0].toInt();
             }
         }
@@ -452,8 +462,13 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
     int len;
     for (int i=0;i<scriptContentLines.size();i++) {
         if (scriptContentLines[i].contains("default[:mme_names] =")){
-            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            mmeSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i])>-1){
+                mmeSettings.names = quoteRegExp.capturedTexts();
+            }
+            for (QString &name:mmeSettings.names){
+                name.remove('"');
+            }
         }
         else if (scriptContentLines[i].contains("default[:simulate_core] = ")){
             mmeSettings.simulatedCoreNetwork = scriptContentLines[i].contains("true");
@@ -599,8 +614,17 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
     GeneralConfigurationParameters generalConfiguration;
 
     for (int i = 0;i<scriptContentLines.size();i++) {
-        if (scriptContentLines[i].contains("log_dir")){
-            generalConfiguration.logDir = scriptContentLines[i];
+        if (scriptContentLines[i].contains("log_dir =")){
+            QRegExp regexp;
+            if (scriptContentLines[i].contains("#")) {
+                regexp.setPattern("= .*#");
+            }
+            else {
+                regexp.setPattern("= .*");
+            }
+            if (regexp.indexIn(scriptContentLines[i])>-1){
+                generalConfiguration.logDir = regexp.capturedTexts()[0];
+            }
         }
         else if (scriptContentLines[i].contains("[:coreParameters]")){
             QRegExp quoteRegExp("\".*\"");
@@ -623,12 +647,12 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
         else if (scriptContentLines[i].contains("[:logger_file_count]")){
             QRegExp numberRegExp("[0-9]+");
             if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.loggerHandlerSet = numberRegExp.capturedTexts()[0];
+                generalConfiguration.loggerFileCount = numberRegExp.capturedTexts()[0].toInt();
             }
         }
         else if (scriptContentLines[i].contains("[:logger_file_sizeLimit]")){
-            QRegExp regExp("[0-9]+**[0-9]+");
-            if (regExp.lastIndexIn(scriptContentLines[i]) > -1){
+            QRegExp regExp("[0-9]+..[0-9]+");
+            if (regExp.indexIn(scriptContentLines[i]) > -1){
                 generalConfiguration.loggerFileSizeLimit.first = regExp.capturedTexts()[0].split("**")[0].toInt();
                 generalConfiguration.loggerFileSizeLimit.second = regExp.capturedTexts()[0].split("**")[1].toInt();
             }
@@ -653,7 +677,7 @@ MapRange ScriptParserManager::getMapRange(const QStringList scriptContentLines) 
         if (scriptContentLines[i].contains("default[:southBoundMap]")){
             QRegExp numberRegExp("[0-9]+");
             if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
-                 mapRange.southBoundMap = numberRegExp.capturedTexts()[0].toInt();
+                mapRange.southBoundMap = numberRegExp.capturedTexts()[0].toInt();
             }
         }
         else if(scriptContentLines[i].contains("default[:northBoundMap]")){
@@ -685,14 +709,12 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
     for (int i = 0;i<scriptContentLines.size();i++) {
         if (scriptContentLines[i].contains("[:start_ue_component]")){
             ueParameters.startUeComponent = scriptContentLines[i].contains("true");
-            qDebug() << "start = " << ueParameters.startUeComponent;
         }
         else if (scriptContentLines[i].contains("[:name]")){
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
                 ueParameters.name = quoteRegExp.capturedTexts()[0];
                 ueParameters.name.remove('"');
-                qDebug() << "name = " << ueParameters.name;
             }
         }
         else if (scriptContentLines[i].contains("[:l1l2_managers]")){
@@ -700,7 +722,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
                 ueParameters.managers = quoteRegExp.capturedTexts()[0];
                 ueParameters.managers.remove('"');
-                qDebug() << "managers = " << ueParameters.managers;
             }
         }
         else if (scriptContentLines[i].contains("[:rrc_pluginFilterPath]")){
@@ -708,7 +729,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
                 ueParameters.pluginFilterPath = quoteRegExp.capturedTexts()[0];
                 ueParameters.pluginFilterPath.remove('"');
-                qDebug() << "plugin = " << ueParameters.pluginFilterPath;
             }
         }
         else if (scriptContentLines[i].contains("[:uctool_ip]")){
@@ -716,7 +736,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
                 ueParameters.ucToolIp = quoteRegExp.capturedTexts()[0];
                 ueParameters.ucToolIp.remove('"');
-                qDebug() << "uctool_ip = " << ueParameters.ucToolIp;
             }
         }
         else if (scriptContentLines[i].contains("[:uctool_cIds]")){
@@ -724,7 +743,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
                 ueParameters.ucToolcIds =  quoteRegExp.capturedTexts()[0];
                 ueParameters.ucToolcIds.remove('"');
-                qDebug() << "uctool-cIds = " << ueParameters.ucToolcIds;
             }
         }
         else if (scriptContentLines[i].contains("[:uctool_service_ip]")){
@@ -732,7 +750,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
                 ueParameters.ucToolServiceIp =  quoteRegExp.capturedTexts()[0];
                 ueParameters.ucToolServiceIp.remove('"');
-                qDebug() << "uctool-serviceIp = " << ueParameters.ucToolServiceIp;
             }
         }
         else if (scriptContentLines[i].contains("[:ue_network_capability]")){
@@ -740,7 +757,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
                 ueParameters.ueNetworkCapability =  quoteRegExp.capturedTexts()[0];
                 ueParameters.ueNetworkCapability.remove('"');
-                qDebug() << "uctool-capability = " << ueParameters.ueNetworkCapability;
             }
         }
         else if (scriptContentLines[i].contains("[:ue_keyDerivationAlgorithm]")){
@@ -748,15 +764,19 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
                 ueParameters.ueKeyDerivationAlgorithm =  quoteRegExp.capturedTexts()[0];
                 ueParameters.ueKeyDerivationAlgorithm.remove('"');
-                qDebug() << "uctool-algorithm = " << ueParameters.ueKeyDerivationAlgorithm;
             }
         }
-        else if (scriptContentLines[i].contains("[:ue_key]")){
+
+        else if (scriptContentLines[i].contains("default[:ue_key]")){
             QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
-                ueParameters.ueKey =  quoteRegExp.capturedTexts()[0];
+            QRegExp commentRegExp("#");
+            int count=0;
+            if (commentRegExp.indexIn(scriptContentLines[i]) > quoteRegExp.indexIn(scriptContentLines[i])){
+                ueParameters.ueKey = quoteRegExp.capturedTexts()[count];
                 ueParameters.ueKey.remove('"');
-                qDebug() << "uctool-key = " << ueParameters.ueKey;
+            }
+            else{
+                count++;
             }
         }
         else if (scriptContentLines[i].contains("[:ue_op]")){
@@ -764,9 +784,50 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
             if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
                 ueParameters.ueOp =  quoteRegExp.capturedTexts()[0];
                 ueParameters.ueOp.remove('"');
-                qDebug() << "uctool-op = " << ueParameters.ueOp;
             }
         }
     }
     return ueParameters;
+}
+QString ScriptParserManager::GenerateParametersQString(Project &project){
+    QString outputTextStream;
+
+    /* ***************** HEADER ***************** */
+    QString header = "# LTEsum Parameter Module \n\
+# \n\
+# Copyright Ericsson AB 2013. \n\
+# \n\
+# This example shows how to setup and retrieve configuration parameters for LTEsum. \n\
+# \n\
+# \n\
+# Module that contains functions for retrieving configuration values for the LTEsum components. \n\
+# \n\
+# Copy this file to your home directory with a different name and edit the copy \n\
+# to match your environment. \n\
+# \n\
+# Make sure that your version of parameters.rb is used by one of the following methods: \n\
+# \n\
+#   Start ltesim_cli with the parameter -params <file> \n\
+# \n\
+#   Start ltesim_cli in the same folder as your file %parameters.rb \n\
+# \n\
+#   Add the folder with parameters.rb to the ltesim_cli search path, using the -p parameter \n\
+# \n\
+#   Load your parameters.rb file in each test script (or in the ltesim_cli) by adding \n\
+#   \"LteSimCli.rerequire \'<path to and including parameters.rb>\'\" in the beginning of the script. \n\
+# \n\
+require \'etc\'\n\
+module Parameters \n\
+\t# \n\
+\t# Retrieve general configuration parameters. \n\
+\t#\n";
+
+    // OUTPUT
+    outputTextStream.append(header);
+    outputTextStream.append(project.generalConfiguration.ParseToScript());
+    outputTextStream.append(project.mmeSettings.ParseToScript());
+    outputTextStream.append(project.pagingSettings.ParseToScript());
+    outputTextStream.append(project.sgwSettings.ParseToScript());
+    outputTextStream.append("end");
+    return outputTextStream;
 }

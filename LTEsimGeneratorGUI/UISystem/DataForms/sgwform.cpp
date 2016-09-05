@@ -53,7 +53,7 @@ void SgwForm::setChanges()
     QStringList apnListToSave = (ui->tet_sgw_apn_lists->text()).split(separator,QString::SkipEmptyParts);
     sgwSettings.apnList.clear();
     for (int i=0;i<apnListToSave.size();i+=2){
-        sgwSettings.apnList.append(QPair<QString,QString>(apnListToSave[i],apnListToSave[i+1]));
+        sgwSettings.apnList = this->ui->tet_sgw_apn_lists->text();
     }
     emit updateSgw(sgwSettings,projectName);
 }
@@ -61,9 +61,7 @@ void SgwForm::setDefaultParameters(){
     this->ui->tet_sgw_names->setText(sgwSettings.name);
     this->ui->tet_sgw_ipAddresses->setText(sgwSettings.ipAdress);
     this->ui->tet_sgw_LDIs->setText(QString::number(sgwSettings.ldi));
-    for (int i=0;i<sgwSettings.apnList.size();i++){
-        this->ui->tet_sgw_apn_lists->setText(this->ui->tet_sgw_apn_lists->text()+sgwSettings.apnList[i].first+":"+sgwSettings.apnList[i].second+",");
-    }
+    this->ui->tet_sgw_apn_lists->setText(sgwSettings.apnList);
 }
 void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projectName){
     this->sgwSettings = sgwSettings;

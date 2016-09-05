@@ -4,8 +4,9 @@
 #include <QString>
 #include <QPair>
 #include "Data/Interfaces/serializeinterface.h"
+#include "Data/Interfaces/scriptable.h"
 
-class GeneralConfigurationParameters: public SerializeInterface
+class GeneralConfigurationParameters: public SerializeInterface, public Scriptable
 {
 public:
     GeneralConfigurationParameters();
@@ -26,6 +27,8 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
+    virtual QString ParseToScript();
 
 
 };

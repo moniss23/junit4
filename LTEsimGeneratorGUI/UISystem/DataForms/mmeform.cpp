@@ -29,7 +29,12 @@ MmeForm::~MmeForm()
 
 void MmeForm::setDefaultParameters()
 {
-    this->ui->tetMme_names->setText(mmeSettings.name);
+    QString names;
+    for (int i=0;i<mmeSettings.names.size();i++){
+        names.append(mmeSettings.names[i]);
+        names.append(", ");
+    }
+    this->ui->tetMme_names->setText(names);
     this->ui->tetMme_tais->setText(mmeSettings.tais);
     this->ui->tetMme_s1ap_uris->setText(mmeSettings.uris);
     this->ui->tetS1ap_pluginFilterPath->setText(mmeSettings.pluginFilterPath);
@@ -84,7 +89,7 @@ void MmeForm::on_pbReset_clicked()
 
 void MmeForm::setMmeChanges(){
 
-    mmeSettings.name = this->ui->tetMme_names->text();
+    mmeSettings.names = this->ui->tetMme_names->text().split(",");
     mmeSettings.tais=this->ui->tetMme_tais->text();
     mmeSettings.uris=this->ui->tetMme_s1ap_uris->text();
     mmeSettings.pluginFilterPath=this->ui->tetS1ap_pluginFilterPath->text();

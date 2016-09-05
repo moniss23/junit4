@@ -114,7 +114,8 @@ HEADERS  += \
     UISystem/Widgets/handoverrepresentation.h \
     Maps/Parameters/MapWindow/newmapwindow.h \
     Data/ProjectSettings/generalconfigurationparameters.h \
-    Data/ProjectSettings/ueparameters.h
+    Data/ProjectSettings/ueparameters.h \
+    Data/Interfaces/scriptable.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \

@@ -2,14 +2,15 @@
 #define MMESETTINGS_H
 #include <QString>
 #include "Data/Interfaces/serializeinterface.h"
+#include "Data/Interfaces/scriptable.h"
 
-class MmeSettings : public SerializeInterface
+class MmeSettings : public SerializeInterface, public Scriptable
 {
 public:
     MmeSettings();
     ~MmeSettings();
     bool simulatedCoreNetwork;
-    QString name;
+    QStringList names;
     QString tais;
     int numberOfMme;
     QString uris;
@@ -23,6 +24,13 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
+
+    /****************************
+    *   PARSING INTERFACE       *
+    ****************************/
+
+    virtual QString ParseToScript();
 };
 
 #endif // MMESETTINGS_H

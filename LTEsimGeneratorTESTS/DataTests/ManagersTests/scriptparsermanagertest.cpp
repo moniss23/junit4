@@ -91,14 +91,7 @@ void ScriptParserManagerTest::scriptParserManagerTest3_getSgwSettingsFromScript(
     else if (sgwSettings.ipAdress != "127.255.255.1") QVERIFY(false);
     else if (sgwSettings.ldi != 30) QVERIFY(false);
     else if (sgwSettings.coreNetworkGateway != false) QVERIFY(false);
-    for (int i=0;i<sgwSettings.apnList.size();i++){
-        if (sgwSettings.apnList[i].first!="ltesim-core-network") {
-            QVERIFY(false);
-        }
-        else if (sgwSettings.apnList[i].second!="172.17.0.1/16") {
-            QVERIFY(false);
-        }
-    }
+    else if (sgwSettings.apnList != "ltesim-core-network,172.17.0.1/16;") QVERIFY(false);
 
     // if all test passed
     QVERIFY(true);
@@ -121,15 +114,7 @@ void ScriptParserManagerTest::scriptParserManagerTest4_getSgwSettingsFromScript(
     else if (sgwSettings.ipAdress == "127.255.255.1") QVERIFY(false);
     else if (sgwSettings.ldi == 30) QVERIFY(false);
     else if (sgwSettings.coreNetworkGateway == false) QVERIFY(false);
-    for (int i=0;i<sgwSettings.apnList.size();i++){
-        if (sgwSettings.apnList[i].first=="ltesim-core-network") {
-            QVERIFY(false);
-        }
-        else if (sgwSettings.apnList[i].second=="172.17.0.1/16") {
-            QVERIFY(false);
-        }
-    }
-
+    else if (sgwSettings.apnList == "ltesim-core-network,172.17.277.1/16") QVERIFY (false);
     // if all test passed
     QVERIFY(true);
 }
@@ -199,7 +184,7 @@ void ScriptParserManagerTest::scriptParserManagerTest6_getMmeSettingsFromScript(
         "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter\"\n"
         "end";
     mmeSettings = scriptParserManager.getMmeSettings(scriptContent.split("\n"));
-    if (mmeSettings.name != "mme1")                     QVERIFY(false);
+    if (mmeSettings.names[0] != "mme1")                 QVERIFY(false);
     if (mmeSettings.tais != "62F2281200")               QVERIFY(false);
     if (mmeSettings.uris != "sctp://127.0.0.1:36412")   QVERIFY(false);
     if (mmeSettings.pluginFilterPath !=
@@ -215,14 +200,14 @@ void ScriptParserManagerTest::scriptParserManagerTest7_getMmeSettingsFromScript(
     MmeSettings mmeSettings;
 
     const QString scriptContent = "default[:simulate_core] = false\n"
-        "default[:mme_names] = [\"mme1\"\n"
+        "default[:mme_names] = [\"\"mme1\"\"]\n"
         "default[:mme_tais] = [\"[62F2281200]\"]\n"
         "default[:mmes] = avs\n"
         "default[:mme_s1ap_uris] = [\"sctps://127.0.0.1:36412\"]\n"
         "default[:s1ap_pluginFilterPath] = \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/s1ap/filter/\"\n"
         "end";
     mmeSettings = scriptParserManager.getMmeSettings(scriptContent.split("\n"));
-    if (mmeSettings.name == "mme1")                     QVERIFY(false);
+    if (mmeSettings.names[0] == "mme1")                     QVERIFY(false);
     if (mmeSettings.tais == "62F2281200")               QVERIFY(false);
     if (mmeSettings.uris == "sctp://127.0.0.1:36412")   QVERIFY(false);
     if (mmeSettings.pluginFilterPath ==

@@ -2,10 +2,10 @@
 #define PAGINGSETTINGS_H
 #include <QString>
 #include <QStringList>
-#include <QVector>
 #include "Data/Interfaces/serializeinterface.h"
+#include "Data/Interfaces/scriptable.h"
 
-class PagingSettings : public SerializeInterface
+class PagingSettings : public SerializeInterface, public Scriptable
 {
 public:
     PagingSettings();
@@ -17,6 +17,7 @@ public:
     QStringList mmeCodes;
     QString uePagingIdentity;
     QStringList pagingSlapUris;
+    bool s1apCheckAsn1Contrains;
     bool bundlePaging;
 
     /****************************
@@ -27,6 +28,11 @@ public:
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
 
+    /****************************
+    *   PARSING INTERFACE       *
+    ****************************/
+
+    virtual QString ParseToScript();
 };
 
 #endif // PAGINGSETTINGS_H
