@@ -861,7 +861,7 @@ Models</string>
        </item>
       </layout>
      </widget>
-     <widget class="QPushButton" name="pbsetHandoverParams">
+     <widget class="QPushButton" name="setHandoverParamsBtn">
       <property name="geometry">
        <rect>
         <x>20</x>

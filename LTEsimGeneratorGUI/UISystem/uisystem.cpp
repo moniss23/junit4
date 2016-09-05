@@ -119,12 +119,10 @@ void UISystem::bindingObjects()
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
 
-
     //Open Map Range
     QObject::connect(this,SIGNAL(spawnWindow_MapRange(MapRange,QString)),&mapRangeForm,SLOT(loadAndSpawn(MapRange,QString)));
     //Update Map Range
     QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
-
 
     //Open MapView
 //    QObject::connect(this, SIGNAL(spawnWindow_MapView(Project)), &mapView, SLOT(loadAndOpen(Project)));
@@ -140,6 +138,9 @@ void UISystem::bindingObjects()
     //Update CoreNetwork and UESimulated
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
+
+    // Update Handover
+    QObject::connect(&newMapWindow, SIGNAL(updateHandover(Handover,QString)), dataSystem, SLOT(updateHandover(Handover,QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

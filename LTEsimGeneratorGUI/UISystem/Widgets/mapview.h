@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 
 #include "Data/project.h"
+#include "UISystem/Widgets/handoverrepresentation.h"
 
 class MapView : public QGraphicsView
 {
@@ -17,10 +18,10 @@ public:
     void resizeEvent(QResizeEvent* event);
 
 public slots:
-    void spawnWindow_HandoverParams(const Handover &handoverObj);
+    void spawnWindow_HandoverParams(HandoverRepresentation*, const Handover&);
 
 signals:
-    void spawnWindow_MapView_HandoverParams(const Handover &handoverObj);
+    void spawnWindow_MapView_HandoverParams(HandoverRepresentation*, const Handover&);
 
 private:
     void drawAxis();

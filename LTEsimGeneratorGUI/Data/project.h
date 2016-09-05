@@ -61,6 +61,7 @@ public:
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
 
+    Handover* findHandoverByName(const QString &name);
     TrafficFileData* findTrafficFileByName(const QString &name);
 };
 

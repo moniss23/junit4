@@ -1,7 +1,6 @@
 #include "mapview.h"
 
 #include "UISystem/Widgets/cellrepresentation.h"
-#include "UISystem/Widgets/handoverrepresentation.h"
 
 MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
     solidPen(Qt::black, 50, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
@@ -92,7 +91,7 @@ void MapView::drawMapLines()
 
         QGraphicsTextItem *textItem = scene->addText(QString::number(scale * (i)));
         auto textFont = textItem->font();
-        textFont.setPointSize(scene->sceneRect().height() / 70);
+        textFont.setPointSize(500);
         textItem->setFont(textFont);
 
         //Setting start, end points
@@ -121,7 +120,7 @@ void MapView::drawMapLines()
 
         QGraphicsTextItem *textItem = scene->addText(QString::number(scale * i));
         auto textFont = textItem->font();
-        textFont.setPointSize(scene->sceneRect().height() / 70);
+        textFont.setPointSize(500);
         textItem->setFont(textFont);
 
         //Settings start, end points
@@ -148,11 +147,11 @@ void MapView::drawHandoverRepresentations()
         HandoverRepresentation *hoRep = new HandoverRepresentation(handover);
         scene->addItem(hoRep);
         hoRep->setPos(hoRep->position_X, -hoRep->position_Y);
-        QObject::connect(hoRep, SIGNAL(spawnWindow_HandoverParams(Handover)),
-                         this, SLOT(spawnWindow_HandoverParams(Handover)));
+        QObject::connect(hoRep, SIGNAL(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)),
+                         this, SLOT(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)));
     }
 }
 
-void MapView::spawnWindow_HandoverParams(const Handover &handoverObj) {
-    emit spawnWindow_MapView_HandoverParams(handoverObj);
+void MapView::spawnWindow_HandoverParams(HandoverRepresentation *hoRep, const Handover &hoObj) {
+    emit spawnWindow_MapView_HandoverParams(hoRep, hoObj);
 }

@@ -67,8 +67,10 @@ public slots:
     void updateSimulatedUeState(const QString& projectName,bool state);
 
     void updateMme(const MmeSettings& mmeSettings, QString projectName);
-    void updatePaging(const PagingSettings& pagingSettings, QString projectName);
     void updateMapRange (const MapRange& mapRange,QString projectName);
+    void updatePaging(const PagingSettings& pagingSettings, QString projectName);
+
+    void updateHandover(const Handover &handover, const QString &projectName);
 
     //Scripts generation
     void generateParametersScript(const Project& project);

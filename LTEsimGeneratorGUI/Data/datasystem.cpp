@@ -1,6 +1,7 @@
 #include "datasystem.h"
 #include "Data/appglobaldata.h"
 #include "Data/Objects/trafficfiledata.h"
+
 DataSystem::DataSystem() {
     projectsFileSetup();
 }
@@ -71,6 +72,21 @@ void DataSystem::projectsFileSetup() {
 /*********
  * SLOTS *
  *********/
+
+void DataSystem::updateHandover(const Handover &handover, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+     auto handoverFound = project->findHandoverByName(handover.area);
+     if(handoverFound != nullptr) {
+         *handoverFound = handover;
+     }
+
+     saveProjectsFile();
+}
 
 void DataSystem::updateFileContent(const QString &projectName, const QString &fileName, const QString &content) {
     auto project = findProjectByName(projectName);

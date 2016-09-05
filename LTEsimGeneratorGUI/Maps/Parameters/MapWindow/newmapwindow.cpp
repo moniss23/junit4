@@ -9,10 +9,10 @@ NewMapWindow::NewMapWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
-    hBoxLayout = NULL;
-    vBoxLayout  = NULL;
-    mapView = NULL;
+    hBoxLayout = nullptr;
+    vBoxLayout  = nullptr;
+    mapView = nullptr;
+    clickedHandover = nullptr;
 }
 
 NewMapWindow::~NewMapWindow()
@@ -22,10 +22,9 @@ NewMapWindow::~NewMapWindow()
 
 void NewMapWindow::loadAndOpen(const Project &project)
 {
-   delete vBoxLayout;
-   delete hBoxLayout;
-   delete mapView;
-
+    delete vBoxLayout;
+    delete hBoxLayout;
+    delete mapView;
 
     this->project = project;
     mapView = new MapView(project, this);
@@ -44,17 +43,20 @@ void NewMapWindow::loadAndOpen(const Project &project)
     ui->ubSimButton->setEnabled(project.ueParameters.startUeComponent);
     ui->ipexButton->setEnabled(project.ueParameters.startUeComponent);
 
-    QObject::connect(mapView, SIGNAL(spawnWindow_MapView_HandoverParams(Handover)),
-                     this, SLOT(spawnWindow_MapView_handoverParams(Handover)));
+    QObject::connect(mapView, SIGNAL(spawnWindow_MapView_HandoverParams(HandoverRepresentation*, Handover)),
+                     this, SLOT(spawnWindow_MapView_handoverParams(HandoverRepresentation*, Handover)));
 
     this->show();
 }
 
-void NewMapWindow::spawnWindow_MapView_handoverParams(const Handover &handoverObj) {
-    this->ui->eastHandoverBoundary->setText(QString::number(handoverObj.eastBoundary));
-    this->ui->westHandoverBoundary->setText(QString::number(handoverObj.westBoundary));
-    this->ui->northHandoverBoundary->setText(QString::number(handoverObj.northBoundary));
-    this->ui->soutHandoverBoundary->setText(QString::number(handoverObj.southBoundary));
+void NewMapWindow::spawnWindow_MapView_handoverParams(HandoverRepresentation* clickedHo, const Handover &hoObj) {
+    this->ui->eastHandoverBoundary->setText(QString::number(hoObj.eastBoundary));
+    this->ui->westHandoverBoundary->setText(QString::number(hoObj.westBoundary));
+    this->ui->northHandoverBoundary->setText(QString::number(hoObj.northBoundary));
+    this->ui->soutHandoverBoundary->setText(QString::number(hoObj.southBoundary));
+
+    this->clickedHandover = clickedHo;
+    emit updateHandover(this->clickedHandover->handoverObject, project.name);
 }
 
 void NewMapWindow::on_channelModelsButton_pressed()
@@ -99,4 +101,17 @@ void NewMapWindow::on_ueCheckbox_toggled(bool checked)
     ui->ubSimButton->setEnabled(checked);
     ui->ipexButton->setEnabled(checked);
     emit updateUEsimulated(project.name, checked);
+}
+
+void NewMapWindow::on_setHandoverParamsBtn_clicked()
+{
+    if(this->clickedHandover != nullptr) {
+        this->clickedHandover->handoverObject.eastBoundary = ui->eastHandoverBoundary->text().toInt();
+        this->clickedHandover->handoverObject.westBoundary = ui->westHandoverBoundary->text().toInt();
+        this->clickedHandover->handoverObject.northBoundary = ui->northHandoverBoundary->text().toInt();
+        this->clickedHandover->handoverObject.southBoundary = ui->soutHandoverBoundary->text().toInt();
+
+        this->clickedHandover->updatePositions();
+        emit updateHandover(this->clickedHandover->handoverObject, project.name);
+    }
 }

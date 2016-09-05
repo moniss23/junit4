@@ -9,6 +9,13 @@ QString Project::getElementType() const
     return QString("Project");
 }
 
+Handover* Project::findHandoverByName(const QString &name) {
+    auto handover = std::find_if(handovers.begin(), handovers.end(),
+                        [&name](const auto &hand)->bool{return hand.area==name;});
+
+    return handover==handovers.end() ? nullptr : handover;
+}
+
 TrafficFileData* Project::findTrafficFileByName(const QString &name) {
     auto trafficfile = std::find_if(trafficFilesList.begin(), trafficFilesList.end(),
                         [&name](const auto &traff)->bool{return traff.filename==name;});

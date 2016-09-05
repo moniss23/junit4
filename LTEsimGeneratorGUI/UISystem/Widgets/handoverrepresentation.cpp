@@ -11,17 +11,22 @@ HandoverRepresentation::HandoverRepresentation(Handover &handover, QGraphicsObje
     setCacheMode(DeviceCoordinateCache);
     setZValue(1);
 
+    this->updatePositions();
     icon.load(":/Images/handover.png");
 
+    if(width > height) {
+        icon = icon.transformed(QMatrix().rotate(90.0));
+    }
+}
+
+void HandoverRepresentation::updatePositions() {
     width = handoverObject.eastBoundary - handoverObject.westBoundary;
     height = handoverObject.northBoundary - handoverObject.southBoundary;
 
     position_X = handoverObject.westBoundary + width/2;
     position_Y = handoverObject.northBoundary - height/2;
 
-    if(width > height) {
-        icon = icon.transformed(QMatrix().rotate(90.0));
-    }
+    this->setPos(position_X, -position_Y);
 }
 
 QRectF HandoverRepresentation::boundingRect() const {
@@ -63,7 +68,7 @@ void HandoverRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) 
     handoverObject.southBoundary = -posY-height/2;
     handoverObject.northBoundary = -posY+height/2;
 
-    emit spawnWindow_HandoverParams(this->handoverObject);
+    emit spawnWindow_HandoverParams(this, this->handoverObject);
 }
 
 QVariant HandoverRepresentation::itemChange(GraphicsItemChange change, const QVariant &value) {

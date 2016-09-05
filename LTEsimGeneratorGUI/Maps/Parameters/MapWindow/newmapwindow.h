@@ -19,29 +19,31 @@ public:
 
 public slots:
     void loadAndOpen(const Project &project);
-    void spawnWindow_MapView_handoverParams(const Handover &handoverObj);
+    void spawnWindow_MapView_handoverParams(HandoverRepresentation*, const Handover&);
 
 signals:
-    void spawnWindow_ucTool(const QString &projectName);
-    void spawnWindow_Ipex(const QString& projectName);
-    void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Mme(const QString& projectName);
-    void spawnWindow_ChannelModel(const QString& projectName);
+    void spawnWindow_Sgw(const QString& projectName);
+    void spawnWindow_Ipex(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
+    void spawnWindow_ucTool(const QString &projectName);
+    void spawnWindow_ChannelModel(const QString& projectName);
+
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
 
-private slots:
+    void updateHandover(const Handover &handover, const QString &projectName);
 
-    void on_channelModelsButton_pressed();
-    void on_ucToolButton_pressed();
+private slots:
+    void on_mmeButton_pressed();
+    void on_sgwButton_pressed();
     void on_ipexButton_pressed();
     void on_ubSimButton_pressed();
-    void on_sgwButton_pressed();
-    void on_mmeButton_pressed();
-
-    void on_coreNetworkCheckbox_toggled(bool checked);
+    void on_ucToolButton_pressed();
+    void on_channelModelsButton_pressed();
+    void on_setHandoverParamsBtn_clicked();
     void on_ueCheckbox_toggled(bool checked);
+    void on_coreNetworkCheckbox_toggled(bool checked);
 
 private:
     Ui::NewMapWindow *ui;
@@ -49,6 +51,8 @@ private:
     QVBoxLayout *vBoxLayout;
     MapView *mapView;
     Project project;
+
+    HandoverRepresentation* clickedHandover;
 };
 
 #endif // NEWMAPWINDOW_H
