@@ -55,6 +55,15 @@ void HandoverRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 
 void HandoverRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsItem::mouseReleaseEvent(event);
+
+    int posX = pos().x();
+    int posY = pos().y();
+    handoverObject.westBoundary = posX-width/2;
+    handoverObject.eastBoundary = posX+width/2;
+    handoverObject.southBoundary = -posY-height/2;
+    handoverObject.northBoundary = -posY+height/2;
+
+    emit spawnWindow_HandoverParams(this->handoverObject);
 }
 
 QVariant HandoverRepresentation::itemChange(GraphicsItemChange change, const QVariant &value) {

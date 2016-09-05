@@ -42,7 +42,17 @@ void NewMapWindow::loadAndOpen(const Project &project)
     this->ui->coreNetworkCheckbox->setChecked(~project.SimulatedCoreNetwork);
     this->ui->coreNetworkCheckbox->setChecked(project.SimulatedCoreNetwork);
 
+    QObject::connect(mapView, SIGNAL(spawnWindow_MapView_HandoverParams(Handover)),
+                     this, SLOT(spawnWindow_MapView_handoverParams(Handover)));
+
     this->show();
+}
+
+void NewMapWindow::spawnWindow_MapView_handoverParams(const Handover &handoverObj) {
+    this->ui->eastHandoverBoundary->setText(QString::number(handoverObj.eastBoundary));
+    this->ui->westHandoverBoundary->setText(QString::number(handoverObj.westBoundary));
+    this->ui->northHandoverBoundary->setText(QString::number(handoverObj.northBoundary));
+    this->ui->soutHandoverBoundary->setText(QString::number(handoverObj.southBoundary));
 }
 
 void NewMapWindow::on_channelModelsButton_pressed()

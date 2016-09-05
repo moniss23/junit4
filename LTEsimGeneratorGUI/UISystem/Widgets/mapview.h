@@ -9,11 +9,18 @@
 class MapView : public QGraphicsView
 {
     Q_OBJECT
+
 public:
     explicit MapView(const Project& project, QWidget *parent = 0);
 
     void printNewMap();
     void resizeEvent(QResizeEvent* event);
+
+public slots:
+    void spawnWindow_HandoverParams(const Handover &handoverObj);
+
+signals:
+    void spawnWindow_MapView_HandoverParams(const Handover &handoverObj);
 
 private:
     void drawAxis();

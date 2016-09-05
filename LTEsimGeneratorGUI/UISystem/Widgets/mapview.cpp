@@ -148,5 +148,11 @@ void MapView::drawHandoverRepresentations()
         HandoverRepresentation *hoRep = new HandoverRepresentation(handover);
         scene->addItem(hoRep);
         hoRep->setPos(hoRep->position_X, -hoRep->position_Y);
+        QObject::connect(hoRep, SIGNAL(spawnWindow_HandoverParams(Handover)),
+                         this, SLOT(spawnWindow_HandoverParams(Handover)));
     }
+}
+
+void MapView::spawnWindow_HandoverParams(const Handover &handoverObj) {
+    emit spawnWindow_MapView_HandoverParams(handoverObj);
 }

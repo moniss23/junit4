@@ -19,6 +19,7 @@ public:
 
 public slots:
     void loadAndOpen(const Project &project);
+    void spawnWindow_MapView_handoverParams(const Handover &handoverObj);
 
 signals:
     void spawnWindow_ucTool(const QString &projectName);
@@ -38,7 +39,6 @@ private slots:
     void on_mmeButton_pressed();
 
     void on_coreNetworkCheckbox_toggled(bool checked);
-
     void on_ueCheckbox_toggled(bool checked);
 
 private:
