@@ -127,7 +127,11 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("getGeneralParameters")){
-            project.generalConfiguration = getGeneralConfigurationSettings(i,scriptContentLines);
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+                len++;
+                i++;
+            }
+            project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
         }
     }
 
@@ -595,15 +599,11 @@ UBSimSettings ScriptParserManager::getUBSimSettings(const QStringList scriptCont
     }
     return ubSimSettings;
 }
-GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSettings(QStringList scriptContentLines){
+GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSettings(const QStringList scriptContentLines){
     GeneralConfigurationParameters generalConfiguration;
-    int startIndex;
+
     for (int i = 0;i<scriptContentLines.size();i++) {
         if (scriptContentLines[i].contains("log_dir")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             generalConfiguration.logDir = scriptContentLines[i];
         }
         else if (scriptContentLines[i].contains("[:coreParameters]")){
@@ -631,10 +631,6 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
             }
         }
         else if (scriptContentLines[i].contains("[:logger_file_sizeLimit]")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
             QRegExp regExp("[0-9]+**[0-9]+");
             if (regExp.lastIndexIn(scriptContentLines[i]) > -1){
                 generalConfiguration.loggerFileSizeLimit.first = regExp.capturedTexts()[0].split("**")[0].toInt();
@@ -651,63 +647,5 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
         }
     }
 
-    return generalConfiguration;
-}
-GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSettings(int i, QStringList scriptContentLines){
-    GeneralConfigurationParameters generalConfiguration;
-    int startIndex;
-    while (!(QRegExp("^end").indexIn(scriptContentLines[i])>-1)) {
-        if (scriptContentLines[i].contains("log_dir")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
-            generalConfiguration.logDir = scriptContentLines[i];
-        }
-        else if (scriptContentLines[i].contains("[:coreParameters]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.coreParameters = quoteRegExp.capturedTexts()[0];
-            }
-        }
-        else if (scriptContentLines[i].contains("[:jvm_parameters]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.jvmParameters = quoteRegExp.capturedTexts()[0];
-            }
-        }
-        else if (scriptContentLines[i].contains("[:logger_handlersSet]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.loggerHandlerSet = quoteRegExp.capturedTexts()[0];
-            }
-        }
-        else if (scriptContentLines[i].contains("[:logger_file_count]")){
-            QRegExp numberRegExp("[0-9]+");
-            if (numberRegExp.indexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.loggerHandlerSet = numberRegExp.capturedTexts()[0];
-            }
-        }
-        else if (scriptContentLines[i].contains("[:logger_file_sizeLimit]")){
-            if(scriptContentLines[i].contains("#")) {
-                startIndex = scriptContentLines[i].indexOf("#");
-                scriptContentLines[i].chop(scriptContentLines[i].size() - startIndex);
-            }
-            QRegExp regExp("[0-9]+**[0-9]+");
-            if (regExp.lastIndexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.loggerFileSizeLimit.first = regExp.capturedTexts()[0].split("**")[0].toInt();
-                generalConfiguration.loggerFileSizeLimit.second = regExp.capturedTexts()[0].split("**")[1].toInt();
-            }
-        }
-        else if (scriptContentLines[i].contains("[:logger_file_gzipEnabled]")){
-            if (scriptContentLines[i].contains("true")){
-                generalConfiguration.loggerFileGzipEnabled = true;
-            }
-            else if (scriptContentLines[i].contains("false")){
-                generalConfiguration.loggerFileGzipEnabled = false;
-            }
-        }
-        i++;
-    }
     return generalConfiguration;
 }
