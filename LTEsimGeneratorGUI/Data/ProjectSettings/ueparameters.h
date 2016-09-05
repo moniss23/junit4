@@ -12,10 +12,10 @@ public:
     ~UeParameters();
     bool startUeComponent;
     QString name;
-    QVector<QPair<QString,QString>> managers;
+    QString managers;
     QString pluginFilterPath;
     QString ucToolIp;
-    QVector<QPair<QString,QVector<QString>>> ucToolcIds;
+    QString ucToolcIds;
     QString ucToolServiceIp;
     QString ueNetworkCapability;
     QString ueKeyDerivationAlgorithm;

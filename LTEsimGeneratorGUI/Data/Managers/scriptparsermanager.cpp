@@ -128,15 +128,14 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             }
             project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
         }
-        else if (scriptContentLines[i].contains("getGeneralParameters")){
+        else if (scriptContentLines[i].contains("Parameters.getUeParameters()")){
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
-            project.generalConfiguration = getGeneralConfigurationSettings(scriptContentLines.mid(startIndex,len));
+            project.ueParameters = getUeParameters(scriptContentLines.mid(startIndex,len));
         }
     }
-
     project.cellsInfo = this->matchCellsToCenters(cells, centers);
 }
 
@@ -682,4 +681,97 @@ MapRange ScriptParserManager::getMapRange(const QStringList scriptContentLines) 
         }
     }
     return mapRange;
+}
+
+UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptContentLines)
+{
+    UeParameters ueParameters;
+
+    for (int i = 0;i<scriptContentLines.size();i++) {
+        if (scriptContentLines[i].contains("[:start_ue_component]")){
+            ueParameters.startUeComponent = scriptContentLines[i].contains("true");
+            qDebug() << "start = " << ueParameters.startUeComponent;
+        }
+        else if (scriptContentLines[i].contains("[:name]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                ueParameters.name = quoteRegExp.capturedTexts()[0];
+                ueParameters.name.remove('"');
+                qDebug() << "name = " << ueParameters.name;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:l1l2_managers]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                ueParameters.managers = quoteRegExp.capturedTexts()[0];
+                ueParameters.managers.remove('"');
+                qDebug() << "managers = " << ueParameters.managers;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:rrc_pluginFilterPath]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                ueParameters.pluginFilterPath = quoteRegExp.capturedTexts()[0];
+                ueParameters.pluginFilterPath.remove('"');
+                qDebug() << "plugin = " << ueParameters.pluginFilterPath;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:uctool_ip]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
+                ueParameters.ucToolIp = quoteRegExp.capturedTexts()[0];
+                ueParameters.ucToolIp.remove('"');
+                qDebug() << "uctool_ip = " << ueParameters.ucToolIp;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:uctool_cIds]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
+                ueParameters.ucToolcIds =  quoteRegExp.capturedTexts()[0];
+                ueParameters.ucToolcIds.remove('"');
+                qDebug() << "uctool-cIds = " << ueParameters.ucToolcIds;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:uctool_service_ip]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
+                ueParameters.ucToolServiceIp =  quoteRegExp.capturedTexts()[0];
+                ueParameters.ucToolServiceIp.remove('"');
+                qDebug() << "uctool-serviceIp = " << ueParameters.ucToolServiceIp;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:ue_network_capability]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
+                ueParameters.ueNetworkCapability =  quoteRegExp.capturedTexts()[0];
+                ueParameters.ueNetworkCapability.remove('"');
+                qDebug() << "uctool-capability = " << ueParameters.ueNetworkCapability;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:ue_keyDerivationAlgorithm]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
+                ueParameters.ueKeyDerivationAlgorithm =  quoteRegExp.capturedTexts()[0];
+                ueParameters.ueKeyDerivationAlgorithm.remove('"');
+                qDebug() << "uctool-algorithm = " << ueParameters.ueKeyDerivationAlgorithm;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:ue_key]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
+                ueParameters.ueKey =  quoteRegExp.capturedTexts()[0];
+                ueParameters.ueKey.remove('"');
+                qDebug() << "uctool-key = " << ueParameters.ueKey;
+            }
+        }
+        else if (scriptContentLines[i].contains("[:ue_op]")){
+            QRegExp quoteRegExp("\".*\"");
+            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
+                ueParameters.ueOp =  quoteRegExp.capturedTexts()[0];
+                ueParameters.ueOp.remove('"');
+                qDebug() << "uctool-op = " << ueParameters.ueOp;
+            }
+        }
+    }
+    return ueParameters;
 }
