@@ -387,11 +387,13 @@ void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString
 }
 void DataSystem::updateSimulatedCoreNetworkState(const QString &projectName, bool state){
     auto project = findProjectByName(projectName);
-    project->SimulatedCoreNetwork = state;
+    project->mmeSettings.simulatedCoreNetwork = state;
+    saveProjectsFile();
 }
 void DataSystem::updateSimulatedUeState(const QString &projectName, bool state){
     auto project = findProjectByName(projectName);
-    project->SimulatedUe=state;
+    project->ueParameters.startUeComponent = state;
+    saveProjectsFile();
 }
 void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){
     auto project = findProjectByName(projectName);

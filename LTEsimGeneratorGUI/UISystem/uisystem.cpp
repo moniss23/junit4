@@ -137,6 +137,9 @@ void UISystem::bindingObjects()
     QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project)), dataSystem, SLOT(generateParametersScript(Project)));
     QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
 
+    //Update CoreNetwork and UESimulated
+    QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

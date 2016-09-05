@@ -456,12 +456,7 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
             mmeSettings.name = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
         }
         else if (scriptContentLines[i].contains("default[:simulate_core] = ")){
-            if (scriptContentLines[i].contains("true")){
-                mmeSettings.simulatedCoreNetwork = false;
-            }
-            else if (scriptContentLines[i].contains("true")){
-                mmeSettings.simulatedCoreNetwork = true;
-            }
+            mmeSettings.simulatedCoreNetwork = scriptContentLines[i].contains("true");
         }
         else if (scriptContentLines[i].contains("default[:mme_tais] = ")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);

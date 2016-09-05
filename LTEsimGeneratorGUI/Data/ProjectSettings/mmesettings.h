@@ -23,7 +23,6 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
-
 };
 
 #endif // MMESETTINGS_H

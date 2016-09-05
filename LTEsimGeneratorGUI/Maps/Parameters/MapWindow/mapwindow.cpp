@@ -72,8 +72,8 @@ MapWindow::MapWindow(const Project &project, QWidget *parent)
     //changeMapRange_y_northBoundMap();
     //changeMapRange_x_northBoundMap();
 
-    ui->checkBoxUE_simulated->setChecked(project.SimulatedUe);
-    ui->checkBoxCoreNetwork->setChecked(project.SimulatedCoreNetwork);
+    ui->checkBoxUE_simulated->setChecked(project.ueParameters.startUeComponent);
+    ui->checkBoxCoreNetwork->setChecked(project.mmeSettings.simulatedCoreNetwork);
 
 }
 
@@ -136,8 +136,8 @@ void MapWindow::createCell() {
 
 void MapWindow::createCoreNetwork()
 {
-    this->ui->lblMME1->setEnabled(project.SimulatedCoreNetwork);
-    this->ui->lblSGW1->setEnabled(project.SimulatedCoreNetwork);
+    this->ui->lblMME1->setEnabled(project.mmeSettings.simulatedCoreNetwork);
+    this->ui->lblSGW1->setEnabled(project.mmeSettings.simulatedCoreNetwork);
 }
 
 void MapWindow::closeEvent(QCloseEvent *event)

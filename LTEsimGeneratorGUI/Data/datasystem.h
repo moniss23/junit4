@@ -69,6 +69,7 @@ public slots:
     void updateMme(const MmeSettings& mmeSettings, QString projectName);
     void updatePaging(const PagingSettings& pagingSettings, QString projectName);
     void updateMapRange (const MapRange& mapRange,QString projectName);
+
     //Scripts generation
     void generateParametersScript(const Project& project);
     void generateTrafficScript(const Project& project, const int& indexOfFile);

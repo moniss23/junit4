@@ -28,6 +28,8 @@ signals:
     void spawnWindow_Mme(const QString& projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
+    void updateUEsimulated(const QString& projectName, const bool& checked);
+    void updateCoreNetwork(const QString& projectName, const bool& checked);
 
 private slots:
 

@@ -49,8 +49,6 @@ public:
     GeneralConfigurationParameters  generalConfiguration;
     MapRange                        mapRange;
     UeParameters                    ueParameters;
-    bool                            SimulatedCoreNetwork = false;
-    bool                            SimulatedUe = false;
 
     //-- Project files --//
     ParametersFileData      parametersFile;

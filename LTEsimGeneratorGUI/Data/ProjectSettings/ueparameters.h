@@ -10,7 +10,7 @@ class UeParameters
 public:
     UeParameters();
     ~UeParameters();
-    bool startUeComponent;
+    bool startUeComponent = false;//TODO: get rid of that default value after implementing parsing method
     QString name;
     QString managers;
     QString pluginFilterPath;

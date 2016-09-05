@@ -37,10 +37,12 @@ void NewMapWindow::loadAndOpen(const Project &project)
     vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400);
 
-    this->ui->ueCheckbox->setChecked(~project.SimulatedUe);
-    this->ui->ueCheckbox->setChecked(project.SimulatedUe);
-    this->ui->coreNetworkCheckbox->setChecked(~project.SimulatedCoreNetwork);
-    this->ui->coreNetworkCheckbox->setChecked(project.SimulatedCoreNetwork);
+    this->ui->coreNetworkCheckbox->setChecked(project.mmeSettings.simulatedCoreNetwork);
+    ui->mmeButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
+    ui->sgwButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
+    this->ui->ueCheckbox->setChecked(project.ueParameters.startUeComponent);
+    ui->ubSimButton->setEnabled(project.ueParameters.startUeComponent);
+    ui->ipexButton->setEnabled(project.ueParameters.startUeComponent);
 
     QObject::connect(mapView, SIGNAL(spawnWindow_MapView_HandoverParams(Handover)),
                      this, SLOT(spawnWindow_MapView_handoverParams(Handover)));
@@ -89,10 +91,12 @@ void NewMapWindow::on_coreNetworkCheckbox_toggled(bool checked)
 {
     ui->mmeButton->setEnabled(checked);
     ui->sgwButton->setEnabled(checked);
+    emit updateCoreNetwork(project.name, checked);
 }
 
 void NewMapWindow::on_ueCheckbox_toggled(bool checked)
 {
     ui->ubSimButton->setEnabled(checked);
     ui->ipexButton->setEnabled(checked);
+    emit updateUEsimulated(project.name, checked);
 }
