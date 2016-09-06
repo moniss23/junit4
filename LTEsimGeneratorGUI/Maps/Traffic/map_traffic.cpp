@@ -194,15 +194,6 @@ Map_traffic::Map_traffic(QWidget *parent) :
              });
          }
 
-
-        viewStatistics.adjustSize();
-        viewStatistics.move(QApplication::desktop()->screen()->rect().center() + viewStatistics.rect().bottomRight());
-
-        viewTuningtraffic.adjustSize();
-        viewTuningtraffic.move(QApplication::desktop()->screen()->rect().center()+ viewTuningtraffic.rect().bottomRight());
-
-        viewcustomModel[0]->adjustSize();
-        viewcustomModel[0]->move(QApplication::desktop()->screen()->rect().center()+ viewcustomModel[0]->rect().bottomRight());
         setAcceptDrops(true);
 
         ui->checkBoxCell11->setChecked(tmp_chkCell11);

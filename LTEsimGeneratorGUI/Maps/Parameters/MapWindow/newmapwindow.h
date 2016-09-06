@@ -47,10 +47,10 @@ private slots:
 
 private:
     Ui::NewMapWindow *ui;
-    QHBoxLayout *hBoxLayout;
-    QVBoxLayout *vBoxLayout;
-    MapView *mapView;
-    Project project;
+    QHBoxLayout      *hBoxLayout;
+    QVBoxLayout      *vBoxLayout;
+    MapView          *mapView;
+    Project           project;
 
     HandoverRepresentation* clickedHandover;
 };
