@@ -9,6 +9,13 @@ QString Project::getElementType() const
     return QString("Project");
 }
 
+QPair<Cell,Center>* Project::findCellByName(const QString &name) {
+    auto cell = std::find_if(cellsInfo.begin(), cellsInfo.end(),
+                        [&name](const auto &cellInfo)->bool{return cellInfo.first.name==name;});
+
+    return cell==cellsInfo.end() ? nullptr : cell;
+}
+
 Handover* Project::findHandoverByName(const QString &name) {
     auto handover = std::find_if(handovers.begin(), handovers.end(),
                         [&name](const auto &hand)->bool{return hand.area==name;});

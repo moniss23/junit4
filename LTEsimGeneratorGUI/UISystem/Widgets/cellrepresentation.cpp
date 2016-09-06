@@ -17,6 +17,10 @@ CellRepresentation::CellRepresentation(Cell &cell, QGraphicsObject *parent)
     setZValue(-1);
 }
 
+void CellRepresentation::updatePositions() {
+    this->setPos(cellObject.position_X, -cellObject.position_Y);
+}
+
 QRectF CellRepresentation::boundingRect() const
 {
     return QRectF( -circlesize/2 , -circlesize/2 , circlesize , circlesize );
@@ -85,4 +89,9 @@ void CellRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void CellRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
+
+    cellObject.position_X = pos().x();
+    cellObject.position_Y = -pos().y();
+
+    emit spawnWindow_CellParams(this, this->cellObject);
 }

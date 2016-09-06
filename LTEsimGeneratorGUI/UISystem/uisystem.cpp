@@ -139,7 +139,8 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
 
-    // Update Handover
+    // Update Cell, Handover
+    QObject::connect(&newMapWindow, SIGNAL(updateCell(Cell,QString)), dataSystem, SLOT(updateCell(Cell,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateHandover(Handover,QString)), dataSystem, SLOT(updateHandover(Handover,QString)));
 }
 

@@ -1,7 +1,5 @@
 #include "mapview.h"
 
-#include "UISystem/Widgets/cellrepresentation.h"
-
 MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
     solidPen(Qt::black, 50, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
     solid2(Qt::black, 50, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
@@ -138,6 +136,8 @@ void MapView::drawCellRepresentations()
         CellRepresentation *cellRep = new CellRepresentation(cellCenter.first);
         scene->addItem(cellRep);
         cellRep->setPos(cellRep->cellObject.position_X, -cellRep->cellObject.position_Y);
+        QObject::connect(cellRep, SIGNAL(spawnWindow_CellParams(CellRepresentation*,Cell)),
+                         this, SLOT(spawnWindow_CellParams(CellRepresentation*,Cell)));
     }
 }
 
@@ -154,4 +154,8 @@ void MapView::drawHandoverRepresentations()
 
 void MapView::spawnWindow_HandoverParams(HandoverRepresentation *hoRep, const Handover &hoObj) {
     emit spawnWindow_MapView_HandoverParams(hoRep, hoObj);
+}
+
+void MapView::spawnWindow_CellParams(CellRepresentation *cellRep, const Cell &cellObj) {
+    emit spawnWindow_MapView_CellParams(cellRep, cellObj);
 }

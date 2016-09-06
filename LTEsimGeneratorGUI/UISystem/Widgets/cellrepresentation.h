@@ -7,14 +7,19 @@
 
 class CellRepresentation : public QGraphicsObject
 {
+    Q_OBJECT
+
 public:
     CellRepresentation(Cell &cell, QGraphicsObject *parent = 0);
 
+    void updatePositions();
     int type() const { return UserType; }
-
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
+
+signals:
+    void spawnWindow_CellParams(CellRepresentation*, const Cell &cellObj);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;

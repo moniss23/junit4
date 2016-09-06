@@ -75,6 +75,21 @@ void DataSystem::projectsFileSetup() {
  * SLOTS *
  *********/
 
+void DataSystem::updateCell(const Cell &cell, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+     auto cellFound = project->findCellByName(cell.name);
+     if(cellFound != nullptr) {
+         cellFound->first = cell;
+     }
+
+     saveProjectsFile();
+}
+
 void DataSystem::updateHandover(const Handover &handover, const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {

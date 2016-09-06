@@ -60,6 +60,7 @@ public:
     virtual void deserializeData(const QByteArray &rawData);
 
     Handover* findHandoverByName(const QString &name);
+    QPair<Cell,Center>* findCellByName(const QString &name);
     TrafficFileData* findTrafficFileByName(const QString &name);
 };
 

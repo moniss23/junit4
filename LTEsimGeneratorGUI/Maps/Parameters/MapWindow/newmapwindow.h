@@ -5,10 +5,11 @@
 
 #include "Data/project.h"
 
-class HandoverRepresentation;
 class MapView;
 class QHBoxLayout;
 class QVBoxLayout;
+class CellRepresentation;
+class HandoverRepresentation;
 
 namespace Ui {
 class NewMapWindow;
@@ -24,6 +25,7 @@ public:
 
 public slots:
     void loadAndOpen(const Project &project);
+    void spawnWindow_MapView_cellParams(CellRepresentation*, const Cell&);
     void spawnWindow_MapView_handoverParams(HandoverRepresentation*, const Handover&);
 
 signals:
@@ -37,6 +39,7 @@ signals:
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
 
+    void updateCell(const Cell &cell, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
 
 private slots:
@@ -50,6 +53,8 @@ private slots:
     void on_ueCheckbox_toggled(bool checked);
     void on_coreNetworkCheckbox_toggled(bool checked);
 
+    void on_setCellParamsBtn_clicked();
+
 private:
     Ui::NewMapWindow *ui;
     QHBoxLayout      *hBoxLayout;
@@ -57,6 +62,7 @@ private:
     MapView          *mapView;
     Project           project;
 
+    CellRepresentation *clickedCell;
     HandoverRepresentation* clickedHandover;
 };
 
