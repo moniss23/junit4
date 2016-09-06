@@ -1,7 +1,6 @@
 #ifndef TRAFFICFILEDATA_H
 #define TRAFFICFILEDATA_H
 
-#include <QString>
 
 #include <Data/Interfaces/serializeinterface.h>
 #include "Maps/Traffic/Statistics/statisticsData.h"

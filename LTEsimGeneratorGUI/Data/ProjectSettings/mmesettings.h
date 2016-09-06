@@ -1,6 +1,6 @@
 #ifndef MMESETTINGS_H
 #define MMESETTINGS_H
-#include <QString>
+
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Interfaces/scriptable.h"
 

@@ -2,19 +2,12 @@
 #define DATASYSTEM_H
 
 #include <QString>
-#include <QDir>
-#include <QTextStream>
-#include <QFile>
-#include <QStringList>
-#include <QListWidgetItem>
-#include <QMessageBox>
 
 #include "Data/project.h"
+
 #include "Data/appglobaldata.h"
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
-#include "Data/ProjectSettings/datageneratorsettings.h"
-#include "Data/ProjectSettings/generalconfigurationparameters.h"
 
 class DataSystem : public QObject
 {

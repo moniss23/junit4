@@ -63,22 +63,22 @@ private:
     Project* findProjectByName(const QString &projectName);
 
 private:
-    DataSystem* dataSystem;
-    ProjectManagement projectUi;
+    DataSystem         *dataSystem;
+    ProjectManagement   projectUi;
     ImportProjectWindow importProject;
-    ParametersWindow paramWindow;
-    AddProjectWindow addProjectWindow;
-    Settings settingsWindow;
-    RenameDialog renameDialog;
-    IpexForm ipexForm;
-    UCtoolForm ucToolForm;
-    SgwForm sgwForm;
-    MmeForm mmeForm;
-    ChannelModelForm channelModelForm;
-    UBsimForm ubSimForm;
-    MapRangeForm mapRangeForm;
-    NewMapWindow newMapWindow;
-//    MapView mapView;
+    ParametersWindow    paramWindow;
+    AddProjectWindow    addProjectWindow;
+    Settings            settingsWindow;
+    RenameDialog        renameDialog;
+    IpexForm            ipexForm;
+    UCtoolForm          ucToolForm;
+    SgwForm             sgwForm;
+    MmeForm             mmeForm;
+    ChannelModelForm    channelModelForm;
+    UBsimForm           ubSimForm;
+    MapRangeForm        mapRangeForm;
+    NewMapWindow        newMapWindow;
+
 };
 
 #endif // UISYSTEM_H

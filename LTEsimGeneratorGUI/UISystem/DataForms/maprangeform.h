@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "Data/ProjectSettings/maprange.h"
 #include "ui_maprangeform.h"
+
 namespace Ui {
 class MapRangeForm;
 }

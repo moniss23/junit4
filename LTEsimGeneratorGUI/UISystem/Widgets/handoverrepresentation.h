@@ -1,7 +1,6 @@
 #ifndef HANDOVERREPRESENTATION_H
 #define HANDOVERREPRESENTATION_H
 
-#include <QGraphicsScene>
 #include <QGraphicsObject>
 
 #include "Data/Objects/handover.h"

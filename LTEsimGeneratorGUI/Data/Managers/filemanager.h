@@ -2,6 +2,7 @@
 #define FILEMANAGER_H
 
 #include <QByteArray>
+
 #include "Data/project.h"
 
 class FileManager {

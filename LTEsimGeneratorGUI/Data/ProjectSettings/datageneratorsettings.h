@@ -1,12 +1,7 @@
 #ifndef DATAGENERATORSETTINGS_H
 #define DATAGENERATORSETTINGS_H
 
-#include <QString>
-#include <QBuffer>
-#include <QDataStream>
-
 #include "Data/Interfaces/serializeinterface.h"
-
 
 class DataGeneratorSettings : public SerializeInterface
 {

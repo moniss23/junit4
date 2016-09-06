@@ -6,9 +6,10 @@
 #include <memory>
 
 #include "UISystem/Windows/helpdialog.h"
-#include "UISystem/Helpers/rubysyntaxhighlighter.h"
 #include "Data/project.h"
-#include "Maps/Parameters/MapWindow/newmapwindow.h"
+
+class QListWidgetItem;
+class RubySyntaxHighlighter;
 
 namespace Ui {
 class ParametersWindow;
@@ -162,14 +163,12 @@ private:
     void previewFile(QListWidgetItem* current);
 
 private:
-    Ui::ParametersWindow *ui;                   ///< GUI form pointer
-    HelpDialog viewHelp;                        ///< Local instance of HelpDialog
-    Project currentProject;                     ///< Local instance of project
+    Ui::ParametersWindow *ui;       ///< GUI form pointer
+    HelpDialog            viewHelp; ///< Local instance of HelpDialog
+    Project               currentProject; ///< Local instance of project
+    bool                  filePreviewChanged;///< Flag which represent changes in file preview editor
+    std::unique_ptr<RubySyntaxHighlighter> highlighter; ///< syntax highlighter with rules
 
-    std::unique_ptr<RubySyntaxHighlighter> highlighter;
-    NewMapWindow *newMapWindow;
-
-    bool filePreviewChanged;                    ///< Flag which represent changes in file preview editor
 };
 
 #endif // PARAMETERSWINDOW_H

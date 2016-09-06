@@ -3,6 +3,8 @@
 
 #include <QMessageBox>
 #include <QSettings>
+#include <QLineEdit>
+#include <QComboBox>
 
 QStringList PS_List;
 QString curPS[20];

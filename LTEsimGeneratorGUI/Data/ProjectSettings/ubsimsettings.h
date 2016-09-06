@@ -1,8 +1,6 @@
 #ifndef UBSIMSETTINGS_H
 #define UBSIMSETTINGS_H
 
-#include <QString>
-
 #include "Data/Interfaces/serializeinterface.h"
 
 class UBSimSettings : public SerializeInterface

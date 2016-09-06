@@ -1,6 +1,6 @@
 #ifndef PAGINGSETTINGS_H
 #define PAGINGSETTINGS_H
-#include <QString>
+
 #include <QStringList>
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Interfaces/scriptable.h"

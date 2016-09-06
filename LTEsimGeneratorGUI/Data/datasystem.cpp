@@ -1,6 +1,8 @@
 #include "datasystem.h"
-#include "Data/appglobaldata.h"
-#include "Data/Objects/trafficfiledata.h"
+
+#include <QFile>
+#include <QDir>
+#include <QTextStream>
 
 DataSystem::DataSystem() {
     projectsFileSetup();

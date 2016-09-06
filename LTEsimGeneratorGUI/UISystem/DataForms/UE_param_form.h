@@ -2,15 +2,15 @@
 #define UE_PARAM_FORM_H
 
 #include <QWidget>
-#include <QVector>
-#include <QLineEdit>
-#include <QComboBox>
+class QLineEdit;
+class QComboBox;
 
 namespace Ui {
 class Form;
 }
 
 class Form : public QWidget
+        //TODO: Refactor that class, name, functions, members with similar name, etc
 {
     Q_OBJECT
 
@@ -44,12 +44,14 @@ private slots:
     void on_buttonBox_rejected();
 
 private:
-    Ui::Form *ui;
-    int tempPairsCount;
-    static int uePairsCount;
-    bool accept;
     void countUEPairs();
-    bool accepted;
+
+private:
+    Ui::Form  *ui;
+    int        tempPairsCount;
+    static int uePairsCount;
+    bool       accept;
+    bool       accepted;
 };
 
 #endif // UE_PARAM_FORM_H

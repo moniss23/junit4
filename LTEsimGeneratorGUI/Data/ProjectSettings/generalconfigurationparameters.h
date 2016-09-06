@@ -1,7 +1,6 @@
 #ifndef GENERALCONFIGURATIONPARAMETERS_H
 #define GENERALCONFIGURATIONPARAMETERS_H
 
-#include <QString>
 #include <QPair>
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Interfaces/scriptable.h"

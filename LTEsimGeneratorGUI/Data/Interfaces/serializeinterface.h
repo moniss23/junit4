@@ -3,7 +3,8 @@
 
 #include <QByteArray>
 #include <QString>
-#include <QStringList>
+#include <QBuffer>
+#include <QDataStream>
 
 class SerializeInterface
 {

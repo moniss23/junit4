@@ -1,7 +1,6 @@
 #ifndef SGWSETTINGS_H
 #define SGWSETTINGS_H
 
-#include <QString>
 #include <QVector>
 #include <QPair>
 

@@ -1,6 +1,5 @@
 #ifndef MAPRANGE_H
 #define MAPRANGE_H
-#include <QString>
 
 #include "Data/Interfaces/serializeinterface.h"
 

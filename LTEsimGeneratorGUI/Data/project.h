@@ -2,9 +2,6 @@
 #define PROJECT_H
 
 #include <QVector>
-#include <QBuffer>
-#include <QDataStream>
-#include <QListWidgetItem>
 
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Objects/cell.h"
@@ -23,6 +20,7 @@
 #include "Data/ProjectSettings/generalconfigurationparameters.h"
 #include "Data/ProjectSettings/maprange.h"
 #include "Data/ProjectSettings/ueparameters.h"
+
 class Project : public SerializeInterface
 {
 public:

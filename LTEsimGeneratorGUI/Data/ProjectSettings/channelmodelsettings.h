@@ -1,10 +1,6 @@
 #ifndef CHANNELMODELSETTINGS_H
 #define CHANNELMODELSETTINGS_H
 
-#include <QList>
-#include <QString>
-#include <QByteArray>
-
 #include "Data/Interfaces/serializeinterface.h"
 
 class ChannelModelSettings : public SerializeInterface

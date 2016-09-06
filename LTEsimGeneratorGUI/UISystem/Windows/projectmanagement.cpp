@@ -2,6 +2,7 @@
 #include "ui_projectmanagement.h"
 
 #include <QMessageBox>
+#include <QListWidgetItem>
 
 // constructor
 ProjectManagement::ProjectManagement(QWidget *parent) :

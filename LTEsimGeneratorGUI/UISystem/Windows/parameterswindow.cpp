@@ -3,21 +3,12 @@
 
 #include <QMessageBox>
 #include <QStringList>
-#include <QGraphicsView>
-#include <QGraphicsScene>
 #include <QListWidgetItem>
-#include <QGridLayout>
-
-#include "Maps/Traffic/map_traffic.h"
-#include "Maps/Parameters/MapWindow/newmapwindow.h"
 
 #include "UISystem/Helpers/rubysyntaxhighlighter.h"
 
-#include "UISystem/Widgets/mapview.h"
-#include "UISystem/Widgets/cellrepresentation.h"
-#include "UISystem/Widgets/handoverrepresentation.h"
-
-QStringList parametersFileContentList;
+#include "Maps/Traffic/map_traffic.h" //TODO: get rid of that
+QStringList parametersFileContentList;// TODO: get rid of that
 
 ParametersWindow::ParametersWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow)

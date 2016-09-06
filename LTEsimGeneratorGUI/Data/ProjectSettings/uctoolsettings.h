@@ -1,10 +1,6 @@
 #ifndef UCTOOLDSETTINGS_H
 #define UCTOOLDSETTINGS_H
 
-#include <QString>
-#include <QBuffer>
-#include <QDataStream>
-
 #include "Data/Interfaces/serializeinterface.h"
 
 class UCToolSettings : public SerializeInterface

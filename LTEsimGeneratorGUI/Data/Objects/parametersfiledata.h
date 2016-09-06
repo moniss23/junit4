@@ -1,8 +1,6 @@
 #ifndef PARAMETERSFILEDATA_H
 #define PARAMETERSFILEDATA_H
 
-#include <QString>
-
 #include <Data/Interfaces/serializeinterface.h>
 
 class ParametersFileData : public SerializeInterface

@@ -14,6 +14,7 @@
 #include <QComboBox>
 #include <QMainWindow>
 #include <QObject>
+#include <QMessageBox>
 
 class Custommodels;
 class customModel;

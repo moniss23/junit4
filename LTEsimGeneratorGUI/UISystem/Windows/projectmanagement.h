@@ -6,6 +6,8 @@
 
 #include "Data/project.h"
 
+class QListWidgetItem;
+
 namespace Ui {
 class ProjectManagement;
 }

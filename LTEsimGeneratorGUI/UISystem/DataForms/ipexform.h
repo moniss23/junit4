@@ -1,9 +1,9 @@
 #ifndef IPEXFORM_H
 #define IPEXFORM_H
 
-#include "Data/ProjectSettings/datageneratorsettings.h"
-
 #include <QWidget>
+
+#include "Data/ProjectSettings/datageneratorsettings.h"
 
 namespace Ui {
 class ipexForm;
