@@ -147,10 +147,11 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
                                            QMessageBox::Yes|QMessageBox::No).exec()){
             emit updateFileContent(currentProject.name, previous->text(), this->ui->filePreview->toPlainText());
             emit saveProjects();
+            return;
         }
     }
     filePreviewChanged = false;
-    this->previewFile(current);
+    previewFile(current);
 }
 
 // file in the project double-clicked
