@@ -2,8 +2,13 @@
 #define NEWMAPWINDOW_H
 
 #include <QMainWindow>
-#include "UISystem/Widgets/mapview.h"
-#include <QHBoxLayout>
+
+#include "Data/project.h"
+
+class HandoverRepresentation;
+class MapView;
+class QHBoxLayout;
+class QVBoxLayout;
 
 namespace Ui {
 class NewMapWindow;

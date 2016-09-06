@@ -1,7 +1,10 @@
 #include "newmapwindow.h"
 #include "ui_newmapwindow.h"
 
+#include <QHBoxLayout>
+
 #include "UISystem/Widgets/mapview.h"
+
 
 NewMapWindow::NewMapWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,9 +12,9 @@ NewMapWindow::NewMapWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    hBoxLayout = nullptr;
-    vBoxLayout  = nullptr;
-    mapView = nullptr;
+    hBoxLayout      = nullptr;
+    vBoxLayout      = nullptr;
+    mapView         = nullptr;
     clickedHandover = nullptr;
 }
 
@@ -27,14 +30,16 @@ void NewMapWindow::loadAndOpen(const Project &project)
     delete mapView;
 
     this->project = project;
-    mapView = new MapView(project, this);
+
+    mapView    = new MapView(project, this);
     hBoxLayout = new QHBoxLayout(this);
-    this->ui->centralwidget->setLayout(hBoxLayout);
-    hBoxLayout->addWidget(mapView);
     vBoxLayout = new QVBoxLayout(this);
+
+    hBoxLayout->addWidget(mapView);
     hBoxLayout->addLayout(vBoxLayout);
     vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400, Qt::AlignHCenter);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
+    this->ui->centralwidget->setLayout(hBoxLayout);
 
     this->ui->coreNetworkCheckbox->setChecked(project.mmeSettings.simulatedCoreNetwork);
     ui->mmeButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
