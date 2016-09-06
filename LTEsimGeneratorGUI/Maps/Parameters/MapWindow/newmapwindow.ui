@@ -44,7 +44,7 @@
    <widget class="QWidget" name="rbsWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>10</x>
       <y>0</y>
       <width>551</width>
       <height>391</height>
@@ -463,9 +463,9 @@
     <widget class="QPushButton" name="channelModelsButton">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>350</y>
-       <width>87</width>
+       <x>18</x>
+       <y>270</y>
+       <width>71</width>
        <height>31</height>
       </rect>
      </property>
@@ -484,8 +484,8 @@ Models</string>
     </property>
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>0</y>
+      <x>750</x>
+      <y>20</y>
       <width>400</width>
       <height>451</height>
      </rect>
@@ -502,8 +502,11 @@ Models</string>
       <height>16777215</height>
      </size>
     </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <property name="documentMode">
      <bool>true</bool>
@@ -514,7 +517,7 @@ Models</string>
     <property name="movable">
      <bool>false</bool>
     </property>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="cellTab">
      <attribute name="title">
       <string>Cell params</string>
      </attribute>
@@ -524,7 +527,7 @@ Models</string>
         <x>10</x>
         <y>10</y>
         <width>381</width>
-        <height>231</height>
+        <height>241</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_2">
@@ -545,7 +548,7 @@ Models</string>
        <item row="1" column="0">
         <widget class="QLabel" name="label_14">
          <property name="text">
-          <string> Site instance name:</string>
+          <string>Site instance name:</string>
          </property>
         </widget>
        </item>
@@ -573,7 +576,7 @@ Models</string>
        <item row="3" column="0">
         <widget class="QLabel" name="label_16">
          <property name="text">
-          <string>Cell position, coordinate X:</string>
+          <string>Cell position (coordinate X):</string>
          </property>
         </widget>
        </item>
@@ -587,7 +590,7 @@ Models</string>
        <item row="4" column="0">
         <widget class="QLabel" name="label_17">
          <property name="text">
-          <string>Cell position, coordinate Y:</string>
+          <string>Cell position (coordinate Y):</string>
          </property>
         </widget>
        </item>
@@ -598,48 +601,55 @@ Models</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
+       <item row="6" column="0">
         <widget class="QLabel" name="label_18">
          <property name="text">
-          <string>Channel number for the central DL frequency</string>
+          <string>Channel no. for the central DL freq.</string>
          </property>
          <property name="wordWrap">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="6" column="1">
         <widget class="QLineEdit" name="earfcnDl">
          <property name="placeholderText">
           <string>:earfcnDl</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
+       <item row="7" column="0">
         <widget class="QLabel" name="label_19">
          <property name="text">
-          <string> Transmit power in dBm</string>
+          <string>Transmit power [dBm]:</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1">
         <widget class="QLineEdit" name="transmitPower">
          <property name="placeholderText">
           <string>:transmitPower</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="0">
+       <item row="8" column="0">
         <widget class="QLabel" name="label_20">
          <property name="text">
-          <string>uplink N+I in dBm</string>
+          <string>UpLink Noise+Interference [dBm]:</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1">
+       <item row="8" column="1">
         <widget class="QLineEdit" name="ulNoiseAndInterference">
          <property name="placeholderText">
           <string>:ulNoiseAndInterference</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Center boundaries:</string>
          </property>
         </widget>
        </item>
@@ -648,9 +658,9 @@ Models</string>
      <widget class="QPushButton" name="pbSetCellParams">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>250</y>
-        <width>128</width>
+        <x>10</x>
+        <y>260</y>
+        <width>141</width>
         <height>22</height>
        </rect>
       </property>
@@ -667,9 +677,9 @@ Models</string>
      <widget class="QPushButton" name="pbRestoreCell">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>250</y>
-        <width>164</width>
+        <x>160</x>
+        <y>260</y>
+        <width>231</width>
         <height>22</height>
        </rect>
       </property>
@@ -684,112 +694,7 @@ Models</string>
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
-     <attribute name="title">
-      <string>Center params</string>
-     </attribute>
-     <widget class="QWidget" name="formLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>381</width>
-        <height>111</height>
-       </rect>
-      </property>
-      <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>South boundary of area</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLineEdit" name="southBoundary">
-         <property name="placeholderText">
-          <string>:southBoundary</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_22">
-         <property name="text">
-          <string>North boundary of area</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLineEdit" name="northBoundary">
-         <property name="placeholderText">
-          <string>:northBoundary</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_23">
-         <property name="text">
-          <string>West boundary of area</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="westBoundary">
-         <property name="placeholderText">
-          <string>:westBoundary</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_24">
-         <property name="text">
-          <string>East boundary of area</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="eastBoundary">
-         <property name="placeholderText">
-          <string>:eastBoundary</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QPushButton" name="pbSetCenterParams">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>250</y>
-        <width>128</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Accept</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pbRestoreCenter">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>250</y>
-        <width>164</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Restore default </string>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="handoverTab">
      <attribute name="title">
       <string>Handover params</string>
      </attribute>
@@ -845,13 +750,6 @@ Models</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>East boundary of area</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="1">
         <widget class="QLineEdit" name="eastHandoverBoundary">
          <property name="placeholderText">
@@ -859,14 +757,37 @@ Models</string>
          </property>
         </widget>
        </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>East boundary of area</string>
+         </property>
+        </widget>
+       </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="pbRestoreHandover">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>130</y>
+        <width>231</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Restore default </string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
      </widget>
      <widget class="QPushButton" name="setHandoverParamsBtn">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>250</y>
-        <width>128</width>
+        <x>10</x>
+        <y>130</y>
+        <width>141</width>
         <height>22</height>
        </rect>
       </property>
@@ -878,22 +799,6 @@ Models</string>
       </property>
       <property name="text">
        <string>Accept</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pbRestoreHandover">
-      <property name="geometry">
-       <rect>
-        <x>220</x>
-        <y>250</y>
-        <width>164</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Restore default </string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
       </property>
      </widget>
     </widget>

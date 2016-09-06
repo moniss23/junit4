@@ -33,8 +33,8 @@ void NewMapWindow::loadAndOpen(const Project &project)
     hBoxLayout->addWidget(mapView);
     vBoxLayout = new QVBoxLayout(this);
     hBoxLayout->addLayout(vBoxLayout);
-    vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400);
-    vBoxLayout->addWidget(this->ui->rbsWidget, 400);
+    vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400, Qt::AlignHCenter);
+    vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
 
     this->ui->coreNetworkCheckbox->setChecked(project.mmeSettings.simulatedCoreNetwork);
     ui->mmeButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
@@ -46,6 +46,9 @@ void NewMapWindow::loadAndOpen(const Project &project)
     QObject::connect(mapView, SIGNAL(spawnWindow_MapView_HandoverParams(HandoverRepresentation*, Handover)),
                      this, SLOT(spawnWindow_MapView_handoverParams(HandoverRepresentation*, Handover)));
 
+    this->ui->mapObjectsWidget->removeTab(0);
+    this->ui->mapObjectsWidget->removeTab(1);
+    this->ui->mapObjectsWidget->setVisible(false);
     this->show();
 }
 
@@ -57,6 +60,9 @@ void NewMapWindow::spawnWindow_MapView_handoverParams(HandoverRepresentation* cl
 
     this->clickedHandover = clickedHo;
     emit updateHandover(this->clickedHandover->handoverObject, project.name);
+
+    this->ui->mapObjectsWidget->addTab(this->ui->handoverTab, "Handovers");
+    this->ui->mapObjectsWidget->setVisible(true);
 }
 
 void NewMapWindow::on_channelModelsButton_pressed()
@@ -114,4 +120,7 @@ void NewMapWindow::on_setHandoverParamsBtn_clicked()
         this->clickedHandover->updatePositions();
         emit updateHandover(this->clickedHandover->handoverObject, project.name);
     }
+
+    this->ui->handoverTab->close();
+    this->ui->mapObjectsWidget->setVisible(false);
 }

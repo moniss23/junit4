@@ -121,7 +121,7 @@ module Parameters
     # Define and return default values
     default = {}
 
-    default[:start_ue_component] = true       # Decide if the UE component should be started
+    default[:start_ue_component] = false       # Decide if the UE component should be started
 
     default[:name] = "ue1"                    # Name of the UE component
 
