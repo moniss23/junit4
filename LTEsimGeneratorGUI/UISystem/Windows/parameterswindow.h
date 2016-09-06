@@ -151,6 +151,8 @@ private slots:
      ***********************************************/
 
 
+    void on_saveFileButton_pressed();
+
 private:
     void msg(const QString &content);//TODO: get rid of that. It's used only while generating script.
     /**

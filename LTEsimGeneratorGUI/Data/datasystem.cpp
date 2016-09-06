@@ -96,6 +96,7 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
     }
     if(project->parametersFile.filename == fileName) {
         project->parametersFile.content = content;
+        scriptParserManager.parseFromScript(content, *project);
     }else {
         auto trafficFile = project->findTrafficFileByName(fileName);
         if(trafficFile == nullptr) {
@@ -119,6 +120,7 @@ void DataSystem::setDefaultParametersFileContent(const QString &projectName) {
         return;
     }
     project->parametersFile.content = getDefaultParametersFileContent();
+    scriptParserManager.parseFromScript(project->parametersFile.content, *project);
     emit currentProjectChanged(*project);
 }
 

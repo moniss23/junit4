@@ -18,7 +18,6 @@
 #include "UISystem/Widgets/handoverrepresentation.h"
 
 QStringList parametersFileContentList;
-#include <QDebug>    //THIS WILL STAY TILL THE END OF REFACTOR
 
 ParametersWindow::ParametersWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow)
@@ -29,7 +28,7 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
 
     this->ui->undoButton->setEnabled(false);
     this->ui->redoButton->setEnabled(false);
-    this->ui->resetDefaultsButton->setEnabled(false);
+    this->ui->resetDefaultsButton->setEnabled(true);
 
     this->ui->filePreview->setReadOnly(false);
     highlighter =  std::make_unique<RubySyntaxHighlighter>(this->ui->filePreview->document());
@@ -65,8 +64,6 @@ void ParametersWindow::refreshUI(const Project &project)
 
     ui->projectsList->item(0)->setSelected(true);
     ui->projectsList->setCurrentRow(0);
-
-
 }
 
 ParametersWindow::~ParametersWindow()
@@ -93,7 +90,6 @@ void ParametersWindow::on_actionOpen_triggered()
 
 void ParametersWindow::on_actionSave_triggered()
 {
-    emit saveProjects();
 }
 
 // "add traffic file" button clicked
@@ -126,7 +122,6 @@ void ParametersWindow::on_renameFileButton_clicked()
     if(this->ui->projectsList->currentItem()->text()=="<none>" || this->ui->projectsList->currentItem()->text()=="<empty>"){
         return;
     }
-
     emit spawnWindow_RenameFile(ui->projectsList->currentItem()->text(), currentProject.name);
 }
 
@@ -134,16 +129,9 @@ void ParametersWindow::on_renameFileButton_clicked()
 void ParametersWindow::previewFile(QListWidgetItem* current){
     this->ui->filePreview->clear();
 
-    if(current==NULL || this->ui->projectsList->currentItem()->text()=="<none>" || this->ui->projectsList->currentItem()->text()=="<empty>"){
-        this->ui->filePreview->clear();
-        return;
-    }
-
-    // if the file to preview is parameters
     if(this->ui->projectsList->item(0)->text()==current->text()){
         this->ui->filePreview->setText(currentProject.parametersFile.content);
     }
-    // if the file is traffic
     else{
         for(int i=1; i<=currentProject.trafficFilesList.size(); i++){
             if(this->ui->projectsList->item(i)->text()==current->text()){
@@ -186,7 +174,6 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
         // parameters file double-clicked
         // create a new map object and display it
         emit spawnWindow_ParamMap(currentProject.name);
-
     }
     else {
         Map_traffic* map_t;
@@ -248,4 +235,14 @@ void ParametersWindow::on_saveFileButton_clicked()
 
 void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
+}
+
+void ParametersWindow::on_saveFileButton_pressed()
+{
+    if(!filePreviewChanged) return;
+
+    emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
+    emit saveProjects();
+
+    filePreviewChanged = false;
 }
