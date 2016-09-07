@@ -18,14 +18,7 @@ CellRepresentation::CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsOb
 }
 
 void CellRepresentation::updatePositions() {
-    int X = cellInfo.first.position_X;
-    int Y = cellInfo.first.position_Y;
-
-    this->setPos(X, -Y);
-    cellInfo.second.westBoundary = X-100;
-    cellInfo.second.eastBoundary = X+100;
-    cellInfo.second.southBoundary = Y-100;
-    cellInfo.second.northBoundary = Y+100;
+    this->setPos(cellInfo.first.position_X, -cellInfo.first.position_Y);
 }
 
 QRectF CellRepresentation::boundingRect() const
@@ -99,6 +92,11 @@ void CellRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     cellInfo.first.position_X = pos().x();
     cellInfo.first.position_Y = -pos().y();
+
+    cellInfo.second.westBoundary = cellInfo.first.position_X-100;
+    cellInfo.second.eastBoundary = cellInfo.first.position_X+100;
+    cellInfo.second.southBoundary = cellInfo.first.position_Y-100;
+    cellInfo.second.northBoundary = cellInfo.first.position_Y+100;
 
     emit spawnWindow_CellParams(this, this->cellInfo);
 }

@@ -135,7 +135,7 @@ void MapView::drawCellRepresentations()
     for(auto &cellCenter : project.cellsInfo) {
         CellRepresentation *cellRep = new CellRepresentation(cellCenter);
         scene->addItem(cellRep);
-        cellRep->setPos(cellRep->cellInfo.first.position_X, -cellRep->cellInfo.first.position_Y);
+        cellRep->updatePositions();
         QObject::connect(cellRep, SIGNAL(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)),
                          this, SLOT(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)));
     }
@@ -146,7 +146,7 @@ void MapView::drawHandoverRepresentations()
     for(auto &handover : project.handovers) {
         HandoverRepresentation *hoRep = new HandoverRepresentation(handover);
         scene->addItem(hoRep);
-        hoRep->setPos(hoRep->position_X, -hoRep->position_Y);
+        hoRep->updatePositions();
         QObject::connect(hoRep, SIGNAL(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)),
                          this, SLOT(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)));
     }
