@@ -27,6 +27,7 @@ public slots:
     void loadAndOpen(const Project &project);
     void spawnWindow_MapView_handoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_MapView_cellParams(CellRepresentation*, const QPair<Cell,Center>&);
+    void spawnWindow_MapRange();
 
 signals:
     void spawnWindow_Mme(const QString& projectName);
@@ -35,6 +36,7 @@ signals:
     void spawnWindow_UBSim(const QString& projectName);
     void spawnWindow_ucTool(const QString &projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
+    void spawnWindow_mapRange(const QString &projectName);
 
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);

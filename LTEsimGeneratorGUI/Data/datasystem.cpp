@@ -456,5 +456,7 @@ void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
         return;
     }
     project->mapRange = mapRange;
+    emit currentProjectChanged(*project);
+    emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
     saveProjectsFile();
 }

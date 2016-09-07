@@ -10,6 +10,7 @@ MapRangeForm::MapRangeForm(QWidget *parent) :
     this->ui->lbl_south->setToolTip("Min vertical map range");
     this->ui->lbl_east->setToolTip("Max horizontal map range");
     this->ui->lbl_west->setToolTip("Min horizontal map range");
+    this->ui->mapScaleLabel->setToolTip("Map scale");
 }
 
 MapRangeForm::~MapRangeForm()
@@ -23,6 +24,7 @@ void MapRangeForm::setDefaultParameters()
     this->ui->tet_southBoundMap->setValue(mapRange.southBoundMap);
     this->ui->tet_eastBoundMap->setValue(mapRange.eastBoundMap);
     this->ui->tet_westBoundMap->setValue(mapRange.westBoundMap);
+    this->ui->scaleSpinBox->setValue(mapRange.mapScale);
 }
 void MapRangeForm::setMapRangeChanges()
 {
@@ -30,6 +32,7 @@ void MapRangeForm::setMapRangeChanges()
     this->mapRange.southBoundMap = this->ui->tet_southBoundMap->value();
     this->mapRange.westBoundMap = this->ui->tet_westBoundMap->value();
     this->mapRange.eastBoundMap = this->ui->tet_eastBoundMap->value();
+    this->mapRange.mapScale = this->ui->scaleSpinBox->value();
 }
 
 void MapRangeForm::on_buttonBox_accepted()
@@ -49,5 +52,4 @@ void MapRangeForm::loadAndSpawn(const MapRange &mapRange, const QString &project
     this->projectName = projectName;
     this->setDefaultParameters();
     this->show();
-
 }

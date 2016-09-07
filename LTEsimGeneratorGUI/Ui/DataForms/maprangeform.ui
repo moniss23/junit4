@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>302</width>
-    <height>186</height>
+    <height>187</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,6 +60,16 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QLabel" name="mapScaleLabel">
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="text">
+            <string>Map scale</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
        <item>
@@ -76,7 +86,7 @@
             <double>98000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>7000.000000000000000</double>
+            <double>1000.000000000000000</double>
            </property>
            <property name="value">
             <double>0.000000000000000</double>
@@ -95,7 +105,7 @@
             <double>98000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>7000.000000000000000</double>
+            <double>1000.000000000000000</double>
            </property>
            <property name="value">
             <double>14000.000000000000000</double>
@@ -114,7 +124,7 @@
             <double>98000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>7000.000000000000000</double>
+            <double>1000.000000000000000</double>
            </property>
            <property name="value">
             <double>0.000000000000000</double>
@@ -133,10 +143,23 @@
             <double>98000.000000000000000</double>
            </property>
            <property name="singleStep">
-            <double>5000.000000000000000</double>
+            <double>1000.000000000000000</double>
            </property>
            <property name="value">
             <double>14000.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="scaleSpinBox">
+           <property name="decimals">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <double>10000.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>1000.000000000000000</double>
            </property>
           </widget>
          </item>

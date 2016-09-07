@@ -54,10 +54,12 @@ void NewMapWindow::loadAndOpen(const Project &project)
 
     QObject::connect(mapView, SIGNAL(spawnWindow_MapView_CellParams(CellRepresentation*,QPair<Cell,Center>)),
                      this, SLOT(spawnWindow_MapView_cellParams(CellRepresentation*,QPair<Cell,Center>)));
+    QObject::connect(mapView, SIGNAL(spawnWindow_mapRange()), this, SLOT(spawnWindow_MapRange()));
 
     for(int i=this->ui->mapObjectsWidget->count()-1; i>=0; --i) {
         this->ui->mapObjectsWidget->removeTab(i);
     }
+
     this->ui->mapObjectsWidget->setVisible(false);
     this->show();
 }
@@ -144,6 +146,7 @@ void NewMapWindow::on_setCellParamsBtn_clicked()
     this->ui->mapObjectsWidget->setVisible(false);
 }
 
+
 void NewMapWindow::on_coreNetworkCheckbox_toggled(bool checked)
 {
     ui->mmeButton->setEnabled(checked);
@@ -164,3 +167,7 @@ void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);
 void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name);}
 void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}
+
+void NewMapWindow::spawnWindow_MapRange() {
+    emit spawnWindow_mapRange(project.name);
+}

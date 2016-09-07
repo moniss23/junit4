@@ -21,13 +21,15 @@ public:
 public slots:
     void spawnWindow_HandoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
+    void spawnWindow_MapRange();
 
 signals:
     void spawnWindow_MapView_HandoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_MapView_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
+    void spawnWindow_mapRange();
 
 private:
-    void drawAxis();
+    void drawAxisAndButtons();
     void drawMapLines();
     void drawCellRepresentations();
     void drawHandoverRepresentations();
@@ -39,8 +41,6 @@ private:
     QLineF x_AxisLine, y_AxisLine;
     QPen solidPen, solid2, dotPen;
     QPointF gridLineStart, gridLineEnd, textPoint;
-
-    const int scale = 7000;
 };
 
 #endif // MAPVIEW_H

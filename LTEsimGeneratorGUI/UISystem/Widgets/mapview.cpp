@@ -1,5 +1,7 @@
 #include "mapview.h"
 
+#include <QPushButton>
+
 MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
     solidPen(Qt::black, 50, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
     solid2(Qt::black, 50, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
@@ -25,19 +27,19 @@ void MapView::printNewMap()
 {
     this->drawCellRepresentations();
     this->drawHandoverRepresentations();
-    this->drawAxis();
+    this->drawAxisAndButtons();
     this->drawMapLines();
 
     this->setScene(scene);
 }
 
-void MapView::drawAxis()
+void MapView::drawAxisAndButtons()
 {
     double mapHeight = scene->sceneRect().height() - CellRepresentation::circlesize;
     double mapWidth = scene->sceneRect().width() - CellRepresentation::circlesize;
 
-    double widthScale = (project.mapRange.eastBoundMap - (project.mapRange.eastBoundMap%scale)) / mapWidth;
-    double heightScale = (project.mapRange.northBoundMap - (project.mapRange.northBoundMap%scale)) / mapHeight;
+    double widthScale = (project.mapRange.eastBoundMap - (project.mapRange.eastBoundMap%project.mapRange.mapScale)) / mapWidth;
+    double heightScale = (project.mapRange.northBoundMap - (project.mapRange.northBoundMap%project.mapRange.mapScale)) / mapHeight;
 
     QPointF Xend(mapWidth * widthScale, 0.0);
     QPointF Yend(0.0, -mapHeight * heightScale);
@@ -47,6 +49,20 @@ void MapView::drawAxis()
     scene->addLine(x_AxisLine, solidPen);
     scene->addLine(y_AxisLine, solidPen);
 
+    QPushButton *xButton = new QPushButton();
+    QPushButton *yButton = new QPushButton();
+    xButton->setGeometry(QRect(0, -200, Xend.x(), scene->sceneRect().height() / 100));
+    yButton->setGeometry(QRect(-200, Yend.y(), scene->sceneRect().width() / 100, -Yend.y()));
+    QBrush tb(Qt::transparent);
+    xButton->setPalette(QPalette(tb,tb,tb,tb,tb,tb,tb,tb,tb));
+    yButton->setPalette(QPalette(tb,tb,tb,tb,tb,tb,tb,tb,tb));
+    xButton->setFlat(true);
+    yButton->setFlat(true);
+    scene->addWidget(xButton);
+    scene->addWidget(yButton);
+
+    QObject::connect(xButton, SIGNAL(pressed()), this, SLOT(spawnWindow_MapRange()));
+    QObject::connect(yButton, SIGNAL(pressed()), this, SLOT(spawnWindow_MapRange()));
 
     static const double Pi = 3.14159265358979323846264338327950288419717;
     qreal arrowSize = 500;
@@ -72,10 +88,10 @@ void MapView::drawMapLines()
     int distanceBetweenGridLines;
 
     //Drawing horizontal lines
-    for(int i = 1; i < (project.mapRange.northBoundMap / scale) + 1; i++) {
+    for(int i = 1; i < (project.mapRange.northBoundMap / project.mapRange.mapScale) + 1; i++) {
 
         QLineF gridLine;
-        distanceBetweenGridLines = y_AxisLine.length() / (project.mapRange.northBoundMap / scale);
+        distanceBetweenGridLines = y_AxisLine.length() / (project.mapRange.northBoundMap / project.mapRange.mapScale);
 
         //Grid line start, end points
         gridLineStart.setX(x_AxisLine.x1());
@@ -87,7 +103,7 @@ void MapView::drawMapLines()
         textPoint.setX(x_AxisLine.x1() - scene->sceneRect().height() / 15);
         textPoint.setY(x_AxisLine.y2() - (distanceBetweenGridLines * i) - scene->sceneRect().height() / 100);
 
-        QGraphicsTextItem *textItem = scene->addText(QString::number(scale * (i)));
+        QGraphicsTextItem *textItem = scene->addText(QString::number(project.mapRange.mapScale * (i)));
         auto textFont = textItem->font();
         textFont.setPointSize(500);
         textItem->setFont(textFont);
@@ -101,10 +117,10 @@ void MapView::drawMapLines()
     }
 
     //Drawing vertical lines
-    for(int i = 1; i < (project.mapRange.eastBoundMap / scale) + 1; i++) {
+    for(int i = 1; i < (project.mapRange.eastBoundMap / project.mapRange.mapScale) + 1; i++) {
 
         QLineF gridLine;
-        distanceBetweenGridLines = x_AxisLine.length() / (project.mapRange.eastBoundMap / scale);
+        distanceBetweenGridLines = x_AxisLine.length() / (project.mapRange.eastBoundMap / project.mapRange.mapScale);
 
         //Grid line start, end points
         gridLineStart.setX(y_AxisLine.x1() + (distanceBetweenGridLines * i));
@@ -116,7 +132,7 @@ void MapView::drawMapLines()
         textPoint.setX(y_AxisLine.x2() + (distanceBetweenGridLines * i) - scene->sceneRect().width() / 35);
         textPoint.setY(y_AxisLine.y1());
 
-        QGraphicsTextItem *textItem = scene->addText(QString::number(scale * i));
+        QGraphicsTextItem *textItem = scene->addText(QString::number(project.mapRange.mapScale * i));
         auto textFont = textItem->font();
         textFont.setPointSize(500);
         textItem->setFont(textFont);
@@ -158,4 +174,9 @@ void MapView::spawnWindow_HandoverParams(HandoverRepresentation *hoRep, const Ha
 
 void MapView::spawnWindow_CellParams(CellRepresentation *cellRep, const QPair<Cell,Center> &cellObj) {
     emit spawnWindow_MapView_CellParams(cellRep, cellObj);
+}
+
+void MapView::spawnWindow_MapRange()
+{
+    emit spawnWindow_mapRange();
 }

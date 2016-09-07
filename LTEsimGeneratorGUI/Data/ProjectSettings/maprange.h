@@ -13,6 +13,7 @@ public:
     int southBoundMap;
     int eastBoundMap;
     int westBoundMap;
+    int mapScale = 7000;
 
 
     /****************************

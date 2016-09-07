@@ -16,12 +16,12 @@ QByteArray MapRange::serializeData() {
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << northBoundMap << southBoundMap << eastBoundMap << westBoundMap ;
+    stream << northBoundMap << southBoundMap << eastBoundMap << westBoundMap << mapScale ;
 
     return serializedData.buffer();
 }
 
 void MapRange::deserializeData(const QByteArray &rawData) {
     QDataStream stream(rawData);
-    stream >> northBoundMap >> southBoundMap >> eastBoundMap >> westBoundMap ;
+    stream >> northBoundMap >> southBoundMap >> eastBoundMap >> westBoundMap >> mapScale ;
 }

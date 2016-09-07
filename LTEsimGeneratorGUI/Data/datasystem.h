@@ -27,6 +27,7 @@ signals:
     void updateSettingsView(const QString& path);
     void spawnWindow_ProjectMng();
     void update_RB_FilesLocation(const QString& location);
+    void refreshMapView(const Project &project);
 
 public slots:
 

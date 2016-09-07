@@ -120,9 +120,17 @@ void UISystem::bindingObjects()
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
 
     //Open Map Range
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_mapRange(QString)), this, SLOT(spawnWindow_MapRange(QString)));
     QObject::connect(this,SIGNAL(spawnWindow_MapRange(MapRange,QString)),&mapRangeForm,SLOT(loadAndSpawn(MapRange,QString)));
+
     //Update Map Range
     QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
+
+    //Open MapView
+    QObject::connect(&paramWindow, SIGNAL(spawnWindow_MapView(QString)), this, SLOT(spawnWindow_MapView(QString)));
+
+    //refresh map view
+    QObject::connect(dataSystem, SIGNAL(refreshMapView(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
 
     //SpawnWindow MapWindow
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
