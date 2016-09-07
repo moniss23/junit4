@@ -19,7 +19,7 @@
   <property name="minimumSize">
    <size>
     <width>0</width>
-    <height>0</height>
+    <height>1</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -216,7 +216,7 @@
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="../../../Resource.qrc">:/Images/MapItems/line.png</pixmap>
+        <pixmap resource="../../Resource.qrc">:/Images/MapItems/line.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -269,7 +269,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../Resource.qrc">:/Images/MapItems/RBS.png</pixmap>
+      <pixmap resource="../../Resource.qrc">:/Images/MapItems/RBS.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -349,7 +349,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../Resource.qrc">:/Images/MapItems/srio.png</pixmap>
+      <pixmap resource="../../Resource.qrc">:/Images/MapItems/srio.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -384,7 +384,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
+      <pixmap resource="../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -403,7 +403,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../Resource.qrc">:/Images/MapItems/slanted_line.png</pixmap>
+      <pixmap resource="../../Resource.qrc">:/Images/MapItems/slanted_line.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -422,7 +422,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
+      <pixmap resource="../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
@@ -905,8 +905,8 @@ Models</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
-  <include location="../../../Resource.qrc"/>
-  <include location="../../../Resource.qrc"/>
+  <include location="../../Resource.qrc"/>
+  <include location="../../Resource.qrc"/>
  </resources>
  <connections/>
 </ui>

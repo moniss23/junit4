@@ -61,7 +61,7 @@
          </property>
          <property name="geometry">
           <rect>
-           <x>0</x>
+           <x>-187</x>
            <y>0</y>
            <width>1200</width>
            <height>1300</height>
@@ -979,7 +979,7 @@
          <widget class="my_qlabel" name="axis">
           <property name="geometry">
            <rect>
-            <x>-20</x>
+            <x>10</x>
             <y>70</y>
             <width>931</width>
             <height>1121</height>
@@ -2809,7 +2809,7 @@ selection-background-color: rgb(159, 255, 130);</string>
      <x>0</x>
      <y>0</y>
      <width>1049</width>
-     <height>14</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
@@ -2823,6 +2823,7 @@ selection-background-color: rgb(159, 255, 130);</string>
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="../Resource.qrc"/>
   <include location="../Resource.qrc"/>
  </resources>
  <connections/>

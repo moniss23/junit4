@@ -158,26 +158,17 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
 void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 {
     (void) item;
-
-    //TODO: change how Map_traffic is spawned
-
-
     if(this->ui->projectsList->currentRow()==0) {
-        // parameters file double-clicked
-        // create a new map object and display it
         emit spawnWindow_ParamMap(currentProject.name);
     }
     else {
         Map_traffic* map_t;
-        map_t = new Map_traffic();
+        map_t = new Map_traffic();//TODO:delete old Map_traffic in a future
         map_t->show();
+        emit spawnWindow_TrafficMap(currentProject.name, this->ui->projectsList->currentItem()->text());
     }
 }
 
-/*
- * Reset defaults button clicked
- * CURRENTLY NOT IN USE
- */
 void ParametersWindow::on_resetDefaultsButton_clicked()
 {
     // if the file is parameters

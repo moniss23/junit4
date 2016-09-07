@@ -135,6 +135,10 @@ void UISystem::bindingObjects()
     //SpawnWindow MapWindow
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
 
+    //SPawnWindow TrafficMap
+    QObject::connect(&paramWindow, SIGNAL(spawnWindow_TrafficMap(QString,QString)), this, SLOT(spawnWindow_TrafficMap(QString,QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_TrafficMap(Project,TrafficFileData)), &trafficMap, SLOT(loadAndOpen(Project,TrafficFileData)));
+
     //Generating scripts
     QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project&)), dataSystem, SLOT(generateParametersScript(Project&)));
     QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
@@ -268,6 +272,20 @@ void UISystem::spawnWindow_MapRange(const QString &projectName){
         return;
     }
     emit spawnWindow_MapRange(project->mapRange,project -> name);
+}
+
+void UISystem::spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName) {
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_TrafficMap(*project, *traffic);
 }
 
 Project* UISystem::findProjectByName(const QString &projectName)

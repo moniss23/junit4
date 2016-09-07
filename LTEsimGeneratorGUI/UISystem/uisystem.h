@@ -19,6 +19,7 @@
 #include "UISystem/DataForms/maprangeform.h"
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Windows/newmapwindow.h"
+#include "UISystem/Windows/trafficmap.h"
 
 class UISystem : public QObject
 {
@@ -44,6 +45,7 @@ public slots:
     void spawnWindow_UBSim(const QString& projectName);
     void spawnWindow_MapView(const QString& projectName);
     void spawnWindow_MapRange(const QString& projectName);
+    void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -58,6 +60,7 @@ signals:
     void spawnWindow_MapView(const Project &project);
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
+    void spawnWindow_TrafficMap(const Project &project, const TrafficFileData &trafficFileData);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -78,7 +81,7 @@ private:
     UBsimForm           ubSimForm;
     MapRangeForm        mapRangeForm;
     NewMapWindow        newMapWindow;
-
+    TrafficMap          trafficMap;
 };
 
 #endif // UISYSTEM_H

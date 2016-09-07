@@ -38,7 +38,7 @@ signals:
     /**
      * @brief spawnWindow_TrafficMap signal used to nofity system to show traffic map
      */
-    void spawnWindow_TrafficMap();
+    void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
     /**
      * @brief spawnWindow_About signal used to nofity system to show window with about program text
      */

@@ -60,6 +60,7 @@ SOURCES += \
     UISystem/Helpers/rubysyntaxhighlighter.cpp \
     UISystem/DataForms/UE_param_form.cpp \
     UISystem/Widgets/mapview.cpp \
+    UISystem/Windows/trafficmap.cpp \
     UISystem/Windows/newmapwindow.cpp
 
 
@@ -136,7 +137,8 @@ HEADERS  += \
     UISystem/Helpers/rubysyntaxhighlighter.h \
     UISystem/Widgets/mapview.h \
     UISystem/Widgets/handoverrepresentation.h \
-    UISystem/Windows/newmapwindow.h
+    UISystem/Windows/newmapwindow.h \
+    UISystem/Windows/trafficmap.h
 
 
 HEADERS  += \
@@ -190,7 +192,8 @@ FORMS    += \
     Ui/DataForms/ubsimform.ui \
     Ui/DataForms/channelmodelform.ui \
     Ui/SmallDialogs/renamedialog.ui \
-    Ui/Windows/newmapwindow.ui
+    Ui/Windows/newmapwindow.ui \
+    Ui/Windows/trafficmap.ui
 
 
 OTHER_FILES += \
