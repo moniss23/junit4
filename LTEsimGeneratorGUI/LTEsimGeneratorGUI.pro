@@ -190,7 +190,7 @@ FORMS    += \
     Ui/DataForms/ubsimform.ui \
     Ui/DataForms/channelmodelform.ui \
     Ui/SmallDialogs/renamedialog.ui \
-    Maps/Parameters/MapWindow/newmapwindow.ui
+    Ui/Windows/newmapwindow.ui
 
 
 OTHER_FILES += \
