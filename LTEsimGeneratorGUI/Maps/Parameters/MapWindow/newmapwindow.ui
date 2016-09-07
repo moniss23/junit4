@@ -506,7 +506,7 @@ Models</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="documentMode">
      <bool>true</bool>
@@ -519,7 +519,7 @@ Models</string>
     </property>
     <widget class="QWidget" name="cellTab">
      <attribute name="title">
-      <string>Cell params</string>
+      <string>Cell</string>
      </attribute>
      <widget class="QWidget" name="formLayoutWidget_2">
       <property name="geometry">
@@ -697,9 +697,94 @@ Models</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="centerTab">
+     <attribute name="title">
+      <string>Center</string>
+     </attribute>
+     <widget class="QWidget" name="formLayoutWidget_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>381</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>South boundary of area</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="southCenterBoundary">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>:southBoundary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>North boundary of area</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="northCenterBoundary">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>northBoundary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>West boundary of area</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="westCenterBoundary">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>:westBoundary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="eastCenterBoundary">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>:eastBoundary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>East boundary of area</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
     <widget class="QWidget" name="handoverTab">
      <attribute name="title">
-      <string>Handover params</string>
+      <string>Handover</string>
      </attribute>
      <widget class="QWidget" name="formLayoutWidget_3">
       <property name="geometry">
@@ -719,7 +804,7 @@ Models</string>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="soutHandoverBoundary">
+        <widget class="QLineEdit" name="southHandoverBoundary">
          <property name="placeholderText">
           <string>:southBoundary</string>
          </property>

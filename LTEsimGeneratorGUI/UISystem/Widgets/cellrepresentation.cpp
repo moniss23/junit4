@@ -7,9 +7,9 @@
 #include <QGraphicsProxyWidget>
 #include <QGraphicsSceneMouseEvent>
 
-CellRepresentation::CellRepresentation(Cell &cell, QGraphicsObject *parent)
+CellRepresentation::CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsObject *parent)
     : QGraphicsObject(parent),
-      cellObject(cell)
+      cellInfo(cellInfo)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -18,7 +18,14 @@ CellRepresentation::CellRepresentation(Cell &cell, QGraphicsObject *parent)
 }
 
 void CellRepresentation::updatePositions() {
-    this->setPos(cellObject.position_X, -cellObject.position_Y);
+    int X = cellInfo.first.position_X;
+    int Y = cellInfo.first.position_Y;
+
+    this->setPos(X, -Y);
+    cellInfo.second.westBoundary = X-100;
+    cellInfo.second.eastBoundary = X+100;
+    cellInfo.second.southBoundary = Y-100;
+    cellInfo.second.northBoundary = Y+100;
 }
 
 QRectF CellRepresentation::boundingRect() const
@@ -73,7 +80,7 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     auto font = painter->font();
     font.setPointSize(circlesize / 15);
     painter->setFont(font);
-    painter->drawText(-centersize,-centersize, this->cellObject.name);
+    painter->drawText(-centersize,-centersize, this->cellInfo.first.name);
 }
 
 QVariant CellRepresentation::itemChange(GraphicsItemChange change, const QVariant &value)
@@ -90,8 +97,8 @@ void CellRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
 
-    cellObject.position_X = pos().x();
-    cellObject.position_Y = -pos().y();
+    cellInfo.first.position_X = pos().x();
+    cellInfo.first.position_Y = -pos().y();
 
-    emit spawnWindow_CellParams(this, this->cellObject);
+    emit spawnWindow_CellParams(this, this->cellInfo);
 }

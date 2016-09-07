@@ -19,12 +19,12 @@ public:
     void resizeEvent(QResizeEvent* event);
 
 public slots:
-    void spawnWindow_CellParams(CellRepresentation*, const Cell&);
     void spawnWindow_HandoverParams(HandoverRepresentation*, const Handover&);
+    void spawnWindow_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
 
 signals:
-    void spawnWindow_MapView_CellParams(CellRepresentation*, const Cell&);
     void spawnWindow_MapView_HandoverParams(HandoverRepresentation*, const Handover&);
+    void spawnWindow_MapView_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
 
 private:
     void drawAxis();

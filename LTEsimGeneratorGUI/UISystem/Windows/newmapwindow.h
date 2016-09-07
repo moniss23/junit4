@@ -25,8 +25,8 @@ public:
 
 public slots:
     void loadAndOpen(const Project &project);
-    void spawnWindow_MapView_cellParams(CellRepresentation*, const Cell&);
     void spawnWindow_MapView_handoverParams(HandoverRepresentation*, const Handover&);
+    void spawnWindow_MapView_cellParams(CellRepresentation*, const QPair<Cell,Center>&);
 
 signals:
     void spawnWindow_Mme(const QString& projectName);
@@ -39,8 +39,8 @@ signals:
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
 
-    void updateCell(const Cell &cell, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
+    void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 
 private slots:
     void on_mmeButton_pressed();

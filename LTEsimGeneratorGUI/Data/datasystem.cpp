@@ -75,16 +75,16 @@ void DataSystem::projectsFileSetup() {
  * SLOTS *
  *********/
 
-void DataSystem::updateCell(const Cell &cell, const QString &projectName) {
+void DataSystem::updateCell(const QPair<Cell,Center> &cell, const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         emit errorInData("Can't find right project");
         return;
     }
 
-     auto cellFound = project->findCellByName(cell.name);
+     auto cellFound = project->findCellByName(cell.first.name);
      if(cellFound != nullptr) {
-         cellFound->first = cell;
+         *cellFound = cell;
      }
 
      saveProjectsFile();

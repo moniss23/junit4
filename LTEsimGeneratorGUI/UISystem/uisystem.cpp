@@ -136,7 +136,7 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
 
     // Update Cell, Handover
-    QObject::connect(&newMapWindow, SIGNAL(updateCell(Cell,QString)), dataSystem, SLOT(updateCell(Cell,QString)));
+    QObject::connect(&newMapWindow, SIGNAL(updateCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(updateCell(QPair<Cell,Center>,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateHandover(Handover,QString)), dataSystem, SLOT(updateHandover(Handover,QString)));
 }
 

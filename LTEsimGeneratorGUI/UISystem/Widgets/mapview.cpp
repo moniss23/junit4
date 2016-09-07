@@ -133,11 +133,11 @@ void MapView::drawMapLines()
 void MapView::drawCellRepresentations()
 {
     for(auto &cellCenter : project.cellsInfo) {
-        CellRepresentation *cellRep = new CellRepresentation(cellCenter.first);
+        CellRepresentation *cellRep = new CellRepresentation(cellCenter);
         scene->addItem(cellRep);
-        cellRep->setPos(cellRep->cellObject.position_X, -cellRep->cellObject.position_Y);
-        QObject::connect(cellRep, SIGNAL(spawnWindow_CellParams(CellRepresentation*,Cell)),
-                         this, SLOT(spawnWindow_CellParams(CellRepresentation*,Cell)));
+        cellRep->setPos(cellRep->cellInfo.first.position_X, -cellRep->cellInfo.first.position_Y);
+        QObject::connect(cellRep, SIGNAL(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)),
+                         this, SLOT(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)));
     }
 }
 
@@ -156,6 +156,6 @@ void MapView::spawnWindow_HandoverParams(HandoverRepresentation *hoRep, const Ha
     emit spawnWindow_MapView_HandoverParams(hoRep, hoObj);
 }
 
-void MapView::spawnWindow_CellParams(CellRepresentation *cellRep, const Cell &cellObj) {
+void MapView::spawnWindow_CellParams(CellRepresentation *cellRep, const QPair<Cell,Center> &cellObj) {
     emit spawnWindow_MapView_CellParams(cellRep, cellObj);
 }

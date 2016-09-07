@@ -4,13 +4,14 @@
 #include <QGraphicsObject>
 
 #include "Data/Objects/cell.h"
+#include "Data/Objects/center.h"
 
 class CellRepresentation : public QGraphicsObject
 {
     Q_OBJECT
 
 public:
-    CellRepresentation(Cell &cell, QGraphicsObject *parent = 0);
+    CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsObject *parent = 0);
 
     void updatePositions();
     int type() const { return UserType; }
@@ -19,7 +20,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
 
 signals:
-    void spawnWindow_CellParams(CellRepresentation*, const Cell &cellObj);
+    void spawnWindow_CellParams(CellRepresentation*, const QPair<Cell,Center> &cellObj);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
@@ -28,6 +29,7 @@ protected:
 
 public:
     Cell cellObject;
+    QPair<Cell,Center> cellInfo;
     static const int circlesize = 8500;
     static const int centersize = 1500;
 
