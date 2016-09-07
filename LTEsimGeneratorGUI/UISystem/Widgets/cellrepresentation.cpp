@@ -14,7 +14,10 @@ CellRepresentation::CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsOb
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
+    setAcceptHoverEvents(true);
     setZValue(-1);
+
+    color = QColor(Qt::darkYellow);
 }
 
 void CellRepresentation::updatePositions() {
@@ -54,11 +57,11 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     if (option->state & QStyle::State_Sunken) {
         gradient.setCenter(3, 3);
         gradient.setFocalPoint(3, 3);
-        gradient.setColorAt(1, Qt::darkYellow);
-        gradient.setColorAt(0, Qt::darkYellow);
+        gradient.setColorAt(1, color);
+        gradient.setColorAt(0, color);
     } else {
         gradient.setColorAt(0, col);
-        gradient.setColorAt(1, Qt::darkYellow);
+        gradient.setColorAt(1, color);
     }
 
     painter->setBrush(gradient);
@@ -99,4 +102,16 @@ void CellRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     cellInfo.second.northBoundary = cellInfo.first.position_Y+100;
 
     emit spawnWindow_CellParams(this, this->cellInfo);
+}
+
+void CellRepresentation::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+  color = QColor(Qt::red);
+   QGraphicsItem::hoverEnterEvent(event);
+}
+
+void CellRepresentation::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+   color = QColor(Qt::darkYellow);
+   QGraphicsItem::hoverLeaveEvent(event);
 }
