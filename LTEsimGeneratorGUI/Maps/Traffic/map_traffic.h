@@ -1,23 +1,19 @@
 #ifndef MAP_TRAFFIC_H
 #define MAP_TRAFFIC_H
 
-#include "Data/datasystem.h"
-#include "Data/Objects/cell.h"
-#include "Data/ProjectSettings/maprange.h"
-#include "Maps/Traffic/CustomModel/customModel.h"
-#include "Maps/Traffic/MapComponents/draguelabel.h"
+#include <QMainWindow>
+#include <QMessageBox>
+
 #include "Maps/Traffic/Statistics/statisticsManager.h"
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 #include "Maps/Traffic/Time/timeManager.h"
-#include "my_qlabel.h"
 
-#include <QComboBox>
-#include <QMainWindow>
-#include <QObject>
-#include <QMessageBox>
-
-class Custommodels;
+class QComboBox;
 class customModel;
+class DragUELabel;
+class Cell;
+class Center;
+class my_qlabel;
 
 namespace Ui {
 class Map_traffic;

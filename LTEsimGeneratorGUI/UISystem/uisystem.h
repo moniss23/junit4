@@ -18,7 +18,7 @@
 #include "UISystem/DataForms/ubsimform.h"
 #include "UISystem/DataForms/maprangeform.h"
 #include "UISystem/Widgets/mapview.h"
-#include "Maps/Parameters/MapWindow/newmapwindow.h"
+#include "UISystem/Windows/newmapwindow.h"
 
 class UISystem : public QObject
 {

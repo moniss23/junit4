@@ -1,43 +1,19 @@
 #include "map_traffic.h"
 #include "ui_map_traffic.h"
-#include <QString>
-#include <QCloseEvent>
-#include <QFile>
-#include <QtWidgets>
-#include <QRect>
-#include <QPoint>
-#include <QSettings>
-#include <QMessageBox>
-#include <QInputDialog>
 
-#include <Maps/Traffic/MapComponents/draguelabel.h>
-#include <UISystem/DataForms/UE_param_form.h>
-#include "UISystem/Windows/parameterswindow.h"
+#include <QPoint>
+#include <QComboBox>
+#include <QMimeData>
+#include <QDrag>
+
+#include "Maps/Traffic/CustomModel/customModel.h"
+#include "Maps/Traffic/MapComponents/draguelabel.h"
+#include "UISystem/DataForms/UE_param_form.h"
+#include "my_qlabel.h"
 #include "Data/Objects/cell.h"
 
-//externed checkbox settings from MapWindow
-extern bool tmp_chkCell11;
-extern bool tmp_chkCell12;
-extern bool tmp_chkCell21;
-extern bool tmp_chkCell22;
-extern bool tmp_chkCell31;
-extern bool tmp_chkCell32;
-extern bool tmp_chkCell41;
-extern bool tmp_chkCell42;
-extern bool tmp_chkCell51;
-extern bool tmp_chkCell52;
-extern bool tmp_chkCell61;
-extern bool tmp_chkCell62;
-//.............
 
-//changes saving map traffic
-
-extern int currentOpenedTrafficFile;
-extern QVector<QStringList> trafficFilesContentLists;
-extern QVector<QString> trafficFilesContent;
-
-extern QStringList readyCMList[10];
-
+//globals to get rid of
 QStringList savedCM1List;
 QStringList savedCM2List;
 QStringList savedCM3List;
@@ -48,7 +24,6 @@ QStringList savedCM7List;
 QStringList savedCM8List;
 QStringList savedCM9List;
 QStringList savedCM10List;
-
 QStringList savedPingList;
 QStringList savedVoipList;
 QStringList savedSyncedPingList;
@@ -57,30 +32,16 @@ QStringList savedFtpDlList;
 QStringList savedFtpUlList;
 QStringList savedStreamDlList;
 QStringList savedStreamUlList;
-
-QWidget *pointerWinTitle;
-
-QString CMname;
-extern QStringList CMList;
 extern QStringList PS_List;
-
-extern bool isCMActive[10];
-
 my_qlabel *pointerCM[10];
-
-extern QStringList customModelList;
-
-class QWidget;
-class DragUELabel;
-class Form;
 int offset_x=40;
 int offset_x_2=40;
 DragUELabel *actualposition;
-
-extern int currentOpenedTrafficFile;
 extern QStringList timeParametersContentList;
 extern QStringList tuningParametersContentList;
-extern QVector<QString> trafficFilesContent;
+//globals to get rid of
+
+
 
 Map_traffic::Map_traffic(QWidget *parent) :
     QMainWindow(parent),
@@ -196,18 +157,18 @@ Map_traffic::Map_traffic(QWidget *parent) :
 
         setAcceptDrops(true);
 
-        ui->checkBoxCell11->setChecked(tmp_chkCell11);
-        ui->checkBoxCell12->setChecked(tmp_chkCell12);
-        ui->checkBoxCell21->setChecked(tmp_chkCell21);
-        ui->checkBoxCell22->setChecked(tmp_chkCell22);
-        ui->checkBoxCell31->setChecked(tmp_chkCell31);
-        ui->checkBoxCell32->setChecked(tmp_chkCell32);
-        ui->checkBoxCell41->setChecked(tmp_chkCell41);
-        ui->checkBoxCell42->setChecked(tmp_chkCell42);
-        ui->checkBoxCell51->setChecked(tmp_chkCell51);
-        ui->checkBoxCell52->setChecked(tmp_chkCell52);
-        ui->checkBoxCell61->setChecked(tmp_chkCell61);
-        ui->checkBoxCell62->setChecked(tmp_chkCell62);
+        ui->checkBoxCell11->setChecked(true);
+        ui->checkBoxCell12->setChecked(true);
+        ui->checkBoxCell21->setChecked(true);
+        ui->checkBoxCell22->setChecked(true);
+        ui->checkBoxCell31->setChecked(true);
+        ui->checkBoxCell32->setChecked(true);
+        ui->checkBoxCell41->setChecked(true);
+        ui->checkBoxCell42->setChecked(true);
+        ui->checkBoxCell51->setChecked(true);
+        ui->checkBoxCell52->setChecked(true);
+        ui->checkBoxCell61->setChecked(true);
+        ui->checkBoxCell62->setChecked(true);
 }
 
 Map_traffic::~Map_traffic()

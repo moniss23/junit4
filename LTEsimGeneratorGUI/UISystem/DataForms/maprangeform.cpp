@@ -1,5 +1,4 @@
 #include "UISystem/DataForms/maprangeform.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
 
 MapRangeForm::MapRangeForm(QWidget *parent) :
     QWidget(parent),

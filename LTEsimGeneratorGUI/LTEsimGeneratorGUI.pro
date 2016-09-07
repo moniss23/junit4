@@ -36,7 +36,6 @@ SOURCES += \
     Data/ProjectSettings/maprange.cpp \
     Data/ProjectSettings/ubsimsettings.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
-    Maps/Parameters/MapWindow/newmapwindow.cpp \
     Data/ProjectSettings/generalconfigurationparameters.cpp \
     Data/ProjectSettings/ueparameters.cpp
 
@@ -59,11 +58,11 @@ SOURCES += \
     UISystem/DataForms/maprangeform.cpp \
     UISystem/Helpers/rubysyntaxhighlighter.cpp \
     UISystem/DataForms/UE_param_form.cpp \
-    UISystem/Widgets/mapview.cpp
+    UISystem/Widgets/mapview.cpp \
+    UISystem/Windows/newmapwindow.cpp
 
 
 SOURCES += main.cpp\
-    Maps/Parameters/MapWindow/mapwindow.cpp \
     Maps/Traffic/MapComponents/draguelabel.cpp \
     Maps/Traffic/map_traffic.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
@@ -84,7 +83,6 @@ SOURCES += main.cpp\
     Maps/Traffic/Statistics/statisticsData.cpp  \
     Maps/Traffic/CustomModel/customModel.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
-    Maps/Parameters/parametersfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
     Maps/Traffic/Tuning/tuningTrafficData.cpp
 
@@ -111,8 +109,6 @@ HEADERS  += \
     Data/ProjectSettings/mmesettings.h \
     Data/ProjectSettings/ubsimsettings.h \
     Data/ProjectSettings/maprange.h \
-    UISystem/Widgets/handoverrepresentation.h \
-    Maps/Parameters/MapWindow/newmapwindow.h \
     Data/ProjectSettings/generalconfigurationparameters.h \
     Data/ProjectSettings/ueparameters.h \
     Data/Interfaces/scriptable.h
@@ -136,11 +132,12 @@ HEADERS  += \
     UISystem/DataForms/maprangeform.h \
     UISystem/DataForms/UE_param_form.h \
     UISystem/Helpers/rubysyntaxhighlighter.h \
-    UISystem/Widgets/mapview.h
+    UISystem/Widgets/mapview.h \
+    UISystem/Widgets/handoverrepresentation.h \
+    UISystem/Windows/newmapwindow.h
 
 
 HEADERS  += \
-    Maps/Parameters/MapWindow/mapwindow.h \
     Maps/Traffic/MapComponents/draguelabel.h \
     Maps/Traffic/map_traffic.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
@@ -164,7 +161,6 @@ HEADERS  += \
     Maps/Traffic/Statistics/statisticsManager.h \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
-    Maps/Parameters/parametersfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
     Maps/Traffic/Tuning/tuningTrafficManager.h
 

@@ -1,6 +1,6 @@
 #include "uisystem.h"
 #include <QMessageBox>
-#include "Maps/Parameters/MapWindow/mapwindow.h"
+
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
@@ -124,10 +124,6 @@ void UISystem::bindingObjects()
     //Update Map Range
     QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
 
-    //Open MapView
-//    QObject::connect(this, SIGNAL(spawnWindow_MapView(Project)), &mapView, SLOT(loadAndOpen(Project)));
-    QObject::connect(&paramWindow, SIGNAL(spawnWindow_MapView(QString)), this, SLOT(spawnWindow_MapView(QString)));
-
     //SpawnWindow MapWindow
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
 
@@ -209,28 +205,12 @@ void UISystem::spawnWindow_Mme(const QString &projectName){
 
 void UISystem::spawnWindow_ParamMap(const QString &projectName)
 {
-    MapWindow* map_w          = NULL;
     auto project = findProjectByName(projectName);
-
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    if(map_w!=NULL){
-        delete map_w;
-        map_w=NULL;
-    }
-    map_w = new MapWindow(*project);
-    QObject::connect(map_w, SIGNAL(spawnWindow_ucTool(QString)), this, SLOT(spawnWindow_ucTool(QString)));
-    QObject::connect(map_w, SIGNAL(spawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
-    QObject::connect(map_w,SIGNAL(spawnWindow_Sgw(QString)),this,SLOT(spawnWindow_Sgw(QString)));
-    QObject::connect(map_w,SIGNAL(updateSimulatedCoreNetworkState(QString,bool)),dataSystem,SLOT(updateSimulatedCoreNetworkState(QString,bool)));
-    QObject::connect(map_w,SIGNAL(updateSimulatedUeState(QString,bool)),dataSystem,SLOT(updateSimulatedUeState(QString,bool)));
-    QObject::connect(map_w,SIGNAL(spawnWindow_Mme(QString)),this,SLOT(spawnWindow_Mme(QString)));
-    QObject::connect(map_w, SIGNAL(spawnWindow_ChannelModel(QString)), this, SLOT(spawnWindow_ChannelModel(QString)));
-    QObject::connect(map_w,SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
-    QObject::connect(map_w,SIGNAL(spawnWindow_MapRange(QString)),this,SLOT(spawnWindow_MapRange(QString)));
-    map_w->show();
+
     emit spawnWindow_MapWindow(*project);
 }
 

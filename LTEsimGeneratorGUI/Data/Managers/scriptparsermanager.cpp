@@ -831,3 +831,79 @@ module Parameters \n\
     outputTextStream.append("end");
     return outputTextStream;
 }
+
+
+
+                     // AKTUALNIE ZOSTAWIAM TĄ CZĘŚĆ WYRZUCĘ JĄ PRZY GENEROWANIU PARAMETERS RB
+                     // ALE Z UWAGI NA POZOSTAŁOŚCI I MOŻLIWOŚĆ SPRAWDZENIA JAK TO MNIEJ WIĘCEJ TO BYŁO ROBIONE
+                     // ZOSTAWIAM
+
+
+                     //    int number_of_cell =12;      //12
+            //    int number_of_Center=12;       //12
+            //    int number_of_Handover=21;     //21
+            //    outputList<<"require 'etc'\n";
+            //    outputList<<"module Parameters\n";
+
+            //    //---------------------------------UE-------------------------------------------------------------
+            //    outputList<< "\tdef Parameters.getUeParameters()\n";
+            //    outputList<<"\n\t\tdefault = {}";
+            //    outputList<<"\n\t\tdefault[:start_ue_component] = " + convertBoolToText(ue->getStart_ue_component());
+            //    outputList<<"\n\t\tdefault[:name] = \"" + ue->getName() +"\"";
+            //    outputList<<"\n\t\tdefault[:l1l2_managers] = \"" + ue->getL1l2_managers() +"\"";
+            //    outputList<<"\n\t\tdefault[:default[:rrc_pluginFilterPath] = \"" + ue->getRrc_pluginFilterPath() +"\"";
+            //    outputList<<"\n\t\tdefault[:uctool_ip] = \"" + ue->getUctool_ip() +"\"";
+            //    outputList<<"\n\t\tdefault[:uctool_cIds] = \"" + ue->getUctool_cIds() +"\"";
+            //    outputList<<"\n\t\tdefault[:uctool_service_ip] = \"" + ue->getUctool_service_ip() +"\"";
+            //    outputList<<"\n\t\tdefault[:ue_network_capability] = \"" + ue->getUe_network_capability() +"\"";
+            //    outputList<<"\n\t\tdefault[:ue_keyDerivationAlgorithm] = \"" + ue->getUe_keyDerivationAlgorithm() +"\"";
+            //    outputList<<"\n\t\tdefault[:ue_key] = \"" + ue->getUe_key() +"\"";
+            //    outputList<<"\n\t\tdefault[:ue_op] = \"" + ue->getUe_op() +"\"";
+            //    outputList <<"\n\t\treturn default\n\tend\n";
+            //    //---------------------------------Cell objects---------------------------------------------------
+            //    outputList << "\n\tdef Parameters.getRecParameters() \n";
+            //    outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
+            //    for(int i =0; i<number_of_cell; i++){
+            //        outputList << "\t\t\t:cell => \"" + tabCell[i]->name + "\",\n";
+            //        outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
+            //        outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
+            //        outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
+            //        outputList << "\t\t\t:position_Y => " + QString::number(tabCell[i]->position_Y) +",\n";
+            //        outputList << "\t\t\t:earfcnDl => " + QString::number(tabCell[i]->earfcnDl) + +",\n";
+            //        outputList << "\t\t\t:transmitPower => " + QString::number(tabCell[i]->transmitPower) +",\n";
+            //        outputList << "\t\t\t:ulNoiseAndInterference => " + QString::number(tabCell[i]->ulNoiseAndInterference) +"\n";
+            //        if (i != number_of_cell-1)
+            //            outputList << "\t\t}.{\n";
+            //    }
+            //    outputList << "\t\t}\n\t\t] \n\treturn default \n\tend";
+
+            //    outputList << "\n\tdef Parameters.getTraffBehaviourParameters() \n\t\tdefault = {}";
+            //    outputList << "\n\t\tdefault[:imsiMapRange] = \"" + ue->getImsiMapRange() +"\"\n";
+
+            //   outputList <<"\n\t\tdefault[:southBoundMap] = " + QString::number(mapRange->getSouthBoundMap());
+            //   outputList <<"\n\t\tdefault[:northBoundMap] = " + QString::number(mapRange->getNorthBoundMap());
+            //   outputList <<"\n\t\tdefault[:westBoundMap] = " + QString::number(mapRange->getWestBoundMap());
+            //   outputList <<"\n\t\tdefault[:eastBoundMap] = " + QString::number(mapRange->getEastBoundMap());
+
+            //   outputList <<"\n\t\tdefault[:areas] = [ \n\t\t{";
+            //   for(int i =0 ; i<number_of_Center ; i++){
+            //        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + "\",";
+            //        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabCenter[i]->southBoundary) + ",";
+            //        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabCenter[i]->northBoundary) + ",";
+            //        outputList <<"\n\t\t\t:westBoundary => " + QString::number(tabCenter[i]->westBoundary) + ",";
+            //        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabCenter[i]->eastBoundary);
+            //        outputList <<"\n\t\t},{";
+            //    }
+            //   for(int i =0 ; i<number_of_Handover ; i++){
+            //        outputList <<"\n\t\t\t:area => \"" +tabHandover[i]->area + "\",";
+            //        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabHandover[i]->southBoundary) + ",";
+            //        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabHandover[i]->northBoundary) + ",";
+            //        outputList <<"\n\t\t\t:westBoundary => "+ QString::number(tabHandover[i]->westBoundary) + ",";
+            //        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabHandover[i]->eastBoundary);
+            //        if (i != number_of_Handover-1)
+            //            outputList << "\n\t\t},{";
+            //    }
+            //    outputList <<"\nend";
+
+            //    return outputList;
+            //}
