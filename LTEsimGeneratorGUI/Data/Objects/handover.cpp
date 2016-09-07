@@ -1,5 +1,6 @@
 #include "Data/Objects/handover.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
+
+#include <QDataStream>
 
 Handover::Handover() {}
 Handover::Handover(const QString &name) {area = name;}

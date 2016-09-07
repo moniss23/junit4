@@ -1,8 +1,6 @@
-#include <QFile>
-#include <QTextStream>
-
 #include "Data/Objects/center.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
+
+#include <QDataStream>
 
 Center::Center() {}
 Center::Center(const QString &name) {area = name;}

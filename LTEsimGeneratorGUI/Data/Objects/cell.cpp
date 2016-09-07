@@ -1,5 +1,6 @@
 #include "Data/Objects/cell.h"
-#include "Maps/Parameters/MapWindow/mapwindow.h"
+
+#include <QDataStream>
 
 Cell::Cell() {}
 Cell::Cell(const QString &name) {this->name = name;}

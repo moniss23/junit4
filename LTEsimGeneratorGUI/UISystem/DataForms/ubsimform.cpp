@@ -1,8 +1,8 @@
 #include "ubsimform.h"
 #include "ui_ubsimform.h"
-#include <Maps/Parameters/MapWindow/mapwindow.h>
 
 #include <QStringList>
+#include <QMessageBox>
 
 UBsimForm::UBsimForm(QWidget *parent) :
     QWidget(parent),
