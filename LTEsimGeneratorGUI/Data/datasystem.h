@@ -64,6 +64,7 @@ public slots:
     void updateMapRange (const MapRange& mapRange,QString projectName);
     void updatePaging(const PagingSettings& pagingSettings, QString projectName);
 
+    void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 

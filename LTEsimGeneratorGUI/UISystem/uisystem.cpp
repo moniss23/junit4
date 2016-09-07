@@ -148,8 +148,9 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
 
     // Update Cell, Handover
-    QObject::connect(&newMapWindow, SIGNAL(updateCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(updateCell(QPair<Cell,Center>,QString)));
+    QObject::connect(&newMapWindow, SIGNAL(removeHandover(Handover,QString)), dataSystem, SLOT(removeHandover(Handover,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateHandover(Handover,QString)), dataSystem, SLOT(updateHandover(Handover,QString)));
+    QObject::connect(&newMapWindow, SIGNAL(updateCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(updateCell(QPair<Cell,Center>,QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

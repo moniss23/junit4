@@ -34,10 +34,11 @@ private:
     void drawCellRepresentations();
     void drawHandoverRepresentations();
 
+public:
+    QGraphicsScene *scene;
+
 private:
     Project project;
-
-    QGraphicsScene *scene;
     QLineF x_AxisLine, y_AxisLine;
     QPen solidPen, solid2, dotPen;
     QPointF gridLineStart, gridLineEnd, textPoint;

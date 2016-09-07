@@ -41,6 +41,7 @@ signals:
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
 
+    void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 
@@ -56,6 +57,8 @@ private slots:
     void on_coreNetworkCheckbox_toggled(bool checked);
 
     void on_setCellParamsBtn_clicked();
+
+    void on_removeHandoverBtn_clicked();
 
 private:
     Ui::NewMapWindow *ui;

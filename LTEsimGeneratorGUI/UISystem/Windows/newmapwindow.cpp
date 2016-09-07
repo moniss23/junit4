@@ -146,6 +146,17 @@ void NewMapWindow::on_setCellParamsBtn_clicked()
     this->ui->mapObjectsWidget->setVisible(false);
 }
 
+void NewMapWindow::on_removeHandoverBtn_clicked()
+{
+    if(clickedHandover != nullptr) {
+        this->mapView->scene->removeItem(clickedHandover);
+        emit removeHandover(clickedHandover->handoverObject, project.name);
+
+        clickedHandover = nullptr;
+        this->ui->handoverTab->close();
+        this->ui->mapObjectsWidget->setVisible(false);
+    }
+}
 
 void NewMapWindow::on_coreNetworkCheckbox_toggled(bool checked)
 {
@@ -167,7 +178,5 @@ void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);
 void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name);}
 void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}
+void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}
 
-void NewMapWindow::spawnWindow_MapRange() {
-    emit spawnWindow_mapRange(project.name);
-}
