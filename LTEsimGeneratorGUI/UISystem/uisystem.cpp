@@ -154,6 +154,7 @@ void UISystem::bindingObjects()
     // Update Cell, Handover
     QObject::connect(&newMapWindow, SIGNAL(removeHandover(Handover,QString)), dataSystem, SLOT(removeHandover(Handover,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateHandover(Handover,QString)), dataSystem, SLOT(updateHandover(Handover,QString)));
+    QObject::connect(&newMapWindow, SIGNAL(removeCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(removeCell(QPair<Cell,Center>,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(updateCell(QPair<Cell,Center>,QString)));
 }
 

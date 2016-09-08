@@ -43,6 +43,7 @@ signals:
 
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
+    void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 
 private slots:
@@ -52,13 +53,13 @@ private slots:
     void on_ubSimButton_pressed();
     void on_ucToolButton_pressed();
     void on_channelModelsButton_pressed();
-    void on_setHandoverParamsBtn_clicked();
     void on_ueCheckbox_toggled(bool checked);
     void on_coreNetworkCheckbox_toggled(bool checked);
 
+    void on_removeCellBtn_clicked();
     void on_setCellParamsBtn_clicked();
-
     void on_removeHandoverBtn_clicked();
+    void on_setHandoverParamsBtn_clicked();
 
 private:
     Ui::NewMapWindow *ui;

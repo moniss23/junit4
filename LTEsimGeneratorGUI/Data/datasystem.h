@@ -66,6 +66,7 @@ public slots:
 
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
+    void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 
     //Scripts generation

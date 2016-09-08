@@ -75,6 +75,19 @@ void DataSystem::projectsFileSetup() {
  * SLOTS *
  *********/
 
+void DataSystem::removeCell(const QPair<Cell,Center> &cell, const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    project->cellsInfo.erase(std::remove_if(project->cellsInfo.begin(), project->cellsInfo.end(),
+                            [&cell](const auto &cellFound){return cellFound.first.name==cell.first.name;}));
+
+     saveProjectsFile();
+}
+
 void DataSystem::removeHandover(const Handover &handover, const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
@@ -83,7 +96,7 @@ void DataSystem::removeHandover(const Handover &handover, const QString &project
     }
 
     project->handovers.erase(std::remove_if(project->handovers.begin(), project->handovers.end(),
-                            [&handover](const Handover &ho){return handover.area==ho.area;}));
+                            [&handover](const auto &hoFound){return hoFound.area==handover.area;}));
 
      saveProjectsFile();
 }

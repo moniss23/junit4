@@ -33,11 +33,9 @@ protected:
 
 
 public:
-    Cell cellObject;
     QPair<Cell,Center> cellInfo;
     static const int circlesize = 8500;
     static const int centersize = 1500;
-
 };
 
 #endif // CELLREPRESENTATION_H

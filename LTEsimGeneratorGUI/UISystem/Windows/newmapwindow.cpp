@@ -146,6 +146,19 @@ void NewMapWindow::on_setCellParamsBtn_clicked()
     this->ui->mapObjectsWidget->setVisible(false);
 }
 
+void NewMapWindow::on_removeCellBtn_clicked()
+{
+    if(clickedCell != nullptr) {
+        this->mapView->scene->removeItem(clickedCell);
+        emit removeCell(clickedCell->cellInfo, project.name);
+
+        clickedCell = nullptr;
+        this->ui->cellTab->close();
+        this->ui->centerTab->close();
+        this->ui->mapObjectsWidget->setVisible(false);
+    }
+}
+
 void NewMapWindow::on_removeHandoverBtn_clicked()
 {
     if(clickedHandover != nullptr) {
@@ -179,4 +192,3 @@ void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name
 void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}
 void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}
-
