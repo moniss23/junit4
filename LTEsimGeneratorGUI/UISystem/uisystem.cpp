@@ -143,6 +143,9 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_Statistics(QString,QString)), this, SLOT(spawnWindow_Statistics(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_Statistics(QString,QString,StatisticsData)), &statisticsManager, SLOT(loadAndSpawn(QString,QString,StatisticsData)));
 
+    //Update StatisticsData
+    QObject::connect(&statisticsManager, SIGNAL(updateStatisticsData(QString,QString,StatisticsData)), dataSystem, SLOT(updateStatisticsData(QString,QString,StatisticsData)));
+
     //Generating scripts
     QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project&)), dataSystem, SLOT(generateParametersScript(Project&)));
     QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
@@ -213,6 +216,7 @@ void UISystem::spawnWindow_ucTool(const QString& projectName)
     emit spawnWindow_ucTool(project->ucToolSettings, project->name);
     return;
 }
+
 void UISystem::spawnWindow_Mme(const QString &projectName){
     auto project = findProjectByName(projectName);
 
@@ -223,7 +227,6 @@ void UISystem::spawnWindow_Mme(const QString &projectName){
     emit spawnWindow_Mme(project->mmeSettings,project->pagingSettings, project->name);
     return;
 }
-
 
 void UISystem::spawnWindow_ParamMap(const QString &projectName)
 {
@@ -275,6 +278,7 @@ void UISystem::spawnWindow_MapView(const QString &projectName) {
     emit spawnWindow_MapView(*project);
     return;
 }
+
 void UISystem::spawnWindow_MapRange(const QString &projectName){
     auto project = findProjectByName(projectName);
     if (project==nullptr) {

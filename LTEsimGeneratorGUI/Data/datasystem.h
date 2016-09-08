@@ -69,6 +69,9 @@ public slots:
     void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 
+    //TrafficFileData saving
+    void updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData &statisticsData);
+
     //Scripts generation
     void generateParametersScript(Project &project);
     void generateTrafficScript(const Project& project, const int& indexOfFile);

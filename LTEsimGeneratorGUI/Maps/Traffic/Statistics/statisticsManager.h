@@ -27,7 +27,7 @@ signals:
      * @brief updateStatisticsData is a signal sent to TrafficWindowManager tosave changes made on local copy
      * of StatisticsData
      */
-    void updateStatisticsData(const StatisticsData& statisticsData);
+    void updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData& statisticsData);
 
 public slots:
     /**

@@ -30,7 +30,7 @@ void StatisticsManager::loadAndSpawn(const QString &projectName, const QString &
 void StatisticsManager::on_saveButton_clicked()
 {
     saveStatisticsData();
-    emit updateStatisticsData(statisticsData); // TODO when trafficWindowManager is created: {TrafficWindow.TrafficFile.StatisticsData = localStats;}
+    emit updateStatisticsData(projectName, trafficFileName, statisticsData); // TODO when trafficWindowManager is created: {TrafficWindow.TrafficFile.StatisticsData = localStats;}
 }
 
 void StatisticsManager::on_restoreButton_clicked()
@@ -41,156 +41,156 @@ void StatisticsManager::on_restoreButton_clicked()
 
 void StatisticsManager::on_writePdcpuToFileCheckBox_clicked(bool checked)
 {
-    ui->pdcpuFilenameLabel->setEnabled(checked);
-    ui->pdcpuFilenameLineEdit->setEnabled(checked);
-    ui->pdcpuNumberOfSecondsLabel->setEnabled(checked);
-    ui->pdcpuNumberOfSecondsLineEdit->setEnabled(checked);
-    ui->pdcpuMeasurementLabel->setEnabled(checked);
-    ui->pdcpuMeasurementLineEdit->setEnabled(checked);
+    this->ui->pdcpuFilenameLabel->setEnabled(checked);
+    this->ui->pdcpuFilenameLineEdit->setEnabled(checked);
+    this->ui->pdcpuNumberOfSecondsLabel->setEnabled(checked);
+    this->ui->pdcpuNumberOfSecondsLineEdit->setEnabled(checked);
+    this->ui->pdcpuMeasurementLabel->setEnabled(checked);
+    this->ui->pdcpuMeasurementLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::on_bearerErrorCheckBox_clicked(bool checked)
 {
-    ui->bearerErrorImsiLabel->setEnabled(checked);
-    ui->bearerErrorImsiLineEdit->setEnabled(checked);
-    ui->bearerErrorEpsBearerIdLabel->setEnabled(checked);
-    ui->bearerErrorEpsBearerIdLineEdit->setEnabled(checked);
+    this->ui->bearerErrorImsiLabel->setEnabled(checked);
+    this->ui->bearerErrorImsiLineEdit->setEnabled(checked);
+    this->ui->bearerErrorEpsBearerIdLabel->setEnabled(checked);
+    this->ui->bearerErrorEpsBearerIdLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::on_bearerRohcCheckBox_clicked(bool checked)
 {
-    ui->bearerRohcImsiLabel->setEnabled(checked);
-    ui->bearerRohcImsiLineEdit->setEnabled(checked);
-    ui->bearerRohcEpsBearerIdLabel->setEnabled(checked);
-    ui->bearerRohcEpsBearerIdLineEdit->setEnabled(checked);
+    this->ui->bearerRohcImsiLabel->setEnabled(checked);
+    this->ui->bearerRohcImsiLineEdit->setEnabled(checked);
+    this->ui->bearerRohcEpsBearerIdLabel->setEnabled(checked);
+    this->ui->bearerRohcEpsBearerIdLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::on_bearerStatusWordsCheckBox_clicked(bool checked)
 {
-    ui->bearerStatusImsiLabel->setEnabled(checked);
-    ui->bearerStatusImsiLineEdit->setEnabled(checked);
-    ui->bearerStatusEpsBearerIdLabel->setEnabled(checked);
-    ui->bearerStatusEpsBearerIdLineEdit->setEnabled(checked);
+    this->ui->bearerStatusImsiLabel->setEnabled(checked);
+    this->ui->bearerStatusImsiLineEdit->setEnabled(checked);
+    this->ui->bearerStatusEpsBearerIdLabel->setEnabled(checked);
+    this->ui->bearerStatusEpsBearerIdLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::on_tguStatsCheckBox_clicked(bool checked)
 {
-    ui->ipexTguImsiLabel->setEnabled(checked);
-    ui->ipexTguImsiLineEdit->setEnabled(checked);
+    this->ui->ipexTguImsiLabel->setEnabled(checked);
+    this->ui->ipexTguImsiLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::on_writeIpexToFileCheckBox_clicked(bool checked)
 {
-    ui->ipexFilenameLabel->setEnabled(checked);
-    ui->ipexFilenameLineEdit->setEnabled(checked);
-    ui->ipexNumberOfSecondsLabel->setEnabled(checked);
-    ui->ipexNumberOfSecondsLineEdit->setEnabled(checked);
-    ui->ipexMeasurementLabel->setEnabled(checked);
-    ui->ipexMeasurementLineEdit->setEnabled(checked);
+    this->ui->ipexFilenameLabel->setEnabled(checked);
+    this->ui->ipexFilenameLineEdit->setEnabled(checked);
+    this->ui->ipexNumberOfSecondsLabel->setEnabled(checked);
+    this->ui->ipexNumberOfSecondsLineEdit->setEnabled(checked);
+    this->ui->ipexMeasurementLabel->setEnabled(checked);
+    this->ui->ipexMeasurementLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked)
 {
-    ui->ueLabel->setEnabled(checked);
-    ui->ueLineEdit->setEnabled(checked);
-    ui->delayBetweenPacketsLabel->setEnabled(checked);
-    ui->delayBetweenPacketsLineEdit->setEnabled(checked);
-    ui->mtuSizeLabel->setEnabled(checked);
-    ui->mtuSizeLineEdit->setEnabled(checked);
-    ui->generalNumberOfSecondsLabel->setEnabled(checked);
-    ui->generalNumberOfSecondsLineEdit->setEnabled(checked);
-    ui->generalMeasurementLabel->setEnabled(checked);
-    ui->generalMeasurementLineEdit->setEnabled(checked);
+    this->ui->ueLabel->setEnabled(checked);
+    this->ui->ueLineEdit->setEnabled(checked);
+    this->ui->delayBetweenPacketsLabel->setEnabled(checked);
+    this->ui->delayBetweenPacketsLineEdit->setEnabled(checked);
+    this->ui->mtuSizeLabel->setEnabled(checked);
+    this->ui->mtuSizeLineEdit->setEnabled(checked);
+    this->ui->generalNumberOfSecondsLabel->setEnabled(checked);
+    this->ui->generalNumberOfSecondsLineEdit->setEnabled(checked);
+    this->ui->generalMeasurementLabel->setEnabled(checked);
+    this->ui->generalMeasurementLineEdit->setEnabled(checked);
 }
 
 void StatisticsManager::updateView()
 {
     //General tab
-    ui->ueStatisticsCheckBox->setChecked(statisticsData.getStatMapFor(ui->ueStatisticsCheckBox->text()));
-    ui->modelExpNasCheckBox->setChecked(statisticsData.getStatMapFor(ui->modelExpNasCheckBox->text()));
-    ui->modelExpRrcCheckBox->setChecked(statisticsData.getStatMapFor(ui->modelExpRrcCheckBox->text()));
-    ui->modelExpMobilityCheckBox->setChecked(statisticsData.getStatMapFor(ui->modelExpMobilityCheckBox->text()));
-    ui->modelExpThroughputCheckBox->setChecked(statisticsData.getStatMapFor(ui->modelExpThroughputCheckBox->text()));
-    ui->perUeThroughputCheckBox->setChecked(statisticsData.getStatMapFor(ui->perUeThroughputCheckBox->text()));
-    ui->ueExpMobilityCheckBox->setChecked(statisticsData.getStatMapFor(ui->ueExpMobilityCheckBox->text()));
-    ui->modelExpPsCheckBox->setChecked(statisticsData.getStatMapFor(ui->modelExpPsCheckBox->text()));
-    ui->ueExpPsCheckBox->setChecked(statisticsData.getStatMapFor(ui->ueExpPsCheckBox->text()));
-    ui->modelExpCsCheckBox->setChecked(statisticsData.getStatMapFor(ui->modelExpCsCheckBox->text()));
-    ui->ueExpCsCheckBox->setChecked(statisticsData.getStatMapFor(ui->ueExpCsCheckBox->text()));
-    ui->writeGeneralStatisticsToFileCheckBox->clicked(statisticsData.getStatMapFor(ui->writeGeneralStatisticsToFileCheckBox->text()));
-    ui->ueLineEdit->setText(statisticsData.generalUe);
-    ui->delayBetweenPacketsLineEdit->setText(statisticsData.generalDelayBetweenPackets);
-    ui->generalNumberOfSecondsLineEdit->setText(statisticsData.generalTotalNumberOfSeconds);
-    ui->mtuSizeLineEdit->setText(statisticsData.generalMtuSize);
-    ui->generalMeasurementLineEdit->setText(statisticsData.generalMeasurementDelta);
+    this->ui->ueStatisticsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueStatisticsCheckBox->text()));
+    this->ui->modelExpNasCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpNasCheckBox->text()));
+    this->ui->modelExpRrcCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpRrcCheckBox->text()));
+    this->ui->modelExpMobilityCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpMobilityCheckBox->text()));
+    this->ui->modelExpThroughputCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpThroughputCheckBox->text()));
+    this->ui->perUeThroughputCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->perUeThroughputCheckBox->text()));
+    this->ui->ueExpMobilityCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueExpMobilityCheckBox->text()));
+    this->ui->modelExpPsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpPsCheckBox->text()));
+    this->ui->ueExpPsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueExpPsCheckBox->text()));
+    this->ui->modelExpCsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpCsCheckBox->text()));
+    this->ui->ueExpCsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueExpCsCheckBox->text()));
+    this->ui->writeGeneralStatisticsToFileCheckBox->clicked(statisticsData.getStatMapFor(this->ui->writeGeneralStatisticsToFileCheckBox->text()));
+    this->ui->ueLineEdit->setText(statisticsData.generalUe);
+    this->ui->delayBetweenPacketsLineEdit->setText(statisticsData.generalDelayBetweenPackets);
+    this->ui->generalNumberOfSecondsLineEdit->setText(statisticsData.generalTotalNumberOfSeconds);
+    this->ui->mtuSizeLineEdit->setText(statisticsData.generalMtuSize);
+    this->ui->generalMeasurementLineEdit->setText(statisticsData.generalMeasurementDelta);
     //IPEX tab
-    ui->ipexProtocolStatsCheckBox->setChecked(statisticsData.getStatMapFor(ui->ipexProtocolStatsCheckBox->text()));
-    ui->tguStatsCheckBox->clicked(statisticsData.getStatMapFor(ui->tguStatsCheckBox->text()));
-    ui->ipexTguImsiLineEdit->setText(statisticsData.ipexTguImsi);
-    ui->writeIpexToFileCheckBox->clicked(statisticsData.getStatMapFor(ui->writeIpexToFileCheckBox->text()));
-    ui->ipexFilenameLineEdit->setText(statisticsData.ipexFileName);
-    ui->ipexNumberOfSecondsLineEdit->setText(statisticsData.ipexFileName);
-    ui->ipexMeasurementLineEdit->setText(statisticsData.ipexFileName);
+    this->ui->ipexProtocolStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ipexProtocolStatsCheckBox->text()));
+    this->ui->tguStatsCheckBox->clicked(statisticsData.getStatMapFor(this->ui->tguStatsCheckBox->text()));
+    this->ui->ipexTguImsiLineEdit->setText(statisticsData.ipexTguImsi);
+    this->ui->writeIpexToFileCheckBox->clicked(statisticsData.getStatMapFor(this->ui->writeIpexToFileCheckBox->text()));
+    this->ui->ipexFilenameLineEdit->setText(statisticsData.ipexFileName);
+    this->ui->ipexNumberOfSecondsLineEdit->setText(statisticsData.ipexFileName);
+    this->ui->ipexMeasurementLineEdit->setText(statisticsData.ipexFileName);
     //PDCP-U tab
-    ui->pdcpuProtocolStatsCheckBox->setChecked(statisticsData.getStatMapFor(ui->pdcpuProtocolStatsCheckBox->text()));
-    ui->rohcStatsCheckBox->setChecked(statisticsData.getStatMapFor(ui->rohcStatsCheckBox->text()));
-    ui->bearerStatusWordsCheckBox->clicked(statisticsData.getStatMapFor(ui->bearerStatusWordsCheckBox->text()));
-    ui->bearerStatusImsiLineEdit->setText(statisticsData.pdcpuBearerStatusImsi);
-    ui->bearerStatusEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerStatusEpsBearerId);
-    ui->bearerRohcCheckBox->clicked(statisticsData.getStatMapFor(ui->bearerRohcCheckBox->text()));
-    ui->bearerStatusImsiLineEdit->setText(statisticsData.pdcpuBearerRohcImsi);
-    ui->bearerStatusEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerRohcEpsBearerId);
-    ui->bearerRohcCheckBox->clicked(statisticsData.getStatMapFor(ui->bearerRohcCheckBox->text()));
-    ui->bearerRohcImsiLineEdit->setText(statisticsData.pdcpuBearerErrorImsi);
-    ui->bearerRohcEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerErrorEpsBearerId);
-    ui->writePdcpuToFileCheckBox->clicked(statisticsData.getStatMapFor(ui->writePdcpuToFileCheckBox->text()));
-    ui->pdcpuFilenameLineEdit->setText(statisticsData.pdcpuFileName);
-    ui->pdcpuNumberOfSecondsLineEdit->setText(statisticsData.pdcpuSeconds);
-    ui->pdcpuMeasurementLineEdit->setText(statisticsData.pdcpuMeasurement);
+    this->ui->pdcpuProtocolStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->pdcpuProtocolStatsCheckBox->text()));
+    this->ui->rohcStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->rohcStatsCheckBox->text()));
+    this->ui->bearerStatusWordsCheckBox->clicked(statisticsData.getStatMapFor(this->ui->bearerStatusWordsCheckBox->text()));
+    this->ui->bearerStatusImsiLineEdit->setText(statisticsData.pdcpuBearerStatusImsi);
+    this->ui->bearerStatusEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerStatusEpsBearerId);
+    this->ui->bearerRohcCheckBox->clicked(statisticsData.getStatMapFor(this->ui->bearerRohcCheckBox->text()));
+    this->ui->bearerStatusImsiLineEdit->setText(statisticsData.pdcpuBearerRohcImsi);
+    this->ui->bearerStatusEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerRohcEpsBearerId);
+    this->ui->bearerRohcCheckBox->clicked(statisticsData.getStatMapFor(this->ui->bearerRohcCheckBox->text()));
+    this->ui->bearerRohcImsiLineEdit->setText(statisticsData.pdcpuBearerErrorImsi);
+    this->ui->bearerRohcEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerErrorEpsBearerId);
+    this->ui->writePdcpuToFileCheckBox->clicked(statisticsData.getStatMapFor(this->ui->writePdcpuToFileCheckBox->text()));
+    this->ui->pdcpuFilenameLineEdit->setText(statisticsData.pdcpuFileName);
+    this->ui->pdcpuNumberOfSecondsLineEdit->setText(statisticsData.pdcpuSeconds);
+    this->ui->pdcpuMeasurementLineEdit->setText(statisticsData.pdcpuMeasurement);
 }
 
 void StatisticsManager::saveStatisticsData()
 {
     //General tab
-    statisticsData.setStatMapFor(ui->ueStatisticsCheckBox->text(), ui->ueStatisticsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->modelExpNasCheckBox->text(), ui->modelExpNasCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->modelExpRrcCheckBox->text(), ui->modelExpRrcCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->modelExpMobilityCheckBox->text(), ui->modelExpMobilityCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->modelExpThroughputCheckBox->text(), ui->modelExpThroughputCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->perUeThroughputCheckBox->text(), ui->perUeThroughputCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->ueExpMobilityCheckBox->text(), ui->ueExpMobilityCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->modelExpPsCheckBox->text(), ui->modelExpPsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->ueExpPsCheckBox->text(), ui->ueExpPsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->modelExpCsCheckBox->text(), ui->modelExpCsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->ueExpCsCheckBox->text(), ui->ueExpCsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->writeGeneralStatisticsToFileCheckBox->text(), ui->writeGeneralStatisticsToFileCheckBox->isChecked());
-    statisticsData.generalUe = ui->ueLineEdit->text();
-    statisticsData.generalDelayBetweenPackets = ui->delayBetweenPacketsLineEdit->text();
-    statisticsData.generalTotalNumberOfSeconds = ui->generalNumberOfSecondsLineEdit->text();
-    statisticsData.generalMtuSize = ui->mtuSizeLineEdit->text();
-    statisticsData.generalMeasurementDelta = ui->generalMeasurementLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->ueStatisticsCheckBox->text(), this->ui->ueStatisticsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->modelExpNasCheckBox->text(), this->ui->modelExpNasCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->modelExpRrcCheckBox->text(), this->ui->modelExpRrcCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->modelExpMobilityCheckBox->text(), this->ui->modelExpMobilityCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->modelExpThroughputCheckBox->text(), this->ui->modelExpThroughputCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->perUeThroughputCheckBox->text(), this->ui->perUeThroughputCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->ueExpMobilityCheckBox->text(), this->ui->ueExpMobilityCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->modelExpPsCheckBox->text(), this->ui->modelExpPsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->ueExpPsCheckBox->text(), this->ui->ueExpPsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->modelExpCsCheckBox->text(), this->ui->modelExpCsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->ueExpCsCheckBox->text(), this->ui->ueExpCsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->writeGeneralStatisticsToFileCheckBox->text(), this->ui->writeGeneralStatisticsToFileCheckBox->isChecked());
+    statisticsData.generalUe = this->ui->ueLineEdit->text();
+    statisticsData.generalDelayBetweenPackets = this->ui->delayBetweenPacketsLineEdit->text();
+    statisticsData.generalTotalNumberOfSeconds = this->ui->generalNumberOfSecondsLineEdit->text();
+    statisticsData.generalMtuSize = this->ui->mtuSizeLineEdit->text();
+    statisticsData.generalMeasurementDelta = this->ui->generalMeasurementLineEdit->text();
     //IPEX tab
-    statisticsData.setStatMapFor(ui->ipexProtocolStatsCheckBox->text(), ui->ipexProtocolStatsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->tguStatsCheckBox->text(), ui->tguStatsCheckBox->isChecked());
-    statisticsData.ipexTguImsi = ui->ipexTguImsiLineEdit->text();
-    statisticsData.setStatMapFor(ui->writeIpexToFileCheckBox->text(), ui->writeIpexToFileCheckBox->isChecked());
-    statisticsData.ipexFileName = ui->ipexFilenameLineEdit->text();
-    statisticsData.ipexSeconds = ui->ipexNumberOfSecondsLineEdit->text();
-    statisticsData.ipexMeasurement = ui->ipexMeasurementLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->ipexProtocolStatsCheckBox->text(), this->ui->ipexProtocolStatsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->tguStatsCheckBox->text(), this->ui->tguStatsCheckBox->isChecked());
+    statisticsData.ipexTguImsi = this->ui->ipexTguImsiLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->writeIpexToFileCheckBox->text(), this->ui->writeIpexToFileCheckBox->isChecked());
+    statisticsData.ipexFileName = this->ui->ipexFilenameLineEdit->text();
+    statisticsData.ipexSeconds = this->ui->ipexNumberOfSecondsLineEdit->text();
+    statisticsData.ipexMeasurement = this->ui->ipexMeasurementLineEdit->text();
     //PDCP-U tab
-    statisticsData.setStatMapFor(ui->pdcpuProtocolStatsCheckBox->text(), ui->pdcpuProtocolStatsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->rohcStatsCheckBox->text(), ui->rohcStatsCheckBox->isChecked());
-    statisticsData.setStatMapFor(ui->bearerStatusWordsCheckBox->text(), ui->bearerStatusWordsCheckBox->isChecked());
-    statisticsData.pdcpuBearerStatusImsi = ui->bearerStatusImsiLineEdit->text();
-    statisticsData.pdcpuBearerStatusEpsBearerId = ui->bearerStatusEpsBearerIdLineEdit->text();
-    statisticsData.setStatMapFor(ui->bearerRohcCheckBox->text(), ui->bearerRohcCheckBox->isChecked());
-    statisticsData.pdcpuBearerRohcImsi = ui->bearerRohcImsiLineEdit->text();
-    statisticsData.pdcpuBearerRohcEpsBearerId = ui->bearerRohcEpsBearerIdLineEdit->text();
-    statisticsData.setStatMapFor(ui->bearerErrorCheckBox->text(), ui->bearerErrorCheckBox->isChecked());
-    statisticsData.pdcpuBearerErrorImsi = ui->bearerErrorImsiLineEdit->text();
-    statisticsData.pdcpuBearerErrorEpsBearerId = ui->bearerErrorEpsBearerIdLineEdit->text();
-    statisticsData.setStatMapFor(ui->writePdcpuToFileCheckBox->text(), ui->writePdcpuToFileCheckBox->isChecked());
-    statisticsData.pdcpuFileName = ui->pdcpuFilenameLineEdit->text();
-    statisticsData.pdcpuSeconds = ui->pdcpuNumberOfSecondsLineEdit->text();
-    statisticsData.pdcpuMeasurement = ui->pdcpuMeasurementLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->pdcpuProtocolStatsCheckBox->text(), this->ui->pdcpuProtocolStatsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->rohcStatsCheckBox->text(), this->ui->rohcStatsCheckBox->isChecked());
+    statisticsData.setStatMapFor(this->ui->bearerStatusWordsCheckBox->text(), this->ui->bearerStatusWordsCheckBox->isChecked());
+    statisticsData.pdcpuBearerStatusImsi = this->ui->bearerStatusImsiLineEdit->text();
+    statisticsData.pdcpuBearerStatusEpsBearerId = this->ui->bearerStatusEpsBearerIdLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->bearerRohcCheckBox->text(), this->ui->bearerRohcCheckBox->isChecked());
+    statisticsData.pdcpuBearerRohcImsi = this->ui->bearerRohcImsiLineEdit->text();
+    statisticsData.pdcpuBearerRohcEpsBearerId = this->ui->bearerRohcEpsBearerIdLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->bearerErrorCheckBox->text(), this->ui->bearerErrorCheckBox->isChecked());
+    statisticsData.pdcpuBearerErrorImsi = this->ui->bearerErrorImsiLineEdit->text();
+    statisticsData.pdcpuBearerErrorEpsBearerId = this->ui->bearerErrorEpsBearerIdLineEdit->text();
+    statisticsData.setStatMapFor(this->ui->writePdcpuToFileCheckBox->text(), this->ui->writePdcpuToFileCheckBox->isChecked());
+    statisticsData.pdcpuFileName = this->ui->pdcpuFilenameLineEdit->text();
+    statisticsData.pdcpuSeconds = this->ui->pdcpuNumberOfSecondsLineEdit->text();
+    statisticsData.pdcpuMeasurement = this->ui->pdcpuMeasurementLineEdit->text();
 }

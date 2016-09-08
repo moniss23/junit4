@@ -116,6 +116,23 @@ void DataSystem::updateCell(const QPair<Cell,Center> &cell, const QString &proje
      saveProjectsFile();
 }
 
+void DataSystem::updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData &statisticsData)
+{
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    auto trafficFile = project->findTrafficFileByName(trafficFileName);
+    if(trafficFile == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    trafficFile->statisticsData = statisticsData;
+}
+
 void DataSystem::updateHandover(const Handover &handover, const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
