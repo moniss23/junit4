@@ -24,9 +24,16 @@ signals:
     void loadData(const QString &projectName, const QString &trafficName, const int &index);
 
 private slots:
-    void on_pushButton_pressed();
-
-    void on_pushButton_2_pressed();
+    void on_CM1Button_clicked();
+    void on_CM2Button_clicked();
+    void on_CM3Button_clicked();
+    void on_CM4Button_clicked();
+    void on_CM5Button_clicked();
+    void on_CM6Button_clicked();
+    void on_CM7Button_clicked();
+    void on_CM8Button_clicked();
+    void on_CM9Button_clicked();
+    void on_CM10Button_clicked();
 
 private:
     Ui::CustomModelsListForm *ui;

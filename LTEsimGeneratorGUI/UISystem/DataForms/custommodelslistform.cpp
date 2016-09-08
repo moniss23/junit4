@@ -24,52 +24,52 @@ void CustomModelsListForm::loadData() {
 
 }
 
-void CustomModelsListForm::on_pushButton_clicked()
+void CustomModelsListForm::on_CM1Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_2_clicked()
+void CustomModelsListForm::on_CM2Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_3_clicked()
+void CustomModelsListForm::on_CM3Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_4_clicked()
+void CustomModelsListForm::on_CM4Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_5_clicked()
+void CustomModelsListForm::on_CM5Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_6_clicked()
+void CustomModelsListForm::on_CM6Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_7_clicked()
+void CustomModelsListForm::on_CM7Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_8_clicked()
+void CustomModelsListForm::on_CM8Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_9_clicked()
+void CustomModelsListForm::on_CM9Button_clicked()
 {
 
 }
 
-void CustomModelsListForm::on_pushButton_10_clicked()
+void CustomModelsListForm::on_CM10Button_clicked()
 {
 
 }
