@@ -39,7 +39,16 @@ SOURCES += \
     Data/ProjectSettings/generalconfigurationparameters.cpp \
     Data/ProjectSettings/ueparameters.cpp \
     UISystem/Widgets/uerepresentation.cpp \
-    UISystem/DataForms/custommodelslistform.cpp
+    UISystem/DataForms/custommodelslistform.cpp \
+    Data/TrafficSettings/custommodelsettings.cpp \
+    Data/TrafficSettings/CustomModelsData/ping.cpp \
+    Data/TrafficSettings/CustomModelsData/voip.cpp \
+    Data/TrafficSettings/CustomModelsData/ftpdl.cpp \
+    Data/TrafficSettings/CustomModelsData/ftpul.cpp \
+    Data/TrafficSettings/CustomModelsData/streamdl.cpp \
+    Data/TrafficSettings/CustomModelsData/streamul.cpp \
+    Data/TrafficSettings/CustomModelsData/syncedping.cpp \
+    Data/TrafficSettings/CustomModelsData/servicereq.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -116,7 +125,16 @@ HEADERS  += \
     Data/ProjectSettings/ueparameters.h \
     Data/Interfaces/scriptable.h \
     UISystem/Widgets/uerepresentation.h \
-    UISystem/DataForms/custommodelslistform.h
+    UISystem/DataForms/custommodelslistform.h \
+    Data/TrafficSettings/custommodelsettings.h \
+    Data/TrafficSettings/CustomModelsData/ping.h \
+    Data/TrafficSettings/CustomModelsData/voip.h \
+    Data/TrafficSettings/CustomModelsData/ftpdl.h \
+    Data/TrafficSettings/CustomModelsData/ftpul.h \
+    Data/TrafficSettings/CustomModelsData/streamdl.h \
+    Data/TrafficSettings/CustomModelsData/streamul.h \
+    Data/TrafficSettings/CustomModelsData/syncedping.h \
+    Data/TrafficSettings/CustomModelsData/servicereq.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
