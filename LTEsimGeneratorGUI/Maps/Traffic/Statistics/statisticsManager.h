@@ -2,7 +2,8 @@
 #define STATISTICS_H
 
 #include <QWidget>
-#include<QCheckBox>
+#include <QCheckBox>
+#include <QHBoxLayout>
 #include <Maps/Traffic/Statistics/statisticsData.h>
 namespace Ui {
 class Statistics;
@@ -33,7 +34,7 @@ public slots:
      * @brief showStatisticsWindow is a slot that generates the Statistics.ui for provided StatisticsData dynamicly
      * @param statisticsData is object that provides necesary data to display Statistics.ui properly
      */
-    void showStatisticsWindow(const StatisticsData& statisticsData);
+    void loadAndSpawn(const QString &projectName, const QString &trafficFileName, const StatisticsData& statisticsData);
 
 private slots:
     /**
@@ -45,13 +46,30 @@ private slots:
      */
     void on_saveButton_clicked();
 
-private:
-    Ui::Statistics *ui;
-    StatisticsData localStats;
-    QVector<QCheckBox*>* checkBoxes;
-    bool isUiSetUp;
-    bool wereChangesMade;
+    void on_writePdcpuToFileCheckBox_clicked(bool checked);
 
+    void on_bearerErrorCheckBox_clicked(bool checked);
+
+    void on_bearerRohcCheckBox_clicked(bool checked);
+
+    void on_bearerStatusWordsCheckBox_clicked(bool checked);
+
+    void on_tguStatsCheckBox_clicked(bool checked);
+
+    void on_writeIpexToFileCheckBox_clicked(bool checked);
+
+    void on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked);
+
+private:
+    Ui::Statistics* ui;
+
+    QString projectName;
+    QString trafficFileName;
+    StatisticsData statisticsData;
+
+private:
+    void updateView();
+    void saveStatisticsData();
 };
 
 #endif // STATISTICS_H

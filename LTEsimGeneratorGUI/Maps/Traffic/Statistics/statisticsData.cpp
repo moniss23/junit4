@@ -17,7 +17,26 @@ StatisticsData::StatisticsData(const StatisticsData& statisticsData){
 }
 
 StatisticsData& StatisticsData::operator =(const StatisticsData& rhc) {
-    statisticsMap = rhc.statisticsMap;
+    this->generalDelayBetweenPackets = rhc.generalDelayBetweenPackets;
+    this->generalMeasurementDelta =rhc.generalMeasurementDelta;
+    this->generalMtuSize = rhc.generalMtuSize;
+    this->generalTotalNumberOfSeconds = rhc.generalTotalNumberOfSeconds;
+    this->generalUe = rhc.generalUe;
+    this->ipexFileName = rhc.ipexFileName;
+    this->ipexMeasurement = rhc.ipexMeasurement;
+    this->ipexSeconds = rhc.ipexSeconds;
+    this->ipexTguImsi = rhc.ipexTguImsi;
+    this->pdcpuBearerErrorEpsBearerId = rhc.pdcpuBearerErrorEpsBearerId;
+    this->pdcpuBearerErrorImsi = rhc.pdcpuBearerErrorImsi;
+    this->pdcpuBearerRohcEpsBearerId = rhc.pdcpuBearerRohcEpsBearerId;
+    this->pdcpuBearerRohcImsi = rhc.pdcpuBearerRohcImsi;
+    this->pdcpuBearerStatusEpsBearerId = rhc.pdcpuBearerStatusEpsBearerId;
+    this->pdcpuBearerStatusImsi = rhc.pdcpuBearerStatusImsi;
+    this->pdcpuFileName = rhc.pdcpuFileName;
+    this->pdcpuMeasurement = rhc.pdcpuMeasurement;
+    this->pdcpuSeconds = rhc.pdcpuSeconds;
+    this->statisticsMap = rhc.statisticsMap;
+
     return *this;
 }
 
@@ -35,24 +54,26 @@ QString StatisticsData::getElementType() const {
     return QString("SettingsData");
 }
 
-const QStringList StatisticsData::namesList = {"Listing Static Information for Each UE",
-                               "Resetting All Statistics Counters",
-                               "Listing Statistics on NAS",
-                               "Listing Statistics on RRC",
-                               "Listing Mobility Statistics per Model and Area",
-                               "Listing Throughput Statistics per Area and Model",
-                               "Listing Throughput Statistics per UE and Model",
-                               "Listing Mobility Statistics per UE",
-                               "Listing PS Statistics per Model",
-                               "Listing PS Statistics per UE",
-                               "Listing CS Statistics per Model",
-                               "Listing CS Statistics per UE",
-                               "Protocol Statistics",
-                               "TGU Statistics",
-                               "Countinuous Statistics",
-                               "Protocol Statistics",
-                               "ROHC Protocol Statistics",
-                               "General Bearer information",
-                               "Bearer ROHC information",
-                               "Bearer Error Statistics",
-                               "Continuous Statistics"};
+const QStringList StatisticsData::namesList = {
+    "Ue Static Info",
+    "Model Exp Nas",
+    "Model Exp Rrc",
+    "Model Exp Mobility",
+    "Model Exp Throughput",
+    "Per Ue Throughput",
+    "Ue Exp Mobility",
+    "Model Exp Ps",
+    "Ue Exp Ps",
+    "Model Exp Cs",
+    "Ue Exp Cs",
+    "Write Statistics to file",
+    "Ipex Protocol Stats",
+    "Ipex Tgu Stats",
+    "Write IPEX to file",
+    "Protocol Stats",
+    "Protocol Rohc Stats",
+    "Bearer Status Words Stats",
+    "Bearer Rohc Stats",
+    "Bearer Error Stats",
+    "Write PdcpU to file"
+    };

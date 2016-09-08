@@ -10,6 +10,7 @@ class TrafficFileData : public SerializeInterface
 public:
     QString filename;
     QString content;
+    StatisticsData statisticsData;
 
     /****************************
      * SERIALIZATION INTERFACE  *

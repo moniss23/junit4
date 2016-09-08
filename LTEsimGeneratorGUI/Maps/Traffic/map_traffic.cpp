@@ -5143,10 +5143,10 @@ void Map_traffic::parseListToAddPingEtcCM2(){
 
 void Map_traffic::on_bt_statistics_clicked()
 {
-    viewStatistics.close();
-    viewStatistics.showStatisticsWindow(*(this->statistics));
-    //viewStatistics.setParameters(statistics, appSettings);
-    viewStatistics.show();
+//    viewStatistics.close();
+//    viewStatistics.showStatisticsWindow(*(this->statistics));
+//    //viewStatistics.setParameters(statistics, appSettings);
+//    viewStatistics.show();
 }
 
 void Map_traffic::on_bt_tuningtraffic_clicked()

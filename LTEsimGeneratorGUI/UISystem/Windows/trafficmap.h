@@ -22,8 +22,14 @@ public:
     explicit TrafficMap(QWidget *parent = 0);
     ~TrafficMap();
 
+signals:
+    void spawnWindow_Statistics(const QString &projectName, const QString &trafficFileName);
+
 public slots:
     void loadAndOpen(const Project &project, const TrafficFileData &trafficFileData);
+
+private slots:
+    void on_statisticsButton_clicked();
 
 private:
     Ui::TrafficMap *    ui;

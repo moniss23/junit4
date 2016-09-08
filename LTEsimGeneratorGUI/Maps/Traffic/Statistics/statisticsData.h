@@ -39,6 +39,27 @@ public:
 
     const static QStringList namesList;
 
+    QString generalUe;
+    QString generalDelayBetweenPackets;
+    QString generalTotalNumberOfSeconds;
+    QString generalMtuSize;
+    QString generalMeasurementDelta;
+
+    QString ipexTguImsi;
+    QString ipexFileName;
+    QString ipexSeconds;
+    QString ipexMeasurement;
+
+    QString pdcpuBearerStatusImsi;
+    QString pdcpuBearerStatusEpsBearerId;
+    QString pdcpuBearerRohcImsi;
+    QString pdcpuBearerRohcEpsBearerId;
+    QString pdcpuBearerErrorImsi;
+    QString pdcpuBearerErrorEpsBearerId;
+    QString pdcpuFileName;
+    QString pdcpuSeconds;
+    QString pdcpuMeasurement;
+
 private:
     QVector<std::tuple<QString,bool>> statisticsMap;
 };

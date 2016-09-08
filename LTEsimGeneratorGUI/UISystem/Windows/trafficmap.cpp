@@ -52,3 +52,8 @@ void TrafficMap::loadAndOpen(const Project &project, const TrafficFileData &traf
 
     this->show();
 }
+
+void TrafficMap::on_statisticsButton_clicked()
+{
+    spawnWindow_Statistics(project.name, trafficFileData.filename);
+}

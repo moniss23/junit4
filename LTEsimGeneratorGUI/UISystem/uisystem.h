@@ -20,6 +20,7 @@
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Windows/newmapwindow.h"
 #include "UISystem/Windows/trafficmap.h"
+#include "Maps/Traffic/Statistics/statisticsManager.h"
 
 class UISystem : public QObject
 {
@@ -46,6 +47,7 @@ public slots:
     void spawnWindow_MapView(const QString& projectName);
     void spawnWindow_MapRange(const QString& projectName);
     void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
+    void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -61,6 +63,7 @@ signals:
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, const TrafficFileData &trafficFileData);
+    void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -82,6 +85,7 @@ private:
     MapRangeForm        mapRangeForm;
     NewMapWindow        newMapWindow;
     TrafficMap          trafficMap;
+    StatisticsManager statisticsManager;
 };
 
 #endif // UISYSTEM_H
