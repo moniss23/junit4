@@ -2,8 +2,9 @@
 #define UBSIMSETTINGS_H
 
 #include "Data/Interfaces/serializeinterface.h"
+#include "Data/Interfaces/scriptable.h"
 
-class UBSimSettings : public SerializeInterface
+class UBSimSettings : public SerializeInterface, public Scriptable
 {
 public:
     UBSimSettings();
@@ -27,6 +28,15 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
+
+    /****************************
+    *   PARSING INTERFACE       *
+    ****************************/
+
+    virtual QString ParseToScript();
+
+
 };
 
 #endif // UBSIMSETTINGS_H

@@ -5,12 +5,15 @@
 #include <QPair>
 #include <QVector>
 
-class UeParameters
+#include "Data/Interfaces/scriptable.h"
+#include "Data/Interfaces/serializeinterface.h"
+
+class UeParameters: public SerializeInterface
 {
 public:
     UeParameters();
     ~UeParameters();
-    bool startUeComponent = false;//TODO: get rid of that default value after implementing parsing method
+    bool startUeComponent;// = false;//TODO: get rid of that default value after implementing parsing method
     QString name;
     QString managers;
     QString pluginFilterPath;

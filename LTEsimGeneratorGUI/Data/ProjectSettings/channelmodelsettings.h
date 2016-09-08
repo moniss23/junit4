@@ -2,8 +2,9 @@
 #define CHANNELMODELSETTINGS_H
 
 #include "Data/Interfaces/serializeinterface.h"
+#include "Data/Interfaces/scriptable.h"
 
-class ChannelModelSettings : public SerializeInterface
+class ChannelModelSettings : public SerializeInterface, public Scriptable
 {
 public:
     ChannelModelSettings();
@@ -38,6 +39,13 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
+    /****************************
+    *   PARSING INTERFACE       *
+    ****************************/
+
+    virtual QString ParseToScript();
+
 };
 
 #endif // CHANNELMODELSETTINGS_H

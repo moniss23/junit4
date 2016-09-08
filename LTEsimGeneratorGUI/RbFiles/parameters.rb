@@ -606,6 +606,7 @@ module Parameters
     default[:dl_pathloss_min_pathloss] = 1.00
     default[:dl_pathloss_max_pathloss] = 20.0
     default[:dl_pathloss_time_min_to_max] = 1000
+    
     default[:dl_pathloss_distribute_ues] = true
     default[:pathloss_based_feedback_sinr_threshold] = 1.0
 

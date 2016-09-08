@@ -1,7 +1,5 @@
 #include "uisystem.h"
 #include <QMessageBox>
-#include <QDebug>
-
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),

@@ -45,7 +45,7 @@ QString MmeSettings::ParseToScript()
     else {
         outputString.append("false");
     }
-    outputString.append("\t# Set to true if simulated core is used in the configuration.\n");
+    outputString.append("\t\t# Set to true if simulated core is used in the configuration.\n");
 
     // NAMES
     outputString.append("\t\tdefault[:mme_names] = ");
@@ -59,7 +59,7 @@ QString MmeSettings::ParseToScript()
         }
     }
     outputString.append("]");
-    outputString.append("\t# Name of the MME component\n");
+    outputString.append("\t\t# Name of the MME component\n");
 
     // TAIS
     outputString.append("\t\tdefault[:mme_tais] = ");
@@ -71,7 +71,7 @@ QString MmeSettings::ParseToScript()
     // NUMBER OF MMES
     outputString.append("\t\tdefault[:mmes] = ");
     outputString.append(QString::number(numberOfMme));
-    outputString.append("\t# Number of MMEs (used in multiple MME configuration)\n");
+    outputString.append("\t\t\t# Number of MMEs (used in multiple MME configuration)\n");
 
     outputString.append("\t\t# The IP addresses must be available on the LTEsum server and reachable from the eNB CP interface\n");
 

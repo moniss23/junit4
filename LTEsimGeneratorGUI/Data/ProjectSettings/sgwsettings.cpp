@@ -40,7 +40,7 @@ QString SgwSettings::ParseToScript()
     outputString.append("\t\tdefault[:sgw_names] = [\"");
     outputString.append(name);
     outputString.append("\"]");
-    outputString.append("\t\t# Name of the Serving GWs\n");
+    outputString.append("\t\t\t\t\t# Name of the Serving GWs\n");
     //IP ADRESS
     outputString.append("\t\tdefault[:sgw_ipAddresses] = [\"");
     outputString.append(ipAdress);
@@ -61,8 +61,8 @@ QString SgwSettings::ParseToScript()
     else {
         outputString.append("false");
     }
-    outputString.append("\t\t# Indicates if the core network shall act\n");
-    outputString.append("\t\t\t\t# as an IP gateway to the UEs\n");
+    outputString.append("\t\t\t\t\t# Indicates if the core network shall act\n");
+    outputString.append("\t\t\t\t\t\t\t\t\t\t# as an IP gateway to the UEs\n");
     outputString.append("\n");
     outputString.append("\t\t# All JMX parameters can be listed with help :sgw in the ltesim_cli\n");
     outputString.append("\t\treturn default\n");

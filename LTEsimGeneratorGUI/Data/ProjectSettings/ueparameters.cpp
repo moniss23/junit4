@@ -36,3 +36,4 @@ void UeParameters::deserializeData(const QByteArray &rawData)
               ucToolIp >> ucToolcIds >> ueNetworkCapability >>
               ueKeyDerivationAlgorithm >> ueKey >> ueOp;
 }
+

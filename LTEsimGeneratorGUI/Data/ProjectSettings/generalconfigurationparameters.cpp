@@ -45,7 +45,7 @@ QString GeneralConfigurationParameters::ParseToScript(){
     generalParameters.append("coreParameters] = ");
     generalParameters.append(coreParameters);
     generalParameters.append("\t# String containing start parameters for ltesim core \n");
-    generalParameters.append("\t\t\t\t\t# See ltesim core -help for details\n");
+    generalParameters.append("\t\t\t\t\t\t\t# See ltesim core -help for details\n");
                         // jvm parameters
     generalParameters.append("\t\tdefault[:");
     generalParameters.append("jvm_parameters] = ");

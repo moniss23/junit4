@@ -1,4 +1,6 @@
 #include "scriptparsermanager.h"
+#include "Data/ProjectSettings/Helpers/ueparametersparser.h"
+#include "Data/ProjectSettings/Helpers/mapparser.h"
 #include <QRegExp>
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
@@ -108,14 +110,6 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             }
             project.sgwSettings = getSgwSettings(scriptContentLines.mid(startIndex,len));
         }
-        else if(scriptContentLines[i].contains("default[:uctool_ip]")) {
-            startIndex=i;
-            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
-                len++;
-                i++;
-            }
-            project.ucToolSettings = getUCToolSettingsFromScript(scriptContentLines.mid(startIndex,len));
-        }
         else if (scriptContentLines[i].contains("[:generate_pagings]")){
             startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
@@ -147,6 +141,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
                 i++;
             }
             project.ueParameters = getUeParameters(scriptContentLines.mid(startIndex,len));
+            project.ucToolSettings = getUCToolSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
     }
     project.cellsInfo = this->matchCellsToCenters(cells, centers);
@@ -260,9 +255,13 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
             }
         }
         else if(scriptContentLines[i].contains("default[:userDataGen]")) {
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
-                dataGeneratorSettings.userDataGenerator = quoteRegExp.capturedTexts();
+            QRegExp quoteRegExp("\"ipex.*\"");
+            int j=0;
+            while (scriptContentLines[i+j].contains("ipex")){
+                if (quoteRegExp.indexIn(scriptContentLines[i+j])>-1){
+                    dataGeneratorSettings.userDataGenerator.append(scriptContentLines[i+j].mid(quoteRegExp.indexIn(scriptContentLines[i+j]),scriptContentLines[i+j].indexOf("\n")));
+                }
+                j++;
             }
         }
         else if(scriptContentLines[i].contains("default[:ipgwtg_port]")) {
@@ -351,18 +350,27 @@ UCToolSettings ScriptParserManager::getUCToolSettingsFromScript(const QStringLis
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ucToolSettings.ucToolIP = quoteRegExp.capturedTexts()[0];
+                ucToolSettings.ucToolIP.remove("\"");
+                ucToolSettings.ucToolIP.remove("{");
+                ucToolSettings.ucToolIP.remove("}");
             }
         }
         else if(scriptContentLines[i].contains("default[:uctool_cIds]")) {
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ucToolSettings.ucToolCIds = quoteRegExp.capturedTexts()[0];
+                ucToolSettings.ucToolCIds.remove("\"");
+                ucToolSettings.ucToolCIds.remove("{");
+                ucToolSettings.ucToolCIds.remove("}");
             }
         }
         else if(scriptContentLines[i].contains("default[:uctool_service_ip]")) {
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ucToolSettings.ucToolServiceIp = quoteRegExp.capturedTexts()[0];
+                ucToolSettings.ucToolServiceIp.remove("\"");
+                ucToolSettings.ucToolServiceIp.remove("}");
+                ucToolSettings.ucToolServiceIp.remove("{");
             }
         }
     }
@@ -573,24 +581,29 @@ UBSimSettings ScriptParserManager::getUBSimSettings(const QStringList scriptCont
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.ueTypesDir = quoteRegExp.capturedTexts()[0];
+                ubSimSettings.ueTypesDir.remove("\"");
             }
         }
         else if (scriptContentLines[i].contains("[:csTrafficModelsDir]")){
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.csTrafficModelsDir = quoteRegExp.capturedTexts()[0];
+                ubSimSettings.csTrafficModelsDir.remove("\"");
+                ubSimSettings.csTrafficModelsDir.remove("\'");
             }
         }
         else if (scriptContentLines[i].contains("[:psTrafficModelsDir]")){
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.psTrafficModelsDir = quoteRegExp.capturedTexts()[0];
+                ubSimSettings.psTrafficModelsDir.remove("\"");
             }
         }
         else if (scriptContentLines[i].contains("[:mobilityModelsDir]")){
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.mobilityModelsDir = quoteRegExp.capturedTexts()[0];
+                ubSimSettings.mobilityModelsDir.remove("\"");
             }
         }
         else if (scriptContentLines[i].contains("[:visualization]")){
@@ -605,6 +618,9 @@ UBSimSettings ScriptParserManager::getUBSimSettings(const QStringList scriptCont
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
                 ubSimSettings.ubsim_patches = quoteRegExp.capturedTexts();
+            }
+            for (QString patch:ubSimSettings.ubsim_patches){
+                patch.remove("\"");
             }
         }
     }
@@ -731,27 +747,6 @@ UeParameters ScriptParserManager::getUeParameters(const QStringList &scriptConte
                 ueParameters.pluginFilterPath.remove('"');
             }
         }
-        else if (scriptContentLines[i].contains("[:uctool_ip]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
-                ueParameters.ucToolIp = quoteRegExp.capturedTexts()[0];
-                ueParameters.ucToolIp.remove('"');
-            }
-        }
-        else if (scriptContentLines[i].contains("[:uctool_cIds]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
-                ueParameters.ucToolcIds =  quoteRegExp.capturedTexts()[0];
-                ueParameters.ucToolcIds.remove('"');
-            }
-        }
-        else if (scriptContentLines[i].contains("[:uctool_service_ip]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
-                ueParameters.ucToolServiceIp =  quoteRegExp.capturedTexts()[0];
-                ueParameters.ucToolServiceIp.remove('"');
-            }
-        }
         else if (scriptContentLines[i].contains("[:ue_network_capability]")){
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.lastIndexIn(scriptContentLines[i]) > -1){
@@ -828,82 +823,10 @@ module Parameters \n\
     outputTextStream.append(project.mmeSettings.ParseToScript());
     outputTextStream.append(project.pagingSettings.ParseToScript());
     outputTextStream.append(project.sgwSettings.ParseToScript());
+    outputTextStream.append(UeParametersParser::ParseToScript(project.ucToolSettings,project.ueParameters));
+    outputTextStream.append(MapParser::ParseMap(project.cellsInfo,project.mapRange,project.handovers,project.ubSimSettings,project.dataGeneratorSettings));
+    outputTextStream.append(project.ubSimSettings.ParseToScript());
+    outputTextStream.append(project.channelModelSettings.ParseToScript());
     outputTextStream.append("end");
     return outputTextStream;
 }
-
-
-
-                     // AKTUALNIE ZOSTAWIAM TĄ CZĘŚĆ WYRZUCĘ JĄ PRZY GENEROWANIU PARAMETERS RB
-                     // ALE Z UWAGI NA POZOSTAŁOŚCI I MOŻLIWOŚĆ SPRAWDZENIA JAK TO MNIEJ WIĘCEJ TO BYŁO ROBIONE
-                     // ZOSTAWIAM
-
-
-                     //    int number_of_cell =12;      //12
-            //    int number_of_Center=12;       //12
-            //    int number_of_Handover=21;     //21
-            //    outputList<<"require 'etc'\n";
-            //    outputList<<"module Parameters\n";
-
-            //    //---------------------------------UE-------------------------------------------------------------
-            //    outputList<< "\tdef Parameters.getUeParameters()\n";
-            //    outputList<<"\n\t\tdefault = {}";
-            //    outputList<<"\n\t\tdefault[:start_ue_component] = " + convertBoolToText(ue->getStart_ue_component());
-            //    outputList<<"\n\t\tdefault[:name] = \"" + ue->getName() +"\"";
-            //    outputList<<"\n\t\tdefault[:l1l2_managers] = \"" + ue->getL1l2_managers() +"\"";
-            //    outputList<<"\n\t\tdefault[:default[:rrc_pluginFilterPath] = \"" + ue->getRrc_pluginFilterPath() +"\"";
-            //    outputList<<"\n\t\tdefault[:uctool_ip] = \"" + ue->getUctool_ip() +"\"";
-            //    outputList<<"\n\t\tdefault[:uctool_cIds] = \"" + ue->getUctool_cIds() +"\"";
-            //    outputList<<"\n\t\tdefault[:uctool_service_ip] = \"" + ue->getUctool_service_ip() +"\"";
-            //    outputList<<"\n\t\tdefault[:ue_network_capability] = \"" + ue->getUe_network_capability() +"\"";
-            //    outputList<<"\n\t\tdefault[:ue_keyDerivationAlgorithm] = \"" + ue->getUe_keyDerivationAlgorithm() +"\"";
-            //    outputList<<"\n\t\tdefault[:ue_key] = \"" + ue->getUe_key() +"\"";
-            //    outputList<<"\n\t\tdefault[:ue_op] = \"" + ue->getUe_op() +"\"";
-            //    outputList <<"\n\t\treturn default\n\tend\n";
-            //    //---------------------------------Cell objects---------------------------------------------------
-            //    outputList << "\n\tdef Parameters.getRecParameters() \n";
-            //    outputList << "\n\t\tdefault = {} [\n\t\tdefault[:rec] = \n\t\t {\n";
-            //    for(int i =0; i<number_of_cell; i++){
-            //        outputList << "\t\t\t:cell => \"" + tabCell[i]->name + "\",\n";
-            //        outputList << "\t\t\t:site => \"" + tabCell[i]->site +"\",\n";
-            //        outputList << "\t\t\t:pci => " + QString::number(tabCell[i]->pci) +",\n";
-            //        outputList << "\t\t\t:position_X => " + QString::number(tabCell[i]->position_X) +",\n";
-            //        outputList << "\t\t\t:position_Y => " + QString::number(tabCell[i]->position_Y) +",\n";
-            //        outputList << "\t\t\t:earfcnDl => " + QString::number(tabCell[i]->earfcnDl) + +",\n";
-            //        outputList << "\t\t\t:transmitPower => " + QString::number(tabCell[i]->transmitPower) +",\n";
-            //        outputList << "\t\t\t:ulNoiseAndInterference => " + QString::number(tabCell[i]->ulNoiseAndInterference) +"\n";
-            //        if (i != number_of_cell-1)
-            //            outputList << "\t\t}.{\n";
-            //    }
-            //    outputList << "\t\t}\n\t\t] \n\treturn default \n\tend";
-
-            //    outputList << "\n\tdef Parameters.getTraffBehaviourParameters() \n\t\tdefault = {}";
-            //    outputList << "\n\t\tdefault[:imsiMapRange] = \"" + ue->getImsiMapRange() +"\"\n";
-
-            //   outputList <<"\n\t\tdefault[:southBoundMap] = " + QString::number(mapRange->getSouthBoundMap());
-            //   outputList <<"\n\t\tdefault[:northBoundMap] = " + QString::number(mapRange->getNorthBoundMap());
-            //   outputList <<"\n\t\tdefault[:westBoundMap] = " + QString::number(mapRange->getWestBoundMap());
-            //   outputList <<"\n\t\tdefault[:eastBoundMap] = " + QString::number(mapRange->getEastBoundMap());
-
-            //   outputList <<"\n\t\tdefault[:areas] = [ \n\t\t{";
-            //   for(int i =0 ; i<number_of_Center ; i++){
-            //        outputList <<"\n\t\t\t:area => \"" +tabCenter[i]->area + "\",";
-            //        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabCenter[i]->southBoundary) + ",";
-            //        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabCenter[i]->northBoundary) + ",";
-            //        outputList <<"\n\t\t\t:westBoundary => " + QString::number(tabCenter[i]->westBoundary) + ",";
-            //        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabCenter[i]->eastBoundary);
-            //        outputList <<"\n\t\t},{";
-            //    }
-            //   for(int i =0 ; i<number_of_Handover ; i++){
-            //        outputList <<"\n\t\t\t:area => \"" +tabHandover[i]->area + "\",";
-            //        outputList <<"\n\t\t\t:southBoundary => " + QString::number(tabHandover[i]->southBoundary) + ",";
-            //        outputList <<"\n\t\t\t:northBoundary => " + QString::number(tabHandover[i]->northBoundary) + ",";
-            //        outputList <<"\n\t\t\t:westBoundary => "+ QString::number(tabHandover[i]->westBoundary) + ",";
-            //        outputList <<"\n\t\t\t:eastBoundary => " + QString::number(tabHandover[i]->eastBoundary);
-            //        if (i != number_of_Handover-1)
-            //            outputList << "\n\t\t},{";
-            //    }
-            //    outputList <<"\nend";
-
-            //    return outputList;
-            //}

@@ -46,6 +46,7 @@ void FileManager::generateParametersScript(QString location,QString projectName,
     QTextStream file_str(&file);
     file_str << content;
     file.close();
+    dir.setCurrent("../../");
 }
 
 void FileManager::generateTrafficScript(Project currentProject, int file_index) {
