@@ -36,9 +36,8 @@ void TrafficMap::loadAndOpen(const Project &project, const TrafficFileData &traf
     hBoxLayout1->addWidget(mapView);
     hBoxLayout1->addLayout(vBoxLayout);
     vBoxLayout->addWidget(this->ui->ueGroupWidget, 200, Qt::AlignTop);
-    vBoxLayout->addLayout(hBoxLayout2);
-    hBoxLayout2->addWidget(this->ui->customModelsWidget, 400);
-    hBoxLayout2->addWidget(this->ui->statTimeTunningWidget, 400);
+    vBoxLayout->addSpacing(this->height() / 10);
+    vBoxLayout->addWidget(this->ui->trafficParamsWidget, 400);
     vBoxLayout->addWidget(this->ui->line, 400, Qt::AlignBottom);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
     this->ui->centralwidget->setLayout(hBoxLayout1);
@@ -53,7 +52,13 @@ void TrafficMap::loadAndOpen(const Project &project, const TrafficFileData &traf
     this->show();
 }
 
+
 void TrafficMap::on_statisticsButton_clicked()
 {
     spawnWindow_Statistics(project.name, trafficFileData.filename);
+}
+
+void TrafficMap::on_pushButton_pressed()
+{
+    emit spawnWindow_CustomModels(project.name, trafficFileData.filename);
 }

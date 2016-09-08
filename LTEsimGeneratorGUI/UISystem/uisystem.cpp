@@ -156,6 +156,10 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(updateHandover(Handover,QString)), dataSystem, SLOT(updateHandover(Handover,QString)));
     QObject::connect(&newMapWindow, SIGNAL(removeCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(removeCell(QPair<Cell,Center>,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(updateCell(QPair<Cell,Center>,QString)));
+
+    //Spawn window Custom Models
+    QObject::connect(&trafficMap, SIGNAL(spawnWindow_CustomModels(QString,QString)), this, SLOT(spawnWindow_CustomModels(QString,QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_customModels(QString,QString)), &customModelsListForm, SLOT(open(QString,QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -294,6 +298,7 @@ void UISystem::spawnWindow_TrafficMap(const QString &projectName, const QString 
     emit spawnWindow_TrafficMap(*project, *traffic);
 }
 
+
 void UISystem::spawnWindow_Statistics(const QString &projectName, const QString &trafficName)
 {
     auto project = findProjectByName(projectName);
@@ -307,6 +312,20 @@ void UISystem::spawnWindow_Statistics(const QString &projectName, const QString 
         return;
     }
     emit spawnWindow_Statistics(project->name, traffic->filename, traffic->statisticsData);
+}
+
+void UISystem::spawnWindow_CustomModels(const QString &projectName, const QString &trafficName) {
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_customModels(project->name, traffic->filename);
 }
 
 Project* UISystem::findProjectByName(const QString &projectName)

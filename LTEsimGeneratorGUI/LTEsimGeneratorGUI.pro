@@ -38,7 +38,8 @@ SOURCES += \
     UISystem/Widgets/handoverrepresentation.cpp \
     Data/ProjectSettings/generalconfigurationparameters.cpp \
     Data/ProjectSettings/ueparameters.cpp \
-    UISystem/Widgets/uerepresentation.cpp
+    UISystem/Widgets/uerepresentation.cpp \
+    UISystem/DataForms/custommodelslistform.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -114,7 +115,8 @@ HEADERS  += \
     Data/ProjectSettings/generalconfigurationparameters.h \
     Data/ProjectSettings/ueparameters.h \
     Data/Interfaces/scriptable.h \
-    UISystem/Widgets/uerepresentation.h
+    UISystem/Widgets/uerepresentation.h \
+    UISystem/DataForms/custommodelslistform.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -193,7 +195,8 @@ FORMS    += \
     Ui/DataForms/channelmodelform.ui \
     Ui/SmallDialogs/renamedialog.ui \
     Ui/Windows/newmapwindow.ui \
-    Ui/Windows/trafficmap.ui
+    Ui/Windows/trafficmap.ui \
+    Ui/DataForms/custommodelslistform.ui
 
 
 OTHER_FILES += \

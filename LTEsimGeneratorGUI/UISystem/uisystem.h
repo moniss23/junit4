@@ -17,6 +17,7 @@
 #include "UISystem/DataForms/channelmodelform.h"
 #include "UISystem/DataForms/ubsimform.h"
 #include "UISystem/DataForms/maprangeform.h"
+#include "UISystem/DataForms/custommodelslistform.h"
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Windows/newmapwindow.h"
 #include "UISystem/Windows/trafficmap.h"
@@ -48,6 +49,7 @@ public slots:
     void spawnWindow_MapRange(const QString& projectName);
     void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
+    void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -64,6 +66,7 @@ signals:
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, const TrafficFileData &trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
+    void spawnWindow_customModels(const QString &projectName, const QString &trafficName);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -86,6 +89,7 @@ private:
     NewMapWindow        newMapWindow;
     TrafficMap          trafficMap;
     StatisticsManager statisticsManager;
+    CustomModelsListForm customModelsListForm;
 };
 
 #endif // UISYSTEM_H
