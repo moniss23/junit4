@@ -47,7 +47,8 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/syncedping.cpp \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
-    Data/ProjectSettings/Helpers/mapparser.cpp
+    Data/ProjectSettings/Helpers/mapparser.cpp \
+
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -93,7 +94,9 @@ SOURCES += main.cpp\
     Maps/Traffic/Statistics/statisticsData.cpp  \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
-    Maps/Traffic/Tuning/tuningTrafficData.cpp
+    Maps/Traffic/Tuning/tuningTrafficData.cpp \
+    Maps/Traffic/UeManagement/uedata.cpp \
+    Maps/Traffic/UeManagement/ueparametersmanager.cpp
 
 
 #--------DATA SYSTEM--------#
@@ -111,7 +114,6 @@ HEADERS  += \
     Data/Managers/scriptparsermanager.h \
     Data/ProjectSettings/datageneratorsettings.h \
     Data/ProjectSettings/sgwsettings.h \
-    UISystem/Widgets/cellrepresentation.h \
     Data/ProjectSettings/uctoolsettings.h \
     Data/ProjectSettings/channelmodelsettings.h \
     Data/ProjectSettings/pagingsettings.h \
@@ -121,8 +123,6 @@ HEADERS  += \
     Data/ProjectSettings/generalconfigurationparameters.h \
     Data/ProjectSettings/ueparameters.h \
     Data/Interfaces/scriptable.h \
-    UISystem/Widgets/uerepresentation.h \
-    UISystem/DataForms/custommodelslistform.h \
     Data/TrafficSettings/custommodelsettings.h \
     Data/TrafficSettings/CustomModelsData/ping.h \
     Data/TrafficSettings/CustomModelsData/voip.h \
@@ -134,6 +134,7 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
     Data/ProjectSettings/Helpers/mapparser.h \
+
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -166,7 +167,10 @@ HEADERS  += \
     UISystem/DataForms/streamdlform.h \
     UISystem/DataForms/streamulform.h \
     UISystem/DataForms/servicereqform.h \
-    UISystem/DataForms/syncedpingform.h
+    UISystem/DataForms/syncedpingform.h \
+    UISystem/Widgets/cellrepresentation.h \
+    UISystem/Widgets/uerepresentation.h \
+    UISystem/DataForms/custommodelslistform.h \
 
 
 HEADERS  += \
@@ -177,7 +181,9 @@ HEADERS  += \
     Maps/Traffic/Statistics/statisticsManager.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
-    Maps/Traffic/Tuning/tuningTrafficManager.h
+    Maps/Traffic/Tuning/tuningTrafficManager.h \
+    Maps/Traffic/UeManagement/uedata.cpp \
+    Maps/Traffic/UeManagement/ueparametersmanager.h
 
 
 FORMS    += \
@@ -209,7 +215,9 @@ FORMS    += \
     Ui/DataForms/streamdlform.ui \
     Ui/DataForms/streamulform.ui \
     Ui/DataForms/syncedpingform.ui \
-    Ui/DataForms/servicereqform.ui
+    Ui/DataForms/servicereqform.ui \
+    Ui/Windows/ueparameterswindow.ui
+
 
 
 OTHER_FILES += \
