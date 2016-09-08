@@ -37,7 +37,8 @@ SOURCES += \
     Data/ProjectSettings/ubsimsettings.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     Data/ProjectSettings/generalconfigurationparameters.cpp \
-    Data/ProjectSettings/ueparameters.cpp
+    Data/ProjectSettings/ueparameters.cpp \
+    UISystem/Widgets/uerepresentation.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -111,7 +112,8 @@ HEADERS  += \
     Data/ProjectSettings/maprange.h \
     Data/ProjectSettings/generalconfigurationparameters.h \
     Data/ProjectSettings/ueparameters.h \
-    Data/Interfaces/scriptable.h
+    Data/Interfaces/scriptable.h \
+    UISystem/Widgets/uerepresentation.h
 
 #--------UI SYSTEM--------#
 HEADERS  += \
