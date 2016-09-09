@@ -16,6 +16,8 @@ public:
     StatisticsData statisticsData;
 
     QVector<CustomModelSettings> customModels;
+    static const int cmAmount = 10;
+    bool cmUsed[cmAmount];
 
     /****************************
      * SERIALIZATION INTERFACE  *

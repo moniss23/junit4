@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPalette>
+#include <QPushButton>
 
 #include "Data/TrafficSettings/custommodelsettings.h"
 
@@ -19,9 +20,8 @@ public:
     ~CustomModelsListForm();
 
 public slots:
-    void open(const QString &projectName, const QString &trafficName);
-    void loadData();
-    void currentCustomModelChanged(const CustomModelSettings &customModelSettings);
+    void open(const QString &projectName, const QString &trafficName, bool *cmUsed);
+    void currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool * cmUsed);
 
 signals:
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
@@ -44,17 +44,26 @@ private slots:
 private:
     void refreshListView();
     void refreshQci();
+    void setAutoFillButtonsBG();
+    void setButtonsPointers();
+    void refreshCmButtonsColors(const int &index);
 
 private:
     Ui::CustomModelsListForm *ui;
 
     QPalette usedQci;
     QPalette unusedQci;
+    QPalette usedCM;
+    QPalette unusedCM;
+    QPalette currentCM;
+
+    QPushButton *cmButtonsPtr[10];
 
     QString projectName;
     QString trafficName;
     int currentCustomModelIndex;
     CustomModelSettings customModelSettings;
+    bool * cmUsed;
 
     const int AmountOfQci = 9;
 };

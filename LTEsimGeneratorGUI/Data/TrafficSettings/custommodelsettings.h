@@ -30,7 +30,8 @@ public:
     QVector <SyncedPingForm> CMSyncedPings;
     QVector <ServiceReq> CMServiceReqs;
 
-    bool qciUsed[9];
+    static const int amountOfQci = 9;
+    bool qciUsed[amountOfQci];
 
     /****************************
      * SERIALIZATION INTERFACE  *
@@ -39,6 +40,7 @@ public:
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
+
 };
 
 #endif // CUSTOMMODELSETTINGS_H

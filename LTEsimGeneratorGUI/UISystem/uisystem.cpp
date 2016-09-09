@@ -159,7 +159,7 @@ void UISystem::bindingObjects()
 
     //Spawn window Custom Models
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_CustomModels(QString,QString)), this, SLOT(spawnWindow_CustomModels(QString,QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_customModels(QString,QString)), &customModelsListForm, SLOT(open(QString,QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_customModels(QString,QString,bool*)), &customModelsListForm, SLOT(open(QString,QString, bool*)));
 
     //Spawn window ping form
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Ping(QString,QString,int)), this, SLOT(spawnWindow_PingForm(QString,QString,int)));
@@ -171,6 +171,8 @@ void UISystem::bindingObjects()
 
     // Update project
     QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
+    QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
+    QObject::connect(&customModelsListForm, SIGNAL(loadData(QString,QString,int)), dataSystem, SLOT(updateCustomModel(QString,QString,int)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -337,7 +339,7 @@ void UISystem::spawnWindow_CustomModels(const QString &projectName, const QStrin
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_customModels(project->name, traffic->filename);
+    emit spawnWindow_customModels(project->name, traffic->filename, traffic->cmUsed);
 }
 
 void UISystem::spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index) {

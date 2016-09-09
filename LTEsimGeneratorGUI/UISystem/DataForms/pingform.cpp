@@ -31,6 +31,7 @@ void PingForm::loadAndOpen(const QString &projectName, const QString &trafficNam
 
 void PingForm::on_okButton_clicked()
 {
+    if(this->ui->comboBox->currentText() == "") return;
     this->ping.pingQci = this->ui->comboBox->currentText().toInt();
     this->ping.pingInterval = this->ui->interval->text().toInt();
     this->ping.pingMinRecievedPings = this->ui->minRecPings->text().toInt();

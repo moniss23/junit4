@@ -28,7 +28,7 @@ signals:
     void spawnWindow_ProjectMng();
     void update_RB_FilesLocation(const QString& location);
     void refreshMapView(const Project &project);
-    void currentCustomModelChanged(const CustomModelSettings &customModelsSettings);
+    void currentCustomModelChanged(const CustomModelSettings &customModelsSettings, bool * cmUsed);
 
 public slots:
 
@@ -79,6 +79,8 @@ public slots:
 
     //Ping saving
     void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping);
+    void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
+
 
     void updateProjectOnMapCloseEvent(const QString &projectName);
 

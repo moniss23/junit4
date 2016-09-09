@@ -1,14 +1,20 @@
 #include "custommodelslistform.h"
 #include "ui_custommodelslistform.h"
 
+
 CustomModelsListForm::CustomModelsListForm(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CustomModelsListForm)
 {
     ui->setupUi(this);
-    this->usedQci.setColor(QPalette::WindowText, Qt::red);
-    this->unusedQci.setColor(QPalette::WindowText, Qt::green);
+    this->usedQci.setColor(QPalette::WindowText, Qt::green);
+    this->unusedQci.setColor(QPalette::WindowText, Qt::red);
+    this->currentCM.setColor(QPalette::Window, QColor(0,255,255,150));
+    this->usedCM.setColor(QPalette::Window, QColor(Qt::red));
+    this->unusedCM.setColor(QPalette::Window, QColor(Qt::green));
     this->currentCustomModelIndex = 0;
+    setButtonsPointers();
+    setAutoFillButtonsBG();
 }
 
 CustomModelsListForm::~CustomModelsListForm()
@@ -16,65 +22,87 @@ CustomModelsListForm::~CustomModelsListForm()
     delete ui;
 }
 
-void CustomModelsListForm::open(const QString &projectName, const QString &trafficName) {
+void CustomModelsListForm::open(const QString &projectName, const QString &trafficName, bool *cmUsed) {
     this->projectName = projectName;
     this->trafficName = trafficName;
-
+    this->cmUsed = cmUsed;
+    for(unsigned i = 0; i < 10; i++) {
+        if(cmUsed[i])
+            this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(0, 255, 0); color: rgb(0, 0, 0)");
+        else
+            this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(255, 0, 0); color: rgb(0, 0, 0)");
+    }
     this->show();
-}
-
-void CustomModelsListForm::loadData() {
-
 }
 
 void CustomModelsListForm::on_CM1Button_clicked()
 {
     emit loadData(projectName, trafficName, 0);
+    this->currentCustomModelIndex = 0;
+    this->refreshCmButtonsColors(0);
 }
 
 void CustomModelsListForm::on_CM2Button_clicked()
 {
     emit loadData(projectName, trafficName, 1);
+    this->currentCustomModelIndex = 1;
+    this->refreshCmButtonsColors(1);
 }
 
 void CustomModelsListForm::on_CM3Button_clicked()
 {
     emit loadData(projectName, trafficName, 2);
+    this->currentCustomModelIndex = 2;
+    this->refreshCmButtonsColors(2);
 }
 
 void CustomModelsListForm::on_CM4Button_clicked()
 {
     emit loadData(projectName, trafficName, 3);
+    this->currentCustomModelIndex = 3;
+    this->refreshCmButtonsColors(3);
 }
 
 void CustomModelsListForm::on_CM5Button_clicked()
 {
     emit loadData(projectName, trafficName, 4);
+    this->currentCustomModelIndex = 4;
+    this->refreshCmButtonsColors(4);
 }
 
 void CustomModelsListForm::on_CM6Button_clicked()
 {
     emit loadData(projectName, trafficName, 5);
+    this->currentCustomModelIndex = 5;
+    this->refreshCmButtonsColors(5);
 }
 
 void CustomModelsListForm::on_CM7Button_clicked()
 {
     emit loadData(projectName, trafficName, 6);
+    this->currentCustomModelIndex = 6;
+    this->refreshCmButtonsColors(6);
 }
 
 void CustomModelsListForm::on_CM8Button_clicked()
 {
     emit loadData(projectName, trafficName, 7);
+    this->currentCustomModelIndex = 7;
+    this->refreshCmButtonsColors(7);
 }
 
 void CustomModelsListForm::on_CM9Button_clicked()
 {
     emit loadData(projectName, trafficName, 8);
+    this->currentCustomModelIndex = 8;
+    this->refreshCmButtonsColors(8);
 }
 
 void CustomModelsListForm::on_CM10Button_clicked()
 {
     emit loadData(projectName, trafficName, 9);
+    this->currentCustomModelIndex = 9;
+    this->refreshCmButtonsColors(9);
 }
 
 void CustomModelsListForm::on_AddPingButton_clicked()
@@ -82,10 +110,11 @@ void CustomModelsListForm::on_AddPingButton_clicked()
     emit spawnWindow_Ping(projectName, trafficName, currentCustomModelIndex);
 }
 
-void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings) {
+void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool *cmUsed) {
     this->customModelSettings = customModelSettings;
     this->refreshListView();
     this->refreshQci();
+    this->cmUsed = cmUsed;
 }
 
 void CustomModelsListForm::refreshListView()
@@ -139,4 +168,33 @@ void CustomModelsListForm::refreshQci()
     this->ui->Label7->setPalette(customModelSettings.qciUsed[6] ? usedQci : unusedQci);
     this->ui->Label8->setPalette(customModelSettings.qciUsed[7] ? usedQci : unusedQci);
     this->ui->Label9->setPalette(customModelSettings.qciUsed[8] ? usedQci : unusedQci);
+}
+void CustomModelsListForm::setAutoFillButtonsBG() {
+    for(unsigned i = 0; i < 10; i++) {
+        cmButtonsPtr[i]->setAutoFillBackground(true);
+    }
+}
+
+void CustomModelsListForm::setButtonsPointers()
+{
+    cmButtonsPtr[0] = this->ui->CM1Button;
+    cmButtonsPtr[1] = this->ui->CM2Button;
+    cmButtonsPtr[2] = this->ui->CM3Button;
+    cmButtonsPtr[3] = this->ui->CM4Button;
+    cmButtonsPtr[4] = this->ui->CM5Button;
+    cmButtonsPtr[5] = this->ui->CM6Button;
+    cmButtonsPtr[6] = this->ui->CM7Button;
+    cmButtonsPtr[7] = this->ui->CM8Button;
+    cmButtonsPtr[8] = this->ui->CM9Button;
+    cmButtonsPtr[9] = this->ui->CM10Button;
+}
+
+void CustomModelsListForm::refreshCmButtonsColors(const int &index) {
+    for(unsigned i = 0; i < 10; i++) {
+        if(cmUsed[i])
+            this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(0, 255, 0); color: rgb(0, 0, 0)");
+        else
+            this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(255, 0, 0); color: rgb(0, 0, 0)");
+    }
+    this->cmButtonsPtr[index]->setStyleSheet("background-color: rgb(0, 255, 255); color: rgb(0, 0, 0)");
 }

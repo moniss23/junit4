@@ -53,6 +53,9 @@ QByteArray CustomModelSettings::serializeData()
     for(auto &&serviceReqs : CMServiceReqs) {
         stream << serviceReqs.serializeData();
     }
+    for(unsigned i = 0; i < amountOfQci; i++) {
+        stream << qciUsed[i];
+    }
     return serializedData.buffer();
 }
 
@@ -133,5 +136,8 @@ void CustomModelSettings::deserializeData(const QByteArray &rawData)
         ServiceReq serviceReq;
         serviceReq.deserializeData(rawCMServiceReqsData);
         CMServiceReqs.push_back(serviceReq);
+    }
+    for(unsigned i = 0; i < amountOfQci; i++) {
+        stream >> qciUsed[i];
     }
 }

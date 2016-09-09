@@ -521,7 +521,24 @@ void DataSystem::savePingData(const QString &projectName, const QString &traffic
     }
     traffic->customModels[CMindex].CMPings.push_back(ping);
     traffic->customModels[CMindex].qciUsed[ping.pingQci-1] = true;
-    emit currentCustomModelChanged(traffic->customModels[CMindex]);
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
+void DataSystem::updateCustomModel(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit currentCustomModelChanged(traffic->customModels[index], traffic->cmUsed);
 }
 void DataSystem::updateProjectOnMapCloseEvent(const QString &projectName){
     auto project = findProjectByName(projectName);
