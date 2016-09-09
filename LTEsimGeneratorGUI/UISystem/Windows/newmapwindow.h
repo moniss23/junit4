@@ -45,6 +45,7 @@ signals:
     void updateHandover(const Handover &handover, const QString &projectName);
     void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
+    void saveProjectOnClose(const QString &projectName);
 
 private slots:
     void on_mmeButton_pressed();
@@ -60,6 +61,9 @@ private slots:
     void on_setCellParamsBtn_clicked();
     void on_removeHandoverBtn_clicked();
     void on_setHandoverParamsBtn_clicked();
+private:
+
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::NewMapWindow *ui;

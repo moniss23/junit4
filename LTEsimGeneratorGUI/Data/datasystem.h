@@ -80,6 +80,8 @@ public slots:
     //Ping saving
     void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping);
 
+    void updateProjectOnMapCloseEvent(const QString &projectName);
+
 public:
     bool isProjectNameUsed(QString projectName);
     QString getDefaultNewProjectDir() const;

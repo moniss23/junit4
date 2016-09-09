@@ -1,8 +1,7 @@
 #include "newmapwindow.h"
 #include "ui_newmapwindow.h"
-
+#include <QCloseEvent>
 #include <QHBoxLayout>
-
 #include "UISystem/Widgets/mapview.h"
 
 
@@ -22,6 +21,11 @@ NewMapWindow::NewMapWindow(QWidget *parent) :
 NewMapWindow::~NewMapWindow()
 {
     delete ui;
+}
+void NewMapWindow::closeEvent(QCloseEvent *event){
+    emit saveProjectOnClose(project.name);
+    event->accept();
+
 }
 
 void NewMapWindow::loadAndOpen(const Project &project)

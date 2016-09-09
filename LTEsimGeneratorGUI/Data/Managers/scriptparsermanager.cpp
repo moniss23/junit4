@@ -176,7 +176,7 @@ QVector<Cell> ScriptParserManager::getCellsFromScript(const QStringList scriptCo
             cell.transmitPower = cellParams[6].toFloat();
             cell.ulNoiseAndInterference = cellParams[7].toFloat();
             cells.append(cell);
-            i+=8;
+            i+=7;
         }
     }
     return cells;
@@ -813,9 +813,9 @@ QString ScriptParserManager::GenerateParametersQString(Project &project){
 # \n\
 require \'etc\'\n\
 module Parameters \n\
-\t# \n\
-\t# Retrieve general configuration parameters. \n\
-\t#\n";
+ # \n\
+ # Retrieve general configuration parameters. \n\
+ #\n";
 
     // OUTPUT
     outputTextStream.append(header);

@@ -30,36 +30,36 @@ void UBSimSettings::deserializeData(const QByteArray &rawData) {
 }
 QString UBSimSettings::ParseToScript() {
     QString outputString;
-    QString header = "\t#\n\
-\t# Retrieve default parameters for UBsim configuration\n\
-\t#\n\
-\tdef Parameters.getUbsimConfigParameters()\n\
+    QString header = " #\n\
+ # Retrieve default parameters for UBsim configuration\n\
+ #\n\
+ def Parameters.getUbsimConfigParameters()\n\
 \n\
-\t\t# Define and return default values\n\
-\t\tdefault = {}\n\n";
+  # Define and return default values\n\
+  default = {}\n\n";
     outputString.append(header);
     // UE TYPES DIR
-    outputString.append("\t\tdefault[:ueTypesDir] = \"");
+    outputString.append("  default[:ueTypesDir] = \"");
     outputString.append(ueTypesDir);
     outputString.append("\"");
-    outputString.append("\t\t# Directory containing users UE type definitions\n");
+    outputString.append("  # Directory containing users UE type definitions\n");
     // CS TRAFFIC MODELS DIR
-    outputString.append("\t\tdefault[:csTrafficModelsDir] = \"");
+    outputString.append("  default[:csTrafficModelsDir] = \"");
     outputString.append(csTrafficModelsDir);
     outputString.append("\"");
     outputString.append("\t# Directory containing users CS traffic Models\n");
     // PS TRAFFIC MODELS DIR
-    outputString.append("\t\tdefault[:psTrafficModelsDir] = \"");
+    outputString.append("  default[:psTrafficModelsDir] = \"");
     outputString.append(psTrafficModelsDir);
     outputString.append("\"");
     outputString.append("\t# Directory containing users PS traffic Models\n");
     // MOBILITY MODELS
-    outputString.append("\t\tdefault[:mobilityModelsDir] = \"");
+    outputString.append("  default[:mobilityModelsDir] = \"");
     outputString.append(mobilityModelsDir);
     outputString.append("\"");
     outputString.append("\t# Directory containing users Mobility Models\n");
     // VISUALISATION
-    outputString.append("\t\tdefault[:visualization] = ");
+    outputString.append("  default[:visualization] = ");
     if (UBSimGui){
         outputString.append("true");
     }
@@ -69,18 +69,18 @@ QString UBSimSettings::ParseToScript() {
     outputString.append("\t\t# UBsim GUI\n");
 
     // PATCHES
-    outputString.append("\t\t# patches to use when starting UBsim\n");
-    outputString.append("\t\t# Given as a Java classpath, multiple element separated by ':'\n");
-    outputString.append("\t\tdefault[:ubsim_patches] = ");
+    outputString.append("  # patches to use when starting UBsim\n");
+    outputString.append("  # Given as a Java classpath, multiple element separated by ':'\n");
+    outputString.append("  default[:ubsim_patches] = ");
     for (int i=0;i<ubsim_patches.size();i++){
         outputString.append(ubsim_patches[i]);
         if (ubsim_patches[i]!=ubsim_patches.back()){
             outputString.append(":");
         }
     }
-    outputString.append("\t\t# UBsim code in UBsim project (ubsim.jar)\n");
-    outputString.append("\t\treturn default\n");
-    outputString.append("\tend\n\n");
+    outputString.append("  # UBsim code in UBsim project (ubsim.jar)\n");
+    outputString.append("  return default\n");
+    outputString.append(" end\n\n");
 
     /************ SAMPLE OUTPUT ******************/
 

@@ -157,7 +157,6 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
 
     if(project->parametersFile.filename == fileName) {
         project->parametersFile.content = content;
-        scriptParserManager.parseFromScript(content, *project);
     }else {
         auto trafficFile = project->findTrafficFileByName(fileName);
         if(trafficFile == nullptr) {
@@ -439,6 +438,7 @@ void DataSystem::updateGeneralConfigurationParameters(const GeneralConfiguration
 void DataSystem::generateParametersScript(Project &project)
 {
     QString content = scriptParserManager.GenerateParametersQString(project);
+    emit updateFileContent(project.name,project.parametersFile.filename,content);
     fileManager.generateParametersScript(project.fullpath,project.name,content);
 }
 
@@ -522,4 +522,13 @@ void DataSystem::savePingData(const QString &projectName, const QString &traffic
     traffic->customModels[CMindex].CMPings.push_back(ping);
     traffic->customModels[CMindex].qciUsed[ping.pingQci-1] = true;
     emit currentCustomModelChanged(traffic->customModels[CMindex]);
+}
+void DataSystem::updateProjectOnMapCloseEvent(const QString &projectName){
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    emit currentProjectChanged(*project);
+    saveProjectsFile();
 }

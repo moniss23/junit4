@@ -30,25 +30,25 @@ QString MmeSettings::ParseToScript()
 {
     QString outputString;
     //  HEADER
-    outputString.append("\t#\n\
-    \t# Retrieve default parameters for MME.\n\
-    \t# \n\
-    \tdef Parameters.getMmeParameters()\n\
-    \t# Define and return default values\n\
-    \tdefault = {}\n\n");
+    outputString.append(" #\n\
+     # Retrieve default parameters for MME.\n\
+     # \n\
+     def Parameters.getMmeParameters()\n\
+     # Define and return default values\n\
+     default = {}\n\n");
 
     // SIMULATE CORE
-    outputString.append("\t\tdefault[:simulate_core] = ");
+    outputString.append("  default[:simulate_core] = ");
     if (simulatedCoreNetwork){
         outputString.append("true");
     }
     else {
         outputString.append("false");
     }
-    outputString.append("\t\t# Set to true if simulated core is used in the configuration.\n");
+    outputString.append("  # Set to true if simulated core is used in the configuration.\n");
 
     // NAMES
-    outputString.append("\t\tdefault[:mme_names] = ");
+    outputString.append("  default[:mme_names] = ");
     outputString.append("[");
     for (int i=0;i<names.size();i++){
         outputString.append("\"");
@@ -59,39 +59,39 @@ QString MmeSettings::ParseToScript()
         }
     }
     outputString.append("]");
-    outputString.append("\t\t# Name of the MME component\n");
+    outputString.append("  # Name of the MME component\n");
 
     // TAIS
-    outputString.append("\t\tdefault[:mme_tais] = ");
+    outputString.append("  default[:mme_tais] = ");
     outputString.append("[\"");
     outputString.append(tais);
     outputString.append("\"]");
     outputString.append("\t# MME tracking area identity value\n");
 
     // NUMBER OF MMES
-    outputString.append("\t\tdefault[:mmes] = ");
+    outputString.append("  default[:mmes] = ");
     outputString.append(QString::number(numberOfMme));
-    outputString.append("\t\t\t# Number of MMEs (used in multiple MME configuration)\n");
+    outputString.append("  \t# Number of MMEs (used in multiple MME configuration)\n");
 
-    outputString.append("\t\t# The IP addresses must be available on the LTEsum server and reachable from the eNB CP interface\n");
+    outputString.append("  # The IP addresses must be available on the LTEsum server and reachable from the eNB CP interface\n");
 
     // MME S1AP URIS
-    outputString.append("\t\tdefault[:mme_s1ap_uris] = ");
+    outputString.append("  default[:mme_s1ap_uris] = ");
     outputString.append("[\"");
     outputString.append(uris);
     outputString.append("\"]\n");
 
     // S1AP PLUGIN FILTER PATH
-    outputString.append("\t\tdefault[:s1ap_pluginFilterPath] = ");
+    outputString.append("  default[:s1ap_pluginFilterPath] = ");
     outputString.append("\"");
     outputString.append(pluginFilterPath);
     outputString.append("\"");
     outputString.append("\t# Set the filter path\n");
 
     // FOOTER
-    outputString.append("\n\t\t# All JMX parameters can be listed with help :mme in the ltesim_cli\n");
-    outputString.append("\t\treturn default\n");
-    outputString.append("\tend\n\n");
+    outputString.append("\n  # All JMX parameters can be listed with help :mme in the ltesim_cli\n");
+    outputString.append("  return default\n");
+    outputString.append(" end\n\n");
 
     return outputString;
 }

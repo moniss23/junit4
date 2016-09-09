@@ -168,6 +168,9 @@ void UISystem::bindingObjects()
     //Save ping form
     QObject::connect(&pingForm, SIGNAL(savePingData(QString,QString,int,Ping)), dataSystem, SLOT(savePingData(QString,QString,int,Ping)));
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings)));
+
+    // Update project
+    QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

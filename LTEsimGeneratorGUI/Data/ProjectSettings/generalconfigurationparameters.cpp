@@ -32,44 +32,44 @@ void GeneralConfigurationParameters::deserializeData(const QByteArray &rawData) 
 }
 QString GeneralConfigurationParameters::ParseToScript(){
 
-    QString generalParameters = "\tdef Parameters.getGeneralParameters() \n\
-    \t# Define and return default values\n\
-    \t\tdefault = {}\n\
+    QString generalParameters = " def Parameters.getGeneralParameters() \n\
+     # Define and return default values\n\
+       default = {}\n\
     \n";
                          // log dir
-    generalParameters.append("\t\tlog_dir");
+    generalParameters.append("  log_dir = ");
     generalParameters.append(logDir);
     generalParameters.append("\n");
                          // core Parameters
-    generalParameters.append("\t\tdefault[:");
+    generalParameters.append("  default[:");
     generalParameters.append("coreParameters] = ");
     generalParameters.append(coreParameters);
     generalParameters.append("\t# String containing start parameters for ltesim core \n");
     generalParameters.append("\t\t\t\t\t\t\t# See ltesim core -help for details\n");
                         // jvm parameters
-    generalParameters.append("\t\tdefault[:");
+    generalParameters.append("  default[:");
     generalParameters.append("jvm_parameters] = ");
     generalParameters.append(jvmParameters);
     generalParameters.append(" \t\t# Specify additional JVM parameters\n");
                         // logger handlerSet
-    generalParameters.append("\t\tdefault[:");
+    generalParameters.append("  default[:");
     generalParameters.append("logger_handlersSet] = ");
     generalParameters.append(loggerHandlerSet);
     generalParameters.append("\n");
                         // logger file count
-    generalParameters.append("\t\tdefault[:");
+    generalParameters.append("  default[:");
     generalParameters.append("logger_file_count] = ");
     generalParameters.append(QString::number(loggerFileCount));
     generalParameters.append("\n");
                         // logger file size limit
-    generalParameters.append("\t\tdefault[:");
+    generalParameters.append("  default[:");
     generalParameters.append("logger_file_sizeLimit] = ");
     generalParameters.append(QString::number(loggerFileSizeLimit.first));
     generalParameters.append("**");
     generalParameters.append(QString::number(loggerFileSizeLimit.second));
     generalParameters.append("\n");
                         // logger file gzipEnabled
-    generalParameters.append("\t\tdefault[:");
+    generalParameters.append("  default[:");
     generalParameters.append("logger_file_count] = ");
     if (loggerFileCount) {
         generalParameters.append("true");
@@ -79,8 +79,8 @@ QString GeneralConfigurationParameters::ParseToScript(){
     }
     generalParameters.append("\n");
 
-    generalParameters.append("\t\treturn default\n");
-    generalParameters.append("\tend\n\n");
+    generalParameters.append("  return default\n");
+    generalParameters.append(" end\n\n");
 
     return generalParameters;
 }

@@ -6,66 +6,66 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
 
     /********************* CELLS ************************/
 
-    QString cellsHeader="\t#\n\
-\t# Retrieve default parameters for Radio Environment.\n\
-\t#\n\
-\tdef Parameters.getRecParameters()\n\
-\t\t# Define and return default values\n\
-\t\tdefault = {}\n\
+    QString cellsHeader=" #\n\
+ # Retrieve default parameters for Radio Environment.\n\
+ #\n\
+ def Parameters.getRecParameters()\n\
+  # Define and return default values\n\
+  default = {}\n\
 \n\
-\t\t# Write with the following syntax:\n\
-\t\t# default[:rec] = [{<first set of cell params>},{<second set of cell params>}]\n\
-\t\t#\n\
-\t\t# A set of cell params includes:\n\
-\t\t#   :cell                    # Cell instance name\n\
-\t\t#   :site                    # Site instance name\n\
-\t\t#   :pci                     # Physical cell identifier\n\
-\t\t#   :position_X              # Cell position, coordinate X\n\
-\t\t#   :position_Y              # Cell position, coordinate Y\n\
-\t\t#   :earfcnDl                # Channel number for the central DL frequency\n\
-\t\t#   :transmitPower           # Transmit power in dBm\n\
-\t\t#   :ulNoiseAndInterference  # uplink N+I in dBm\n\
-\t\tdefault[:rec] = [\n";
+  # Write with the following syntax:\n\
+  # default[:rec] = [{<first set of cell params>},{<second set of cell params>}]\n\
+  #\n\
+  # A set of cell params includes:\n\
+  #   :cell                    # Cell instance name\n\
+  #   :site                    # Site instance name\n\
+  #   :pci                     # Physical cell identifier\n\
+  #   :position_X              # Cell position, coordinate X\n\
+  #   :position_Y              # Cell position, coordinate Y\n\
+  #   :earfcnDl                # Channel number for the central DL frequency\n\
+  #   :transmitPower           # Transmit power in dBm\n\
+  #   :ulNoiseAndInterference  # uplink N+I in dBm\n\
+  default[:rec] = [\n";
     outputString.append(cellsHeader);
     for (int i=0;i<cellsInfo.size();i++) {
         // NAME
         outputString.append("{\n");
-        outputString.append("\t\t:cell => \"");
+        outputString.append("  :cell => \"");
         outputString.append(cellsInfo[i].first.name);
         outputString.append("\",\n");
         // SITE
-        outputString.append("\t\t:site => \"");
+        outputString.append("  :site => \"");
         outputString.append(cellsInfo[i].first.site);
         outputString.append("\",\n");
         //PCI
-        outputString.append("\t\t:pci => ");
+        outputString.append("  :pci => ");
         outputString.append(QString::number(cellsInfo[i].first.pci));
         outputString.append(",\n");
         // POS X
-        outputString.append("\t\t:position_X => ");
+        outputString.append("  :position_X => ");
         outputString.append(QString::number(cellsInfo[i].first.position_X));
         outputString.append(",\n");
         // POS Y
-        outputString.append("\t\t:position_Y => ");
+        outputString.append("  :position_Y => ");
         outputString.append(QString::number(cellsInfo[i].first.position_Y));
         outputString.append(",\n");
         // EARFCNDI
-        outputString.append("\t\t:earfcnDl => ");
+        outputString.append("  :earfcnDl => ");
         outputString.append(QString::number(cellsInfo[i].first.earfcnDl));
         outputString.append(",\n");
         // TRANSMIT POWER
-        outputString.append("\t\t:transmitPower => ");
+        outputString.append("  :transmitPower => ");
         outputString.append(QString::number(cellsInfo[i].first.transmitPower));
         outputString.append(",\n");
         // NOISE AND INTERFERENCE
-        outputString.append("\t\t:ulNoiseAndInterference => ");
+        outputString.append("  :ulNoiseAndInterference => ");
         outputString.append(QString::number(cellsInfo[i].first.ulNoiseAndInterference));
         outputString.append("\n");
-        outputString.append("\t\t},");
+        outputString.append("  },");
     }
     outputString.append("]\n");
-    outputString.append("\t\treturn default\n");
-    outputString.append("\tend\n\n");
+    outputString.append("  return default\n");
+    outputString.append(" end\n\n");
 
     /* ***************SAMPLE OUTPUT  **********/
 
@@ -87,36 +87,36 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
 
     // MAP RANGE
 
-    outputString.append("\t#\n\
-\t# Retrieve default parameters for user behavior models\n\
-\t#\n\
-\tdef Parameters.getTraffBehaviourParameters()\n\
-\t\t# Define and return default values\n\
-\t\tdefault = {}\n\
+    outputString.append(" #\n\
+ # Retrieve default parameters for user behavior models\n\
+ #\n\
+ def Parameters.getTraffBehaviourParameters()\n\
+  # Define and return default values\n\
+  default = {}\n\
 \n\
-\t\t# IMSI range used by traffic models.\n\
-\t\t# IMSI ranges are specified with the\n\
-\t\t# following syntax (space separated string):\n\
-\t\t# \"<first_range> <second_range>\".\n");
+  # IMSI range used by traffic models.\n\
+  # IMSI ranges are specified with the\n\
+  # following syntax (space separated string):\n\
+  # \"<first_range> <second_range>\".\n");
 // IMSI RANGE
-outputString.append("\t\tdefault[:imsiMapRange] = \"");
+outputString.append("  default[:imsiMapRange] = \"");
 outputString.append(ubSim.imsiMapRange);
 outputString.append("\"\n\n");
-outputString.append("\t\t# Size of geographical map\n");
+outputString.append("  # Size of geographical map\n");
 // SOUTH
-outputString.append("\t\tdefault[:southBoundMap] = ");
+outputString.append("  default[:southBoundMap] = ");
 outputString.append(QString::number(mapRange.southBoundMap));
 outputString.append("\n");
 // NORTH
-outputString.append("\t\tdefault[:northBoundMap] = ");
+outputString.append("  default[:northBoundMap] = ");
 outputString.append(QString::number(mapRange.northBoundMap));
 outputString.append("\n");
 // WEST
-outputString.append("\t\tdefault[:westBoundMap] = ");
+outputString.append("  default[:westBoundMap] = ");
 outputString.append(QString::number(mapRange.westBoundMap));
 outputString.append("\n");
 // EAST
-outputString.append("\t\tdefault[:eastBoundMap] = ");
+outputString.append("  default[:eastBoundMap] = ");
 outputString.append(QString::number(mapRange.eastBoundMap));
 outputString.append("\n");
     /**************** SAMPLE OUTPUT ***************/
@@ -131,31 +131,31 @@ outputString.append("\n");
     /******************************************/
 
 QString areasHeader = ("\n\
-\t\t# Areas defined which are possible to use with traffic models (aka Cell Map)\n\
-\t\t#\n\
-\t\t# :area - naming convention for three types of areas:\n\
-\t\t#   Center     an area with a RBS cell in the center\n\
-\t\t#   Handover   an area with two RBS:es\n\
-\t\t#   Common     an area containing all cells\n\
-\t\t# Center:\n\
-\t\t#   :area => \"Center11\"             # Area name around cell1-1 (RBS-1)\n\
-\t\t#                    ^--- cell number\n\
-\t\t#                   ^--- RBS number\n\
-\t\t# Handover:\n\
-\t\t#   :area => \"Handover11_21\"        # Area name for possible inter handover between RBS-1 and RBS-2\n\
-\t\t#                         ^--- cell number\n\
-\t\t#                        ^--- RBS number\n\
-\t\t#                      ^--- cell number\n\
-\t\t#                     ^--- RBS number\n\
-\t\t# Common:\n\
-\t\t#   :area => \"Common\",              # Area common for all cells\n\
-\t\t#\n\
-\t\t# Boundaries, specified for all types of areas:\n\
-\t\t#   :southBoundary => 6900,         # South boundary of area\n\
-\t\t#   :northBoundary => 7100,         # North boundary of area\n\
-\t\t#   :westBoundary => 6900,          # West boundary of area\n\
-\t\t#   :eastBoundary => 7100,          # East boundary of area\n\
-\t\tdefault[:areas] = [\n");
+  # Areas defined which are possible to use with traffic models (aka Cell Map)\n\
+  #\n\
+  # :area - naming convention for three types of areas:\n\
+  #   Center     an area with a RBS cell in the center\n\
+  #   Handover   an area with two RBS:es\n\
+  #   Common     an area containing all cells\n\
+  # Center:\n\
+  #   :area => \"Center11\"             # Area name around cell1-1 (RBS-1)\n\
+  #                    ^--- cell number\n\
+  #                   ^--- RBS number\n\
+  # Handover:\n\
+  #   :area => \"Handover11_21\"        # Area name for possible inter handover between RBS-1 and RBS-2\n\
+  #                         ^--- cell number\n\
+  #                        ^--- RBS number\n\
+  #                      ^--- cell number\n\
+  #                     ^--- RBS number\n\
+  # Common:\n\
+  #   :area => \"Common\",              # Area common for all cells\n\
+  #\n\
+  # Boundaries, specified for all types of areas:\n\
+  #   :southBoundary => 6900,         # South boundary of area\n\
+  #   :northBoundary => 7100,         # North boundary of area\n\
+  #   :westBoundary => 6900,          # West boundary of area\n\
+  #   :eastBoundary => 7100,          # East boundary of area\n\
+  default[:areas] = [\n");
 
 
 outputString.append(areasHeader);
@@ -165,55 +165,55 @@ outputString.append(areasHeader);
 for (int i=0; i<cellsInfo.size();i++) {
     outputString.append("{\n");
     // NAME
-    outputString.append("\t\t:area => \"");
+    outputString.append("  :area => \"");
     outputString.append(cellsInfo[i].second.area);
     outputString.append("\",\n");
     // SOUTH
-    outputString.append("\t\t:southBoundary => ");
+    outputString.append("  :southBoundary => ");
     outputString.append(QString::number(cellsInfo[i].second.southBoundary));
     outputString.append(",\n");
     // NORTH
-    outputString.append("\t\t:northBoundary => ");
+    outputString.append("  :northBoundary => ");
     outputString.append(QString::number(cellsInfo[i].second.northBoundary));
     outputString.append(",\n");
     // WEST
-    outputString.append("\t\t:westBoundary => ");
+    outputString.append("  :westBoundary => ");
     outputString.append(QString::number(cellsInfo[i].second.westBoundary));
     outputString.append(",\n");
     // EAST
-    outputString.append("\t\t:eastBoundary => ");
+    outputString.append("  :eastBoundary => ");
     outputString.append(QString::number(cellsInfo[i].second.eastBoundary));
-    outputString.append("\n\t\t},");
+    outputString.append("\n  },");
 }
 for (int i=0;i<handover.size();i++){
     outputString.append("{\n");
     // NAME
-    outputString.append("\t\t:area => \"");
+    outputString.append("  :area => \"");
     outputString.append(handover[i].area);
     outputString.append("\",\n");
     // SOUTH
-    outputString.append("\t\t:southBoundary => ");
+    outputString.append("  :southBoundary => ");
     outputString.append(QString::number(handover[i].southBoundary));
     outputString.append(",\n");
     // NORTH
-    outputString.append("\t\t:northBoundary => ");
+    outputString.append("  :northBoundary => ");
     outputString.append(QString::number(handover[i].northBoundary));
     outputString.append(",\n");
     // WEST
-    outputString.append("\t\t:westBoundary => ");
+    outputString.append("  :westBoundary => ");
     outputString.append(QString::number(handover[i].westBoundary));
     outputString.append(",\n");
     // EAST
-    outputString.append("\t\t:eastBoundary => ");
+    outputString.append("  :eastBoundary => ");
     outputString.append(QString::number(handover[i].eastBoundary));
     if (i==handover.size()-1){
-        outputString.append("\n\t\t}");
+        outputString.append("\n  }");
     }
     else {
-        outputString.append("\n\t\t},");
+        outputString.append("\n  },");
     }
 }
-outputString.append("\n\t]\n\n");
+outputString.append("\n ]\n\n");
 
     /**************** SAMPLE OUTPUT ***************/
 
@@ -228,50 +228,47 @@ outputString.append("\n\t]\n\n");
 
 
 // IPEX AND IPGWTG from DATAGENERATOR
-outputString.append("\t\tdefault[:dataGenerator] = \"");
+outputString.append("  default[:dataGenerator] = \"");
 outputString.append(dataGenerator.dataGenerator);
 outputString.append("\"\n");
-outputString.append("\t\t# Use local IPGWTG\n");
+outputString.append("  # Use local IPGWTG\n");
 outputString.append("\n");
 
 // IPGWTG
-outputString.append("\t\t# Configuration of the ipgwtg user data generator,\n");
-outputString.append("\t\tdefault[:userDataGen] = ");
+outputString.append("  # Configuration of the ipgwtg user data generator,\n");
+outputString.append("  default[:userDataGen] = ");
 for (QString ipex:dataGenerator.userDataGenerator)
 {
-    if (ipex!=dataGenerator.userDataGenerator.first()) {
-        outputString.append("\t\t\t\t\t");
-    }
     outputString.append(ipex);
     outputString.append("\n");
 }
 outputString.append("\n");
 outputString.append("\n");
 
-outputString.append("\t\tdefault[:start_isp_simulator] = ");
+outputString.append("  default[:start_isp_simulator] = ");
 if (dataGenerator.startIspSimulator){
     outputString.append("true\n");
 }
 else{
     outputString.append("false\n");
 }
-outputString.append("\t\tdefault[:ipgwtg_ipAddress] = \"");
+outputString.append("  default[:ipgwtg_ipAddress] = \"");
 outputString.append(dataGenerator.ipgwtg_IP_Address);
 outputString.append("\"");
 outputString.append("\t# IP address of the interface that can reach the PGW\n");
 
-outputString.append("\t\tdefault[:ipgwtg_inband_signaling] = ");
+outputString.append("  default[:ipgwtg_inband_signaling] = ");
 if (dataGenerator.ipgwtgInbandSignaling){
     outputString.append("true\n");
 }
 else {
     outputString.append("false\n");
 }
-outputString.append("\t\tdefault[:ipgwtg_port] = ");
+outputString.append("  default[:ipgwtg_port] = ");
 outputString.append(QString::number(dataGenerator.ipgwtgPort));
 outputString.append("\n");
 
-outputString.append("\t\tdefault[:ipgwtg_ftp_sender_connect_put] = ");
+outputString.append("  default[:ipgwtg_ftp_sender_connect_put] = ");
 if (dataGenerator.ipgwtgFtpSenderConnectPut){
     outputString.append("true\n");
 }
@@ -279,8 +276,8 @@ else {
     outputString.append("false\n");
 }
 outputString.append("\n");
-outputString.append("\t\treturn default\n");
-outputString.append("\tend\n");
+outputString.append("  return default\n");
+outputString.append(" end\n");
 
 
 /********************* SAMPLE OUTPUT ***********************/
