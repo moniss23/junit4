@@ -30,6 +30,8 @@ public:
     QVector <SyncedPing> CMSyncedPings;
     QVector <ServiceReq> CMServiceReqs;
 
+    bool qciUsed[9];
+
     /****************************
      * SERIALIZATION INTERFACE  *
      ****************************/

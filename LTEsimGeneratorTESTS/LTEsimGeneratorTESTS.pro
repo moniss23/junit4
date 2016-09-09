@@ -47,6 +47,15 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/custommodelsettings.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/ping.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/voip.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/ftpdl.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/ftpul.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/streamdl.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/streamul.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/syncedping.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -83,6 +92,15 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/custommodelsettings.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/ping.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/voip.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/ftpdl.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/ftpul.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/streamdl.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/streamul.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/syncedping.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/servicereq.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
     DataTests/projecttest.h \

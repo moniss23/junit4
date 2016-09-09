@@ -1,5 +1,6 @@
 #include "uisystem.h"
 #include <QMessageBox>
+#include <QDebug>
 
 
 UISystem::UISystem(DataSystem* data) :
@@ -163,6 +164,14 @@ void UISystem::bindingObjects()
     //Spawn window Custom Models
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_CustomModels(QString,QString)), this, SLOT(spawnWindow_CustomModels(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_customModels(QString,QString)), &customModelsListForm, SLOT(open(QString,QString)));
+
+    //Spawn window ping form
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Ping(QString,QString,int)), this, SLOT(spawnWindow_PingForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_PingForm(QString,QString,int,bool*)), &pingForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+
+    //Save ping form
+    QObject::connect(&pingForm, SIGNAL(savePingData(QString,QString,int,Ping)), dataSystem, SLOT(savePingData(QString,QString,int,Ping)));
+    QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -330,6 +339,20 @@ void UISystem::spawnWindow_CustomModels(const QString &projectName, const QStrin
         return;
     }
     emit spawnWindow_customModels(project->name, traffic->filename);
+}
+
+void UISystem::spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index) {
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_PingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
 Project* UISystem::findProjectByName(const QString &projectName)

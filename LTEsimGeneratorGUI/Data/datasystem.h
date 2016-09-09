@@ -28,6 +28,7 @@ signals:
     void spawnWindow_ProjectMng();
     void update_RB_FilesLocation(const QString& location);
     void refreshMapView(const Project &project);
+    void currentCustomModelChanged(const CustomModelSettings &customModelsSettings);
 
 public slots:
 
@@ -75,6 +76,9 @@ public slots:
     //Scripts generation
     void generateParametersScript(Project &project);
     void generateTrafficScript(const Project& project, const int& indexOfFile);
+
+    //Ping saving
+    void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping);
 
 public:
     bool isProjectNameUsed(QString projectName);

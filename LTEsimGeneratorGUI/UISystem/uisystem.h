@@ -22,6 +22,7 @@
 #include "UISystem/Windows/newmapwindow.h"
 #include "UISystem/Windows/trafficmap.h"
 #include "Maps/Traffic/Statistics/statisticsManager.h"
+#include "UISystem/DataForms/pingform.h"
 
 class UISystem : public QObject
 {
@@ -50,6 +51,7 @@ public slots:
     void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
+    void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -67,6 +69,7 @@ signals:
     void spawnWindow_TrafficMap(const Project &project, const TrafficFileData &trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName);
+    void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -90,6 +93,7 @@ private:
     TrafficMap          trafficMap;
     StatisticsManager statisticsManager;
     CustomModelsListForm customModelsListForm;
+    PingForm            pingForm;
 };
 
 #endif // UISYSTEM_H

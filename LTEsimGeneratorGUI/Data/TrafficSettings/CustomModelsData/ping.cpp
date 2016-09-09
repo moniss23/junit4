@@ -20,7 +20,7 @@ QByteArray Ping::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << currentQciTextPing << pingQci << pingNumberOfPings <<
+    stream << pingQci << pingNumberOfPings <<
               pingInterval << pingMinRecievedPings;
 
     return serializedData.buffer();
@@ -29,6 +29,6 @@ QByteArray Ping::serializeData()
 void Ping::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> currentQciTextPing >> pingQci >> pingNumberOfPings >>
+    stream >> pingQci >> pingNumberOfPings >>
               pingInterval >> pingMinRecievedPings;
 }

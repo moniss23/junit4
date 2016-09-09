@@ -48,7 +48,7 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/streamdl.cpp \
     Data/TrafficSettings/CustomModelsData/streamul.cpp \
     Data/TrafficSettings/CustomModelsData/syncedping.cpp \
-    Data/TrafficSettings/CustomModelsData/servicereq.cpp
+    Data/TrafficSettings/CustomModelsData/servicereq.cpp \
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -71,7 +71,8 @@ SOURCES += \
     UISystem/DataForms/UE_param_form.cpp \
     UISystem/Widgets/mapview.cpp \
     UISystem/Windows/trafficmap.cpp \
-    UISystem/Windows/newmapwindow.cpp
+    UISystem/Windows/newmapwindow.cpp \
+    UISystem/DataForms/pingform.cpp
 
 
 SOURCES += main.cpp\
@@ -134,7 +135,7 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/streamdl.h \
     Data/TrafficSettings/CustomModelsData/streamul.h \
     Data/TrafficSettings/CustomModelsData/syncedping.h \
-    Data/TrafficSettings/CustomModelsData/servicereq.h
+    Data/TrafficSettings/CustomModelsData/servicereq.h \
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -158,7 +159,8 @@ HEADERS  += \
     UISystem/Widgets/mapview.h \
     UISystem/Widgets/handoverrepresentation.h \
     UISystem/Windows/newmapwindow.h \
-    UISystem/Windows/trafficmap.h
+    UISystem/Windows/trafficmap.h \
+    UISystem/DataForms/pingform.h
 
 
 HEADERS  += \
@@ -214,7 +216,8 @@ FORMS    += \
     Ui/SmallDialogs/renamedialog.ui \
     Ui/Windows/newmapwindow.ui \
     Ui/Windows/trafficmap.ui \
-    Ui/DataForms/custommodelslistform.ui
+    Ui/DataForms/custommodelslistform.ui \
+    Ui/DataForms/pingform.ui
 
 
 OTHER_FILES += \

@@ -503,3 +503,19 @@ void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
     emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
     saveProjectsFile();
 }
+
+void DataSystem::savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping) {
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMPings.push_back(ping);
+    traffic->customModels[CMindex].qciUsed[ping.pingQci-1] = true;
+    emit currentCustomModelChanged(traffic->customModels[CMindex]);
+}

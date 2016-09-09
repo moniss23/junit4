@@ -6,7 +6,7 @@
 
 CustomModelSettings::CustomModelSettings()
 {
-
+    std::fill(qciUsed,&qciUsed[9],false);
 }
 
 QString CustomModelSettings::getElementType() const

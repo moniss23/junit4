@@ -9,7 +9,6 @@ public:
     Ping();
     ~Ping() {}
 
-    QString currentQciTextPing;
     int pingQci;
     int pingNumberOfPings;
     int pingInterval;

@@ -3,6 +3,13 @@
 
 #include "trafficfiledata.h"
 
+TrafficFileData::TrafficFileData()
+{
+    for(unsigned i = 0; i < 10; i++) {
+        customModels.push_back(CustomModelSettings());
+    }
+}
+
 QString TrafficFileData::getElementType() const
 {
     return QString("TrafficFileData");
