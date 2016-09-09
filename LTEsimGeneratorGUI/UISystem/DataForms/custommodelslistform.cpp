@@ -1,7 +1,6 @@
 #include "custommodelslistform.h"
 #include "ui_custommodelslistform.h"
 
-
 CustomModelsListForm::CustomModelsListForm(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CustomModelsListForm)
@@ -112,9 +111,9 @@ void CustomModelsListForm::on_AddPingButton_clicked()
 
 void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool *cmUsed) {
     this->customModelSettings = customModelSettings;
+    this->cmUsed = cmUsed;
     this->refreshListView();
     this->refreshQci();
-    this->cmUsed = cmUsed;
 }
 
 void CustomModelsListForm::refreshListView()

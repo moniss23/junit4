@@ -30,11 +30,12 @@ private slots:
 private:
     Ui::PingForm *ui;
 
-    Ping ping;
     QString projectName;
     QString trafficName;
     int currentCMindex;
     bool *qciUsed;
+
+    void clearUi();
 };
 
 #endif // PINGFORM_H

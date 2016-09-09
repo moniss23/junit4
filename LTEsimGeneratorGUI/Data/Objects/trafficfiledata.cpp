@@ -44,13 +44,13 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
     int customModelsAmount;
 
     stream >> customModelsAmount;
-    while(customModelsAmount--) {
+    for(unsigned i = 0; i < cmAmount; i++){
         QByteArray rawCustomModels;
         stream >> rawCustomModels;
 
         CustomModelSettings customModelSettings;
         customModelSettings.deserializeData(rawCustomModels);
-        customModels.push_back(customModelSettings);
+        customModels[i] = customModelSettings;
     }
 
     for(unsigned i = 0; i < cmAmount; i++) {
