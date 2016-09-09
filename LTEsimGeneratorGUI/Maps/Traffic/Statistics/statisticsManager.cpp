@@ -11,7 +11,6 @@ StatisticsManager::StatisticsManager(QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(413, 523);
     this->setWindowTitle("Statistics");
-    updateView();
 }
 
 StatisticsManager::~StatisticsManager() {
@@ -91,6 +90,8 @@ void StatisticsManager::on_writeIpexToFileCheckBox_clicked(bool checked)
 
 void StatisticsManager::on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked)
 {
+    this->ui->writeGeneralStatisticsToFileCheckBox->setChecked(checked);
+
     this->ui->ueLabel->setEnabled(checked);
     this->ui->ueLineEdit->setEnabled(checked);
     this->ui->delayBetweenPacketsLabel->setEnabled(checked);
