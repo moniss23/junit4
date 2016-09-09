@@ -20,8 +20,6 @@ ProjectManagement::~ProjectManagement()
 /***********************************************
 *   AUTOMATIC BINDINGS TO UI BUTTONS CODE HERE
 ***********************************************/
-
-// "new project" button clicked
 void ProjectManagement::on_newProject_Button_clicked()
 {
     emit spawnWindow_NewProject();
@@ -32,7 +30,6 @@ void ProjectManagement::on_openProject_Button_clicked()
     this->open_project();
 }
 
-// "delete project" button clicked
 void ProjectManagement::on_deleteProject_Button_clicked(){
     QListWidgetItem *item = ui->listWidget->currentItem();
     if (item==NULL){
@@ -48,13 +45,11 @@ void ProjectManagement::on_deleteProject_Button_clicked(){
      }
 }
 
-// "import project" button is clicked
 void ProjectManagement::on_importProject_Button_clicked()
 {
     emit spawnWindow_ImportProject();
 }
 
-// "settings" button clicked
 void ProjectManagement::on_settings_Button_clicked()
 {
     emit spawnWindow_Settings();
@@ -64,7 +59,6 @@ void ProjectManagement::on_settings_Button_clicked()
 /***********************************************
 *   AUTOMATIC BINDINGS TO UI ACTIONS CODE HERE
 ***********************************************/
-
 void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 {
     (void) item;
@@ -73,7 +67,6 @@ void ProjectManagement::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 
 void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *current)
 {
-
     if(current==NULL || !ui->listWidget->count()){
         return;
     }
@@ -85,7 +78,6 @@ void ProjectManagement::on_listWidget_currentItemChanged(QListWidgetItem *curren
 /***********************************************
 *   LOGIC CODE HERE
 ***********************************************/
-
 void ProjectManagement::updateProjectLists(const QVector<Project> &projects)
 {
     this->projects = projects;
@@ -95,12 +87,6 @@ void ProjectManagement::updateProjectLists(const QVector<Project> &projects)
     }
     updateUiState();
 }
-
-
-
-/***********************************************
-*   OLD LOGIC CODE HERE, TODO: DISPOSE
-***********************************************/
 
 void ProjectManagement::open_project(){
 
@@ -118,13 +104,12 @@ void ProjectManagement::open_project(){
     this->close();
 }
 
-// display project's files in the right view
 void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
+
+    if(item==NULL) return;
 
     // clear the right list
     this->ui->listWidget_2->clear();
-
-    if(item==NULL) return;
 
     QString ProjectName = item->text().split("\t")[0];
 

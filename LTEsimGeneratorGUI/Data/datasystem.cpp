@@ -154,6 +154,7 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
         emit errorInData("Can't find right project");
         return;
     }
+
     if(project->parametersFile.filename == fileName) {
         project->parametersFile.content = content;
         scriptParserManager.parseFromScript(content, *project);
@@ -163,8 +164,11 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
             emit errorInData("Can't find right file");
             return;
         }
+
         trafficFile->content = content;
     }
+
+    saveProjectsFile();
     emit currentProjectChanged(*project);
 }
 

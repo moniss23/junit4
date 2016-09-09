@@ -11,11 +11,13 @@
 QStringList parametersFileContentList;// TODO: get rid of that
 
 ParametersWindow::ParametersWindow(QWidget *parent) :
-    QMainWindow(parent), ui(new Ui::ParametersWindow)
+    QMainWindow(parent), ui(new Ui::ParametersWindow),
+    filePreviewChanged(false)
 {
     ui->setupUi(this);
 
-    filePreviewChanged = false;
+    ui->projectsList->setAlternatingRowColors(true);
+    ui->projectsList->setSelectionMode(QAbstractItemView::SingleSelection);
 
     this->ui->undoButton->setEnabled(false);
     this->ui->redoButton->setEnabled(false);
@@ -29,11 +31,27 @@ void ParametersWindow::loadProjectAndOpen(const Project &project){
 
     refreshUI(project);
 
-    //-----------REFACTOR IN PROGRESS------------
-    QString parametersFileContent = project.parametersFile.content +"\n";
-    parametersFileContentList = parametersFileContent.split('\n');
-
     show();
+}
+
+void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    if(current == previous || current == nullptr) {
+        return;
+    }
+
+    if (previous && filePreviewChanged) {
+
+        if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File " +
+                                           previous->text() + " has been changed. Do you want to save it?\n",
+                                           QMessageBox::Yes|QMessageBox::No).exec()){
+            emit updateFileContent(currentProject.name, previous->text(), this->ui->filePreview->toPlainText());
+            filePreviewChanged = false;
+            return;
+        }
+    }
+    previewFile(current);
+    filePreviewChanged = false;
 }
 
 void ParametersWindow::refreshUI(const Project &project)
@@ -47,14 +65,12 @@ void ParametersWindow::refreshUI(const Project &project)
 
     //PARAMETERS FILE
     ui->projectsList->addItem(currentProject.parametersFile.filename);
-
     //TRAFFIC FILES
     for(auto &&it:currentProject.trafficFilesList){
-        new QListWidgetItem(it.filename, ui->projectsList);
+        ui->projectsList->addItem(it.filename);
     }
 
-    ui->projectsList->item(0)->setSelected(true);
-    ui->projectsList->setCurrentRow(0);
+    ui->projectsList->setCurrentRow( 0, QItemSelectionModel::ClearAndSelect);
 }
 
 ParametersWindow::~ParametersWindow()
@@ -133,27 +149,6 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
     }
 }
 
-void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
-{
-    if(current == previous || previous == nullptr || current == nullptr) {
-        if(current != nullptr) {
-            this->previewFile(current);
-        }
-        return;
-    }
-    if(filePreviewChanged) {
-        if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File " +
-                                           previous->text() + " has been changed. Do you want to save it?\n",
-                                           QMessageBox::Yes|QMessageBox::No).exec()){
-            emit updateFileContent(currentProject.name, previous->text(), this->ui->filePreview->toPlainText());
-            emit saveProjects();
-            return;
-        }
-    }
-    filePreviewChanged = false;
-    previewFile(current);
-}
-
 // file in the project double-clicked
 void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
 {
@@ -225,7 +220,6 @@ void ParametersWindow::on_saveFileButton_pressed()
     if(!filePreviewChanged) return;
 
     emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
-    emit saveProjects();
 
     filePreviewChanged = false;
 }

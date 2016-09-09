@@ -69,19 +69,11 @@ signals:
      */
     void GenerateFile();
     /**
-     * @brief SaveFile signal used to nofity system to save projects
-     */
-    void SaveFile();
-    /**
      * @brief removeFile_TrafficFile signal used to nofity system to remove traffic file
      * @param projectName name of project to remove a traffic file
      * @param fileName name of traffic file to remove
      */
     void removeFile_TrafficFile(const QString& projectName, const QString& fileName);
-    /**
-     * @brief saveProjects signal used to nofity system to save projects to file
-     */
-    void saveProjects();
     /**
      * @brief setDefaultParametersFileContent signal used to nofity system to set default parameters file content
      * @param projectName name of project to set default parameters file content
