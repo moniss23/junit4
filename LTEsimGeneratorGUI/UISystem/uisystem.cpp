@@ -189,6 +189,10 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
     QObject::connect(&customModelsListForm, SIGNAL(loadData(QString,QString,int)), dataSystem, SLOT(updateCustomModel(QString,QString,int)));
+
+    //Spawn window Tuning Traffic
+    QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_tuningTraffic(QString,QString)), &tuningTrafficManager, SLOT(open(QString,QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -416,16 +420,30 @@ void UISystem::spawnWindow_FtpUlForm(const QString &projectName, const QString &
     emit spawnWindow_FtpUlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
-Project* UISystem::findProjectByName(const QString &projectName)
-{
-    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                (const Project& project)->bool {
-        return (project.name == projectName);
-    });
-    return project != std::end(dataSystem->projects) ? project : nullptr;
-}
+    void UISystem::spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName) {
+                auto project = findProjectByName(projectName);
+        if (project==nullptr) {
+            dataSystem->errorInData("Can't find right project");
+            return;
+        }
+        auto traffic = project->findTrafficFileByName(trafficName);
+        if (traffic==nullptr) {
+            dataSystem->errorInData("Can't find right trafficFile");
+            return;
+        }
+        emit spawnWindow_tuningTraffic(project->name, traffic->filename);
+    }
 
-void UISystem::showErrorWindow(const QString &errorDescription)
-{
-    QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
-}
+    Project* UISystem::findProjectByName(const QString &projectName)
+    {
+        auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
+                                    (const Project& project)->bool {
+            return (project.name == projectName);
+        });
+        return project != std::end(dataSystem->projects) ? project : nullptr;
+    }
+
+    void UISystem::showErrorWindow(const QString &errorDescription)
+    {
+        QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
+    }

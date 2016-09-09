@@ -47,6 +47,13 @@ TuningTrafficManager::~TuningTrafficManager()
     areaSaveParameters.clear();
 }
 
+void TuningTrafficManager::open(const QString &projectName, const QString &trafficName) {
+    this->projectName = projectName;
+    this->trafficFileName = trafficName;
+
+    this->show();
+}
+
 void TuningTrafficManager::setParameters()
 {
     for (int i = 0; i < CSSaveParameters.size(); ++i)

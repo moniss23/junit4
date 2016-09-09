@@ -26,6 +26,7 @@
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
+#include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 
 class UISystem : public QObject
 {
@@ -58,6 +59,7 @@ public slots:
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index);
+    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -79,6 +81,7 @@ signals:
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -106,6 +109,8 @@ private:
     VoipForm                voipForm;
     FtpDlForm               ftpDlForm;
     FtpUlForm               ftpUlForm;
+    TuningTrafficManager tuningTrafficManager;
+
 };
 
 #endif // UISYSTEM_H

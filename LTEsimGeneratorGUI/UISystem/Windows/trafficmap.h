@@ -28,10 +28,13 @@ public slots:
 signals:
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficFileName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
+    void spawnWindow_Time(const QString &projectName, const QString &trafficName);
+    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
 
 private slots:
     void on_pushButton_pressed();
     void on_statisticsButton_clicked();
+    void on_tunningTrafficButton_clicked();
 
 private:
     Ui::TrafficMap *    ui;

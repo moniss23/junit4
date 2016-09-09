@@ -48,6 +48,9 @@ private slots:
     void on_btn_psMiniSave_clicked();
     void on_btn_areaMiniSave_clicked();
 
+public slots:
+    void open(const QString &projectName, const QString &trafficName);
+
 private:
     Ui::TuningTrafficForm *ui;
     TuningTrafficData *tuningTrafficData;
@@ -58,6 +61,9 @@ private:
 
     bool saveClicked;
     bool cancelClicked;
+
+    QString projectName;
+    QString trafficFileName;
 
     struct TuningTrafficUEModel
     {

@@ -62,3 +62,8 @@ void TrafficMap::on_pushButton_pressed()
 {
     emit spawnWindow_CustomModels(project.name, trafficFileData.filename);
 }
+
+void TrafficMap::on_tunningTrafficButton_clicked()
+{
+    emit spawnWindow_TuningTraffic(project.name, trafficFileData.filename);
+}
