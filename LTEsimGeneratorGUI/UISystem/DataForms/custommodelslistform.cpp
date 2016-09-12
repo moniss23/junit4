@@ -124,6 +124,16 @@ void CustomModelsListForm::on_AddFtpUlButton_clicked()
     emit spawnWindow_FtpUl(projectName, trafficName, currentCustomModelIndex);
 }
 
+void CustomModelsListForm::on_AddStreamDlButton_clicked()
+{
+    emit spawnWindow_StreamDl(projectName, trafficName, currentCustomModelIndex);
+}
+
+void CustomModelsListForm::on_AddStreamUlButton_clicked()
+{
+    emit spawnWindow_StreamUl(projectName, trafficName, currentCustomModelIndex);
+}
+
 void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool *cmUsed) {
     this->customModelSettings = customModelSettings;
     this->cmUsed = cmUsed;
@@ -212,4 +222,5 @@ void CustomModelsListForm::refreshCmButtonsColors(const int &index) {
     }
     this->cmButtonsPtr[index]->setStyleSheet("background-color: rgb(0, 255, 255); color: rgb(0, 0, 0)");
 }
+
 

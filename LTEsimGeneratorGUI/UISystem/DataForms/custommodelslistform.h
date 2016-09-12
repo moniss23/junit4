@@ -30,6 +30,8 @@ signals:
     void spawnWindow_Voip(const QString &projectName, const QString &trafficName, const int &CMindex);
     void spawnWindow_FtpDl(const QString &projectName, const QString &trafficName, const int &CMindex);
     void spawnWindow_FtpUl(const QString &projectName, const QString &trafficName, const int &CMindex);
+    void spawnWindow_StreamDl(const QString &projectName, const QString &trafficName, const int &CMindex);
+    void spawnWindow_StreamUl(const QString &projectName, const QString &trafficName, const int &CMindex);
 
 private slots:
     void on_CM1Button_clicked();
@@ -44,10 +46,12 @@ private slots:
     void on_CM10Button_clicked();
     void on_AddPingButton_clicked();
     void on_AddVoipButton_clicked();
-
     void on_AddFtpDlButton_clicked();
-
     void on_AddFtpUlButton_clicked();
+
+    void on_AddStreamDlButton_clicked();
+
+    void on_AddStreamUlButton_clicked();
 
 private:
     void refreshListView();

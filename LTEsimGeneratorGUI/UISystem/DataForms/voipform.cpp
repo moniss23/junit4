@@ -6,6 +6,7 @@ VoipForm::VoipForm(QWidget *parent) :
     ui(new Ui::VoipForm), qciUsed(nullptr)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Voip");
 }
 
 VoipForm::~VoipForm()

@@ -28,6 +28,8 @@
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
+#include "UISystem/DataForms/streamdlform.h"
+#include "UISystem/DataForms/streamulform.h"
 
 class UISystem : public QObject
 {
@@ -62,6 +64,8 @@ public slots:
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
+    void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index);
+    void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -85,6 +89,8 @@ signals:
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
+    void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -114,7 +120,8 @@ private:
     FtpDlForm               ftpDlForm;
     FtpUlForm               ftpUlForm;
     TuningTrafficManager tuningTrafficManager;
-
+    StreamDlForm            streamDlForm;
+    StreamUlForm            streamUlForm;
 };
 
 #endif // UISYSTEM_H

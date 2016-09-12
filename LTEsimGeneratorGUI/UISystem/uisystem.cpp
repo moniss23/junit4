@@ -196,6 +196,16 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnWindow_FtpUlForm(QString,QString,int,bool*)), &ftpUlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
     QObject::connect(&ftpUlForm, SIGNAL(saveFtpUlData(QString,QString,int,FtpUl)), dataSystem, SLOT(saveFtpUlData(QString,QString,int,FtpUl)));
 
+    //StreamDL form (trafficmap)
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_StreamDl(QString,QString,int)), this, SLOT(spawnWindow_StreamDlForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_StreamDlForm(QString,QString,int,bool*)), &streamDlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+    QObject::connect(&streamDlForm, SIGNAL(saveStreamDlData(QString,QString,int,StreamDl)), dataSystem, SLOT(saveStreamDlData(QString,QString,int,StreamDl)));
+
+    //StreamUL form (trafficmap)
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_StreamUl(QString,QString,int)), this, SLOT(spawnWindow_StreamUlForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_StreamUlForm(QString,QString,int,bool*)), &streamUlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+    QObject::connect(&streamUlForm, SIGNAL(saveStreamUlData(QString,QString,int,StreamUl)), dataSystem, SLOT(saveStreamUlData(QString,QString,int,StreamUl)));
+
     // Update project
     QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
@@ -454,6 +464,45 @@ void UISystem::spawnWindow_FtpUlForm(const QString &projectName, const QString &
         }
         emit spawnWindow_tuningTraffic(project->name, traffic->filename);
     }
+
+void UISystem::spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_StreamDlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_StreamUlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+Project* UISystem::findProjectByName(const QString &projectName)
+{
+    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
+                                (const Project& project)->bool {
+        return (project.name == projectName);
+    });
+    return project != std::end(dataSystem->projects) ? project : nullptr;
+}
 
     Project* UISystem::findProjectByName(const QString &projectName)
     {

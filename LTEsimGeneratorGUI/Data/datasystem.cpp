@@ -674,6 +674,44 @@ void DataSystem::saveFtpUlData(const QString &projectName, const QString &traffi
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
+void DataSystem::saveStreamDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamDl &streamDl)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMStreamDls.push_back(streamDl);
+    traffic->customModels[CMindex].qciUsed[streamDl.streamDlQci-1] = true;
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
+void DataSystem::saveStreamUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamUl &streamUl)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMStreamUls.push_back(streamUl);
+    traffic->customModels[CMindex].qciUsed[streamUl.streamUlQci-1] = true;
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
 void DataSystem::updateCustomModel(const QString &projectName, const QString &trafficName, const int &index)
 {
     auto project = findProjectByName(projectName);

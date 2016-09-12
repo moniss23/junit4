@@ -6,6 +6,7 @@ PingForm::PingForm(QWidget *parent) :
     ui(new Ui::PingForm), qciUsed(nullptr)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Ping");
 }
 
 PingForm::~PingForm()

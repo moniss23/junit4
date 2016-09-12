@@ -6,6 +6,7 @@ FtpDlForm::FtpDlForm(QWidget *parent) :
     ui(new Ui::FtpDlForm), qciUsed(nullptr)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Ftp Dl");
 }
 
 FtpDlForm::~FtpDlForm()

@@ -6,6 +6,7 @@ FtpUlForm::FtpUlForm(QWidget *parent) :
     ui(new Ui::FtpUlForm), qciUsed(nullptr)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Ftp Ul");
 }
 
 FtpUlForm::~FtpUlForm()
