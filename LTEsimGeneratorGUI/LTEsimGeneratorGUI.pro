@@ -90,7 +90,6 @@ SOURCES += main.cpp\
     Maps/Traffic/Time/timeManager.cpp \
     Maps/Traffic/Statistics/statisticsManager.cpp \
     Maps/Traffic/Statistics/statisticsData.cpp  \
-    Maps/Traffic/CustomModel/customModel.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
     Maps/Traffic/Tuning/tuningTrafficData.cpp
@@ -174,7 +173,6 @@ HEADERS  += \
     Maps/Traffic/Time/timeManager.h \
     Maps/Traffic/Statistics/statisticsData.h \
     Maps/Traffic/Statistics/statisticsManager.h \
-    Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
     Maps/Traffic/Tuning/tuningTrafficManager.h
