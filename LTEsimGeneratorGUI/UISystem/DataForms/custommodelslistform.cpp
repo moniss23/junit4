@@ -109,6 +109,21 @@ void CustomModelsListForm::on_AddPingButton_clicked()
     emit spawnWindow_Ping(projectName, trafficName, currentCustomModelIndex);
 }
 
+void CustomModelsListForm::on_AddVoipButton_clicked()
+{
+    emit spawnWindow_Voip(projectName, trafficName, currentCustomModelIndex);
+}
+
+void CustomModelsListForm::on_AddFtpDlButton_clicked()
+{
+    emit spawnWindow_FtpDl(projectName, trafficName, currentCustomModelIndex);
+}
+
+void CustomModelsListForm::on_AddFtpUlButton_clicked()
+{
+    emit spawnWindow_FtpUl(projectName, trafficName, currentCustomModelIndex);
+}
+
 void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool *cmUsed) {
     this->customModelSettings = customModelSettings;
     this->cmUsed = cmUsed;
@@ -197,3 +212,4 @@ void CustomModelsListForm::refreshCmButtonsColors(const int &index) {
     }
     this->cmButtonsPtr[index]->setStyleSheet("background-color: rgb(0, 255, 255); color: rgb(0, 0, 0)");
 }
+

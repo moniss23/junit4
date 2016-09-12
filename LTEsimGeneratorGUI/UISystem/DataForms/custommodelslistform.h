@@ -27,6 +27,9 @@ signals:
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
     void loadData(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_Ping(const QString &projectName, const QString &trafficName, const int &CMindex);
+    void spawnWindow_Voip(const QString &projectName, const QString &trafficName, const int &CMindex);
+    void spawnWindow_FtpDl(const QString &projectName, const QString &trafficName, const int &CMindex);
+    void spawnWindow_FtpUl(const QString &projectName, const QString &trafficName, const int &CMindex);
 
 private slots:
     void on_CM1Button_clicked();
@@ -40,6 +43,11 @@ private slots:
     void on_CM9Button_clicked();
     void on_CM10Button_clicked();
     void on_AddPingButton_clicked();
+    void on_AddVoipButton_clicked();
+
+    void on_AddFtpDlButton_clicked();
+
+    void on_AddFtpUlButton_clicked();
 
 private:
     void refreshListView();

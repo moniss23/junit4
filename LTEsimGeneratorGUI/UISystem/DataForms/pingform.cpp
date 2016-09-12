@@ -33,6 +33,7 @@ void PingForm::on_okButton_clicked()
     ping.pingNumberOfPings = this->ui->numberOfPings->text().toInt();
 
     emit savePingData(projectName, trafficName, currentCMindex, ping);
+    this->close();
 }
 
 void PingForm::on_cancelButton_clicked()

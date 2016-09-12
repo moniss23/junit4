@@ -164,13 +164,26 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_CustomModels(QString,QString)), this, SLOT(spawnWindow_CustomModels(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_customModels(QString,QString,bool*)), &customModelsListForm, SLOT(open(QString,QString, bool*)));
 
-    //Spawn window ping form
+    //Ping form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Ping(QString,QString,int)), this, SLOT(spawnWindow_PingForm(QString,QString,int)));
     QObject::connect(this, SIGNAL(spawnWindow_PingForm(QString,QString,int,bool*)), &pingForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-
-    //Save ping form
     QObject::connect(&pingForm, SIGNAL(savePingData(QString,QString,int,Ping)), dataSystem, SLOT(savePingData(QString,QString,int,Ping)));
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings)));
+
+    //Voip form (trafficmap)
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Voip(QString,QString,int)), this, SLOT(spawnWindow_VoipForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_VoipForm(QString,QString,int,bool*)), &voipForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+    QObject::connect(&voipForm, SIGNAL(saveVoipData(QString,QString,int,Voip)), dataSystem, SLOT(saveVoipData(QString,QString,int,Voip)));
+
+    //FtpDl form (trafficmap)
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_FtpDl(QString,QString,int)), this, SLOT(spawnWindow_FtpDlForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_FtpDlForm(QString,QString,int,bool*)), &ftpDlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+    QObject::connect(&ftpDlForm, SIGNAL(saveFtpDlData(QString,QString,int,FtpDl)), dataSystem, SLOT(saveFtpDlData(QString,QString,int,FtpDl)));
+
+    //FtpUl form (trafficmap)
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_FtpUl(QString,QString,int)), this, SLOT(spawnWindow_FtpUlForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_FtpUlForm(QString,QString,int,bool*)), &ftpUlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+    QObject::connect(&ftpUlForm, SIGNAL(saveFtpUlData(QString,QString,int,FtpUl)), dataSystem, SLOT(saveFtpUlData(QString,QString,int,FtpUl)));
 
     // Update project
     QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
@@ -357,6 +370,50 @@ void UISystem::spawnWindow_PingForm(const QString &projectName, const QString &t
         return;
     }
     emit spawnWindow_PingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index) {
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_VoipForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_FtpDlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_FtpUlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
 Project* UISystem::findProjectByName(const QString &projectName)

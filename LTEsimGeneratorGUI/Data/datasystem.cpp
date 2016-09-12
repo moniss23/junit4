@@ -560,6 +560,63 @@ void DataSystem::savePingData(const QString &projectName, const QString &traffic
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
+void DataSystem::saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMVoips.push_back(voip);
+    traffic->customModels[CMindex].qciUsed[voip.voipQci-1] = true;
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
+void DataSystem::saveFtpDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpDl &ftpDl)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMFtpDls.push_back(ftpDl);
+    traffic->customModels[CMindex].qciUsed[ftpDl.ftpDlQci-1] = true;
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
+void DataSystem::saveFtpUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpUl &ftpUl)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMFtpUls.push_back(ftpUl);
+    traffic->customModels[CMindex].qciUsed[ftpUl.ftpUlQci-1] = true;
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
 void DataSystem::updateCustomModel(const QString &projectName, const QString &trafficName, const int &index)
 {
     auto project = findProjectByName(projectName);
