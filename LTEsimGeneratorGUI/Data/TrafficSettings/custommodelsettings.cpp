@@ -1,9 +1,5 @@
 #include "custommodelsettings.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 CustomModelSettings::CustomModelSettings()
 {
     std::fill(qciUsed,&qciUsed[9],false);

@@ -4,7 +4,14 @@
 #include <QDir>
 #include <QTextStream>
 
+#include "Data/Managers/filemanager.h"
+#include "Data/Managers/scriptparsermanager.h"
+
 DataSystem::DataSystem() {
+
+    fileManager         = std::make_unique<FileManager>();
+    scriptParserManager = std::make_unique<ScriptParserManager>();
+
     projectsFileSetup();
 }
 
@@ -17,7 +24,7 @@ void DataSystem::LoadAppData() {
 }
 
 void DataSystem::loadProjectsFile() {
-    QDataStream dataStream(fileManager.readFromFile(appGlobalData.getProjectsFile()));
+    QDataStream dataStream(fileManager->readFromFile(appGlobalData.getProjectsFile()));
 
     int projectsAmount;
     dataStream >> projectsAmount;
@@ -44,7 +51,7 @@ void DataSystem::saveProjectsFile() {
         dataStream << singleProjectData;
     }
 
-    fileManager.writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
+    fileManager->writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
 }
 
 // Returns pointer to a Project element or nullptr if not found
@@ -202,7 +209,7 @@ void DataSystem::setDefaultParametersFileContent(const QString &projectName) {
         return;
     }
     project->parametersFile.content = getDefaultParametersFileContent();
-    scriptParserManager.parseFromScript(project->parametersFile.content, *project);
+    scriptParserManager->parseFromScript(project->parametersFile.content, *project);
     emit currentProjectChanged(*project);
 }
 
@@ -278,7 +285,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
 
     QString rbContent = newProject.parametersFile.content;
 
-    scriptParserManager.parseFromScript(rbContent,newProject);
+    scriptParserManager->parseFromScript(rbContent,newProject);
 
     projects.push_back(newProject);
     emit currentProjects(projects);
@@ -471,14 +478,14 @@ void DataSystem::updateGeneralConfigurationParameters(const GeneralConfiguration
 
 void DataSystem::generateParametersScript(Project &project)
 {
-    QString content = scriptParserManager.GenerateParametersQString(project);
+    QString content = scriptParserManager->GenerateParametersQString(project);
     emit updateFileContent(project.name,project.parametersFile.filename,content);
-    fileManager.generateParametersScript(project.fullpath,project.name,content);
+    fileManager->generateParametersScript(project.fullpath,project.name,content);
 }
 
 void DataSystem::generateTrafficScript(const Project &project, const int &indexOfFile)
 {
-    fileManager.generateTrafficScript(project,indexOfFile);
+    fileManager->generateTrafficScript(project,indexOfFile);
 }
 
 /**********************

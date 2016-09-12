@@ -17,7 +17,11 @@ public:
     MapParser();
     ~MapParser(){}
 
-    static QString ParseMap(QVector<QPair<Cell, Center>> &cellsInfo, MapRange &mapRange, QVector<Handover> &handover, UBSimSettings &ubSim, DataGeneratorSettings &dataGenerator);
+    static QString ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,
+                            MapRange &mapRange,
+                            QVector<Handover> &handover,
+                            UBSimSettings &ubSim,
+                            DataGeneratorSettings &dataGenerator);
 };
 
 #endif // MAPPARSER_H

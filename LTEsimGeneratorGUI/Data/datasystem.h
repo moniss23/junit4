@@ -2,12 +2,13 @@
 #define DATASYSTEM_H
 
 #include <QString>
+#include <memory>
 
 #include "Data/project.h"
-
 #include "Data/appglobaldata.h"
-#include "Data/Managers/filemanager.h"
-#include "Data/Managers/scriptparsermanager.h"
+
+class ScriptParserManager;
+class FileManager;
 
 class DataSystem : public QObject
 {
@@ -85,19 +86,20 @@ public slots:
     void saveFtpUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpUl &ftpUl);
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
 
-
     void updateProjectOnMapCloseEvent(const QString &projectName);
 
 public:
-    bool isProjectNameUsed(QString projectName);
     QString getDefaultNewProjectDir() const;
     AppGlobalData getAppGlobalData() const;
 
 private:
-    AppGlobalData       appGlobalData;
+    bool isProjectNameUsed(QString projectName);
 
-    FileManager         fileManager;
-    ScriptParserManager scriptParserManager;
+private:
+    AppGlobalData                        appGlobalData;
+
+    std::unique_ptr<FileManager>         fileManager;
+    std::unique_ptr<ScriptParserManager> scriptParserManager;
 
     void loadProjectsFile();
     void projectsFileSetup();
