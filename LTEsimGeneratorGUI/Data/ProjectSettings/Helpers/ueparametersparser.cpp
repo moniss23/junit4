@@ -89,6 +89,6 @@ QString UeParametersParser::ParseToScript(UCToolSettings &ucTool,UeParameters &u
     outputString.append("\n");
     outputString.append("    # All JMX parameters can be listed with help :ue in the ltesim_cli\n");
     outputString.append("    return default\n");
-    outputString.append("\tend\n");
+    outputString.append(" end\n");
     return outputString;
 }

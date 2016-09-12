@@ -51,7 +51,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
 
     int len =0,startIndex =0;
 
-    project.mapRange = getMapRange(scriptContentLines);
+    project.mapRange = getMapRange(scriptContentLines,project);
 
     for (int i=0;i<scriptContentLines.size();i++){
         if (scriptContentLines[i].contains("getGeneralParameters()")){
@@ -80,14 +80,14 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
         }
         else if(scriptContentLines[i].contains("default[:rec]")) {
             startIndex=i;
-            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+            while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
             cells = getCellsFromScript(scriptContentLines);        }
         else if(scriptContentLines[i].contains("default[:areas]")) {
             startIndex=i;
-            while ((!(QRegExp("Common").indexIn(scriptContentLines[i])>-1))){
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
@@ -124,7 +124,9 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
                 len++;
                 i++;
             }
+            QString imsiMapRange = project.ubSimSettings.imsiMapRange;
             project.ubSimSettings = getUBSimSettings(scriptContentLines.mid(startIndex,len));
+            project.ubSimSettings.imsiMapRange = imsiMapRange;
         }
         else if (scriptContentLines[i].contains("getGeneralParameters")){
             startIndex=i;
@@ -686,10 +688,18 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
     return generalConfiguration;
 }
 
-MapRange ScriptParserManager::getMapRange(const QStringList scriptContentLines) {
+MapRange ScriptParserManager::getMapRange(const QStringList scriptContentLines,Project &project) {
     MapRange mapRange;
 
     for (int i = 0;i<scriptContentLines.size();i++) {
+
+        if (scriptContentLines[i].contains("imsiMapRange")){
+            QRegExp mapRangeRegExp("\".*\"");
+            if (mapRangeRegExp.indexIn(scriptContentLines[i])>-1) {
+                project.ubSimSettings.imsiMapRange = mapRangeRegExp.capturedTexts()[0];
+                project.ubSimSettings.imsiMapRange.remove("\"");
+            }
+        }
         if (scriptContentLines[i].contains("default[:southBoundMap]")){
             QRegExp numberRegExp("[0-9]+");
             if (numberRegExp.indexIn(scriptContentLines[i]) > -1){

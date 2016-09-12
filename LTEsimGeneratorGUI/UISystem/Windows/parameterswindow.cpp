@@ -202,18 +202,16 @@ void ParametersWindow::on_actionPath_triggered()
 }
 void ParametersWindow::on_saveFileButton_clicked()
 {
-    //TODO: implement file saving on button click
+
+    if(!filePreviewChanged) return;
+
+    emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
+
+    filePreviewChanged = false;
+
 }
 
 void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
-void ParametersWindow::on_saveFileButton_pressed()
-{
-    if(!filePreviewChanged) return;
-
-    emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
-
-    filePreviewChanged = false;
-}

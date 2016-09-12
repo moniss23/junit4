@@ -183,6 +183,7 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
 
     if(project->parametersFile.filename == fileName) {
         project->parametersFile.content = content;
+        scriptParserManager.parseFromScript(content,*project);
     }else {
         auto trafficFile = project->findTrafficFileByName(fileName);
         if(trafficFile == nullptr) {

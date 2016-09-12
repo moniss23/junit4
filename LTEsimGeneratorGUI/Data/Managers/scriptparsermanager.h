@@ -22,7 +22,7 @@ public:
     PagingSettings getPagingSettings(const QStringList scriptContentLines);
     UBSimSettings getUBSimSettings(const QStringList scriptContentLines);
     GeneralConfigurationParameters getGeneralConfigurationSettings(const QStringList scriptContentLines);
-    MapRange getMapRange(const QStringList scriptContentLines);
+    MapRange getMapRange(const QStringList scriptContentLines, Project &project);
     UeParameters getUeParameters(const QStringList &scriptContentLines);
     QString GenerateParametersQString(Project &project);
 
