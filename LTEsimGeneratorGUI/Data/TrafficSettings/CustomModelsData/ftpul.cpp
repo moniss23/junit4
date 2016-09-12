@@ -20,7 +20,7 @@ QByteArray FtpUl::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << currentQciTextFtpUl << ftpUlQci << ftpUlFilesize << ftpUlMinThroughput;
+    stream << ftpUlQci << ftpUlFilesize << ftpUlMinThroughput;
 
     return serializedData.buffer();
 }
@@ -28,5 +28,5 @@ QByteArray FtpUl::serializeData()
 void FtpUl::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> currentQciTextFtpUl >> ftpUlQci >> ftpUlFilesize >> ftpUlMinThroughput;
+    stream >> ftpUlQci >> ftpUlFilesize >> ftpUlMinThroughput;
 }

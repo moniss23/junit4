@@ -74,7 +74,14 @@ SOURCES += \
     UISystem/Widgets/mapview.cpp \
     UISystem/Windows/trafficmap.cpp \
     UISystem/Windows/newmapwindow.cpp \
-    UISystem/DataForms/pingform.cpp
+    UISystem/DataForms/pingform.cpp \
+    UISystem/DataForms/voipform.cpp \
+    UISystem/DataForms/ftpdlform.cpp \
+    UISystem/DataForms/ftpulform.cpp \
+    UISystem/DataForms/streamdlform.cpp \
+    UISystem/DataForms/streamulform.cpp \
+    UISystem/DataForms/servicereqform.cpp \
+    UISystem/DataForms/syncedpingform.cpp
 
 
 SOURCES += main.cpp\
@@ -139,7 +146,7 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/syncedping.h \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
-    Data/ProjectSettings/Helpers/mapparser.h
+    Data/ProjectSettings/Helpers/mapparser.h \
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -164,7 +171,14 @@ HEADERS  += \
     UISystem/Widgets/handoverrepresentation.h \
     UISystem/Windows/newmapwindow.h \
     UISystem/Windows/trafficmap.h \
-    UISystem/DataForms/pingform.h
+    UISystem/DataForms/pingform.h \
+    UISystem/DataForms/voipform.h \
+    UISystem/DataForms/ftpdlform.h \
+    UISystem/DataForms/ftpulform.h \
+    UISystem/DataForms/streamdlform.h \
+    UISystem/DataForms/streamulform.h \
+    UISystem/DataForms/servicereqform.h \
+    UISystem/DataForms/syncedpingform.h
 
 
 HEADERS  += \
@@ -221,7 +235,14 @@ FORMS    += \
     Ui/Windows/newmapwindow.ui \
     Ui/Windows/trafficmap.ui \
     Ui/DataForms/custommodelslistform.ui \
-    Ui/DataForms/pingform.ui
+    Ui/DataForms/pingform.ui \
+    Ui/DataForms/voipform.ui \
+    Ui/DataForms/ftpdlform.ui \
+    Ui/DataForms/ftpulform.ui \
+    Ui/DataForms/streamdlform.ui \
+    Ui/DataForms/streamulform.ui \
+    Ui/DataForms/syncedpingform.ui \
+    Ui/DataForms/servicereqform.ui
 
 
 OTHER_FILES += \

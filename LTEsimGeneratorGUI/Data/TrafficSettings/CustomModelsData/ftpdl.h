@@ -9,7 +9,6 @@ public:
     FtpDl();
     ~FtpDl() {}
 
-    QString currentQciTextFtpDl;
     int ftpDlQci;
     int ftpDlFilesize;
     int ftpDlMinThroughput;

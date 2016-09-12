@@ -9,7 +9,6 @@ public:
     StreamDl();
     ~StreamDl() {}
 
-    QString currentQciTextStreamDl;
     int streamDlQci;
     int streamDlSpeed;
     int streamDlDuration;

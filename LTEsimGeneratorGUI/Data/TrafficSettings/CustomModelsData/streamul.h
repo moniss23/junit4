@@ -9,7 +9,6 @@ public:
     StreamUl();
     ~StreamUl() {}
 
-    QString currentQciTextStreamUl;
     int streamUlQci;
     int streamUlSpeed;
     int streamUlDuration;

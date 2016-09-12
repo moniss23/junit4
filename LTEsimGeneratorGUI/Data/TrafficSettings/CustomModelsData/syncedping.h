@@ -5,13 +5,12 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
-class SyncedPing
+class SyncedPingForm : public SerializeInterface
 {
 public:
-    SyncedPing();
-    ~SyncedPing() {}
+    SyncedPingForm();
+    ~SyncedPingForm() {}
 
-    QVector<QString> currentQciTextSyncedPing;
     QVector<int> SyncedPingQciArray;
     int SyncedPingTimeBetweenTasks;
     int SyncedPingNumberOfPings;

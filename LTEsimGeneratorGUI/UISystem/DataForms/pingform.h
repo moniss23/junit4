@@ -23,9 +23,9 @@ signals:
     void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping);
 
 private slots:
-    void on_buttonBox_accepted();
-
-    void on_buttonBox_rejected();
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
+    void on_restoreButton_clicked();
 
 private:
     Ui::PingForm *ui;

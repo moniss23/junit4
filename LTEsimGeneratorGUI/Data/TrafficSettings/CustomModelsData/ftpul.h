@@ -9,7 +9,6 @@ public:
     FtpUl();
     ~FtpUl() {}
 
-    QString currentQciTextFtpUl;
     int ftpUlQci;
     int ftpUlFilesize;
     int ftpUlMinThroughput;

@@ -11,7 +11,6 @@ public:
     ServiceReq();
     ~ServiceReq() {}
 
-    QVector<QString> currentQciTextServiceReq;
     QVector<int> ServiceReqQciArray;
     int ServiceReqTimeToWaitForAttach;
     int ServiceReqIntervalBetweenUlData;

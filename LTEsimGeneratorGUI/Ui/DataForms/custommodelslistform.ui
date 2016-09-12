@@ -123,7 +123,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="verticalFrame">
+       <widget class="QFrame" name="verticalFrame2">
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
         </property>

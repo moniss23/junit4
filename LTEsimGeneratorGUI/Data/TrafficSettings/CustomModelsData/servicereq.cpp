@@ -19,7 +19,7 @@ QByteArray ServiceReq::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << currentQciTextServiceReq << ServiceReqQciArray << ServiceReqTimeToWaitForAttach
+    stream << ServiceReqQciArray << ServiceReqTimeToWaitForAttach
            << ServiceReqIntervalBetweenUlData;
 
     return serializedData.buffer();
@@ -28,6 +28,6 @@ QByteArray ServiceReq::serializeData()
 void ServiceReq::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> currentQciTextServiceReq >> ServiceReqQciArray >> ServiceReqTimeToWaitForAttach
+    stream >> ServiceReqQciArray >> ServiceReqTimeToWaitForAttach
            >> ServiceReqIntervalBetweenUlData;
 }

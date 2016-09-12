@@ -27,7 +27,7 @@ public:
     QVector <FtpUl> CMFtpUls;
     QVector <StreamDl> CMStreamDls;
     QVector <StreamUl> CMStreamUls;
-    QVector <SyncedPing> CMSyncedPings;
+    QVector <SyncedPingForm> CMSyncedPings;
     QVector <ServiceReq> CMServiceReqs;
 
     bool qciUsed[9];

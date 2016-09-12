@@ -29,7 +29,7 @@ void PingForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->show();
 }
 
-void PingForm::on_buttonBox_accepted()
+void PingForm::on_okButton_clicked()
 {
     this->ping.pingQci = this->ui->comboBox->currentText().toInt();
     this->ping.pingInterval = this->ui->interval->text().toInt();
@@ -39,7 +39,12 @@ void PingForm::on_buttonBox_accepted()
     emit savePingData(projectName, trafficName, currentCMindex, ping);
 }
 
-void PingForm::on_buttonBox_rejected()
+void PingForm::on_cancelButton_clicked()
 {
     this->close();
+}
+
+void PingForm::on_restoreButton_clicked()
+{
+
 }

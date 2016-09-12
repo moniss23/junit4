@@ -20,7 +20,7 @@ QByteArray StreamDl::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << currentQciTextStreamDl << streamDlQci << streamDlSpeed
+    stream << streamDlQci << streamDlSpeed
            << streamDlDuration << streamDlMinThroughput;
 
     return serializedData.buffer();
@@ -29,6 +29,6 @@ QByteArray StreamDl::serializeData()
 void StreamDl::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> currentQciTextStreamDl >> streamDlQci >> streamDlSpeed
+    stream >> streamDlQci >> streamDlSpeed
            >> streamDlDuration >> streamDlMinThroughput;
 }

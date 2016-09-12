@@ -9,7 +9,6 @@ public:
     Voip();
     ~Voip() {}
 
-    QString currentQciTextVoip;
     int voipQci;
     int voipDuration;
     int voipActivityFactor;

@@ -20,7 +20,7 @@ QByteArray Voip::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << currentQciTextVoip << voipQci << voipDuration <<
+    stream << voipQci << voipDuration <<
               voipActivityFactor << voipMaxTransferTime << voipMinPacketsReceivedInTime;
 
     return serializedData.buffer();
@@ -29,6 +29,6 @@ QByteArray Voip::serializeData()
 void Voip::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> currentQciTextVoip >> voipQci >> voipDuration >>
+    stream >> voipQci >> voipDuration >>
               voipActivityFactor >> voipMaxTransferTime >> voipMinPacketsReceivedInTime;
 }
