@@ -109,6 +109,13 @@ void UISystem::bindingObjects()
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
 
+    //Open General Configuration
+    QObject::connect(this,SIGNAL(spawnWindow_GeneralConfiguration(GeneralConfigurationParameters,QString)),&generalConfiguration,SLOT(loadAndOpen(GeneralConfigurationParameters,QString)));
+    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_GeneralConfiguration(QString)),this,SLOT(spawnWindow_GeneralConfiguration(QString)));
+
+    // Update General Configuration
+    QObject::connect(&generalConfiguration,SIGNAL(updateGeneralConfiguration(GeneralConfigurationParameters,QString)),dataSystem,SLOT(updateGeneralConfigurationParameters(GeneralConfigurationParameters,QString)));
+
     //Open UBSim
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
     QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,UeParameters,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,UeParameters,QString)));
@@ -147,9 +154,12 @@ void UISystem::bindingObjects()
     QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project&)), dataSystem, SLOT(generateParametersScript(Project&)));
     QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
 
-    //Update CoreNetwork and UESimulated
+    //Update LTESim ChBoxes
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(updatePaging(QString,bool)), dataSystem, SLOT(updatePagingState(QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(updateUbSim(QString,bool)),dataSystem,SLOT(updateUBSimState(QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(updateSgw(QString,bool)),dataSystem,SLOT(updateSgwState(QString,bool)));
 
     // Update Cell, Handover
     QObject::connect(&newMapWindow, SIGNAL(removeHandover(Handover,QString)), dataSystem, SLOT(removeHandover(Handover,QString)));
@@ -375,6 +385,16 @@ void UISystem::spawnWindow_PingForm(const QString &projectName, const QString &t
         return;
     }
     emit spawnWindow_PingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+void UISystem::spawnWindow_GeneralConfiguration(const QString &projectName){
+
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project.");
+        return;
+    }
+    emit spawnWindow_GeneralConfiguration(project->generalConfiguration,project->name);
+    return;
 }
 
 void UISystem::spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index) {

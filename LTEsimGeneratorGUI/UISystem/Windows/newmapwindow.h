@@ -37,9 +37,13 @@ signals:
     void spawnWindow_ucTool(const QString &projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_mapRange(const QString &projectName);
+    void spawnWindow_GeneralConfiguration(const QString &projectName);
 
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
+    void updatePaging(const QString& projectName, const bool& checked);
+    void updateUbSim(const QString& projectName, const bool& checked);
+    void updateSgw(const QString& projectName, const bool& checked);
 
     void addCell(const QString &projectName);
     void addHandover(const QString &projectName);
@@ -58,8 +62,6 @@ private slots:
     void on_ubSimButton_pressed();
     void on_ucToolButton_pressed();
     void on_channelModelsButton_pressed();
-    void on_ueCheckbox_toggled(bool checked);
-    void on_coreNetworkCheckbox_toggled(bool checked);
 
     void on_addCellBtn_clicked();
     void on_removeCellBtn_clicked();
@@ -69,7 +71,7 @@ private slots:
 
     void on_setCellParamsBtn_clicked();
     void on_setHandoverParamsBtn_clicked();
-
+    void on_generalSettingsButton_clicked();
 private:
 
     void closeEvent(QCloseEvent *event);

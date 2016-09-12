@@ -118,7 +118,8 @@ FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/addProjectWindow.ui \
     ../LTEsimGeneratorGUI/Ui/DataForms/sgwform.ui \
     ../LTEsimGeneratorGUI/Ui/DataForms/mmeform.ui \
-    ../LTEsimGeneratorGUI/Ui/DataForms/maprangeform.ui
+    ../LTEsimGeneratorGUI/Ui/DataForms/maprangeform.ui \
+    ../LTEsimGeneratorGUI/Ui/SmallDialogs/generalconfiguration.ui
   #  ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
 
 OTHER_FILES += \

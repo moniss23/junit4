@@ -61,6 +61,9 @@ public slots:
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
+    void updatePagingState (const QString& projectName,bool state);
+    void updateSgwState(const QString& projectName,bool state);
+    void updateUBSimState(const QString& projectName,bool state);
 
     void updateMme(const MmeSettings& mmeSettings, QString projectName);
     void updateMapRange (const MapRange& mapRange,QString projectName);

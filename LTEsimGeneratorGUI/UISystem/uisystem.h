@@ -23,6 +23,7 @@
 #include "UISystem/Windows/trafficmap.h"
 #include "Maps/Traffic/Statistics/statisticsManager.h"
 #include "UISystem/DataForms/pingform.h"
+#include "UISystem/DataForms/generalconfigurationform.h"
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
@@ -56,6 +57,7 @@ public slots:
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index);
+    void spawnWindow_GeneralConfiguration(const QString &projectName);
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index);
@@ -78,6 +80,7 @@ signals:
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_GeneralConfiguration(const GeneralConfigurationParameters &generalConfiguration, const QString &projectname);
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
@@ -87,25 +90,26 @@ private:
     Project* findProjectByName(const QString &projectName);
 
 private:
-    DataSystem             *dataSystem;
-    ProjectManagement       projectUi;
-    ImportProjectWindow     importProject;
-    ParametersWindow        paramWindow;
-    AddProjectWindow        addProjectWindow;
-    Settings                settingsWindow;
-    RenameDialog            renameDialog;
-    IpexForm                ipexForm;
-    UCtoolForm              ucToolForm;
-    SgwForm                 sgwForm;
-    MmeForm                 mmeForm;
-    ChannelModelForm        channelModelForm;
-    UBsimForm               ubSimForm;
-    MapRangeForm            mapRangeForm;
-    NewMapWindow            newMapWindow;
-    TrafficMap              trafficMap;
-    StatisticsManager       statisticsManager;
-    CustomModelsListForm    customModelsListForm;
-    PingForm                pingForm;
+    DataSystem         *dataSystem;
+    ProjectManagement   projectUi;
+    ImportProjectWindow importProject;
+    ParametersWindow    paramWindow;
+    AddProjectWindow    addProjectWindow;
+    Settings            settingsWindow;
+    RenameDialog        renameDialog;
+    IpexForm            ipexForm;
+    UCtoolForm          ucToolForm;
+    SgwForm             sgwForm;
+    MmeForm             mmeForm;
+    ChannelModelForm    channelModelForm;
+    UBsimForm           ubSimForm;
+    MapRangeForm        mapRangeForm;
+    NewMapWindow        newMapWindow;
+    TrafficMap          trafficMap;
+    StatisticsManager statisticsManager;
+    CustomModelsListForm customModelsListForm;
+    PingForm            pingForm;
+    GeneralConfiguration generalConfiguration;
     VoipForm                voipForm;
     FtpDlForm               ftpDlForm;
     FtpUlForm               ftpUlForm;

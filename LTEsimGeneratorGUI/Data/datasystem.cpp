@@ -203,7 +203,7 @@ void DataSystem::updateFileContent(const QString &projectName, const QString &fi
 
     if(project->parametersFile.filename == fileName) {
         project->parametersFile.content = content;
-        scriptParserManager.parseFromScript(content,*project);
+        scriptParserManager->parseFromScript(content,*project);
     }else {
         auto trafficFile = project->findTrafficFileByName(fileName);
         if(trafficFile == nullptr) {
@@ -552,6 +552,21 @@ void DataSystem::updateSimulatedCoreNetworkState(const QString &projectName, boo
 void DataSystem::updateSimulatedUeState(const QString &projectName, bool state){
     auto project = findProjectByName(projectName);
     project->ueParameters.startUeComponent = state;
+    saveProjectsFile();
+}
+void DataSystem::updateSgwState(const QString &projectName, bool state){
+    auto project = findProjectByName(projectName);
+    project->sgwSettings.coreNetworkGateway = state;
+    saveProjectsFile();
+}
+void DataSystem::updatePagingState(const QString &projectName, bool state){
+    auto project = findProjectByName(projectName);
+    project->pagingSettings.isUsedInConfiguration = state;
+    saveProjectsFile();
+}
+void DataSystem::updateUBSimState(const QString &projectName, bool state){
+    auto project = findProjectByName(projectName);
+    project->ubSimSettings.UBSimGui = state;
     saveProjectsFile();
 }
 void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){

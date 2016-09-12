@@ -83,67 +83,6 @@
      <property name="midLineWidth">
       <number>0</number>
      </property>
-     <widget class="QFrame" name="frame_Core_Network">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>40</y>
-        <width>191</width>
-        <height>161</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Sunken</enum>
-      </property>
-      <widget class="QCheckBox" name="coreNetworkCheckbox">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>10</y>
-         <width>191</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Tibetan Machine Uni</family>
-         <pointsize>8</pointsize>
-         <underline>false</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>Simulated Core Network</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="mmeButton">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>50</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border-color: rgb(0, 0, 0);</string>
-       </property>
-       <property name="text">
-        <string>MME</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-       <property name="flat">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </widget>
      <widget class="QLabel" name="lblLTEsim">
       <property name="geometry">
        <rect>
@@ -165,95 +104,135 @@
        <string>LTEsim</string>
       </property>
      </widget>
-     <widget class="QFrame" name="frame_UE_simulated">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
+     <widget class="QPushButton" name="ipexButton">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>220</y>
-        <width>191</width>
-        <height>151</height>
+        <x>40</x>
+        <y>250</y>
+        <width>171</width>
+        <height>31</height>
        </rect>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
+      <property name="text">
+       <string>IPEX</string>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Sunken</enum>
+      <property name="default">
+       <bool>true</bool>
       </property>
-      <widget class="QCheckBox" name="ueCheckbox">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>10</y>
-         <width>191</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Tibetan Machine Uni</family>
-         <pointsize>8</pointsize>
-         <underline>false</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>UE simulated</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_48">
-       <property name="geometry">
-        <rect>
-         <x>90</x>
-         <y>70</y>
-         <width>16</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../../Resource.qrc">:/Images/MapItems/line.png</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="ipexButton">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>90</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Ipex</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="ubSimButton">
-       <property name="geometry">
-        <rect>
-         <x>60</x>
-         <y>41</y>
-         <width>71</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>UBSim</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
+     </widget>
+     <widget class="QPushButton" name="ubSimButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>330</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>UBSim</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="mmeButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>100</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>MME</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sgwButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>180</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>SGW</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pagingButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>140</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>PAGING</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ueButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>290</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>UE</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="generalSettingsButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="text">
+       <string>GENERAL SETTINGS</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
      </widget>
     </widget>
     <widget class="QLabel" name="rbs">
@@ -340,9 +319,9 @@
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>260</y>
-       <width>91</width>
-       <height>81</height>
+       <y>250</y>
+       <width>71</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="text">
@@ -352,102 +331,29 @@
       <pixmap resource="../../Resource.qrc">:/Images/MapItems/srio.png</pixmap>
      </property>
      <property name="scaledContents">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QLabel" name="srioLabel">
      <property name="geometry">
       <rect>
-       <x>160</x>
-       <y>270</y>
-       <width>67</width>
-       <height>17</height>
+       <x>170</x>
+       <y>70</y>
+       <width>111</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>SRIO</string>
+      <string>SRIO / ETHERNET</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_44">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>150</y>
-       <width>261</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_45">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>110</y>
-       <width>271</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../../Resource.qrc">:/Images/MapItems/slanted_line.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_47">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>310</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="sgwButton">
-     <property name="geometry">
-      <rect>
-       <x>389</x>
-       <y>151</y>
-       <width>71</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>SGW</string>
-     </property>
-     <property name="default">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QPushButton" name="ucToolButton">
      <property name="geometry">
       <rect>
-       <x>219</x>
+       <x>180</x>
        <y>310</y>
        <width>71</width>
        <height>31</height>
@@ -477,6 +383,36 @@ Models</string>
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QLabel" name="label_47">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>310</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../../Resource.qrc">:/Images/MapItems/line_vertical_long.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <zorder>label_47</zorder>
+    <zorder>frame</zorder>
+    <zorder>rbs</zorder>
+    <zorder>rbsLabel</zorder>
+    <zorder>L3Label</zorder>
+    <zorder>L2Label</zorder>
+    <zorder>L1Label</zorder>
+    <zorder>curvedLine</zorder>
+    <zorder>srioLabel</zorder>
+    <zorder>channelModelsButton</zorder>
+    <zorder>ucToolButton</zorder>
    </widget>
    <widget class="QTabWidget" name="mapObjectsWidget">
     <property name="enabled">
@@ -1361,7 +1297,7 @@ background-color: #3399CC;</string>
      <x>0</x>
      <y>0</y>
      <width>1187</width>
-     <height>19</height>
+     <height>15</height>
     </rect>
    </property>
   </widget>

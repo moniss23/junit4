@@ -71,6 +71,7 @@ SOURCES += \
     UISystem/Widgets/mapview.cpp \
     UISystem/Windows/trafficmap.cpp \
     UISystem/Windows/newmapwindow.cpp \
+    UISystem/DataForms/generalconfigurationform.cpp \
     UISystem/DataForms/pingform.cpp \
     UISystem/DataForms/voipform.cpp \
     UISystem/DataForms/ftpdlform.cpp \
@@ -81,7 +82,7 @@ SOURCES += \
     UISystem/DataForms/syncedpingform.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     UISystem/Widgets/uerepresentation.cpp \
-    UISystem/DataForms/custommodelslistform.cpp \
+    UISystem/DataForms/custommodelslistform.cpp
 
 
 SOURCES += main.cpp\
@@ -157,6 +158,7 @@ HEADERS  += \
     UISystem/Widgets/handoverrepresentation.h \
     UISystem/Windows/newmapwindow.h \
     UISystem/Windows/trafficmap.h \
+    UISystem/DataForms/generalconfigurationform.h \
     UISystem/DataForms/pingform.h \
     UISystem/DataForms/voipform.h \
     UISystem/DataForms/ftpdlform.h \
@@ -200,6 +202,7 @@ FORMS    += \
     Ui/Windows/trafficmap.ui \
     Ui/DataForms/custommodelslistform.ui \
     Ui/DataForms/pingform.ui \
+    Ui/SmallDialogs/generalconfiguration.ui \
     Ui/DataForms/voipform.ui \
     Ui/DataForms/ftpdlform.ui \
     Ui/DataForms/ftpulform.ui \

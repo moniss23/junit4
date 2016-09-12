@@ -630,9 +630,9 @@ UBSimSettings ScriptParserManager::getUBSimSettings(const QStringList scriptCont
 }
 GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSettings(const QStringList scriptContentLines){
     GeneralConfigurationParameters generalConfiguration;
-
+    bool logDirReaded=false;
     for (int i = 0;i<scriptContentLines.size();i++) {
-        if (scriptContentLines[i].contains("log_dir =")){
+        if (!logDirReaded && (scriptContentLines[i].contains("log_dir =") || scriptContentLines[i].contains("logDir"))){
             QRegExp regexp;
             if (scriptContentLines[i].contains("#")) {
                 regexp.setPattern("= .*#");
@@ -643,11 +643,18 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
             if (regexp.indexIn(scriptContentLines[i])>-1){
                 generalConfiguration.logDir = regexp.capturedTexts()[0];
             }
+            generalConfiguration.logDir.remove("= ");
+            logDirReaded=true;
         }
         else if (scriptContentLines[i].contains("[:coreParameters]")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
-                generalConfiguration.coreParameters = quoteRegExp.capturedTexts()[0];
+            if (scriptContentLines[i].contains("log_dir") || scriptContentLines[i].contains("logDir")) {
+                generalConfiguration.coreParameters=generalConfiguration.logDir;
+            }
+            else{
+                QRegExp quoteRegExp("\".*\"");
+                if (quoteRegExp.indexIn(scriptContentLines[i])>-1){
+                    generalConfiguration.coreParameters=quoteRegExp.capturedTexts()[0];
+                }
             }
         }
         else if (scriptContentLines[i].contains("[:jvm_parameters]")){
@@ -660,6 +667,7 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.indexIn(scriptContentLines[i]) > -1){
                 generalConfiguration.loggerHandlerSet = quoteRegExp.capturedTexts()[0];
+                generalConfiguration.loggerHandlerSet.remove("\"");
             }
         }
         else if (scriptContentLines[i].contains("[:logger_file_count]")){
