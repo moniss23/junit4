@@ -85,9 +85,7 @@ SOURCES += \
 
 
 SOURCES += main.cpp\
-    Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
-    my_qlabel.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
     Maps/Traffic/Statistics/statisticsManager.cpp \
@@ -171,9 +169,7 @@ HEADERS  += \
 
 
 HEADERS  += \
-    Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    my_qlabel.h \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
     Maps/Traffic/Statistics/statisticsData.h \
