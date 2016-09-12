@@ -21,6 +21,7 @@ CellRepresentation::CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsOb
 }
 
 void CellRepresentation::updatePositions() {
+    this->update(boundingRect());
     this->setPos(cellInfo.first.position_X, -cellInfo.first.position_Y);
 }
 

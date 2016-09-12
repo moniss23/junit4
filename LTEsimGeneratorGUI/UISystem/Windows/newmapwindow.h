@@ -41,10 +41,13 @@ signals:
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
 
+    void addCell(const QString &projectName);
+
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
     void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
-    void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
+    void updateCell(const QPair<Cell,Center> &cell, const QString &cellName, const QString &projectName);
+
     void saveProjectOnClose(const QString &projectName);
 
 private slots:
@@ -57,6 +60,7 @@ private slots:
     void on_ueCheckbox_toggled(bool checked);
     void on_coreNetworkCheckbox_toggled(bool checked);
 
+    void on_addCellRepBtn_clicked();
     void on_removeCellBtn_clicked();
     void on_setCellParamsBtn_clicked();
     void on_removeHandoverBtn_clicked();

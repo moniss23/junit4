@@ -485,7 +485,7 @@ Models</string>
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>20</y>
+      <y>50</y>
       <width>400</width>
       <height>451</height>
      </rect>
@@ -540,8 +540,11 @@ Models</string>
        </item>
        <item row="0" column="1">
         <widget class="QLineEdit" name="cell">
+         <property name="inputMask">
+          <string/>
+         </property>
          <property name="readOnly">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="placeholderText">
           <string>:cell</string>
@@ -1300,6 +1303,42 @@ background-color:#d11406;</string>
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QPushButton" name="addCellRepBtn">
+    <property name="geometry">
+     <rect>
+      <x>949</x>
+      <y>20</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #fafafa;
+border-radius: 10px;
+background-color: #3399CC;</string>
+    </property>
+    <property name="text">
+     <string>+(Cell)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addHandoverBtn">
+    <property name="geometry">
+     <rect>
+      <x>1050</x>
+      <y>20</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #fafafa;
+border-radius: 10px;
+background-color: #3399CC;</string>
+    </property>
+    <property name="text">
+     <string>+(Handover)</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

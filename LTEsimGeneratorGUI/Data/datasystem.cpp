@@ -75,6 +75,25 @@ void DataSystem::projectsFileSetup() {
  * SLOTS *
  *********/
 
+void DataSystem::addCell(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    QString newCellName = this->generateUniqueCellName(project);
+
+    QPair<Cell,Center> cellInfo;
+    cellInfo.first.name = cellInfo.second.area = newCellName;
+    cellInfo.first.position_X = cellInfo.first.position_Y = 0;
+
+    project->cellsInfo.append(cellInfo);
+    emit currentProjectChanged(*project);
+    emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
+    saveProjectsFile();
+}
+
 void DataSystem::removeCell(const QPair<Cell,Center> &cell, const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
@@ -101,14 +120,14 @@ void DataSystem::removeHandover(const Handover &handover, const QString &project
      saveProjectsFile();
 }
 
-void DataSystem::updateCell(const QPair<Cell,Center> &cell, const QString &projectName) {
+void DataSystem::updateCell(const QPair<Cell,Center> &cell, const QString &cellName, const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         emit errorInData("Can't find right project");
         return;
     }
 
-     auto cellFound = project->findCellByName(cell.first.name);
+     auto cellFound = project->findCellByName(cellName);
      if(cellFound != nullptr) {
          *cellFound = cell;
      }
@@ -299,6 +318,20 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
     saveProjectsFile();
 }
 
+QString DataSystem::generateUniqueCellName(Project *project)
+{
+    for(unsigned i=0; i<UINT_MAX; ++i) {
+        const QString newCellName = "cell" + QString::number(i);
+        if(std::none_of(project->cellsInfo.begin(), project->cellsInfo.end(),
+            [&newCellName](auto &cellInfo){return cellInfo.first.name==newCellName;})) {
+            return newCellName;
+        }
+    }
+
+    emit errorInData("Cannot add more cells");
+    return QString();
+}
+
 QString DataSystem::generateUniqueTrafficFilename(Project *project)
 {
     for(unsigned i=0; i<UINT_MAX; ++i) {
@@ -309,6 +342,7 @@ QString DataSystem::generateUniqueTrafficFilename(Project *project)
     emit errorInData("Cannot add more traffic files");
     return QString();
 }
+
 
 void DataSystem::deleteProject(const QString projectName)
 {

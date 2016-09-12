@@ -35,8 +35,11 @@ void MapView::printNewMap()
 
 void MapView::drawAxisAndButtons()
 {
-    double mapHeight = scene->sceneRect().height() - CellRepresentation::circlesize;
     double mapWidth = scene->sceneRect().width() - CellRepresentation::circlesize;
+    double mapHeight = scene->sceneRect().height() - CellRepresentation::circlesize;
+
+    mapWidth = std::max(mapWidth, (double)CellRepresentation::circlesize);
+    mapHeight = std::max(mapHeight, (double)CellRepresentation::circlesize);
 
     double widthScale = (project.mapRange.eastBoundMap - (project.mapRange.eastBoundMap%project.mapRange.mapScale)) / mapWidth;
     double heightScale = (project.mapRange.northBoundMap - (project.mapRange.northBoundMap%project.mapRange.mapScale)) / mapHeight;

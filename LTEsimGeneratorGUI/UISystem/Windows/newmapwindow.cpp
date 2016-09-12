@@ -42,6 +42,7 @@ void NewMapWindow::loadAndOpen(const Project &project)
 
     hBoxLayout->addWidget(mapView);
     hBoxLayout->addLayout(vBoxLayout);
+    vBoxLayout->addSpacing(20);
     vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400, Qt::AlignHCenter);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
     this->ui->centralwidget->setLayout(hBoxLayout);
@@ -103,7 +104,7 @@ void NewMapWindow::spawnWindow_MapView_cellParams(CellRepresentation *clickedCel
     this->ui->southCenterBoundary->setText(QString::number(cellObj.second.southBoundary));
     this->ui->northCenterBoundary->setText(QString::number(cellObj.second.northBoundary));
 
-    emit updateCell(this->clickedCell->cellInfo, project.name);
+    emit updateCell(this->clickedCell->cellInfo, cellObj.first.name, project.name);
 
     for(int i=this->ui->mapObjectsWidget->count()-1; i>=0; --i) {
         this->ui->mapObjectsWidget->removeTab(i);
@@ -132,7 +133,10 @@ void NewMapWindow::on_setHandoverParamsBtn_clicked()
 void NewMapWindow::on_setCellParamsBtn_clicked()
 {
     if(this->clickedCell != nullptr) {
+        const QString cellOldName = this->clickedCell->cellInfo.first.name;
+
         this->clickedCell->cellInfo.first.name = ui->cell->text();
+        this->clickedCell->cellInfo.second.area = ui->cell->text();
         this->clickedCell->cellInfo.first.site = ui->site->text();
         this->clickedCell->cellInfo.first.pci = ui->pci->text().toInt();
         this->clickedCell->cellInfo.first.position_X = ui->position_X->text().toInt();
@@ -142,7 +146,7 @@ void NewMapWindow::on_setCellParamsBtn_clicked()
         this->clickedCell->cellInfo.first.ulNoiseAndInterference = ui->ulNoiseAndInterference->text().toFloat();
 
         this->clickedCell->updatePositions();
-        emit updateCell(this->clickedCell->cellInfo, project.name);
+        emit updateCell(this->clickedCell->cellInfo, cellOldName, project.name);
     }
 
     this->ui->cellTab->close();
@@ -189,10 +193,11 @@ void NewMapWindow::on_ueCheckbox_toggled(bool checked)
     emit updateUEsimulated(project.name, checked);
 }
 
+void NewMapWindow::on_addCellRepBtn_clicked() {emit addCell(project.name);}
 void NewMapWindow::on_mmeButton_pressed() {emit spawnWindow_Mme(project.name);}
 void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name);}
 void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);}
 void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name);}
+void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}
 void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}
-void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}

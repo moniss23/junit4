@@ -65,10 +65,11 @@ public slots:
     void updateMapRange (const MapRange& mapRange,QString projectName);
     void updatePaging(const PagingSettings& pagingSettings, QString projectName);
 
+    void addCell(const QString &projectName);
+    void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
+    void updateCell(const QPair<Cell,Center> &cell, const QString &cellName, const QString &projectName);
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
-    void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
-    void updateCell(const QPair<Cell,Center> &cell, const QString &projectName);
 
     //TrafficFileData saving
     void updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData &statisticsData);
@@ -101,6 +102,7 @@ private:
     QString getDefaultTrafficFileContent();
 
     Project* findProjectByName(const QString &projectName);
+    QString generateUniqueCellName(Project *project);
     QString generateUniqueTrafficFilename(Project *project);
 };
 
