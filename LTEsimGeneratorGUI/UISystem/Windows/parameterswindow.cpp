@@ -7,9 +7,6 @@
 
 #include "UISystem/Helpers/rubysyntaxhighlighter.h"
 
-#include "Maps/Traffic/map_traffic.h" //TODO: get rid of that
-QStringList parametersFileContentList;// TODO: get rid of that
-
 ParametersWindow::ParametersWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow),
     filePreviewChanged(false)
@@ -157,9 +154,6 @@ void ParametersWindow::on_projectsList_itemDoubleClicked(QListWidgetItem *item)
         emit spawnWindow_ParamMap(currentProject.name);
     }
     else {
-        Map_traffic* map_t;
-        map_t = new Map_traffic();//TODO:delete old Map_traffic in a future
-        map_t->show();
         emit spawnWindow_TrafficMap(currentProject.name, this->ui->projectsList->currentItem()->text());
     }
 }

@@ -35,11 +35,8 @@ SOURCES += \
     Data/ProjectSettings/mmesettings.cpp \
     Data/ProjectSettings/maprange.cpp \
     Data/ProjectSettings/ubsimsettings.cpp \
-    UISystem/Widgets/handoverrepresentation.cpp \
     Data/ProjectSettings/generalconfigurationparameters.cpp \
     Data/ProjectSettings/ueparameters.cpp \
-    UISystem/Widgets/uerepresentation.cpp \
-    UISystem/DataForms/custommodelslistform.cpp \
     Data/TrafficSettings/custommodelsettings.cpp \
     Data/TrafficSettings/CustomModelsData/ping.cpp \
     Data/TrafficSettings/CustomModelsData/voip.cpp \
@@ -81,23 +78,15 @@ SOURCES += \
     UISystem/DataForms/streamdlform.cpp \
     UISystem/DataForms/streamulform.cpp \
     UISystem/DataForms/servicereqform.cpp \
-    UISystem/DataForms/syncedpingform.cpp
+    UISystem/DataForms/syncedpingform.cpp \
+    UISystem/Widgets/handoverrepresentation.cpp \
+    UISystem/Widgets/uerepresentation.cpp \
+    UISystem/DataForms/custommodelslistform.cpp \
 
 
 SOURCES += main.cpp\
-    Maps/Traffic/MapComponents/draguelabel.cpp \
-    Maps/Traffic/map_traffic.cpp \
     Maps/Traffic/ManagementTemplate/managementtemplate.cpp \
     Maps/Traffic/UeParameters/uegroupdata.cpp \
-    Maps/Traffic/MapComponents/mapmanagement.cpp \
-    Maps/Traffic/MapComponents/myscrollareawidget.cpp \
-    Maps/Traffic/MapComponents/custommodellabel.cpp \
-    Maps/Traffic/MapComponents/statisticsbutton.cpp \
-    Maps/Traffic/MapComponents/timebutton.cpp \
-    Maps/Traffic/MapComponents/tuningtrafficbutton.cpp \
-    Maps/Traffic/MapComponents/addbutton.cpp \
-    Maps/Traffic/MapComponents/cellarea.cpp \
-    Maps/Traffic/MapComponents/handoverarea.cpp \
     my_qlabel.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
@@ -182,22 +171,8 @@ HEADERS  += \
 
 
 HEADERS  += \
-    Maps/Traffic/MapComponents/draguelabel.h \
-    Maps/Traffic/map_traffic.h \
     Maps/Traffic/ManagementTemplate/managementtemplate.h \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/MapComponents/mapmanagement.h \
-    Maps/Traffic/MapComponents/myscrollareawidget.h \
-    Maps/Traffic/MapComponents/custommodellabel.h \
-    Maps/Traffic/MapComponents/statisticsbutton.h \
-    Maps/Traffic/MapComponents/timebutton.h \
-    Maps/Traffic/MapComponents/tuningtrafficbutton.h \
-    Maps/Traffic/MapComponents/scale.h \
-    Maps/Traffic/MapComponents/addbutton.h \
-    Maps/Traffic/MapComponents/myobjectarea.h \
-    Maps/Traffic/MapComponents/cellarea.h \
-    Maps/Traffic/MapComponents/handoverarea.h \
-    Maps/Traffic/MapComponents/compositionofareas.h \
     my_qlabel.h \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
@@ -210,14 +185,9 @@ HEADERS  += \
 
 
 FORMS    += \
-    Ui/mapwindow.ui \
-    Ui/map_traffic.ui \
-    Ui/custommodels.ui \
     Ui/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
-    Ui/managementtemplate.ui \
     Ui/timeForm.ui \
-    Ui/customModel.ui \
     Ui/Windows/addProjectWindow.ui \
     Ui/Windows/parameterswindow.ui \
     Ui/Windows/settings.ui \
