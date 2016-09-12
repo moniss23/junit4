@@ -70,6 +70,7 @@ void NewMapWindow::loadAndOpen(const Project &project)
 }
 
 void NewMapWindow::spawnWindow_MapView_handoverParams(HandoverRepresentation* clickedHo, const Handover &hoObj) {
+    this->ui->handoverAreaName->setText(hoObj.area);
     this->ui->eastHandoverBoundary->setText(QString::number(hoObj.eastBoundary));
     this->ui->westHandoverBoundary->setText(QString::number(hoObj.westBoundary));
     this->ui->northHandoverBoundary->setText(QString::number(hoObj.northBoundary));
@@ -193,7 +194,9 @@ void NewMapWindow::on_ueCheckbox_toggled(bool checked)
     emit updateUEsimulated(project.name, checked);
 }
 
-void NewMapWindow::on_addCellRepBtn_clicked() {emit addCell(project.name);}
+void NewMapWindow::on_addCellBtn_clicked() {emit addCell(project.name);}
+void NewMapWindow::on_addHandoverBtn_clicked() {emit addHandover(project.name);}
+
 void NewMapWindow::on_mmeButton_pressed() {emit spawnWindow_Mme(project.name);}
 void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name);}
 void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);}
@@ -201,3 +204,4 @@ void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name
 void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}
 void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}
+

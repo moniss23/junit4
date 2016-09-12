@@ -157,8 +157,9 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(removeCell(QPair<Cell,Center>,QString)), dataSystem, SLOT(removeCell(QPair<Cell,Center>,QString)));
     QObject::connect(&newMapWindow, SIGNAL(updateCell(QPair<Cell,Center>,QString,QString)), dataSystem, SLOT(updateCell(QPair<Cell,Center>,QString,QString)));
 
-    // Add new Cell
+    // Add new Cell/Handover
     QObject::connect(&newMapWindow, SIGNAL(addCell(QString)), dataSystem, SLOT(addCell(QString)));
+    QObject::connect(&newMapWindow, SIGNAL(addHandover(QString)), dataSystem, SLOT(addHandover(QString)));
 
     //Spawn window Custom Models
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_CustomModels(QString,QString)), this, SLOT(spawnWindow_CustomModels(QString,QString)));

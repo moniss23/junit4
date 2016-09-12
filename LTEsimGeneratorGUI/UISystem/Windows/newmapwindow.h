@@ -42,6 +42,7 @@ signals:
     void updateCoreNetwork(const QString& projectName, const bool& checked);
 
     void addCell(const QString &projectName);
+    void addHandover(const QString &projectName);
 
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
@@ -60,11 +61,15 @@ private slots:
     void on_ueCheckbox_toggled(bool checked);
     void on_coreNetworkCheckbox_toggled(bool checked);
 
-    void on_addCellRepBtn_clicked();
+    void on_addCellBtn_clicked();
     void on_removeCellBtn_clicked();
-    void on_setCellParamsBtn_clicked();
+
+    void on_addHandoverBtn_clicked();
     void on_removeHandoverBtn_clicked();
+
+    void on_setCellParamsBtn_clicked();
     void on_setHandoverParamsBtn_clicked();
+
 private:
 
     void closeEvent(QCloseEvent *event);

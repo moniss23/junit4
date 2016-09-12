@@ -69,6 +69,8 @@ public slots:
     void addCell(const QString &projectName);
     void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &cellName, const QString &projectName);
+
+    void addHandover(const QString &projectName);
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
 
@@ -107,7 +109,9 @@ private:
     QString getDefaultTrafficFileContent();
 
     Project* findProjectByName(const QString &projectName);
+
     QString generateUniqueCellName(Project *project);
+    QString generateUniqueHandoverName(Project *project);
     QString generateUniqueTrafficFilename(Project *project);
 };
 

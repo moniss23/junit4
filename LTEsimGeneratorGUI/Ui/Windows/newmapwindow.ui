@@ -506,7 +506,7 @@ Models</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="documentMode">
      <bool>true</bool>
@@ -999,63 +999,77 @@ QPushButton#removeCellBtn:hover
         <x>10</x>
         <y>10</y>
         <width>381</width>
-        <height>111</height>
+        <height>141</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_3">
-       <item row="0" column="0">
-        <widget class="QLabel" name="handover_label_1">
-         <property name="text">
-          <string>South boundary of area</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="southHandoverBoundary">
+        <widget class="QLineEdit" name="handoverAreaName">
          <property name="placeholderText">
-          <string>:southBoundary</string>
+          <string>:area</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="handover_label_2">
          <property name="text">
-          <string>North boundary of area</string>
+          <string>South boundary of area</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="northHandoverBoundary">
+        <widget class="QLineEdit" name="southHandoverBoundary">
          <property name="placeholderText">
-          <string>northBoundary</string>
+          <string>:southBoundary</string>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="handover_label_3">
          <property name="text">
-          <string>West boundary of area</string>
+          <string>North boundary of area</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLineEdit" name="westHandoverBoundary">
+        <widget class="QLineEdit" name="northHandoverBoundary">
          <property name="placeholderText">
-          <string>:westBoundary</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLineEdit" name="eastHandoverBoundary">
-         <property name="placeholderText">
-          <string>:eastBoundary</string>
+          <string>northBoundary</string>
          </property>
         </widget>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="handover_label_4">
          <property name="text">
+          <string>West boundary of area</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="westHandoverBoundary">
+         <property name="placeholderText">
+          <string>:westBoundary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="handover_label_5">
+         <property name="text">
           <string>East boundary of area</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="eastHandoverBoundary">
+         <property name="placeholderText">
+          <string>:eastBoundary</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="handover_label_56">
+         <property name="text">
+          <string>Area</string>
          </property>
         </widget>
        </item>
@@ -1065,7 +1079,7 @@ QPushButton#removeCellBtn:hover
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>130</y>
+        <y>160</y>
         <width>141</width>
         <height>22</height>
        </rect>
@@ -1088,7 +1102,7 @@ background-color:#858585;</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>160</y>
         <width>141</width>
         <height>22</height>
        </rect>
@@ -1115,7 +1129,7 @@ font-weight: bold;
       <property name="geometry">
        <rect>
         <x>310</x>
-        <y>130</y>
+        <y>160</y>
         <width>80</width>
         <height>22</height>
        </rect>
@@ -1304,7 +1318,7 @@ background-color:#d11406;</string>
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="addCellRepBtn">
+   <widget class="QPushButton" name="addCellBtn">
     <property name="geometry">
      <rect>
       <x>949</x>

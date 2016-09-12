@@ -93,9 +93,29 @@ void DataSystem::addCell(const QString &projectName) {
 
     QPair<Cell,Center> cellInfo;
     cellInfo.first.name = cellInfo.second.area = newCellName;
-    cellInfo.first.position_X = cellInfo.first.position_Y = 0;
+    cellInfo.first.position_X = cellInfo.first.position_Y = 3500;
 
     project->cellsInfo.append(cellInfo);
+    emit currentProjectChanged(*project);
+    emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
+    saveProjectsFile();
+}
+
+void DataSystem::addHandover(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    Handover handover;
+    handover.area = this->generateUniqueHandoverName(project);
+    handover.westBoundary = 2500;
+    handover.southBoundary = 2500;
+    handover.eastBoundary = handover.westBoundary + 4500;
+    handover.northBoundary = handover.southBoundary + 1000;
+
+    project->handovers.append(handover);
     emit currentProjectChanged(*project);
     emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
     saveProjectsFile();
@@ -328,7 +348,7 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
 
 QString DataSystem::generateUniqueCellName(Project *project)
 {
-    for(unsigned i=0; i<UINT_MAX; ++i) {
+    for(unsigned i=10; i<UINT_MAX; ++i) {
         const QString newCellName = "cell" + QString::number(i);
         if(std::none_of(project->cellsInfo.begin(), project->cellsInfo.end(),
             [&newCellName](auto &cellInfo){return cellInfo.first.name==newCellName;})) {
@@ -337,6 +357,20 @@ QString DataSystem::generateUniqueCellName(Project *project)
     }
 
     emit errorInData("Cannot add more cells");
+    return QString();
+}
+
+QString DataSystem::generateUniqueHandoverName(Project *project)
+{
+    for(unsigned i=1011; i<UINT_MAX; ++i) {
+        const QString newHOName = "handover" + QString::number(i/100) + "_" + QString::number(i%100);
+        if(std::none_of(project->handovers.begin(), project->handovers.end(),
+            [&newHOName](auto &handover){return newHOName==handover.area;})) {
+            return newHOName;
+        }
+    }
+
+    emit errorInData("Cannot add more handovers");
     return QString();
 }
 
