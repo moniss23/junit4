@@ -4,16 +4,16 @@
 #include <QDataStream>
 #include <QBuffer>
 
-SyncedPingForm::SyncedPingForm()
+SyncedPingSettings::SyncedPingSettings()
 {
 }
 
-QString SyncedPingForm::getElementType() const
+QString SyncedPingSettings::getElementType() const
 {
     return QString("SyncedPing");
 }
 
-QByteArray SyncedPingForm::serializeData()
+QByteArray SyncedPingSettings::serializeData()
 {
     QBuffer serializedData;
     serializedData.open(QBuffer::WriteOnly);
@@ -25,7 +25,7 @@ QByteArray SyncedPingForm::serializeData()
     return serializedData.buffer();
 }
 
-void SyncedPingForm::deserializeData(const QByteArray &rawData)
+void SyncedPingSettings::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
     stream >> SyncedPingQciArray >> SyncedPingTimeBetweenTasks

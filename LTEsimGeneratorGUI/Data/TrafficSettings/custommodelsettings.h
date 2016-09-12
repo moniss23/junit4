@@ -27,7 +27,7 @@ public:
     QVector <FtpUl> CMFtpUls;
     QVector <StreamDl> CMStreamDls;
     QVector <StreamUl> CMStreamUls;
-    QVector <SyncedPingForm> CMSyncedPings;
+    QVector <SyncedPingSettings> CMSyncedPings;
     QVector <ServiceReq> CMServiceReqs;
 
     static const int amountOfQci = 9;
