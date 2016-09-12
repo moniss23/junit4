@@ -693,6 +693,27 @@ void DataSystem::saveStreamDlData(const QString &projectName, const QString &tra
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
+void DataSystem::saveSyncedPingData(const QString &projectName, const QString &trafficName, const int &CMindex, const SyncedPing &syncedPing)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->customModels[CMindex].CMSyncedPings.push_back(syncedPing);
+    for(auto &qci : syncedPing.SyncedPingQciArray) {
+        traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+    }
+    traffic->cmUsed[CMindex] = true;
+    this->saveProjectsFile();
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+}
+
 void DataSystem::saveStreamUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamUl &streamUl)
 {
     auto project = findProjectByName(projectName);

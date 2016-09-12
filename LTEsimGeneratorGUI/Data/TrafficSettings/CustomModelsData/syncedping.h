@@ -5,11 +5,11 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
-class SyncedPingSettings : public SerializeInterface
+class SyncedPing : public SerializeInterface
 {
 public:
-    SyncedPingSettings();
-    ~SyncedPingSettings() {}
+    SyncedPing();
+    ~SyncedPing() {}
 
     QVector<int> SyncedPingQciArray;
     int SyncedPingTimeBetweenTasks;

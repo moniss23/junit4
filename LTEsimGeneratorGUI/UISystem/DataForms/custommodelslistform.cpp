@@ -134,6 +134,11 @@ void CustomModelsListForm::on_AddStreamUlButton_clicked()
     emit spawnWindow_StreamUl(projectName, trafficName, currentCustomModelIndex);
 }
 
+void CustomModelsListForm::on_AddSyncedPingButton_clicked()
+{
+    emit spawnWindow_SyncedPing(projectName, trafficName, currentCustomModelIndex);
+}
+
 void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool *cmUsed) {
     this->customModelSettings = customModelSettings;
     this->cmUsed = cmUsed;
@@ -158,11 +163,10 @@ void CustomModelsListForm::refreshListView()
         ui->listWidget->addItem("Stream Ul "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMStreamUls[i].streamUlQci) + ", " + QString::number(customModelSettings.CMStreamUls[i].streamUlSpeed) + ", "+ QString::number(customModelSettings.CMStreamUls[i].streamUlDuration) + ", "+ QString::number(customModelSettings.CMStreamUls[i].streamUlMinThroughput) + ")");
     for(int i=0;i<customModelSettings.CMSyncedPings.size() ;i++)
     {
-        QString temp="["+QString::number(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[0]);
-        for(int j=1;j<AmountOfQci;j++)
+        QString temp = "[";
+        for(int j=0;j<customModelSettings.CMSyncedPings[i].SyncedPingQciArray.size() ;j++)
         {
-            if(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[j]!=0)
-                temp+=", " + QString::number(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[j]);
+                temp+= QString::number(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[j]) + ",";
         }
         temp+="]";
         ui->listWidget->addItem("Synced Ping "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMSyncedPings[i].SyncedPingTimeBetweenTasks) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingNumberOfPings) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingInterval)+ ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingMinReceivedPings) + ")");

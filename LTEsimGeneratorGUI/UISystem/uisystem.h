@@ -30,6 +30,7 @@
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 #include "UISystem/DataForms/streamdlform.h"
 #include "UISystem/DataForms/streamulform.h"
+#include "UISystem/DataForms/syncedpingform.h"
 
 class UISystem : public QObject
 {
@@ -66,6 +67,7 @@ public slots:
     void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index);
+    void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -91,6 +93,7 @@ signals:
     void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
 
 private:
     Project* findProjectByName(const QString &projectName);
@@ -122,6 +125,7 @@ private:
     TuningTrafficManager tuningTrafficManager;
     StreamDlForm            streamDlForm;
     StreamUlForm            streamUlForm;
+    SyncedPingForm          syncedPingForm;
 };
 
 #endif // UISYSTEM_H

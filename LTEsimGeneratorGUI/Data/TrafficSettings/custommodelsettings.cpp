@@ -120,7 +120,7 @@ void CustomModelSettings::deserializeData(const QByteArray &rawData)
         QByteArray rawCMSyncedPingsData;
         stream >> rawCMSyncedPingsData;
 
-        SyncedPingSettings syncedPing;
+        SyncedPing syncedPing;
         syncedPing.deserializeData(rawCMSyncedPingsData);
         CMSyncedPings.push_back(syncedPing);
     }

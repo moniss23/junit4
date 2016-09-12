@@ -91,6 +91,8 @@ public slots:
     void saveFtpUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpUl &ftpUl);
     void saveStreamDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamDl &streamDl);
     void saveStreamUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamUl &streamUl);
+    void saveSyncedPingData(const QString &projectName, const QString &trafficName, const int &CMindex, const SyncedPing &syncedPing);
+
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
 
     void updateProjectOnMapCloseEvent(const QString &projectName);
