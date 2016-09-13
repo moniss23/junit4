@@ -11,7 +11,6 @@ CustomModelsListForm::CustomModelsListForm(QWidget *parent) :
     this->currentCM.setColor(QPalette::Window, QColor(0,255,255,150));
     this->usedCM.setColor(QPalette::Window, QColor(Qt::red));
     this->unusedCM.setColor(QPalette::Window, QColor(Qt::green));
-    this->currentCustomModelIndex = 0;
     setButtonsPointers();
     setAutoFillButtonsBG();
 }
@@ -31,6 +30,7 @@ void CustomModelsListForm::open(const QString &projectName, const QString &traff
         else
             this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(255, 0, 0); color: rgb(0, 0, 0)");
     }
+    this->cmButtonsPtr[0]->click();
     this->show();
 }
 
@@ -231,3 +231,12 @@ void CustomModelsListForm::refreshCmButtonsColors(const int &index) {
     this->cmButtonsPtr[index]->setStyleSheet("background-color: rgb(0, 255, 255); color: rgb(0, 0, 0)");
 }
 
+void CustomModelsListForm::on_exitButton_clicked()
+{
+    this->close();
+}
+
+void CustomModelsListForm::on_deleteButton_clicked()
+{
+
+}
