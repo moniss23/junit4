@@ -33,6 +33,7 @@ signals:
     void spawnWindow_StreamDl(const QString &projectName, const QString &trafficName, const int &CMindex);
     void spawnWindow_StreamUl(const QString &projectName, const QString &trafficName, const int &CMindex);
     void spawnWindow_SyncedPing(const QString &projectName, const QString &trafficName, const int &CMindex);
+    void spawnWindow_ServiceReq(const QString &projectName, const QString &trafficName, const int &CMindex);
 
 private slots:
     void on_CM1Button_clicked();
@@ -52,6 +53,7 @@ private slots:
     void on_AddStreamDlButton_clicked();
     void on_AddStreamUlButton_clicked();
     void on_AddSyncedPingButton_clicked();
+    void on_AddServiceReqButton_clicked();
 
 private:
     void refreshListView();

@@ -31,6 +31,7 @@
 #include "UISystem/DataForms/streamdlform.h"
 #include "UISystem/DataForms/streamulform.h"
 #include "UISystem/DataForms/syncedpingform.h"
+#include "UISystem/DataForms/servicereqform.h"
 
 class UISystem : public QObject
 {
@@ -68,6 +69,7 @@ public slots:
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index);
+    void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -94,38 +96,40 @@ signals:
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
 
 private:
     Project* findProjectByName(const QString &projectName);
 
 private:
-    DataSystem         *dataSystem;
-    ProjectManagement   projectUi;
-    ImportProjectWindow importProject;
-    ParametersWindow    paramWindow;
-    AddProjectWindow    addProjectWindow;
-    Settings            settingsWindow;
-    RenameDialog        renameDialog;
-    IpexForm            ipexForm;
-    UCtoolForm          ucToolForm;
-    SgwForm             sgwForm;
-    MmeForm             mmeForm;
-    ChannelModelForm    channelModelForm;
-    UBsimForm           ubSimForm;
-    MapRangeForm        mapRangeForm;
-    NewMapWindow        newMapWindow;
-    TrafficMap          trafficMap;
-    StatisticsManager statisticsManager;
-    CustomModelsListForm customModelsListForm;
-    PingForm            pingForm;
-    GeneralConfiguration generalConfiguration;
+    DataSystem             *dataSystem;
+    ProjectManagement       projectUi;
+    ImportProjectWindow     importProject;
+    ParametersWindow        paramWindow;
+    AddProjectWindow        addProjectWindow;
+    Settings                settingsWindow;
+    RenameDialog            renameDialog;
+    IpexForm                ipexForm;
+    UCtoolForm              ucToolForm;
+    SgwForm                 sgwForm;
+    MmeForm                 mmeForm;
+    ChannelModelForm        channelModelForm;
+    UBsimForm               ubSimForm;
+    MapRangeForm            mapRangeForm;
+    NewMapWindow            newMapWindow;
+    TrafficMap              trafficMap;
+    StatisticsManager       statisticsManager;
+    CustomModelsListForm    customModelsListForm;
+    PingForm                pingForm;
+    GeneralConfiguration    generalConfiguration;
     VoipForm                voipForm;
     FtpDlForm               ftpDlForm;
     FtpUlForm               ftpUlForm;
-    TuningTrafficManager tuningTrafficManager;
+    TuningTrafficManager    tuningTrafficManager;
     StreamDlForm            streamDlForm;
     StreamUlForm            streamUlForm;
     SyncedPingForm          syncedPingForm;
+    ServiceReqForm          serviceReqForm;
 };
 
 #endif // UISYSTEM_H

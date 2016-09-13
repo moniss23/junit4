@@ -139,6 +139,11 @@ void CustomModelsListForm::on_AddSyncedPingButton_clicked()
     emit spawnWindow_SyncedPing(projectName, trafficName, currentCustomModelIndex);
 }
 
+void CustomModelsListForm::on_AddServiceReqButton_clicked()
+{
+    emit spawnWindow_ServiceReq(projectName, trafficName, currentCustomModelIndex);
+}
+
 void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &customModelSettings, bool *cmUsed) {
     this->customModelSettings = customModelSettings;
     this->cmUsed = cmUsed;
@@ -174,11 +179,10 @@ void CustomModelsListForm::refreshListView()
 
     for(int i=0;i<customModelSettings.CMServiceReqs.size() ;i++)
     {
-        QString temp="[" + QString::number(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[0]);
-        for(int j=1;j<AmountOfQci;j++)
+        QString temp="[";
+        for(int j=1;j<customModelSettings.CMServiceReqs[i].ServiceReqQciArray.size() ;j++)
         {
-            if(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[j]!=0)
-                temp+=", " + QString::number(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[j]);
+                temp+=QString::number(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[j]) + ",";
         }
         temp+="]";
         ui->listWidget->addItem("Service Req "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMServiceReqs[i].ServiceReqTimeToWaitForAttach) + ", "+ QString::number(customModelSettings.CMServiceReqs[i].ServiceReqIntervalBetweenUlData) + ")");
@@ -226,5 +230,4 @@ void CustomModelsListForm::refreshCmButtonsColors(const int &index) {
     }
     this->cmButtonsPtr[index]->setStyleSheet("background-color: rgb(0, 255, 255); color: rgb(0, 0, 0)");
 }
-
 

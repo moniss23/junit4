@@ -2,9 +2,10 @@
 #define SYNCEDPINGFORM_H
 
 #include <QDialog>
-#include <QCheckBox>
 
 #include "Data/TrafficSettings/CustomModelsData/syncedping.h"
+
+class QCheckBox;
 
 namespace Ui {
 class SyncedPingForm;

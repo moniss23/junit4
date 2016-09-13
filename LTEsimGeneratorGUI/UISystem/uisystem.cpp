@@ -179,7 +179,6 @@ void UISystem::bindingObjects()
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Ping(QString,QString,int)), this, SLOT(spawnWindow_PingForm(QString,QString,int)));
     QObject::connect(this, SIGNAL(spawnWindow_PingForm(QString,QString,int,bool*)), &pingForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
     QObject::connect(&pingForm, SIGNAL(savePingData(QString,QString,int,Ping)), dataSystem, SLOT(savePingData(QString,QString,int,Ping)));
-    QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings)));
 
     //Voip form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Voip(QString,QString,int)), this, SLOT(spawnWindow_VoipForm(QString,QString,int)));
@@ -210,6 +209,11 @@ void UISystem::bindingObjects()
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_SyncedPing(QString,QString,int)), this, SLOT(spawnWindow_SyncedPingForm(QString,QString,int)));
     QObject::connect(this, SIGNAL(spawnWindow_SyncedPingForm(QString,QString,int,bool*)), &syncedPingForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
     QObject::connect(&syncedPingForm, SIGNAL(saveSyncedPingData(QString,QString,int,SyncedPing)), dataSystem, SLOT(saveSyncedPingData(QString,QString,int,SyncedPing)));
+
+    //ServiceReq form (trafficmap)
+    QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_ServiceReq(QString,QString,int)), this, SLOT(spawnWindow_ServiceReqForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_ServiceReqForm(QString,QString,int,bool*)), &serviceReqForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
+    QObject::connect(&serviceReqForm, SIGNAL(saveServiceReqData(QString,QString,int,ServiceReq)), dataSystem, SLOT(saveServiceReqData(QString,QString,int,ServiceReq)));
 
     // Update project
     QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
@@ -483,6 +487,21 @@ void UISystem::spawnWindow_SyncedPingForm(const QString &projectName, const QStr
         return;
     }
     emit spawnWindow_SyncedPingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_ServiceReqForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
 Project* UISystem::findProjectByName(const QString &projectName)
