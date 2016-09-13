@@ -5,7 +5,7 @@
 
 #include "UISystem/Windows/addProjectWindow.h"
 #include "UISystem/Windows/importprojectwindow.h"
-#include "UISystem/Windows/parameterswindow.h"
+
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
 #include "UISystem/DataForms/ipexform.h"
@@ -34,6 +34,7 @@
 #include "UISystem/DataForms/servicereqform.h"
 
 class ProjectManagement;
+class ParametersWindow;
 
 class UISystem : public QObject
 {
@@ -75,7 +76,6 @@ public slots:
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
-    void spawnWindow_OpenProject(const Project& project);
     void spawnWindow_Ipex(const DataGeneratorSettings& dataGeneratorSettings, const QString &projectName);
     void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
@@ -103,6 +103,7 @@ signals:
 private:
     void createFirstWinow();
     void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);
+    void bindProjectOvierviewWindow(ParametersWindow   *overviewWindow);
 
     Project* findProjectByName(const QString &projectName);
 
@@ -110,7 +111,7 @@ private:
     DataSystem             *dataSystem;
     ProjectManagement      *projectUi;
     ImportProjectWindow     importProject;
-    ParametersWindow        paramWindow;
+    ParametersWindow       *paramWindow;
     AddProjectWindow        addProjectWindow;
     Settings                settingsWindow;
     RenameDialog            renameDialog;

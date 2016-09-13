@@ -394,14 +394,6 @@ void DataSystem::deleteProject(const QString projectName)
     saveProjectsFile();
 }
 
-void DataSystem::findProject(const QString &projectName)
-{
-    auto proj = findProjectByName(projectName);
-
-    if(proj == nullptr) { return; }
-    emit currentProjectChanged(*proj);
-}
-
 void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, const QString &oldFilename, const QString& projectName) {
 
     if(newFilename == oldFilename) {

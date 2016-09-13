@@ -2,18 +2,23 @@
 #include <QMessageBox>
 
 #include "UISystem/Windows/projectmanagement.h"
+#include "UISystem/Windows/parameterswindow.h"
 
 UISystem::UISystem(DataSystem* data) :
-    dataSystem(data)
+    dataSystem(data),
+    projectUi(nullptr),paramWindow(nullptr)
 {
     createFirstWinow();
+
     settingsWindow.setWindowModality(Qt::WindowModal);
     this->bindingObjects();
     dataSystem->LoadAppData();
-
 }
 
-UISystem::~UISystem(){
+UISystem::~UISystem()
+{
+    delete paramWindow;
+    delete projectUi;
 }
 
 void UISystem::createFirstWinow()
@@ -30,7 +35,6 @@ void UISystem::bindProjectManagementWindow(ProjectManagement *projectMngtWnd)
                     projectMngtWnd,   SLOT(updateProjectLists(const QVector<Project>&)));
 
    QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
-   QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
    //Spawning ProjectManagement after closing ParametersWindow
    QObject::connect(dataSystem,SIGNAL(spawnWindow_ProjectMng()),projectMngtWnd,SLOT(show()));
@@ -45,16 +49,45 @@ void UISystem::bindProjectManagementWindow(ProjectManagement *projectMngtWnd)
    QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
 }
 
+void UISystem::bindProjectOvierviewWindow(ParametersWindow *overviewWindow)
+{
+    //Spawning ProjectManagement after closing ParametersWindow
+    QObject::connect(overviewWindow,SIGNAL(spawnWindow_ProjectMng()),dataSystem,SLOT(spawnWindow_ProjectManagement()));
+
+    //Spawn settings window
+    QObject::connect(overviewWindow, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
+
+    //Add traffic file
+    QObject::connect(overviewWindow, SIGNAL(AddFile_Traffic(QString,QString)),dataSystem, SLOT(addToProject_TrafficFile(QString,QString)));
+    QObject::connect(dataSystem, SIGNAL(currentProjectChanged(Project)),overviewWindow, SLOT(refreshUI(Project)));
+
+    //Rename file
+    QObject::connect(overviewWindow,SIGNAL(spawnWindow_RenameFile(QString,QString)),&renameDialog,SLOT(initWindow(QString,QString)));
+
+    //Delete TrafficFile
+    QObject::connect(overviewWindow,SIGNAL(removeFile_TrafficFile(QString,QString)),dataSystem,SLOT(removeFile_TrafficFile(QString,QString)));
+
+    //Update file content from filePreview
+    QObject::connect(overviewWindow,SIGNAL(updateFileContent(QString,QString,QString)),dataSystem,SLOT(updateFileContent(QString,QString,QString)));
+
+    //Restore default param and traffic files content
+    QObject::connect(overviewWindow,SIGNAL(setDefaultParametersFileContent(QString)),dataSystem,SLOT(setDefaultParametersFileContent(QString)));
+    QObject::connect(overviewWindow,SIGNAL(setDefaultTrafficFileContent(QString,QString)),dataSystem,SLOT(setDefaultTrafficFileContent(QString,QString)));
+
+    //Open Param Map
+    QObject::connect(overviewWindow, SIGNAL(spawnWindow_ParamMap(QString)), this, SLOT(spawnWindow_ParamMap(QString)));
+
+    //Open Traffic Map
+    QObject::connect(overviewWindow, SIGNAL(spawnWindow_TrafficMap(QString,QString)), this, SLOT(spawnWindow_TrafficMap(QString,QString)));
+
+    //Generating scripts
+    QObject::connect(overviewWindow, SIGNAL(generateParametersScript(Project&)), dataSystem, SLOT(generateParametersScript(Project&)));
+    QObject::connect(overviewWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
+}
+
 void UISystem::bindingObjects()
 {
-    // Open project
-    QObject::connect(this,SIGNAL(spawnWindow_OpenProject(Project)),&paramWindow,SLOT(loadProjectAndOpen(Project)));
-
-    //Spawning ProjectManagement after closing ParametersWindow
-    QObject::connect(&paramWindow,SIGNAL(spawnWindow_ProjectMng()),dataSystem,SLOT(spawnWindow_ProjectManagement()));
-
     // Settings
-    QObject::connect(&paramWindow, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
     QObject::connect(&settingsWindow, SIGNAL(SetGlobalLocationForNewProjects(QString)), dataSystem, SLOT(setGlobalLocationForNewProjects(QString)));
     QObject::connect(&settingsWindow, SIGNAL(Set_RB_FilesLocationForProject(QString,QString)), dataSystem, SLOT(set_RB_FilesLocationForProject(QString,QString)));
     QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
@@ -67,31 +100,16 @@ void UISystem::bindingObjects()
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),dataSystem,SLOT(createNewProject(QString,QString)));
     QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)), &addProjectWindow, SLOT(close()));
 
-    //Add traffic file
-    QObject::connect(&paramWindow, SIGNAL(AddFile_Traffic(QString,QString)),dataSystem, SLOT(addToProject_TrafficFile(QString,QString)));
-    QObject::connect(dataSystem, SIGNAL(currentProjectChanged(Project)),&paramWindow, SLOT(refreshUI(Project)));
-
     //Rename file
-    QObject::connect(&paramWindow,SIGNAL(spawnWindow_RenameFile(QString,QString)),&renameDialog,SLOT(initWindow(QString,QString)));
     QObject::connect(dataSystem,SIGNAL(currentProjectChanged(Project)),&renameDialog,SLOT(close()));
     QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
 
-    //Delete TrafficFile
-    QObject::connect(&paramWindow,SIGNAL(removeFile_TrafficFile(QString,QString)),dataSystem,SLOT(removeFile_TrafficFile(QString,QString)));
 
-    //Update file content from filePreview
-    QObject::connect(&paramWindow,SIGNAL(updateFileContent(QString,QString,QString)),dataSystem,SLOT(updateFileContent(QString,QString,QString)));
-
-
-    //Restore default param and traffic files content
-    QObject::connect(&paramWindow,SIGNAL(setDefaultParametersFileContent(QString)),dataSystem,SLOT(setDefaultParametersFileContent(QString)));
-    QObject::connect(&paramWindow,SIGNAL(setDefaultTrafficFileContent(QString,QString)),dataSystem,SLOT(setDefaultTrafficFileContent(QString,QString)));
 
     //Error window
     QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
 
-    //Open Param Map
-    QObject::connect(&paramWindow, SIGNAL(spawnWindow_ParamMap(QString)), this, SLOT(spawnWindow_ParamMap(QString)));
+
 
     //Open Ipex window
     QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings,QString)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings,QString)));
@@ -162,7 +180,6 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
 
     //SPawnWindow TrafficMap
-    QObject::connect(&paramWindow, SIGNAL(spawnWindow_TrafficMap(QString,QString)), this, SLOT(spawnWindow_TrafficMap(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_TrafficMap(Project,TrafficFileData)), &trafficMap, SLOT(loadAndOpen(Project,TrafficFileData)));
 
     //SpawnWindow Statistics
@@ -172,9 +189,7 @@ void UISystem::bindingObjects()
     //Update StatisticsData
     QObject::connect(&statisticsManager, SIGNAL(updateStatisticsData(QString,QString,StatisticsData)), dataSystem, SLOT(updateStatisticsData(QString,QString,StatisticsData)));
 
-    //Generating scripts
-    QObject::connect(&paramWindow, SIGNAL(generateParametersScript(Project&)), dataSystem, SLOT(generateParametersScript(Project&)));
-    QObject::connect(&paramWindow, SIGNAL(generateTrafficScript(Project,int)), dataSystem, SLOT(generateTrafficScript(Project,int)));
+
 
     //Update LTESim ChBoxes
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
@@ -254,7 +269,12 @@ void UISystem::spawnWindow_OpenProject(const QString& projectName) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_OpenProject(*project);
+
+    if(!paramWindow){
+      paramWindow = new ParametersWindow();
+      bindProjectOvierviewWindow(paramWindow);
+    }
+    paramWindow->loadProjectAndOpen(*project);
 }
 
 void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {

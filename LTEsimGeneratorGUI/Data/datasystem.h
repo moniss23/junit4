@@ -38,7 +38,6 @@ public slots:
     void setGlobalLocationForNewProjects(const QString& location);
     void set_RB_FilesLocationForProject(const QString& projectName, const QString& location);
 
-    void findProject(const QString& projectName);
     void createNewProject(const QString &projectName, const QString & directory);
     void deleteProject(const QString);
 
