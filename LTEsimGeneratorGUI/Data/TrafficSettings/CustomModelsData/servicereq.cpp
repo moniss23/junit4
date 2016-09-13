@@ -1,9 +1,5 @@
 #include "servicereq.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 ServiceReq::ServiceReq()
 {
 }

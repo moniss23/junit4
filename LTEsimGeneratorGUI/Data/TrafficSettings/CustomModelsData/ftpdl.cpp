@@ -1,9 +1,5 @@
 #include "ftpdl.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 FtpDl::FtpDl()
 {
 

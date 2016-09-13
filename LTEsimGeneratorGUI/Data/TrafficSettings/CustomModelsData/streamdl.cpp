@@ -1,9 +1,5 @@
 #include "streamdl.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 StreamDl::StreamDl()
 {
 

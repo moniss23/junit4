@@ -1,9 +1,5 @@
 #include "streamul.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 StreamUl::StreamUl()
 {
 

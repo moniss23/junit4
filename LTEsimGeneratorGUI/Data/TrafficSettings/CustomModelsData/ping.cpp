@@ -1,9 +1,5 @@
 #include "ping.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 Ping::Ping()
 {
 

@@ -1,9 +1,5 @@
 #include "ftpul.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 FtpUl::FtpUl()
 {
 

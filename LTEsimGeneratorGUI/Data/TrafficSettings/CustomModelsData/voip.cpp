@@ -1,9 +1,5 @@
 #include "voip.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 Voip::Voip()
 {
 

@@ -1,9 +1,5 @@
 #include "syncedping.h"
 
-#include <QByteArray>
-#include <QDataStream>
-#include <QBuffer>
-
 SyncedPing::SyncedPing()
 {
 }
