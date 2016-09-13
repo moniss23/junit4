@@ -1,36 +1,59 @@
 #include "uisystem.h"
 #include <QMessageBox>
 
+#include "UISystem/Windows/projectmanagement.h"
+
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data)
 {
+    createFirstWinow();
     settingsWindow.setWindowModality(Qt::WindowModal);
     this->bindingObjects();
     dataSystem->LoadAppData();
-    this->projectUi.show();
+
 }
 
 UISystem::~UISystem(){
 }
 
+void UISystem::createFirstWinow()
+{
+  projectUi = new ProjectManagement();
+  bindProjectManagementWindow(projectUi);
+  projectUi->show();
+}
+
+void UISystem::bindProjectManagementWindow(ProjectManagement *projectMngtWnd)
+{
+   //refresh when smth changes
+   QObject::connect(dataSystem, SIGNAL(currentProjects(const QVector<Project> &)),
+                    projectMngtWnd,   SLOT(updateProjectLists(const QVector<Project>&)));
+
+   QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
+   QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
+
+   //Spawning ProjectManagement after closing ParametersWindow
+   QObject::connect(dataSystem,SIGNAL(spawnWindow_ProjectMng()),projectMngtWnd,SLOT(show()));
+
+   // Delete project
+   QObject::connect(projectMngtWnd,SIGNAL(deleteProject(QString)),dataSystem,SLOT(deleteProject(QString)));
+
+   // Show settings window
+   QObject::connect(projectMngtWnd, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
+
+   // New Projects
+   QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
+}
+
 void UISystem::bindingObjects()
 {
     // Open project
-    QObject::connect(&projectUi,SIGNAL(spawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
     QObject::connect(this,SIGNAL(spawnWindow_OpenProject(Project)),&paramWindow,SLOT(loadProjectAndOpen(Project)));
-    QObject::connect(&projectUi,SIGNAL(spawnWindow_OpenProject(QString)),dataSystem,SLOT(findProject(QString)));//TODO: should not be needed in final implementation
 
     //Spawning ProjectManagement after closing ParametersWindow
     QObject::connect(&paramWindow,SIGNAL(spawnWindow_ProjectMng()),dataSystem,SLOT(spawnWindow_ProjectManagement()));
-    QObject::connect(dataSystem,SIGNAL(spawnWindow_ProjectMng()),&projectUi,SLOT(show()));
-
-    // Delete project
-    QObject::connect(&projectUi,SIGNAL(deleteProject(QString)),dataSystem,SLOT(deleteProject(QString)));
-    QObject::connect(dataSystem, SIGNAL(currentProjects(const QVector<Project> &)),
-                     &projectUi,   SLOT(updateProjectLists(const QVector<Project>&)));
 
     // Settings
-    QObject::connect(&projectUi, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
     QObject::connect(&paramWindow, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
     QObject::connect(&settingsWindow, SIGNAL(SetGlobalLocationForNewProjects(QString)), dataSystem, SLOT(setGlobalLocationForNewProjects(QString)));
     QObject::connect(&settingsWindow, SIGNAL(Set_RB_FilesLocationForProject(QString,QString)), dataSystem, SLOT(set_RB_FilesLocationForProject(QString,QString)));
@@ -41,7 +64,6 @@ void UISystem::bindingObjects()
     //QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), dataSystem, SLOT(importProject(const QString&)));
 
     // New Projects
-    QObject::connect(&projectUi,SIGNAL(spawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
     QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),dataSystem,SLOT(createNewProject(QString,QString)));
     QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)), &addProjectWindow, SLOT(close()));
 
@@ -489,6 +511,8 @@ void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QStr
     }
     emit spawnWindow_ServiceReqForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
+
+
 
 Project* UISystem::findProjectByName(const QString &projectName)
 {

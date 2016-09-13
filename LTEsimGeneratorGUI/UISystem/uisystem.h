@@ -4,12 +4,10 @@
 #include "Data/datasystem.h"
 
 #include "UISystem/Windows/addProjectWindow.h"
-#include "UISystem/Windows/projectmanagement.h"
 #include "UISystem/Windows/importprojectwindow.h"
 #include "UISystem/Windows/parameterswindow.h"
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
-
 #include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/sgwform.h"
@@ -32,6 +30,8 @@
 #include "UISystem/DataForms/streamulform.h"
 #include "UISystem/DataForms/syncedpingform.h"
 #include "UISystem/DataForms/servicereqform.h"
+
+class ProjectManagement;
 
 class UISystem : public QObject
 {
@@ -97,11 +97,14 @@ signals:
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
 
 private:
+    void createFirstWinow();
+    void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);
+
     Project* findProjectByName(const QString &projectName);
 
 private:
     DataSystem             *dataSystem;
-    ProjectManagement       projectUi;
+    ProjectManagement      *projectUi;
     ImportProjectWindow     importProject;
     ParametersWindow        paramWindow;
     AddProjectWindow        addProjectWindow;
