@@ -524,25 +524,7 @@ void UISystem::spawnWindow_StreamUlForm(const QString &projectName, const QStrin
     emit spawnWindow_StreamUlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
-Project* UISystem::findProjectByName(const QString &projectName)
+void UISystem::showErrorWindow(const QString &errorDescription)
 {
-    auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                (const Project& project)->bool {
-        return (project.name == projectName);
-    });
-    return project != std::end(dataSystem->projects) ? project : nullptr;
+    QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
 }
-
-    Project* UISystem::findProjectByName(const QString &projectName)
-    {
-        auto project = std::find_if(dataSystem->projects.begin(), dataSystem->projects.end(),[&projectName]
-                                    (const Project& project)->bool {
-            return (project.name == projectName);
-        });
-        return project != std::end(dataSystem->projects) ? project : nullptr;
-    }
-
-    void UISystem::showErrorWindow(const QString &errorDescription)
-    {
-        QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
-    }
