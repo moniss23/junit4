@@ -55,7 +55,6 @@ public slots:
     void spawnWindow_Mme(const QString& projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
-    void spawnWindow_MapView(const QString& projectName);
     void spawnWindow_MapRange(const QString& projectName);
     void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
@@ -81,7 +80,6 @@ signals:
     void spawnWindow_Mme(const MmeSettings& mmeSettings,const PagingSettings& pagingSettings, const QString &projectName);
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName);
-    void spawnWindow_MapView(const Project &project);
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, const TrafficFileData &trafficFileData);

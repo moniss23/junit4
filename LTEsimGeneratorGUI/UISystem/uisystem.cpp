@@ -130,9 +130,6 @@ void UISystem::bindingObjects()
     //Update Map Range
     QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
 
-    //Open MapView
-    QObject::connect(&paramWindow, SIGNAL(spawnWindow_MapView(QString)), this, SLOT(spawnWindow_MapView(QString)));
-
     //refresh map view
     QObject::connect(dataSystem, SIGNAL(refreshMapView(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
 
@@ -326,16 +323,6 @@ void UISystem::spawnWindow_UBSim(const QString &projectName) {
         return;
     }
     emit spawnWindow_UBSim(project->ubSimSettings,project->ueParameters, project->name);
-    return;
-}
-
-void UISystem::spawnWindow_MapView(const QString &projectName) {
-    auto project = findProjectByName(projectName);
-    if(project == nullptr) {
-        dataSystem->errorInData("Can't find right project.");
-        return;
-    }
-    emit spawnWindow_MapView(*project);
     return;
 }
 
