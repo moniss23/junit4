@@ -2,8 +2,7 @@
 #include <QMessageBox>
 
 UISystem::UISystem(DataSystem* data) :
-    dataSystem(data),
-    paramWindow()
+    dataSystem(data)
 {
     settingsWindow.setWindowModality(Qt::WindowModal);
     this->bindingObjects();
