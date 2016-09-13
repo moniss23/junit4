@@ -98,6 +98,8 @@ public slots:
     void saveSyncedPingData(const QString &projectName, const QString &trafficName, const int &CMindex, const SyncedPing &syncedPing);
     void saveServiceReqData(const QString &projectName, const QString &trafficName, const int &CMindex, const ServiceReq &serviceReq);
 
+    void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex);
+
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
 
     void updateProjectOnMapCloseEvent(const QString &projectName);

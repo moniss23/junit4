@@ -746,6 +746,60 @@ void DataSystem::saveServiceReqData(const QString &projectName, const QString &t
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
+void DataSystem::deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    if(item == "Ping") {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMPings[itemIndex].pingQci-1] = false;
+        traffic->customModels[CMindex].CMPings.erase(traffic->customModels[CMindex].CMPings.begin()+itemIndex);
+    } else if(item == "Voip") {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMVoips[itemIndex].voipQci-1] = false;
+        traffic->customModels[CMindex].CMVoips.erase(traffic->customModels[CMindex].CMVoips.begin()+itemIndex);
+    } else if(item == "FtpDl") {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMFtpDls[itemIndex].ftpDlQci-1] = false;
+        traffic->customModels[CMindex].CMFtpDls.erase(traffic->customModels[CMindex].CMFtpDls.begin()+itemIndex);
+    } else if(item == "FtpUl") {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMFtpUls[itemIndex].ftpUlQci-1] = false;
+        traffic->customModels[CMindex].CMFtpUls.erase(traffic->customModels[CMindex].CMFtpUls.begin()+itemIndex);
+    } else if(item == "StreamDl") {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMStreamDls[itemIndex].streamDlQci-1] = false;
+        traffic->customModels[CMindex].CMStreamDls.erase(traffic->customModels[CMindex].CMStreamDls.begin()+itemIndex);
+    } else if(item == "StreamUl") {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMStreamUls[itemIndex].streamUlQci-1] = false;
+        traffic->customModels[CMindex].CMStreamUls.erase(traffic->customModels[CMindex].CMStreamUls.begin()+itemIndex);
+    } else if(item == "SyncedPing") {
+        for(auto &qci : traffic->customModels[CMindex].CMSyncedPings[itemIndex].SyncedPingQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci-1] = false;
+        }
+        traffic->customModels[CMindex].CMSyncedPings.erase(traffic->customModels[CMindex].CMSyncedPings.begin()+itemIndex);
+    } else if(item == "ServiceReq") {
+        for(auto &qci : traffic->customModels[CMindex].CMServiceReqs[itemIndex].ServiceReqQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci-1] = false;
+        }
+        traffic->customModels[CMindex].CMServiceReqs.erase(traffic->customModels[CMindex].CMServiceReqs.begin()+itemIndex);
+    }
+    bool isUsed = false;
+    for(unsigned i =0; i < 9; i++) {
+        if(traffic->customModels[CMindex].qciUsed[i] == true) {
+            isUsed = true;
+        }
+    }
+    if(isUsed == false) {
+        traffic->cmUsed[CMindex] = false;
+    }
+    emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
+    saveProjectsFile();
+}
+
 void DataSystem::saveStreamUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamUl &streamUl)
 {
     auto project = findProjectByName(projectName);

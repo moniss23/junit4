@@ -105,6 +105,8 @@ signals:
      */
     void spawnWindow_ServiceReq(const QString &projectName, const QString &trafficName, const int &CMindex);
 
+    void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
+
     /***********************************************
      *  BINDINGS TO UI BUTTONS AND LISTS
      ***********************************************/
@@ -133,6 +135,8 @@ private slots:
      ***********************************************/
     void on_exitButton_clicked();
     void on_deleteButton_clicked();
+
+    void on_listWidget_doubleClicked(const QModelIndex &index);
 
 private:
     /**

@@ -246,6 +246,8 @@ void UISystem::bindingObjects()
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
     QObject::connect(&customModelsListForm, SIGNAL(loadData(QString,QString,int)), dataSystem, SLOT(updateCustomModel(QString,QString,int)));
 
+    QObject::connect(&customModelsListForm, SIGNAL(deleteCustomModelItem(QString,QString,QString,int,int)), dataSystem, SLOT(deleteCustomModelItem(QString,QString,QString,int,int)));
+
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_tuningTraffic(QString,QString)), &tuningTrafficManager, SLOT(open(QString,QString)));

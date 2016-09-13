@@ -1,6 +1,8 @@
 #include "custommodelslistform.h"
 #include "ui_custommodelslistform.h"
 
+#include <QListWidgetItem>
+
 CustomModelsListForm::CustomModelsListForm(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CustomModelsListForm)
@@ -153,19 +155,56 @@ void CustomModelsListForm::currentCustomModelChanged(const CustomModelSettings &
 
 void CustomModelsListForm::refreshListView()
 {
+    QListWidgetItem *listItem;
     ui->listWidget->clear();
-    for(int i=0;i<customModelSettings.CMPings.size();i++)
-        ui->listWidget->addItem("Ping "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMPings[i].pingQci) + ", " + QString::number(customModelSettings.CMPings[i].pingNumberOfPings) + ", " +QString::number(customModelSettings.CMPings[i].pingInterval) + ", " +QString::number(customModelSettings.CMPings[i].pingMinRecievedPings) + ")");
-    for(int i=0;i<customModelSettings.CMVoips.size();i++)
-        ui->listWidget->addItem("Voip "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMVoips[i].voipQci) +", "+ QString::number(customModelSettings.CMVoips[i].voipDuration) + ", "+ QString::number(customModelSettings.CMVoips[i].voipActivityFactor) + ", "+ QString::number(customModelSettings.CMVoips[i].voipMaxTransferTime) + ", "+ QString::number(customModelSettings.CMVoips[i].voipMinPacketsReceivedInTime) + ")");
-    for(int i=0;i<customModelSettings.CMFtpDls.size();i++)
-        ui->listWidget->addItem("FTP Dl "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMFtpDls[i].ftpDlQci) + ", " + QString::number(customModelSettings.CMFtpDls[i].ftpDlFilesize) + ", " + QString::number(customModelSettings.CMFtpDls[i].ftpDlMinThroughput) + ")");
-    for(int i=0;i<customModelSettings.CMFtpUls.size();i++)
-        ui->listWidget->addItem("FTP Ul "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMFtpUls[i].ftpUlQci) + ", " + QString::number(customModelSettings.CMFtpUls[i].ftpUlFilesize) + ", " + QString::number(customModelSettings.CMFtpUls[i].ftpUlMinThroughput) + ")");
-    for(int i=0;i<customModelSettings.CMStreamDls.size();i++)
-        ui->listWidget->addItem("Stream Dl "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMStreamDls[i].streamDlQci) + ", " + QString::number(customModelSettings.CMStreamDls[i].streamDlSpeed) + ", "+ QString::number(customModelSettings.CMStreamDls[i].streamDlDuration) + ", "+ QString::number(customModelSettings.CMStreamDls[i].streamDlMinThroughput) + ")");
-    for(int i=0;i<customModelSettings.CMStreamUls.size();i++)
-        ui->listWidget->addItem("Stream Ul "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMStreamUls[i].streamUlQci) + ", " + QString::number(customModelSettings.CMStreamUls[i].streamUlSpeed) + ", "+ QString::number(customModelSettings.CMStreamUls[i].streamUlDuration) + ", "+ QString::number(customModelSettings.CMStreamUls[i].streamUlMinThroughput) + ")");
+    for(int i=0;i<customModelSettings.CMPings.size();i++) {
+        listItem = new QListWidgetItem("Ping "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMPings[i].pingQci) + ", " + QString::number(customModelSettings.CMPings[i].pingNumberOfPings) + ", " +QString::number(customModelSettings.CMPings[i].pingInterval) + ", " +QString::number(customModelSettings.CMPings[i].pingMinRecievedPings) + ")");
+        QVariant itemInfo("Ping");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
+    }
+    for(int i=0;i<customModelSettings.CMVoips.size();i++) {
+        listItem = new QListWidgetItem("Voip "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMVoips[i].voipQci) +", "+ QString::number(customModelSettings.CMVoips[i].voipDuration) + ", "+ QString::number(customModelSettings.CMVoips[i].voipActivityFactor) + ", "+ QString::number(customModelSettings.CMVoips[i].voipMaxTransferTime) + ", "+ QString::number(customModelSettings.CMVoips[i].voipMinPacketsReceivedInTime) + ")");
+        QVariant itemInfo("Voip");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
+    }
+    for(int i=0;i<customModelSettings.CMFtpDls.size();i++) {
+        listItem = new QListWidgetItem("FTP Dl "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMFtpDls[i].ftpDlQci) + ", " + QString::number(customModelSettings.CMFtpDls[i].ftpDlFilesize) + ", " + QString::number(customModelSettings.CMFtpDls[i].ftpDlMinThroughput) + ")");
+        QVariant itemInfo("FtpDl");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
+    }
+    for(int i=0;i<customModelSettings.CMFtpUls.size();i++) {
+        listItem = new QListWidgetItem("FTP Ul "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMFtpUls[i].ftpUlQci) + ", " + QString::number(customModelSettings.CMFtpUls[i].ftpUlFilesize) + ", " + QString::number(customModelSettings.CMFtpUls[i].ftpUlMinThroughput) + ")");
+        QVariant itemInfo("FtpUl");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
+    }
+    for(int i=0;i<customModelSettings.CMStreamDls.size();i++) {
+        listItem = new QListWidgetItem("Stream Dl "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMStreamDls[i].streamDlQci) + ", " + QString::number(customModelSettings.CMStreamDls[i].streamDlSpeed) + ", "+ QString::number(customModelSettings.CMStreamDls[i].streamDlDuration) + ", "+ QString::number(customModelSettings.CMStreamDls[i].streamDlMinThroughput) + ")");
+        QVariant itemInfo("StreamDl");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
+    }
+    for(int i=0;i<customModelSettings.CMStreamUls.size();i++) {
+        listItem = new QListWidgetItem("Stream Ul "+QString::number(i+1) + " (" + QString::number(customModelSettings.CMStreamUls[i].streamUlQci) + ", " + QString::number(customModelSettings.CMStreamUls[i].streamUlSpeed) + ", "+ QString::number(customModelSettings.CMStreamUls[i].streamUlDuration) + ", "+ QString::number(customModelSettings.CMStreamUls[i].streamUlMinThroughput) + ")");
+        QVariant itemInfo("StreamUl");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
+    }
     for(int i=0;i<customModelSettings.CMSyncedPings.size() ;i++)
     {
         QString temp = "[";
@@ -174,7 +213,12 @@ void CustomModelsListForm::refreshListView()
                 temp+= QString::number(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[j]) + ",";
         }
         temp+="]";
-        ui->listWidget->addItem("Synced Ping "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMSyncedPings[i].SyncedPingTimeBetweenTasks) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingNumberOfPings) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingInterval)+ ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingMinReceivedPings) + ")");
+        listItem = new QListWidgetItem("Synced Ping "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMSyncedPings[i].SyncedPingTimeBetweenTasks) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingNumberOfPings) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingInterval)+ ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingMinReceivedPings) + ")");
+        QVariant itemInfo("SyncedPing");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
     }
 
     for(int i=0;i<customModelSettings.CMServiceReqs.size() ;i++)
@@ -185,7 +229,12 @@ void CustomModelsListForm::refreshListView()
                 temp+=QString::number(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[j]) + ",";
         }
         temp+="]";
-        ui->listWidget->addItem("Service Req "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMServiceReqs[i].ServiceReqTimeToWaitForAttach) + ", "+ QString::number(customModelSettings.CMServiceReqs[i].ServiceReqIntervalBetweenUlData) + ")");
+        listItem = new QListWidgetItem("Service Req "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMServiceReqs[i].ServiceReqTimeToWaitForAttach) + ", "+ QString::number(customModelSettings.CMServiceReqs[i].ServiceReqIntervalBetweenUlData) + ")");
+        QVariant itemInfo("ServiceReq");
+        listItem->setData(Qt::UserRole, itemInfo);
+        QVariant indexInfo(QString::number(i));
+        listItem->setData(Qt::BackgroundRole, indexInfo);
+        ui->listWidget->addItem(listItem);
     }
 }
 
@@ -238,5 +287,14 @@ void CustomModelsListForm::on_exitButton_clicked()
 
 void CustomModelsListForm::on_deleteButton_clicked()
 {
+    if(this->ui->listWidget->currentItem() == nullptr) return;
+    QVariant itemInfo = this->ui->listWidget->currentItem()->data(Qt::UserRole);
+    QVariant indexInfo = this->ui->listWidget->currentItem()->data(Qt::BackgroundRole);
 
+    emit deleteCustomModelItem(projectName, trafficName, itemInfo.toString(), indexInfo.toInt(), currentCustomModelIndex);
+}
+
+void CustomModelsListForm::on_listWidget_doubleClicked(const QModelIndex &index)
+{
+    (void) index;
 }
