@@ -3,10 +3,11 @@
 
 #include "UISystem/Windows/projectmanagement.h"
 #include "UISystem/Windows/parameterswindow.h"
+#include "UISystem/DataForms/ipexform.h"
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
-    projectUi(nullptr),paramWindow(nullptr)
+    projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr)
 {
     createFirstWinow();
 
@@ -17,6 +18,7 @@ UISystem::UISystem(DataSystem* data) :
 
 UISystem::~UISystem()
 {
+    delete ipexForm;
     delete paramWindow;
     delete projectUi;
 }
@@ -112,8 +114,7 @@ void UISystem::bindingObjects()
 
 
     //Open Ipex window
-    QObject::connect(this, SIGNAL(spawnWindow_Ipex(DataGeneratorSettings,QString)), &ipexForm, SLOT(loadAndSpawn(DataGeneratorSettings,QString)));
-    QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
+
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
 
     //Open UCTool window
@@ -302,8 +303,14 @@ void UISystem::spawnWindow_Ipex(const QString& projectName)
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Ipex(project->dataGeneratorSettings, project->name);
-    return;
+
+    if(!ipexForm) {
+      ipexForm = new IpexForm();
+      QObject::connect(ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)),
+                       dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
+    }
+    ipexForm->loadAndSpawn(project->dataGeneratorSettings, project->name);
+
 }
 
 void UISystem::spawnWindow_ucTool(const QString& projectName)

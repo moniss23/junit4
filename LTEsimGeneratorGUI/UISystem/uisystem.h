@@ -5,10 +5,8 @@
 
 #include "UISystem/Windows/addProjectWindow.h"
 #include "UISystem/Windows/importprojectwindow.h"
-
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
-#include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "UISystem/DataForms/mmeform.h"
@@ -35,6 +33,7 @@
 
 class ProjectManagement;
 class ParametersWindow;
+class IpexForm;
 
 class UISystem : public QObject
 {
@@ -76,7 +75,6 @@ public slots:
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
-    void spawnWindow_Ipex(const DataGeneratorSettings& dataGeneratorSettings, const QString &projectName);
     void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
@@ -115,7 +113,7 @@ private:
     AddProjectWindow        addProjectWindow;
     Settings                settingsWindow;
     RenameDialog            renameDialog;
-    IpexForm                ipexForm;
+    IpexForm               *ipexForm;
     UCtoolForm              ucToolForm;
     SgwForm                 sgwForm;
     MmeForm                 mmeForm;
@@ -136,7 +134,7 @@ private:
     StreamUlForm            streamUlForm;
     SyncedPingForm          syncedPingForm;
     ServiceReqForm          serviceReqForm;
-    PagingForm          pagingForm;
+    PagingForm              pagingForm;
 
 };
 
