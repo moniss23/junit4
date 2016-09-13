@@ -10,9 +10,6 @@ CustomModelsListForm::CustomModelsListForm(QWidget *parent) :
     ui->setupUi(this);
     this->usedQci.setColor(QPalette::WindowText, Qt::green);
     this->unusedQci.setColor(QPalette::WindowText, Qt::red);
-    this->currentCM.setColor(QPalette::Window, QColor(0,255,255,150));
-    this->usedCM.setColor(QPalette::Window, QColor(Qt::red));
-    this->unusedCM.setColor(QPalette::Window, QColor(Qt::green));
     setButtonsPointers();
     setAutoFillButtonsBG();
 }
@@ -208,11 +205,11 @@ void CustomModelsListForm::refreshListView()
     for(int i=0;i<customModelSettings.CMSyncedPings.size() ;i++)
     {
         QString temp = "[";
-        for(int j=0;j<customModelSettings.CMSyncedPings[i].SyncedPingQciArray.size() ;j++)
+        for(int j=0;j<customModelSettings.CMSyncedPings[i].SyncedPingQciArray.size() - 1 ;j++)
         {
                 temp+= QString::number(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[j]) + ",";
         }
-        temp+="]";
+        temp+=QString::number(customModelSettings.CMSyncedPings[i].SyncedPingQciArray[customModelSettings.CMSyncedPings[i].SyncedPingQciArray.size()-1]) + "]";
         listItem = new QListWidgetItem("Synced Ping "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMSyncedPings[i].SyncedPingTimeBetweenTasks) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingNumberOfPings) + ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingInterval)+ ", "+ QString::number(customModelSettings.CMSyncedPings[i].SyncedPingMinReceivedPings) + ")");
         QVariant itemInfo("SyncedPing");
         listItem->setData(Qt::UserRole, itemInfo);
@@ -224,11 +221,11 @@ void CustomModelsListForm::refreshListView()
     for(int i=0;i<customModelSettings.CMServiceReqs.size() ;i++)
     {
         QString temp="[";
-        for(int j=1;j<customModelSettings.CMServiceReqs[i].ServiceReqQciArray.size() ;j++)
+        for(int j=0;j<customModelSettings.CMServiceReqs[i].ServiceReqQciArray.size() - 1 ;j++)
         {
                 temp+=QString::number(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[j]) + ",";
         }
-        temp+="]";
+        temp+=QString::number(customModelSettings.CMServiceReqs[i].ServiceReqQciArray[customModelSettings.CMServiceReqs[i].ServiceReqQciArray.size()-1]) + "]";
         listItem = new QListWidgetItem("Service Req "+QString::number(i+1) + " (" + temp + ", " + QString::number(customModelSettings.CMServiceReqs[i].ServiceReqTimeToWaitForAttach) + ", "+ QString::number(customModelSettings.CMServiceReqs[i].ServiceReqIntervalBetweenUlData) + ")");
         QVariant itemInfo("ServiceReq");
         listItem->setData(Qt::UserRole, itemInfo);
@@ -277,7 +274,7 @@ void CustomModelsListForm::refreshCmButtonsColors(const int &index) {
         else
             this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(255, 0, 0); color: rgb(0, 0, 0)");
     }
-    this->cmButtonsPtr[index]->setStyleSheet("background-color: rgb(0, 255, 255); color: rgb(0, 0, 0)");
+    this->cmButtonsPtr[index]->setStyleSheet("background-color:#ffd700");
 }
 
 void CustomModelsListForm::on_exitButton_clicked()

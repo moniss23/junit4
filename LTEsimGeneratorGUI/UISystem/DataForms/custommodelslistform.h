@@ -129,15 +129,13 @@ private slots:
     void on_AddStreamUlButton_clicked();
     void on_AddSyncedPingButton_clicked();
     void on_AddServiceReqButton_clicked();
+    void on_exitButton_clicked();
+    void on_deleteButton_clicked();
+    void on_listWidget_doubleClicked(const QModelIndex &index);
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
-    void on_exitButton_clicked();
-    void on_deleteButton_clicked();
-
-    void on_listWidget_doubleClicked(const QModelIndex &index);
-
 private:
     /**
      * @brief refreshListView is used to refresh added items on the list
@@ -166,9 +164,6 @@ private:
 
     QPalette usedQci;                               ///< Palette for used qci
     QPalette unusedQci;                             ///< Palette for unused qci
-    QPalette usedCM;                                ///< Palette for used custom model
-    QPalette unusedCM;                              ///< Palette for unused custom model
-    QPalette currentCM;                             ///< Palette for current custom model
 
     QPushButton *cmButtonsPtr[10];                  ///< table of pointers which points to ui->buttons
 
