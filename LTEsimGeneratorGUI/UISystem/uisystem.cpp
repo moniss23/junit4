@@ -4,10 +4,13 @@
 #include "UISystem/Windows/projectmanagement.h"
 #include "UISystem/Windows/parameterswindow.h"
 #include "UISystem/DataForms/ipexform.h"
+#include "UISystem/DataForms/voipform.h"
+#include "UISystem/DataForms/uctoolform.h"
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
-    projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr)
+    projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr),
+    ucToolForm(nullptr), voipForm(nullptr)
 {
     createFirstWinow();
 
@@ -18,7 +21,9 @@ UISystem::UISystem(DataSystem* data) :
 
 UISystem::~UISystem()
 {
+    delete voipForm;
     delete ipexForm;
+    delete ucToolForm;
     delete paramWindow;
     delete projectUi;
 }
@@ -89,6 +94,9 @@ void UISystem::bindProjectOvierviewWindow(ParametersWindow *overviewWindow)
 
 void UISystem::bindingObjects()
 {
+    //Error window
+    QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
+
     // Settings
     QObject::connect(&settingsWindow, SIGNAL(SetGlobalLocationForNewProjects(QString)), dataSystem, SLOT(setGlobalLocationForNewProjects(QString)));
     QObject::connect(&settingsWindow, SIGNAL(Set_RB_FilesLocationForProject(QString,QString)), dataSystem, SLOT(set_RB_FilesLocationForProject(QString,QString)));
@@ -106,23 +114,11 @@ void UISystem::bindingObjects()
     QObject::connect(dataSystem,SIGNAL(currentProjectChanged(Project)),&renameDialog,SLOT(close()));
     QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
 
-
-
-    //Error window
-    QObject::connect(dataSystem, SIGNAL(errorInData(QString)),this,SLOT(showErrorWindow(QString)));
-
-
-
     //Open Ipex window
-
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
 
     //Open UCTool window
-    QObject::connect(this, SIGNAL(spawnWindow_ucTool(UCToolSettings,QString)), &ucToolForm, SLOT(loadAndOpen(UCToolSettings,QString)));
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ucTool(QString)), this, SLOT(spawnWindow_ucTool(QString)));
-
-    //Update UCTool settings
-    QObject::connect(&ucToolForm, SIGNAL(updateUCToolSettings(UCToolSettings,QString)), dataSystem, SLOT(updateUCToolSettings(UCToolSettings,QString)));
 
     //Open ChannelModel window
     QObject::connect(this, SIGNAL(spawnWindow_ChannelModel(ChannelModelSettings,QString)), &channelModelForm, SLOT(loadAndOpen(ChannelModelSettings,QString)));
@@ -130,8 +126,6 @@ void UISystem::bindingObjects()
 
     //Update ChannelModelSettings
     QObject::connect(&channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)), dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
-
-
 
     //Open Sgw window
     QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
@@ -188,8 +182,6 @@ void UISystem::bindingObjects()
     //Update StatisticsData
     QObject::connect(&statisticsManager, SIGNAL(updateStatisticsData(QString,QString,StatisticsData)), dataSystem, SLOT(updateStatisticsData(QString,QString,StatisticsData)));
 
-
-
     //Update LTESim ChBoxes
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
@@ -218,8 +210,6 @@ void UISystem::bindingObjects()
 
     //Voip form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Voip(QString,QString,int)), this, SLOT(spawnWindow_VoipForm(QString,QString,int)));
-    QObject::connect(this, SIGNAL(spawnWindow_VoipForm(QString,QString,int,bool*)), &voipForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-    QObject::connect(&voipForm, SIGNAL(saveVoipData(QString,QString,int,Voip)), dataSystem, SLOT(saveVoipData(QString,QString,int,Voip)));
 
     //FtpDl form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_FtpDl(QString,QString,int)), this, SLOT(spawnWindow_FtpDlForm(QString,QString,int)));
@@ -323,8 +313,13 @@ void UISystem::spawnWindow_ucTool(const QString& projectName)
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_ucTool(project->ucToolSettings, project->name);
-    return;
+
+    if(!ucToolForm){
+      ucToolForm = new UCtoolForm();
+      QObject::connect(ucToolForm, SIGNAL(updateUCToolSettings(UCToolSettings,QString)),
+                       dataSystem, SLOT(updateUCToolSettings(UCToolSettings,QString)));
+    }
+    ucToolForm->loadAndOpen(project->ucToolSettings, project->name);
 }
 
 void UISystem::spawnWindow_Mme(const QString &projectName){
@@ -472,12 +467,22 @@ void UISystem::spawnWindow_VoipForm(const QString &projectName, const QString &t
         dataSystem->errorInData("Can't find right project");
         return;
     }
+
     auto traffic = project->findTrafficFileByName(trafficName);
     if (traffic==nullptr) {
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_VoipForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+
+    if(!voipForm) {
+        voipForm = new VoipForm();
+        QObject::connect(voipForm, SIGNAL(saveVoipData(QString,QString,int,Voip)),
+                         dataSystem, SLOT(saveVoipData(QString,QString,int,Voip)));
+    }
+    voipForm->loadAndOpen(project->name,
+                          traffic->filename,
+                          index,
+                          traffic->customModels[index].qciUsed);
 }
 
 void UISystem::spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index)

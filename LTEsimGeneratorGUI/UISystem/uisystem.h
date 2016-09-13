@@ -7,7 +7,6 @@
 #include "UISystem/Windows/importprojectwindow.h"
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
-#include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "UISystem/DataForms/mmeform.h"
 #include "UISystem/DataForms/channelmodelform.h"
@@ -20,7 +19,6 @@
 #include "Maps/Traffic/Statistics/statisticsManager.h"
 #include "UISystem/DataForms/pingform.h"
 #include "UISystem/DataForms/generalconfigurationform.h"
-#include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
 #include "UISystem/DataForms/pagingform.h"
@@ -34,6 +32,8 @@
 class ProjectManagement;
 class ParametersWindow;
 class IpexForm;
+class VoipForm;
+class UCtoolForm;
 
 class UISystem : public QObject
 {
@@ -75,7 +75,6 @@ public slots:
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
-    void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
     void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName);
@@ -89,7 +88,6 @@ signals:
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_GeneralConfiguration(const GeneralConfigurationParameters &generalConfiguration, const QString &projectname);
-    void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
@@ -114,7 +112,7 @@ private:
     Settings                settingsWindow;
     RenameDialog            renameDialog;
     IpexForm               *ipexForm;
-    UCtoolForm              ucToolForm;
+    UCtoolForm             *ucToolForm;
     SgwForm                 sgwForm;
     MmeForm                 mmeForm;
     ChannelModelForm        channelModelForm;
@@ -126,7 +124,7 @@ private:
     CustomModelsListForm    customModelsListForm;
     PingForm                pingForm;
     GeneralConfiguration    generalConfiguration;
-    VoipForm                voipForm;
+    VoipForm               *voipForm;
     FtpDlForm               ftpDlForm;
     FtpUlForm               ftpUlForm;
     TuningTrafficManager    tuningTrafficManager;
