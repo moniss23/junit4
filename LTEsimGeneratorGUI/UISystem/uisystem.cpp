@@ -130,8 +130,7 @@ void UISystem::bindingObjects()
     //Update ChannelModelSettings
     QObject::connect(&channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)), dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
 
-    //Update Project IpexData
-    QObject::connect(&ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)), dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
+
 
     //Open Sgw window
     QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
