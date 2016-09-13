@@ -2,7 +2,6 @@
 #define SGWFORM_H
 
 #include <QWidget>
-#include <QMessageBox>
 
 #include "Data/ProjectSettings/sgwsettings.h"
 
@@ -71,7 +70,6 @@ private:
 
 private:
     Ui::SGWForm *ui;            //< GUI form pointer
-    QMessageBox msg;            //< MsgBox to inform user about window status (config saved etc.)
     SgwSettings sgwSettings;    //< SgwSettings class to store SGW configuration
     QString projectName;        //< Current project name
 };

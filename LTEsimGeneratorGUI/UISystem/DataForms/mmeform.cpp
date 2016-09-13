@@ -44,8 +44,6 @@ void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projec
 void MmeForm::on_buttonBox_accepted()
 {
     setMmeChanges();
-    msg.setText("Changes has been succesfully approved ");
-    msg.exec();
     this->close();
 }
 

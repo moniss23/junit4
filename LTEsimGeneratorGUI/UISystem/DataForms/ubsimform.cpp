@@ -40,10 +40,8 @@ void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameter
 void UBsimForm::on_buttonBox_accepted()
 {
     this->getParameters();
-    if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "UBSimSettings", "Are you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-        emit updateUBSimSettings(ubSimSettings, projectName);
-        this->close();
-    }
+    emit updateUBSimSettings(ubSimSettings, projectName);
+    this->close();
 }
 
 void UBsimForm::on_buttonBox_rejected()

@@ -53,9 +53,9 @@ QString GeneralConfigurationParameters::ParseToScript(){
     generalParameters.append(" \t\t# Specify additional JVM parameters\n");
                         // logger handlerSet
     generalParameters.append("  default[:");
-    generalParameters.append("logger_handlersSet] = ");
+    generalParameters.append("logger_handlersSet] = \"");
     generalParameters.append(loggerHandlerSet);
-    generalParameters.append("\n");
+    generalParameters.append("\"\n");
                         // logger file count
     generalParameters.append("  default[:");
     generalParameters.append("logger_file_count] = ");

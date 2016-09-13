@@ -2,7 +2,6 @@
 #define MMEFORM_H
 
 #include <QWidget>
-#include <QMessageBox> //TODO: move that functionality to UISystem
 #include <QString>
 
 #include "Data/ProjectSettings/mmesettings.h"
@@ -75,7 +74,6 @@ private:
 private:
     Ui::MmeForm *ui;                //< GUI form pointer
     MmeSettings mmeSettings;        //< MmeSettings class to store Mme configuration
-    QMessageBox msg;                //< MsgBox to inform user about window status (config saved etc.)
     QString projectName;            //< Current project name
 };
 

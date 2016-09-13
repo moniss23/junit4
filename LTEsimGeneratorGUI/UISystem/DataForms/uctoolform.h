@@ -2,8 +2,6 @@
 #define UCTOOLFORM_H
 
 #include <QWidget>
-#include <QMessageBox>
-
 #include "Data/ProjectSettings/uctoolsettings.h"
 
 namespace Ui {

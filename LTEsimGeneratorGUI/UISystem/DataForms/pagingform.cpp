@@ -75,8 +75,6 @@ void PagingForm::on_RestoreButton_clicked()
 void PagingForm::on_OkButton_clicked()
 {
     setChanges();
-    msg.setText("Changes has been succesfully approved ");
-    msg.exec();
     this->close();
 }
 

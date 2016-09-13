@@ -93,13 +93,6 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             }
             centers = getCentersFromScript(scriptContentLines);
             project.handovers = getHandoversFromScript(scriptContentLines.mid(startIndex,len));
-        }
-        else if(scriptContentLines[i].contains("default[:dataGenerator]")) {
-            startIndex=i;
-            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
-                len++;
-                i++;
-            }
             project.dataGeneratorSettings = getDataGeneratorSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
         else if(scriptContentLines[i].contains("default[:sgw_names]")) {

@@ -24,8 +24,6 @@ SgwForm::~SgwForm()
 void SgwForm::on_buttonBox_accepted()
 {
     setChanges();
-    msg.setText("Changes has been succesfully approved ");
-    msg.exec();
     this->close();
 }
 void SgwForm::on_buttonBox_rejected()

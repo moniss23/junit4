@@ -2,7 +2,6 @@
 #define PAGINGFORM_H
 
 #include <QWidget>
-#include <QMessageBox>
 #include "Data/ProjectSettings/pagingsettings.h"
 namespace Ui {
 class PagingForm;
@@ -53,7 +52,6 @@ private:
 private:
     Ui::PagingForm *ui;             //< GUI form pointer
     PagingSettings pagingSettings;  //< PagingSettings class to store Paging configuration
-    QMessageBox msg;                //< MsgBox to inform user about window status (config saved etc.)
     QString projectName;            //< Current project name
 };
 

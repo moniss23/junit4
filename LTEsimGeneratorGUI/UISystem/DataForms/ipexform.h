@@ -2,7 +2,6 @@
 #define IPEXFORM_H
 
 #include <QWidget>
-
 #include "Data/ProjectSettings/datageneratorsettings.h"
 
 namespace Ui {

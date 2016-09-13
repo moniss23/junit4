@@ -1,7 +1,5 @@
 #include "uctoolform.h"
 #include "ui_uctoolform.h"
-#include <QtDebug>
-
 
 UCtoolForm::UCtoolForm(QWidget *parent) :
     QWidget(parent),

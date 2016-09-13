@@ -53,9 +53,5 @@ void GeneralConfiguration::on_okButton_clicked()
 
 void GeneralConfiguration::on_cancelButton_clicked()
 {
-    if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "General Configuration Parameters", "Are you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-        this->getParameters();
-        emit updateGeneralConfiguration(generalConfigurationParameters, projectName);
-        this->close();
-    }
+    this->close();
 }

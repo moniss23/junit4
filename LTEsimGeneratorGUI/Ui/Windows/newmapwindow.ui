@@ -187,7 +187,7 @@
        <string notr="true">border-color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
-       <string>PAGING</string>
+       <string>Paging</string>
       </property>
       <property name="default">
        <bool>true</bool>
@@ -226,7 +226,7 @@
 background-color: #eee;</string>
       </property>
       <property name="text">
-       <string>GENERAL SETTINGS</string>
+       <string>General settings</string>
       </property>
       <property name="default">
        <bool>true</bool>
@@ -338,8 +338,8 @@ background-color: #eee;</string>
     <widget class="QLabel" name="srioLabel">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>70</y>
+       <x>180</x>
+       <y>280</y>
        <width>111</width>
        <height>20</height>
       </rect>
