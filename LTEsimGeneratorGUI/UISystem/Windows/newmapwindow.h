@@ -31,6 +31,7 @@ public slots:
 
 signals:
     void spawnWindow_Mme(const QString& projectName);
+    void spawnWindow_Paging(const QString& projectName);
     void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Ipex(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
@@ -57,6 +58,7 @@ signals:
 
 private slots:
     void on_mmeButton_pressed();
+    void on_pagingButton_pressed();
     void on_sgwButton_pressed();
     void on_ipexButton_pressed();
     void on_ubSimButton_pressed();

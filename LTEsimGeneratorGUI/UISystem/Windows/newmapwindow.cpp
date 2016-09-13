@@ -175,6 +175,7 @@ void NewMapWindow::on_removeHandoverBtn_clicked()
 void NewMapWindow::on_addCellBtn_clicked() {emit addCell(project.name);}
 void NewMapWindow::on_addHandoverBtn_clicked() {emit addHandover(project.name);}
 void NewMapWindow::on_mmeButton_pressed() {emit spawnWindow_Mme(project.name);}
+void NewMapWindow::on_pagingButton_pressed() {emit spawnWindow_Paging(project.name);}
 void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name);}
 void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);}
 void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name);}

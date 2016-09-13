@@ -120,12 +120,16 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Sgw(QString)), this, SLOT(spawnWindow_Sgw(QString)));
 
     //Open Mme window
-    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,PagingSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,PagingSettings,QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,QString)));
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Mme(QString)), this, SLOT(spawnWindow_Mme(QString)));
+
+    //Open Paging widnow
+    QObject::connect(this,SIGNAL(spawnWindow_Paging(PagingSettings,QString)),&pagingForm,SLOT(loadAndSpawn(PagingSettings,QString)));
+    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_Paging(QString)),this,SLOT(spawnWindow_Paging(QString)));
 
     //Update Mme and Paging
     QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings, QString)),dataSystem,SLOT(updateMme(MmeSettings,QString)));
-    QObject::connect(&mmeForm,SIGNAL(updatePaging(PagingSettings,QString)),dataSystem,SLOT(updatePaging(PagingSettings,QString)));
+    QObject::connect(&pagingForm,SIGNAL(updatePaging(PagingSettings,QString)),dataSystem,SLOT(updatePaging(PagingSettings,QString)));
 
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
@@ -302,7 +306,17 @@ void UISystem::spawnWindow_Mme(const QString &projectName){
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Mme(project->mmeSettings,project->pagingSettings, project->name);
+    emit spawnWindow_Mme(project->mmeSettings, project->name);
+    return;
+}
+void UISystem::spawnWindow_Paging(const QString &projectName){
+    auto project = findProjectByName(projectName);
+
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnWindow_Paging(project->pagingSettings, project->name);
     return;
 }
 
@@ -557,3 +571,5 @@ void UISystem::showErrorWindow(const QString &errorDescription)
 {
     QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
 }
+
+

@@ -25,6 +25,8 @@
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
+#include "UISystem/DataForms/pagingform.h"
+#include "Data/ProjectSettings/pagingsettings.h"
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 #include "UISystem/DataForms/streamdlform.h"
 #include "UISystem/DataForms/streamulform.h"
@@ -53,6 +55,7 @@ public slots:
     void spawnWindow_ParamMap(const QString &projectName);
     void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Mme(const QString& projectName);
+    void spawnWindow_Paging(const QString &projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
     void spawnWindow_MapRange(const QString& projectName);
@@ -77,7 +80,8 @@ signals:
     void spawnWindow_ucTool(const UCToolSettings &ucToolSettings, const QString &projectName);
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
-    void spawnWindow_Mme(const MmeSettings& mmeSettings,const PagingSettings& pagingSettings, const QString &projectName);
+    void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName);
+    void spawnWindow_Paging(const PagingSettings &paging, const QString &projectName);
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName);
     void spawnWindow_MapWindow(const Project &project);
@@ -131,6 +135,8 @@ private:
     StreamUlForm            streamUlForm;
     SyncedPingForm          syncedPingForm;
     ServiceReqForm          serviceReqForm;
+    PagingForm          pagingForm;
+
 };
 
 #endif // UISYSTEM_H
