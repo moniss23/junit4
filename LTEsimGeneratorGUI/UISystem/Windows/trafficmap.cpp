@@ -20,7 +20,12 @@ TrafficMap::~TrafficMap()
     delete ui;
 }
 
-void TrafficMap::loadAndOpen(const Project &project, const TrafficFileData &trafficFileData) {
+void TrafficMap::loadAndOpen(const Project &project, TrafficFileData *trafficFileData) {
+    this->refreshWindow(project, trafficFileData);
+    this->show();
+}
+
+void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficFileData) {
     delete vBoxLayout;
     delete hBoxLayout1;
     delete mapView;
@@ -28,7 +33,8 @@ void TrafficMap::loadAndOpen(const Project &project, const TrafficFileData &traf
     this->project = project;
     this->trafficFileData = trafficFileData;
 
-    mapView     = new MapView(project, this);
+    mapView     = new MapView(project, this, this->trafficFileData->filename);
+    ui->numberOfUeLabel->setText(QString::number(this->trafficFileData->userEquipments.size()));
     hBoxLayout1 = new QHBoxLayout(this);
     hBoxLayout2 = new QHBoxLayout(this);
     vBoxLayout  = new QVBoxLayout(this);
@@ -48,22 +54,25 @@ void TrafficMap::loadAndOpen(const Project &project, const TrafficFileData &traf
     this->ui->ueCheckbox->setChecked(project.ueParameters.startUeComponent);
     ui->ubSimButton->setEnabled(project.ueParameters.startUeComponent);
     ui->ipexButton->setEnabled(project.ueParameters.startUeComponent);
-
-    this->show();
 }
-
 
 void TrafficMap::on_statisticsButton_clicked()
 {
-    spawnWindow_Statistics(project.name, trafficFileData.filename);
+    spawnWindow_Statistics(project.name, trafficFileData->filename);
 }
 
 void TrafficMap::on_pushButton_pressed()
 {
-    emit spawnWindow_CustomModels(project.name, trafficFileData.filename);
+    emit spawnWindow_CustomModels(project.name, trafficFileData->filename);
 }
 
 void TrafficMap::on_tunningTrafficButton_clicked()
 {
-    emit spawnWindow_TuningTraffic(project.name, trafficFileData.filename);
+    emit spawnWindow_TuningTraffic(project.name, trafficFileData->filename);
+}
+
+void TrafficMap::on_addUeButton_clicked()
+{
+    //TODO: emiting this signal causes newMapWindow to open, redesign this part of signals API
+    emit addUe(project.name, trafficFileData->filename);
 }

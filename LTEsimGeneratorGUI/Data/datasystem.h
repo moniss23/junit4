@@ -29,10 +29,10 @@ signals:
     void spawnWindow_ProjectMng();
     void update_RB_FilesLocation(const QString& location);
     void refreshMapView(const Project &project);
+    void refreshMapView(const Project &project, TrafficFileData* trafficFound);
     void currentCustomModelChanged(const CustomModelSettings &customModelsSettings, bool * cmUsed);
 
 public slots:
-
     void LoadAppData();
     void saveProjectsFile();
     void setGlobalLocationForNewProjects(const QString& location);
@@ -68,13 +68,18 @@ public slots:
     void updateMapRange (const MapRange& mapRange,QString projectName);
     void updatePaging(const PagingSettings& pagingSettings, QString projectName);
 
+    // Add, remove, update Cells
     void addCell(const QString &projectName);
     void removeCell(const QPair<Cell,Center> &cell, const QString &projectName);
     void updateCell(const QPair<Cell,Center> &cell, const QString &cellName, const QString &projectName);
 
+    // Add, remove, udpate Handovers
     void addHandover(const QString &projectName);
     void removeHandover(const Handover &handover, const QString &projectName);
     void updateHandover(const Handover &handover, const QString &projectName);
+
+    // Add UserEquipments (UE)
+    void addUe(const QString &projectName, const QString &trafficFileName);
 
     //TrafficFileData saving
     void updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData &statisticsData);

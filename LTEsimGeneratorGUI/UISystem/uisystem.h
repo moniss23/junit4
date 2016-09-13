@@ -84,7 +84,7 @@ signals:
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName);
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
-    void spawnWindow_TrafficMap(const Project &project, const TrafficFileData &trafficFileData);
+    void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);

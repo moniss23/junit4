@@ -2,14 +2,14 @@
 #define UEREPRESENTATION_H
 
 #include <QGraphicsObject>
-
+#include "Maps/Traffic/UeManagement/uedata.h"
 
 class UeRepresentation : public QGraphicsObject
 {
     Q_OBJECT
 
 public:
-    UeRepresentation();
+    UeRepresentation(UEData &ueObject);
     ~UeRepresentation() {}
 
     int type() const { return UserType; }
@@ -20,17 +20,17 @@ public:
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void hoverEnterEvent(QGraphicsSceneHoverEvent * event) Q_DECL_OVERRIDE;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) Q_DECL_OVERRIDE;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent * event) Q_DECL_OVERRIDE;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
-
-    QColor color;
 
 public:
     QImage icon;
+    QColor color;
+    UEData ueObject;
 
-    const int width = 1250, height = 1250;
     int position_X, position_Y;
+    const int width = 1250, height = 1250;
 };
 
 #endif // UEREPRESENTATION_H

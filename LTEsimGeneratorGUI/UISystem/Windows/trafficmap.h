@@ -23,9 +23,11 @@ public:
     ~TrafficMap();
 
 public slots:
-    void loadAndOpen(const Project &project, const TrafficFileData &trafficFileData);
+    void loadAndOpen(const Project &project, TrafficFileData *trafficFileData);
+    void refreshWindow(const Project &project, TrafficFileData *trafficFileData);
 
 signals:
+    void addUe(const QString &projectName, const QString &trafficFileName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficFileName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
@@ -33,8 +35,10 @@ signals:
 
 private slots:
     void on_pushButton_pressed();
+    void on_addUeButton_clicked();
     void on_statisticsButton_clicked();
     void on_tunningTrafficButton_clicked();
+
 
 private:
     Ui::TrafficMap *    ui;
@@ -43,7 +47,7 @@ private:
     QVBoxLayout *       vBoxLayout;
     MapView *           mapView;
 
-    TrafficFileData     trafficFileData;
+    TrafficFileData*     trafficFileData;
     Project             project;
 };
 

@@ -173,14 +173,13 @@ void UISystem::bindingObjects()
     //Update Map Range
     QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
 
-    //refresh map view
-    QObject::connect(dataSystem, SIGNAL(refreshMapView(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
+    //Refresh Map in NewMapWindow/TrafficMap
+    QObject::connect(dataSystem, SIGNAL(refreshMapView(Project)), &newMapWindow, SLOT(refreshWindow(Project)));
+    QObject::connect(dataSystem, SIGNAL(refreshMapView(Project,TrafficFileData*)), &trafficMap, SLOT(refreshWindow(Project,TrafficFileData*)));
 
-    //SpawnWindow MapWindow
+    //SpawnWindow NewMapWindow/TrafficMap
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
-
-    //SPawnWindow TrafficMap
-    QObject::connect(this, SIGNAL(spawnWindow_TrafficMap(Project,TrafficFileData)), &trafficMap, SLOT(loadAndOpen(Project,TrafficFileData)));
+    QObject::connect(this, SIGNAL(spawnWindow_TrafficMap(Project,TrafficFileData*)), &trafficMap, SLOT(loadAndOpen(Project,TrafficFileData*)));
 
     //SpawnWindow Statistics
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_Statistics(QString,QString)), this, SLOT(spawnWindow_Statistics(QString,QString)));
@@ -260,6 +259,9 @@ void UISystem::bindingObjects()
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_tuningTraffic(QString,QString)), &tuningTrafficManager, SLOT(open(QString,QString)));
+
+    // Add UEs to Traffic Map Scene
+    QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -407,7 +409,7 @@ void UISystem::spawnWindow_TrafficMap(const QString &projectName, const QString 
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_TrafficMap(*project, *traffic);
+    emit spawnWindow_TrafficMap(*project, traffic);
 }
 
 

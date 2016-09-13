@@ -30,19 +30,23 @@ void NewMapWindow::closeEvent(QCloseEvent *event){
 
 void NewMapWindow::loadAndOpen(const Project &project)
 {
+    this->refreshWindow(project);
+    this->show();
+}
+
+void NewMapWindow::refreshWindow(const Project &project) {
     delete vBoxLayout;
     delete hBoxLayout;
     delete mapView;
 
     this->project = project;
-
     mapView    = new MapView(project, this);
     hBoxLayout = new QHBoxLayout(this);
     vBoxLayout = new QVBoxLayout(this);
 
     hBoxLayout->addWidget(mapView);
     hBoxLayout->addLayout(vBoxLayout);
-    vBoxLayout->addSpacing(20);
+    vBoxLayout->addSpacing(35);
     vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400, Qt::AlignHCenter);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
     this->ui->centralwidget->setLayout(hBoxLayout);
@@ -59,7 +63,6 @@ void NewMapWindow::loadAndOpen(const Project &project)
     }
 
     this->ui->mapObjectsWidget->setVisible(false);
-    this->show();
 }
 
 void NewMapWindow::spawnWindow_MapView_handoverParams(HandoverRepresentation* clickedHo, const Handover &hoObj) {

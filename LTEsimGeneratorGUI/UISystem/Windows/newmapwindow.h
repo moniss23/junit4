@@ -24,6 +24,7 @@ public:
     ~NewMapWindow();
 
 public slots:
+    void refreshWindow(const Project &project);
     void loadAndOpen(const Project &project);
     void spawnWindow_MapView_handoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_MapView_cellParams(CellRepresentation*, const QPair<Cell,Center>&);

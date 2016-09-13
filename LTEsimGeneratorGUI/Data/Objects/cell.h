@@ -24,9 +24,9 @@ public:
     int pci;
     int position_X;
     int position_Y;
-    int earfcnDl;
-    float transmitPower;
-    float ulNoiseAndInterference;
+    int earfcnDl = 2050;
+    float transmitPower = -75.0;
+    float ulNoiseAndInterference = -116.0;
 };
 
 QDataStream &operator<<(QDataStream &out, const Cell &cell);

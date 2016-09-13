@@ -2,7 +2,7 @@
 
 #include "uerepresentation.h"
 
-UeRepresentation::UeRepresentation() : color(128,128,128,255)
+UeRepresentation::UeRepresentation(UEData &ueObject) : color(128,128,128,255), ueObject(ueObject)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);

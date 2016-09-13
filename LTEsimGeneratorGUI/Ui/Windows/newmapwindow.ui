@@ -18,8 +18,8 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
-    <height>1</height>
+    <width>1187</width>
+    <height>816</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -87,7 +87,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>20</y>
         <width>91</width>
         <height>17</height>
        </rect>
@@ -108,7 +108,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>250</y>
+        <y>260</y>
         <width>171</width>
         <height>31</height>
        </rect>
@@ -124,7 +124,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>330</y>
+        <y>340</y>
         <width>171</width>
         <height>31</height>
        </rect>
@@ -140,7 +140,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>100</y>
+        <y>120</y>
         <width>171</width>
         <height>31</height>
        </rect>
@@ -162,7 +162,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>180</y>
+        <y>200</y>
         <width>171</width>
         <height>31</height>
        </rect>
@@ -178,7 +178,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>140</y>
+        <y>160</y>
         <width>171</width>
         <height>31</height>
        </rect>
@@ -200,7 +200,7 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>290</y>
+        <y>300</y>
         <width>171</width>
         <height>31</height>
        </rect>
@@ -216,13 +216,14 @@
       <property name="geometry">
        <rect>
         <x>40</x>
-        <y>30</y>
+        <y>60</y>
         <width>171</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-color: rgb(0, 0, 0);</string>
+       <string notr="true">border-color: #e5e5e5;
+background-color: #eee;</string>
       </property>
       <property name="text">
        <string>GENERAL SETTINGS</string>
@@ -421,9 +422,9 @@ Models</string>
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>50</y>
+      <y>70</y>
       <width>400</width>
-      <height>451</height>
+      <height>431</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -593,10 +594,10 @@ Models</string>
      <widget class="QPushButton" name="setCellParamsBtn">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>250</x>
         <y>240</y>
         <width>141</width>
-        <height>22</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -606,12 +607,10 @@ Models</string>
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:0;
-color:#f5f5f5;
+       <string notr="true">color: #f5f5f5;
 border-radius:5px;
-background-color:#6d9c1b;
-font-weight: bold;
-</string>
+border-color: #eee;
+background-color:#b2d025;</string>
       </property>
       <property name="text">
        <string>Accept</string>
@@ -620,10 +619,10 @@ font-weight: bold;
      <widget class="QPushButton" name="restoreCellBtn">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>100</x>
         <y>240</y>
         <width>141</width>
-        <height>22</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -633,11 +632,10 @@ font-weight: bold;
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:0;
-color:#f5f5f5;
-font-weight: bold;
+       <string notr="true">color: #eee;
 border-radius:5px;
-background-color:#858585;</string>
+border-color: #eee;
+background-color:#afafaf;</string>
       </property>
       <property name="text">
        <string>Restore defaults</string>
@@ -646,10 +644,10 @@ background-color:#858585;</string>
      <widget class="QPushButton" name="removeCellBtn">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>10</x>
         <y>240</y>
         <width>80</width>
-        <height>22</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="palette">
@@ -658,9 +656,9 @@ background-color:#858585;</string>
          <colorrole role="WindowText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -676,18 +674,18 @@ background-color:#858585;</string>
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
          <colorrole role="ButtonText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -714,9 +712,9 @@ background-color:#858585;</string>
          <colorrole role="WindowText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -732,18 +730,18 @@ background-color:#858585;</string>
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
          <colorrole role="ButtonText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -770,9 +768,9 @@ background-color:#858585;</string>
          <colorrole role="WindowText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -788,18 +786,18 @@ background-color:#858585;</string>
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
          <colorrole role="ButtonText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -825,15 +823,10 @@ background-color:#858585;</string>
        </palette>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:0;
-color:#f5f5f5;
+       <string notr="true">color: #eee;
 border-radius:5px;
-background-color:#d11406;
-
-QPushButton#removeCellBtn:hover
-{
-   background-color:white;
-}</string>
+border-color: #eee;
+background-color:#d11406;</string>
       </property>
       <property name="text">
        <string>Remove</string>
@@ -1014,18 +1007,17 @@ QPushButton#removeCellBtn:hover
      <widget class="QPushButton" name="restoreHandoverBtn">
       <property name="geometry">
        <rect>
-        <x>160</x>
+        <x>100</x>
         <y>160</y>
         <width>141</width>
-        <height>22</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:0;
-color:#f5f5f5;
-font-weight: bold;
+       <string notr="true">color: #eee;
 border-radius:5px;
-background-color:#858585;</string>
+border-color: #eee;
+background-color:#afafaf;</string>
       </property>
       <property name="text">
        <string>Restore defaults</string>
@@ -1037,10 +1029,10 @@ background-color:#858585;</string>
      <widget class="QPushButton" name="setHandoverParamsBtn">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>250</x>
         <y>160</y>
         <width>141</width>
-        <height>22</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -1050,12 +1042,10 @@ background-color:#858585;</string>
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:0;
-color:#f5f5f5;
+       <string notr="true">color: #f5f5f5;
 border-radius:5px;
-background-color:#6d9c1b;
-font-weight: bold;
-</string>
+border-color: #eee;
+background-color:#b2d025;</string>
       </property>
       <property name="text">
        <string>Accept</string>
@@ -1064,10 +1054,10 @@ font-weight: bold;
      <widget class="QPushButton" name="removeHandoverBtn">
       <property name="geometry">
        <rect>
-        <x>310</x>
+        <x>10</x>
         <y>160</y>
         <width>80</width>
-        <height>22</height>
+        <height>30</height>
        </rect>
       </property>
       <property name="palette">
@@ -1076,9 +1066,9 @@ font-weight: bold;
          <colorrole role="WindowText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -1094,18 +1084,18 @@ font-weight: bold;
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
          <colorrole role="ButtonText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -1132,9 +1122,9 @@ font-weight: bold;
          <colorrole role="WindowText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -1150,18 +1140,18 @@ font-weight: bold;
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
          <colorrole role="ButtonText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -1188,9 +1178,9 @@ font-weight: bold;
          <colorrole role="WindowText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -1206,18 +1196,18 @@ font-weight: bold;
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
          <colorrole role="ButtonText">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
-            <red>245</red>
-            <green>245</green>
-            <blue>245</blue>
+            <red>238</red>
+            <green>238</green>
+            <blue>238</blue>
            </color>
           </brush>
          </colorrole>
@@ -1243,9 +1233,9 @@ font-weight: bold;
        </palette>
       </property>
       <property name="styleSheet">
-       <string notr="true">border:0;
-color:#f5f5f5;
+       <string notr="true">color: #eee;
 border-radius:5px;
+border-color: #eee;
 background-color:#d11406;</string>
       </property>
       <property name="text">
@@ -1257,37 +1247,41 @@ background-color:#d11406;</string>
    <widget class="QPushButton" name="addCellBtn">
     <property name="geometry">
      <rect>
-      <x>949</x>
+      <x>1050</x>
       <y>20</y>
-      <width>91</width>
-      <height>22</height>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: #fafafa;
-border-radius: 10px;
-background-color: #3399CC;</string>
+     <string notr="true">border: 0;
+border-radius: 20px;
+color: #fafafa;
+font-size: 24px;
+background-color: #dbf21c;</string>
     </property>
     <property name="text">
-     <string>+(Cell)</string>
+     <string>+</string>
     </property>
    </widget>
    <widget class="QPushButton" name="addHandoverBtn">
     <property name="geometry">
      <rect>
-      <x>1050</x>
+      <x>1100</x>
       <y>20</y>
-      <width>91</width>
-      <height>22</height>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">color: #fafafa;
-border-radius: 10px;
+border: 0;
+font-size: 24px;
+border-left: 1px solid #eee;
 background-color: #3399CC;</string>
     </property>
     <property name="text">
-     <string>+(Handover)</string>
+     <string>+</string>
     </property>
    </widget>
   </widget>
@@ -1297,7 +1291,7 @@ background-color: #3399CC;</string>
      <x>0</x>
      <y>0</y>
      <width>1187</width>
-     <height>15</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

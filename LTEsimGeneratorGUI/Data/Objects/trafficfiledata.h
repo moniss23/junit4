@@ -3,7 +3,8 @@
 
 #include <QVector>
 
-#include <Data/Interfaces/serializeinterface.h>
+#include "Maps/Traffic/UeManagement/uedata.h"
+#include "Data/Interfaces/serializeinterface.h"
 #include "Maps/Traffic/Statistics/statisticsData.h"
 #include "Data/TrafficSettings/custommodelsettings.h"
 
@@ -11,10 +12,11 @@ class TrafficFileData : public SerializeInterface
 {
 public:
     TrafficFileData();
-    QString filename;
-    QString content;
-    StatisticsData statisticsData;
 
+    QString content;
+    QString filename;
+    StatisticsData statisticsData;
+    QVector<UEData> userEquipments;
     QVector<CustomModelSettings> customModels;
     static const int cmAmount = 10;
     bool cmUsed[cmAmount];

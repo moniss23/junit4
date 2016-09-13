@@ -58,6 +58,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/mapparser.cpp \
+    ../LTEsimGeneratorGUI/Maps/Traffic/UeManagement/uedata.cpp \
     ltesimgeneratortests.cpp \
     UITests/addprojectwindowtest.cpp \
     UITests/projectmanagementwindowtest.cpp \
@@ -105,6 +106,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/servicereq.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/ueparametersparser.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/mapparser.h \
+    ../LTEsimGeneratorGUI/Maps/Traffic/UeManagement/uedata.h \
     UITests/addprojectwindowtest.h \
     UITests/projectmanagementwindowtest.h \
     DataTests/projecttest.h \

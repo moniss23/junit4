@@ -2,7 +2,8 @@
 
 #include <QPushButton>
 
-MapView::MapView(const Project& project, QWidget *parent) : QGraphicsView(parent), project(project),
+MapView::MapView(const Project& project, QWidget *parent, QString trafficName)
+    : QGraphicsView(parent), project(project), trafficName(trafficName),
     solidPen(Qt::black, 50, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin),
     solid2(Qt::black, 50, Qt::SolidLine, Qt::SquareCap, Qt::MiterJoin),
     dotPen(Qt::black, 25, Qt::DotLine, Qt::RoundCap, Qt::RoundJoin)
@@ -27,6 +28,8 @@ void MapView::printNewMap()
 {
     this->drawCellRepresentations();
     this->drawHandoverRepresentations();
+    if(not trafficName.isEmpty()) this->drawUeRepresentations();
+
     this->drawAxisAndButtons();
     this->drawMapLines();
 
@@ -149,12 +152,25 @@ void MapView::drawMapLines()
     }
 }
 
+void MapView::drawUeRepresentations() {
+    if(not trafficName.isEmpty()) {
+        TrafficFileData *currentTraffic = project.findTrafficFileByName(trafficName);
+
+        for(UEData &ueData : currentTraffic->userEquipments) {
+            UeRepresentation *ueRep = new UeRepresentation(ueData);
+            scene->addItem(ueRep);
+            ueRep->setPos(2000, -2000);
+        }
+    }
+}
+
 void MapView::drawCellRepresentations()
 {
     for(auto &cellCenter : project.cellsInfo) {
         CellRepresentation *cellRep = new CellRepresentation(cellCenter);
         scene->addItem(cellRep);
         cellRep->updatePositions();
+        if(!trafficName.isEmpty()) cellRep->setFlag(QGraphicsItem::ItemIsMovable, false);
         QObject::connect(cellRep, SIGNAL(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)),
                          this, SLOT(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)));
     }
@@ -166,6 +182,7 @@ void MapView::drawHandoverRepresentations()
         HandoverRepresentation *hoRep = new HandoverRepresentation(handover);
         scene->addItem(hoRep);
         hoRep->updatePositions();
+        if(!trafficName.isEmpty()) hoRep->setFlag(QGraphicsItem::ItemIsMovable, false);
         QObject::connect(hoRep, SIGNAL(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)),
                          this, SLOT(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)));
     }

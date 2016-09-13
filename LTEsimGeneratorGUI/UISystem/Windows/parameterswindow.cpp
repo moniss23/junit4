@@ -62,10 +62,14 @@ void ParametersWindow::refreshUI(const Project &project)
 
     //PARAMETERS FILE
     ui->projectsList->addItem(currentProject.parametersFile.filename);
+
     //TRAFFIC FILES
     for(auto &&it:currentProject.trafficFilesList){
         ui->projectsList->addItem(it.filename);
     }
+
+    // REFRESH ACTIVE WINDOW
+
 
     ui->projectsList->setCurrentRow( 0, QItemSelectionModel::ClearAndSelect);
 }

@@ -82,6 +82,25 @@ void DataSystem::projectsFileSetup() {
  * SLOTS *
  *********/
 
+void DataSystem::addUe(const QString &projectName, const QString &trafficFileName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFileName);
+    if(trafficFound != nullptr) {
+        UEData ueData;
+        trafficFound->userEquipments.append(ueData);
+
+        emit currentProjectChanged(*project);
+        emit refreshMapView(*project, trafficFound); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
+        saveProjectsFile();
+    }
+    else emit errorInData("Couldn't find " + trafficFileName + " in current project");
+}
+
 void DataSystem::addCell(const QString &projectName) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {

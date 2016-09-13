@@ -17,8 +17,8 @@
    <widget class="QWidget" name="ueGroupWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>70</y>
+      <x>50</x>
+      <y>30</y>
       <width>315</width>
       <height>80</height>
      </rect>
@@ -42,7 +42,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>-</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
@@ -74,6 +74,10 @@
        </item>
        <item>
         <widget class="QPushButton" name="removeUeButton">
+         <property name="styleSheet">
+          <string notr="true">border-color: #eee;
+background-color: #ff4444;</string>
+         </property>
          <property name="text">
           <string>-</string>
          </property>
@@ -81,6 +85,10 @@
        </item>
        <item>
         <widget class="QPushButton" name="addUeButton">
+         <property name="styleSheet">
+          <string notr="true">border-color: #eee;
+background-color: #b2d025;</string>
+         </property>
          <property name="text">
           <string>+</string>
          </property>
