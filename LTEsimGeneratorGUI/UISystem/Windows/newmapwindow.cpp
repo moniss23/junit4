@@ -134,7 +134,7 @@ void NewMapWindow::on_setCellParamsBtn_clicked()
         const QString cellOldName = this->clickedCell->cellInfo.first.name;
 
         this->clickedCell->cellInfo.first.name = ui->cell->text();
-        this->clickedCell->cellInfo.second.area = ui->cell->text();
+        this->clickedCell->cellInfo.second.area = "Center" + ui->cell->text().mid(4);
         this->clickedCell->cellInfo.first.site = ui->site->text();
         this->clickedCell->cellInfo.first.pci = ui->pci->text().toInt();
         this->clickedCell->cellInfo.first.position_X = ui->position_X->text().toInt();
@@ -183,6 +183,7 @@ void NewMapWindow::on_pagingButton_pressed() {emit spawnWindow_Paging(project.na
 void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name);}
 void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);}
 void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name);}
+void NewMapWindow::on_ueButton_pressed(){emit spawnWindow_Ue(project.name);}
 void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}
 void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}

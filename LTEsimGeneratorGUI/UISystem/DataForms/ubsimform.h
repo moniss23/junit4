@@ -30,7 +30,7 @@ public slots:
      * @param ubSimSettings is data that we are working on
      * @param projectName is current project name
      */
-    void loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters,const QString &projectName);
+    void loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName);
 
 signals:
     /**

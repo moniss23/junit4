@@ -2,7 +2,6 @@
 
 #include <QDir>
 #include <QTextStream>
-
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/Helpers/mapparser.h"
@@ -22,7 +21,6 @@ void DataSystem::LoadAppData() {
     loadProjectsFile();
     emit currentProjects(projects);
 }
-
 void DataSystem::loadProjectsFile() {
     QDataStream dataStream(fileManager->readFromFile(appGlobalData.getProjectsFile()));
 
@@ -363,16 +361,12 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
 
 QString DataSystem::generateUniqueCellNumber(Project *project)
 {
-    for(unsigned i=project->cellsInfo.size()+1; i<UINT_MAX; ++i)
-    {
-        const QString newCellNumber = QString::number(i);
-
+    for(unsigned i=project->cellsInfo.size()+1; i<UINT_MAX; ++i) {
         if(std::none_of(project->cellsInfo.begin(), project->cellsInfo.end(),
-            [&newCellNumber](auto &cellInfo){return cellInfo.first.name.mid(4)==newCellNumber;})) {
-            return newCellNumber;
+            [&i](auto &cellInfo){return cellInfo.first.name.mid(4)==QString::number(i);})) {
+                return QString::number(i);
         }
     }
-
     emit errorInData("Cannot add more cells");
     return QString();
 }

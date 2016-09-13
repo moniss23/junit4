@@ -11,6 +11,7 @@
 #include "UISystem/DataForms/mmeform.h"
 #include "UISystem/DataForms/channelmodelform.h"
 #include "UISystem/DataForms/ubsimform.h"
+#include "UISystem/DataForms/ueform.h"
 #include "UISystem/DataForms/maprangeform.h"
 #include "UISystem/DataForms/custommodelslistform.h"
 #include "UISystem/Widgets/mapview.h"
@@ -58,6 +59,7 @@ public slots:
     void spawnWindow_Paging(const QString &projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
+    void spawnWindow_Ue(const QString& projectName);
     void spawnWindow_MapRange(const QString& projectName);
     void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
@@ -82,6 +84,8 @@ signals:
     void spawnWindow_Paging(const PagingSettings &paging, const QString &projectName);
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName);
+    void spawnWindow_UBSim(const UBSimSettings &ubSimSettings, const QString &projectName);
+    void spawnWindow_Ue(const UeParameters &UeParameters, const QString &projectName);
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
@@ -135,6 +139,7 @@ private:
     ServiceReqForm          serviceReqForm;
     PagingForm              pagingForm;
     StatisticsForm statisticsManager;
+    UeForm                  ueForm;
 };
 
 #endif // UISYSTEM_H

@@ -47,7 +47,9 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/syncedping.cpp \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
-    Data/ProjectSettings/Helpers/mapparser.cpp
+    Data/ProjectSettings/Helpers/mapparser.cpp \
+    UISystem/DataForms/ueform.cpp
+
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -133,7 +135,8 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/syncedping.h \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
-    Data/ProjectSettings/Helpers/mapparser.h
+    Data/ProjectSettings/Helpers/mapparser.h \
+    UISystem/DataForms/ueform.h
 
 
 #--------UI SYSTEM--------#
@@ -219,7 +222,8 @@ FORMS    += \
     Ui/DataForms/syncedpingform.ui \
     Ui/DataForms/servicereqform.ui \
     Ui/Windows/ueparameterswindow.ui \
-    Ui/SmallDialogs/pagingform.ui
+    Ui/SmallDialogs/pagingform.ui \
+    UISystem/DataForms/ueform.ui
 
 
 OTHER_FILES += \

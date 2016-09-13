@@ -154,7 +154,11 @@ void UISystem::bindingObjects()
 
     //Open UBSim
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,UeParameters,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,UeParameters,QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,QString)));
+
+    //Open Ue
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ue(QString)), this, SLOT(spawnWindow_Ue(QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_Ue(UeParameters,QString)), &ueForm, SLOT(loadAndOpen(UeParameters,QString)));
 
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
@@ -385,7 +389,17 @@ void UISystem::spawnWindow_UBSim(const QString &projectName) {
         dataSystem->errorInData("Can't find right project.");
         return;
     }
-    emit spawnWindow_UBSim(project->ubSimSettings,project->ueParameters, project->name);
+    emit spawnWindow_UBSim(project->ubSimSettings, project->name);
+    return;
+}
+
+void UISystem::spawnWindow_Ue(const QString &projectName) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project.");
+        return;
+    }
+    emit spawnWindow_Ue(project->ueParameters, project->name);
     return;
 }
 
@@ -525,21 +539,6 @@ void UISystem::spawnWindow_TuningTraffic(const QString &projectName, const QStri
     emit spawnWindow_tuningTraffic(project->name, traffic->filename);
 }
 
-void UISystem::spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index)
-{
-    auto project = findProjectByName(projectName);
-    if (project==nullptr) {
-        dataSystem->errorInData("Can't find right project");
-        return;
-    }
-    auto traffic = project->findTrafficFileByName(trafficName);
-    if (traffic==nullptr) {
-        dataSystem->errorInData("Can't find right trafficFile");
-        return;
-    }
-    emit spawnWindow_SyncedPingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
-}
-
 void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index)
 {
     auto project = findProjectByName(projectName);
@@ -553,6 +552,22 @@ void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QStr
         return;
     }
     emit spawnWindow_ServiceReqForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    emit spawnWindow_ServiceReqForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+    emit spawnWindow_SyncedPingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
 void UISystem::spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex)
@@ -603,8 +618,9 @@ void UISystem::spawnWindow_StreamDlForm(const QString &projectName, const QStrin
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_StreamDlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+    emit spawnWindow_StreamDlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed); 
 }
+
 
 void UISystem::spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index)
 {

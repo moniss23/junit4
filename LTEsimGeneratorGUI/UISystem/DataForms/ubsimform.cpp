@@ -9,13 +9,7 @@ UBsimForm::UBsimForm(QWidget *parent) :
     ui(new Ui::UBsimForm)
 {
     ui->setupUi(this);
-    this->ui->lbl_2->setToolTip("Name of the UE component e.g. \"ue1\"");
-    this->ui->lbl_3->setToolTip("Space separated string with TYPE;instance tuples where allowed values of TYPE is UCTOOL e.g \"UCTOOL;uctool1\"  ");
-    this->ui->lbl_5->setToolTip("Path e.g. \"/etc/alternatives/ltesim-root/ltesim/internal/ltesim-plugin-filters/com/ericsson/sps/ltesim/ue/rrc/filter\"");
-    this->ui->lbl_7->setToolTip("Used to control which integrity protection and ciphering algorithms a UE supports");
-    this->ui->lbl_6->setToolTip("The algorithm used during EPS AKA procedure.");
-    this->ui->lbl_4->setToolTip("Used for MILENAGE");
-    this->ui->lbl_8->setToolTip("The OP used in the MILENAGE algorithm. Also used in simulated MME.");
+
     this->ui->lbl_9->setToolTip("IMSI range used by traffic models specified by (space separated string): \"<first_range> <second_range>\" e.g. \"262800100326000+1499 262800100329000+1499\" ");
     this->ui->lbl_10->setToolTip("Directory containing users UE type definitions");
     this->ui->lbl_11->setToolTip("Directory containing users CS traffic Models");
@@ -29,9 +23,8 @@ UBsimForm::~UBsimForm()
     delete ui;
 }
 
-void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameters &ueParameters, const QString &projectName) {
+void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName) {
     this->ubSimSettings = ubSimSettings;
-    this->ueParameters = ueParameters;
     this->projectName = projectName;
     this->setParameters();
     this->show();
@@ -56,13 +49,7 @@ void UBsimForm::on_pbReset_clicked()
 
 void UBsimForm::getParameters()
 {
-    this->ueParameters.name = this->ui->tet_name->text();
-    this->ueParameters.managers = this->ui->tet_l1l2_managers->text();
-    this->ueParameters.pluginFilterPath = this->ui->tet_rrc_pluginFilterPath->text();
-    this->ueParameters.ueNetworkCapability = this->ui->tet_ue_network_capability->text();
-    this->ueParameters.ueKeyDerivationAlgorithm = this->ui->tet_ue_keyDerivationAlgorithm->text();
-    this->ueParameters.ueKey = this->ui->tet_ue_key->text();
-    this->ueParameters.ueOp = this->ui->tet_ue_op->text();
+
     this->ubSimSettings.imsiMapRange = this->ui->tet_imsiMapRange->text();
     this->ubSimSettings.ueTypesDir = this->ui->tet_ueTypesDir->text();
     this->ubSimSettings.csTrafficModelsDir = this->ui->tet_csTrafficModelsDir->text();
@@ -74,14 +61,6 @@ void UBsimForm::getParameters()
 
 void UBsimForm::setParameters()
 {
-    this->ui->tet_name->setText(this->ueParameters.name);
-    this->ui->tet_l1l2_managers->setText(this->ueParameters.managers);
-    this->ui->tet_rrc_pluginFilterPath->setText(this->ueParameters.pluginFilterPath);
-    this->ui->tet_ue_network_capability->setText(this->ueParameters.ueNetworkCapability);
-    this->ui->tet_ue_keyDerivationAlgorithm->setText(this->ueParameters.ueKeyDerivationAlgorithm);
-    this->ui->tet_ue_key->setText(this->ueParameters.ueKey);
-    this->ui->tet_ue_op->setText(this->ueParameters.ueOp);
-
     this->ui->tet_imsiMapRange->setText(this->ubSimSettings.imsiMapRange);
     this->ui->tet_ueTypesDir->setText(this->ubSimSettings.ueTypesDir);
     this->ui->tet_csTrafficModelsDir->setText(this->ubSimSettings.csTrafficModelsDir);

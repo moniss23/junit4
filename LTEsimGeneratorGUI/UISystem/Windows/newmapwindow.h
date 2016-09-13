@@ -36,6 +36,7 @@ signals:
     void spawnWindow_Sgw(const QString& projectName);
     void spawnWindow_Ipex(const QString& projectName);
     void spawnWindow_UBSim(const QString& projectName);
+    void spawnWindow_Ue(const QString& projectName);
     void spawnWindow_ucTool(const QString &projectName);
     void spawnWindow_ChannelModel(const QString& projectName);
     void spawnWindow_mapRange(const QString &projectName);
@@ -45,6 +46,7 @@ signals:
     void updateCoreNetwork(const QString& projectName, const bool& checked);
     void updatePaging(const QString& projectName, const bool& checked);
     void updateUbSim(const QString& projectName, const bool& checked);
+    void updateUe(const QString& projectName, const bool& checked);
     void updateSgw(const QString& projectName, const bool& checked);
 
     void addCell(const QString &projectName);
@@ -63,6 +65,7 @@ private slots:
     void on_sgwButton_pressed();
     void on_ipexButton_pressed();
     void on_ubSimButton_pressed();
+    void on_ueButton_pressed();
     void on_ucToolButton_pressed();
     void on_channelModelsButton_pressed();
 
