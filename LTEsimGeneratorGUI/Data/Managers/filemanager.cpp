@@ -49,37 +49,24 @@ void FileManager::generateParametersScript(QString location,QString projectName,
     dir.setCurrent("../../");
 }
 
-void FileManager::generateTrafficScript(Project currentProject, int file_index) {
+void FileManager::generateTrafficScript(QString location, QString projectName, QString content, QString fileName)
+{
     QDir dir;
-    if(currentProject.genScriptDir=="<default>"){
-        if(currentProject.fullpath=="<default>"){
-            QString path("projects/"+currentProject.name);
-            dir.mkpath(path);
-            QFile file("projects/"+currentProject.name+"/"+currentProject.trafficFilesList[file_index].filename);
-            file.open(QIODevice::WriteOnly);
-            QTextStream file_str(&file);
-            file_str<<currentProject.trafficFilesList[file_index].content;
-            file.close();
-        }
-        else{
-
-            QString project_dir=currentProject.fullpath;
-            QString path(project_dir+"/"+currentProject.name);
-            dir.mkpath(path);
-            QFile file("projects/"+currentProject.name+"/"+currentProject.trafficFilesList[file_index].filename);
-            file.open(QIODevice::WriteOnly);
-            QTextStream file_str(&file);
-            file_str<<currentProject.trafficFilesList[file_index].content;
-            file.close();
-        }
+    QFile file;
+    dir.setCurrent(location);
+    if (!QDir("projects").exists()) {
+        dir.mkdir("projects");
     }
-    else{
-        QFile file("projects/"+currentProject.name+"/"+currentProject.trafficFilesList[file_index].filename);
-        file.open(QIODevice::WriteOnly);
-        QTextStream file_str(&file);
-        file_str<<currentProject.trafficFilesList[file_index].content;
-        file.close();
+    if (!QDir("projects/"+projectName).exists()){
+        dir.mkdir("projects/"+projectName);
     }
+    dir.setCurrent("projects/"+projectName);
+    file.setFileName( fileName);
+    file.open(QIODevice::WriteOnly);
+    QTextStream file_str(&file);
+    file_str << content;
+    file.close();
+    dir.setCurrent("../../");
 }
 
 // Check if projects file exists, create it if it doesn't

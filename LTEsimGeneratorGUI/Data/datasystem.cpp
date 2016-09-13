@@ -5,6 +5,7 @@
 
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
+#include "Data/ProjectSettings/Helpers/mapparser.h"
 
 DataSystem::DataSystem() {
 
@@ -524,7 +525,10 @@ void DataSystem::generateParametersScript(Project &project)
 
 void DataSystem::generateTrafficScript(const Project &project, const int &indexOfFile)
 {
-    fileManager->generateTrafficScript(project,indexOfFile);
+    MapParser mapParser;
+    QString content;
+    content.append(mapParser.GenerateTrafficScript(project.trafficFilesList.at(indexOfFile)));
+    fileManager->generateTrafficScript(project.fullpath,project.name,content,project.trafficFilesList.at(indexOfFile).filename);
 }
 
 /**********************

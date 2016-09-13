@@ -9,6 +9,7 @@
 
 class ScriptParserManager;
 class FileManager;
+class TrafficScriptGenerator;
 
 class DataSystem : public QObject
 {

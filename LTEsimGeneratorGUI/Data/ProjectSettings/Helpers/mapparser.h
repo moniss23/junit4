@@ -6,6 +6,7 @@
 #include "Data/Objects/handover.h"
 #include "Data/ProjectSettings/ubsimsettings.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
+#include "Data/Objects/trafficfiledata.h"
 
 #include <QString>
 #include <QPair>
@@ -22,6 +23,8 @@ public:
                             QVector<Handover> &handover,
                             UBSimSettings &ubSim,
                             DataGeneratorSettings &dataGenerator);
+
+    static QString GenerateTrafficScript(const TrafficFileData &trafficFileData);
 };
 
 #endif // MAPPARSER_H

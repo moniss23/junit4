@@ -47,7 +47,7 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/syncedping.cpp \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
-    Data/ProjectSettings/Helpers/mapparser.cpp 
+    Data/ProjectSettings/Helpers/mapparser.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -133,7 +133,7 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/syncedping.h \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
-    Data/ProjectSettings/Helpers/mapparser.h \
+    Data/ProjectSettings/Helpers/mapparser.h
 
 
 #--------UI SYSTEM--------#
