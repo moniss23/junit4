@@ -5,17 +5,18 @@
 #include <QCheckBox>
 #include <QHBoxLayout>
 #include <Maps/Traffic/Statistics/statisticsData.h>
+
 namespace Ui {
-class Statistics;
+class StatisticsForm;
 }
 
-class StatisticsManager : public QWidget
+class StatisticsForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit StatisticsManager(QWidget *parent = 0);
-    ~StatisticsManager();
+    explicit StatisticsForm(QWidget *parent = 0);
+    ~StatisticsForm();
 
 signals:
     /**
@@ -61,7 +62,7 @@ private slots:
     void on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked);
 
 private:
-    Ui::Statistics* ui;
+    Ui::StatisticsForm* ui;
 
     QString projectName;
     QString trafficFileName;

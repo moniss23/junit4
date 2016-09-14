@@ -16,7 +16,6 @@
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Windows/newmapwindow.h"
 #include "UISystem/Windows/trafficmap.h"
-#include "Maps/Traffic/Statistics/statisticsManager.h"
 #include "UISystem/DataForms/pingform.h"
 #include "UISystem/DataForms/generalconfigurationform.h"
 #include "UISystem/DataForms/ftpdlform.h"
@@ -29,6 +28,7 @@
 #include "UISystem/DataForms/syncedpingform.h"
 #include "UISystem/DataForms/servicereqform.h"
 #include "UISystem/DataForms/voipform.h"
+#include "Maps/Traffic/Statistics/statisticsForm.h"
 
 class ProjectManagement;
 class ParametersWindow;
@@ -122,7 +122,6 @@ private:
     MapRangeForm            mapRangeForm;
     NewMapWindow            newMapWindow;
     TrafficMap              trafficMap;
-    StatisticsManager       statisticsManager;
     CustomModelsListForm    customModelsListForm;
     PingForm                pingForm;
     GeneralConfiguration    generalConfiguration;
@@ -135,7 +134,7 @@ private:
     SyncedPingForm          syncedPingForm;
     ServiceReqForm          serviceReqForm;
     PagingForm              pagingForm;
-
+    StatisticsForm statisticsManager;
 };
 
 #endif // UISYSTEM_H

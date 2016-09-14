@@ -38,6 +38,8 @@ QByteArray TrafficFileData::serializeData()
         stream << UE.serializeData();
     }
 
+    stream << statisticsData.serializeData();
+
     return serializedData.buffer();
 }
 
@@ -72,4 +74,8 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
         ueData.deserializeData(rawUserEquipment);
         userEquipments.append(ueData);
     }
+
+    QByteArray rawStatisticsData;
+    stream >> rawStatisticsData;
+    statisticsData.deserializeData(rawStatisticsData);
 }

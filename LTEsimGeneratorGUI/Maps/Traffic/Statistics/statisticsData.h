@@ -3,20 +3,15 @@
 
 #include <QObject>
 #include <QString>
-#include <QMap>
+#include <QPair>
 #include <QVector>
+#include "Data/Interfaces/serializeinterface.h"
 
-class StatisticsData
+class StatisticsData : public SerializeInterface
 {
 public:
     StatisticsData();
-    StatisticsData(const StatisticsData& statisticsData);
-
-    /**
-     * @brief operator = is used to copy StatisticsData to a local object
-     * @param data is being coppied
-     */
-    StatisticsData& operator =(const StatisticsData& data);
+    ~StatisticsData();
 
     /**
      * @brief getStatMapFor returns bool type value
@@ -29,6 +24,18 @@ public:
      * @param value is a new value for provided key
      */
     void setStatMapFor(QString key, bool value=false);
+
+    // SerializeInterface interface
+public:
+    /**
+     * @brief serializeData is an inherited method that serializes this class to QByteArray
+     */
+    QByteArray serializeData();
+    /**
+     * @brief deserializeData ia an inherited method that deserializes it's parameter to fill the fields in this class' instance
+     * @param rawData is QByteArray that contains all the data needed to creata an instance of StatisticsData class
+     */
+    void deserializeData(const QByteArray &rawData);
     /**
      * @brief getElementType is a API method to recognise the object by QString
      */
@@ -61,7 +68,7 @@ public:
     QString pdcpuMeasurement;
 
 private:
-    QVector<std::tuple<QString,bool>> statisticsMap;
+    QVector<QPair<QString,bool>> statisticsMap;
 };
 
 #endif // STATISTICSDATA_H

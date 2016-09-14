@@ -45,6 +45,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ueparameters.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.cpp \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
+    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsForm.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.cpp \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/custommodelsettings.cpp \
@@ -65,7 +66,8 @@ SOURCES += \
     DataTests/projecttest.cpp \
     DataTests/parametersfiledatatest.cpp \
     DataTests/trafficfiledatatest.cpp \
-    DataTests/ManagersTests/scriptparsermanagertest.cpp
+    DataTests/ManagersTests/scriptparsermanagertest.cpp \
+    DataTests/statisticsdatatest.cpp
 
 HEADERS  += \
     ../LTEsimGeneratorGUI/UISystem/Windows/helpdialog.h \
@@ -93,6 +95,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.h \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.h \
+    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsForm.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.h \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/custommodelsettings.h \
@@ -112,7 +115,8 @@ HEADERS  += \
     DataTests/projecttest.h \
     DataTests/parametersfiledatatest.h \
     DataTests/trafficfiledatatest.h \
-    DataTests/ManagersTests/scriptparsermanagertest.h
+    DataTests/ManagersTests/scriptparsermanagertest.h \
+    DataTests/statisticsdatatest.h
 
 FORMS    += \
     ../LTEsimGeneratorGUI/Ui/Windows/helpdialog.ui \
@@ -121,7 +125,8 @@ FORMS    += \
     ../LTEsimGeneratorGUI/Ui/DataForms/sgwform.ui \
     ../LTEsimGeneratorGUI/Ui/DataForms/mmeform.ui \
     ../LTEsimGeneratorGUI/Ui/DataForms/maprangeform.ui \
-    ../LTEsimGeneratorGUI/Ui/SmallDialogs/generalconfiguration.ui
+    ../LTEsimGeneratorGUI/Ui/SmallDialogs/generalconfiguration.ui \
+    ../LTEsimGeneratorGUI/Ui/statisticsform.ui
   #  ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
 
 OTHER_FILES += \

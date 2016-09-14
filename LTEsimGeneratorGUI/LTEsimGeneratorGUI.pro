@@ -90,7 +90,7 @@ SOURCES += main.cpp\
     Maps/Traffic/UeParameters/uegroupdata.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
-    Maps/Traffic/Statistics/statisticsManager.cpp \
+    Maps/Traffic/Statistics/statisticsForm.cpp \
     Maps/Traffic/Statistics/statisticsData.cpp  \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
@@ -179,7 +179,8 @@ HEADERS  += \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
     Maps/Traffic/Statistics/statisticsData.h \
-    Maps/Traffic/Statistics/statisticsManager.h \
+    Maps/Traffic/Statistics/statisticsForm.h \
+    Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
     Maps/Traffic/Tuning/tuningTrafficManager.h \
@@ -196,7 +197,7 @@ FORMS    += \
     Ui/Windows/settings.ui \
     Ui/Windows/projectmanagement.ui \
     Ui/Windows/helpdialog.ui \
-    Ui/statistics.ui \
+    Ui/statisticsform.ui \
     Ui/DataForms/ipexform.ui \
     Ui/DataForms/sgwform.ui \
     Ui/DataForms/mmeform.ui \

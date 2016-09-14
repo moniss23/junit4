@@ -1,23 +1,23 @@
-#include "statisticsManager.h"
-#include "ui_statistics.h"
+#include "statisticsForm.h"
+#include "ui_statisticsform.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
 
-StatisticsManager::StatisticsManager(QWidget *parent) :
+StatisticsForm::StatisticsForm(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Statistics)
+    ui(new Ui::StatisticsForm)
 {
     ui->setupUi(this);
     this->setFixedSize(413, 523);
     this->setWindowTitle("Statistics");
 }
 
-StatisticsManager::~StatisticsManager() {
+StatisticsForm::~StatisticsForm() {
     delete ui;
 }
 
-void StatisticsManager::loadAndSpawn(const QString &projectName, const QString &trafficFileName, const StatisticsData& statisticsData)
+void StatisticsForm::loadAndSpawn(const QString &projectName, const QString &trafficFileName, const StatisticsData& statisticsData)
 {
     this->projectName = projectName;
     this->trafficFileName = trafficFileName;
@@ -26,19 +26,19 @@ void StatisticsManager::loadAndSpawn(const QString &projectName, const QString &
     this->show();
 }
 
-void StatisticsManager::on_saveButton_clicked()
+void StatisticsForm::on_saveButton_clicked()
 {
     saveStatisticsData();
     emit updateStatisticsData(projectName, trafficFileName, statisticsData); // TODO when trafficWindowManager is created: {TrafficWindow.TrafficFile.StatisticsData = localStats;}
 }
 
-void StatisticsManager::on_restoreButton_clicked()
+void StatisticsForm::on_restoreButton_clicked()
 {
     emit restoreDefaultValues(); //TODO when trafficWindowManager is created: {localStats = TraficWindow.TrafficFileData.StatisticsData;}
     updateView();
 }
 
-void StatisticsManager::on_writePdcpuToFileCheckBox_clicked(bool checked)
+void StatisticsForm::on_writePdcpuToFileCheckBox_clicked(bool checked)
 {
     this->ui->pdcpuFilenameLabel->setEnabled(checked);
     this->ui->pdcpuFilenameLineEdit->setEnabled(checked);
@@ -48,7 +48,7 @@ void StatisticsManager::on_writePdcpuToFileCheckBox_clicked(bool checked)
     this->ui->pdcpuMeasurementLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::on_bearerErrorCheckBox_clicked(bool checked)
+void StatisticsForm::on_bearerErrorCheckBox_clicked(bool checked)
 {
     this->ui->bearerErrorImsiLabel->setEnabled(checked);
     this->ui->bearerErrorImsiLineEdit->setEnabled(checked);
@@ -56,7 +56,7 @@ void StatisticsManager::on_bearerErrorCheckBox_clicked(bool checked)
     this->ui->bearerErrorEpsBearerIdLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::on_bearerRohcCheckBox_clicked(bool checked)
+void StatisticsForm::on_bearerRohcCheckBox_clicked(bool checked)
 {
     this->ui->bearerRohcImsiLabel->setEnabled(checked);
     this->ui->bearerRohcImsiLineEdit->setEnabled(checked);
@@ -64,7 +64,7 @@ void StatisticsManager::on_bearerRohcCheckBox_clicked(bool checked)
     this->ui->bearerRohcEpsBearerIdLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::on_bearerStatusWordsCheckBox_clicked(bool checked)
+void StatisticsForm::on_bearerStatusWordsCheckBox_clicked(bool checked)
 {
     this->ui->bearerStatusImsiLabel->setEnabled(checked);
     this->ui->bearerStatusImsiLineEdit->setEnabled(checked);
@@ -72,13 +72,13 @@ void StatisticsManager::on_bearerStatusWordsCheckBox_clicked(bool checked)
     this->ui->bearerStatusEpsBearerIdLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::on_tguStatsCheckBox_clicked(bool checked)
+void StatisticsForm::on_tguStatsCheckBox_clicked(bool checked)
 {
     this->ui->ipexTguImsiLabel->setEnabled(checked);
     this->ui->ipexTguImsiLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::on_writeIpexToFileCheckBox_clicked(bool checked)
+void StatisticsForm::on_writeIpexToFileCheckBox_clicked(bool checked)
 {
     this->ui->ipexFilenameLabel->setEnabled(checked);
     this->ui->ipexFilenameLineEdit->setEnabled(checked);
@@ -88,7 +88,7 @@ void StatisticsManager::on_writeIpexToFileCheckBox_clicked(bool checked)
     this->ui->ipexMeasurementLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked)
+void StatisticsForm::on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked)
 {
     this->ui->writeGeneralStatisticsToFileCheckBox->setChecked(checked);
 
@@ -104,7 +104,7 @@ void StatisticsManager::on_writeGeneralStatisticsToFileCheckBox_clicked(bool che
     this->ui->generalMeasurementLineEdit->setEnabled(checked);
 }
 
-void StatisticsManager::updateView()
+void StatisticsForm::updateView()
 {
     //General tab
     this->ui->ueStatisticsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueStatisticsCheckBox->text()));
@@ -150,7 +150,7 @@ void StatisticsManager::updateView()
     this->ui->pdcpuMeasurementLineEdit->setText(statisticsData.pdcpuMeasurement);
 }
 
-void StatisticsManager::saveStatisticsData()
+void StatisticsForm::saveStatisticsData()
 {
     //General tab
     statisticsData.setStatMapFor(this->ui->ueStatisticsCheckBox->text(), this->ui->ueStatisticsCheckBox->isChecked());

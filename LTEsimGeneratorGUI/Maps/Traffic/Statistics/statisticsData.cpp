@@ -2,52 +2,57 @@
 
 StatisticsData::StatisticsData() {
     this->statisticsMap.clear();
-    for (auto name: StatisticsData::namesList) {
-        auto tuple = std::make_tuple (name,false);
-        this->statisticsMap.append(tuple);
+    for(auto name: StatisticsData::namesList) {
+        QPair<QString,bool> pair(name, false);
+        this->statisticsMap.append(pair);
     }
 }
 
-StatisticsData::StatisticsData(const StatisticsData& statisticsData){
-    this->statisticsMap.clear();
-    for (auto name: StatisticsData::namesList) {
-        auto tuple = std::make_tuple (name,statisticsData.getStatMapFor(name));
-        this->statisticsMap.append(tuple);
-    }
-}
+StatisticsData::~StatisticsData()
+{
 
-StatisticsData& StatisticsData::operator =(const StatisticsData& rhc) {
-    this->generalDelayBetweenPackets = rhc.generalDelayBetweenPackets;
-    this->generalMeasurementDelta =rhc.generalMeasurementDelta;
-    this->generalMtuSize = rhc.generalMtuSize;
-    this->generalTotalNumberOfSeconds = rhc.generalTotalNumberOfSeconds;
-    this->generalUe = rhc.generalUe;
-    this->ipexFileName = rhc.ipexFileName;
-    this->ipexMeasurement = rhc.ipexMeasurement;
-    this->ipexSeconds = rhc.ipexSeconds;
-    this->ipexTguImsi = rhc.ipexTguImsi;
-    this->pdcpuBearerErrorEpsBearerId = rhc.pdcpuBearerErrorEpsBearerId;
-    this->pdcpuBearerErrorImsi = rhc.pdcpuBearerErrorImsi;
-    this->pdcpuBearerRohcEpsBearerId = rhc.pdcpuBearerRohcEpsBearerId;
-    this->pdcpuBearerRohcImsi = rhc.pdcpuBearerRohcImsi;
-    this->pdcpuBearerStatusEpsBearerId = rhc.pdcpuBearerStatusEpsBearerId;
-    this->pdcpuBearerStatusImsi = rhc.pdcpuBearerStatusImsi;
-    this->pdcpuFileName = rhc.pdcpuFileName;
-    this->pdcpuMeasurement = rhc.pdcpuMeasurement;
-    this->pdcpuSeconds = rhc.pdcpuSeconds;
-    this->statisticsMap = rhc.statisticsMap;
-
-    return *this;
 }
 
 bool StatisticsData::getStatMapFor(QString key) const {
-    auto value = this->statisticsMap.at(StatisticsData::namesList.indexOf(QRegExp(key)));
-    return std::get<1>(value);
+    return this->statisticsMap.at(StatisticsData::namesList.indexOf(QRegExp(key))).second;
 }
 
 void StatisticsData::setStatMapFor(QString key, bool value) {
-    auto tuple = std::make_tuple (key,value);
-    this->statisticsMap.replace(StatisticsData::namesList.indexOf(QRegExp(key)),tuple);
+    QPair<QString,bool> pair(key, value);
+    this->statisticsMap.replace(StatisticsData::namesList.indexOf(QRegExp(key)), pair);
+}
+
+QByteArray StatisticsData::serializeData()
+{
+    QBuffer serializedData;
+    serializedData.open(QBuffer::WriteOnly);
+
+    QDataStream stream(&serializedData);
+    stream << this->generalUe << this->generalDelayBetweenPackets << this->generalTotalNumberOfSeconds <<
+              generalMtuSize << this->generalMeasurementDelta << this->ipexTguImsi << this->ipexFileName << this->ipexSeconds <<
+              ipexMeasurement << this->pdcpuBearerStatusImsi << this->pdcpuBearerStatusEpsBearerId <<
+              pdcpuBearerRohcImsi << this->pdcpuBearerRohcEpsBearerId << this->pdcpuBearerErrorImsi <<
+              pdcpuBearerErrorEpsBearerId << this->pdcpuFileName << this->pdcpuSeconds << this->pdcpuMeasurement;
+
+    for(auto lelement : statisticsMap) {
+        stream << lelement;
+    }
+
+    return serializedData.buffer();
+}
+
+void StatisticsData::deserializeData(const QByteArray &rawData)
+{
+    QDataStream stream(rawData);
+    stream >> this->generalUe >> this->generalDelayBetweenPackets >> this->generalTotalNumberOfSeconds >>
+              generalMtuSize >> this->generalMeasurementDelta >> this->ipexTguImsi >> this->ipexFileName >> this->ipexSeconds >>
+              ipexMeasurement >> this->pdcpuBearerStatusImsi >> this->pdcpuBearerStatusEpsBearerId >>
+              pdcpuBearerRohcImsi >> this->pdcpuBearerRohcEpsBearerId >> this->pdcpuBearerErrorImsi >>
+              pdcpuBearerErrorEpsBearerId >> this->pdcpuFileName >> this->pdcpuSeconds >> this->pdcpuMeasurement;
+
+    for(auto lelement : statisticsMap) {
+        stream >> lelement;
+    }
 }
 
 QString StatisticsData::getElementType() const {
