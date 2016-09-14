@@ -35,11 +35,14 @@
      <widget class="QDialogButtonBox" name="buttonBox">
       <property name="geometry">
        <rect>
-        <x>190</x>
+        <x>230</x>
         <y>530</y>
         <width>201</width>
         <height>61</height>
        </rect>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
       </property>
       <property name="standardButtons">
        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
@@ -50,7 +53,7 @@
        <rect>
         <x>10</x>
         <y>550</y>
-        <width>161</width>
+        <width>91</width>
         <height>21</height>
        </rect>
       </property>
@@ -366,11 +369,6 @@
        </item>
       </layout>
      </widget>
-     <zorder>checkBox_dl_pathloss_distribute_ues</zorder>
-     <zorder>buttonBox</zorder>
-     <zorder>restoreDefaults</zorder>
-     <zorder>layoutWidget</zorder>
-     <zorder>tet_dl_pathloss_max_pathloss</zorder>
     </widget>
    </item>
   </layout>

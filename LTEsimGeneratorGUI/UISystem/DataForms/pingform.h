@@ -72,7 +72,6 @@ private:
     int currentPingIndex;
     bool *qciUsed;
     bool modification;
-    void clearUi();
 };
 
 #endif // PINGFORM_H
