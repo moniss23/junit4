@@ -9,7 +9,7 @@ public:
     StreamDl();
     ~StreamDl() {}
 
-    int streamDlQci;
+    int streamDlQci = 0;
     int streamDlSpeed;
     int streamDlDuration;
     int streamDlMinThroughput;

@@ -30,8 +30,10 @@ public slots:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
+     * @param ftpUlIndex is current ftpDl index
+     * @param ftpUl is local coppy of data
      */
-    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed);
+     void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed, const int &ftpUlIndex, const FtpUl &ftpUl);
 
 signals:
     /**
@@ -40,8 +42,10 @@ signals:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param ftpUl is data that will be saved
+     * @param ftpUlIndex is current ftpUl index
+     * @param modification is flag that represnt if data is going to be add or modify
      */
-    void saveFtpUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpUl &ftpUl);
+    void saveFtpUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpUl &ftpUl, const int &ftpUlIndex, const bool &modification);
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS                     *
@@ -57,16 +61,18 @@ private:
     /**
      * @brief clearUi is used to clear Ui.
      */
-    void clearUi();
+    void refreshUi();
 
 private:
     Ui::FtpUlForm *ui;              ///<GUI form pointer
 
-    FtpUl ftpUl;
+    FtpUl ftpUl;                    ///<local copy of data
     QString projectName;            ///<current project name
     QString trafficName;            ///<current traffic name
     int currentCMindex;             ///<current custom model index
+    int currentFtpUlIndex;          ///<current ftpUl index
     bool *qciUsed;                  ///<pointer to table with qci's states
+    bool modification;              ///<flag that represent if ftpUl is added or modificated
 };
 
 #endif // FTPULFORM_H

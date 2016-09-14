@@ -9,7 +9,7 @@ public:
     FtpUl();
     ~FtpUl() {}
 
-    int ftpUlQci;
+    int ftpUlQci = 0;
     int ftpUlFilesize;
     int ftpUlMinThroughput;
 

@@ -9,7 +9,7 @@ public:
     FtpDl();
     ~FtpDl() {}
 
-    int ftpDlQci;
+    int ftpDlQci = 0;
     int ftpDlFilesize;
     int ftpDlMinThroughput;
 

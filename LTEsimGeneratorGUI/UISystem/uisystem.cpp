@@ -219,23 +219,23 @@ void UISystem::bindingObjects()
 
     //FtpDl form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_FtpDl(QString,QString,int)), this, SLOT(spawnWindow_FtpDlForm(QString,QString,int)));
-    QObject::connect(this, SIGNAL(spawnWindow_FtpDlForm(QString,QString,int,bool*)), &ftpDlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-    QObject::connect(&ftpDlForm, SIGNAL(saveFtpDlData(QString,QString,int,FtpDl)), dataSystem, SLOT(saveFtpDlData(QString,QString,int,FtpDl)));
+    QObject::connect(this, SIGNAL(spawnWindow_FtpDlForm(QString,QString,int,bool*,int,FtpDl)), &ftpDlForm, SLOT(loadAndOpen(QString,QString,int,bool*,int,FtpDl)));
+    QObject::connect(&ftpDlForm, SIGNAL(saveFtpDlData(QString,QString,int,FtpDl,int,bool)), dataSystem, SLOT(saveFtpDlData(QString,QString,int,FtpDl,int,bool)));
 
     //FtpUl form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_FtpUl(QString,QString,int)), this, SLOT(spawnWindow_FtpUlForm(QString,QString,int)));
-    QObject::connect(this, SIGNAL(spawnWindow_FtpUlForm(QString,QString,int,bool*)), &ftpUlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-    QObject::connect(&ftpUlForm, SIGNAL(saveFtpUlData(QString,QString,int,FtpUl)), dataSystem, SLOT(saveFtpUlData(QString,QString,int,FtpUl)));
+    QObject::connect(this, SIGNAL(spawnWindow_FtpUlForm(QString,QString,int,bool*,int,FtpUl)), &ftpUlForm, SLOT(loadAndOpen(QString,QString,int,bool*,int,FtpUl)));
+    QObject::connect(&ftpUlForm, SIGNAL(saveFtpUlData(QString,QString,int,FtpUl,int,bool)), dataSystem, SLOT(saveFtpUlData(QString,QString,int,FtpUl,int,bool)));
 
     //StreamDL form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_StreamDl(QString,QString,int)), this, SLOT(spawnWindow_StreamDlForm(QString,QString,int)));
-    QObject::connect(this, SIGNAL(spawnWindow_StreamDlForm(QString,QString,int,bool*)), &streamDlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-    QObject::connect(&streamDlForm, SIGNAL(saveStreamDlData(QString,QString,int,StreamDl)), dataSystem, SLOT(saveStreamDlData(QString,QString,int,StreamDl)));
+    QObject::connect(this, SIGNAL(spawnWindow_StreamDlForm(QString,QString,int,bool*,int,StreamDl)), &streamDlForm, SLOT(loadAndOpen(QString,QString,int,bool*,int,StreamDl)));
+    QObject::connect(&streamDlForm, SIGNAL(saveStreamDlData(QString,QString,int,StreamDl,int,bool)), dataSystem, SLOT(saveStreamDlData(QString,QString,int,StreamDl,int,bool)));
 
     //StreamUL form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_StreamUl(QString,QString,int)), this, SLOT(spawnWindow_StreamUlForm(QString,QString,int)));
-    QObject::connect(this, SIGNAL(spawnWindow_StreamUlForm(QString,QString,int,bool*)), &streamUlForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-    QObject::connect(&streamUlForm, SIGNAL(saveStreamUlData(QString,QString,int,StreamUl)), dataSystem, SLOT(saveStreamUlData(QString,QString,int,StreamUl)));
+    QObject::connect(this, SIGNAL(spawnWindow_StreamUlForm(QString,QString,int,bool*,int,StreamUl)), &streamUlForm, SLOT(loadAndOpen(QString,QString,int,bool*,int,StreamUl)));
+    QObject::connect(&streamUlForm, SIGNAL(saveStreamUlData(QString,QString,int,StreamUl,int,bool)), dataSystem, SLOT(saveStreamUlData(QString,QString,int,StreamUl,int,bool)));
 
     //SyncedPing form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_SyncedPing(QString,QString,int)), this, SLOT(spawnWindow_SyncedPingForm(QString,QString,int)));
@@ -588,9 +588,13 @@ void UISystem::spawnCustomModelSubclassWindowToModify(const QString &projectName
     } else if(item == "Voip") {
         emit spawnWindow_VoipForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed,itemIndex, traffic->customModels[CMindex].CMVoips[itemIndex]);
     } else if(item == "FtpDl") {
+        emit spawnWindow_FtpDlForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed, itemIndex, traffic->customModels[CMindex].CMFtpDls[itemIndex]);
     } else if(item == "FtpUl") {
+        emit spawnWindow_FtpUlForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed, itemIndex, traffic->customModels[CMindex].CMFtpUls[itemIndex]);
     } else if(item == "StreamDl") {
+        emit spawnWindow_StreamDlForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed, itemIndex, traffic->customModels[CMindex].CMStreamDls[itemIndex]);
     } else if(item == "StreamUl") {
+        emit spawnWindow_StreamUlForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed, itemIndex, traffic->customModels[CMindex].CMStreamUls[itemIndex]);
     } else if(item == "SyncedPing") {
     } else if(item == "ServiceReq") {
     }

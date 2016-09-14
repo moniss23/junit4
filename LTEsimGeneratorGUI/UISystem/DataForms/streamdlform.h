@@ -30,8 +30,10 @@ public slots:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
+     * @param streamDlIndex is current streamDl index
+     * @param streamDl is local copy of data
      */
-    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool *qciUsed);
+    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool *qciUsed, const int &streamDlIndex, const StreamDl &streamDl);
 
 signals:
     /**
@@ -40,8 +42,10 @@ signals:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param streamDl is data that will be saved
+     * @param streamDlIndex is current streamDl index
+     * @param modification represnts if streamUl is being added or modified
      */
-    void saveStreamDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamDl &streamDl);
+    void saveStreamDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamDl &streamDl, const int &streamDlIndex, const bool &modification);
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS                     *
@@ -55,9 +59,9 @@ private slots:
      ***********************************************/
 private:
     /**
-     * @brief clearUi is used to clear Ui
+     * @brief refreshUi is used when window needs to refresh state
      */
-    void clearUi();
+    void refreshUi();
 
 private:
     Ui::StreamDlForm *ui;           ///<GUI form pointer
@@ -66,7 +70,9 @@ private:
     QString projectName;            ///<current project name
     QString trafficName;            ///<current traffic name
     int currentCMindex;             ///<current custom model index
+    int currentStreamDlIndex;       ///<current streamDl index
     bool *qciUsed;                  ///<pointer to table with qci's states
+    bool modification;
 };
 
 #endif // STREAMDLFORM_H

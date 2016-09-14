@@ -1,4 +1,4 @@
-#ifndef FTPDLFORM_H
+﻿#ifndef FTPDLFORM_H
 #define FTPDLFORM_H
 
 #include <QDialog>
@@ -30,8 +30,10 @@ public slots:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
+     * @param ftpDlIndex is current ftpDl index
+     * @param ftpDl is local copy of data
      */
-    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed);
+    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed, const int &ftpDlIndex, const FtpDl &ftpDl);
 
 signals:
     /**
@@ -40,8 +42,10 @@ signals:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param ftpDl is data that will be saved
+     * @param ftpDlIndex is current ftpDl index
+     * @param modification is flag which represents if ftpDl is being added or modified
      */
-    void saveFtpDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpDl &ftpDl);
+    void saveFtpDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpDl &ftpDl, const int &ftpDlIndex, const bool &modification);
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS                     *
@@ -54,19 +58,18 @@ private slots:
      *  INTERNAL CLASS LOGIC
      ***********************************************/
 private:
-    /**
-     * @brief clearUi is used to clear Ui.
-     */
-    void clearUi();
+    void refreshUi();
 
 private:
     Ui::FtpDlForm *ui;              ///<GUI form pointer
 
-    FtpDl ftpDl;
+    FtpDl ftpDl;                    ///<local copy of data
     QString projectName;            ///<current project name
     QString trafficName;            ///<current traffic name
     int currentCMindex;             ///<current custom model index
+    int currentFtpDlIndex;          ///<current ftpDl index
     bool *qciUsed;                  ///<pointer to table with qci's states
+    bool modification;              ///<this flag represnt if we add or modify ftpDl
 };
 
 #endif // FTPDLFORM_H

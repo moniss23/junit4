@@ -9,7 +9,7 @@ public:
     StreamUl();
     ~StreamUl() {}
 
-    int streamUlQci;
+    int streamUlQci = 0;
     int streamUlSpeed;
     int streamUlDuration;
     int streamUlMinThroughput;

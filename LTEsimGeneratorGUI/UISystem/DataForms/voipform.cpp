@@ -34,12 +34,13 @@ void VoipForm::loadAndOpen(const QString &projectName, const QString &trafficNam
 
 void VoipForm::on_okButton_clicked()
 {
+    Voip voip;
     if(this->ui->qciComboBox->currentText() == "") return;
-    this->voip.voipQci = this->ui->qciComboBox->currentText().toInt();
-    this->voip.voipDuration = this->ui->duration->text().toInt();
-    this->voip.voipActivityFactor = this->ui->activityFactor->text().toInt();
-    this->voip.voipMaxTransferTime = this->ui->maxTransferTime->text().toInt();
-    this->voip.voipMinPacketsReceivedInTime = this->ui->minPacketsReceivedInTime->text().toInt();
+    voip.voipQci = this->ui->qciComboBox->currentText().toInt();
+    voip.voipDuration = this->ui->duration->text().toInt();
+    voip.voipActivityFactor = this->ui->activityFactor->text().toInt();
+    voip.voipMaxTransferTime = this->ui->maxTransferTime->text().toInt();
+    voip.voipMinPacketsReceivedInTime = this->ui->minPacketsReceivedInTime->text().toInt();
 
     emit saveVoipData(projectName, trafficName, currentCMindex, voip, currentVoipIndex, modification);
     this->close();
