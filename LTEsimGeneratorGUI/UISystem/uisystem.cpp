@@ -252,8 +252,9 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_tuningTraffic(QString,QString)), &tuningTrafficManager, SLOT(open(QString,QString)));
 
-    // Add UEs to Traffic Map Scene
+    // Add UEs to Traffic Map Scene + update UEs
     QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
+    QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

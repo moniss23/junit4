@@ -25,13 +25,16 @@ public:
 public slots:
     void loadAndOpen(const Project &project, TrafficFileData *trafficFileData);
     void refreshWindow(const Project &project, TrafficFileData *trafficFileData);
+    void updateUe_MapView(const QString &projectName, const QString &trafficName, const UEData &ueData);
 
 signals:
-    void addUe(const QString &projectName, const QString &trafficFileName);
-    void spawnWindow_Statistics(const QString &projectName, const QString &trafficFileName);
-    void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
+    void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
     void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
+    void spawnWindow_Statistics(const QString &projectName, const QString &trafficFileName);
+
+    void addUe(const QString &projectName, const QString &trafficFileName);
+    void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
 
 private slots:
     void on_pushButton_pressed();

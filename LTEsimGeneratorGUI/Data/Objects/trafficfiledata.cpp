@@ -33,6 +33,11 @@ QByteArray TrafficFileData::serializeData()
         stream << cmUsed[i];
     }
 
+    stream << userEquipments.size();
+    for(auto &&UE : userEquipments) {
+        stream << UE.serializeData();
+    }
+
     return serializedData.buffer();
 }
 
@@ -55,5 +60,16 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
 
     for(unsigned i = 0; i < cmAmount; i++) {
         stream >> cmUsed[i];
+    }
+
+    int userEquipmentsAmount;
+    stream >> userEquipmentsAmount;
+    for(unsigned i=0; i<userEquipmentsAmount; ++i) {
+        QByteArray rawUserEquipment;
+        stream >> rawUserEquipment;
+
+        UEData ueData;
+        ueData.deserializeData(rawUserEquipment);
+        userEquipments.append(ueData);
     }
 }

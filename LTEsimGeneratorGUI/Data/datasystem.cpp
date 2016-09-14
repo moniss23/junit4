@@ -1,6 +1,5 @@
 #include "datasystem.h"
 
-#include <QFile>
 #include <QDir>
 #include <QTextStream>
 
@@ -12,7 +11,7 @@ DataSystem::DataSystem() {
     fileManager         = std::make_unique<FileManager>();
     scriptParserManager = std::make_unique<ScriptParserManager>();
 
-    projectsFileSetup();
+    fileManager->projectsFileSetup(appGlobalData.getProjectsFile());
 }
 
 DataSystem::~DataSystem() {
@@ -66,18 +65,6 @@ bool DataSystem::isProjectNameUsed(QString projectName) {
     return findProjectByName(projectName) != nullptr;
 }
 
-// check if the projects file exists, create it if it doesn't
-void DataSystem::projectsFileSetup() {
-    QFile projects_file(appGlobalData.getProjectsFile());
-
-    if(!projects_file.exists()) {
-        projects_file.open(QIODevice::WriteOnly);
-        QTextStream str(&projects_file);
-        str << "0";
-        projects_file.close();
-    }
-}
-
 /*********
  * SLOTS *
  *********/
@@ -92,10 +79,27 @@ void DataSystem::addUe(const QString &projectName, const QString &trafficFileNam
     TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFileName);
     if(trafficFound != nullptr) {
         UEData ueData;
+        ueData.pairName = QString("ue") + QString::number(trafficFound->userEquipments.size());
+
         trafficFound->userEquipments.append(ueData);
 
         emit currentProjectChanged(*project);
         emit refreshMapView(*project, trafficFound); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
+        saveProjectsFile();
+    }
+    else emit errorInData("Couldn't find " + trafficFileName + " in current project");
+}
+
+void DataSystem::updateUe(const QString &projectName, const QString &trafficFileName, const UEData &ueData) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFileName);
+    if(trafficFound != nullptr) {
+        trafficFound->userEquipments[ueData.pairName.mid(2).toInt()] = ueData;
         saveProjectsFile();
     }
     else emit errorInData("Couldn't find " + trafficFileName + " in current project");
@@ -248,7 +252,7 @@ void DataSystem::setDefaultParametersFileContent(const QString &projectName) {
         emit errorInData("Can't find right project");
         return;
     }
-    project->parametersFile.content = getDefaultParametersFileContent();
+    project->parametersFile.content = fileManager->readFileToQString(appGlobalData.getParameterFile());
     scriptParserManager->parseFromScript(project->parametersFile.content, *project);
     emit currentProjectChanged(*project);
 }
@@ -287,17 +291,6 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
     saveProjectsFile();
 }
 
-QString DataSystem::getDefaultParametersFileContent()
-{
-    QFile param_template(":/RbFiles/parameters.rb");
-    param_template.open(QIODevice::ReadOnly);
-    QTextStream param_template_str(&param_template);
-    QString fileContent = param_template_str.readAll();
-    param_template.close();
-
-    return fileContent;
-}
-
 //Currently not used, because restore defaults functionality in ParametersWindow is disabled
 QString DataSystem::getDefaultTrafficFileContent() {
     QFile trafficTemplate(":/RbFiles/tune_traffic_models.rb");
@@ -321,7 +314,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     newProject.name = projectName;
     newProject.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
     newProject.parametersFile.filename = "Parameters.rb";
-    newProject.parametersFile.content = getDefaultParametersFileContent();
+    newProject.parametersFile.content = fileManager->readFileToQString(appGlobalData.getParameterFile());
 
     QString rbContent = newProject.parametersFile.content;
 

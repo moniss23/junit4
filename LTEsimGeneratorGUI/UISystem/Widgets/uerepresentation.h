@@ -17,6 +17,9 @@ public:
     QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
 
+signals:
+    void updateUe(const UEData &ueData);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
@@ -29,7 +32,6 @@ public:
     QColor color;
     UEData ueObject;
 
-    int position_X, position_Y;
     const int width = 1250, height = 1250;
 };
 

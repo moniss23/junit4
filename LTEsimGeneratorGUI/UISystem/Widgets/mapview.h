@@ -20,18 +20,20 @@ public:
     void resizeEvent(QResizeEvent* event);
 
 public slots:
+    void spawnWindow_MapRange();
     void spawnWindow_HandoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
-    void spawnWindow_MapRange();
+    void updateUe(const UEData &ueData);
 
 signals:
+    void spawnWindow_mapRange();
     void spawnWindow_MapView_HandoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_MapView_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
-    void spawnWindow_mapRange();
+    void updateUe_MapView(const QString &projectName, const QString &trafficName, const UEData &ueData);
 
 private:
-    void drawAxisAndButtons();
     void drawMapLines();
+    void drawAxisAndButtons();
     void drawUeRepresentations();
     void drawCellRepresentations();
     void drawHandoverRepresentations();

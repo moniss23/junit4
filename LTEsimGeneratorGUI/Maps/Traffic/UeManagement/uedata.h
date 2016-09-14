@@ -17,6 +17,8 @@ public:
     std::pair<QString,QString> ueTypesPair;
     std::pair<QString,QString> ueArea;
 
+    int positionX=2000, positionY=2000; //TODO: remove as soon as reading ueArea is ready
+
     // SerializeInterface interface
 public:
     QString getElementType() const;

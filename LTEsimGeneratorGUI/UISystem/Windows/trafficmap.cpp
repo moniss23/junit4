@@ -39,6 +39,9 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     hBoxLayout2 = new QHBoxLayout(this);
     vBoxLayout  = new QVBoxLayout(this);
 
+    QObject::connect(mapView, SIGNAL(updateUe_MapView(QString,QString,UEData)),
+                     this, SLOT(updateUe_MapView(QString,QString,UEData)));
+
     hBoxLayout1->addWidget(mapView);
     hBoxLayout1->addLayout(vBoxLayout);
     vBoxLayout->addWidget(this->ui->ueGroupWidget, 200, Qt::AlignTop);
@@ -75,4 +78,8 @@ void TrafficMap::on_addUeButton_clicked()
 {
     //TODO: emiting this signal causes newMapWindow to open, redesign this part of signals API
     emit addUe(project.name, trafficFileData->filename);
+}
+
+void TrafficMap::updateUe_MapView(const QString &projectName, const QString &trafficName, const UEData &ueData) {
+    emit updateUe(projectName, trafficName, ueData);
 }

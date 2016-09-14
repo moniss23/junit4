@@ -25,6 +25,8 @@ QByteArray UEData::serializeData()
               csModelsPair.first << csModelsPair.second << psModelsPair.first << psModelsPair.second <<
               ueTypesPair.first << ueTypesPair.second << ueArea.first << ueArea.second;
 
+    stream << positionX << positionY;
+
     return serializedData.buffer();
 }
 
@@ -34,4 +36,6 @@ void UEData::deserializeData(const QByteArray &rawData)
     stream >> pairName >> amountOfPairs >> mobilityModelsPair.first >> mobilityModelsPair.second >>
             csModelsPair.first >> csModelsPair.second >> psModelsPair.first >> psModelsPair.second >>
             ueTypesPair.first >> ueTypesPair.second >> ueArea.first >> ueArea.second;
+
+    stream >> positionX >> positionY;
 }

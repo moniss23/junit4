@@ -40,8 +40,10 @@ void UeRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void UeRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsItem::mouseReleaseEvent(event);
 
-//    int posX = pos().x();
-//    int posY = pos().y();
+    this->ueObject.positionX = pos().x();
+    this->ueObject.positionY = -pos().y();
+
+    emit updateUe(ueObject);
 }
 
 QVariant UeRepresentation::itemChange(GraphicsItemChange change, const QVariant &value) {

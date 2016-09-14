@@ -81,3 +81,25 @@ void FileManager::generateTrafficScript(Project currentProject, int file_index) 
         file.close();
     }
 }
+
+// Check if projects file exists, create it if it doesn't
+void FileManager::projectsFileSetup(const QString &projectsFilename) {
+    QFile projectsFile(projectsFilename);
+    if(!projectsFile.exists()) {
+        projectsFile.open(QIODevice::WriteOnly);
+        QTextStream str(&projectsFile);
+        str << "0";
+        projectsFile.close();
+    }
+}
+
+QString FileManager::readFileToQString(const QString &filename) {
+    QFile file(filename);
+    file.open(QIODevice::ReadOnly);
+
+    QTextStream inStr(&file);
+    QString fileContent = inStr.readAll();
+
+    file.close();
+    return fileContent;
+}
