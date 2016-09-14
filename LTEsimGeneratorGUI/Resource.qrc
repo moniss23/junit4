@@ -26,5 +26,7 @@
         <file>Images/MapItems/slanted_line.png</file>
         <file>Images/MapItems/srio.png</file>
         <file>Images/handover.png</file>
+        <file>Images/MapItems/curved line.svg</file>
+        <file>Images/MapItems/curved line 2.png</file>
     </qresource>
 </RCC>
