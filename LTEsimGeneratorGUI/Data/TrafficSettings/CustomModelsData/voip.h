@@ -9,7 +9,7 @@ public:
     Voip();
     ~Voip() {}
 
-    int voipQci;
+    int voipQci = 0;
     int voipDuration;
     int voipActivityFactor;
     int voipMaxTransferTime;

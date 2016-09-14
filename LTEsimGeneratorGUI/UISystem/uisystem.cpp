@@ -10,7 +10,7 @@
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
     projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr),
-    ucToolForm(nullptr), voipForm(nullptr)
+    ucToolForm(nullptr)
 {
     createFirstWinow();
 
@@ -21,7 +21,6 @@ UISystem::UISystem(DataSystem* data) :
 
 UISystem::~UISystem()
 {
-    delete voipForm;
     delete ipexForm;
     delete ucToolForm;
     delete paramWindow;
@@ -205,11 +204,14 @@ void UISystem::bindingObjects()
 
     //Ping form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Ping(QString,QString,int)), this, SLOT(spawnWindow_PingForm(QString,QString,int)));
-    QObject::connect(this, SIGNAL(spawnWindow_PingForm(QString,QString,int,bool*)), &pingForm, SLOT(loadAndOpen(QString,QString,int,bool*)));
-    QObject::connect(&pingForm, SIGNAL(savePingData(QString,QString,int,Ping)), dataSystem, SLOT(savePingData(QString,QString,int,Ping)));
+    QObject::connect(this, SIGNAL(spawnWindow_PingForm(QString,QString,int,bool*,int,Ping)), &pingForm, SLOT(loadAndOpen(QString,QString,int,bool*,int,Ping)));
+    QObject::connect(&pingForm, SIGNAL(savePingData(QString,QString,int,Ping,int,bool)), dataSystem, SLOT(savePingData(QString,QString,int,Ping,int,bool)));
+    QObject::connect(&customModelsListForm, SIGNAL(spawnCustomModelSubclassWindowToModify(QString,QString,QString,int,int)), this, SLOT(spawnCustomModelSubclassWindowToModify(QString,QString,QString,int,int)));
 
     //Voip form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_Voip(QString,QString,int)), this, SLOT(spawnWindow_VoipForm(QString,QString,int)));
+    QObject::connect(this, SIGNAL(spawnWindow_VoipForm(QString,QString,int,bool*,int,Voip)), &voipForm, SLOT(loadAndOpen(QString,QString,int,bool*,int,Voip)));
+    QObject::connect(&voipForm, SIGNAL(saveVoipData(QString,QString,int,Voip,int,bool)), dataSystem, SLOT(saveVoipData(QString,QString,int,Voip,int,bool)));
 
     //FtpDl form (trafficmap)
     QObject::connect(&customModelsListForm, SIGNAL(spawnWindow_FtpDl(QString,QString,int)), this, SLOT(spawnWindow_FtpDlForm(QString,QString,int)));
@@ -476,16 +478,7 @@ void UISystem::spawnWindow_VoipForm(const QString &projectName, const QString &t
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-
-    if(!voipForm) {
-        voipForm = new VoipForm();
-        QObject::connect(voipForm, SIGNAL(saveVoipData(QString,QString,int,Voip)),
-                         dataSystem, SLOT(saveVoipData(QString,QString,int,Voip)));
-    }
-    voipForm->loadAndOpen(project->name,
-                          traffic->filename,
-                          index,
-                          traffic->customModels[index].qciUsed);
+    emit spawnWindow_VoipForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
 void UISystem::spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index)
@@ -560,6 +553,31 @@ void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QStr
         return;
     }
     emit spawnWindow_ServiceReqForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+
+void UISystem::spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    if(item == "Ping") {
+        emit spawnWindow_PingForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed, itemIndex, traffic->customModels[CMindex].CMPings[itemIndex]);
+    } else if(item == "Voip") {
+        emit spawnWindow_VoipForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed,itemIndex, traffic->customModels[CMindex].CMVoips[itemIndex]);
+    } else if(item == "FtpDl") {
+    } else if(item == "FtpUl") {
+    } else if(item == "StreamDl") {
+    } else if(item == "StreamUl") {
+    } else if(item == "SyncedPing") {
+    } else if(item == "ServiceReq") {
+    }
 }
 
 

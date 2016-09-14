@@ -90,8 +90,8 @@ public slots:
     void generateTrafficScript(const Project& project, const int& indexOfFile);
 
     //Custom models
-    void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping);
-    void saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip);
+    void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping, const int &pingIndex, const bool &modification);
+    void saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip, const int &voipIndex, const bool &modification);
     void saveFtpDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpDl &ftpDl);
     void saveFtpUlData(const QString &projectName, const QString &trafficName, const int &CMindex, const FtpUl &ftpUl);
     void saveStreamDlData(const QString &projectName, const QString &trafficName, const int &CMindex, const StreamDl &streamDl);

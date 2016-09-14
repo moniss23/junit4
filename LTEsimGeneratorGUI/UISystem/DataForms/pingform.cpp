@@ -14,13 +14,21 @@ PingForm::~PingForm()
     delete ui;
 }
 
-void PingForm::loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed)
+void PingForm::loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed,const int &pingIndex, const Ping &ping)
 {
     this->projectName = projectName;
     this->trafficName = trafficName;
     this->currentCMindex = CMindex;
+    this->currentPingIndex = pingIndex;
     this->qciUsed = qciUsed;
-    this->clearUi();
+    this->ping = ping;
+    if(ping.pingQci == 0) {
+        this->clearUi();
+        modification = false;
+    } else {
+        this->setParameters();
+        modification = true;
+    }
     this->show();
 }
 
@@ -33,7 +41,7 @@ void PingForm::on_okButton_clicked()
     ping.pingMinRecievedPings = this->ui->minRecPings->text().toInt();
     ping.pingNumberOfPings = this->ui->numberOfPings->text().toInt();
 
-    emit savePingData(projectName, trafficName, currentCMindex, ping);
+    emit savePingData(projectName, trafficName, currentCMindex, ping, currentPingIndex, modification);
     this->close();
 }
 
@@ -43,6 +51,25 @@ void PingForm::on_cancelButton_clicked()
 }
 
 void PingForm::on_restoreButton_clicked() {
+}
+
+void PingForm::setParameters()
+{
+    this->ui->comboBox->clear();
+    auto index = 0;
+    for(auto i = 1; i < 10; i++) {
+        if(!qciUsed[i-1]) {
+            this->ui->comboBox->addItem(QString::number(i));
+        }
+        else if(i == ping.pingQci) {
+            index = this->ui->comboBox->count();
+            this->ui->comboBox->addItem(QString::number(i));
+        }
+    }
+    this->ui->comboBox->setCurrentIndex(index);
+    this->ui->interval->setText(QString::number(ping.pingInterval));
+    this->ui->minRecPings->setText(QString::number(ping.pingMinRecievedPings));
+    this->ui->numberOfPings->setText(QString::number(ping.pingNumberOfPings));
 }
 
 void PingForm::clearUi()

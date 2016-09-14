@@ -603,7 +603,7 @@ void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
     saveProjectsFile();
 }
 
-void DataSystem::savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping) {
+void DataSystem::savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping, const int &pingIndex, const bool &modification) {
     auto project = findProjectByName(projectName);
     if (project==nullptr){
         emit errorInData("Can't find right project.\nData not saved");
@@ -614,14 +614,20 @@ void DataSystem::savePingData(const QString &projectName, const QString &traffic
         emit errorInData("Can't find right trafficFile");
         return;
     }
-    traffic->customModels[CMindex].CMPings.push_back(ping);
-    traffic->customModels[CMindex].qciUsed[ping.pingQci-1] = true;
-    traffic->cmUsed[CMindex] = true;
+    if(!modification) {
+        traffic->customModels[CMindex].CMPings.push_back(ping);
+        traffic->customModels[CMindex].qciUsed[ping.pingQci-1] = true;
+        traffic->cmUsed[CMindex] = true;
+    } else {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMPings[pingIndex].pingQci-1] = false;
+        traffic->customModels[CMindex].CMPings[pingIndex] = ping;
+        traffic->customModels[CMindex].qciUsed[ping.pingQci-1] = true;
+    }
     this->saveProjectsFile();
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
-void DataSystem::saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip)
+void DataSystem::saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip, const int &voipIndex, const bool &modification)
 {
     auto project = findProjectByName(projectName);
     if (project==nullptr){
@@ -633,9 +639,15 @@ void DataSystem::saveVoipData(const QString &projectName, const QString &traffic
         emit errorInData("Can't find right trafficFile");
         return;
     }
-    traffic->customModels[CMindex].CMVoips.push_back(voip);
-    traffic->customModels[CMindex].qciUsed[voip.voipQci-1] = true;
-    traffic->cmUsed[CMindex] = true;
+    if(!modification) {
+        traffic->customModels[CMindex].CMVoips.push_back(voip);
+        traffic->customModels[CMindex].qciUsed[voip.voipQci-1] = true;
+        traffic->cmUsed[CMindex] = true;
+    } else {
+        traffic->customModels[CMindex].qciUsed[traffic->customModels[CMindex].CMVoips[voipIndex].voipQci-1] = false;
+        traffic->customModels[CMindex].CMVoips[voipIndex] = voip;
+        traffic->customModels[CMindex].qciUsed[voip.voipQci-1] = true;
+    }
     this->saveProjectsFile();
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }

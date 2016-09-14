@@ -294,4 +294,8 @@ void CustomModelsListForm::on_deleteButton_clicked()
 void CustomModelsListForm::on_listWidget_doubleClicked(const QModelIndex &index)
 {
     (void) index;
+    QVariant itemInfo = this->ui->listWidget->currentItem()->data(Qt::UserRole);
+    QVariant indexInfo = this->ui->listWidget->currentItem()->data(Qt::BackgroundRole);
+
+    emit spawnCustomModelSubclassWindowToModify(projectName, trafficName, itemInfo.toString(), indexInfo.toInt(), currentCustomModelIndex);
 }

@@ -32,7 +32,7 @@ public slots:
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
      */
-    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool *qciUsed);
+    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool *qciUsed, const int &pingIndex, const Ping &ping);
 
 signals:
     /**
@@ -42,7 +42,7 @@ signals:
      * @param CMindex is current custom model index
      * @param ping is data that will be saved
      */
-    void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping);
+    void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping, const int &pingIndex, const bool &modification);
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS                     *
@@ -60,14 +60,19 @@ private:
      * @brief clearUi is used to clear Ui
      */
     void clearUi();
+    void setParameters();
 
 private:
-    Ui::PingForm *ui;           ///<GUI form pointer
+    Ui::PingForm *ui;
 
-    QString projectName;        ///<current project name
-    QString trafficName;        ///<current traffic name
-    int currentCMindex;         ///<current custom model index
-    bool *qciUsed;              ///<pointer to table with qci's states
+    Ping ping;
+    QString projectName;
+    QString trafficName;
+    int currentCMindex;
+    int currentPingIndex;
+    bool *qciUsed;
+    bool modification;
+    void clearUi();
 };
 
 #endif // PINGFORM_H

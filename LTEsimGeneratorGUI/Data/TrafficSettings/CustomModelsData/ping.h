@@ -9,7 +9,7 @@ public:
     Ping();
     ~Ping() {}
 
-    int pingQci;
+    int pingQci = 0;
     int pingNumberOfPings;
     int pingInterval;
     int pingMinRecievedPings;

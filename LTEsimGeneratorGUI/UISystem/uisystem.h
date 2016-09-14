@@ -28,11 +28,11 @@
 #include "UISystem/DataForms/streamulform.h"
 #include "UISystem/DataForms/syncedpingform.h"
 #include "UISystem/DataForms/servicereqform.h"
+#include "UISystem/DataForms/voipform.h"
 
 class ProjectManagement;
 class ParametersWindow;
 class IpexForm;
-class VoipForm;
 class UCtoolForm;
 
 class UISystem : public QObject
@@ -72,6 +72,7 @@ public slots:
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index);
+    void spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -86,7 +87,8 @@ signals:
     void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
-    void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &pingIndex = 0, const Ping &ping = Ping());
+    void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &voipIndex = 0, const Voip &voip = Voip());
     void spawnWindow_GeneralConfiguration(const GeneralConfigurationParameters &generalConfiguration, const QString &projectname);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
@@ -124,7 +126,7 @@ private:
     CustomModelsListForm    customModelsListForm;
     PingForm                pingForm;
     GeneralConfiguration    generalConfiguration;
-    VoipForm               *voipForm;
+    VoipForm                voipForm;
     FtpDlForm               ftpDlForm;
     FtpUlForm               ftpUlForm;
     TuningTrafficManager    tuningTrafficManager;

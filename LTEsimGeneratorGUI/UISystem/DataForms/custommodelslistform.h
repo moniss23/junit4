@@ -107,6 +107,8 @@ signals:
 
     void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
 
+    void spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
+
     /***********************************************
      *  BINDINGS TO UI BUTTONS AND LISTS
      ***********************************************/

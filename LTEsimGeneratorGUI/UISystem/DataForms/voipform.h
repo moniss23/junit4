@@ -31,7 +31,7 @@ public slots:
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
      */
-    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed);
+    void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed, const int &voipIndex, const Voip &voip);
 
 signals:
     /**
@@ -41,7 +41,7 @@ signals:
      * @param CMindex is current custom model index
      * @param voip is data that will be saved
      */
-    void saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip);
+    void saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip, const int &pingIndex, const bool &modification);
 
     /***********************************************
      *  BINDINGS TO UI BUTTONS                     *
@@ -58,15 +58,18 @@ private:
      * @brief clearUi is used to clear Ui
      */
     void clearUi();
+    void setParameters();
 
 private:
     Ui::VoipForm *ui;               ///<GUI form pointer
 
     Voip voip;
-    QString projectName;            ///<current project name
-    QString trafficName;            ///<current traffic name
-    int currentCMindex;             ///<current custom model index
-    bool *qciUsed;                  ///<pointer to table with qci's states
+    QString projectName;
+    QString trafficName;
+    int currentCMindex;
+    int currentVoipIndex;
+    bool modification;
+    bool *qciUsed;
 };
 
 #endif // VOIPFORM_H
