@@ -113,11 +113,13 @@ void DataSystem::addCell(const QString &projectName) {
         return;
     }
 
-    QString newCellName = this->generateUniqueCellName(project);
+    QString newCellNumber = this->generateUniqueCellNumber(project);
 
     QPair<Cell,Center> cellInfo;
-    cellInfo.first.name = cellInfo.second.area = newCellName;
-    cellInfo.first.position_X = cellInfo.first.position_Y = 3500;
+    cellInfo.first.name = QString("cell") + newCellNumber;
+    cellInfo.first.site = QString("site") + newCellNumber;
+    cellInfo.second.area = QString("Center") + newCellNumber;
+    cellInfo.first.pci = newCellNumber.toInt();
 
     project->cellsInfo.append(cellInfo);
     emit currentProjectChanged(*project);
@@ -359,13 +361,15 @@ void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QStr
     saveProjectsFile();
 }
 
-QString DataSystem::generateUniqueCellName(Project *project)
+QString DataSystem::generateUniqueCellNumber(Project *project)
 {
-    for(unsigned i=10; i<UINT_MAX; ++i) {
-        const QString newCellName = "cell" + QString::number(i);
+    for(unsigned i=project->cellsInfo.size()+1; i<UINT_MAX; ++i)
+    {
+        const QString newCellNumber = QString::number(i);
+
         if(std::none_of(project->cellsInfo.begin(), project->cellsInfo.end(),
-            [&newCellName](auto &cellInfo){return cellInfo.first.name==newCellName;})) {
-            return newCellName;
+            [&newCellNumber](auto &cellInfo){return cellInfo.first.name.mid(4)==newCellNumber;})) {
+            return newCellNumber;
         }
     }
 

@@ -96,6 +96,7 @@ void NewMapWindow::spawnWindow_MapView_cellParams(CellRepresentation *clickedCel
     this->ui->transmitPower->setText(QString::number(cellObj.first.transmitPower));
     this->ui->ulNoiseAndInterference->setText(QString::number(cellObj.first.ulNoiseAndInterference));
 
+    this->ui->centerArea->setText(cellObj.second.area);
     this->ui->westCenterBoundary->setText(QString::number(cellObj.second.westBoundary));
     this->ui->eastCenterBoundary->setText(QString::number(cellObj.second.eastBoundary));
     this->ui->southCenterBoundary->setText(QString::number(cellObj.second.southBoundary));

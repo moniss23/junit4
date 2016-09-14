@@ -100,18 +100,15 @@ public slots:
     void saveSyncedPingData(const QString &projectName, const QString &trafficName, const int &CMindex, const SyncedPing &syncedPing);
     void saveServiceReqData(const QString &projectName, const QString &trafficName, const int &CMindex, const ServiceReq &serviceReq);
 
-    void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex);
-
+    // Update, delete CUSTOM MODEL
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
+    void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex);
 
     void updateProjectOnMapCloseEvent(const QString &projectName);
 
 public:
     QString getDefaultNewProjectDir() const;
     AppGlobalData getAppGlobalData() const;
-
-private:
-    bool isProjectNameUsed(QString projectName);
 
 private:
     AppGlobalData                        appGlobalData;
@@ -123,9 +120,10 @@ private:
     void projectsFileSetup();
     QString getDefaultTrafficFileContent();
 
+    bool isProjectNameUsed(QString projectName);
     Project* findProjectByName(const QString &projectName);
 
-    QString generateUniqueCellName(Project *project);
+    QString generateUniqueCellNumber(Project *project);
     QString generateUniqueHandoverName(Project *project);
     QString generateUniqueTrafficFilename(Project *project);
 };

@@ -22,8 +22,8 @@ public:
     QString site;
 
     int pci;
-    int position_X;
-    int position_Y;
+    int position_X = 4000;
+    int position_Y = 4000;
     int earfcnDl = 2050;
     float transmitPower = -75.0;
     float ulNoiseAndInterference = -116.0;
