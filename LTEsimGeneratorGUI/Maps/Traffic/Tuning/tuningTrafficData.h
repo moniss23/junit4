@@ -1,40 +1,41 @@
 #ifndef TuningTrafficData_H
 #define TuningTrafficData_H
 #include <QString>
-#include <QComboBox>
+#include <QVector>
+
 class TuningTrafficData
 {
 public:
     TuningTrafficData();
     ~TuningTrafficData();
 
-    //Public structs representing CS/PS/Area parameters
+    //Public structs representing CS/PS/Mobility parameters
     struct CSParameters
     {
-        QString cs_name;
-        QString call_intensity;
-        QString call_duration;
-        QString recovery_start_interval;
+        QString csName;
+        QString callIntensity;
+        QString callDuration;
+        QString recoveryStartInterval;
 
-        CSParameters(){cs_name = ""; call_intensity = "0"; call_duration = "0"; recovery_start_interval = "0";}
+        CSParameters(){csName = ""; callIntensity = "0"; callDuration = "0"; recoveryStartInterval = "0";}
     };
 
     struct PSParameters
     {
-        QString ps_name;
-        QString ps_duration;
-        QString ps_intensity;
+        QString psName;
+        QString psDuration;
+        QString psIntensity;
 
-        PSParameters() {ps_name = ""; ps_duration = "0"; ps_intensity = "0";}
+        PSParameters() {psName = ""; psDuration = "0"; psIntensity = "0";}
     };
 
-    struct Areas
+    struct Mobility
     {
-        QString area_name;
+        QString mobilityName;
         QString speed;
         QString granularity;
 
-        Areas(){area_name = ""; speed = "0"; granularity = "0";}
+        Mobility(){mobilityName = ""; speed = "0"; granularity = "0";}
     };
 
     void setSpeed(QString value, int index);
@@ -64,8 +65,8 @@ public:
     void setPs_Name(QString value, int index);
     QString getPs_Name(int index) const;
 
-    void setArea_Name(QString value, int index);
-    QString getArea_name(int index) const;
+    void setMobility_Name(QString value, int index);
+    QString getMobility_name(int index) const;
 
     int get_psBehaviorIndex() const;
     void set_psBehaviorIndex(int value);
@@ -73,20 +74,20 @@ public:
     int get_csBehaviorIndex() const;
     void set_csBehaviorIndex(int value);
 
-    int get_AreaIndex() const;
-    void set_AreaIndex(int value);
+    int get_MobilityIndex() const;
+    void set_MobilityIndex(int value);
 
 
     QVector<CSParameters *> getCSParamGroup() const;
     void setCSParamGroup(const QVector<CSParameters *> &value);
     QVector<PSParameters *> getPSParamGroup() const;
     void setPSParamGroup(const QVector<PSParameters *> &value);
-    QVector<Areas *> getAreaGroup() const;
-    void setAreaGroup(const QVector<Areas *> &value);
+    QVector<Mobility *> getMobilityGroup() const;
+    void setMobilityGroup(const QVector<Mobility *> &value);
 
     void csInitialize(int size_value);
     void psInitialize(int size_value);
-    void areaInitialize(int size_value);
+    void mobilityInitialize(int size_value);
 
     void pushCSModel();
     void popCSModel();
@@ -94,19 +95,18 @@ public:
     void pushPSModel();
     void popPSModel();
 
-    void pushAreaModel();
-    void popAreaModel();
+    void pushMobilityModel();
+    void popMobilityModel();
 
 private:
     //Vectors for temporary saved/set model parameters
-    QVector<CSParameters* > CSParamGroup;
-    QVector<PSParameters* > PSParamGroup;
-    QVector<Areas*> areaGroup;
+    QVector<CSParameters*> csParamGroup;
+    QVector<PSParameters*> psParamGroup;
+    QVector<Mobility*> mobilityGroup;
 
     int psBehaviorIndex;
     int csBehaviorIndex;
-    int areaIndex;
-    QComboBox *combo;
+    int mobilityIndex;
 };
 
 #endif // TuningTrafficData_H

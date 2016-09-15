@@ -20,7 +20,7 @@ public:
     void readTemporaryParameters(TuningTrafficData* tuningTrafficData);
     void clearCSCombobox();
     void clearPSCombobox();
-    void clearAreaCombobox();
+    void clearMobilityCombobox();
     void setUEGroup(Form* form);
     void setCSCombobox();
     void setPSCombobox();
@@ -57,7 +57,7 @@ private:
     //Vectors for overall saved model parameters
     QVector<TuningTrafficData::CSParameters* > CSSaveParameters;
     QVector<TuningTrafficData::PSParameters* > PSSaveParameters;
-    QVector<TuningTrafficData::Areas* > areaSaveParameters;
+    QVector<TuningTrafficData::Mobility* > areaSaveParameters;
 
     bool saveClicked;
     bool cancelClicked;
@@ -76,7 +76,7 @@ private:
     void setParametersValidation();
     void copyCSParams(const QVector<TuningTrafficData::CSParameters*>& value);
     void copyPSParams(const QVector<TuningTrafficData::PSParameters*>& value);
-    void copyAreaParams(const QVector<TuningTrafficData::Areas*>& value);
+    void copyAreaParams(const QVector<TuningTrafficData::Mobility*>& value);
     QString saveToString();
 };
 

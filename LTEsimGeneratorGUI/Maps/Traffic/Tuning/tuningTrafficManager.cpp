@@ -18,11 +18,11 @@ TuningTrafficManager::TuningTrafficManager(QWidget *parent) :
     setParametersValidation();
     CSSaveParameters = QVector<TuningTrafficData::CSParameters* >();
     PSSaveParameters = QVector<TuningTrafficData::PSParameters* >();
-    areaSaveParameters = QVector<TuningTrafficData::Areas* >();
+    areaSaveParameters = QVector<TuningTrafficData::Mobility* >();
 
     CSSaveParameters.push_back(new TuningTrafficData::CSParameters());
     PSSaveParameters.push_back(new TuningTrafficData::PSParameters());
-    areaSaveParameters.push_back(new TuningTrafficData::Areas());
+    areaSaveParameters.push_back(new TuningTrafficData::Mobility());
 
     cancelClicked = false;
     saveClicked = false;
@@ -58,32 +58,32 @@ void TuningTrafficManager::setParameters()
 {
     for (int i = 0; i < CSSaveParameters.size(); ++i)
     {
-        if (!isinCsCombobox(CSSaveParameters[i]->cs_name)){
-            ui->cs_combobox->addItem(CSSaveParameters[i]->cs_name);
+        if (!isinCsCombobox(CSSaveParameters[i]->csName)){
+            ui->cs_combobox->addItem(CSSaveParameters[i]->csName);
         }
-        ui->tet_call_intensity->setText(CSSaveParameters[i]->call_intensity);
-        ui->tet_call_duration->setText(CSSaveParameters[i]->call_duration);
-        ui->tet_recovery_start_interval->setText(CSSaveParameters[i]->recovery_start_interval);
+        ui->tet_call_intensity->setText(CSSaveParameters[i]->callIntensity);
+        ui->tet_call_duration->setText(CSSaveParameters[i]->callDuration);
+        ui->tet_recovery_start_interval->setText(CSSaveParameters[i]->recoveryStartInterval);
     }
     for (int i = 0; i < PSSaveParameters.size(); ++i)
     {
-        if (!isInPsCombobox(PSSaveParameters[i]->ps_name)){
-            ui->ps_combobox->addItem(PSSaveParameters[i]->ps_name);
+        if (!isInPsCombobox(PSSaveParameters[i]->psName)){
+            ui->ps_combobox->addItem(PSSaveParameters[i]->psName);
         }
-        ui->tet_ps_duration->setText(PSSaveParameters[i]->ps_duration);
-        ui->tet_ps_intensity->setText(PSSaveParameters[i]->ps_intensity);
+        ui->tet_ps_duration->setText(PSSaveParameters[i]->psDuration);
+        ui->tet_ps_intensity->setText(PSSaveParameters[i]->psIntensity);
     }
     for (int i = 0; i < areaSaveParameters.size(); ++i)
     {
-        if (!isInAreaCombobox(areaSaveParameters[i]->area_name) && areaSaveParameters[i]->area_name != ""){
-            ui->area_combobox->addItem(areaSaveParameters[i]->area_name);
+        if (!isInAreaCombobox(areaSaveParameters[i]->mobilityName) && areaSaveParameters[i]->mobilityName != ""){
+            ui->area_combobox->addItem(areaSaveParameters[i]->mobilityName);
         }
         ui->tet_speed->setText(areaSaveParameters[i]->speed);
         ui->tet_granularity->setText(areaSaveParameters[i]->granularity);
     }
     ui->cs_combobox->setCurrentIndex(tuningTrafficData->get_csBehaviorIndex());
     ui->ps_combobox->setCurrentIndex(tuningTrafficData->get_psBehaviorIndex());
-    ui->area_combobox->setCurrentIndex(tuningTrafficData->get_AreaIndex());
+    ui->area_combobox->setCurrentIndex(tuningTrafficData->get_MobilityIndex());
     ui->chb_area->setChecked(tmp_areaChecked);
 }
 
@@ -92,12 +92,12 @@ void TuningTrafficManager::SaveAll()
 {
     tuningTrafficData->set_csBehaviorIndex(0);
     tuningTrafficData->set_psBehaviorIndex(0);
-    tuningTrafficData->set_AreaIndex(0);
+    tuningTrafficData->set_MobilityIndex(0);
     tmp_areaChecked = ui->chb_area->isChecked();
 
     copyCSParams(tuningTrafficData->getCSParamGroup());
     copyPSParams(tuningTrafficData->getPSParamGroup());
-    copyAreaParams(tuningTrafficData->getAreaGroup());
+    copyAreaParams(tuningTrafficData->getMobilityGroup());
 }
 
 void TuningTrafficManager::setParametersValidation()
@@ -114,28 +114,28 @@ void TuningTrafficManager::setParametersValidation()
 void TuningTrafficManager::copyCSParams(const QVector<TuningTrafficData::CSParameters *> &value)
 {
     for (int i = 0; i < value.size(); ++i) {
-        CSSaveParameters[i]->call_duration = value[i]->call_duration;
-        CSSaveParameters[i]->call_intensity = value[i]->call_intensity;
-        CSSaveParameters[i]->cs_name = value[i]->cs_name;
-        CSSaveParameters[i]->recovery_start_interval = value[i]->recovery_start_interval;
+        CSSaveParameters[i]->callDuration = value[i]->callDuration;
+        CSSaveParameters[i]->callIntensity = value[i]->callIntensity;
+        CSSaveParameters[i]->csName = value[i]->csName;
+        CSSaveParameters[i]->recoveryStartInterval = value[i]->recoveryStartInterval;
     }
 }
 
 void TuningTrafficManager::copyPSParams(const QVector<TuningTrafficData::PSParameters *> &value)
 {
     for (int i = 0; i < value.size(); ++i) {
-        PSSaveParameters[i]->ps_duration = value[i]->ps_duration;
-        PSSaveParameters[i]->ps_intensity = value[i]->ps_intensity;
-        PSSaveParameters[i]->ps_name = value[i]->ps_name;
+        PSSaveParameters[i]->psDuration = value[i]->psDuration;
+        PSSaveParameters[i]->psIntensity = value[i]->psIntensity;
+        PSSaveParameters[i]->psName = value[i]->psName;
     }
 }
 
-void TuningTrafficManager::copyAreaParams(const QVector<TuningTrafficData::Areas *> &value)
+void TuningTrafficManager::copyAreaParams(const QVector<TuningTrafficData::Mobility *> &value)
 {
     for (int i = 0; i < value.size(); ++i) {
         areaSaveParameters[i]->speed = value[i]->speed;
         areaSaveParameters[i]->granularity = value[i]->granularity;
-        areaSaveParameters[i]->area_name = value[i]->area_name;
+        areaSaveParameters[i]->mobilityName = value[i]->mobilityName;
     }
 }
 
@@ -157,16 +157,16 @@ void TuningTrafficManager::readTemporaryParameters(TuningTrafficData* tuningTraf
         ui->tet_ps_duration->setText(tuningTrafficData->getPs_duration(i));
         ui->tet_ps_intensity->setText(tuningTrafficData->getPS_intensity(i));
     }
-    for (int i = 0; i < this->tuningTrafficData->getAreaGroup().size(); ++i) {
-        if (!isInAreaCombobox(tuningTrafficData->getArea_name(i)) && tuningTrafficData->getArea_name(i) != ""){
-            ui->area_combobox->addItem(this->tuningTrafficData->getArea_name(i));
+    for (int i = 0; i < this->tuningTrafficData->getMobilityGroup().size(); ++i) {
+        if (!isInAreaCombobox(tuningTrafficData->getMobility_name(i)) && tuningTrafficData->getMobility_name(i) != ""){
+            ui->area_combobox->addItem(this->tuningTrafficData->getMobility_name(i));
         }
         ui->tet_speed->setText(tuningTrafficData->getSpeed(i));
         ui->tet_granularity->setText(tuningTrafficData->getGranularity(i));
     }
     ui->cs_combobox->setCurrentIndex(tuningTrafficData->get_csBehaviorIndex());
     ui->ps_combobox->setCurrentIndex(tuningTrafficData->get_psBehaviorIndex());
-    ui->area_combobox->setCurrentIndex(tuningTrafficData->get_AreaIndex());
+    ui->area_combobox->setCurrentIndex(tuningTrafficData->get_MobilityIndex());
 
     ui->chb_area->setChecked(tmp_areaChecked);
 }
@@ -182,40 +182,40 @@ QString TuningTrafficManager::saveToString()
     for (int i = 0; i < CSSaveParameters.size(); ++i) {
 
         tuningParametersContent.append("name:\n");
-        tuningParametersContent.append(CSSaveParameters[i]->cs_name + "\n");
+        tuningParametersContent.append(CSSaveParameters[i]->csName + "\n");
 
         if (ui->tet_call_duration->isEnabled()) {
             tuningParametersContent.append(ui->lbl_call_duration->text() + "\n");
-            tuningParametersContent.append(CSSaveParameters[i]->call_duration + "\n");
+            tuningParametersContent.append(CSSaveParameters[i]->callDuration + "\n");
         }
         if (ui->tet_call_intensity->isEnabled()) {
             tuningParametersContent.append(ui->lbl_call_intensity->text() + "\n");
-            tuningParametersContent.append(CSSaveParameters[i]->call_intensity + "\n");
+            tuningParametersContent.append(CSSaveParameters[i]->callIntensity + "\n");
         }
         if (ui->tet_recovery_start_interval->isEnabled()) {
             tuningParametersContent.append(ui->lbl_recovery_start_interval->text() + "\n");
-            tuningParametersContent.append(CSSaveParameters[i]->recovery_start_interval + "\n");
+            tuningParametersContent.append(CSSaveParameters[i]->recoveryStartInterval + "\n");
         }
     }
     tuningParametersContent.append("\nPS_MODELS:\n\n");
     for (int i = 0; i < PSSaveParameters.size(); ++i)
     {
         tuningParametersContent.append("name:\n");
-        tuningParametersContent.append(PSSaveParameters[i]->ps_name + "\n");
+        tuningParametersContent.append(PSSaveParameters[i]->psName + "\n");
         if (ui->tet_ps_duration->isEnabled()) {
             tuningParametersContent.append(ui->lbl_ps_duration->text() + "\n");
-            tuningParametersContent.append(PSSaveParameters[i]->ps_duration + "\n");
+            tuningParametersContent.append(PSSaveParameters[i]->psDuration + "\n");
         }
         if (ui->tet_ps_intensity->isEnabled()) {
             tuningParametersContent.append(ui->lbl_ps_intensity->text() + "\n");
-            tuningParametersContent.append(PSSaveParameters[i]->ps_intensity + "\n");
+            tuningParametersContent.append(PSSaveParameters[i]->psIntensity + "\n");
         }
     }
     if (ui->area_combobox->count() != 0) {
         tuningParametersContent.append("\nAREAS:\n");
         for (int i = 0; i < areaSaveParameters.size(); ++i) {
             tuningParametersContent.append("name:\n");
-            tuningParametersContent.append(areaSaveParameters[i]->area_name + "\n");
+            tuningParametersContent.append(areaSaveParameters[i]->mobilityName + "\n");
             if (ui->tet_speed->isEnabled()) {
                 tuningParametersContent.append(ui->lbl_speed->text() + " \n");
                 tuningParametersContent.append(areaSaveParameters[i]->speed + "\n");
@@ -255,17 +255,17 @@ void TuningTrafficManager::on_bt_cancel_clicked()
 void TuningTrafficManager::on_bt_restore_clicked()
 {
     for (int i = 0; i < CSSaveParameters.size(); ++i) {
-        CSSaveParameters[i]->call_duration = "0";
-        CSSaveParameters[i]->call_intensity = "0";
-        CSSaveParameters[i]->recovery_start_interval = "0";
+        CSSaveParameters[i]->callDuration = "0";
+        CSSaveParameters[i]->callIntensity = "0";
+        CSSaveParameters[i]->recoveryStartInterval = "0";
         tuningTrafficData->setCall_duration("0", i);
         tuningTrafficData->setCall_intensity("0", i);
         tuningTrafficData->setRecovery_start_interval("0", i);
     }
 
     for (int i = 0; i < PSSaveParameters.size(); ++i) {
-        PSSaveParameters[i]->ps_duration = "0";
-        PSSaveParameters[i]->ps_intensity = "0";
+        PSSaveParameters[i]->psDuration = "0";
+        PSSaveParameters[i]->psIntensity = "0";
         tuningTrafficData->setPs_duration("0", i);
         tuningTrafficData->setPs_intensity("0", i);
     }
@@ -321,9 +321,9 @@ void TuningTrafficManager::on_cs_combobox_activated(const QString &arg1)
         }
     }
 
-    ui->tet_call_duration->setText(CSSaveParameters[ui->cs_combobox->currentIndex()]->call_duration);
-    ui->tet_call_intensity->setText(CSSaveParameters[ui->cs_combobox->currentIndex()]->call_intensity);
-    ui->tet_recovery_start_interval->setText(CSSaveParameters[ui->cs_combobox->currentIndex()]->recovery_start_interval);
+    ui->tet_call_duration->setText(CSSaveParameters[ui->cs_combobox->currentIndex()]->callDuration);
+    ui->tet_call_intensity->setText(CSSaveParameters[ui->cs_combobox->currentIndex()]->callIntensity);
+    ui->tet_recovery_start_interval->setText(CSSaveParameters[ui->cs_combobox->currentIndex()]->recoveryStartInterval);
 }
 
 
@@ -337,8 +337,8 @@ void TuningTrafficManager::on_ps_combobox_activated(const QString & arg1)
         ui->tet_ps_intensity->setEnabled(true);
         ui->tet_ps_duration->setEnabled(true);
     }
-    ui->tet_ps_duration->setText(PSSaveParameters[ui->ps_combobox->currentIndex()]->ps_duration);
-    ui->tet_ps_intensity->setText(PSSaveParameters[ui->ps_combobox->currentIndex()]->ps_intensity);
+    ui->tet_ps_duration->setText(PSSaveParameters[ui->ps_combobox->currentIndex()]->psDuration);
+    ui->tet_ps_intensity->setText(PSSaveParameters[ui->ps_combobox->currentIndex()]->psIntensity);
 }
 
 void TuningTrafficManager::on_area_combobox_activated()
@@ -398,7 +398,7 @@ void TuningTrafficManager::on_btn_areaMiniSave_clicked()
             tuningTrafficData->setGranularity(ui->tet_granularity->text(), ui->area_combobox->currentIndex());
         }
         if (ui->chb_area->isChecked()) {
-            for (int i = 0; i < tuningTrafficData->getAreaGroup().size(); ++i) {
+            for (int i = 0; i < tuningTrafficData->getMobilityGroup().size(); ++i) {
                 tuningTrafficData->setSpeed(ui->tet_speed->text(), i);
             }
         }
@@ -407,7 +407,7 @@ void TuningTrafficManager::on_btn_areaMiniSave_clicked()
                 tuningTrafficData->setSpeed(ui->tet_speed->text(), ui->area_combobox->currentIndex());
             }
         }
-        tuningTrafficData->setArea_Name(ui->area_combobox->currentText(), ui->area_combobox->currentIndex());
+        tuningTrafficData->setMobility_Name(ui->area_combobox->currentText(), ui->area_combobox->currentIndex());
     }
 }
 
@@ -416,7 +416,7 @@ void TuningTrafficManager::clearCSCombobox() { ui->cs_combobox->clear(); }
 
 void TuningTrafficManager::clearPSCombobox() { ui->ps_combobox->clear(); }
 
-void TuningTrafficManager::clearAreaCombobox() { ui->area_combobox->clear(); }
+void TuningTrafficManager::clearMobilityCombobox() { ui->area_combobox->clear(); }
 
 bool TuningTrafficManager::isinCsCombobox(QString value)
 {
@@ -471,19 +471,19 @@ void TuningTrafficManager::initialize(TuningTrafficData *tuningTrafficData)
     CSSaveParameters.resize(0);
     for (int i = 0; i < ui->cs_combobox->count(); ++i) {
         CSSaveParameters.push_back(new TuningTrafficData::CSParameters());
-        CSSaveParameters[i]->cs_name = ui->cs_combobox->itemText(i);
+        CSSaveParameters[i]->csName = ui->cs_combobox->itemText(i);
     }
 
     PSSaveParameters.resize(0);
     for (int i = 0; i < ui->ps_combobox->count(); ++i) {
         PSSaveParameters.push_back(new TuningTrafficData::PSParameters());
-        PSSaveParameters[i]->ps_name = ui->ps_combobox->itemText(i);
+        PSSaveParameters[i]->psName = ui->ps_combobox->itemText(i);
     }
 
     areaSaveParameters.resize(0);
     for (int i = 0; i < ui->area_combobox->count(); ++i) {
-        areaSaveParameters.push_back(new TuningTrafficData::Areas());
-        areaSaveParameters[i]->area_name = ui->area_combobox->itemText(i);
+        areaSaveParameters.push_back(new TuningTrafficData::Mobility());
+        areaSaveParameters[i]->mobilityName = ui->area_combobox->itemText(i);
     }
 
 
@@ -495,9 +495,9 @@ void TuningTrafficManager::initialize(TuningTrafficData *tuningTrafficData)
     for (int i = 0; i < ui->ps_combobox->count(); ++i) {
         tuningTrafficData->setPs_Name(ui->ps_combobox->itemText(i), i);
     }
-    tuningTrafficData->areaInitialize(ui->area_combobox->count());
+    tuningTrafficData->mobilityInitialize(ui->area_combobox->count());
     for (int i = 0; i < ui->area_combobox->count(); ++i) {
-        tuningTrafficData->setArea_Name(ui->area_combobox->itemText(i), i);
+        tuningTrafficData->setMobility_Name(ui->area_combobox->itemText(i), i);
     }
 }
 
@@ -510,21 +510,21 @@ void TuningTrafficManager::pushModel(TuningTrafficData *tuningTrafficData)
         CSSaveParameters.push_back(new TuningTrafficData::CSParameters());
     }
     for (int i = CSSaveParameters.size()-1; i < ui->cs_combobox->count(); ++i) {
-        CSSaveParameters[i]->cs_name = ui->cs_combobox->itemText(i);
+        CSSaveParameters[i]->csName = ui->cs_combobox->itemText(i);
     }
 
     if (PSSaveParameters.size() < ui->ps_combobox->count()) {
         PSSaveParameters.push_back(new TuningTrafficData::PSParameters());
     }
     for (int i = PSSaveParameters.size()-1; i < ui->ps_combobox->count(); ++i) {
-        PSSaveParameters[i]->ps_name = ui->ps_combobox->itemText(i);
+        PSSaveParameters[i]->psName = ui->ps_combobox->itemText(i);
     }
 
     if (areaSaveParameters.size() < ui->area_combobox->count()) {
-        areaSaveParameters.push_back(new TuningTrafficData::Areas());
+        areaSaveParameters.push_back(new TuningTrafficData::Mobility());
     }
     for (int i = areaSaveParameters.size()-1;i < ui->area_combobox->count(); ++i) {
-        areaSaveParameters[i]->area_name = ui->area_combobox->itemText(i);
+        areaSaveParameters[i]->mobilityName = ui->area_combobox->itemText(i);
     }
 
 
@@ -543,11 +543,11 @@ void TuningTrafficManager::pushModel(TuningTrafficData *tuningTrafficData)
         tuningTrafficData->setPs_Name(ui->ps_combobox->itemText(i), i);
     }
 
-    if (tuningTrafficData->getAreaGroup().size() < ui->area_combobox->count()) {
-        tuningTrafficData->pushAreaModel();
+    if (tuningTrafficData->getMobilityGroup().size() < ui->area_combobox->count()) {
+        tuningTrafficData->pushMobilityModel();
     }
-    for (int i = tuningTrafficData->getAreaGroup().size()-1; i < ui->area_combobox->count(); ++i) {
-        tuningTrafficData->setArea_Name(ui->area_combobox->itemText(i), i);
+    for (int i = tuningTrafficData->getMobilityGroup().size()-1; i < ui->area_combobox->count(); ++i) {
+        tuningTrafficData->setMobility_Name(ui->area_combobox->itemText(i), i);
     }
 }
 
@@ -571,7 +571,7 @@ void TuningTrafficManager::popArea(TuningTrafficData *tuningTrafficData)
 {
     this->tuningTrafficData = tuningTrafficData;
     areaSaveParameters.pop_back();
-    tuningTrafficData->popAreaModel();
+    tuningTrafficData->popMobilityModel();
     ui->area_combobox->removeItem(ui->area_combobox->count()-1);
 }
 
