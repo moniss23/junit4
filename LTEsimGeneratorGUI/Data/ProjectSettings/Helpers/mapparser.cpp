@@ -12,25 +12,26 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
     /********************* CELLS ************************/
 
     QString cellsHeader=" #\n\
- # Retrieve default parameters for Radio Environment.\n\
- #\n\
- def Parameters.getRecParameters()\n\
-  # Define and return default values\n\
-  default = {}\n\
-\n\
-  # Write with the following syntax:\n\
-  # default[:rec] = [{<first set of cell params>},{<second set of cell params>}]\n\
-  #\n\
-  # A set of cell params includes:\n\
-  #   :cell                    # Cell instance name\n\
-  #   :site                    # Site instance name\n\
-  #   :pci                     # Physical cell identifier\n\
-  #   :position_X              # Cell position, coordinate X\n\
-  #   :position_Y              # Cell position, coordinate Y\n\
-  #   :earfcnDl                # Channel number for the central DL frequency\n\
-  #   :transmitPower           # Transmit power in dBm\n\
-  #   :ulNoiseAndInterference  # uplink N+I in dBm\n\
-  default[:rec] = [\n";
+    # Retrieve default parameters for Radio Environment.\n\
+    #\n\
+    def Parameters.getRecParameters()\n\
+    # Define and return default values\n\
+    default = {}\n\
+    \n\
+    # Write with the following syntax:\n\
+    # default[:rec] = [{<first set of cell params>},{<second set of cell params>}]\n\
+    #\n\
+    # A set of cell params includes:\n\
+    #   :cell                    # Cell instance name\n\
+    #   :site                    # Site instance name\n\
+    #   :pci                     # Physical cell identifier\n\
+    #   :position_X              # Cell position, coordinate X\n\
+    #   :position_Y              # Cell position, coordinate Y\n\
+    #   :earfcnDl                # Channel number for the central DL frequency\n\
+    #   :transmitPower           # Transmit power in dBm\n\
+    #   :ulNoiseAndInterference  # uplink N+I in dBm\n\
+    default[:rec] = [\n";
+
     outputString.append(cellsHeader);
     for (int i=0;i<cellsInfo.size();i++) {
         // NAME
@@ -42,7 +43,6 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
         outputString.append("  :site => \"");
         outputString.append(cellsInfo[i].first.site);
         outputString.append("\",\n");
-        //PCI
         outputString.append("  :pci => ");
         outputString.append(QString::number(cellsInfo[i].first.pci));
         outputString.append(",\n");
@@ -93,37 +93,37 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
     // MAP RANGE
 
     outputString.append(" #\n\
- # Retrieve default parameters for user behavior models\n\
- #\n\
- def Parameters.getTraffBehaviourParameters()\n\
-  # Define and return default values\n\
-  default = {}\n\
-\n\
-  # IMSI range used by traffic models.\n\
-  # IMSI ranges are specified with the\n\
-  # following syntax (space separated string):\n\
-  # \"<first_range> <second_range>\".\n");
-// IMSI RANGE
-outputString.append("  default[:imsiMapRange] = \"");
-outputString.append(ubSim.imsiMapRange);
-outputString.append("\"\n\n");
-outputString.append("  # Size of geographical map\n");
-// SOUTH
-outputString.append("  default[:southBoundMap] = ");
-outputString.append(QString::number(mapRange.southBoundMap));
-outputString.append("\n");
-// NORTH
-outputString.append("  default[:northBoundMap] = ");
-outputString.append(QString::number(mapRange.northBoundMap));
-outputString.append("\n");
-// WEST
-outputString.append("  default[:westBoundMap] = ");
-outputString.append(QString::number(mapRange.westBoundMap));
-outputString.append("\n");
-// EAST
-outputString.append("  default[:eastBoundMap] = ");
-outputString.append(QString::number(mapRange.eastBoundMap));
-outputString.append("\n");
+    # Retrieve default parameters for user behavior models\n\
+    #\n\
+    def Parameters.getTraffBehaviourParameters()\n\
+    # Define and return default values\n\
+    default = {}\n\
+    \n\
+    # IMSI range used by traffic models.\n\
+    # IMSI ranges are specified with the\n\
+    # following syntax (space separated string):\n\
+    # \"<first_range> <second_range>\".\n");
+    // IMSI RANGE
+    outputString.append("  default[:imsiMapRange] = \"");
+    outputString.append(ubSim.imsiMapRange);
+    outputString.append("\"\n\n");
+    outputString.append("  # Size of geographical map\n");
+    // SOUTH
+    outputString.append("  default[:southBoundMap] = ");
+    outputString.append(QString::number(mapRange.southBoundMap));
+    outputString.append("\n");
+    // NORTH
+    outputString.append("  default[:northBoundMap] = ");
+    outputString.append(QString::number(mapRange.northBoundMap));
+    outputString.append("\n");
+    // WEST
+    outputString.append("  default[:westBoundMap] = ");
+    outputString.append(QString::number(mapRange.westBoundMap));
+    outputString.append("\n");
+    // EAST
+    outputString.append("  default[:eastBoundMap] = ");
+    outputString.append(QString::number(mapRange.eastBoundMap));
+    outputString.append("\n");
     /**************** SAMPLE OUTPUT ***************/
 
     // default[:imsiMapRange] = "262800100326000+1499 262800100329000+1499"
@@ -135,90 +135,90 @@ outputString.append("\n");
 
     /******************************************/
 
-QString areasHeader = ("\n\
-  # Areas defined which are possible to use with traffic models (aka Cell Map)\n\
-  #\n\
-  # :area - naming convention for three types of areas:\n\
-  #   Center     an area with a RBS cell in the center\n\
-  #   Handover   an area with two RBS:es\n\
-  #   Common     an area containing all cells\n\
-  # Center:\n\
-  #   :area => \"Center11\"             # Area name around cell1-1 (RBS-1)\n\
-  #                    ^--- cell number\n\
-  #                   ^--- RBS number\n\
-  # Handover:\n\
-  #   :area => \"Handover11_21\"        # Area name for possible inter handover between RBS-1 and RBS-2\n\
-  #                         ^--- cell number\n\
-  #                        ^--- RBS number\n\
-  #                      ^--- cell number\n\
-  #                     ^--- RBS number\n\
-  # Common:\n\
-  #   :area => \"Common\",              # Area common for all cells\n\
-  #\n\
-  # Boundaries, specified for all types of areas:\n\
-  #   :southBoundary => 6900,         # South boundary of area\n\
-  #   :northBoundary => 7100,         # North boundary of area\n\
-  #   :westBoundary => 6900,          # West boundary of area\n\
-  #   :eastBoundary => 7100,          # East boundary of area\n\
-  default[:areas] = [\n");
+    QString areasHeader = ("\n\
+    # Areas defined which are possible to use with traffic models (aka Cell Map)\n\
+    #\n\
+    # :area - naming convention for three types of areas:\n\
+    #   Center     an area with a RBS cell in the center\n\
+    #   Handover   an area with two RBS:es\n\
+    #   Common     an area containing all cells\n\
+    # Center:\n\
+    #   :area => \"Center11\"             # Area name around cell1-1 (RBS-1)\n\
+    #                    ^--- cell number\n\
+    #                   ^--- RBS number\n\
+    # Handover:\n\
+    #   :area => \"Handover11_21\"        # Area name for possible inter handover between RBS-1 and RBS-2\n\
+    #                         ^--- cell number\n\
+    #                        ^--- RBS number\n\
+    #                      ^--- cell number\n\
+    #                     ^--- RBS number\n\
+    # Common:\n\
+    #   :area => \"Common\",              # Area common for all cells\n\
+    #\n\
+    # Boundaries, specified for all types of areas:\n\
+    #   :southBoundary => 6900,         # South boundary of area\n\
+    #   :northBoundary => 7100,         # North boundary of area\n\
+    #   :westBoundary => 6900,          # West boundary of area\n\
+    #   :eastBoundary => 7100,          # East boundary of area\n\
+    default[:areas] = [\n");
 
 
-outputString.append(areasHeader);
+    outputString.append(areasHeader);
 
-// CENTERS
+    // CENTERS
 
-for (int i=0; i<cellsInfo.size();i++) {
-    outputString.append("{\n");
-    // NAME
-    outputString.append("  :area => \"");
-    outputString.append(cellsInfo[i].second.area);
-    outputString.append("\",\n");
-    // SOUTH
-    outputString.append("  :southBoundary => ");
-    outputString.append(QString::number(cellsInfo[i].second.southBoundary));
-    outputString.append(",\n");
-    // NORTH
-    outputString.append("  :northBoundary => ");
-    outputString.append(QString::number(cellsInfo[i].second.northBoundary));
-    outputString.append(",\n");
-    // WEST
-    outputString.append("  :westBoundary => ");
-    outputString.append(QString::number(cellsInfo[i].second.westBoundary));
-    outputString.append(",\n");
-    // EAST
-    outputString.append("  :eastBoundary => ");
-    outputString.append(QString::number(cellsInfo[i].second.eastBoundary));
-    outputString.append("\n  },");
-}
-for (int i=0;i<handover.size();i++){
-    outputString.append("{\n");
-    // NAME
-    outputString.append("  :area => \"");
-    outputString.append(handover[i].area);
-    outputString.append("\",\n");
-    // SOUTH
-    outputString.append("  :southBoundary => ");
-    outputString.append(QString::number(handover[i].southBoundary));
-    outputString.append(",\n");
-    // NORTH
-    outputString.append("  :northBoundary => ");
-    outputString.append(QString::number(handover[i].northBoundary));
-    outputString.append(",\n");
-    // WEST
-    outputString.append("  :westBoundary => ");
-    outputString.append(QString::number(handover[i].westBoundary));
-    outputString.append(",\n");
-    // EAST
-    outputString.append("  :eastBoundary => ");
-    outputString.append(QString::number(handover[i].eastBoundary));
-    if (i==handover.size()-1){
-        outputString.append("\n  }");
-    }
-    else {
+    for (int i=0; i<cellsInfo.size();i++) {
+        outputString.append("{\n");
+        // NAME
+        outputString.append("  :area => \"");
+        outputString.append(cellsInfo[i].second.area);
+        outputString.append("\",\n");
+        // SOUTH
+        outputString.append("  :southBoundary => ");
+        outputString.append(QString::number(cellsInfo[i].second.southBoundary));
+        outputString.append(",\n");
+        // NORTH
+        outputString.append("  :northBoundary => ");
+        outputString.append(QString::number(cellsInfo[i].second.northBoundary));
+        outputString.append(",\n");
+        // WEST
+        outputString.append("  :westBoundary => ");
+        outputString.append(QString::number(cellsInfo[i].second.westBoundary));
+        outputString.append(",\n");
+        // EAST
+        outputString.append("  :eastBoundary => ");
+        outputString.append(QString::number(cellsInfo[i].second.eastBoundary));
         outputString.append("\n  },");
     }
-}
-outputString.append("\n ]\n\n");
+    for (int i=0;i<handover.size();i++){
+        outputString.append("{\n");
+        // NAME
+        outputString.append("  :area => \"");
+        outputString.append(handover[i].area);
+        outputString.append("\",\n");
+        // SOUTH
+        outputString.append("  :southBoundary => ");
+        outputString.append(QString::number(handover[i].southBoundary));
+        outputString.append(",\n");
+        // NORTH
+        outputString.append("  :northBoundary => ");
+        outputString.append(QString::number(handover[i].northBoundary));
+        outputString.append(",\n");
+        // WEST
+        outputString.append("  :westBoundary => ");
+        outputString.append(QString::number(handover[i].westBoundary));
+        outputString.append(",\n");
+        // EAST
+        outputString.append("  :eastBoundary => ");
+        outputString.append(QString::number(handover[i].eastBoundary));
+        if (i==handover.size()-1){
+            outputString.append("\n  }");
+        }
+        else {
+            outputString.append("\n  },");
+        }
+    }
+    outputString.append("\n ]\n\n");
 
     /**************** SAMPLE OUTPUT ***************/
 
@@ -232,78 +232,78 @@ outputString.append("\n ]\n\n");
 
 
 
-// IPEX AND IPGWTG from DATAGENERATOR
-outputString.append("  default[:dataGenerator] = \"");
-outputString.append(dataGenerator.dataGenerator);
-outputString.append("\"\n");
-outputString.append("  # Use local IPGWTG\n");
-outputString.append("\n");
-
-// IPGWTG
-outputString.append("  # Configuration of the ipgwtg user data generator,\n");
-outputString.append("  default[:userDataGen] = ");
-for (QString ipex:dataGenerator.userDataGenerator)
-{
-    outputString.append(ipex);
+    // IPEX AND IPGWTG from DATAGENERATOR
+    outputString.append("  default[:dataGenerator] = \"");
+    outputString.append(dataGenerator.dataGenerator);
+    outputString.append("\"\n");
+    outputString.append("  # Use local IPGWTG\n");
     outputString.append("\n");
-}
-outputString.append("\n");
-outputString.append("\n");
 
-outputString.append("  default[:start_isp_simulator] = ");
-if (dataGenerator.startIspSimulator){
-    outputString.append("true\n");
-}
-else{
+    // IPGWTG
+    outputString.append("  # Configuration of the ipgwtg user data generator,\n");
+    outputString.append("  default[:userDataGen] = ");
+    for (QString ipex:dataGenerator.userDataGenerator)
+    {
+        outputString.append(ipex);
+        outputString.append("\n");
+    }
+    outputString.append("\n");
+    outputString.append("\n");
+
+    outputString.append("  default[:start_isp_simulator] = ");
+    if (dataGenerator.startIspSimulator){
+        outputString.append("true\n");
+    }
+    else{
     outputString.append("false\n");
-}
-outputString.append("  default[:ipgwtg_ipAddress] = \"");
-outputString.append(dataGenerator.ipgwtg_IP_Address);
-outputString.append("\"");
-outputString.append("\t# IP address of the interface that can reach the PGW\n");
+    }
+    outputString.append("  default[:ipgwtg_ipAddress] = \"");
+    outputString.append(dataGenerator.ipgwtg_IP_Address);
+    outputString.append("\"");
+    outputString.append("\t# IP address of the interface that can reach the PGW\n");
 
-outputString.append("  default[:ipgwtg_inband_signaling] = ");
-if (dataGenerator.ipgwtgInbandSignaling){
-    outputString.append("true\n");
-}
-else {
+    outputString.append("  default[:ipgwtg_inband_signaling] = ");
+    if (dataGenerator.ipgwtgInbandSignaling){
+        outputString.append("true\n");
+    }
+    else {
     outputString.append("false\n");
-}
-outputString.append("  default[:ipgwtg_port] = ");
-outputString.append(QString::number(dataGenerator.ipgwtgPort));
-outputString.append("\n");
+    }
+    outputString.append("  default[:ipgwtg_port] = ");
+    outputString.append(QString::number(dataGenerator.ipgwtgPort));
+    outputString.append("\n");
 
-outputString.append("  default[:ipgwtg_ftp_sender_connect_put] = ");
-if (dataGenerator.ipgwtgFtpSenderConnectPut){
-    outputString.append("true\n");
-}
-else {
+    outputString.append("  default[:ipgwtg_ftp_sender_connect_put] = ");
+    if (dataGenerator.ipgwtgFtpSenderConnectPut){
+        outputString.append("true\n");
+    }
+    else {
     outputString.append("false\n");
-}
-outputString.append("\n");
-outputString.append("  return default\n");
-outputString.append(" end\n");
+    }
+    outputString.append("\n");
+    outputString.append("  return default\n");
+    outputString.append(" end\n");
 
 
-/********************* SAMPLE OUTPUT ***********************/
+    /********************* SAMPLE OUTPUT ***********************/
 
-// default[:dataGenerator] = "ipgwtg"
-//
-// default[:userDataGen] = "ipex.isp.sip.offset = 31000\n" +
-//            "ipex.isp.qci1.port    = 31010\n" +
-//            "ipex.isp.qci2.port    = 31020\n" +
-//            "ipex.isp.qci5.port    = 31050\n"
-//
-//
-// default[:start_isp_simulator] = true
-// default[:ipgwtg_ipAddress] = "10.10.0.1"
-// default[:ipgwtg_inband_signaling] = false
-// default[:ipgwtg_port] = 32000
-// default[:ipgwtg_ftp_sender_connect_put] = true
+    // default[:dataGenerator] = "ipgwtg"
+    //
+    // default[:userDataGen] = "ipex.isp.sip.offset = 31000\n" +
+    //            "ipex.isp.qci1.port    = 31010\n" +
+    //            "ipex.isp.qci2.port    = 31020\n" +
+    //            "ipex.isp.qci5.port    = 31050\n"
+    //
+    //
+    // default[:start_isp_simulator] = true
+    // default[:ipgwtg_ipAddress] = "10.10.0.1"
+    // default[:ipgwtg_inband_signaling] = false
+    // default[:ipgwtg_port] = 32000
+    // default[:ipgwtg_ftp_sender_connect_put] = true
 
-/************************************************************/
+    /************************************************************/
 
-return outputString;
+    return outputString;
 
 
 }
@@ -313,79 +313,200 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
     QString outputString;
 
     QString testCasePreparationHeader="################################\n\
-## Test Case - Preparation    ##\n\
-################################\n";
+            ## Test Case - Preparation    ##\n\
+            ################################\n";
             outputString.append(testCasePreparationHeader);
 
     outputString.append("\n");
 
     QString setupTuningParametersHeader="################################\n\
-## Setup - Tuning parameters  ##\n\
-################################\n";
+            ## Setup - Tuning parameters  ##\n\
+            ################################\n";
 
             outputString.append(setupTuningParametersHeader);
 
     outputString.append("\n");
 
     QString setupCustomModelsHeader="################################\n\
-## Setup - Custom Models      ##\n\
-################################\n";
+            ## Setup - Custom Models      ##\n\
+            ################################\n";
 
             outputString.append(setupCustomModelsHeader);
 
     outputString.append("\n");
 
+    outputString.append("\n#Setting Custom Models parameters: \n");
+
+    for(unsigned i=0;i<10;i++)
+    {
+        for(int j=0; j<trafficFileData.customModels.at(i).CMPings.size();j++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addPing(");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingQci));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingNumberOfPings));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingInterval));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingMinRecievedPings));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMVoips.size();j++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addVoip(");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipQci));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipActivityFactor));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipMaxTransferTime));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipMinPacketsReceivedInTime));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMFtpDls.size();j++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addFtpDl(");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpDls.at(j).ftpDlQci));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpDls.at(j).ftpDlFilesize));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpDls.at(j).ftpDlMinThroughput));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMFtpUls.size();j++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addFtpUl(");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpUls.at(j).ftpUlQci));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpUls.at(j).ftpUlFilesize));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpUls.at(j).ftpUlMinThroughput));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMStreamDls.size();j++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addStreamDl(");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlQci));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlSpeed));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlDuration));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlMinThroughput));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMStreamUls.size();j++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addStreamUl(");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlQci));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlSpeed));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlDuration));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlMinThroughput));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMSyncedPings.size();j++)
+        {
+            QString qciArray=QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.at(0));
+            for(int k=1;k<trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.size();k++)
+                qciArray+=","+QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.at(k));
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addSyncedPing([");
+            outputString.append(qciArray);
+            outputString.append("],");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingTimeBetweenTasks));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingNumberOfPings));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingInterval));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingMinReceivedPings));
+            outputString.append(")\n");
+        }
+        for(int j=0; j<trafficFileData.customModels.at(i).CMServiceReqs.size();j++)
+        {
+            QString qciArray=QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.at(0));
+            for(int k=1;k<trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.size();k++)
+                qciArray+=","+QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.at(k));
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+            outputString.append(QString::number(i+1));
+            outputString.append("\").addServiceReq([");
+            outputString.append(qciArray);
+            outputString.append("],");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqTimeToWaitForAttach));
+            outputString.append(",");
+            outputString.append(QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqIntervalBetweenUlData));
+            outputString.append(")\n");
+        }
+        outputString.append("\n");
+    }
+
     QString setupCreateUePairsHeader="################################\n\
-## Setup - Create UE pairs    ##\n\
-################################\n";
+            ## Setup - Create UE pairs    ##\n\
+            ################################\n";
 
             outputString.append(setupCreateUePairsHeader);
 
     outputString.append("\n");
 
-    QString setupConfigurePaggingHeader="################################\n\
-## Setup - Configure pagging   ##\n\
-################################\n";
+    QString setupConfigurePagingHeader="################################\n\
+            ## Setup - Configure paging   ##\n\
+            ################################\n";
 
-            outputString.append(setupConfigurePaggingHeader);
+            outputString.append(setupConfigurePagingHeader);
 
     outputString.append("\n");
 
     QString testCaseStartTrafficHeader="################################\n\
-## Test Case - Start traffic  ##\n\
-################################\n";
+            ## Test Case - Start traffic  ##\n\
+            ################################\n";
 
             outputString.append(testCaseStartTrafficHeader);
 
     outputString.append("\n");
 
     QString testCaseStatisticsHeader="################################\n\
-## Test Case - Statistics     ##\n\
-################################\n";
+            ## Test Case - Statistics     ##\n\
+            ################################\n";
 
-            outputString.append(testCaseStartTrafficHeader);
+            outputString.append(testCaseStatisticsHeader);
 
     outputString.append("\n");
 
     QString testCaseStopTrafficHeader="################################\n\
-## Test Case - Stop Traffic   ##\n\
-################################\n";
+            ## Test Case - Stop Traffic   ##\n\
+            ################################\n";
 
             outputString.append(testCaseStopTrafficHeader);
 
     outputString.append("\n");
 
     QString testCaseEndStatisticsHeader="################################\n\
-## Test Case - End Statistics ##\n\
-################################\n";
+            ## Test Case - End Statistics ##\n\
+            ################################\n";
 
             outputString.append(testCaseEndStatisticsHeader);
 
     outputString.append("\n");
 
     QString testCaseCleanUpHeader="################################\n\
-## Test Case - Clean-up       ##\n\
-################################\n";
+            ## Test Case - Clean-up       ##\n\
+            ################################\n";
 
             outputString.append(testCaseCleanUpHeader);
 
