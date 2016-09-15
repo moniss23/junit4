@@ -2,6 +2,7 @@
 #include "ui_trafficmap.h"
 
 #include "UISystem/Widgets/mapview.h"
+#include "UISystem/Widgets/uerepresentation.h"
 
 TrafficMap::TrafficMap(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +14,7 @@ TrafficMap::TrafficMap(QWidget *parent) :
     hBoxLayout2     = nullptr;
     vBoxLayout      = nullptr;
     mapView         = nullptr;
+    clickedUe       = nullptr;
 }
 
 TrafficMap::~TrafficMap()
@@ -39,8 +41,8 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     hBoxLayout2 = new QHBoxLayout(this);
     vBoxLayout  = new QVBoxLayout(this);
 
-    QObject::connect(mapView, SIGNAL(updateUe_MapView(QString,QString,UEData)),
-                     this, SLOT(updateUe_MapView(QString,QString,UEData)));
+    QObject::connect(mapView, SIGNAL(updateUe_MapView(UeRepresentation*,QString,QString,UEData)),
+                     this, SLOT(updateUe_MapView(UeRepresentation*,QString,QString,UEData)));
 
     hBoxLayout1->addWidget(mapView);
     hBoxLayout1->addLayout(vBoxLayout);
@@ -51,35 +53,43 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
     this->ui->centralwidget->setLayout(hBoxLayout1);
 
-    this->ui->coreNetworkCheckbox->setChecked(project.mmeSettings.simulatedCoreNetwork);
+    ui->removeUeButton->setVisible(false);
+    ui->coreNetworkCheckbox->setChecked(project.mmeSettings.simulatedCoreNetwork);
     ui->mmeButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
     ui->sgwButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
-    this->ui->ueCheckbox->setChecked(project.ueParameters.startUeComponent);
+    ui->ueCheckbox->setChecked(project.ueParameters.startUeComponent);
     ui->ubSimButton->setEnabled(project.ueParameters.startUeComponent);
     ui->ipexButton->setEnabled(project.ueParameters.startUeComponent);
 }
 
-void TrafficMap::on_statisticsButton_clicked()
-{
+void TrafficMap::updateUe_MapView(UeRepresentation* ueRep, const QString &projectName, const QString &trafficName, const UEData &ueData) {
+    this->clickedUe = ueRep;
+    ui->removeUeButton->setVisible(true);
+    emit updateUe(projectName, trafficName, ueData);
+}
+
+void TrafficMap::on_statisticsButton_clicked() {
     spawnWindow_Statistics(project.name, trafficFileData->filename);
 }
 
-void TrafficMap::on_pushButton_pressed()
-{
+void TrafficMap::on_pushButton_pressed() {
     emit spawnWindow_CustomModels(project.name, trafficFileData->filename);
 }
 
-void TrafficMap::on_tunningTrafficButton_clicked()
-{
+void TrafficMap::on_tunningTrafficButton_clicked() {
     emit spawnWindow_TuningTraffic(project.name, trafficFileData->filename);
 }
 
-void TrafficMap::on_addUeButton_clicked()
-{
-    //TODO: emiting this signal causes newMapWindow to open, redesign this part of signals API
+void TrafficMap::on_addUeButton_clicked() {
     emit addUe(project.name, trafficFileData->filename);
 }
 
-void TrafficMap::updateUe_MapView(const QString &projectName, const QString &trafficName, const UEData &ueData) {
-    emit updateUe(projectName, trafficName, ueData);
+void TrafficMap::on_removeUeButton_clicked() {
+    if(ui->removeUeButton->isEnabled() && this->clickedUe != nullptr) {
+        this->mapView->scene->removeItem(clickedUe);
+        emit removeUe(project.name, trafficFileData->filename, clickedUe->ueObject);
+
+        clickedUe = nullptr;
+        ui->removeUeButton->setVisible(false);
+    }
 }

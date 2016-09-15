@@ -160,7 +160,8 @@ void MapView::drawUeRepresentations() {
             UeRepresentation *ueRep = new UeRepresentation(ueData);
             scene->addItem(ueRep);
             ueRep->setPos(ueRep->ueObject.positionX, -ueRep->ueObject.positionY);
-            QObject::connect(ueRep, SIGNAL(updateUe(UEData)), this, SLOT(updateUe(UEData)));
+            QObject::connect(ueRep, SIGNAL(updateUe(UeRepresentation*,UEData)),
+                             this, SLOT(updateUe(UeRepresentation*,UEData)));
         }
     }
 }
@@ -201,6 +202,6 @@ void MapView::spawnWindow_MapRange() {
     emit spawnWindow_mapRange();
 }
 
-void MapView::updateUe(const UEData &ueData) {
-    emit updateUe_MapView(project.name, trafficName, ueData);
+void MapView::updateUe(UeRepresentation* ueRep, const UEData &ueData) {
+    emit updateUe_MapView(ueRep, project.name, trafficName, ueData);
 }

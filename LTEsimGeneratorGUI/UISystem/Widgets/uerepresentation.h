@@ -18,7 +18,7 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
 
 signals:
-    void updateUe(const UEData &ueData);
+    void updateUe(UeRepresentation*, const UEData &ueData);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;

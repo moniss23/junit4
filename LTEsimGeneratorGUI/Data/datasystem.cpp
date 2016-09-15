@@ -68,14 +68,14 @@ bool DataSystem::isProjectNameUsed(QString projectName) {
  * SLOTS *
  *********/
 
-void DataSystem::addUe(const QString &projectName, const QString &trafficFileName) {
+void DataSystem::addUe(const QString &projectName, const QString &trafficFilename) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         emit errorInData("Can't find right project");
         return;
     }
 
-    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFileName);
+    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFilename);
     if(trafficFound != nullptr) {
         UEData ueData;
         ueData.pairName = QString("ue") + QString::number(trafficFound->userEquipments.size());
@@ -86,22 +86,46 @@ void DataSystem::addUe(const QString &projectName, const QString &trafficFileNam
         emit refreshMapView(*project, trafficFound); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
         saveProjectsFile();
     }
-    else emit errorInData("Couldn't find " + trafficFileName + " in current project");
+    else emit errorInData("Couldn't find " + trafficFilename + " in current project");
 }
 
-void DataSystem::updateUe(const QString &projectName, const QString &trafficFileName, const UEData &ueData) {
+void DataSystem::updateUe(const QString &projectName, const QString &trafficFilename, const UEData &ueData) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         emit errorInData("Can't find right project");
         return;
     }
 
-    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFileName);
+    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFilename);
     if(trafficFound != nullptr) {
-        trafficFound->userEquipments[ueData.pairName.mid(2).toInt()] = ueData;
+        UEData *ueFound = std::find_if(trafficFound->userEquipments.begin(),
+                                       trafficFound->userEquipments.end(),
+                                       [&ueData](const UEData ue){return ue.pairName==ueData.pairName;});
+
+        if(ueFound != trafficFound->userEquipments.end()) { *ueFound = ueData; }
         saveProjectsFile();
     }
-    else emit errorInData("Couldn't find " + trafficFileName + " in current project");
+    else emit errorInData("Couldn't find " + trafficFilename + " in current project");
+}
+
+void DataSystem::removeUe(const QString &projectName, const QString &trafficFilename, const UEData &ueData) {
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        emit errorInData("Can't find right project");
+        return;
+    }
+
+    TrafficFileData* trafficFound = project->findTrafficFileByName(trafficFilename);
+    if(trafficFound != nullptr) {
+        trafficFound->userEquipments.erase(std::remove_if(
+                            trafficFound->userEquipments.begin(),
+                            trafficFound->userEquipments.end(),
+                            [&ueData](const UEData &ueFound){return ueFound.pairName == ueData.pairName;}));
+
+         saveProjectsFile();
+
+    }
+    else emit errorInData("Couldn't find " + trafficFilename + " in current project");
 }
 
 void DataSystem::addCell(const QString &projectName) {

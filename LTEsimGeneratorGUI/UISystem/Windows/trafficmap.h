@@ -3,12 +3,13 @@
 
 #include <QMainWindow>
 
-#include "Data/Objects/trafficfiledata.h"
 #include "Data/project.h"
+#include "Data/Objects/trafficfiledata.h"
 
 class MapView;
 class QHBoxLayout;
 class QVBoxLayout;
+class UeRepresentation;
 
 namespace Ui {
 class TrafficMap;
@@ -25,7 +26,7 @@ public:
 public slots:
     void loadAndOpen(const Project &project, TrafficFileData *trafficFileData);
     void refreshWindow(const Project &project, TrafficFileData *trafficFileData);
-    void updateUe_MapView(const QString &projectName, const QString &trafficName, const UEData &ueData);
+    void updateUe_MapView(UeRepresentation*,const QString &projectName, const QString &trafficName, const UEData &ueData);
 
 signals:
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
@@ -35,13 +36,14 @@ signals:
 
     void addUe(const QString &projectName, const QString &trafficFileName);
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
+    void removeUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
 
 private slots:
     void on_pushButton_pressed();
     void on_addUeButton_clicked();
+    void on_removeUeButton_clicked();
     void on_statisticsButton_clicked();
     void on_tunningTrafficButton_clicked();
-
 
 private:
     Ui::TrafficMap *    ui;
@@ -50,8 +52,10 @@ private:
     QVBoxLayout *       vBoxLayout;
     MapView *           mapView;
 
-    TrafficFileData*     trafficFileData;
+    TrafficFileData*    trafficFileData;
     Project             project;
+
+    UeRepresentation*   clickedUe;
 };
 
 #endif // TRAFFICMAP_H

@@ -43,7 +43,7 @@ void UeRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     this->ueObject.positionX = pos().x();
     this->ueObject.positionY = -pos().y();
 
-    emit updateUe(ueObject);
+    emit updateUe(this, ueObject);
 }
 
 QVariant UeRepresentation::itemChange(GraphicsItemChange change, const QVariant &value) {

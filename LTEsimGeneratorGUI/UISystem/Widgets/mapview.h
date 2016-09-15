@@ -23,13 +23,13 @@ public slots:
     void spawnWindow_MapRange();
     void spawnWindow_HandoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
-    void updateUe(const UEData &ueData);
+    void updateUe(UeRepresentation*, const UEData &ueData);
 
 signals:
     void spawnWindow_mapRange();
     void spawnWindow_MapView_HandoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_MapView_CellParams(CellRepresentation*, const QPair<Cell,Center>&);
-    void updateUe_MapView(const QString &projectName, const QString &trafficName, const UEData &ueData);
+    void updateUe_MapView(UeRepresentation*, const QString &projectName, const QString &trafficName, const UEData &ueData);
 
 private:
     void drawMapLines();

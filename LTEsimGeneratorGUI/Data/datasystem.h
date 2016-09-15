@@ -80,8 +80,9 @@ public slots:
     void updateHandover(const Handover &handover, const QString &projectName);
 
     // Add, update UserEquipments (UE)
-    void addUe(const QString &projectName, const QString &trafficFileName);
-    void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
+    void addUe(const QString &projectName, const QString &trafficFilename);
+    void updateUe(const QString &projectName, const QString &trafficFilename, const UEData &ueData);
+    void removeUe(const QString &projectName, const QString &trafficFilename, const UEData &ueData);
 
     //TrafficFileData saving
     void updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData &statisticsData);

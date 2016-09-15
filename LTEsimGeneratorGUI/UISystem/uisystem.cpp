@@ -261,6 +261,7 @@ void UISystem::bindingObjects()
     // Add UEs to Traffic Map Scene + update UEs
     QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
+    QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
