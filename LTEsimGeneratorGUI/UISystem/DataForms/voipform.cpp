@@ -26,7 +26,7 @@ void VoipForm::loadAndOpen(const QString &projectName, const QString &trafficNam
         this->clearUi();
         this->modification = false;
     } else {
-        setParameters();
+        updateUi();
         this->modification = true;
     }
     this->show();
@@ -66,7 +66,7 @@ void VoipForm::clearUi()
     this->ui->minPacketsReceivedInTime->clear();
 }
 
-void VoipForm::setParameters()
+void VoipForm::updateUi()
 {
     this->ui->qciComboBox->clear();
     auto index = 0;

@@ -60,7 +60,7 @@ private:
      * @brief clearUi is used to clear Ui
      */
     void clearUi();
-    void setParameters();
+    void updateUi();
 
 private:
     Ui::PingForm *ui;

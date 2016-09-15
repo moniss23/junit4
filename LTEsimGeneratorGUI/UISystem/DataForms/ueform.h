@@ -44,9 +44,9 @@ private slots:
 
 private:
     /**
-     * @brief setParameters is used to set ui fields values from UeSettings data
+     * @brief updateUi is used to set ui fields values from UeSettings data
      */
-    void setParameters();
+    void updateUi();
     /**
      * @brief getParameters is used to set ueSettings data from ui fields
      */

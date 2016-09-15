@@ -20,7 +20,7 @@ MmeForm::~MmeForm()
     delete ui;
 }
 
-void MmeForm::setDefaultParameters()
+void MmeForm::updateUi()
 {
     QString names;
     for (int i=0;i<mmeSettings.names.size();i++){
@@ -36,7 +36,7 @@ void MmeForm::setDefaultParameters()
 void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName){
     this->mmeSettings=mmeSettings;
     this->projectName=projectName;
-    this->setDefaultParameters();
+    this->updateUi();
     this->show();
 }
 
@@ -56,7 +56,7 @@ void MmeForm::on_buttonBox_rejected()
 
 void MmeForm::on_pbReset_clicked()
 {
-    setDefaultParameters();
+    updateUi();
 }
 
 void MmeForm::setMmeChanges(){

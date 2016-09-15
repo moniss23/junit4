@@ -33,7 +33,7 @@ void SgwForm::on_buttonBox_rejected()
 
 void SgwForm::on_pbReset_clicked()
 {
-    setDefaultParameters();
+    updateUi();
 }
 
 void SgwForm::setChanges()
@@ -55,7 +55,7 @@ void SgwForm::setChanges()
     }
     emit updateSgw(sgwSettings,projectName);
 }
-void SgwForm::setDefaultParameters(){
+void SgwForm::updateUi(){
     this->ui->tet_sgw_names->setText(sgwSettings.name);
     this->ui->tet_sgw_ipAddresses->setText(sgwSettings.ipAdress);
     this->ui->tet_sgw_LDIs->setText(QString::number(sgwSettings.ldi));
@@ -64,6 +64,6 @@ void SgwForm::setDefaultParameters(){
 void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projectName){
     this->sgwSettings = sgwSettings;
     this->projectName = projectName;
-    this->setDefaultParameters();
+    this->updateUi();
     this->show();
 }

@@ -26,7 +26,7 @@ void PingForm::loadAndOpen(const QString &projectName, const QString &trafficNam
         this->clearUi();
         modification = false;
     } else {
-        this->setParameters();
+        this->updateUi();
         modification = true;
     }
     this->show();
@@ -53,7 +53,7 @@ void PingForm::on_cancelButton_clicked()
 void PingForm::on_restoreButton_clicked() {
 }
 
-void PingForm::setParameters()
+void PingForm::updateUi()
 {
     this->ui->comboBox->clear();
     auto index = 0;

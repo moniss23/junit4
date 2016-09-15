@@ -53,9 +53,9 @@ private slots:
      ***********************************************/
 private:
     /**
-     * @brief setParameters is used to set ui fields from channelModelSettings data
+     * @brief updateUi is used to set ui fields from channelModelSettings data
      */
-    void setParameters();
+    void updateUi();
     /**
      * @brief getParameters is used to get channelModelSettings data from ui fields.
      */

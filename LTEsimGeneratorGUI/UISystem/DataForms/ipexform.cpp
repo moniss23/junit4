@@ -17,7 +17,7 @@ void IpexForm::loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, 
 {
     this->dataGeneratorSettings = dataGeneratorSettings;
     this->projectName = projectName;
-    this->setDefaultParameters();
+    this->updateUi();
     this->show();
 }
 
@@ -28,7 +28,7 @@ void IpexForm::on_buttonBox_rejected()
 
 void IpexForm::on_pbReset_clicked()
 {
-    setDefaultParameters();
+    updateUi();
 }
 
 void IpexForm::on_buttonBox_accepted()
@@ -49,7 +49,7 @@ void IpexForm::getParameters()
     dataGeneratorSettings.startIspSimulator = (this->ui->checkBox_start_isp_simulator->isChecked() ? true : false);
 }
 
-void IpexForm::setDefaultParameters()
+void IpexForm::updateUi()
 {
     this->ui->tet_dataGenerator->setText(dataGeneratorSettings.dataGenerator);
     this->ui->tet_userDataGen->setText(dataGeneratorSettings.userDataGenerator.join("\n"));

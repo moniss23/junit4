@@ -55,9 +55,9 @@ private slots:
      ***********************************************/
 private:
     /**
-     * @brief setDefaultParameters takes data from dataGeneratorSettings and update ui
+     * @brief UpdateUi takes data from dataGeneratorSettings and update ui
      */
-    void setDefaultParameters();
+    void updateUi();
 
     /**
      * @brief getParameters takes data from ui and put it into dataGeneratorSettings object

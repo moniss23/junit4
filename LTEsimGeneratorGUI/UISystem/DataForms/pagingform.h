@@ -14,7 +14,7 @@ class PagingForm : public QWidget
 public:
     explicit PagingForm(QWidget *parent = 0);
     ~PagingForm();
-    void setDefaultParameters();
+    void updateUi();
 
 signals:
     /**

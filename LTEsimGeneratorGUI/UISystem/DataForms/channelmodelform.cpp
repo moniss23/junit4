@@ -17,7 +17,7 @@ ChannelModelForm::~ChannelModelForm()
 void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSettings, const QString &projectName) {
     this->channelModelSettings = channelModelSettings;
     this->projectName = projectName;
-    this->setParameters();
+    this->updateUi();
     this->show();
 }
 
@@ -40,11 +40,11 @@ void ChannelModelForm::on_buttonBox_rejected()
 void ChannelModelForm::on_restoreDefaults_clicked()
 {
     if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "ChannelModelSettings", "Are you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-        this->setParameters();
+        this->updateUi();
     }
 }
 
-void ChannelModelForm::setParameters()
+void ChannelModelForm::updateUi()
 {
     ui->tet_model_set_name->setText(channelModelSettings.model_set_name);
     ui->tet_pdcch_drop_dl_assignment_rate->setText(QString::number(channelModelSettings.pdcch_drop_dl_assignment_rate));

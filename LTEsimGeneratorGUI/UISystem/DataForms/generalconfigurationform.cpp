@@ -19,10 +19,10 @@ void GeneralConfiguration::loadAndOpen(const GeneralConfigurationParameters &gen
 {
     this->generalConfigurationParameters = generalConfigurationParameters;
     this->projectName = projectName;
-    this->setParameters();
+    this->updateUi();
     this->show();
 }
-void GeneralConfiguration::setParameters(){
+void GeneralConfiguration::updateUi(){
     this->ui->FileGzipEnabledCheckbox->setEnabled(this->generalConfigurationParameters.loggerFileGzipEnabled);
     this->ui->FileCountVal->setText(QString::number(generalConfigurationParameters.loggerFileCount));
     this->ui->FileSIzeLimitVal->setText(QString::number(generalConfigurationParameters.loggerFileSizeLimit.first) + "**" + QString::number(generalConfigurationParameters.loggerFileSizeLimit.second));
@@ -41,7 +41,7 @@ void GeneralConfiguration::getParameters(){
 
 void GeneralConfiguration::on_restoreButton_clicked()
 {
-    this->setParameters();
+    this->updateUi();
 }
 
 void GeneralConfiguration::on_okButton_clicked()

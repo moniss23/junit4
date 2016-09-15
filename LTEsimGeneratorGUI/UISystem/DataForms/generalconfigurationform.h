@@ -33,7 +33,7 @@ private slots:
     void on_cancelButton_clicked();
 
 private:
-    void setParameters();
+    void updateUi();
     void getParameters();
 
 private:

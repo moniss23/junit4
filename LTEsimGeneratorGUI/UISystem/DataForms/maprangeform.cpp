@@ -18,7 +18,7 @@ MapRangeForm::~MapRangeForm()
     delete ui;
 }
 
-void MapRangeForm::setDefaultParameters()
+void MapRangeForm::updateUi()
 {
     this->ui->tet_northBoundMap->setValue(mapRange.northBoundMap);
     this->ui->tet_southBoundMap->setValue(mapRange.southBoundMap);
@@ -50,6 +50,6 @@ void MapRangeForm::loadAndSpawn(const MapRange &mapRange, const QString &project
 {
     this->mapRange = mapRange;
     this->projectName = projectName;
-    this->setDefaultParameters();
+    this->updateUi();
     this->show();
 }

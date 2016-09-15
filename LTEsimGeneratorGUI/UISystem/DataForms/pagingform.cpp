@@ -25,11 +25,11 @@ void PagingForm::loadAndSpawn(const PagingSettings &pagingSettings, const QStrin
 {
     this->pagingSettings = pagingSettings;
     this->projectName = projectName;
-    this->setDefaultParameters();
+    this->updateUi();
     this->show();
 }
 
-void PagingForm::setDefaultParameters()
+void PagingForm::updateUi()
 {
     this->ui->tet_generators->setText(QString::number(pagingSettings.generators));
     QString pagingNames;
@@ -69,7 +69,7 @@ void PagingForm::setChanges()
 
 void PagingForm::on_RestoreButton_clicked()
 {
-    setDefaultParameters();
+    updateUi();
 }
 
 void PagingForm::on_OkButton_clicked()

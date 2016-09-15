@@ -22,7 +22,7 @@ UeForm::~UeForm()
 void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projectName) {
     this->ueParameters=ueParameters;
     this->projectName = projectName;
-    this->setParameters();
+    this->updateUi();
     this->show();
 }
 
@@ -36,7 +36,7 @@ void UeForm::getParameters()
     this->ueParameters.ueKey = this->ui->tet_ue_key->text();
     this->ueParameters.ueOp = this->ui->tet_ue_op->text();
 }
-void UeForm::setParameters()
+void UeForm::updateUi()
 {
     this->ui->tet_name->setText(this->ueParameters.name);
     this->ui->tet_l1l2_managers->setText(this->ueParameters.managers);
@@ -50,7 +50,7 @@ void UeForm::setParameters()
 
 void UeForm::on_restoreDefault_clicked()
 {
-    this->setParameters();
+    this->updateUi();
 }
 
 void UeForm::on_OkButton_clicked()

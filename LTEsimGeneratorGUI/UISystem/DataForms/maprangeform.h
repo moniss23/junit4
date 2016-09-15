@@ -41,10 +41,10 @@ public slots:
 
 private:
     /**
-     * @brief setDefaultParameters function to restore configuration to state before users changes
+     * @brief updateUi function to update ui data from Maprage configuration class
      *
      */
-    void setDefaultParameters();
+    void updateUi();
 
     /**
      * @brief setMapRangeParameters method to copy configuration to from MapRange gived as argument

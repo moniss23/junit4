@@ -63,10 +63,10 @@ private:
 
 
     /**
-     * @brief setDefaultParameters function to restore configuration to state before users changes
+     * @brief updateUi function to restore configuration to state before users changes
      *
      */
-    void setDefaultParameters();
+    void updateUi();
 
 private:
     Ui::SGWForm *ui;            //< GUI form pointer

@@ -53,9 +53,9 @@ private slots:
      ***********************************************/
 private:
     /**
-     * @brief setParameters is used to set ui fields values from ubSimSettings data
+     * @brief updateUi is used to set ui fields values from ubSimSettings data
      */
-    void setParameters();
+    void updateUi();
     /**
      * @brief getParameters is used to set ubSimSettings data from ui fields
      */

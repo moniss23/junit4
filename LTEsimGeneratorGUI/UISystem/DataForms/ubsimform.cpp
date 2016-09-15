@@ -26,7 +26,7 @@ UBsimForm::~UBsimForm()
 void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName) {
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
-    this->setParameters();
+    this->updateUi();
     this->show();
 }
 
@@ -44,7 +44,7 @@ void UBsimForm::on_buttonBox_rejected()
 
 void UBsimForm::on_pbReset_clicked()
 {
-    this->setParameters();
+    this->updateUi();
 }
 
 void UBsimForm::getParameters()
@@ -59,7 +59,7 @@ void UBsimForm::getParameters()
     this->ubSimSettings.ubsim_patches = this->ui->tet_ubsim_patches->text().split(":");
 }
 
-void UBsimForm::setParameters()
+void UBsimForm::updateUi()
 {
     this->ui->tet_imsiMapRange->setText(this->ubSimSettings.imsiMapRange);
     this->ui->tet_ueTypesDir->setText(this->ubSimSettings.ueTypesDir);

@@ -66,10 +66,10 @@ private:
     void setMmeParameters(MmeSettings mmeSettings);
 
     /**
-     * @brief setDefaultParameters function to restore configuration to state before users changes
+     * @brief updateUi function to restore configuration to state before users changes
      *
      */
-    void setDefaultParameters();
+    void updateUi();
 
 private:
     Ui::MmeForm *ui;                //< GUI form pointer

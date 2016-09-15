@@ -52,9 +52,9 @@ private slots:
      ***********************************************/
 private:
     /**
-     * @brief setDefaultParameters fill ui fields with values from ucToolSettings object
+     * @brief updateUi fill ui fields with values from ucToolSettings object
      */
-    void setDefaultParameters();
+    void updateUi();
 
     /**
      * @brief getParameters takes data from ui and put into ucToolSettings object
