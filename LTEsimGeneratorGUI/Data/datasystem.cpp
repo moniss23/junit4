@@ -223,8 +223,8 @@ void DataSystem::updateStatisticsData(const QString &projectName, const QString 
         emit errorInData("Can't find right project");
         return;
     }
-
     trafficFile->statisticsData = statisticsData;
+    saveProjectsFile();
 }
 
 void DataSystem::updateHandover(const Handover &handover, const QString &projectName) {

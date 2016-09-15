@@ -1,5 +1,6 @@
 #include "statisticsForm.h"
 #include "ui_statisticsform.h"
+
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
@@ -34,12 +35,12 @@ void StatisticsForm::on_pushButton_clicked()
 void StatisticsForm::on_saveButton_clicked()
 {
     saveStatisticsData();
-    emit updateStatisticsData(projectName, trafficFileName, statisticsData); // TODO when trafficWindowManager is created: {TrafficWindow.TrafficFile.StatisticsData = localStats;}
+    emit updateStatisticsData(projectName, trafficFileName, statisticsData);
+    this->close();
 }
 
 void StatisticsForm::on_restoreButton_clicked()
 {
-    emit restoreDefaultValues(); //TODO when trafficWindowManager is created: {localStats = TraficWindow.TrafficFileData.StatisticsData;}
     updateView();
 }
 

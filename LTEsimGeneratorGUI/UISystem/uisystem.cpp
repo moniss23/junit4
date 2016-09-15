@@ -189,10 +189,10 @@ void UISystem::bindingObjects()
 
     //SpawnWindow Statistics
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_Statistics(QString,QString)), this, SLOT(spawnWindow_Statistics(QString,QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_Statistics(QString,QString,StatisticsData)), &statisticsManager, SLOT(loadAndSpawn(QString,QString,StatisticsData)));
+    QObject::connect(this, SIGNAL(spawnWindow_Statistics(QString,QString,StatisticsData)), &statisticsForm, SLOT(loadAndSpawn(QString,QString,StatisticsData)));
 
     //Update StatisticsData
-    QObject::connect(&statisticsManager, SIGNAL(updateStatisticsData(QString,QString,StatisticsData)), dataSystem, SLOT(updateStatisticsData(QString,QString,StatisticsData)));
+    QObject::connect(&statisticsForm, SIGNAL(updateStatisticsData(QString,QString,StatisticsData)), dataSystem, SLOT(updateStatisticsData(QString,QString,StatisticsData)));
 
     //Update LTESim ChBoxes
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));

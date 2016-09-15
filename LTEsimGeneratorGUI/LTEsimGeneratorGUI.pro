@@ -47,9 +47,9 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     Data/ProjectSettings/Helpers/mapparser.cpp \
-    UISystem/DataForms/ueform.cpp \
     Data/ProjectSettings/paggingsettings.cpp \
-    UISystem/DataForms/paggingform.cpp
+    Data/TrafficSettings/statisticsData.cpp  
+
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -84,6 +84,9 @@ SOURCES += \
     UISystem/DataForms/syncedpingform.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     UISystem/Widgets/uerepresentation.cpp \
+    UISystem/DataForms/paggingform.cpp \
+    UISystem/DataForms/statisticsForm.cpp \
+    UISystem/DataForms/ueform.cpp \
     UISystem/DataForms/custommodelslistform.cpp
 
 
@@ -91,8 +94,6 @@ SOURCES += main.cpp\
     Maps/Traffic/UeParameters/uegroupdata.cpp \
     Maps/Traffic/Time/timeData.cpp \
     Maps/Traffic/Time/timeManager.cpp \
-    Maps/Traffic/Statistics/statisticsForm.cpp \
-    Maps/Traffic/Statistics/statisticsData.cpp  \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
     Maps/Traffic/Tuning/tuningTrafficData.cpp \
@@ -132,11 +133,11 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/streamul.h \
     Data/TrafficSettings/CustomModelsData/syncedping.h \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
+    Data/TrafficSettings/statisticsData.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
     Data/ProjectSettings/Helpers/mapparser.h \
     UISystem/DataForms/ueform.h \
-    Data/ProjectSettings/paggingsettings.h \
-    UISystem/DataForms/paggingform.h
+    Data/ProjectSettings/paggingsettings.h
 
 
 #--------UI SYSTEM--------#
@@ -173,15 +174,15 @@ HEADERS  += \
     UISystem/DataForms/syncedpingform.h \
     UISystem/Widgets/cellrepresentation.h \
     UISystem/Widgets/uerepresentation.h \
-    UISystem/DataForms/custommodelslistform.h
+    UISystem/DataForms/custommodelslistform.h \
+    UISystem/DataForms/statisticsForm.h \
+    UISystem/DataForms/paggingform.h
 
 
 HEADERS  += \
     Maps/Traffic/UeParameters/uegroupdata.h \
     Maps/Traffic/Time/timeData.h \
     Maps/Traffic/Time/timeManager.h \
-    Maps/Traffic/Statistics/statisticsData.h \
-    Maps/Traffic/Statistics/statisticsForm.h \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
@@ -199,7 +200,7 @@ FORMS    += \
     Ui/Windows/settings.ui \
     Ui/Windows/projectmanagement.ui \
     Ui/Windows/helpdialog.ui \
-    Ui/statisticsform.ui \
+    Ui/DataForms/statisticsform.ui \
     Ui/DataForms/ipexform.ui \
     Ui/DataForms/sgwform.ui \
     Ui/DataForms/mmeform.ui \

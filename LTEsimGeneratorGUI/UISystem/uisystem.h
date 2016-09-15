@@ -29,7 +29,7 @@
 #include "UISystem/DataForms/syncedpingform.h"
 #include "UISystem/DataForms/servicereqform.h"
 #include "UISystem/DataForms/voipform.h"
-#include "Maps/Traffic/Statistics/statisticsForm.h"
+#include "UISystem/DataForms/statisticsForm.h"
 
 class ProjectManagement;
 class ParametersWindow;
@@ -138,7 +138,7 @@ private:
     SyncedPingForm          syncedPingForm;
     ServiceReqForm          serviceReqForm;
     PaggingForm             paggingForm;
-    StatisticsForm          statisticsManager;
+    StatisticsForm          statisticsForm;
     UeForm                  ueForm;
 };
 

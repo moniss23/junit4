@@ -1,5 +1,5 @@
 #include "statisticsdatatest.h"
-#include "Maps/Traffic/Statistics/statisticsData.h"
+#include "Data/TrafficSettings/statisticsData.h"
 
 #include <QtTest>
 #include <QString>

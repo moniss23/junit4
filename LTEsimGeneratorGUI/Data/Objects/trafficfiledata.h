@@ -5,7 +5,7 @@
 
 #include "Maps/Traffic/UeManagement/uedata.h"
 #include "Data/Interfaces/serializeinterface.h"
-#include "Maps/Traffic/Statistics/statisticsData.h"
+#include "Data/TrafficSettings/statisticsData.h"
 #include "Data/TrafficSettings/custommodelsettings.h"
 #include "Maps/Traffic/Tuning/tuningTrafficData.h"
 

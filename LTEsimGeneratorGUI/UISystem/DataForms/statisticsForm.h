@@ -4,7 +4,8 @@
 #include <QWidget>
 #include <QCheckBox>
 #include <QHBoxLayout>
-#include <Maps/Traffic/Statistics/statisticsData.h>
+
+#include "Data/TrafficSettings/statisticsData.h"
 
 namespace Ui {
 class StatisticsForm;
@@ -38,27 +39,14 @@ public slots:
     void loadAndSpawn(const QString &projectName, const QString &trafficFileName, const StatisticsData& statisticsData);
 
 private slots:
-    /**
-     * @brief on_restoreButton_clicked is an automaticly generated slot that executes when restoreButton is clicked
-     */
     void on_restoreButton_clicked();
-    /**
-     * @brief on_saveButton_clicked is an automaticly generated slot that executes when saveButton is clicked
-     */
     void on_saveButton_clicked();
-
     void on_writePdcpuToFileCheckBox_clicked(bool checked);
-
     void on_bearerErrorCheckBox_clicked(bool checked);
-
     void on_bearerRohcCheckBox_clicked(bool checked);
-
     void on_bearerStatusWordsCheckBox_clicked(bool checked);
-
     void on_tguStatsCheckBox_clicked(bool checked);
-
     void on_writeIpexToFileCheckBox_clicked(bool checked);
-
     void on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked);
 
     void on_pushButton_clicked();

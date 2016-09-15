@@ -44,8 +44,8 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/maprange.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ueparameters.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/paggingsettings.cpp \
-    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
-    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsForm.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/statisticsData.cpp \
+    ../LTEsimGeneratorGUI/UISystem/DataForms/statisticsForm.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.cpp \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/custommodelsettings.cpp \
@@ -95,8 +95,8 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/paggingsettings.h \
-    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.h \
-    ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsForm.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/statisticsData.h \
+    ../LTEsimGeneratorGUI/UISystem/DataForms/statisticsForm.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/generalconfigurationparameters.h \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/custommodelsettings.h \
@@ -128,7 +128,7 @@ FORMS    += \
     ../LTEsimGeneratorGUI/Ui/DataForms/mmeform.ui \
     ../LTEsimGeneratorGUI/Ui/DataForms/maprangeform.ui \
     ../LTEsimGeneratorGUI/Ui/SmallDialogs/generalconfiguration.ui \
-    ../LTEsimGeneratorGUI/Ui/statisticsform.ui
+    ../LTEsimGeneratorGUI/Ui/DataForms/statisticsform.ui
   #  ../LTEsimGeneratorGUI/Ui/uctoolform.ui \
 
 OTHER_FILES += \
