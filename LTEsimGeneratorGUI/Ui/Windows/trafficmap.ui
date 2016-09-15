@@ -798,6 +798,18 @@ background-color:#666666;</string>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#statisticsButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#statisticsButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+       </property>
        <property name="text">
         <string>Statistics</string>
        </property>
@@ -810,6 +822,18 @@ background-color:#666666;</string>
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#timeButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#timeButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
        </property>
        <property name="text">
         <string>Time</string>
@@ -824,6 +848,18 @@ background-color:#666666;</string>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#tunningTrafficButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#tunningTrafficButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+       </property>
        <property name="text">
         <string>Tuning traffic</string>
        </property>
@@ -836,6 +872,18 @@ background-color:#666666;</string>
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#pushButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#pushButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
        </property>
        <property name="text">
         <string>Custom models</string>

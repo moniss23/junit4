@@ -48,27 +48,12 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->setBrush(Qt::darkGray);
     painter->drawEllipse(-7, -7, 20, 20);
 
-    QColor col =  QColor(Qt::yellow).lighter(120);
-    col.setAlpha(125);
-
-    //QColor co2l =  QColor(Qt::red).lighter(90);
-    QColor center(245,175,85);
-
-    QRadialGradient gradient(-10, -10, circlesize);
-    if (option->state & QStyle::State_Sunken) {
-        gradient.setCenter(3, 3);
-        gradient.setFocalPoint(3, 3);
-        gradient.setColorAt(1, color);
-        gradient.setColorAt(0, color);
-    } else {
-        gradient.setColorAt(0, col);
-        gradient.setColorAt(1, color);
-    }
-
-    painter->setBrush(gradient);
+    QColor col =  QColor(255, 215, 0, 200);
+    painter->setBrush(QBrush(col));
     painter->setPen(QPen(Qt::white, 0));
     painter->drawEllipse( -circlesize/2 , -circlesize/2 , circlesize, circlesize);
 
+    QColor center(245,175,85);
     painter->setBrush(QBrush(center));
     QRectF rectangle(-centersize/2 , -centersize/2 , centersize, centersize);
     painter->drawRoundedRect(rectangle,3,3);

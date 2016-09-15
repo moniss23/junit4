@@ -24,6 +24,7 @@ TrafficMap::~TrafficMap()
 
 void TrafficMap::loadAndOpen(const Project &project, TrafficFileData *trafficFileData) {
     this->refreshWindow(project, trafficFileData);
+    this->setWindowTitle(trafficFileData->filename+" - "+project.name+" - LTEsimGenerator");
     this->show();
 }
 

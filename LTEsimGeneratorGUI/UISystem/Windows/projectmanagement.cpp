@@ -9,7 +9,7 @@ ProjectManagement::ProjectManagement(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ProjectManagement)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Project management");
+    this->setWindowTitle("LTEsimGenerator");
 }
 
 ProjectManagement::~ProjectManagement()
@@ -86,6 +86,7 @@ void ProjectManagement::updateProjectLists(const QVector<Project> &projects)
         new QListWidgetItem(it.name+"\t("+it.fullpath+")", ui->listWidget);
     }
     updateUiState();
+    if(ui->listWidget->count() > 0) {ui->listWidget->setCurrentRow(0);}
 }
 
 void ProjectManagement::open_project(){

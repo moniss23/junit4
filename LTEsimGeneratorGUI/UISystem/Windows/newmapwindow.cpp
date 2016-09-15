@@ -31,6 +31,7 @@ void NewMapWindow::closeEvent(QCloseEvent *event){
 void NewMapWindow::loadAndOpen(const Project &project)
 {
     this->refreshWindow(project);
+    this->setWindowTitle(project.parametersFile.filename+" - "+project.name+" - LTEsimGenerator");
     this->show();
 }
 

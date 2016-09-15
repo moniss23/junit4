@@ -1521,7 +1521,7 @@ background-color:#d11406;</string>
 border-radius: 20px;
 color: #fafafa;
 font-size: 24px;
-background-color: #dbf21c;</string>
+background-color:#ffd700;</string>
     </property>
     <property name="text">
      <string>+</string>
@@ -1541,7 +1541,7 @@ background-color: #dbf21c;</string>
 border: 0;
 font-size: 24px;
 border-left: 1px solid #eee;
-background-color: #3399CC;</string>
+background-color: #666666;</string>
     </property>
     <property name="text">
      <string>+</string>
@@ -1554,7 +1554,7 @@ background-color: #3399CC;</string>
      <x>0</x>
      <y>0</y>
      <width>1187</width>
-     <height>15</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

@@ -31,6 +31,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #fafafa;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="label">
     <property name="geometry">
@@ -41,8 +44,15 @@
       <height>17</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>Project:</string>
+     <string>Projects list:</string>
     </property>
    </widget>
    <widget class="QListWidget" name="listWidget">
@@ -54,31 +64,64 @@
       <height>401</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QListWidget#listWidget {
+	padding: 5px;
+	background-color: #fff;
+}
+QListWidget::item#listWidget:selected {
+	background-color:#666;
+}</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="openProject_Button">
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>20</y>
+      <y>15</y>
       <width>141</width>
-      <height>27</height>
+      <height>32</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#openProject_Button { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#openProject_Button:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+    </property>
     <property name="text">
-     <string>Open</string>
+     <string>Open selected</string>
     </property>
    </widget>
    <widget class="QPushButton" name="newProject_Button">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>20</y>
+      <y>15</y>
       <width>141</width>
-      <height>27</height>
+      <height>32</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#newProject_Button { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#newProject_Button:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+    </property>
     <property name="text">
-     <string>New</string>
+     <string>New project</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -89,6 +132,11 @@
       <width>161</width>
       <height>17</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Files in a project:</string>
@@ -103,15 +151,36 @@
       <height>401</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QListWidget#listWidget_2 {
+	padding: 5px;
+	background-color: #fff;
+}
+QListWidget::item#listWidget_2:selected {
+	background-color:#666;
+}</string>
+    </property>
    </widget>
    <widget class="QPushButton" name="deleteProject_Button">
     <property name="geometry">
      <rect>
       <x>480</x>
-      <y>20</y>
+      <y>15</y>
       <width>141</width>
-      <height>27</height>
+      <height>32</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#deleteProject_Button { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#deleteProject_Button:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
     </property>
     <property name="text">
      <string>Delete</string>
@@ -121,23 +190,47 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>20</y>
+      <y>15</y>
       <width>141</width>
-      <height>27</height>
+      <height>32</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#importProject_Button { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#importProject_Button:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+    </property>
     <property name="text">
-     <string>Import</string>
+     <string>Import existing</string>
     </property>
    </widget>
    <widget class="QPushButton" name="settings_Button">
     <property name="geometry">
      <rect>
       <x>630</x>
-      <y>20</y>
+      <y>15</y>
       <width>141</width>
-      <height>27</height>
+      <height>32</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#settings_Button { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#settings_Button:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
     </property>
     <property name="text">
      <string>Settings</string>
@@ -150,7 +243,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

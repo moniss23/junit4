@@ -27,7 +27,7 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
 void ParametersWindow::loadProjectAndOpen(const Project &project){
 
     refreshUI(project);
-
+    setWindowTitle(project.name + " - LTEsimGenerator");
     show();
 }
 

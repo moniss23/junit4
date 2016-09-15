@@ -37,7 +37,7 @@ void ChannelModelForm::on_buttonBox_rejected()
 
 void ChannelModelForm::on_restoreDefaults_clicked()
 {
-    this->setParameters();
+    this->updateUi();
 }
 
 void ChannelModelForm::updateUi()
