@@ -30,6 +30,8 @@ public slots:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
+     * @param voipIndex is current voip index
+     * @param voip is local copy of data
      */
     void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed, const int &voipIndex, const Voip &voip);
 
@@ -40,6 +42,8 @@ signals:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param voip is data that will be saved
+     * @param pingIndex is current ping index
+     * @param modification is flag which represents if ping is being added or modified
      */
     void saveVoipData(const QString &projectName, const QString &trafficName, const int &CMindex, const Voip &voip, const int &pingIndex, const bool &modification);
 
@@ -49,27 +53,28 @@ signals:
 private slots:
     void on_okButton_clicked();
     void on_cancelButton_clicked();
+    void on_restoreButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+
 private:
     /**
-     * @brief clearUi is used to clear Ui
+     * @brief refreshUi is used when window needs to refresh state
      */
-    void clearUi();
-    void updateUi();
+    void refreshUi();
 
 private:
     Ui::VoipForm *ui;               ///<GUI form pointer
 
-    Voip voip;
-    QString projectName;
-    QString trafficName;
-    int currentCMindex;
-    int currentVoipIndex;
-    bool modification;
-    bool *qciUsed;
+    Voip voip;                      ///<local copy of data
+    QString projectName;            ///<current project name
+    QString trafficName;            ///<current traffic name
+    int currentCMindex;             ///<current custom model index
+    int currentVoipIndex;           ///<current voip index
+    bool modification;              ///<flag which represents if ping is being added or modified
+    bool *qciUsed;                  ///<pointer to table of qci's states
 };
 
 #endif // VOIPFORM_H

@@ -76,3 +76,8 @@ void StreamUlForm::on_cancelButton_clicked()
 {
     this->close();
 }
+
+void StreamUlForm::on_restoreButton_clicked()
+{
+    this->refreshUi();
+}

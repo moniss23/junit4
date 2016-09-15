@@ -53,10 +53,12 @@ signals:
 private slots:
     void on_okButton_clicked();
     void on_cancelButton_clicked();
+    void on_restoreButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+
 private:
     /**
      * @brief refreshUi is used when window needs to refresh state
@@ -66,13 +68,13 @@ private:
 private:
     Ui::StreamDlForm *ui;           ///<GUI form pointer
 
-    StreamDl streamDl;
+    StreamDl streamDl;              ///<local copy of data
     QString projectName;            ///<current project name
     QString trafficName;            ///<current traffic name
     int currentCMindex;             ///<current custom model index
     int currentStreamDlIndex;       ///<current streamDl index
     bool *qciUsed;                  ///<pointer to table with qci's states
-    bool modification;
+    bool modification;              ///<flag which represents if streamDl is being added or modified
 };
 
 #endif // STREAMDLFORM_H

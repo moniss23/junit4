@@ -753,7 +753,7 @@ void DataSystem::saveStreamDlData(const QString &projectName, const QString &tra
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
-void DataSystem::saveSyncedPingData(const QString &projectName, const QString &trafficName, const int &CMindex, const SyncedPing &syncedPing)
+void DataSystem::saveSyncedPingData(const QString &projectName, const QString &trafficName, const int &CMindex, const SyncedPing &syncedPing, const int &syncedPingIndex, const bool &modification)
 {
     auto project = findProjectByName(projectName);
     if (project==nullptr){
@@ -765,16 +765,26 @@ void DataSystem::saveSyncedPingData(const QString &projectName, const QString &t
         emit errorInData("Can't find right trafficFile");
         return;
     }
-    traffic->customModels[CMindex].CMSyncedPings.push_back(syncedPing);
-    for(auto &qci : syncedPing.SyncedPingQciArray) {
-        traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+    if(!modification) {
+        traffic->customModels[CMindex].CMSyncedPings.push_back(syncedPing);
+        for(auto &qci : syncedPing.SyncedPingQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+        }
+        traffic->cmUsed[CMindex] = true;
+    } else {
+        for(auto &qci : traffic->customModels[CMindex].CMSyncedPings[syncedPingIndex].SyncedPingQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci - 1] = false;
+        }
+        traffic->customModels[CMindex].CMSyncedPings[syncedPingIndex] = syncedPing;
+        for(auto &qci : syncedPing.SyncedPingQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+        }
     }
-    traffic->cmUsed[CMindex] = true;
     this->saveProjectsFile();
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }
 
-void DataSystem::saveServiceReqData(const QString &projectName, const QString &trafficName, const int &CMindex, const ServiceReq &serviceReq)
+void DataSystem::saveServiceReqData(const QString &projectName, const QString &trafficName, const int &CMindex, const ServiceReq &serviceReq, const int &serviceReqIndex, const bool &modification)
 {
     auto project = findProjectByName(projectName);
     if (project==nullptr){
@@ -786,11 +796,21 @@ void DataSystem::saveServiceReqData(const QString &projectName, const QString &t
         emit errorInData("Can't find right trafficFile");
         return;
     }
-    traffic->customModels[CMindex].CMServiceReqs.push_back(serviceReq);
-    for(auto &qci : serviceReq.ServiceReqQciArray) {
-        traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+    if(!modification) {
+        traffic->customModels[CMindex].CMServiceReqs.push_back(serviceReq);
+        for(auto &qci : serviceReq.ServiceReqQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+        }
+        traffic->cmUsed[CMindex] = true;
+    } else {
+        for(auto &qci : traffic->customModels[CMindex].CMServiceReqs[serviceReqIndex].ServiceReqQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci - 1] = false;
+        }
+        traffic->customModels[CMindex].CMServiceReqs[serviceReqIndex] = serviceReq;
+        for(auto &qci : serviceReq.ServiceReqQciArray) {
+            traffic->customModels[CMindex].qciUsed[qci - 1] = true;
+        }
     }
-    traffic->cmUsed[CMindex] = true;
     this->saveProjectsFile();
     emit currentCustomModelChanged(traffic->customModels[CMindex], traffic->cmUsed);
 }

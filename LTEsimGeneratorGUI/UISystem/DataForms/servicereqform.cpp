@@ -15,13 +15,15 @@ ServiceReqForm::~ServiceReqForm()
 }
 
 
-void ServiceReqForm::loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed)
+void ServiceReqForm::loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed, const int &serviceReqIndex, const ServiceReq &serviceReq)
 {
     this->projectName = projectName;
     this->trafficName = trafficName;
     this->currentCMindex = CMindex;
+    this->currentServiceReqIndex = serviceReqIndex;
+    this->serviceReq = serviceReq;
     this->qciUsed = qciUsed;
-    this->clearUi();
+    this->refreshUi();
     this->show();
 }
 
@@ -39,7 +41,7 @@ void ServiceReqForm::on_okButton_clicked()
     serviceReq.ServiceReqIntervalBetweenUlData = this->ui->IntervalBetweenUlData->text().toInt();
     serviceReq.ServiceReqTimeToWaitForAttach = this->ui->timeToWaitForAttach->text().toInt();
 
-    emit saveServiceReqData(projectName, trafficName, currentCMindex, serviceReq);
+    emit saveServiceReqData(projectName, trafficName, currentCMindex, serviceReq, currentServiceReqIndex, modification);
     this->close();
 }
 
@@ -48,14 +50,25 @@ void ServiceReqForm::on_cancelButton_clicked()
     this->close();
 }
 
-void ServiceReqForm::clearUi()
+void ServiceReqForm::refreshUi()
 {
     for(unsigned i = 0; i < 9; i++) {
         this->checkBoxPtr[i]->setChecked(false);
         this->checkBoxPtr[i]->setEnabled(!qciUsed[i]);
     }
-    this->ui->IntervalBetweenUlData->clear();
-    this->ui->timeToWaitForAttach->clear();
+    if(serviceReq.ServiceReqQciArray.size() == 0) {
+        this->ui->IntervalBetweenUlData->clear();
+        this->ui->timeToWaitForAttach->clear();
+        this->modification = false;
+    } else {
+        for(auto &qci : serviceReq.ServiceReqQciArray) {
+            this->checkBoxPtr[qci-1]->setChecked(true);
+            this->checkBoxPtr[qci-1]->setEnabled(true);
+        }
+        this->ui->IntervalBetweenUlData->setText(QString::number(serviceReq.ServiceReqIntervalBetweenUlData));
+        this->ui->timeToWaitForAttach->setText(QString::number(serviceReq.ServiceReqTimeToWaitForAttach));
+        this->modification = true;
+    }
 }
 
 void ServiceReqForm::setPtrToCheckbox()
@@ -69,4 +82,9 @@ void ServiceReqForm::setPtrToCheckbox()
     this->checkBoxPtr[6] = this->ui->qci7;
     this->checkBoxPtr[7] = this->ui->qci8;
     this->checkBoxPtr[8] = this->ui->qci9;
+}
+
+void ServiceReqForm::on_restoreButton_clicked()
+{
+    this->refreshUi();
 }

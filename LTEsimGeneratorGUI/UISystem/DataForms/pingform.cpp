@@ -22,13 +22,7 @@ void PingForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->currentPingIndex = pingIndex;
     this->qciUsed = qciUsed;
     this->ping = ping;
-    if(ping.pingQci == 0) {
-        this->clearUi();
-        modification = false;
-    } else {
-        this->updateUi();
-        modification = true;
-    }
+    this->refreshUi();
     this->show();
 }
 
@@ -51,37 +45,38 @@ void PingForm::on_cancelButton_clicked()
 }
 
 void PingForm::on_restoreButton_clicked() {
+    this->refreshUi();
 }
 
-void PingForm::updateUi()
+void PingForm::refreshUi()
 {
     this->ui->comboBox->clear();
-    auto index = 0;
-    for(auto i = 1; i < 10; i++) {
-        if(!qciUsed[i-1]) {
-            this->ui->comboBox->addItem(QString::number(i));
+    if(ping.pingQci == 0) {
+        this->ui->comboBox->addItem("");
+        for(unsigned i = 0; i < 9; i++) {
+            if(!qciUsed[i]) {
+                this->ui->comboBox->addItem(QString::number(i+1));
+            }
         }
-        else if(i == ping.pingQci) {
-            index = this->ui->comboBox->count();
-            this->ui->comboBox->addItem(QString::number(i));
+        this->ui->interval->clear();
+        this->ui->minRecPings->clear();
+        this->ui->numberOfPings->clear();
+        modification = false;
+    } else {
+        auto index = 0;
+        for(auto i = 1; i < 10; i++) {
+            if(!qciUsed[i-1]) {
+                this->ui->comboBox->addItem(QString::number(i));
+            }
+            else if(i == ping.pingQci) {
+                index = this->ui->comboBox->count();
+                this->ui->comboBox->addItem(QString::number(i));
+            }
         }
+        this->ui->comboBox->setCurrentIndex(index);
+        this->ui->interval->setText(QString::number(ping.pingInterval));
+        this->ui->minRecPings->setText(QString::number(ping.pingMinRecievedPings));
+        this->ui->numberOfPings->setText(QString::number(ping.pingNumberOfPings));
+        modification = true;
     }
-    this->ui->comboBox->setCurrentIndex(index);
-    this->ui->interval->setText(QString::number(ping.pingInterval));
-    this->ui->minRecPings->setText(QString::number(ping.pingMinRecievedPings));
-    this->ui->numberOfPings->setText(QString::number(ping.pingNumberOfPings));
-}
-
-void PingForm::clearUi()
-{
-    this->ui->comboBox->clear();
-    this->ui->comboBox->addItem("");
-    for(unsigned i = 0; i < 9; i++) {
-        if(!qciUsed[i]) {
-            this->ui->comboBox->addItem(QString::number(i+1));
-        }
-    }
-    this->ui->interval->clear();
-    this->ui->minRecPings->clear();
-    this->ui->numberOfPings->clear();
 }

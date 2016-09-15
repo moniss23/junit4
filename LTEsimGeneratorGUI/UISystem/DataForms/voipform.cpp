@@ -22,13 +22,7 @@ void VoipForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->currentVoipIndex = voipIndex;
     this->voip = voip;
     this->qciUsed = qciUsed;
-    if(voip.voipQci == 0) {
-        this->clearUi();
-        this->modification = false;
-    } else {
-        updateUi();
-        this->modification = true;
-    }
+    this->refreshUi();
     this->show();
 }
 
@@ -51,37 +45,42 @@ void VoipForm::on_cancelButton_clicked()
     this->close();
 }
 
-void VoipForm::clearUi()
+void VoipForm::on_restoreButton_clicked()
 {
-    this->ui->qciComboBox->clear();
-    this->ui->qciComboBox->addItem("");
-    for(unsigned i = 0; i < 9; i++) {
-        if(!qciUsed[i]) {
-            this->ui->qciComboBox->addItem(QString::number(i+1));
-        }
-    }
-    this->ui->duration->clear();
-    this->ui->activityFactor->clear();
-    this->ui->maxTransferTime->clear();
-    this->ui->minPacketsReceivedInTime->clear();
+    this->refreshUi();
 }
 
-void VoipForm::updateUi()
+void VoipForm::refreshUi()
 {
     this->ui->qciComboBox->clear();
-    auto index = 0;
-    for(auto i = 1; i < 10; i++) {
-        if(!qciUsed[i-1]) {
-            this->ui->qciComboBox->addItem(QString::number(i));
+    if(voip.voipQci == 0) {
+        this->ui->qciComboBox->addItem("");
+        for(unsigned i = 0; i < 9; i++) {
+            if(!qciUsed[i]) {
+                this->ui->qciComboBox->addItem(QString::number(i+1));
+            }
         }
-        else if(i == voip.voipQci) {
-            index = this->ui->qciComboBox->count();
-            this->ui->qciComboBox->addItem(QString::number(i));
+        this->ui->duration->clear();
+        this->ui->activityFactor->clear();
+        this->ui->maxTransferTime->clear();
+        this->ui->minPacketsReceivedInTime->clear();
+        this->modification = false;
+    } else {
+        auto index = 0;
+        for(auto i = 1; i < 10; i++) {
+            if(!qciUsed[i-1]) {
+                this->ui->qciComboBox->addItem(QString::number(i));
+            }
+            else if(i == voip.voipQci) {
+                index = this->ui->qciComboBox->count();
+                this->ui->qciComboBox->addItem(QString::number(i));
+            }
         }
+        this->ui->qciComboBox->setCurrentIndex(index);
+        this->ui->duration->setText(QString::number(voip.voipDuration));
+        this->ui->activityFactor->setText(QString::number(voip.voipActivityFactor));
+        this->ui->maxTransferTime->setText(QString::number(voip.voipMaxTransferTime));
+        this->ui->minPacketsReceivedInTime->setText(QString::number(voip.voipMinPacketsReceivedInTime));
+        this->modification = true;
     }
-    this->ui->qciComboBox->setCurrentIndex(index);
-    this->ui->duration->setText(QString::number(voip.voipDuration));
-    this->ui->activityFactor->setText(QString::number(voip.voipActivityFactor));
-    this->ui->maxTransferTime->setText(QString::number(voip.voipMaxTransferTime));
-    this->ui->minPacketsReceivedInTime->setText(QString::number(voip.voipMinPacketsReceivedInTime));
 }

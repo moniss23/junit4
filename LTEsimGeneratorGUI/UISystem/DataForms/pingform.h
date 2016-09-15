@@ -31,6 +31,8 @@ public slots:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param qciUsed is table of qci's states
+     * @param pingIndex is current ping index
+     * @param ping is local copy of data
      */
     void loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool *qciUsed, const int &pingIndex, const Ping &ping);
 
@@ -41,6 +43,8 @@ signals:
      * @param trafficName is current traffic name
      * @param CMindex is current custom model index
      * @param ping is data that will be saved
+     * @param pingIndex is current ping index
+     * @param modification flag which represents if ping is being added or modified
      */
     void savePingData(const QString &projectName, const QString &trafficName, const int &CMindex, const Ping &ping, const int &pingIndex, const bool &modification);
 
@@ -57,21 +61,20 @@ private slots:
      ***********************************************/
 private:
     /**
-     * @brief clearUi is used to clear Ui
+     * @brief refreshUi is used when window needs to refresh state
      */
-    void clearUi();
-    void updateUi();
+    void refreshUi();
 
 private:
-    Ui::PingForm *ui;
+    Ui::PingForm *ui;                   ///<GUI form pointer
 
-    Ping ping;
-    QString projectName;
-    QString trafficName;
-    int currentCMindex;
-    int currentPingIndex;
-    bool *qciUsed;
-    bool modification;
+    Ping ping;                          ///<local copy of data
+    QString projectName;                ///<current project name
+    QString trafficName;                ///<current traffic name
+    int currentCMindex;                 ///<current custom model index
+    int currentPingIndex;               ///<current ping index
+    bool *qciUsed;                      ///<pointer to table of qci's states
+    bool modification;                  ///<flag which represents if ping is being added or modified
 };
 
 #endif // PINGFORM_H

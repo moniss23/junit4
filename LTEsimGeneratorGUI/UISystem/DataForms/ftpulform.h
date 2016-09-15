@@ -53,13 +53,15 @@ signals:
 private slots:
     void on_okButton_clicked();
     void on_cancelButton_clicked();
+    void on_restoreButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+
 private:
     /**
-     * @brief clearUi is used to clear Ui.
+     * @brief refreshUi is used when window needs to refresh state
      */
     void refreshUi();
 

@@ -99,8 +99,8 @@ signals:
     void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamDlIndex = 0, const StreamDl &streamDl = StreamDl());
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamUlIndex = 0, const StreamUl &streamUl = StreamUl());
-    void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
-    void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed);
+    void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &syncedPingIndex = 0, const SyncedPing &syncedPing = SyncedPing());
+    void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &serviceReqIndex = 0, const ServiceReq &serviceReq = ServiceReq());
 
 private:
     void createFirstWinow();

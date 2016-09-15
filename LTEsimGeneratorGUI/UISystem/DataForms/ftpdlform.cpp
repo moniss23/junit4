@@ -74,3 +74,8 @@ void FtpDlForm::refreshUi()
         this->modification = true;
     }
 }
+
+void FtpDlForm::on_restoreButton_clicked()
+{
+    this->refreshUi();
+}

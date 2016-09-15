@@ -14,13 +14,15 @@ SyncedPingForm::~SyncedPingForm()
     delete ui;
 }
 
-void SyncedPingForm::loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed)
+void SyncedPingForm::loadAndOpen(const QString &projectName, const QString &trafficName, const int &CMindex, bool* qciUsed, const int &syncedPingIndex, const SyncedPing &syncedPing)
 {
     this->projectName = projectName;
     this->trafficName = trafficName;
     this->currentCMindex = CMindex;
+    this->currentSyncedPingIndex = syncedPingIndex;
+    this->syncedPing = syncedPing;
     this->qciUsed = qciUsed;
-    this->clearUi();
+    this->refreshUi();
     this->show();
 }
 
@@ -40,7 +42,7 @@ void SyncedPingForm::on_okButton_clicked()
     syncedPing.SyncedPingInterval = this->ui->interval->text().toInt();
     syncedPing.SyncedPingMinReceivedPings = this->ui->minReceivedPings->text().toInt();
 
-    emit saveSyncedPingData(projectName, trafficName, currentCMindex, syncedPing);
+    emit saveSyncedPingData(projectName, trafficName, currentCMindex, syncedPing, currentSyncedPingIndex, modification);
     this->close();
 }
 
@@ -49,16 +51,29 @@ void SyncedPingForm::on_cancelButton_clicked()
     this->close();
 }
 
-void SyncedPingForm::clearUi()
+void SyncedPingForm::refreshUi()
 {
     for(unsigned i = 0; i < 9; i++) {
         this->checkBoxPtr[i]->setChecked(false);
         this->checkBoxPtr[i]->setEnabled(!qciUsed[i]);
     }
-    this->ui->timeBetweenTasks->clear();
-    this->ui->numberOfPings->clear();
-    this->ui->interval->clear();
-    this->ui->minReceivedPings->clear();
+    if(syncedPing.SyncedPingQciArray.size() == 0) {
+        this->ui->timeBetweenTasks->clear();
+        this->ui->numberOfPings->clear();
+        this->ui->interval->clear();
+        this->ui->minReceivedPings->clear();
+        this->modification = false;
+    } else {
+        for(auto &qci : syncedPing.SyncedPingQciArray) {
+            this->checkBoxPtr[qci-1]->setChecked(true);
+            this->checkBoxPtr[qci-1]->setEnabled(true);
+        }
+        this->ui->timeBetweenTasks->setText(QString::number(syncedPing.SyncedPingTimeBetweenTasks));
+        this->ui->numberOfPings->setText(QString::number(syncedPing.SyncedPingNumberOfPings));
+        this->ui->interval->setText(QString::number(syncedPing.SyncedPingInterval));
+        this->ui->minReceivedPings->setText(QString::number(syncedPing.SyncedPingMinReceivedPings));
+        this->modification = true;
+    }
 }
 
 void SyncedPingForm::setPtrToCheckbox()
@@ -72,4 +87,9 @@ void SyncedPingForm::setPtrToCheckbox()
     this->checkBoxPtr[6] = this->ui->qci7;
     this->checkBoxPtr[7] = this->ui->qci8;
     this->checkBoxPtr[8] = this->ui->qci9;
+}
+
+void SyncedPingForm::on_restoreButton_clicked()
+{
+    this->refreshUi();
 }
