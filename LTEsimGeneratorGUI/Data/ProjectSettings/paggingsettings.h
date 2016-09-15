@@ -1,24 +1,24 @@
-#ifndef PAGINGSETTINGS_H
-#define PAGINGSETTINGS_H
+#ifndef paggingSETTINGS_H
+#define paggingSETTINGS_H
 
 #include <QStringList>
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Interfaces/scriptable.h"
 
-class PagingSettings : public SerializeInterface, public Scriptable
+class PaggingSettings : public SerializeInterface, public Scriptable
 {
 public:
-    PagingSettings();
-    ~PagingSettings();
+    PaggingSettings();
+    ~PaggingSettings();
     bool isUsedInConfiguration;
     int generators;
     QStringList names;
     QStringList imsiRanges;
     QStringList mmeCodes;
-    QString uePagingIdentity;
-    QStringList pagingSlapUris;
+    QString uePaggingIdentity;
+    QStringList paggingSlapUris;
     bool s1apCheckAsn1Contrains;
-    bool bundlePaging;
+    bool bundlePagging;
 
     /****************************
     * SERIALIZATION INTERFACE  *
@@ -35,4 +35,4 @@ public:
     virtual QString ParseToScript();
 };
 
-#endif // PAGINGSETTINGS_H
+#endif // paggingSETTINGS_H

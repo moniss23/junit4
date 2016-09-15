@@ -39,7 +39,7 @@ public slots:
      * copy SgwSettings configuration class from project and spawn SGW window
      *
      */
-    void loadAndSpawn(const SgwSettings & sgwSettings, const QString &projectName);
+    void loadAndSpawn(const SgwSettings & sgwSettings, const QString &projectName, bool enable);
 
 
     /***********************************************
@@ -67,6 +67,7 @@ private:
      *
      */
     void updateUi();
+    void setReadOnly(bool value);
 
 private:
     Ui::SGWForm *ui;            //< GUI form pointer

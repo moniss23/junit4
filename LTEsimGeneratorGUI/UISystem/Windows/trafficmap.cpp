@@ -54,12 +54,6 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     this->ui->centralwidget->setLayout(hBoxLayout1);
 
     ui->removeUeButton->setVisible(false);
-    ui->coreNetworkCheckbox->setChecked(project.mmeSettings.simulatedCoreNetwork);
-    ui->mmeButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
-    ui->sgwButton->setEnabled(project.mmeSettings.simulatedCoreNetwork);
-    ui->ueCheckbox->setChecked(project.ueParameters.startUeComponent);
-    ui->ubSimButton->setEnabled(project.ueParameters.startUeComponent);
-    ui->ipexButton->setEnabled(project.ueParameters.startUeComponent);
 }
 
 void TrafficMap::updateUe_MapView(UeRepresentation* ueRep, const QString &projectName, const QString &trafficName, const UEData &ueData) {
@@ -93,3 +87,13 @@ void TrafficMap::on_removeUeButton_clicked() {
         ui->removeUeButton->setVisible(false);
     }
 }
+
+void TrafficMap::on_ucToolButton_clicked() { emit spawnWindow_UCTool(project.name,true); }
+void TrafficMap::on_channelModelsButton_clicked() { emit spawnWindow_ChannelModels(project.name,true); }
+void TrafficMap::on_ubSimButton_clicked() { emit spawnWindow_UBsim(project.name,true); }
+void TrafficMap::on_ueButton_clicked() { emit spawnWindow_Ue(project.name,true); }
+void TrafficMap::on_ipexButton_clicked() { emit spawnWindow_Ipex(project.name,true); }
+void TrafficMap::on_sgwButton_clicked() { emit spawnWindow_Sgw(project.name,true); }
+void TrafficMap::on_paggingButton_clicked() { emit spawnWindow_Pagging(project.name,true); }
+void TrafficMap::on_mmeButton_clicked() { emit spawnWindow_Mme(project.name,true); }
+void TrafficMap::on_generalSettingsButton_clicked() { emit spawnWindow_GeneralSettings(project.name,true); }

@@ -21,8 +21,8 @@
 #include "UISystem/DataForms/generalconfigurationform.h"
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
-#include "UISystem/DataForms/pagingform.h"
-#include "Data/ProjectSettings/pagingsettings.h"
+#include "UISystem/DataForms/paggingform.h"
+#include "Data/ProjectSettings/paggingsettings.h"
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 #include "UISystem/DataForms/streamdlform.h"
 #include "UISystem/DataForms/streamulform.h"
@@ -51,21 +51,22 @@ public slots:
     void initialiseSettingsWindowSpawn(const QString& projectName = QString());
     void showErrorWindow(const QString& errorDescription);
     void spawnWindow_OpenProject(const QString& projectName);
-    void spawnWindow_Ipex(const QString& projectName);
-    void spawnWindow_ucTool(const QString &projectName);
+    void spawnWindow_Ipex(const QString& projectName,bool enable);
+    void spawnWindow_ucTool(const QString &projectName,bool enable);
     void spawnWindow_ParamMap(const QString &projectName);
-    void spawnWindow_Sgw(const QString& projectName);
-    void spawnWindow_Mme(const QString& projectName);
-    void spawnWindow_Paging(const QString &projectName);
-    void spawnWindow_ChannelModel(const QString& projectName);
-    void spawnWindow_UBSim(const QString& projectName);
-    void spawnWindow_Ue(const QString& projectName);
+    void spawnWindow_Sgw(const QString& projectName,bool enable);
+    void spawnWindow_Mme(const QString& projectName,bool enable);
+    void spawnWindow_Pagging(const QString &projectName,bool enable);
+    void spawnWindow_ChannelModel(const QString& projectName,bool enable);
+    void spawnWindow_UBSim(const QString& projectName,bool enable);
+    void spawnWindow_Ue(const QString &projectName,bool enable);
+
     void spawnWindow_MapRange(const QString& projectName);
     void spawnWindow_TrafficMap(const QString &projectName, const QString &trafficName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index);
-    void spawnWindow_GeneralConfiguration(const QString &projectName);
+    void spawnWindow_GeneralConfiguration(const QString &projectName,bool enable);
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index);
@@ -79,13 +80,12 @@ public slots:
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_ParamMap();
-    void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName);
-    void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName);
-    void spawnWindow_Paging(const PagingSettings &paging, const QString &projectName);
-    void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName);
-    void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName);
-    void spawnWindow_UBSim(const UBSimSettings &ubSimSettings, const QString &projectName);
-    void spawnWindow_Ue(const UeParameters &UeParameters, const QString &projectName);
+    void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName, bool enable);
+    void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName, bool enable);
+    void spawnWindow_Pagging(const PaggingSettings &pagging, const QString &projectName, bool enable);
+    void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName,bool enable);
+    void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName,bool enable);
+    void spawnWindow_Ue(const UeParameters &ueParamaters, const QString &projectName, bool enable);
     void spawnWindow_MapWindow(const Project &project);
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
@@ -93,7 +93,7 @@ signals:
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &pingIndex = 0, const Ping &ping = Ping());
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &voipIndex = 0, const Voip &voip = Voip());
-    void spawnWindow_GeneralConfiguration(const GeneralConfigurationParameters &generalConfiguration, const QString &projectname);
+    void spawnWindow_GeneralConfiguration(const GeneralConfigurationParameters &generalConfiguration, const QString &projectname,bool enable);  
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &ftpDlIndex = 0, const FtpDl &ftpDl = FtpDl());
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &ftpUlIndex = 0, const FtpUl &ftpUl = FtpUl());
     void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
@@ -137,8 +137,8 @@ private:
     StreamUlForm            streamUlForm;
     SyncedPingForm          syncedPingForm;
     ServiceReqForm          serviceReqForm;
-    PagingForm              pagingForm;
-    StatisticsForm statisticsManager;
+    PaggingForm             paggingForm;
+    StatisticsForm          statisticsManager;
     UeForm                  ueForm;
 };
 

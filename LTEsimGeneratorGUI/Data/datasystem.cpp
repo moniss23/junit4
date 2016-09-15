@@ -589,9 +589,9 @@ void DataSystem::updateSgwState(const QString &projectName, bool state){
     project->sgwSettings.coreNetworkGateway = state;
     saveProjectsFile();
 }
-void DataSystem::updatePagingState(const QString &projectName, bool state){
+void DataSystem::updatePaggingState(const QString &projectName, bool state){
     auto project = findProjectByName(projectName);
-    project->pagingSettings.isUsedInConfiguration = state;
+    project->paggingSettings.isUsedInConfiguration = state;
     saveProjectsFile();
 }
 void DataSystem::updateUBSimState(const QString &projectName, bool state){
@@ -608,13 +608,13 @@ void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){
     project->mmeSettings = mmeSettings;
     saveProjectsFile();
 }
-void DataSystem::updatePaging(const PagingSettings &pagingSettings, QString projectName){
+void DataSystem::updatePagging(const PaggingSettings &paggingSettings, QString projectName){
     auto project = findProjectByName(projectName);
     if (project==nullptr){
         emit errorInData("Can't find right project.\nData not saved");
         return;
     }
-    project->pagingSettings = pagingSettings;
+    project->paggingSettings = paggingSettings;
     saveProjectsFile();
 }
 void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){

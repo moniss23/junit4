@@ -30,11 +30,12 @@ void UCtoolForm::on_pbReset_clicked()
     this->updateUi();
 }
 
-void UCtoolForm::loadAndOpen(const UCToolSettings &ucToolSettings, const QString &projectName)
+void UCtoolForm::loadAndOpen(const UCToolSettings &ucToolSettings, const QString &projectName,bool enable)
 {
     this->ucToolSettings = ucToolSettings;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 
@@ -50,4 +51,9 @@ void UCtoolForm::getParameters()
     ucToolSettings.ucToolIP = this->ui->tet_uctool_ip->text();
     ucToolSettings.ucToolCIds = this->ui->tet_uctool_cIds->text();
     ucToolSettings.ucToolServiceIp = this->ui->tet_uctool_service_ip->text();
+}
+void UCtoolForm::setReadOnly(bool value){
+    this->ui->tet_uctool_cIds->setReadOnly(value);
+    this->ui->tet_uctool_ip->setReadOnly(value);
+    this->ui->tet_uctool_service_ip->setReadOnly(value);
 }

@@ -15,11 +15,11 @@ GeneralConfiguration::~GeneralConfiguration()
 {
     delete ui;
 }
-void GeneralConfiguration::loadAndOpen(const GeneralConfigurationParameters &generalConfigurationParameters, const QString &projectName)
+void GeneralConfiguration::loadAndOpen(const GeneralConfigurationParameters &generalConfigurationParameters, const QString &projectName,bool enable)
 {
     this->generalConfigurationParameters = generalConfigurationParameters;
     this->projectName = projectName;
-    this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 void GeneralConfiguration::updateUi(){
@@ -54,4 +54,13 @@ void GeneralConfiguration::on_okButton_clicked()
 void GeneralConfiguration::on_cancelButton_clicked()
 {
     this->close();
+}
+void GeneralConfiguration::setReadOnly(bool value)
+{
+    this->ui->FileGzipEnabledCheckbox->setEnabled(!value);
+    this->ui->FileCountVal->setReadOnly(value);
+    this->ui->FileSIzeLimitVal->setReadOnly(value);
+    this->ui->CoreParametersVal->setReadOnly(value);
+    this->ui->HandlerSetVal->setReadOnly(value);
+    this->ui->LogDirVal->setReadOnly(value);
 }

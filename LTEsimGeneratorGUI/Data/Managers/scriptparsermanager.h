@@ -19,7 +19,7 @@ public:
     ChannelModelSettings getChannelModelSettingsFromScript(const QStringList content);
     DataGeneratorSettings getDataGeneratorSettingsFromScript(const QStringList scriptContentLines);
     MmeSettings getMmeSettings(const QStringList scriptContentLines);
-    PagingSettings getPagingSettings(const QStringList scriptContentLines);
+    PaggingSettings getPaggingSettings(const QStringList scriptContentLines);
     UBSimSettings getUBSimSettings(const QStringList scriptContentLines);
     GeneralConfigurationParameters getGeneralConfigurationSettings(const QStringList scriptContentLines);
     MapRange getMapRange(const QStringList scriptContentLines, Project &project);

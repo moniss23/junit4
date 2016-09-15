@@ -57,7 +57,6 @@ private slots:
     void on_okButton_clicked();
     void on_cancelButton_clicked();
     void on_globalBrowseButton_clicked();
-    void on_applyButton_clicked();
     void on_globalDefaultButton_clicked();
     void on_projectDefaultButton_clicked();
     void on_projectBrowseButton_clicked();
@@ -70,7 +69,7 @@ private slots:
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
-     ***********************************************/
+     ***********************************************/    
 private:
     void apply_settings(bool shouldClose);
 

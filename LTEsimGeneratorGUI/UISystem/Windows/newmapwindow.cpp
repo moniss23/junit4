@@ -178,15 +178,13 @@ void NewMapWindow::on_removeHandoverBtn_clicked()
 }
 void NewMapWindow::on_addCellBtn_clicked() {emit addCell(project.name);}
 void NewMapWindow::on_addHandoverBtn_clicked() {emit addHandover(project.name);}
-void NewMapWindow::on_mmeButton_pressed() {emit spawnWindow_Mme(project.name);}
-void NewMapWindow::on_pagingButton_pressed() {emit spawnWindow_Paging(project.name);}
-void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name);}
-void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name);}
-void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name);}
-void NewMapWindow::on_ueButton_pressed(){emit spawnWindow_Ue(project.name);}
+void NewMapWindow::on_mmeButton_pressed() {emit spawnWindow_Mme(project.name,false);}
+void NewMapWindow::on_paggingButton_pressed() {emit spawnWindow_Pagging(project.name,false);}
+void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name,false);}
+void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name,false);}
+void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name,false);}
 void NewMapWindow::spawnWindow_MapRange() {emit spawnWindow_mapRange(project.name);}
-void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name);}
-void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name);}
-void NewMapWindow::on_generalSettingsButton_clicked() {emit spawnWindow_GeneralConfiguration(project.name);}
-
-
+void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.name,false);}
+void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name,false);}
+void NewMapWindow::on_generalSettingsButton_clicked() {emit spawnWindow_GeneralConfiguration(project.name,false);}
+void NewMapWindow::on_ueButton_pressed() {emit spawnWindow_Ue(project.name,false);}

@@ -66,7 +66,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>20</y>
+       <y>80</y>
        <width>91</width>
        <height>31</height>
       </rect>
@@ -153,17 +153,17 @@ background-color:#cccccc;</string>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>270</y>
-       <width>40</width>
-       <height>40</height>
+       <x>72</x>
+       <y>265</y>
+       <width>35</width>
+       <height>35</height>
       </rect>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-radius:19px;
+      <string notr="true">border-radius:17px;
 border-color: #eee;
 background-color:rgb(255, 255, 255);</string>
      </property>
@@ -174,17 +174,17 @@ background-color:rgb(255, 255, 255);</string>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>82</x>
        <y>245</y>
-       <width>20</width>
-       <height>20</height>
+       <width>15</width>
+       <height>15</height>
       </rect>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-radius:9px;
+      <string notr="true">border-radius:6px;
 border-color: #eee;
 background-color:rgb(255, 255, 255);</string>
      </property>
@@ -363,10 +363,35 @@ background-color:rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>55</x>
-       <y>315</y>
+       <y>305</y>
+       <width>71</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>10</horstretch>
+       <verstretch>10</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
        <width>71</width>
        <height>21</height>
-      </rect>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <strikeout>false</strikeout>
+       <stylestrategy>PreferAntialias</stylestrategy>
+       <kerning>false</kerning>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">color: #000;
@@ -378,8 +403,14 @@ background-color:#ffd700;</string>
       <string>Channel 
 Models</string>
      </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
      <property name="default">
       <bool>true</bool>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QFrame" name="frame">
@@ -477,7 +508,7 @@ border-color: #eee;
 background-color:#ffd700;</string>
       </property>
       <property name="text">
-       <string>UBSim</string>
+       <string>UBsim</string>
       </property>
       <property name="default">
        <bool>true</bool>
@@ -533,7 +564,7 @@ background-color:#666666;</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="pagingButton">
+     <widget class="QPushButton" name="paggingButton">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -549,7 +580,7 @@ border-color: #eee;
 background-color:#666666;</string>
       </property>
       <property name="text">
-       <string>Paging</string>
+       <string>Pagging</string>
       </property>
       <property name="default">
        <bool>true</bool>

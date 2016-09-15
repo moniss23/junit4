@@ -61,9 +61,17 @@ void SgwForm::updateUi(){
     this->ui->tet_sgw_LDIs->setText(QString::number(sgwSettings.ldi));
     this->ui->tet_sgw_apn_lists->setText(sgwSettings.apnList);
 }
-void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projectName){
+void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projectName,bool enable){
     this->sgwSettings = sgwSettings;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
+}
+void SgwForm::setReadOnly(bool value)
+{
+    this->ui->tet_sgw_apn_lists->setReadOnly(value);
+    this->ui->tet_sgw_ipAddresses->setReadOnly(value);
+    this->ui->tet_sgw_LDIs->setReadOnly(value);
+    this->ui->tet_sgw_names->setReadOnly(value);
 }

@@ -13,11 +13,12 @@ IpexForm::~IpexForm()
     delete ui;
 }
 
-void IpexForm::loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName)
+void IpexForm::loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName, bool enable)
 {
     this->dataGeneratorSettings = dataGeneratorSettings;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 
@@ -58,4 +59,14 @@ void IpexForm::updateUi()
     this->ui->checkBox_ipgwtg_ftp_sender_connect_put->setChecked(dataGeneratorSettings.ipgwtgFtpSenderConnectPut);
     this->ui->checkBox_ipgwtg_inband_signaling->setChecked(dataGeneratorSettings.ipgwtgInbandSignaling);
     this->ui->checkBox_start_isp_simulator->setChecked(dataGeneratorSettings.startIspSimulator);
+}
+void IpexForm::setReadOnly(bool value)
+{
+    this->ui->tet_dataGenerator->setReadOnly(value);
+    this->ui->tet_ipgwtg_ipAddress->setReadOnly(value);
+    this->ui->tet_ipgwtg_port->setReadOnly(value);
+    this->ui->tet_userDataGen->setReadOnly(value);
+    this->ui->checkBox_ipgwtg_ftp_sender_connect_put->setEnabled(!value);
+    this->ui->checkBox_ipgwtg_inband_signaling->setEnabled(!value);
+    this->ui->checkBox_start_isp_simulator->setEnabled(!value);
 }

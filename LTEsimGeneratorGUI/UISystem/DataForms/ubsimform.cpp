@@ -23,10 +23,11 @@ UBsimForm::~UBsimForm()
     delete ui;
 }
 
-void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName) {
+void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameters &ueParameters, const QString &projectName,bool enable) {
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 
@@ -72,4 +73,14 @@ void UBsimForm::updateUi()
         ubSimPatches.append(ubSimSettings.ubsim_patches[i]+":");
     }
     this->ui->tet_ubsim_patches->setText(ubSimPatches);
+}
+void UBsimForm::setReadOnly(bool value)
+{
+    this->ui->tet_csTrafficModelsDir->setReadOnly(value);
+    this->ui->tet_imsiMapRange->setReadOnly(value);
+    this->ui->tet_mobilityModelsDir->setReadOnly(value);
+    this->ui->tet_psTrafficModelsDir->setReadOnly(value);
+    this->ui->tet_ubsim_patches->setReadOnly(value);
+    this->ui->tet_ueTypesDir->setReadOnly(value);
+    this->ui->ubSimGuiCheckbox->setEnabled(!value);
 }

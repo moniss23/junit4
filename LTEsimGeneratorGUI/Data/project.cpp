@@ -54,7 +54,7 @@ QByteArray Project::serializeData()
     stream << ucToolSettings.serializeData();
     stream << channelModelSettings.serializeData();
     stream << mmeSettings.serializeData();
-    stream << pagingSettings.serializeData();
+    stream << paggingSettings.serializeData();
     stream << ubSimSettings.serializeData();
     stream << generalConfiguration.serializeData();
     stream << mapRange.serializeData();
@@ -107,9 +107,9 @@ void Project::deserializeData(const QByteArray &rawData)
     stream >> rawMmeSettings;
     mmeSettings.deserializeData(rawMmeSettings);
 
-    QByteArray rawPagingSettings;
-    stream >> rawPagingSettings;
-    pagingSettings.deserializeData(rawPagingSettings);
+    QByteArray rawPaggingSettings;
+    stream >> rawPaggingSettings;
+    paggingSettings.deserializeData(rawPaggingSettings);
 
     QByteArray rawUBSimSettings;
     stream >> rawUBSimSettings;

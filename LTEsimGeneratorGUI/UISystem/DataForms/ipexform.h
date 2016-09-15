@@ -36,7 +36,7 @@ public slots:
      * @param dataGeneratorSettings data that will be changed
      * @param projectName name of current project
      */
-    void loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName);
+    void loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, const QString &projectName, bool enable);
 
 
     /***********************************************
@@ -63,6 +63,8 @@ private:
      * @brief getParameters takes data from ui and put it into dataGeneratorSettings object
      */
     void getParameters();
+
+    void setReadOnly(bool value);
 
 private:
     Ui::ipexForm *ui;                               ///< GUI form pointer

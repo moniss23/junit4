@@ -19,10 +19,11 @@ UeForm::~UeForm()
 {
     delete ui;
 }
-void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projectName) {
+void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projectName,bool enable) {
     this->ueParameters=ueParameters;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 
@@ -63,4 +64,15 @@ void UeForm::on_OkButton_clicked()
 void UeForm::on_CancelButton_clicked()
 {
     this->close();
+}
+
+void UeForm::setReadOnly(bool value)
+{
+    this->ui->tet_l1l2_managers->setReadOnly(value);
+    this->ui->tet_name->setReadOnly(value);
+    this->ui->tet_rrc_pluginFilterPath->setReadOnly(value);
+    this->ui->tet_ue_key->setReadOnly(value);
+    this->ui->tet_ue_keyDerivationAlgorithm->setReadOnly(value);
+    this->ui->tet_ue_network_capability->setReadOnly(value);
+    this->ui->tet_ue_op->setReadOnly(value);
 }

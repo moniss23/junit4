@@ -114,51 +114,60 @@ void UISystem::bindingObjects()
     QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
 
     //Open Ipex window
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ipex(QString)), this, SLOT(spawnWindow_Ipex(QString)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ipex(QString,bool)), this, SLOT(spawnWindow_Ipex(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Ipex(QString,bool)),SLOT(spawnWindow_Ipex(QString,bool)));
 
     //Open UCTool window
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ucTool(QString)), this, SLOT(spawnWindow_ucTool(QString)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ucTool(QString,bool)), this, SLOT(spawnWindow_ucTool(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_UCTool(QString,bool)),this,SLOT(spawnWindow_ucTool(QString,bool)));
 
     //Open ChannelModel window
-    QObject::connect(this, SIGNAL(spawnWindow_ChannelModel(ChannelModelSettings,QString)), &channelModelForm, SLOT(loadAndOpen(ChannelModelSettings,QString)));
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ChannelModel(QString)), this, SLOT(spawnWindow_ChannelModel(QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_ChannelModel(ChannelModelSettings,QString,bool)), &channelModelForm, SLOT(loadAndOpen(ChannelModelSettings,QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ChannelModel(QString,bool)), this, SLOT(spawnWindow_ChannelModel(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_ChannelModels(QString,bool)),this,SLOT(spawnWindow_ChannelModel(QString,bool)));
 
     //Update ChannelModelSettings
     QObject::connect(&channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)), dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
 
     //Open Sgw window
-    QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString)));
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Sgw(QString)), this, SLOT(spawnWindow_Sgw(QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString,bool)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Sgw(QString,bool)), this, SLOT(spawnWindow_Sgw(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Sgw(QString,bool)),this,SLOT(spawnWindow_Sgw(QString,bool)));
 
     //Open Mme window
-    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,QString)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,QString)));
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Mme(QString)), this, SLOT(spawnWindow_Mme(QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_Mme(MmeSettings,QString,bool)),&mmeForm,SLOT(loadAndSpawn(MmeSettings,QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Mme(QString,bool)), this, SLOT(spawnWindow_Mme(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Mme(QString,bool)),this,SLOT(spawnWindow_Mme(QString,bool)));
 
-    //Open Paging widnow
-    QObject::connect(this,SIGNAL(spawnWindow_Paging(PagingSettings,QString)),&pagingForm,SLOT(loadAndSpawn(PagingSettings,QString)));
-    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_Paging(QString)),this,SLOT(spawnWindow_Paging(QString)));
+    //Open Pagging widnow
+    QObject::connect(this,SIGNAL(spawnWindow_Pagging(PaggingSettings,QString,bool)),&paggingForm,SLOT(loadAndSpawn(PaggingSettings,QString,bool)));
+    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_Pagging(QString,bool)),this,SLOT(spawnWindow_Pagging(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Pagging(QString,bool)),this,SLOT(spawnWindow_Pagging(QString,bool)));
 
-    //Update Mme and Paging
+    //Update Mme and Pagging
     QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings, QString)),dataSystem,SLOT(updateMme(MmeSettings,QString)));
-    QObject::connect(&pagingForm,SIGNAL(updatePaging(PagingSettings,QString)),dataSystem,SLOT(updatePaging(PagingSettings,QString)));
+    QObject::connect(&paggingForm,SIGNAL(updatePagging(PaggingSettings,QString)),dataSystem,SLOT(updatePagging(PaggingSettings,QString)));
 
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
 
     //Open General Configuration
-    QObject::connect(this,SIGNAL(spawnWindow_GeneralConfiguration(GeneralConfigurationParameters,QString)),&generalConfiguration,SLOT(loadAndOpen(GeneralConfigurationParameters,QString)));
-    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_GeneralConfiguration(QString)),this,SLOT(spawnWindow_GeneralConfiguration(QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_GeneralConfiguration(GeneralConfigurationParameters,QString,bool)),&generalConfiguration,SLOT(loadAndOpen(GeneralConfigurationParameters,QString,bool)));
+    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_GeneralConfiguration(QString,bool)),this,SLOT(spawnWindow_GeneralConfiguration(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_GeneralSettings(QString,bool)),this,SLOT(spawnWindow_GeneralConfiguration(QString,bool)));
 
     // Update General Configuration
     QObject::connect(&generalConfiguration,SIGNAL(updateGeneralConfiguration(GeneralConfigurationParameters,QString)),dataSystem,SLOT(updateGeneralConfigurationParameters(GeneralConfigurationParameters,QString)));
 
     //Open UBSim
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_UBSim(QString)), this, SLOT(spawnWindow_UBSim(QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,QString)), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,QString)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_UBSim(QString,bool)), this, SLOT(spawnWindow_UBSim(QString,bool)));
+    QObject::connect(this, SIGNAL(spawnWindow_UBSim(UBSimSettings,UeParameters,QString,bool )), &ubSimForm, SLOT(loadAndOpen(UBSimSettings,UeParameters,QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_UBsim(QString,bool)),this,SLOT(spawnWindow_UBSim(QString,bool)));
 
     //Open Ue
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ue(QString)), this, SLOT(spawnWindow_Ue(QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_Ue(UeParameters,QString)), &ueForm, SLOT(loadAndOpen(UeParameters,QString)));
+    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_Ue(QString,bool)),this, SLOT(spawnWindow_Ue(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Ue(QString,bool)),this,SLOT(spawnWindow_Ue(QString,bool)));
+    QObject::connect(this,SIGNAL(spawnWindow_Ue(UeParameters,QString,bool)),&ueForm,SLOT(loadAndOpen(UeParameters,QString,bool)));
 
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
@@ -188,7 +197,7 @@ void UISystem::bindingObjects()
     //Update LTESim ChBoxes
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
-    QObject::connect(&newMapWindow, SIGNAL(updatePaging(QString,bool)), dataSystem, SLOT(updatePagingState(QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(updatePagging(QString,bool)), dataSystem, SLOT(updatePaggingState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUbSim(QString,bool)),dataSystem,SLOT(updateUBSimState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateSgw(QString,bool)),dataSystem,SLOT(updateSgwState(QString,bool)));
 
@@ -297,7 +306,7 @@ void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {
     }
 }
 
-void UISystem::spawnWindow_Ipex(const QString& projectName)
+void UISystem::spawnWindow_Ipex(const QString& projectName, bool enable)
 {
     auto project = findProjectByName(projectName);
 
@@ -311,11 +320,11 @@ void UISystem::spawnWindow_Ipex(const QString& projectName)
       QObject::connect(ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)),
                        dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
     }
-    ipexForm->loadAndSpawn(project->dataGeneratorSettings, project->name);
+    ipexForm->loadAndSpawn(project->dataGeneratorSettings, project->name,enable);
 
 }
 
-void UISystem::spawnWindow_ucTool(const QString& projectName)
+void UISystem::spawnWindow_ucTool(const QString& projectName, bool enable)
 {
     auto project = findProjectByName(projectName);
 
@@ -329,27 +338,27 @@ void UISystem::spawnWindow_ucTool(const QString& projectName)
       QObject::connect(ucToolForm, SIGNAL(updateUCToolSettings(UCToolSettings,QString)),
                        dataSystem, SLOT(updateUCToolSettings(UCToolSettings,QString)));
     }
-    ucToolForm->loadAndOpen(project->ucToolSettings, project->name);
+    ucToolForm->loadAndOpen(project->ucToolSettings, project->name,enable);
 }
 
-void UISystem::spawnWindow_Mme(const QString &projectName){
+void UISystem::spawnWindow_Mme(const QString &projectName,bool enable){
     auto project = findProjectByName(projectName);
 
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Mme(project->mmeSettings, project->name);
+    emit spawnWindow_Mme(project->mmeSettings, project->name, enable);
     return;
 }
-void UISystem::spawnWindow_Paging(const QString &projectName){
+void UISystem::spawnWindow_Pagging(const QString &projectName, bool enable){
     auto project = findProjectByName(projectName);
 
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Paging(project->pagingSettings, project->name);
+    emit spawnWindow_Pagging(project->paggingSettings, project->name,enable);
     return;
 }
 
@@ -364,43 +373,33 @@ void UISystem::spawnWindow_ParamMap(const QString &projectName)
     emit spawnWindow_MapWindow(*project);
 }
 
-void UISystem::spawnWindow_Sgw(const QString &projectName){
+void UISystem::spawnWindow_Sgw(const QString &projectName,bool enable){
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Sgw(project->sgwSettings, project->name);
+    emit spawnWindow_Sgw(project->sgwSettings, project->name,enable);
     return;
 }
 
-void UISystem::spawnWindow_ChannelModel(const QString &projectName) {
+void UISystem::spawnWindow_ChannelModel(const QString &projectName,bool enable) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project.");
         return;
     }
-    emit spawnWindow_ChannelModel(project->channelModelSettings, project->name);
+    emit spawnWindow_ChannelModel(project->channelModelSettings, project->name,enable);
     return;
 }
 
-void UISystem::spawnWindow_UBSim(const QString &projectName) {
+void UISystem::spawnWindow_UBSim(const QString &projectName,bool enable) {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project.");
         return;
     }
-    emit spawnWindow_UBSim(project->ubSimSettings, project->name);
-    return;
-}
-
-void UISystem::spawnWindow_Ue(const QString &projectName) {
-    auto project = findProjectByName(projectName);
-    if(project == nullptr) {
-        dataSystem->errorInData("Can't find right project.");
-        return;
-    }
-    emit spawnWindow_Ue(project->ueParameters, project->name);
+    emit spawnWindow_UBSim(project->ubSimSettings,project->ueParameters, project->name,enable);
     return;
 }
 
@@ -470,14 +469,14 @@ void UISystem::spawnWindow_PingForm(const QString &projectName, const QString &t
     }
     emit spawnWindow_PingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
-void UISystem::spawnWindow_GeneralConfiguration(const QString &projectName){
+void UISystem::spawnWindow_GeneralConfiguration(const QString &projectName,bool enable){
 
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project.");
         return;
     }
-    emit spawnWindow_GeneralConfiguration(project->generalConfiguration,project->name);
+    emit spawnWindow_GeneralConfiguration(project->generalConfiguration,project->name,enable);
     return;
 }
 
@@ -569,6 +568,16 @@ void UISystem::spawnWindow_SyncedPingForm(const QString &projectName, const QStr
     }
     emit spawnWindow_ServiceReqForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
     emit spawnWindow_SyncedPingForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
+}
+void UISystem::spawnWindow_Ue(const QString &projectName, bool enable)
+{
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project.");
+        return;
+    }
+    emit spawnWindow_Ue(project->ueParameters,project->name,enable);
+    return;
 }
 
 void UISystem::spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex)

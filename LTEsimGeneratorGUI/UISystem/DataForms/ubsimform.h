@@ -30,7 +30,7 @@ public slots:
      * @param ubSimSettings is data that we are working on
      * @param projectName is current project name
      */
-    void loadAndOpen(const UBSimSettings &ubSimSettings, const QString &projectName);
+    void loadAndOpen(const UBSimSettings &ubSimSettings, const UeParameters &UeParameters, const QString &projectName, bool enable);
 
 signals:
     /**
@@ -61,6 +61,8 @@ private:
      */
     void getParameters();
 
+
+    void setReadOnly(bool value);
 private:
     Ui::UBsimForm *ui;                      //<<< GUI form pointer
     UBSimSettings ubSimSettings;            //<<< UBSIM Settings

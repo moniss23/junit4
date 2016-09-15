@@ -18,7 +18,7 @@ public:
     ~GeneralConfiguration();
 
 public slots:
-    void loadAndOpen(const GeneralConfigurationParameters &generalConfigurationPrameters, const QString &projectName);
+    void loadAndOpen(const GeneralConfigurationParameters &generalConfigurationPrameters, const QString &projectName, bool enable);
 
 signals:
 
@@ -35,7 +35,7 @@ private slots:
 private:
     void updateUi();
     void getParameters();
-
+    void setReadOnly(bool value);
 private:
     Ui::GeneralConfiguration *ui;
     GeneralConfigurationParameters generalConfigurationParameters;

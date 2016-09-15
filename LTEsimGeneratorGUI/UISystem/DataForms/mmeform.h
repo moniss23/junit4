@@ -5,14 +5,14 @@
 #include <QString>
 
 #include "Data/ProjectSettings/mmesettings.h"
-#include "Data/ProjectSettings/pagingsettings.h"
+#include "Data/ProjectSettings/paggingsettings.h"
 
 namespace Ui {
 class MmeForm;
 }
 /*
 * @brief The MmeForm class is responsible for drawing UI form
-*        for Mme and Paging configuration.
+*        for Mme and Pagging configuration.
 */
 
 class MmeForm : public QWidget
@@ -49,7 +49,7 @@ public slots:
      * copy MmeSettings configuration class from project and spawn MME window
      *
      */
-    void loadAndSpawn(const MmeSettings &mmeSettings,const QString &projectName);
+    void loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName, bool enable);
 
 private:
     /**
@@ -59,7 +59,7 @@ private:
     void setMmeChanges();
 
     /**
-     * @brief setPagingChanges function to override changes from ui to PagingSettings configuration class
+     * @brief setPaggingChanges function to override changes from ui to PaggingSettings configuration class
      *
      */
 
@@ -70,6 +70,7 @@ private:
      *
      */
     void updateUi();
+    void setReadOnly(bool value);
 
 private:
     Ui::MmeForm *ui;                //< GUI form pointer

@@ -33,10 +33,11 @@ void MmeForm::updateUi()
     this->ui->tetS1ap_pluginFilterPath->setText(mmeSettings.pluginFilterPath);
 
 }
-void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName){
+void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName, bool enable){
     this->mmeSettings=mmeSettings;
     this->projectName=projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 
@@ -67,4 +68,11 @@ void MmeForm::setMmeChanges(){
     mmeSettings.pluginFilterPath=this->ui->tetS1ap_pluginFilterPath->text();
     emit updateMme(mmeSettings,projectName);
 }
-
+void MmeForm::setReadOnly(bool value)
+{
+    this->ui->tetMmes->setReadOnly(value);
+    this->ui->tetMme_names->setReadOnly(value);
+    this->ui->tetMme_s1ap_uris->setReadOnly(value);
+    this->ui->tetMme_tais->setReadOnly(value);
+    this->ui->tetS1ap_pluginFilterPath->setReadOnly(value);
+}

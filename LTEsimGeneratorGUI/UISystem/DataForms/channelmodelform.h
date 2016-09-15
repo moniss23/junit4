@@ -30,7 +30,7 @@ public slots:
      * @param channelModelSettings data that we are working on
      * @param projectName current project name
      */
-    void loadAndOpen(const ChannelModelSettings &channelModelSettings, const QString &projectName);
+    void loadAndOpen(const ChannelModelSettings &channelModelSettings, const QString &projectName, bool enable);
 
 signals:
     /**
@@ -60,6 +60,8 @@ private:
      * @brief getParameters is used to get channelModelSettings data from ui fields.
      */
     void getParameters();
+
+    void setReadOnly(bool value);
 
 private:
     Ui::ChannelModelForm *ui;                   //<<< GUI form pointer

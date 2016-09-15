@@ -103,13 +103,13 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             }
             project.sgwSettings = getSgwSettings(scriptContentLines.mid(startIndex,len));
         }
-        else if (scriptContentLines[i].contains("[:generate_pagings]")){
+        else if (scriptContentLines[i].contains("[:generate_paggings]")){
             startIndex=i;
             while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
-            project.pagingSettings = getPagingSettings(scriptContentLines.mid(startIndex,len));
+            project.paggingSettings = getPaggingSettings(scriptContentLines.mid(startIndex,len));
         }
         else if (scriptContentLines[i].contains("getUbsimConfigParameters()")){
             startIndex=i;
@@ -500,20 +500,20 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
 
     return mmeSettings;
 }
-PagingSettings ScriptParserManager::getPagingSettings(const QStringList scriptContentLines){
+PaggingSettings ScriptParserManager::getPaggingSettings(const QStringList scriptContentLines){
 
-    PagingSettings pagingSettings;
+    PaggingSettings paggingSettings;
 
     int len;
     for (int i = 0;i<scriptContentLines.size();i++)  {
-        if (scriptContentLines[i].contains("[:generate_pagings]")){
+        if (scriptContentLines[i].contains("[:generate_paggings]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="false"){
-                pagingSettings.isUsedInConfiguration = false;
+                paggingSettings.isUsedInConfiguration = false;
 
             }
             else if (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)=="true"){
-                pagingSettings.isUsedInConfiguration = true;
+                paggingSettings.isUsedInConfiguration = true;
             }
         }
         else if (scriptContentLines[i].contains("[:generators]")){
@@ -521,48 +521,48 @@ PagingSettings ScriptParserManager::getPagingSettings(const QStringList scriptCo
             QRegExp generatorsRegExp("[0-9]+");
             int pos = generatorsRegExp.indexIn(scriptContentLines[i]);
             if (pos > -1) {
-                pagingSettings.generators = generatorsRegExp.capturedTexts()[0].toInt();
+                paggingSettings.generators = generatorsRegExp.capturedTexts()[0].toInt();
             }
         }
-        else if (scriptContentLines[i].contains("[:paging_generator_names]")){
+        else if (scriptContentLines[i].contains("[:pagging_generator_names]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             QStringList generatorNames = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
             for (QString name: generatorNames){
-                pagingSettings.names.append(name);
+                paggingSettings.names.append(name);
             }
         }
         else if (scriptContentLines[i].contains("[:imsi_ranges]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             QStringList imsiRanges = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
             for (QString range: imsiRanges){
-                pagingSettings.imsiRanges.append(range);
+                paggingSettings.imsiRanges.append(range);
             }
         }
-        else if (scriptContentLines[i].contains("[:ue_paging_identity]")){
+        else if (scriptContentLines[i].contains("[:ue_pagging_identity]")){
             if (scriptContentLines[i].contains("IMSI")){
-                pagingSettings.uePagingIdentity = "IMSI";
+                paggingSettings.uePaggingIdentity = "IMSI";
             }
             else if (scriptContentLines[i].contains("STMSI")){
-                pagingSettings.uePagingIdentity = "STMSI";
+                paggingSettings.uePaggingIdentity = "STMSI";
             }
         }
-        else if (scriptContentLines[i].contains("[:paging_s1ap_uris]")){
+        else if (scriptContentLines[i].contains("[:pagging_s1ap_uris]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            QStringList pagingUris = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
-            for (QString ur: pagingUris){
-                pagingSettings.pagingSlapUris.append(ur);
+            QStringList paggingUris = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
+            for (QString ur: paggingUris){
+                paggingSettings.paggingSlapUris.append(ur);
             }
         }
-        else if (scriptContentLines[i].contains("[:bundle_paging]")){
+        else if (scriptContentLines[i].contains("[:bundle_pagging]")){
             if (scriptContentLines[i].contains("true")){
-                pagingSettings.bundlePaging=true;
+                paggingSettings.bundlePagging=true;
             }
             else if (scriptContentLines[i].contains("false")){
-                pagingSettings.bundlePaging = false;
+                paggingSettings.bundlePagging = false;
             }
         }
     }
-    return pagingSettings;
+    return paggingSettings;
 
 
 }
@@ -799,7 +799,7 @@ QString ScriptParserManager::GenerateParametersQString(Project &project){
     QString outputTextStream;
 
     /* ***************** HEADER ***************** */
-    QString header = "# LTEsum Parameter Module \n\
+    QString header = "# LTEsim Parameter Module \n\
 # \n\
 # Copyright Ericsson AB 2013. \n\
 # \n\
@@ -832,7 +832,7 @@ module Parameters \n\
     outputTextStream.append(header);
     outputTextStream.append(project.generalConfiguration.ParseToScript());
     outputTextStream.append(project.mmeSettings.ParseToScript());
-    outputTextStream.append(project.pagingSettings.ParseToScript());
+    outputTextStream.append(project.paggingSettings.ParseToScript());
     outputTextStream.append(project.sgwSettings.ParseToScript());
     outputTextStream.append(UeParametersParser::ParseToScript(project.ucToolSettings,project.ueParameters));
     outputTextStream.append(MapParser::ParseMap(project.cellsInfo,project.mapRange,project.handovers,project.ubSimSettings,project.dataGeneratorSettings));

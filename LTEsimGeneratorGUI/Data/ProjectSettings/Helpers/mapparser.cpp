@@ -343,11 +343,11 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 
     outputString.append("\n");
 
-    QString setupConfigurePagingHeader="################################\n\
-## Setup - Configure paging   ##\n\
+    QString setupConfigurePaggingHeader="################################\n\
+## Setup - Configure pagging   ##\n\
 ################################\n";
 
-            outputString.append(setupConfigurePagingHeader);
+            outputString.append(setupConfigurePaggingHeader);
 
     outputString.append("\n");
 

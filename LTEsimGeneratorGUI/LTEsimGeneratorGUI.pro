@@ -31,7 +31,6 @@ SOURCES += \
     UISystem/Widgets/cellrepresentation.cpp \
     Data/ProjectSettings/uctoolsettings.cpp \
     Data/ProjectSettings/channelmodelsettings.cpp \
-    Data/ProjectSettings/pagingsettings.cpp \
     Data/ProjectSettings/mmesettings.cpp \
     Data/ProjectSettings/maprange.cpp \
     Data/ProjectSettings/ubsimsettings.cpp \
@@ -48,8 +47,9 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     Data/ProjectSettings/Helpers/mapparser.cpp \
-    UISystem/DataForms/ueform.cpp
-
+    UISystem/DataForms/ueform.cpp \
+    Data/ProjectSettings/paggingsettings.cpp \
+    UISystem/DataForms/paggingform.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -84,7 +84,6 @@ SOURCES += \
     UISystem/DataForms/syncedpingform.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     UISystem/Widgets/uerepresentation.cpp \
-    UISystem/DataForms/pagingform.cpp \
     UISystem/DataForms/custommodelslistform.cpp
 
 
@@ -118,7 +117,6 @@ HEADERS  += \
     Data/ProjectSettings/sgwsettings.h \
     Data/ProjectSettings/uctoolsettings.h \
     Data/ProjectSettings/channelmodelsettings.h \
-    Data/ProjectSettings/pagingsettings.h \
     Data/ProjectSettings/mmesettings.h \
     Data/ProjectSettings/ubsimsettings.h \
     Data/ProjectSettings/maprange.h \
@@ -136,7 +134,9 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
     Data/ProjectSettings/Helpers/mapparser.h \
-    UISystem/DataForms/ueform.h
+    UISystem/DataForms/ueform.h \
+    Data/ProjectSettings/paggingsettings.h \
+    UISystem/DataForms/paggingform.h
 
 
 #--------UI SYSTEM--------#
@@ -173,8 +173,7 @@ HEADERS  += \
     UISystem/DataForms/syncedpingform.h \
     UISystem/Widgets/cellrepresentation.h \
     UISystem/Widgets/uerepresentation.h \
-    UISystem/DataForms/custommodelslistform.h \
-    UISystem/DataForms/pagingform.h
+    UISystem/DataForms/custommodelslistform.h
 
 
 HEADERS  += \
@@ -222,8 +221,8 @@ FORMS    += \
     Ui/DataForms/syncedpingform.ui \
     Ui/DataForms/servicereqform.ui \
     Ui/Windows/ueparameterswindow.ui \
-    Ui/SmallDialogs/pagingform.ui \
-    UISystem/DataForms/ueform.ui
+    UISystem/DataForms/ueform.ui \
+    Ui/SmallDialogs/paggingform.ui
 
 
 OTHER_FILES += \

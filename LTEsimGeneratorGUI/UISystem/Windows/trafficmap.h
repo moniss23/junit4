@@ -34,6 +34,16 @@ signals:
     void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficFileName);
 
+    void spawnWindow_UCTool(const QString &projectName,bool enable);
+    void spawnWindow_Mme(const QString &projectName,bool enable);
+    void spawnWindow_UBsim(const QString &projectName,bool enable);
+    void spawnWindow_Pagging(const QString &projectName,bool enable);
+    void spawnWindow_ChannelModels(const QString &projectName,bool enable);
+    void spawnWindow_Sgw(const QString &projectName,bool enable);
+    void spawnWindow_GeneralSettings(const QString &projectName,bool enable);
+    void spawnWindow_Ipex(const QString &projectName,bool enable);
+    void spawnWindow_Ue(const QString &projectName,bool enable);
+
     void addUe(const QString &projectName, const QString &trafficFileName);
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
     void removeUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
@@ -44,6 +54,24 @@ private slots:
     void on_removeUeButton_clicked();
     void on_statisticsButton_clicked();
     void on_tunningTrafficButton_clicked();
+
+    void on_ucToolButton_clicked();
+
+    void on_channelModelsButton_clicked();
+
+    void on_ubSimButton_clicked();
+
+    void on_ueButton_clicked();
+
+    void on_ipexButton_clicked();
+
+    void on_sgwButton_clicked();
+
+    void on_paggingButton_clicked();
+
+    void on_mmeButton_clicked();
+
+    void on_generalSettingsButton_clicked();
 
 private:
     Ui::TrafficMap *    ui;

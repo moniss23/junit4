@@ -43,7 +43,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/mmesettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/maprange.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ueparameters.cpp \
-    ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/paggingsettings.cpp \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.cpp \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsForm.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
@@ -93,7 +93,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ueparameters.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
-    ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/paggingsettings.h \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsData.h \
     ../LTEsimGeneratorGUI/Maps/Traffic/Statistics/statisticsForm.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.h \

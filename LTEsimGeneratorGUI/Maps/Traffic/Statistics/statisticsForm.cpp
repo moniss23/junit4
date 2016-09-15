@@ -26,6 +26,11 @@ void StatisticsForm::loadAndSpawn(const QString &projectName, const QString &tra
     this->show();
 }
 
+
+void StatisticsForm::on_pushButton_clicked()
+{
+    this->close();
+}
 void StatisticsForm::on_saveButton_clicked()
 {
     saveStatisticsData();

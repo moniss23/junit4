@@ -20,7 +20,7 @@ void Settings::ShowForProject(const AppGlobalData &globalProjectData, const Proj
     currentProject = project;
     bool secondTabActive = !project.name.isEmpty();
 
-    this->ui->applyButton->setEnabled(false);
+    this->ui->okButton->setEnabled(false);
 
     if(!secondTabActive) {
         this->ui->globalDirInput->clear();
@@ -77,7 +77,7 @@ void Settings::apply_settings(bool shouldClose) {
     if(shouldClose) {
         this->close();
     }else {
-        this->ui->applyButton->setEnabled(false);
+        this->ui->okButton->setEnabled(false);
     }
 }
 
@@ -91,12 +91,6 @@ void Settings::on_cancelButton_clicked() {
     this->close();
 }
 
-// "apply" button clicked
-void Settings::on_applyButton_clicked() {
-    this->apply_settings(false);
-}
-
-
 /*
  * GLOBAL SETTINGS FUNCTIONS
  *
@@ -107,25 +101,22 @@ void Settings::on_globalBrowseButton_clicked() {
     QString directory(dialog.getExistingDirectory(this,tr("Choose directory"),"/"));
     if(directory!="") {
         this->ui->globalDirInput->setText(directory);
-        this->ui->applyButton->setEnabled(true);
+        this->ui->okButton->setEnabled(true);
     }
 }
 
 // restore global defaults
 void Settings::on_globalDefaultButton_clicked() {
-    if(QMessageBox::Cancel==QMessageBox(QMessageBox::Question,"Restore all global settings.","This will restore all global settings to defaults. Are you sure?",QMessageBox::Ok|QMessageBox::Cancel).exec()) {
-        return;
-    }
     this->ui->programsDirRadioButton->setChecked(true);
     this->ui->globalDirInput->setText("<default>");
     this->ui->globalDirInput->setEnabled(false);
-    this->ui->applyButton->setEnabled(true);
+    this->ui->okButton->setEnabled(true);
 }
 
 // custom dir in the line edit changes
 void Settings::on_globalDirInput_textChanged() {
     if(this->ui->globalDirInput->hasFocus()) {
-        this->ui->applyButton->setEnabled(true);
+        this->ui->okButton->setEnabled(true);
     }
 }
 
@@ -173,7 +164,7 @@ void Settings::on_projectDefaultButton_clicked() {
     this->ui->projectDirInput->setText("<default>");
     this->ui->projectDirInput->setEnabled(false);
     this->ui->projectBrowseButton->setEnabled(false);
-    this->ui->applyButton->setEnabled(true);
+    this->ui->okButton->setEnabled(true);
 }
 
 
@@ -184,7 +175,7 @@ void Settings::on_projectBrowseButton_clicked() {
     QString directory(dialog.getExistingDirectory(this,tr("Choose directory"),"/"));
     if(directory!="") {
         this->ui->projectDirInput->setText(directory);
-        this->ui->applyButton->setEnabled(true);
+        this->ui->okButton->setEnabled(true);
     }
 }
 
@@ -194,7 +185,7 @@ void Settings::on_projectsDirRadioButton_toggled(bool checked)
     this->ui->projectDirInput->setText("<default>");
     this->ui->projectDirInput->setEnabled(false);
     this->ui->projectBrowseButton->setEnabled(false);
-    this->ui->applyButton->setEnabled(true);
+    this->ui->okButton->setEnabled(true);
 }
 
 void Settings::on_eachScriptIndividualDirRadioButton_toggled(bool checked)
@@ -203,12 +194,12 @@ void Settings::on_eachScriptIndividualDirRadioButton_toggled(bool checked)
     this->ui->projectDirInput->setText("<individually>");
     this->ui->projectDirInput->setEnabled(false);
     this->ui->projectBrowseButton->setEnabled(false);
-    this->ui->applyButton->setEnabled(true);
+    this->ui->okButton->setEnabled(true);
 }
 
 void Settings::on_projectDirInput_textChanged()
 {
     if(this->ui->projectDirInput->hasFocus()) {
-        this->ui->applyButton->setEnabled(true);
+        this->ui->okButton->setEnabled(true);
     }
 }

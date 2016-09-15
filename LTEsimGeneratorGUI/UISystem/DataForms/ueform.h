@@ -16,7 +16,7 @@ public:
     explicit UeForm(QWidget *parent = 0);
     ~UeForm();
 public slots:
-    void loadAndOpen(const UeParameters &ueParameters, const QString &projectName);
+    void loadAndOpen(const UeParameters &ueParameters, const QString &projectName, bool enable);
 
 signals:
     /**
@@ -51,6 +51,8 @@ private:
      * @brief getParameters is used to set ueSettings data from ui fields
      */
     void getParameters();
+
+    void setReadOnly(bool value);
 private:
     Ui::UeForm *ui;                             //<<< GUI form pointer
     UeParameters  ueParameters;                 //<<< Ue Settings

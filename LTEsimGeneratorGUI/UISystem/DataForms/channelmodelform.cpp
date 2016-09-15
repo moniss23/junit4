@@ -14,34 +14,30 @@ ChannelModelForm::~ChannelModelForm()
     delete ui;
 }
 
-void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSettings, const QString &projectName) {
+void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSettings, const QString &projectName,bool enable) {
     this->channelModelSettings = channelModelSettings;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(enable);
     this->show();
 }
 
 void ChannelModelForm::on_buttonBox_accepted()
 {
     this->getParameters();
-    if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "ChannelModelSettings", "Are you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-        emit updateChannelModelSettings(channelModelSettings, projectName);
-        this->close();
-    }
+    emit updateChannelModelSettings(channelModelSettings, projectName);
+    this->close();
+
 }
 
 void ChannelModelForm::on_buttonBox_rejected()
 {
-    if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "ChannelModelSettings", "Are you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-        this->close();
-    }
+    this->close();
 }
 
 void ChannelModelForm::on_restoreDefaults_clicked()
 {
-    if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "ChannelModelSettings", "Are you sure?", QMessageBox::Yes|QMessageBox::No).exec()){
-        this->updateUi();
-    }
+    this->setParameters();
 }
 
 void ChannelModelForm::updateUi()
@@ -94,4 +90,29 @@ void ChannelModelForm::getParameters()
     channelModelSettings.pathloss_based_feedback_sinr_threshold = ui->tet_pathloss_based_feedback_sinr_threshold->text().toDouble();
 
     channelModelSettings.dl_pathloss_distribute_ues = ui->checkBox_dl_pathloss_distribute_ues->isChecked();
+}
+void ChannelModelForm::setReadOnly(bool value)
+{
+    ui->tet_model_set_name->setReadOnly(value);
+    ui->tet_pdcch_drop_dl_assignment_rate->setReadOnly(value);
+    ui->tet_pdcch_drop_grant_rate->setReadOnly(value);
+    ui->tet_pdsch_transport_block_decoded_error_rate->setReadOnly(value);
+    ui->tet_phich_nack_to_ack_error_rate->setReadOnly(value);
+    ui->tet_phich_drop_harq_feedback_rate->setReadOnly(value);
+    ui->tet_pusch_transport_block_decoded_error_rate->setReadOnly(value);
+
+    ui->tet_pusch_drop_transport_block_rate->setReadOnly(value);
+    ui->tet_puxch_nack_to_ack_error_rate->setReadOnly(value);
+    ui->tet_puxch_dtx_to_ack_error_rate->setReadOnly(value);
+    ui->tet_puxch_ack_to_nack_error_rate->setReadOnly(value);
+    ui->tet_puxch_drop_scheduling_request_rate->setReadOnly(value);
+    ui->tet_dlni_noise->setReadOnly(value);
+
+    ui->tet_dlni_interference->setReadOnly(value);
+    ui->tet_dl_pathloss_min_pathloss->setReadOnly(value);
+    ui->tet_dl_pathloss_max_pathloss->setReadOnly(value);
+    ui->tet_dl_pathloss_time_min_to_max->setReadOnly(value);
+    ui->tet_pathloss_based_feedback_sinr_threshold->setReadOnly(value);
+
+    ui->checkBox_dl_pathloss_distribute_ues->setEnabled(!value);
 }

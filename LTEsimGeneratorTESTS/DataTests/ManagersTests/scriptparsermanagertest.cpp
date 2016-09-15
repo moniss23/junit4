@@ -215,59 +215,59 @@ void ScriptParserManagerTest::scriptParserManagerTest7_getMmeSettingsFromScript(
                                                         QVERIFY(false);
     QVERIFY(true);
 }
-void ScriptParserManagerTest::scriptParserManagerTest8_getPagingSettingsFromScript(){
-    qInfo() << "TEST FOR PARSER getPagingSettings METHOD ( SUCCES )";
+void ScriptParserManagerTest::scriptParserManagerTest8_getPaggingSettingsFromScript(){
+    qInfo() << "TEST FOR PARSER getPaggingSettings METHOD ( SUCCES )";
 
     ScriptParserManager scriptParserManager;
-    PagingSettings pagingSettings;
+    PaggingSettings paggingSettings;
 
-    const QString scriptContent = "default[:generate_pagings] = false\n"
+    const QString scriptContent = "default[:generate_paggings] = false\n"
         "default[:generators] = 3\n"
-        "default[:paging_generator_names] = [\"pagings1\", \"pagings2\", \"pagings3\"]\n"
+        "default[:pagging_generator_names] = [\"paggings1\", \"paggings2\", \"paggings3\"]\n"
         "default[:imsi_ranges] = [\"100000+100\", \"200000+100\", \"300000+100\"]\n"
-        "default[:ue_paging_identity] = \"IMSI\"\n"
-        "default[:paging_s1ap_uris] = [\"sctp://127.0.1.1:36412\", \"sctp://127.0.1.2:36412\", \"sctp://127.0.1.3:36412\"]\n"
+        "default[:ue_pagging_identity] = \"IMSI\"\n"
+        "default[:pagging_s1ap_uris] = [\"sctp://127.0.1.1:36412\", \"sctp://127.0.1.2:36412\", \"sctp://127.0.1.3:36412\"]\n"
         "end";
-    pagingSettings = scriptParserManager.getPagingSettings(scriptContent.split("\n"));
-    if (pagingSettings.generators != 3)                                         QVERIFY(false);
-    else if (pagingSettings.names[0] != "pagings1")                             QVERIFY(false);
-    else if (pagingSettings.names[1] != "pagings2")                             QVERIFY(false);
-    else if (pagingSettings.names[2] != "pagings3")                             QVERIFY(false);
-    else if (pagingSettings.imsiRanges[0] != "100000+100")                      QVERIFY(false);
-    else if (pagingSettings.imsiRanges[1] != "200000+100")                      QVERIFY(false);
-    else if (pagingSettings.imsiRanges[2] != "300000+100")                      QVERIFY(false);
-    else if (pagingSettings.uePagingIdentity != "IMSI")                         QVERIFY(false);
-    else if (pagingSettings.pagingSlapUris[0] != "sctp://127.0.1.1:36412")      QVERIFY(false);
-    else if (pagingSettings.pagingSlapUris[1] != "sctp://127.0.1.2:36412")      QVERIFY(false);
-    else if (pagingSettings.pagingSlapUris[2] != "sctp://127.0.1.3:36412")      QVERIFY(false);
+    paggingSettings = scriptParserManager.getPaggingSettings(scriptContent.split("\n"));
+    if (paggingSettings.generators != 3)                                         QVERIFY(false);
+    else if (paggingSettings.names[0] != "paggings1")                             QVERIFY(false);
+    else if (paggingSettings.names[1] != "paggings2")                             QVERIFY(false);
+    else if (paggingSettings.names[2] != "paggings3")                             QVERIFY(false);
+    else if (paggingSettings.imsiRanges[0] != "100000+100")                      QVERIFY(false);
+    else if (paggingSettings.imsiRanges[1] != "200000+100")                      QVERIFY(false);
+    else if (paggingSettings.imsiRanges[2] != "300000+100")                      QVERIFY(false);
+    else if (paggingSettings.uePaggingIdentity != "IMSI")                         QVERIFY(false);
+    else if (paggingSettings.paggingSlapUris[0] != "sctp://127.0.1.1:36412")      QVERIFY(false);
+    else if (paggingSettings.paggingSlapUris[1] != "sctp://127.0.1.2:36412")      QVERIFY(false);
+    else if (paggingSettings.paggingSlapUris[2] != "sctp://127.0.1.3:36412")      QVERIFY(false);
 
     QVERIFY(true);
 }
-void ScriptParserManagerTest::scriptParserManagerTest9_getPagingSettingsFromScript(){
-    qInfo() << "TEST FOR PARSER getPagingSettings METHOD ( UNSUCCESFUL PARSE TEST )";
+void ScriptParserManagerTest::scriptParserManagerTest9_getPaggingSettingsFromScript(){
+    qInfo() << "TEST FOR PARSER getPaggingSettings METHOD ( UNSUCCESFUL PARSE TEST )";
 
     ScriptParserManager scriptParserManager;
-    PagingSettings pagingSettings;
+    PaggingSettings paggingSettings;
 
-    const QString scriptContent = "default[:generate_pagings] = false\n"
+    const QString scriptContent = "default[:generate_paggings] = false\n"
         "default[:generators] = 33\n"
-        "default[:paging_generator_names] = [\"pagings1\", \"paings2\", \"pagings 3\"]\n"
+        "default[:pagging_generator_names] = [\"paggings1\", \"paings2\", \"paggings 3\"]\n"
         "default[:imsi_ranges] = [\"100000+100\", \"200000+100\", \"300000+100\"]\n"
-        "default[:ue_paging_identity] = \"IMSI\"\n"
-        "default[:paging_s1ap_uris] = [\"sctp://127.0.1.1.36412\", \"sctp://127.0.1.2 : 36412\", \"sctp://127.0.1.3\"]\n"
+        "default[:ue_pagging_identity] = \"IMSI\"\n"
+        "default[:pagging_s1ap_uris] = [\"sctp://127.0.1.1.36412\", \"sctp://127.0.1.2 : 36412\", \"sctp://127.0.1.3\"]\n"
         "end";
-    pagingSettings = scriptParserManager.getPagingSettings(scriptContent.split("\n"));
-    if (pagingSettings.generators == 3)                                         QVERIFY(false);
-    else if (pagingSettings.names[0] == "pagings")                              QVERIFY(false);
-    else if (pagingSettings.names[1] == "pagings2")                             QVERIFY(false);
-    else if (pagingSettings.names[2] == "pagings3")                             QVERIFY(false);
-    else if (pagingSettings.imsiRanges[0] == ("100000-100"))                    QVERIFY(false);
-    else if (pagingSettings.imsiRanges[1] == "200100")                          QVERIFY(false);
-    else if (pagingSettings.imsiRanges[2] == "300100")                          QVERIFY(false);
-    else if (pagingSettings.uePagingIdentity == "imsi")                         QVERIFY(false);
-    else if (pagingSettings.pagingSlapUris[0] == "sctp://127.0.1.1:36412")      QVERIFY(false);
-    else if (pagingSettings.pagingSlapUris[1] == "sctp://127.0.1.2:36412")      QVERIFY(false);
-    else if (pagingSettings.pagingSlapUris[2] == "sctp://127.0.1.3:36412")      QVERIFY(false);
+    paggingSettings = scriptParserManager.getPaggingSettings(scriptContent.split("\n"));
+    if (paggingSettings.generators == 3)                                         QVERIFY(false);
+    else if (paggingSettings.names[0] == "paggings")                              QVERIFY(false);
+    else if (paggingSettings.names[1] == "paggings2")                             QVERIFY(false);
+    else if (paggingSettings.names[2] == "paggings3")                             QVERIFY(false);
+    else if (paggingSettings.imsiRanges[0] == ("100000-100"))                    QVERIFY(false);
+    else if (paggingSettings.imsiRanges[1] == "200100")                          QVERIFY(false);
+    else if (paggingSettings.imsiRanges[2] == "300100")                          QVERIFY(false);
+    else if (paggingSettings.uePaggingIdentity == "imsi")                         QVERIFY(false);
+    else if (paggingSettings.paggingSlapUris[0] == "sctp://127.0.1.1:36412")      QVERIFY(false);
+    else if (paggingSettings.paggingSlapUris[1] == "sctp://127.0.1.2:36412")      QVERIFY(false);
+    else if (paggingSettings.paggingSlapUris[2] == "sctp://127.0.1.3:36412")      QVERIFY(false);
 
     QVERIFY(true);
 }

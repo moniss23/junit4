@@ -27,7 +27,7 @@ public slots:
      * @param ucToolSettings data that will be changed
      * @param projectName name of current project
      */
-    void loadAndOpen(const UCToolSettings &ucToolSettings, const QString &projectName);
+    void loadAndOpen(const UCToolSettings &ucToolSettings, const QString &projectName, bool enable);
 
 signals:
     /**
@@ -60,7 +60,7 @@ private:
      * @brief getParameters takes data from ui and put into ucToolSettings object
      */
     void getParameters();
-
+    void setReadOnly(bool value);
 private:
     Ui::UCtoolForm *ui;                 ///< GUI form pointer
     UCToolSettings ucToolSettings;      ///< Local copy of data
