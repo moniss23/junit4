@@ -265,7 +265,7 @@ void UISystem::bindingObjects()
 
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_tuningTraffic(QString,QString)), &tuningTrafficManager, SLOT(open(QString,QString)));
+    QObject::connect(this, SIGNAL(spawnWindow_TuningTraffic(QString,QString,TuningTrafficData)), &tuningTrafficManager, SLOT(loadAndSpawn(QString,QString,TuningTrafficData)));
 
     // Add UEs to Traffic Map Scene + update UEs
     QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
@@ -536,7 +536,7 @@ void UISystem::spawnWindow_TuningTraffic(const QString &projectName, const QStri
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_tuningTraffic(project->name, traffic->filename);
+    emit spawnWindow_TuningTraffic(project->name, traffic->filename, traffic->tuningTrafficData);
 }
 
 void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index)

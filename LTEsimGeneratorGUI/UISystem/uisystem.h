@@ -90,13 +90,13 @@ signals:
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
+    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData &tuningTrafficData);
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &pingIndex = 0, const Ping &ping = Ping());
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &voipIndex = 0, const Voip &voip = Voip());
     void spawnWindow_GeneralConfiguration(const GeneralConfigurationParameters &generalConfiguration, const QString &projectname,bool enable);  
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &ftpDlIndex = 0, const FtpDl &ftpDl = FtpDl());
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &ftpUlIndex = 0, const FtpUl &ftpUl = FtpUl());
-    void spawnWindow_tuningTraffic(const QString &projectName, const QString &trafficName);
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamDlIndex = 0, const StreamDl &streamDl = StreamDl());
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamUlIndex = 0, const StreamUl &streamUl = StreamUl());
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &syncedPingIndex = 0, const SyncedPing &syncedPing = SyncedPing());

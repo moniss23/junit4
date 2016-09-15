@@ -40,6 +40,8 @@ QByteArray TrafficFileData::serializeData()
 
     stream << statisticsData.serializeData();
 
+    stream << tuningTrafficData.serializeData();
+
     return serializedData.buffer();
 }
 
@@ -78,4 +80,8 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
     QByteArray rawStatisticsData;
     stream >> rawStatisticsData;
     statisticsData.deserializeData(rawStatisticsData);
+
+    QByteArray rawTuningTrafficData;
+    stream >> rawTuningTrafficData;
+    tuningTrafficData.deserializeData(rawTuningTrafficData);
 }
