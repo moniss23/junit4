@@ -1,10 +1,6 @@
 #include "statisticsForm.h"
 #include "ui_statisticsform.h"
 
-#include <QLabel>
-#include <QLineEdit>
-#include <QMessageBox>
-
 StatisticsForm::StatisticsForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::StatisticsForm)
@@ -23,7 +19,7 @@ void StatisticsForm::loadAndSpawn(const QString &projectName, const QString &tra
     this->projectName = projectName;
     this->trafficFileName = trafficFileName;
     this->statisticsData = statisticsData;
-    updateView();
+    refreshUi();
     this->show();
 }
 
@@ -41,76 +37,10 @@ void StatisticsForm::on_saveButton_clicked()
 
 void StatisticsForm::on_restoreButton_clicked()
 {
-    updateView();
+    refreshUi();
 }
 
-void StatisticsForm::on_writePdcpuToFileCheckBox_clicked(bool checked)
-{
-    this->ui->pdcpuFilenameLabel->setEnabled(checked);
-    this->ui->pdcpuFilenameLineEdit->setEnabled(checked);
-    this->ui->pdcpuNumberOfSecondsLabel->setEnabled(checked);
-    this->ui->pdcpuNumberOfSecondsLineEdit->setEnabled(checked);
-    this->ui->pdcpuMeasurementLabel->setEnabled(checked);
-    this->ui->pdcpuMeasurementLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::on_bearerErrorCheckBox_clicked(bool checked)
-{
-    this->ui->bearerErrorImsiLabel->setEnabled(checked);
-    this->ui->bearerErrorImsiLineEdit->setEnabled(checked);
-    this->ui->bearerErrorEpsBearerIdLabel->setEnabled(checked);
-    this->ui->bearerErrorEpsBearerIdLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::on_bearerRohcCheckBox_clicked(bool checked)
-{
-    this->ui->bearerRohcImsiLabel->setEnabled(checked);
-    this->ui->bearerRohcImsiLineEdit->setEnabled(checked);
-    this->ui->bearerRohcEpsBearerIdLabel->setEnabled(checked);
-    this->ui->bearerRohcEpsBearerIdLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::on_bearerStatusWordsCheckBox_clicked(bool checked)
-{
-    this->ui->bearerStatusImsiLabel->setEnabled(checked);
-    this->ui->bearerStatusImsiLineEdit->setEnabled(checked);
-    this->ui->bearerStatusEpsBearerIdLabel->setEnabled(checked);
-    this->ui->bearerStatusEpsBearerIdLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::on_tguStatsCheckBox_clicked(bool checked)
-{
-    this->ui->ipexTguImsiLabel->setEnabled(checked);
-    this->ui->ipexTguImsiLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::on_writeIpexToFileCheckBox_clicked(bool checked)
-{
-    this->ui->ipexFilenameLabel->setEnabled(checked);
-    this->ui->ipexFilenameLineEdit->setEnabled(checked);
-    this->ui->ipexNumberOfSecondsLabel->setEnabled(checked);
-    this->ui->ipexNumberOfSecondsLineEdit->setEnabled(checked);
-    this->ui->ipexMeasurementLabel->setEnabled(checked);
-    this->ui->ipexMeasurementLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::on_writeGeneralStatisticsToFileCheckBox_clicked(bool checked)
-{
-    this->ui->writeGeneralStatisticsToFileCheckBox->setChecked(checked);
-
-    this->ui->ueLabel->setEnabled(checked);
-    this->ui->ueLineEdit->setEnabled(checked);
-    this->ui->delayBetweenPacketsLabel->setEnabled(checked);
-    this->ui->delayBetweenPacketsLineEdit->setEnabled(checked);
-    this->ui->mtuSizeLabel->setEnabled(checked);
-    this->ui->mtuSizeLineEdit->setEnabled(checked);
-    this->ui->generalNumberOfSecondsLabel->setEnabled(checked);
-    this->ui->generalNumberOfSecondsLineEdit->setEnabled(checked);
-    this->ui->generalMeasurementLabel->setEnabled(checked);
-    this->ui->generalMeasurementLineEdit->setEnabled(checked);
-}
-
-void StatisticsForm::updateView()
+void StatisticsForm::refreshUi()
 {
     //General tab
     this->ui->ueStatisticsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueStatisticsCheckBox->text()));
@@ -124,7 +54,8 @@ void StatisticsForm::updateView()
     this->ui->ueExpPsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueExpPsCheckBox->text()));
     this->ui->modelExpCsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->modelExpCsCheckBox->text()));
     this->ui->ueExpCsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ueExpCsCheckBox->text()));
-    this->ui->writeGeneralStatisticsToFileCheckBox->clicked(statisticsData.getStatMapFor(this->ui->writeGeneralStatisticsToFileCheckBox->text()));
+    this->ui->writeGeneralStatisticsToFileCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->writeGeneralStatisticsToFileCheckBox->text()));
+    this->ui->writeGeneralStatisticsToFileCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->writeGeneralStatisticsToFileCheckBox->text()));
     this->ui->ueLineEdit->setText(statisticsData.generalUe);
     this->ui->delayBetweenPacketsLineEdit->setText(statisticsData.generalDelayBetweenPackets);
     this->ui->generalNumberOfSecondsLineEdit->setText(statisticsData.generalTotalNumberOfSeconds);
@@ -132,28 +63,36 @@ void StatisticsForm::updateView()
     this->ui->generalMeasurementLineEdit->setText(statisticsData.generalMeasurementDelta);
     //IPEX tab
     this->ui->ipexProtocolStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->ipexProtocolStatsCheckBox->text()));
-    this->ui->tguStatsCheckBox->clicked(statisticsData.getStatMapFor(this->ui->tguStatsCheckBox->text()));
+    this->ui->tguStatsCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->tguStatsCheckBox->text()));
+    this->ui->tguStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->tguStatsCheckBox->text()));
     this->ui->ipexTguImsiLineEdit->setText(statisticsData.ipexTguImsi);
-    this->ui->writeIpexToFileCheckBox->clicked(statisticsData.getStatMapFor(this->ui->writeIpexToFileCheckBox->text()));
+    this->ui->writeIpexToFileCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->writeIpexToFileCheckBox->text()));
+    this->ui->writeIpexToFileCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->writeIpexToFileCheckBox->text()));
     this->ui->ipexFilenameLineEdit->setText(statisticsData.ipexFileName);
     this->ui->ipexNumberOfSecondsLineEdit->setText(statisticsData.ipexFileName);
     this->ui->ipexMeasurementLineEdit->setText(statisticsData.ipexFileName);
     //PDCP-U tab
     this->ui->pdcpuProtocolStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->pdcpuProtocolStatsCheckBox->text()));
     this->ui->rohcStatsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->rohcStatsCheckBox->text()));
-    this->ui->bearerStatusWordsCheckBox->clicked(statisticsData.getStatMapFor(this->ui->bearerStatusWordsCheckBox->text()));
+    this->ui->bearerStatusWordsCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->bearerStatusWordsCheckBox->text()));
+    this->ui->bearerStatusWordsCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->bearerStatusWordsCheckBox->text()));
     this->ui->bearerStatusImsiLineEdit->setText(statisticsData.pdcpuBearerStatusImsi);
     this->ui->bearerStatusEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerStatusEpsBearerId);
-    this->ui->bearerRohcCheckBox->clicked(statisticsData.getStatMapFor(this->ui->bearerRohcCheckBox->text()));
     this->ui->bearerStatusImsiLineEdit->setText(statisticsData.pdcpuBearerRohcImsi);
     this->ui->bearerStatusEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerRohcEpsBearerId);
-    this->ui->bearerRohcCheckBox->clicked(statisticsData.getStatMapFor(this->ui->bearerRohcCheckBox->text()));
+    this->ui->bearerRohcCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->bearerRohcCheckBox->text()));
+    this->ui->bearerRohcCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->bearerRohcCheckBox->text()));
     this->ui->bearerRohcImsiLineEdit->setText(statisticsData.pdcpuBearerErrorImsi);
     this->ui->bearerRohcEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerErrorEpsBearerId);
-    this->ui->writePdcpuToFileCheckBox->clicked(statisticsData.getStatMapFor(this->ui->writePdcpuToFileCheckBox->text()));
+    this->ui->writePdcpuToFileCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->writePdcpuToFileCheckBox->text()));
+    this->ui->writePdcpuToFileCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->writePdcpuToFileCheckBox->text()));
     this->ui->pdcpuFilenameLineEdit->setText(statisticsData.pdcpuFileName);
     this->ui->pdcpuNumberOfSecondsLineEdit->setText(statisticsData.pdcpuSeconds);
     this->ui->pdcpuMeasurementLineEdit->setText(statisticsData.pdcpuMeasurement);
+    this->ui->bearerErrorCheckBox->setChecked(!statisticsData.getStatMapFor(this->ui->bearerErrorCheckBox->text()));
+    this->ui->bearerErrorCheckBox->setChecked(statisticsData.getStatMapFor(this->ui->bearerErrorCheckBox->text()));
+    this->ui->bearerErrorImsiLineEdit->setText(statisticsData.pdcpuBearerErrorImsi);
+    this->ui->bearerErrorEpsBearerIdLineEdit->setText(statisticsData.pdcpuBearerErrorEpsBearerId);
 }
 
 void StatisticsForm::saveStatisticsData()
@@ -200,4 +139,70 @@ void StatisticsForm::saveStatisticsData()
     statisticsData.pdcpuFileName = this->ui->pdcpuFilenameLineEdit->text();
     statisticsData.pdcpuSeconds = this->ui->pdcpuNumberOfSecondsLineEdit->text();
     statisticsData.pdcpuMeasurement = this->ui->pdcpuMeasurementLineEdit->text();
+}
+
+void StatisticsForm::on_bearerStatusWordsCheckBox_toggled(bool checked)
+{
+    this->ui->bearerStatusImsiLabel->setEnabled(checked);
+    this->ui->bearerStatusImsiLineEdit->setEnabled(checked);
+    this->ui->bearerStatusEpsBearerIdLabel->setEnabled(checked);
+    this->ui->bearerStatusEpsBearerIdLineEdit->setEnabled(checked);
+}
+
+void StatisticsForm::on_bearerRohcCheckBox_toggled(bool checked)
+{
+    this->ui->bearerRohcImsiLabel->setEnabled(checked);
+    this->ui->bearerRohcImsiLineEdit->setEnabled(checked);
+    this->ui->bearerRohcEpsBearerIdLabel->setEnabled(checked);
+    this->ui->bearerRohcEpsBearerIdLineEdit->setEnabled(checked);
+}
+
+void StatisticsForm::on_bearerErrorCheckBox_toggled(bool checked)
+{
+    this->ui->bearerErrorImsiLabel->setEnabled(checked);
+    this->ui->bearerErrorImsiLineEdit->setEnabled(checked);
+    this->ui->bearerErrorEpsBearerIdLabel->setEnabled(checked);
+    this->ui->bearerErrorEpsBearerIdLineEdit->setEnabled(checked);
+}
+
+void StatisticsForm::on_writePdcpuToFileCheckBox_toggled(bool checked)
+{
+    this->ui->pdcpuFilenameLabel->setEnabled(checked);
+    this->ui->pdcpuFilenameLineEdit->setEnabled(checked);
+    this->ui->pdcpuNumberOfSecondsLabel->setEnabled(checked);
+    this->ui->pdcpuNumberOfSecondsLineEdit->setEnabled(checked);
+    this->ui->pdcpuMeasurementLabel->setEnabled(checked);
+    this->ui->pdcpuMeasurementLineEdit->setEnabled(checked);
+}
+
+void StatisticsForm::on_tguStatsCheckBox_toggled(bool checked)
+{
+    this->ui->ipexTguImsiLabel->setEnabled(checked);
+    this->ui->ipexTguImsiLineEdit->setEnabled(checked);
+}
+
+void StatisticsForm::on_writeIpexToFileCheckBox_toggled(bool checked)
+{
+    this->ui->ipexFilenameLabel->setEnabled(checked);
+    this->ui->ipexFilenameLineEdit->setEnabled(checked);
+    this->ui->ipexNumberOfSecondsLabel->setEnabled(checked);
+    this->ui->ipexNumberOfSecondsLineEdit->setEnabled(checked);
+    this->ui->ipexMeasurementLabel->setEnabled(checked);
+    this->ui->ipexMeasurementLineEdit->setEnabled(checked);
+}
+
+void StatisticsForm::on_writeGeneralStatisticsToFileCheckBox_toggled(bool checked)
+{
+    this->ui->writeGeneralStatisticsToFileCheckBox->setChecked(checked);
+
+    this->ui->ueLabel->setEnabled(checked);
+    this->ui->ueLineEdit->setEnabled(checked);
+    this->ui->delayBetweenPacketsLabel->setEnabled(checked);
+    this->ui->delayBetweenPacketsLineEdit->setEnabled(checked);
+    this->ui->mtuSizeLabel->setEnabled(checked);
+    this->ui->mtuSizeLineEdit->setEnabled(checked);
+    this->ui->generalNumberOfSecondsLabel->setEnabled(checked);
+    this->ui->generalNumberOfSecondsLineEdit->setEnabled(checked);
+    this->ui->generalMeasurementLabel->setEnabled(checked);
+    this->ui->generalMeasurementLineEdit->setEnabled(checked);
 }
