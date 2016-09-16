@@ -327,6 +327,81 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 
     outputString.append("\n");
 
+    for(int i=0;i<trafficFileData.tuningTrafficData.csParamGroup.size();i++)
+    {
+        if(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callIntensity!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.csParamGroup.at(i)->csName);
+            outputString.append("\", \"call_intensity\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callIntensity));
+            outputString.append(")\n");
+        }
+          if(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callDuration!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.csParamGroup.at(i)->csName);
+            outputString.append("\", \"call_duration\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callDuration));
+            outputString.append(")\n");
+        }
+          if(trafficFileData.tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.csParamGroup.at(i)->csName);
+            outputString.append("\", \"recovery_start_interval\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval));
+            outputString.append(")\n");
+        }
+        outputString.append("\n");
+    }
+    outputString.append("\n");
+
+    for(int i=0;i<trafficFileData.tuningTrafficData.psParamGroup.size();i++)
+    {
+        if(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psIntensity!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psName);
+            outputString.append("\", \"ps_intensity\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psIntensity));
+            outputString.append(")\n");
+        }
+          if(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psDuration!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psName);
+            outputString.append("\", \"ps_duration\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psDuration));
+            outputString.append(")\n");
+        }
+        outputString.append("\n");
+    }
+    outputString.append("\n");
+
+    for(int i=0;i<trafficFileData.tuningTrafficData.mobilityGroup.size();i++)
+    {
+        if(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->speed!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->mobilityName);
+            outputString.append("\", \"speed\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->speed));
+            outputString.append(")\n");
+        }
+          if(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->granularity!=1.0)
+        {
+            outputString.append("UBsimTuning.setModelValue(\"");
+            outputString.append(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->mobilityName);
+            outputString.append("\", \"granularity\", ");
+            outputString.append(QString::number(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->granularity));
+            outputString.append(")\n");
+        }
+        outputString.append("\n");
+    }
+    outputString.append("\n");
+
+
     QString setupCustomModelsHeader="################################\n\
 ## Setup - Custom Models      ##\n\
 ################################\n";
