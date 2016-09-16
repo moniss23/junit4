@@ -22,14 +22,14 @@ QByteArray PaggingSettings::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << isUsedInConfiguration << generators << names << imsiRanges << mmeCodes << uePaggingIdentity << paggingSlapUris << bundlePagging;
+    stream << isUsedInConfiguration << generators << names << imsiRanges << mmeCodes << uePaggingIdentity << paggingSlapUris << bundlePagging << rate;
     return serializedData.buffer();
 }
 
 void PaggingSettings::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> isUsedInConfiguration >> generators >> names >> imsiRanges >> mmeCodes >> uePaggingIdentity >> paggingSlapUris >> bundlePagging;
+    stream >> isUsedInConfiguration >> generators >> names >> imsiRanges >> mmeCodes >> uePaggingIdentity >> paggingSlapUris >> bundlePagging >> rate;
 }
 QString PaggingSettings::ParseToScript()
 {

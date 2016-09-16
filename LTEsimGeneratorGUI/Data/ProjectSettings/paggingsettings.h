@@ -19,6 +19,7 @@ public:
     QStringList paggingSlapUris;
     bool s1apCheckAsn1Contrains;
     bool bundlePagging;
+    int rate=0;
 
     /****************************
     * SERIALIZATION INTERFACE  *

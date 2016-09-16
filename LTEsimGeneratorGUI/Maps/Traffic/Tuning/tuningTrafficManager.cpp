@@ -29,6 +29,7 @@ TuningTrafficManager::~TuningTrafficManager()
 {
     delete ui;
 }
+
 void TuningTrafficManager::setUEGroup(Form* form)
 {
     UEGroup.cs = form->get_currentCSBehavior();

@@ -917,3 +917,9 @@ void DataSystem::updateProjectOnMapCloseEvent(const QString &projectName){
     emit currentProjectChanged(*project);
     saveProjectsFile();
 }
+
+void DataSystem::updatePaggingRate(QString projectName, int rate){
+    auto project = findProjectByName(projectName);
+    project->paggingSettings.rate = rate;
+    saveProjectsFile();
+}

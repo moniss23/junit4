@@ -30,6 +30,7 @@
 #include "UISystem/DataForms/servicereqform.h"
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/statisticsForm.h"
+#include "UISystem/Windows/paggingrate.h"
 
 class ProjectManagement;
 class ParametersWindow;
@@ -78,7 +79,7 @@ public slots:
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
     void spawnWindow_UeParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
-
+    void spawnWindow_PaggingRate(const QString &projectName);
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_ParamMap();
@@ -103,7 +104,7 @@ signals:
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamUlIndex = 0, const StreamUl &streamUl = StreamUl());
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &syncedPingIndex = 0, const SyncedPing &syncedPing = SyncedPing());
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &serviceReqIndex = 0, const ServiceReq &serviceReq = ServiceReq());
-
+    void spawnWindow_PaggingRate(const QString &projeName, int &rate);
 private:
     void createFirstWinow();
     void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);
@@ -143,6 +144,7 @@ private:
     StatisticsForm          statisticsForm;
     UeForm                  ueForm;
     UeParametersForm       *ueParametersForm;
+    PaggingRate             paggingRate;
 };
 
 #endif // UISYSTEM_H

@@ -273,8 +273,11 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
-
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
+    // Pagging rate
+    QObject::connect(&trafficMap, SIGNAL(spawnWindow_PaggingRate(QString)),this, SLOT(spawnWindow_PaggingRate(QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_PaggingRate(QString,int&)),&paggingRate,SLOT(loadAndSpawn(QString,int&)));
+    QObject::connect(&paggingRate,SIGNAL(updatePaggingRate(QString,int)),dataSystem,SLOT(updatePaggingRate(QString,int)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -689,5 +692,13 @@ void UISystem::showErrorWindow(const QString &errorDescription)
 {
     QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
 }
-
+void UISystem::spawnWindow_PaggingRate(const QString &projectName)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    emit spawnWindow_PaggingRate(project->name,project->paggingSettings.rate);
+}
 

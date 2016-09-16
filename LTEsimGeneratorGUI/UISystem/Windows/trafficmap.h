@@ -44,9 +44,8 @@ signals:
     void spawnWindow_GeneralSettings(const QString &projectName,bool enable);
     void spawnWindow_Ipex(const QString &projectName,bool enable);
     void spawnWindow_Ue(const QString &projectName,bool enable);
-
     void spawnWindow_ueParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
-
+    void spawnWindow_PaggingRate(const QString &projectName);
     void addUe(const QString &projectName, const QString &trafficFileName);
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
     void removeUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
@@ -75,6 +74,8 @@ private slots:
     void on_mmeButton_clicked();
 
     void on_generalSettingsButton_clicked();
+
+    void on_PaggingRateButton_clicked();
 
 private:
     Ui::TrafficMap *    ui;

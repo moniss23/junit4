@@ -89,6 +89,7 @@ SOURCES += \
     UISystem/DataForms/paggingform.cpp \
     UISystem/DataForms/statisticsForm.cpp \
     UISystem/DataForms/ueform.cpp \
+    UISystem/Windows/paggingrate.cpp \
     UISystem/DataForms/custommodelslistform.cpp
 
 
@@ -178,6 +179,7 @@ HEADERS  += \
     UISystem/Widgets/uerepresentation.h \
     UISystem/DataForms/custommodelslistform.h \
     UISystem/DataForms/statisticsForm.h \
+    UISystem/Windows/paggingrate.h \
     UISystem/DataForms/paggingform.h
 
 
@@ -223,8 +225,8 @@ FORMS    += \
     Ui/DataForms/servicereqform.ui \
     UISystem/DataForms/ueform.ui \
     Ui/SmallDialogs/paggingform.ui \
-    Ui/DataForms/ueParametersForm.ui
-
+    Ui/DataForms/ueParametersForm.ui \
+    Ui/Windows/pagging_rate.ui
 
 OTHER_FILES += \
     logoLTEsim.png
