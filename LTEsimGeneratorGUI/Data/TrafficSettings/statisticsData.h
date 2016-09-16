@@ -48,16 +48,16 @@ public:
     /**
      * @brief serializeData is an inherited method that serializes this class to QByteArray
      */
-    QByteArray serializeData();
+    virtual QByteArray serializeData();
     /**
      * @brief deserializeData ia an inherited method that deserializes it's parameter to fill the fields in this class' instance
      * @param rawData is QByteArray that contains all the data needed to creata an instance of StatisticsData class
      */
-    void deserializeData(const QByteArray &rawData);
+    virtual void deserializeData(const QByteArray &rawData);
     /**
      * @brief getElementType is a API method to recognise the object by QString
      */
-    QString getElementType() const;
+    virtual QString getElementType() const;
 };
 
 #endif // STATISTICSDATA_H

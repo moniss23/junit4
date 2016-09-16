@@ -7,11 +7,12 @@
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/ueParametersForm.h"
+#include "UISystem/DataForms/timeForm.h"
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
     projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr),
-    ucToolForm(nullptr), ueParametersForm(nullptr)
+    ucToolForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
 {
     createFirstWinow();
 
@@ -27,6 +28,7 @@ UISystem::~UISystem()
     delete paramWindow;
     delete projectUi;
     delete ueParametersForm;
+    delete timeForm;
 }
 
 void UISystem::createFirstWinow()
@@ -263,7 +265,11 @@ void UISystem::bindingObjects()
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
     QObject::connect(&customModelsListForm, SIGNAL(loadData(QString,QString,int)), dataSystem, SLOT(updateCustomModel(QString,QString,int)));
 
+    // Deleting custom model item
     QObject::connect(&customModelsListForm, SIGNAL(deleteCustomModelItem(QString,QString,QString,int,int)), dataSystem, SLOT(deleteCustomModelItem(QString,QString,QString,int,int)));
+
+    //Spawn time form(trafficMap)
+    QObject::connect(&trafficMap, SIGNAL(spawnWindow_Time(QString,QString)), this, SLOT(spawnWindow_TimeForm(QString,QString)));
 
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
@@ -621,7 +627,7 @@ void UISystem::spawnCustomModelSubclassWindowToModify(const QString &projectName
 void UISystem::spawnWindow_UeParams(const QString &ueDataName, const QString &projectName, const QString &trafficName)
 {
     auto project = findProjectByName(projectName);
-    if (project==nullptr) {
+    if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
@@ -647,7 +653,26 @@ void UISystem::spawnWindow_UeParams(const QString &ueDataName, const QString &pr
     ueParametersForm->loadAndOpen(project->name, traffic->filename, *ueData);
 }
 
+void UISystem::spawnWindow_TimeForm(const QString &projectName, const QString &trafficName)
+{
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    if(!timeForm) {
+      timeForm = new TimeForm();
 
+      QObject::connect(timeForm, SIGNAL(saveTimeData(QString,QString,TimeData)),
+                       dataSystem, SLOT(saveTimeData(QString,QString,TimeData)));
+    }
+    timeForm->loadAndOpen(project->name, traffic->filename, traffic->timeData);
+}
 
 Project* UISystem::findProjectByName(const QString &projectName)
 {

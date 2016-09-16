@@ -56,26 +56,17 @@ private slots:
     void on_removeUeButton_clicked();
     void on_statisticsButton_clicked();
     void on_tunningTrafficButton_clicked();
-
     void on_ucToolButton_clicked();
-
     void on_channelModelsButton_clicked();
-
     void on_ubSimButton_clicked();
-
     void on_ueButton_clicked();
-
     void on_ipexButton_clicked();
-
     void on_sgwButton_clicked();
-
     void on_pagingButton_clicked();
-
     void on_mmeButton_clicked();
-
     void on_generalSettingsButton_clicked();
-
     void on_PagingRateButton_clicked();
+    void on_timeButton_clicked();
 
 private:
     Ui::TrafficMap *    ui;

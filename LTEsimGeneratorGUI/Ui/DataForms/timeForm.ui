@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TrafficTimeForm</class>
- <widget class="QDialog" name="TrafficTimeForm">
+ <class>TimeForm</class>
+ <widget class="QDialog" name="TimeForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,8 +16,11 @@
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
     <widget class="QTabWidget" name="tab_timeTraffic">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -117,7 +120,7 @@
           <bool>true</bool>
          </property>
          <property name="checked">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
@@ -247,7 +250,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QRadioButton" name="rd_statsRate1">
+             <widget class="QCheckBox" name="tab1_printStatisticsWithRate">
               <property name="text">
                <string>Print statistics with rate:</string>
               </property>
@@ -267,7 +270,7 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLineEdit" name="txt_statsRate1">
+             <widget class="QLineEdit" name="tab1_statisticsLineEdit">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -301,12 +304,9 @@
            </layout>
           </item>
           <item>
-           <widget class="QRadioButton" name="rd_statsAfter1">
+           <widget class="QCheckBox" name="tab1_printStatisticsAfterTheEnd">
             <property name="text">
              <string>Print statistics after the end</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -600,7 +600,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
-             <widget class="QRadioButton" name="rd_statsRate2">
+             <widget class="QCheckBox" name="tab2_statisticsWithRate">
               <property name="text">
                <string>Print statistics with rate:</string>
               </property>
@@ -620,21 +620,9 @@
              </spacer>
             </item>
             <item>
-             <widget class="QLineEdit" name="txt_statsRate2">
+             <widget class="QLineEdit" name="tab2_statisticsLineEdit">
               <property name="enabled">
                <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>70</width>
-                <height>0</height>
-               </size>
               </property>
               <property name="maximumSize">
                <size>
@@ -654,12 +642,9 @@
            </layout>
           </item>
           <item>
-           <widget class="QRadioButton" name="rd_statsAfter2">
+           <widget class="QCheckBox" name="tab2_statisticsAfterTheEnd">
             <property name="text">
              <string>Print statistics after the end</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -711,7 +696,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>TrafficTimeForm</receiver>
+   <receiver>TimeForm</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">

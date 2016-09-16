@@ -908,6 +908,23 @@ void DataSystem::updateCustomModel(const QString &projectName, const QString &tr
     }
     emit currentCustomModelChanged(traffic->customModels[index], traffic->cmUsed);
 }
+
+void DataSystem::saveTimeData(const QString &projectName, const QString &trafficName, const TimeData &timeData)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+    traffic->timeData = timeData;
+    saveProjectsFile();
+}
+
 void DataSystem::updateProjectOnMapCloseEvent(const QString &projectName){
     auto project = findProjectByName(projectName);
     if (project==nullptr){

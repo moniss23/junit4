@@ -37,6 +37,7 @@ class ParametersWindow;
 class IpexForm;
 class UCtoolForm;
 class UeParametersForm;
+class TimeForm;
 
 class UISystem : public QObject
 {
@@ -80,6 +81,8 @@ public slots:
     void spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
     void spawnWindow_UeParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
     void spawnWindow_PagingRate(const QString &projectName);
+    void spawnWindow_TimeForm(const QString &projectName, const QString &trafficName);
+
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_ParamMap();
@@ -145,6 +148,7 @@ private:
     UeForm                  ueForm;
     UeParametersForm       *ueParametersForm;
     PagingRate              pagingRate;
+    TimeForm               *timeForm;
 };
 
 #endif // UISYSTEM_H

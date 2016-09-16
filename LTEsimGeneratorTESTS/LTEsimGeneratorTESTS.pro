@@ -57,6 +57,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/streamul.cpp \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/syncedping.cpp \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/servicereq.cpp \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/timeData.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/mapparser.cpp \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/uedata.cpp \
@@ -109,6 +110,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/streamul.h \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/syncedping.h \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/CustomModelsData/servicereq.h \
+    ../LTEsimGeneratorGUI/Data/TrafficSettings/timeData.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/ueparametersparser.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/Helpers/mapparser.h \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/uedata.h \

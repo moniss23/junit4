@@ -8,6 +8,7 @@
 #include "Data/TrafficSettings/statisticsData.h"
 #include "Data/TrafficSettings/custommodelsettings.h"
 #include "Maps/Traffic/Tuning/tuningTrafficData.h"
+#include "Data/TrafficSettings/timeData.h"
 
 
 class TrafficFileData : public SerializeInterface
@@ -21,6 +22,7 @@ public:
     QVector<UEData> userEquipments;
     QVector<CustomModelSettings> customModels;
     TuningTrafficData tuningTrafficData;
+    TimeData timeData;
     static const int cmAmount = 10;
     bool cmUsed[cmAmount];
 

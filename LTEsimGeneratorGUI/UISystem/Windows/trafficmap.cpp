@@ -111,3 +111,6 @@ void TrafficMap::on_PagingRateButton_clicked()
 {
     emit spawnWindow_PagingRate(project.name);
 }
+
+void TrafficMap::on_timeButton_clicked(){ emit spawnWindow_Time(project.name, trafficFileData->filename); }
+

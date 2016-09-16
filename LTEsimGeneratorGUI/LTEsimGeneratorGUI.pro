@@ -28,7 +28,6 @@ SOURCES += \
     Data/Managers/scriptparsermanager.cpp \
     Data/ProjectSettings/datageneratorsettings.cpp \
     Data/ProjectSettings/sgwsettings.cpp \
-    UISystem/Widgets/cellrepresentation.cpp \
     Data/ProjectSettings/uctoolsettings.cpp \
     Data/ProjectSettings/channelmodelsettings.cpp \
     Data/ProjectSettings/mmesettings.cpp \
@@ -49,8 +48,8 @@ SOURCES += \
     Data/ProjectSettings/Helpers/mapparser.cpp \
     Data/ProjectSettings/pagingsettings.cpp \
     Data/TrafficSettings/uedata.cpp \
-    UISystem/DataForms/ueParametersForm.cpp \
-    Data/TrafficSettings/statisticsData.cpp
+    Data/TrafficSettings/timeData.cpp \
+    Data/TrafficSettings/statisticsData.cpp 
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -89,13 +88,14 @@ SOURCES += \
     UISystem/DataForms/statisticsForm.cpp \
     UISystem/DataForms/ueform.cpp \
     UISystem/Windows/pagingrate.cpp \
+    UISystem/Widgets/cellrepresentation.cpp \
+    UISystem/DataForms/ueParametersForm.cpp \
+    UISystem/DataForms/timeForm.cpp \
     UISystem/DataForms/custommodelslistform.cpp
 
 
 SOURCES += main.cpp\
     Maps/Traffic/UeParameters/uegroupdata.cpp \
-    Maps/Traffic/Time/timeData.cpp \
-    Maps/Traffic/Time/timeManager.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
     Maps/Traffic/Tuning/tuningTrafficData.cpp
@@ -138,7 +138,9 @@ HEADERS  += \
     Data/ProjectSettings/Helpers/mapparser.h \
     Data/TrafficSettings/uedata.cpp \
     Data/ProjectSettings/pagingsettings.h \
-    UISystem/DataForms/ueParametersForm.h
+    Data/TrafficSettings/timeData.h \
+    Data/ProjectSettings/paggingsettings.h 
+
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -178,13 +180,14 @@ HEADERS  += \
     UISystem/DataForms/custommodelslistform.h \
     UISystem/Windows/pagingrate.h \
     UISystem/DataForms/pagingform.h \
-    UISystem/DataForms/statisticsForm.h
+    UISystem/DataForms/statisticsForm.h \
+    UISystem/DataForms/ueParametersForm.h \
+    UISystem/DataForms/ueform.h \
+    UISystem/DataForms/timeForm.h 
 
 
 HEADERS  += \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/Time/timeData.h \
-    Maps/Traffic/Time/timeManager.h \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
@@ -194,7 +197,7 @@ HEADERS  += \
 FORMS    += \
     Ui/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
-    Ui/timeForm.ui \
+    Ui/DataForms/timeForm.ui \
     Ui/Windows/addProjectWindow.ui \
     Ui/Windows/parameterswindow.ui \
     Ui/Windows/settings.ui \

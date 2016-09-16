@@ -40,6 +40,8 @@ QByteArray TrafficFileData::serializeData()
 
     stream << statisticsData.serializeData();
 
+    stream << timeData.serializeData();
+
     stream << tuningTrafficData.serializeData();
 
     return serializedData.buffer();
@@ -66,7 +68,7 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
         stream >> cmUsed[i];
     }
 
-    int userEquipmentsAmount;
+    unsigned userEquipmentsAmount;
     stream >> userEquipmentsAmount;
     for(int i=0; i<userEquipmentsAmount; ++i) {
         QByteArray rawUserEquipment;
@@ -80,6 +82,10 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
     QByteArray rawStatisticsData;
     stream >> rawStatisticsData;
     statisticsData.deserializeData(rawStatisticsData);
+
+    QByteArray rawTimeData;
+    stream >> rawTimeData;
+    timeData.deserializeData(rawTimeData);
 
     QByteArray rawTuningTrafficData;
     stream >> rawTuningTrafficData;

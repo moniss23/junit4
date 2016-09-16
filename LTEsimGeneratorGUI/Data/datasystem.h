@@ -106,6 +106,9 @@ public slots:
     // Update, delete CUSTOM MODEL
     void updateCustomModel(const QString &projectName, const QString &trafficName, const int &index);
 
+    //Save timeData
+    void saveTimeData(const QString &projectName, const QString &trafficName, const TimeData& timeData);
+
     void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex);
 
     void updateProjectOnMapCloseEvent(const QString &projectName);
