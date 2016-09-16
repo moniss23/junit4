@@ -53,7 +53,13 @@ QVariant UeRepresentation::itemChange(GraphicsItemChange change, const QVariant 
 void UeRepresentation::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   color = QColor(0, 255, 255, 205);
-   QGraphicsItem::hoverEnterEvent(event);
+  QGraphicsItem::hoverEnterEvent(event);
+}
+
+void UeRepresentation::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit spawnWindow_UeParams(this, ueObject.pairName);
+    QGraphicsItem::mouseDoubleClickEvent(event);
 }
 
 void UeRepresentation::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)

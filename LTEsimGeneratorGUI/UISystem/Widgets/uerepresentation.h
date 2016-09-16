@@ -2,7 +2,7 @@
 #define UEREPRESENTATION_H
 
 #include <QGraphicsObject>
-#include "Maps/Traffic/UeManagement/uedata.h"
+#include "Data/TrafficSettings/uedata.h"
 
 class UeRepresentation : public QGraphicsObject
 {
@@ -19,12 +19,14 @@ public:
 
 signals:
     void updateUe(UeRepresentation*, const UEData &ueData);
+    void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) Q_DECL_OVERRIDE;
     void hoverEnterEvent(QGraphicsSceneHoverEvent * event) Q_DECL_OVERRIDE;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
 public:

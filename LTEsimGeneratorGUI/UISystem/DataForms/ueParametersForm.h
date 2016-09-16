@@ -2,18 +2,26 @@
 #define UEPARAMETERSMANAGER_H
 
 #include <QWidget>
+#include "Data/TrafficSettings/uedata.h"
 
 namespace Ui {
-class UeParametersWindow;
+class UeParametersForm;
 }
 
-class UeParametersWindow : public QWidget
+class UeParametersForm : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit UeParametersWindow(QWidget *parent = 0);
-    ~UeParametersWindow();
+    explicit UeParametersForm(QWidget *parent = 0);
+    ~UeParametersForm();
+
+    const static QStringList CSSTRINGLIST;
+    const static QStringList PSSTRINGLIST;
+    const static QStringList MOBILITYSTRINGLIST;
+
+public slots:
+    void loadAndOpen(const QString& projectName, const QString& trafficName, const UEData& ueData);
 
 private slots:
     void on_pairNameLineEdit_editingFinished();
@@ -37,7 +45,14 @@ private slots:
     void on_scndUeTypeComboBox_currentIndexChanged(int index);
 
 private:
-    Ui::UeParametersWindow *ui;
+    void refreshUi();
+
+private:
+    Ui::UeParametersForm *ui;
+
+    QString projectName;
+    QString trafficName;
+    UEData ueData;
 };
 
 #endif // UEPARAMETERSMANAGER_H

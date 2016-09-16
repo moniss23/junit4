@@ -44,6 +44,8 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
 
     QObject::connect(mapView, SIGNAL(updateUe_MapView(UeRepresentation*,QString,QString,UEData)),
                      this, SLOT(updateUe_MapView(UeRepresentation*,QString,QString,UEData)));
+    QObject::connect(mapView, SIGNAL(spawnWindow_ueParams(UeRepresentation*,QString)),
+                     this, SLOT(spawnWindow_UeParams(UeRepresentation*,QString)));
 
     hBoxLayout1->addWidget(mapView);
     hBoxLayout1->addLayout(vBoxLayout);
@@ -61,6 +63,12 @@ void TrafficMap::updateUe_MapView(UeRepresentation* ueRep, const QString &projec
     this->clickedUe = ueRep;
     ui->removeUeButton->setVisible(true);
     emit updateUe(projectName, trafficName, ueData);
+}
+
+void TrafficMap::spawnWindow_UeParams(UeRepresentation *ueRepresentation, const QString &ueDataName)
+{
+    this->ueRepresentation = ueRepresentation;
+    emit spawnWindow_ueParams(ueDataName, project.name, trafficFileData->filename);
 }
 
 void TrafficMap::on_statisticsButton_clicked() {

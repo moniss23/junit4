@@ -3,7 +3,7 @@
 
 #include <QVector>
 
-#include "Maps/Traffic/UeManagement/uedata.h"
+#include "Data/TrafficSettings/uedata.h"
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/TrafficSettings/statisticsData.h"
 #include "Data/TrafficSettings/custommodelsettings.h"

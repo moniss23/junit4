@@ -6,11 +6,12 @@
 #include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/uctoolform.h"
+#include "UISystem/DataForms/ueParametersForm.h"
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
     projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr),
-    ucToolForm(nullptr)
+    ucToolForm(nullptr), ueParametersForm(nullptr)
 {
     createFirstWinow();
 
@@ -25,6 +26,7 @@ UISystem::~UISystem()
     delete ucToolForm;
     delete paramWindow;
     delete projectUi;
+    delete ueParametersForm;
 }
 
 void UISystem::createFirstWinow()
@@ -271,6 +273,8 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
+
+    QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -608,6 +612,35 @@ void UISystem::spawnCustomModelSubclassWindowToModify(const QString &projectName
     } else if(item == "ServiceReq") {
         emit spawnWindow_ServiceReqForm(project->name, traffic->filename, CMindex, traffic->customModels[CMindex].qciUsed, itemIndex, traffic->customModels[CMindex].CMServiceReqs[itemIndex]);
     }
+}
+
+void UISystem::spawnWindow_UeParams(const QString &ueDataName, const QString &projectName, const QString &trafficName)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+    auto ueData = std::find_if(std::begin(traffic->userEquipments), std::end(traffic->userEquipments),[&ueDataName]
+                               (const UEData& data)->bool{
+        return data.pairName == ueDataName;
+    });
+
+    if(ueData == std::end(traffic->userEquipments)) {
+        dataSystem->errorInData("Can't find right UE\nWrong name probably");
+        return;
+    }
+
+    if(!ueParametersForm){
+      ueParametersForm = new UeParametersForm();
+
+    }
+    ueParametersForm->loadAndOpen(project->name, traffic->filename, *ueData);
 }
 
 

@@ -35,6 +35,7 @@ class ProjectManagement;
 class ParametersWindow;
 class IpexForm;
 class UCtoolForm;
+class UeParametersForm;
 
 class UISystem : public QObject
 {
@@ -76,6 +77,7 @@ public slots:
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
+    void spawnWindow_UeParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
 
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
@@ -140,6 +142,7 @@ private:
     PaggingForm             paggingForm;
     StatisticsForm          statisticsForm;
     UeForm                  ueForm;
+    UeParametersForm       *ueParametersForm;
 };
 
 #endif // UISYSTEM_H

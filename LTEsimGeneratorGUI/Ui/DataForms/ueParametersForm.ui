@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>UeParametersWindow</class>
- <widget class="QWidget" name="UeParametersWindow">
+ <class>UeParametersForm</class>
+ <widget class="QWidget" name="UeParametersForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -138,9 +138,12 @@
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>88</width>
              <height>20</height>
             </size>
            </property>
@@ -168,11 +171,11 @@
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeType">
-            <enum>QSizePolicy::Preferred</enum>
+            <enum>QSizePolicy::Fixed</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>46</width>
              <height>20</height>
             </size>
            </property>

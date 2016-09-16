@@ -48,7 +48,9 @@ SOURCES += \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     Data/ProjectSettings/Helpers/mapparser.cpp \
     Data/ProjectSettings/paggingsettings.cpp \
-    Data/TrafficSettings/statisticsData.cpp  
+    Data/TrafficSettings/uedata.cpp \
+    Data/TrafficSettings/statisticsData.cpp \   
+    UISystem/DataForms/ueParametersForm.cpp
 
 
 #--------UI SYSTEM--------#
@@ -96,9 +98,7 @@ SOURCES += main.cpp\
     Maps/Traffic/Time/timeManager.cpp \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
     Maps/Traffic/Tuning/tuningTrafficManager.cpp \
-    Maps/Traffic/Tuning/tuningTrafficData.cpp \
-    Maps/Traffic/UeManagement/uedata.cpp \
-    Maps/Traffic/UeManagement/ueparametersmanager.cpp
+    Maps/Traffic/Tuning/tuningTrafficData.cpp
 
 
 #--------DATA SYSTEM--------#
@@ -136,8 +136,9 @@ HEADERS  += \
     Data/TrafficSettings/statisticsData.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
     Data/ProjectSettings/Helpers/mapparser.h \
-    UISystem/DataForms/ueform.h \
-    Data/ProjectSettings/paggingsettings.h
+    Data/TrafficSettings/uedata.cpp \
+    Data/ProjectSettings/paggingsettings.h \
+    UISystem/DataForms/ueParametersForm.h
 
 
 #--------UI SYSTEM--------#
@@ -146,6 +147,7 @@ HEADERS  += \
     UISystem/Windows/addProjectWindow.h \
     UISystem/Windows/helpdialog.h \
     UISystem/Windows/importprojectwindow.h \
+    UISystem/DataForms/ueform.h \
     UISystem/Windows/parameterswindow.h \
     UISystem/Windows/projectmanagement.h \
     UISystem/Windows/renamedialog.h \
@@ -186,9 +188,7 @@ HEADERS  += \
     Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
-    Maps/Traffic/Tuning/tuningTrafficManager.h \
-    Maps/Traffic/UeManagement/uedata.cpp \
-    Maps/Traffic/UeManagement/ueparametersmanager.h
+    Maps/Traffic/Tuning/tuningTrafficManager.h
 
 
 FORMS    += \
@@ -221,9 +221,9 @@ FORMS    += \
     Ui/DataForms/streamulform.ui \
     Ui/DataForms/syncedpingform.ui \
     Ui/DataForms/servicereqform.ui \
-    Ui/Windows/ueparameterswindow.ui \
     UISystem/DataForms/ueform.ui \
-    Ui/SmallDialogs/paggingform.ui
+    Ui/SmallDialogs/paggingform.ui \
+    Ui/DataForms/ueParametersForm.ui
 
 
 OTHER_FILES += \

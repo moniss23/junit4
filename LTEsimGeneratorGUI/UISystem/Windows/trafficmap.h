@@ -27,6 +27,7 @@ public slots:
     void loadAndOpen(const Project &project, TrafficFileData *trafficFileData);
     void refreshWindow(const Project &project, TrafficFileData *trafficFileData);
     void updateUe_MapView(UeRepresentation*,const QString &projectName, const QString &trafficName, const UEData &ueData);
+    void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
 
 signals:
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
@@ -43,6 +44,8 @@ signals:
     void spawnWindow_GeneralSettings(const QString &projectName,bool enable);
     void spawnWindow_Ipex(const QString &projectName,bool enable);
     void spawnWindow_Ue(const QString &projectName,bool enable);
+
+    void spawnWindow_ueParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
 
     void addUe(const QString &projectName, const QString &trafficFileName);
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
@@ -82,6 +85,8 @@ private:
 
     TrafficFileData*    trafficFileData;
     Project             project;
+
+    UeRepresentation*   ueRepresentation;
 
     UeRepresentation*   clickedUe;
 };
