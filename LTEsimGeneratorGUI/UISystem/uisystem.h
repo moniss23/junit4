@@ -74,6 +74,7 @@ public slots:
     void spawnWindow_FtpDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_FtpUlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName);
+    void restoreTuningTrafficData(const QString &projectName, const QString &trafficName); //something wierd is happening and it does not work
     void spawnWindow_StreamDlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index);
@@ -96,7 +97,8 @@ signals:
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
-    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData &tuningTrafficData);
+    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData tuningTrafficData);
+    void restoreTuningTrafficData(const TuningTrafficData &tuningTrafficData); //something wierd is happening and it does not work
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &pingIndex = 0, const Ping &ping = Ping());
     void spawnWindow_VoipForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &voipIndex = 0, const Voip &voip = Voip());

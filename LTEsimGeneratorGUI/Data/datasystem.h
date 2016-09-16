@@ -116,6 +116,9 @@ public slots:
 
     void saveUEData(const QString &projectName, const QString &trafficName, const QString& ueDataName, const UEData &uedata);
 
+    //save tuning traffic
+    void saveTuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData &tuningTrafficData);
+
 public:
     QString getDefaultNewProjectDir() const;
     AppGlobalData getAppGlobalData() const;

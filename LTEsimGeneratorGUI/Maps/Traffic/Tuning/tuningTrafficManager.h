@@ -18,15 +18,36 @@ public:
     ~TuningTrafficManager();
     void setUEGroup(Form* form);
 
+signals:
+    void saveTuningTrafficData(const QString &projectName, const QString &trafficFileName, const TuningTrafficData &tuningTrafficData);
+    void restoreTuningTrafficData(const QString &projectName, const QString &trafficFileName); //something wierd is happening and it does not work
+
 public slots:
-    void loadAndSpawn(const QString &projectName, const QString &trafficFileName, const TuningTrafficData &tuningTrafficData);
+    void loadAndSpawn(const QString &projectName, const QString &trafficFileName, const TuningTrafficData tuningTrafficData);
+    void restoreTuningTrafficData(const TuningTrafficData &tuningTrafficData); //something wierd is happening and it does not work
+
+private slots:
+    void on_csSaveButton_clicked();
+
+    void on_psSaveButton_clicked();
+
+    void on_mobilitySaveButton_clicked();
+
+    void on_saveButton_clicked();
+
+    void on_cancelButton_clicked();
+
+    void on_csComboBox_currentIndexChanged(int index);
+
+    void on_psComboBox_currentIndexChanged(int index);
+
+    void on_mobilityComboBox_currentIndexChanged(int index);
+
+    void on_restoreButton_clicked();
 
 private:
     Ui::TuningTrafficForm *ui;
     TuningTrafficData tuningTrafficData;
-
-    bool saveClicked;
-    bool cancelClicked;
 
     QString projectName;
     QString trafficFileName;

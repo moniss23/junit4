@@ -629,7 +629,7 @@
           <item>
            <widget class="QPushButton" name="mobilitySaveButton">
             <property name="text">
-             <string>Save current area parameters</string>
+             <string>Save current mobility parameters</string>
             </property>
            </widget>
           </item>

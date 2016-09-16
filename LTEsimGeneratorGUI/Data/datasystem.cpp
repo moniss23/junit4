@@ -982,3 +982,20 @@ void DataSystem::updatePagingRate(QString projectName, int rate){
     project->pagingSettings.rate = rate;
     saveProjectsFile();
 }
+
+void DataSystem::saveTuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData &tuningTrafficData)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.\nData not saved");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        emit errorInData("Can't find right trafficFile");
+        return;
+    }
+
+    traffic->tuningTrafficData = tuningTrafficData;
+    saveProjectsFile();
+}

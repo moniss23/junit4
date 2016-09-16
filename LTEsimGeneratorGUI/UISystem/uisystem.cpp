@@ -283,6 +283,10 @@ void UISystem::bindingObjects()
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_TuningTraffic(QString,QString,TuningTrafficData)), &tuningTrafficManager, SLOT(loadAndSpawn(QString,QString,TuningTrafficData)));
+    QObject::connect(&tuningTrafficManager, SIGNAL(restoreTuningTrafficData(QString,QString)), this, SLOT(restoreTuningTrafficData(QString,QString))); //something wierd is happening and it does not work
+    QObject::connect(this, SIGNAL(restoreTuningTrafficData(TuningTrafficData)), &tuningTrafficManager, SLOT(restoreTuningTrafficData(TuningTrafficData))); //something wierd is happening and it does not work
+
+    QObject::connect(&tuningTrafficManager, SIGNAL(saveTuningTrafficData(QString,QString,TuningTrafficData)), dataSystem, SLOT(saveTuningTraffic(QString,QString,TuningTrafficData)));
 
     // Add UEs to Traffic Map Scene + update UEs
     QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
@@ -561,6 +565,23 @@ void UISystem::spawnWindow_TuningTraffic(const QString &projectName, const QStri
         return;
     }
     emit spawnWindow_TuningTraffic(project->name, traffic->filename, traffic->tuningTrafficData);
+}
+
+void UISystem::restoreTuningTrafficData(const QString &projectName, const QString &trafficName)
+{
+    auto project = findProjectByName(projectName);
+    if (project==nullptr) {
+        dataSystem->errorInData("Can't find right project");
+        return;
+    }
+
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        dataSystem->errorInData("Can't find right trafficFile");
+        return;
+    }
+
+    emit restoreTuningTrafficData(traffic->tuningTrafficData);
 }
 
 void UISystem::spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index)
