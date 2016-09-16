@@ -607,7 +607,26 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 ## Test Case - Start traffic  ##\n\
 ################################\n";
 
-            outputString.append(testCaseStartTrafficHeader);
+    outputString.append(testCaseStartTrafficHeader);
+
+    outputString.append("\n");
+
+    if(trafficFileData.timeData.tab1_attachRate!=0)
+    {
+        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
+        outputString.append(trafficFileData.timeData.tab1_attachRate);
+        outputString.append(");\n");
+    }
+    if(trafficFileData.timeData.tab2_attachRate!=0)
+    {
+        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
+        outputString.append(trafficFileData.timeData.tab2_attachRate);
+        outputString.append(");\n");
+    }
+    else
+    {
+        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users();\n");
+    }
 
             outputString.append("\n");
 
@@ -642,7 +661,27 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 ## Test Case - Stop Traffic   ##\n\
 ################################\n";
 
-            outputString.append(testCaseStopTrafficHeader);
+    outputString.append(testCaseStopTrafficHeader);
+
+    outputString.append("\n");
+
+    if(trafficFileData.timeData.tab1_detachRate!=0)
+    {
+        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
+        outputString.append(trafficFileData.timeData.tab1_detachRate);
+        outputString.append(");\n");
+    }
+    if(trafficFileData.timeData.tab2_detachRate!=0)
+    {
+        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
+        outputString.append(trafficFileData.timeData.tab2_detachRate);
+        outputString.append(");\n");
+    }
+    else
+    {
+        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users();\n");
+    }
+
 
             outputString.append("\n");
 
