@@ -353,7 +353,6 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
             outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval));
             outputString.append(")\n");
         }
-        outputString.append("\n");
     }
     outputString.append("\n");
 
@@ -375,7 +374,6 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
             outputString.append(QString::number(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psDuration));
             outputString.append(")\n");
         }
-        outputString.append("\n");
     }
     outputString.append("\n");
 
@@ -397,7 +395,6 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
             outputString.append(QString::number(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->granularity));
             outputString.append(")\n");
         }
-        outputString.append("\n");
     }
     outputString.append("\n");
 
@@ -407,8 +404,6 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 ################################\n";
 
             outputString.append(setupCustomModelsHeader);
-
-    outputString.append("\n");
 
     outputString.append("\n#Setting Custom Models parameters: \n");
 
@@ -614,7 +609,26 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 
             outputString.append(testCaseStartTrafficHeader);
 
-    outputString.append("\n");
+            outputString.append("\n");
+
+            if(trafficFileData.timeData.tab1_attachRate!=0)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
+                outputString.append(QString::number(trafficFileData.timeData.tab1_attachRate));
+                outputString.append(");\n");
+            }
+            else if(trafficFileData.timeData.tab2_attachRate!=0)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
+                outputString.append(QString::number(trafficFileData.timeData.tab2_attachRate));
+                outputString.append(");\n");
+            }
+            else
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users();\n");
+            }
+
+            outputString.append("\n");
 
     QString testCaseStatisticsHeader="################################\n\
 ## Test Case - Statistics     ##\n\
@@ -630,7 +644,27 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 
             outputString.append(testCaseStopTrafficHeader);
 
-    outputString.append("\n");
+            outputString.append("\n");
+
+            if(trafficFileData.timeData.tab1_detachRate!=0)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
+                outputString.append(QString::number(trafficFileData.timeData.tab1_detachRate));
+                outputString.append(");\n");
+            }
+            else if(trafficFileData.timeData.tab2_detachRate!=0)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
+                outputString.append(QString::number(trafficFileData.timeData.tab2_detachRate));
+                outputString.append(");\n");
+            }
+            else
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users();\n");
+            }
+
+
+            outputString.append("\n");
 
     QString testCaseEndStatisticsHeader="################################\n\
 ## Test Case - End Statistics ##\n\
@@ -645,6 +679,9 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
 ################################\n";
 
             outputString.append(testCaseCleanUpHeader);
+
+
+    outputString.append("\nLteSimCli.bean(:name=>\"/ltesim/deployment\").delete_all_users();\ndie");
 
     return outputString;
 }
