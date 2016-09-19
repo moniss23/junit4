@@ -549,7 +549,7 @@ void DataSystem::generateTrafficScript(const Project &project, const int &indexO
 {
     MapParser mapParser;
     QString content;
-    content.append(mapParser.GenerateTrafficScript(project.trafficFilesList.at(indexOfFile)));
+    content.append(mapParser.GenerateTrafficScript(project, indexOfFile));
     fileManager->generateTrafficScript(project.fullpath,project.name,content,project.trafficFilesList.at(indexOfFile).filename);
 }
 

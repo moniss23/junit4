@@ -308,419 +308,488 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
 
 }
 
-QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
-{
-    QString outputString;
+    QString MapParser::GenerateTrafficScript(const Project &project, const int &index)
+    {
+        QString outputString;
 
-    QString testCasePreparationHeader="################################\n\
+        QString testCasePreparationHeader="################################\n\
 ## Test Case - Preparation    ##\n\
 ################################\n";
-            outputString.append(testCasePreparationHeader);
+                outputString.append(testCasePreparationHeader);
 
-    outputString.append("\n");
+        for(int i=0;i<project.cellsInfo.size();i++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/rec/");
+            outputString.append(project.cellsInfo.at(i).first.name);
+            outputString.append("\").isDiscovered \n");
+        }
 
-    QString setupTuningParametersHeader="################################\n\
+        outputString.append("\n");
+
+        for(int i=0;i<project.cellsInfo.size();i++)
+        {
+            outputString.append("LteSimCli.bean(:name=>\"/ltesim/rec/");
+            outputString.append(project.cellsInfo.at(i).first.name);
+            outputString.append("\").isReady \n");
+        }
+
+        outputString.append("\n");
+
+        if(project.pagingSettings.bundlePaging)
+        {
+            for(int i=0;i<project.pagingSettings.names.size();i++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/paginggenerator/");
+                outputString.append(project.pagingSettings.names.at(i));
+                outputString.append("\").s1ConnectionComplete \n");
+            }
+        }
+
+        QString setupTuningParametersHeader="################################\n\
 ## Setup - Tuning parameters  ##\n\
 ################################\n";
 
-            outputString.append(setupTuningParametersHeader);
+                outputString.append(setupTuningParametersHeader);
 
-    outputString.append("\n");
+        outputString.append("\n");
+        for(int i=0;i<project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.size();i++)
+        {
+            if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callIntensity!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->csName);
+                outputString.append("\", \"call_intensity\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callIntensity));
+                outputString.append(")\n");
+            }
+              if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callDuration!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->csName);
+                outputString.append("\", \"call_duration\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callDuration));
+                outputString.append(")\n");
+            }
+              if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->csName);
+                outputString.append("\", \"recovery_start_interval\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval));
+                outputString.append(")\n");
+            }
+        }
+        outputString.append("\n");
 
-    for(int i=0;i<trafficFileData.tuningTrafficData.csParamGroup.size();i++)
-    {
-        if(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callIntensity!=1.0)
+        for(int i=0;i<project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.size();i++)
         {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.csParamGroup.at(i)->csName);
-            outputString.append("\", \"call_intensity\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callIntensity));
-            outputString.append(")\n");
+            if(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psIntensity!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psName);
+                outputString.append("\", \"ps_intensity\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psIntensity));
+                outputString.append(")\n");
+            }
+              if(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psDuration!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psName);
+                outputString.append("\", \"ps_duration\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psDuration));
+                outputString.append(")\n");
+            }
         }
-          if(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callDuration!=1.0)
-        {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.csParamGroup.at(i)->csName);
-            outputString.append("\", \"call_duration\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->callDuration));
-            outputString.append(")\n");
-        }
-          if(trafficFileData.tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval!=1.0)
-        {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.csParamGroup.at(i)->csName);
-            outputString.append("\", \"recovery_start_interval\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval));
-            outputString.append(")\n");
-        }
-    }
-    outputString.append("\n");
+        outputString.append("\n");
 
-    for(int i=0;i<trafficFileData.tuningTrafficData.psParamGroup.size();i++)
-    {
-        if(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psIntensity!=1.0)
+        for(int i=0;i<project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.size();i++)
         {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psName);
-            outputString.append("\", \"ps_intensity\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psIntensity));
-            outputString.append(")\n");
+            if(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->speed!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->mobilityName);
+                outputString.append("\", \"speed\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->speed));
+                outputString.append(")\n");
+            }
+              if(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->granularity!=1.0)
+            {
+                outputString.append("UBsimTuning.setModelValue(\"");
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->mobilityName);
+                outputString.append("\", \"granularity\", ");
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->granularity));
+                outputString.append(")\n");
+            }
         }
-          if(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psDuration!=1.0)
-        {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psName);
-            outputString.append("\", \"ps_duration\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.psParamGroup.at(i)->psDuration));
-            outputString.append(")\n");
-        }
-    }
-    outputString.append("\n");
-
-    for(int i=0;i<trafficFileData.tuningTrafficData.mobilityGroup.size();i++)
-    {
-        if(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->speed!=1.0)
-        {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->mobilityName);
-            outputString.append("\", \"speed\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->speed));
-            outputString.append(")\n");
-        }
-          if(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->granularity!=1.0)
-        {
-            outputString.append("UBsimTuning.setModelValue(\"");
-            outputString.append(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->mobilityName);
-            outputString.append("\", \"granularity\", ");
-            outputString.append(QString::number(trafficFileData.tuningTrafficData.mobilityGroup.at(i)->granularity));
-            outputString.append(")\n");
-        }
-    }
-    outputString.append("\n");
+        outputString.append("\n");
 
 
-    QString setupCustomModelsHeader="################################\n\
+        QString setupCustomModelsHeader="################################\n\
 ## Setup - Custom Models      ##\n\
 ################################\n";
 
-            outputString.append(setupCustomModelsHeader);
-
-    outputString.append("\n#Setting Custom Models parameters: \n");
-
-    for(unsigned i=0;i<10;i++)
-    {
-        for(int j=0; j<trafficFileData.customModels.at(i).CMPings.size();j++)
-        {
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addPing(");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingQci));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingNumberOfPings));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingInterval));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMPings.at(j).pingMinRecievedPings));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMVoips.size();j++)
-        {
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addVoip(");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipQci));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipActivityFactor));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipMaxTransferTime));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMVoips.at(j).voipMinPacketsReceivedInTime));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMFtpDls.size();j++)
-        {
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addFtpDl(");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpDls.at(j).ftpDlQci));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpDls.at(j).ftpDlFilesize));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpDls.at(j).ftpDlMinThroughput));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMFtpUls.size();j++)
-        {
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addFtpUl(");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpUls.at(j).ftpUlQci));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpUls.at(j).ftpUlFilesize));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMFtpUls.at(j).ftpUlMinThroughput));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMStreamDls.size();j++)
-        {
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addStreamDl(");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlQci));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlSpeed));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlDuration));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamDls.at(j).streamDlMinThroughput));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMStreamUls.size();j++)
-        {
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addStreamUl(");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlQci));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlSpeed));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlDuration));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMStreamUls.at(j).streamUlMinThroughput));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMSyncedPings.size();j++)
-        {
-            QString qciArray=QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.at(0));
-            for(int k=1;k<trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.size();k++)
-                qciArray+=","+QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.at(k));
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addSyncedPing([");
-            outputString.append(qciArray);
-            outputString.append("],");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingTimeBetweenTasks));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingNumberOfPings));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingInterval));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMSyncedPings.at(j).SyncedPingMinReceivedPings));
-            outputString.append(")\n");
-        }
-        for(int j=0; j<trafficFileData.customModels.at(i).CMServiceReqs.size();j++)
-        {
-            QString qciArray=QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.at(0));
-            for(int k=1;k<trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.size();k++)
-                qciArray+=","+QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.at(k));
-            outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
-            outputString.append(QString::number(i+1));
-            outputString.append("\").addServiceReq([");
-            outputString.append(qciArray);
-            outputString.append("],");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqTimeToWaitForAttach));
-            outputString.append(",");
-            outputString.append(QString::number(trafficFileData.customModels.at(i).CMServiceReqs.at(j).ServiceReqIntervalBetweenUlData));
-            outputString.append(")\n");
-        }
+                outputString.append(setupCustomModelsHeader);
         outputString.append("\n");
-    }
 
-    QString setupCreateUePairsHeader="################################\n\
+
+        for(unsigned i=0;i<10;i++)
+        {
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMPings.size();j++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addPing(");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMPings.at(j).pingQci));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMPings.at(j).pingNumberOfPings));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMPings.at(j).pingInterval));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMPings.at(j).pingMinRecievedPings));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMVoips.size();j++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addVoip(");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMVoips.at(j).voipQci));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMVoips.at(j).voipActivityFactor));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMVoips.at(j).voipMaxTransferTime));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMVoips.at(j).voipMinPacketsReceivedInTime));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMFtpDls.size();j++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addFtpDl(");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMFtpDls.at(j).ftpDlQci));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMFtpDls.at(j).ftpDlFilesize));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMFtpDls.at(j).ftpDlMinThroughput));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMFtpUls.size();j++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addFtpUl(");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMFtpUls.at(j).ftpUlQci));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMFtpUls.at(j).ftpUlFilesize));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMFtpUls.at(j).ftpUlMinThroughput));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMStreamDls.size();j++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addStreamDl(");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamDls.at(j).streamDlQci));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamDls.at(j).streamDlSpeed));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamDls.at(j).streamDlDuration));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamDls.at(j).streamDlMinThroughput));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMStreamUls.size();j++)
+            {
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addStreamUl(");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamUls.at(j).streamUlQci));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamUls.at(j).streamUlSpeed));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamUls.at(j).streamUlDuration));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMStreamUls.at(j).streamUlMinThroughput));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.size();j++)
+            {
+                QString qciArray=QString::number(project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.at(0));
+                for(int k=1;k<project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.size();k++)
+                    qciArray+=","+QString::number(project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingQciArray.at(k));
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addSyncedPing([");
+                outputString.append(qciArray);
+                outputString.append("],");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingTimeBetweenTasks));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingNumberOfPings));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingInterval));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMSyncedPings.at(j).SyncedPingMinReceivedPings));
+                outputString.append(")\n");
+            }
+            for(int j=0; j<project.trafficFilesList.at(index).customModels.at(i).CMServiceReqs.size();j++)
+            {
+                QString qciArray=QString::number(project.trafficFilesList.at(index).customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.at(0));
+                for(int k=1;k<project.trafficFilesList.at(index).customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.size();k++)
+                    qciArray+=","+QString::number(project.trafficFilesList.at(index).customModels.at(i).CMServiceReqs.at(j).ServiceReqQciArray.at(k));
+                outputString.append("LteSimCli.bean(:name=>\"/ltesim/models/LteCustom");
+                outputString.append(QString::number(i+1));
+                outputString.append("\").addServiceReq([");
+                outputString.append(qciArray);
+                outputString.append("],");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMServiceReqs.at(j).ServiceReqTimeToWaitForAttach));
+                outputString.append(",");
+                outputString.append(QString::number(project.trafficFilesList.at(index).customModels.at(i).CMServiceReqs.at(j).ServiceReqIntervalBetweenUlData));
+                outputString.append(")\n");
+            }
+        }
+
+        outputString.append("\n");
+
+        QString setupCreateUePairsHeader="################################\n\
 ## Setup - Create UE pairs    ##\n\
 ################################\n";
 
-    outputString.append("\n#Creating user pairs: \n");
-
-    outputString.append(setupCreateUePairsHeader);
-
-    for(int i=0;i<trafficFileData.userEquipments.size();i++)
-    {
-        outputString.append(trafficFileData.userEquipments.at(i).amountOfPairs);
-        outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
-        outputString.append(trafficFileData.userEquipments.at(i).pairName);
-        outputString.append("\",\"");
-        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueArea.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueArea.second);
-        outputString.append("\")}");
+            outputString.append(setupCreateUePairsHeader);
         outputString.append("\n");
-    }
 
 
-    for(int i=0;i<trafficFileData.userEquipments.size();i++)
-    {
-        outputString.append(trafficFileData.userEquipments.at(i).amountOfPairs);
-        outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
-        outputString.append(trafficFileData.userEquipments.at(i).pairName);
-        outputString.append("\",\"");
-        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueArea.first);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.second);
-        outputString.append("\", \"");
-        outputString.append(trafficFileData.userEquipments.at(i).ueArea.second);
-        outputString.append("\")}");
+        for(int i=0;i<project.trafficFilesList.at(index).userEquipments.size();i++)
+        {
+            outputString.append(QString::number(project.trafficFilesList.at(index).userEquipments.at(i).amountOfPairs));
+            outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).pairName);
+            outputString.append("\",\"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).mobilityModelsPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).csModelsPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).psModelsPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueTypesPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueArea.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).mobilityModelsPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).csModelsPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).psModelsPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueTypesPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueArea.second);
+            outputString.append("\")}");
+            outputString.append("\n");
+        }
+
+
+        for(int i=0;i<project.trafficFilesList.at(index).userEquipments.size();i++)
+        {
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).amountOfPairs);
+            outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).pairName);
+            outputString.append("\",\"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).mobilityModelsPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).csModelsPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).psModelsPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueTypesPair.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueArea.first);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).mobilityModelsPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).csModelsPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).psModelsPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueTypesPair.second);
+            outputString.append("\", \"");
+            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueArea.second);
+            outputString.append("\")}");
+            outputString.append("\n");
+        }
+
         outputString.append("\n");
-    }
 
-    outputString.append("\n");
-
-    QString setupConfigurePagingHeader="################################\n\
+        QString setupConfigurePagingHeader="################################\n\
 ## Setup - Configure paging   ##\n\
 ################################\n";
 
-            outputString.append(setupConfigurePagingHeader);
+                if(project.pagingSettings.bundlePaging)
+                {
+                    outputString.append(setupConfigurePagingHeader);
+                    for(int i=0;i<project.pagingSettings.names.size();i++)
+                    {
+                        outputString.append("LteSimCli.bean(:name=>\"/ltesim/paginggenerator/");
+                        outputString.append(project.pagingSettings.names.at(i));
+                        outputString.append("\").startPaging(");
+                        outputString.append(QString::number(project.pagingSettings.rate));
+                        outputString.append(");\n");
+                    }
+                    outputString.append("\n");
+                }
 
-    outputString.append("\n");
-
-    QString testCaseStartTrafficHeader="################################\n\
+        QString testCaseStartTrafficHeader="################################\n\
 ## Test Case - Start traffic  ##\n\
 ################################\n";
 
-    outputString.append(testCaseStartTrafficHeader);
+                outputString.append(testCaseStartTrafficHeader);
 
-    outputString.append("\n");
+                outputString.append("\n");
 
-    if(trafficFileData.timeData.tab1_attachRate!=0)
-    {
-        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
-        outputString.append(trafficFileData.timeData.tab1_attachRate);
-        outputString.append(");\n");
-    }
-    if(trafficFileData.timeData.tab2_attachRate!=0)
-    {
-        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
-        outputString.append(trafficFileData.timeData.tab2_attachRate);
-        outputString.append(");\n");
-    }
-    else
-    {
-        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users();\n");
-    }
+                if(project.trafficFilesList.at(index).timeData.tab1_attachRate!=0)
+                {
+                    outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
+                    outputString.append(QString::number(project.trafficFilesList.at(index).timeData.tab1_attachRate));
+                    outputString.append(");\n");
+                }
+                else if(project.trafficFilesList.at(index).timeData.tab2_attachRate!=0)
+                {
+                    outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
+                    outputString.append(QString::number(project.trafficFilesList.at(index).timeData.tab2_attachRate));
+                    outputString.append(");\n");
+                }
+                else
+                {
+                    outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users();\n");
+                }
 
-            outputString.append("\n");
+                outputString.append("\n");
 
-            if(trafficFileData.timeData.tab1_attachRate!=0)
-            {
-                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
-                outputString.append(QString::number(trafficFileData.timeData.tab1_attachRate));
-                outputString.append(");\n");
-            }
-            else if(trafficFileData.timeData.tab2_attachRate!=0)
-            {
-                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users_with_rate(");
-                outputString.append(QString::number(trafficFileData.timeData.tab2_attachRate));
-                outputString.append(");\n");
-            }
-            else
-            {
-                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").start_all_users();\n");
-            }
-
-            outputString.append("\n");
-
-    QString testCaseStatisticsHeader="################################\n\
+        QString testCaseStatisticsHeader="################################\n\
 ## Test Case - Statistics     ##\n\
 ################################\n";
 
-            outputString.append(testCaseStatisticsHeader);
+                outputString.append(testCaseStatisticsHeader);
 
-    outputString.append("\n");
+                QString statistics;
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Ue Static Info"))
+                    statistics.append("Statistics.listUeStaticInfo() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Model Exp Nas"))
+                    statistics.append("Statistics.listModelExpNas() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Model Exp Rrc"))
+                    statistics.append("Statistics.listModelExpRrc() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Model Exp Mobility"))
+                    statistics.append("Statistics.listModelExpMobility() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Model Exp Throughput"))
+                    statistics.append("Statistics.listModelExpThroughput() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Per Ue Throughput"))
+                    statistics.append("Statistics.listPerUeThroughput() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Ue Exp Mobility"))
+                    statistics.append("Statistics.listUeExpMobility() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Model Exp Ps"))
+                    statistics.append("Statistics.listModelExpPs() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Ue Exp Ps"))
+                    statistics.append("Statistics.listUeExpPs() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Model Exp Cs"))
+                    statistics.append("Statistics.listModelExpCs() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Ue Exp Cs"))
+                    statistics.append("Statistics.listUeExpCs() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Write Statistics to file"))
+                {
+                    statistics.append("Statistics.writeStatisticsToFile(");
+                    statistics.append(project.trafficFilesList.at(index).statisticsData.generalUe);
+                    statistics.append(",");
+                    statistics.append(project.trafficFilesList.at(index).statisticsData.generalDelayBetweenPackets);
+                    statistics.append(",");
+                    statistics.append(project.trafficFilesList.at(index).statisticsData.generalTotalNumberOfSeconds);
+                    statistics.append(",");
+                    statistics.append(project.trafficFilesList.at(index).statisticsData.generalMtuSize);
+                    statistics.append(",");
+                    statistics.append(project.trafficFilesList.at(index).statisticsData.generalMeasurementDelta);
+                    statistics.append(")\n");
+                }
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Ipex Protocol Stats"))
+                    statistics.append("Statistics.printIpexProtocolStats() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Ipex Tgu Stats"))
+                    statistics.append("Statistics.printIpexTguStats("+project.trafficFilesList.at(index).statisticsData.ipexTguImsi+") \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Write IPEX to file"))
+                    statistics.append("Statistics.writeIpexStatisticsToFile("+project.trafficFilesList.at(index).statisticsData.ipexFileName+","+project.trafficFilesList.at(index).statisticsData.ipexSeconds+","+project.trafficFilesList.at(index).statisticsData.ipexMeasurement+") \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Protocol Stats"))
+                    statistics.append("Statistics.print \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Protocol Rohc Stats"))
+                    statistics.append("Statistics.printPdcpUProtocolRohcStats() \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Bearer Status Words Stats"))
+                    statistics.append("Statistics.printPdcpUBearerStatusWordsStats("+project.trafficFilesList.at(index).statisticsData.pdcpuBearerStatusImsi+","+project.trafficFilesList.at(index).statisticsData.pdcpuBearerStatusEpsBearerId+") \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Bearer Rohc Stats"))
+                    statistics.append("Statistics.printPdcpUBearerRohcStats("+project.trafficFilesList.at(index).statisticsData.pdcpuBearerRohcImsi+","+project.trafficFilesList.at(index).statisticsData.pdcpuBearerRohcEpsBearerId+") \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Bearer Error Stats"))
+                    statistics.append("Statistics.printPdcpUBearerErrorStats("+project.trafficFilesList.at(index).statisticsData.pdcpuBearerErrorImsi+","+project.trafficFilesList.at(index).statisticsData.pdcpuBearerErrorEpsBearerId+") \n");
+                if(project.trafficFilesList.at(index).statisticsData.getStatMapFor("Write PdcpU to file"))
+                    statistics.append("Statistics.writePdcpUStatisticsToFile("+project.trafficFilesList.at(index).statisticsData.pdcpuFileName+","+project.trafficFilesList.at(index).statisticsData.pdcpuSeconds+","+project.trafficFilesList.at(index).statisticsData.pdcpuMeasurement+") \n");
 
-    QString testCaseStopTrafficHeader="################################\n\
+        if(project.trafficFilesList.at(index).timeData.tab1_statisticsWithRate)
+            for(int i=0;i<project.trafficFilesList.at(index).timeData.spn_time1.second();i=i+project.trafficFilesList.at(index).timeData.tab1_statsRate)
+            {
+                outputString.append("\nsleep("+QString::number(project.trafficFilesList.at(index).timeData.tab1_statsRate)+")\n");
+                outputString.append(statistics);
+            }
+        if(project.trafficFilesList.at(index).timeData.tab2_statisticsWithRate)
+            for(int i=0;i<project.trafficFilesList.at(index).timeData.spn_time2.second();i=i+project.trafficFilesList.at(index).timeData.tab2_statsRate)
+            {
+                outputString.append("\nsleep("+QString::number(project.trafficFilesList.at(index).timeData.tab2_statsRate)+")\n");
+                outputString.append(statistics);
+            }
+
+        QString testCaseStopTrafficHeader="################################\n\
 ## Test Case - Stop Traffic   ##\n\
 ################################\n";
 
-    outputString.append(testCaseStopTrafficHeader);
+                outputString.append(testCaseStopTrafficHeader);
 
-    outputString.append("\n");
+                outputString.append("\n");
 
-    if(trafficFileData.timeData.tab1_detachRate!=0)
-    {
-        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
-        outputString.append(trafficFileData.timeData.tab1_detachRate);
-        outputString.append(");\n");
-    }
-    if(trafficFileData.timeData.tab2_detachRate!=0)
-    {
-        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
-        outputString.append(trafficFileData.timeData.tab2_detachRate);
-        outputString.append(");\n");
-    }
-    else
-    {
-        outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users();\n");
-    }
+                if(project.trafficFilesList.at(index).timeData.tab1_detachRate!=0)
+                {
+                    outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
+                    outputString.append(QString::number(project.trafficFilesList.at(index).timeData.tab1_detachRate));
+                    outputString.append(");\n");
+                }
+                else if(project.trafficFilesList.at(index).timeData.tab2_detachRate!=0)
+                {
+                    outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
+                    outputString.append(QString::number(project.trafficFilesList.at(index).timeData.tab2_detachRate));
+                    outputString.append(");\n");
+                }
+                else
+                {
+                    outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users();\n");
+                }
 
+                outputString.append("\n");
 
-            outputString.append("\n");
-
-            if(trafficFileData.timeData.tab1_detachRate!=0)
-            {
-                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
-                outputString.append(QString::number(trafficFileData.timeData.tab1_detachRate));
-                outputString.append(");\n");
-            }
-            else if(trafficFileData.timeData.tab2_detachRate!=0)
-            {
-                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users_with_rate(");
-                outputString.append(QString::number(trafficFileData.timeData.tab2_detachRate));
-                outputString.append(");\n");
-            }
-            else
-            {
-                outputString.append("LteSimCli.bean(:name=>\"/ltesim/deployment\").stop_all_users();\n");
-            }
-
-
-            outputString.append("\n");
-
-    QString testCaseEndStatisticsHeader="################################\n\
+        QString testCaseEndStatisticsHeader="################################\n\
 ## Test Case - End Statistics ##\n\
 ################################\n";
 
-            outputString.append(testCaseEndStatisticsHeader);
+                outputString.append(testCaseEndStatisticsHeader);
 
-    outputString.append("\n");
+        outputString.append("\n");
 
-    QString testCaseCleanUpHeader="################################\n\
+        if(project.trafficFilesList.at(index).timeData.tab2_statisticsWithRate)
+            outputString.append(statistics);
+        if(project.trafficFilesList.at(index).timeData.tab1_statisticsWithRate)
+            outputString.append(statistics);
+            outputString.append("\n");
+
+        QString testCaseCleanUpHeader="################################\n\
 ## Test Case - Clean-up       ##\n\
 ################################\n";
 
-            outputString.append(testCaseCleanUpHeader);
+                outputString.append(testCaseCleanUpHeader);
 
 
-    outputString.append("\nLteSimCli.bean(:name=>\"/ltesim/deployment\").delete_all_users();\ndie");
+        outputString.append("\nLteSimCli.bean(:name=>\"/ltesim/deployment\").delete_all_users();\ndie");
 
-    return outputString;
-}
+        return outputString;
+    }

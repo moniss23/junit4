@@ -6,7 +6,7 @@
 #include "Data/Objects/handover.h"
 #include "Data/ProjectSettings/ubsimsettings.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
-#include "Data/Objects/trafficfiledata.h"
+#include "Data/project.h"
 
 #include <QString>
 #include <QPair>
@@ -24,7 +24,7 @@ public:
                             UBSimSettings &ubSim,
                             DataGeneratorSettings &dataGenerator);
 
-    static QString GenerateTrafficScript(const TrafficFileData &trafficFileData);
+    static QString GenerateTrafficScript(const Project &project, const int &index);
 };
 
 #endif // MAPPARSER_H
