@@ -71,7 +71,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             }
             project.channelModelSettings = getChannelModelSettingsFromScript(scriptContentLines.mid(startIndex,len));
         }
-        else if (scriptContentLines[i].contains("default[:mme_names] =")){
+        else if (scriptContentLines[i].contains("getMmeParameters")){
             startIndex=i;
             while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
@@ -267,10 +267,14 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
             }
         }
         else if(scriptContentLines[i].contains("default[:start_isp_simulator]")) {
-            if(scriptContentLines[i].contains("true")) {
-                dataGeneratorSettings.startIspSimulator = true;
-            } else if (scriptContentLines[i].contains("false")) {
-                dataGeneratorSettings.startIspSimulator = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    dataGeneratorSettings.startIspSimulator=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    dataGeneratorSettings.startIspSimulator=false;
+                }
             }
         }
         else if(scriptContentLines[i].contains("default[:ipgwtg_ipAddress]")) {
@@ -280,17 +284,25 @@ DataGeneratorSettings ScriptParserManager::getDataGeneratorSettingsFromScript(co
             }
         }
         else if(scriptContentLines[i].contains("default[:ipgwtg_inband_signaling]")) {
-            if(scriptContentLines[i].contains("true")) {
-                dataGeneratorSettings.ipgwtgInbandSignaling = true;
-            } else if (scriptContentLines[i].contains("false")) {
-                dataGeneratorSettings.ipgwtgInbandSignaling = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    dataGeneratorSettings.ipgwtgInbandSignaling=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    dataGeneratorSettings.ipgwtgInbandSignaling=false;
+                }
             }
         }
         else if(scriptContentLines[i].contains("default[:ipgwtg_ftp_sender_connect_put]")) {
-            if(scriptContentLines[i].contains("true")) {
-                dataGeneratorSettings.ipgwtgFtpSenderConnectPut = true;
-            } else {
-                dataGeneratorSettings.ipgwtgFtpSenderConnectPut = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    dataGeneratorSettings.ipgwtgFtpSenderConnectPut=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    dataGeneratorSettings.ipgwtgFtpSenderConnectPut=false;
+                }
             }
         }
     }
@@ -326,11 +338,14 @@ SgwSettings ScriptParserManager::getSgwSettings(const QStringList scriptContentL
             }
         }
         else if (scriptContentLines[i].contains("default[:core_network_gateway]")) {
-            if (scriptContentLines[i].contains("true")){
-                sgwSettings.coreNetworkGateway=true;
-            }
-            else{
-                sgwSettings.coreNetworkGateway=false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    sgwSettings.coreNetworkGateway=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    sgwSettings.coreNetworkGateway=false;
+                }
             }
         }
     }
@@ -465,7 +480,18 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
 
     int len;
     for (int i=0;i<scriptContentLines.size();i++) {
-        if (scriptContentLines[i].contains("default[:mme_names] =")){
+        if (scriptContentLines[i].contains("default[:simulate_core]")){
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    mmeSettings.simulatedCoreNetwork=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    mmeSettings.simulatedCoreNetwork=false;
+                }
+            }
+        }
+        else if (scriptContentLines[i].contains("default[:mme_names] =")){
             QRegExp quoteRegExp("\".*\"");
             if (quoteRegExp.lastIndexIn(scriptContentLines[i])>-1){
                 mmeSettings.names = quoteRegExp.capturedTexts();
@@ -474,9 +500,7 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
                 name.remove('"');
             }
         }
-        else if (scriptContentLines[i].contains("default[:simulate_core] = ")){
-            mmeSettings.simulatedCoreNetwork = scriptContentLines[i].contains("true");
-        }
+
         else if (scriptContentLines[i].contains("default[:mme_tais] = ")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
             mmeSettings.tais = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
@@ -508,16 +532,14 @@ PagingSettings ScriptParserManager::getPagingSettings(const QStringList scriptCo
     int len;
     for (int i = 0;i<scriptContentLines.size();i++)  {
         if (scriptContentLines[i].contains("[:generate_pagings]")){
-            QRegExp boolean("(true|false)");
-            if (!boolean.indexIn(scriptContentLines[i])) {
-                return pagingSettings;
-            }
-            QString value = boolean.capturedTexts()[0];
-            if (value=="true") {
-                pagingSettings.isUsedInConfiguration = true;
-            }
-            else if (value == "false") {
-                pagingSettings.isUsedInConfiguration = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    pagingSettings.isUsedInConfiguration=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    pagingSettings.isUsedInConfiguration=false;
+                }
             }
         }
         else if (scriptContentLines[i].contains("[:generators]")){
@@ -558,11 +580,14 @@ PagingSettings ScriptParserManager::getPagingSettings(const QStringList scriptCo
             }
         }
         else if (scriptContentLines[i].contains("[:bundle_paging]")){
-            if (scriptContentLines[i].contains("true")){
-                pagingSettings.bundlePaging=true;
-            }
-            else if (scriptContentLines[i].contains("false")){
-                pagingSettings.bundlePaging = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    pagingSettings.bundlePaging=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    pagingSettings.bundlePaging=false;
+                }
             }
         }
     }
@@ -606,11 +631,14 @@ UBSimSettings ScriptParserManager::getUBSimSettings(const QStringList scriptCont
             }
         }
         else if (scriptContentLines[i].contains("[:visualization]")){
-            if (scriptContentLines[i].contains("true")){
-                ubSimSettings.UBSimGui = true;
-            }
-            else if (scriptContentLines[i].contains("false")){
-                ubSimSettings.UBSimGui = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    ubSimSettings.UBSimGui=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    ubSimSettings.UBSimGui=false;
+                }
             }
         }
         else if (scriptContentLines[i].contains("[:ubsim_patches]")){
@@ -681,11 +709,14 @@ GeneralConfigurationParameters ScriptParserManager::getGeneralConfigurationSetti
             }
         }
         else if (scriptContentLines[i].contains("[:logger_file_gzipEnabled]")){
-            if (scriptContentLines[i].contains("true")){
-                generalConfiguration.loggerFileGzipEnabled = true;
-            }
-            else if (scriptContentLines[i].contains("false")){
-                generalConfiguration.loggerFileGzipEnabled = false;
+            QRegExp boolean("(false|true)");
+            if (boolean.indexIn(scriptContentLines[i])>-1) {
+                if (boolean.capturedTexts()[0]=="true") {
+                    generalConfiguration.loggerFileGzipEnabled=true;
+                }
+                else if (boolean.capturedTexts()[0]=="false") {
+                    generalConfiguration.loggerFileGzipEnabled=false;
+                }
             }
         }
     }

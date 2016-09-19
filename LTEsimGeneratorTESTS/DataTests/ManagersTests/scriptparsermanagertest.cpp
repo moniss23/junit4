@@ -200,7 +200,7 @@ void ScriptParserManagerTest::scriptParserManagerTest7_getMmeSettingsFromScript(
     MmeSettings mmeSettings;
 
     const QString scriptContent = "default[:simulate_core] = false\n"
-        "default[:mme_names] = [\"\"mme1\"\"]\n"
+        "default[:mme_names] = [\"mme1\"\"]\n"
         "default[:mme_tais] = [\"[62F2281200]\"]\n"
         "default[:mmes] = avs\n"
         "default[:mme_s1ap_uris] = [\"sctps://127.0.0.1:36412\"]\n"
