@@ -313,23 +313,23 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
     QString outputString;
 
     QString testCasePreparationHeader="################################\n\
-            ## Test Case - Preparation    ##\n\
-            ################################\n";
+## Test Case - Preparation    ##\n\
+################################\n";
             outputString.append(testCasePreparationHeader);
 
     outputString.append("\n");
 
     QString setupTuningParametersHeader="################################\n\
-            ## Setup - Tuning parameters  ##\n\
-            ################################\n";
+## Setup - Tuning parameters  ##\n\
+################################\n";
 
             outputString.append(setupTuningParametersHeader);
 
     outputString.append("\n");
 
     QString setupCustomModelsHeader="################################\n\
-            ## Setup - Custom Models      ##\n\
-            ################################\n";
+## Setup - Custom Models      ##\n\
+################################\n";
 
             outputString.append(setupCustomModelsHeader);
 
@@ -457,56 +457,117 @@ QString MapParser::GenerateTrafficScript(const TrafficFileData &trafficFileData)
     }
 
     QString setupCreateUePairsHeader="################################\n\
-            ## Setup - Create UE pairs    ##\n\
-            ################################\n";
+## Setup - Create UE pairs    ##\n\
+################################\n";
 
-            outputString.append(setupCreateUePairsHeader);
+    outputString.append("\n#Creating user pairs: \n");
+
+    outputString.append(setupCreateUePairsHeader);
+
+    for(int i=0;i<trafficFileData.userEquipments.size();i++)
+    {
+        outputString.append(trafficFileData.userEquipments.at(i).amountOfPairs);
+        outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
+        outputString.append(trafficFileData.userEquipments.at(i).pairName);
+        outputString.append("\",\"");
+        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueArea.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueArea.second);
+        outputString.append("\")}");
+        outputString.append("\n");
+    }
+
+
+    for(int i=0;i<trafficFileData.userEquipments.size();i++)
+    {
+        outputString.append(trafficFileData.userEquipments.at(i).amountOfPairs);
+        outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
+        outputString.append(trafficFileData.userEquipments.at(i).pairName);
+        outputString.append("\",\"");
+        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueArea.first);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).mobilityModelsPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).csModelsPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).psModelsPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueTypesPair.second);
+        outputString.append("\", \"");
+        outputString.append(trafficFileData.userEquipments.at(i).ueArea.second);
+        outputString.append("\")}");
+        outputString.append("\n");
+    }
 
     outputString.append("\n");
 
     QString setupConfigurePagingHeader="################################\n\
-            ## Setup - Configure paging   ##\n\
-            ################################\n";
+## Setup - Configure paging   ##\n\
+################################\n";
 
             outputString.append(setupConfigurePagingHeader);
 
     outputString.append("\n");
 
     QString testCaseStartTrafficHeader="################################\n\
-            ## Test Case - Start traffic  ##\n\
-            ################################\n";
+## Test Case - Start traffic  ##\n\
+################################\n";
 
             outputString.append(testCaseStartTrafficHeader);
 
     outputString.append("\n");
 
     QString testCaseStatisticsHeader="################################\n\
-            ## Test Case - Statistics     ##\n\
-            ################################\n";
+## Test Case - Statistics     ##\n\
+################################\n";
 
             outputString.append(testCaseStatisticsHeader);
 
     outputString.append("\n");
 
     QString testCaseStopTrafficHeader="################################\n\
-            ## Test Case - Stop Traffic   ##\n\
-            ################################\n";
+## Test Case - Stop Traffic   ##\n\
+################################\n";
 
             outputString.append(testCaseStopTrafficHeader);
 
     outputString.append("\n");
 
     QString testCaseEndStatisticsHeader="################################\n\
-            ## Test Case - End Statistics ##\n\
-            ################################\n";
+## Test Case - End Statistics ##\n\
+################################\n";
 
             outputString.append(testCaseEndStatisticsHeader);
 
     outputString.append("\n");
 
     QString testCaseCleanUpHeader="################################\n\
-            ## Test Case - Clean-up       ##\n\
-            ################################\n";
+## Test Case - Clean-up       ##\n\
+################################\n";
 
             outputString.append(testCaseCleanUpHeader);
 
