@@ -11,7 +11,7 @@ class CellRepresentation : public QGraphicsObject
     Q_OBJECT
 
 public:
-    CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsObject *parent = 0);
+    CellRepresentation(QPair<Cell,Center> &cellInfo, bool movable = true, QGraphicsObject *parent = 0);
 
     void updatePositions();
     int type() const { return UserType; }
@@ -22,6 +22,11 @@ public:
 signals:
     void spawnWindow_CellParams(CellRepresentation*, const QPair<Cell,Center> &cellObj);
 
+public:
+    QPair<Cell,Center> cellInfo;
+    static const int circlesize = 8500;
+    static const int centersize = 1500;
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
@@ -29,13 +34,10 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) Q_DECL_OVERRIDE;
     QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
+protected:
     QColor color;
+    bool movable;
 
-
-public:
-    QPair<Cell,Center> cellInfo;
-    static const int circlesize = 8500;
-    static const int centersize = 1500;
 };
 
 #endif // CELLREPRESENTATION_H

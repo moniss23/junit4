@@ -7,22 +7,26 @@
 #include <QGraphicsProxyWidget>
 #include <QGraphicsSceneMouseEvent>
 
-CellRepresentation::CellRepresentation(QPair<Cell,Center> &cellInfo, QGraphicsObject *parent)
+CellRepresentation::CellRepresentation(QPair<Cell,Center> &cellInfo, bool movable, QGraphicsObject *parent)
     : QGraphicsObject(parent),
-      cellInfo(cellInfo)
+      cellInfo(cellInfo),
+      movable(movable)
 {
-    setFlag(ItemIsMovable);
+    if(movable) {
+      setFlag(ItemIsMovable);
+      setAcceptHoverEvents(true);
+    }
+
     setFlag(ItemSendsGeometryChanges);
     setCacheMode(DeviceCoordinateCache);
-    setAcceptHoverEvents(true);
     setZValue(-1);
 
     color = QColor(Qt::darkYellow);
 }
 
 void CellRepresentation::updatePositions() {
-    this->update(boundingRect());
-    this->setPos(cellInfo.first.position_X, -cellInfo.first.position_Y);
+    setPos(cellInfo.first.position_X, -cellInfo.first.position_Y);
+    update(boundingRect());
 }
 
 QRectF CellRepresentation::boundingRect() const
@@ -43,13 +47,24 @@ QPainterPath CellRepresentation::shape() const
 void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     (void) widget;
+    (void) option;
 
-    painter->setPen(Qt::NoPen);
-    painter->setBrush(Qt::darkGray);
-    painter->drawEllipse(-7, -7, 20, 20);
 
-    QColor col =  QColor(255, 215, 0, 200);
-    painter->setBrush(QBrush(col));
+    QColor yellow   = QColor(255,215,0, 125);
+    QColor warmGrey1 = QColor(255,255,255);
+    QColor warmGrey = QColor(168,168,105);
+
+    QRadialGradient gradient(0, 0, circlesize);
+    if(movable){
+        gradient.setColorAt(0, yellow);
+        gradient.setColorAt(1, color);
+    } else {
+        gradient.setColorAt(0, warmGrey1);
+
+        gradient.setColorAt(1, warmGrey);
+    }
+
+    painter->setBrush(gradient);
     painter->setPen(QPen(Qt::white, 0));
     painter->drawEllipse( -circlesize/2 , -circlesize/2 , circlesize, circlesize);
 
@@ -93,7 +108,7 @@ void CellRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void CellRepresentation::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
   color = QColor(Qt::red);
-   QGraphicsItem::hoverEnterEvent(event);
+  QGraphicsItem::hoverEnterEvent(event);
 }
 
 void CellRepresentation::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)

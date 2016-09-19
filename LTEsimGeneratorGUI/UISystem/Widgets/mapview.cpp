@@ -171,10 +171,15 @@ void MapView::drawUeRepresentations() {
 void MapView::drawCellRepresentations()
 {
     for(auto &cellCenter : project.cellsInfo) {
-        CellRepresentation *cellRep = new CellRepresentation(cellCenter);
+        CellRepresentation *cellRep;
+        if(!trafficName.isEmpty()){
+            cellRep = new CellRepresentation(cellCenter, false);
+        }else {
+            cellRep = new CellRepresentation(cellCenter);
+        }
+
         scene->addItem(cellRep);
         cellRep->updatePositions();
-        if(!trafficName.isEmpty()) cellRep->setFlag(QGraphicsItem::ItemIsMovable, false);
         QObject::connect(cellRep, SIGNAL(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)),
                          this, SLOT(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)));
     }
