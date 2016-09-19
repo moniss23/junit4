@@ -2,7 +2,7 @@
 
 #include "uerepresentation.h"
 
-UeRepresentation::UeRepresentation(UEData &ueObject) : color(128,128,128,255), ueObject(ueObject)
+UeRepresentation::UeRepresentation(UEData &ueObject) : color(255,120,170,255), ueObject(ueObject)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -64,7 +64,7 @@ void UeRepresentation::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 void UeRepresentation::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-   color = QColor(128, 128, 128, 205);
+   color = QColor(255, 120, 170, 255);
    QGraphicsItem::hoverLeaveEvent(event);
 }
 

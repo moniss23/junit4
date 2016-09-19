@@ -160,6 +160,7 @@ void MapView::drawUeRepresentations() {
             UeRepresentation *ueRep = new UeRepresentation(ueData);
             scene->addItem(ueRep);
             ueRep->setPos(ueRep->ueObject.positionX, -ueRep->ueObject.positionY);
+
             QObject::connect(ueRep, SIGNAL(updateUe(UeRepresentation*,UEData)),
                              this, SLOT(updateUe(UeRepresentation*,UEData)));
             QObject::connect(ueRep, SIGNAL(spawnWindow_UeParams(UeRepresentation*,QString)),

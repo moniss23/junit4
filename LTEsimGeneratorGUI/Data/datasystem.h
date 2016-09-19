@@ -32,7 +32,7 @@ signals:
     void refreshMapView(const Project &project);
     void refreshMapView(const Project &project, TrafficFileData* trafficFound);
     void currentCustomModelChanged(const CustomModelSettings &customModelsSettings, bool * cmUsed);
-    void updateUeDataInUeRepresentation(const UEData &ueData);
+    void updateUeDataInUeRepresentation(const UEData &ueData, int x, int y);
 
 public slots:
     void LoadAppData();
@@ -122,6 +122,8 @@ public slots:
 public:
     QString getDefaultNewProjectDir() const;
     AppGlobalData getAppGlobalData() const;
+    QStringList getActiveCustomModels(const QString &projectName, const QString &trafficName);
+    QStringList getCentersAndHandovers(const QString &projectName);
 
 private:
     AppGlobalData                        appGlobalData;

@@ -183,10 +183,8 @@ HEADERS  += \
     UISystem/DataForms/ueform.h \
     UISystem/DataForms/timeForm.h
 
-
 HEADERS  += \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/CustomModel/customModel.h \
     Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
     Maps/Traffic/Tuning/tuningTrafficData.h \
     Maps/Traffic/Tuning/tuningTrafficManager.h

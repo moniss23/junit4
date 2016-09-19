@@ -111,6 +111,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="maximum">
+            <number>999999</number>
+           </property>
           </widget>
          </item>
         </layout>
@@ -468,10 +471,24 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLineEdit" name="frstAreaLineEdit"/>
+          <widget class="QComboBox" name="frstArea">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="scndAreaLineEdit"/>
+          <widget class="QComboBox" name="scndArea">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

@@ -28,7 +28,7 @@ public slots:
     void refreshWindow(const Project &project, TrafficFileData *trafficFileData);
     void updateUe_MapView(UeRepresentation*,const QString &projectName, const QString &trafficName, const UEData &ueData);
     void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
-    void updateUeDataInUeRepresentation(const UEData& ueData);
+    void updateUeDataInUeRepresentation(const UEData& ueData, int x, int y);
 
 signals:
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);

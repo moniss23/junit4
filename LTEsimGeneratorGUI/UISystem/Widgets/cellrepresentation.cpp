@@ -49,7 +49,6 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
     (void) widget;
     (void) option;
 
-
     QColor yellow   = QColor(255,215,0, 125);
     QColor warmGrey1 = QColor(255,255,255);
     QColor warmGrey = QColor(168,168,105);
@@ -60,7 +59,6 @@ void CellRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem
         gradient.setColorAt(1, color);
     } else {
         gradient.setColorAt(0, warmGrey1);
-
         gradient.setColorAt(1, warmGrey);
     }
 

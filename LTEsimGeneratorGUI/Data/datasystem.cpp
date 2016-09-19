@@ -566,6 +566,45 @@ QString DataSystem::getDefaultNewProjectDir() const {
 AppGlobalData DataSystem::getAppGlobalData() const {
     return appGlobalData;
 }
+
+QStringList DataSystem::getActiveCustomModels(const QString &projectName, const QString &trafficName)
+{
+    QStringList customModelsList;
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.");
+        return customModelsList;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr){
+        emit errorInData("Can't find right traffic file.");
+        return customModelsList;
+    }
+    for(unsigned i = 0; i < traffic->cmAmount; i++) {
+        if(traffic->cmUsed[i]) {
+            customModelsList.append("LteCustom" + QString::number(i+1));
+        }
+    }
+    return customModelsList;
+}
+
+QStringList DataSystem::getCentersAndHandovers(const QString &projectName)
+{
+    QStringList cellsAndHoList;
+    auto project = findProjectByName(projectName);
+    if (project==nullptr){
+        emit errorInData("Can't find right project.");
+        return cellsAndHoList;
+    }
+    for(auto &item : project->cellsInfo) {
+        cellsAndHoList.append(item.second.area);
+    }
+    for(auto &item : project->handovers) {
+        cellsAndHoList.append(item.area);
+    }
+    return cellsAndHoList;
+}
+
 void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString &projectName){
     auto project = findProjectByName(projectName);
     if (project==nullptr){
@@ -973,8 +1012,31 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
         return;
     }
     *ueData = uedata;
-    emit updateUeDataInUeRepresentation(*ueData);
-    saveProjectsFile();
+    for(auto &item : project->cellsInfo) {
+        if(item.second.area == ueData->ueArea.first) {
+            qsrand(time(NULL));
+            int angle = qrand() % 360;
+            int dist = qrand() % 3000 + 750;
+
+            int x = item.first.position_X + dist*sin(angle);
+            int y = item.first.position_Y + dist*cos(angle);
+            emit updateUeDataInUeRepresentation(*ueData, x, -y);
+            saveProjectsFile();
+            return;
+        }
+    }
+    for(auto &item : project->handovers) {
+        if(item.area == ueData->ueArea.first) {
+            qsrand(time(NULL));
+            int distX = qrand() % (item.eastBoundary - item.westBoundary);
+            int distY = qrand() % (item.northBoundary - item.southBoundary);
+            int x = item.westBoundary + distX;
+            int y = item.southBoundary + distY;
+            emit updateUeDataInUeRepresentation(*ueData, x, -y);
+            saveProjectsFile();
+            return;
+        }
+    }
 }
 
 void DataSystem::updatePagingRate(QString projectName, int rate){

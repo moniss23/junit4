@@ -19,9 +19,10 @@ public:
     const static QStringList CSSTRINGLIST;
     const static QStringList PSSTRINGLIST;
     const static QStringList MOBILITYSTRINGLIST;
+    const static QStringList UESTRINGLIST;
 
 public slots:
-    void loadAndOpen(const QString& projectName, const QString& trafficName, const UEData& ueData);
+    void loadAndOpen(const QString& projectName, const QString& trafficName, const UEData& ueData, const QStringList &customModelsList, const QStringList &cellsAndHo);
 
 signals:
     void saveUEData(const QString& projectName, const QString& trafficName, const QString& ueDataName, const UEData& uedata);
@@ -62,6 +63,9 @@ private:
     QString projectName;
     QString trafficName;
     UEData ueData;
+
+    QStringList cellsAndHandovers;
+    QStringList customModelsList;
 };
 
 #endif // UEPARAMETERSMANAGER_H

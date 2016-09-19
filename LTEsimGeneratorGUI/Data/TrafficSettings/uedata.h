@@ -10,11 +10,11 @@ public:
     ~UEData();
 
     QString pairName;
-    int amountOfPairs;
-    std::pair<QString,QString> mobilityModelsPair;
-    std::pair<QString,QString> csModelsPair;
-    std::pair<QString,QString> psModelsPair;
-    std::pair<QString,QString> ueTypesPair;
+    int amountOfPairs = 100;
+    std::pair<QString,QString> mobilityModelsPair{"RandomWalker","RandomWalker"};
+    std::pair<QString,QString> csModelsPair{"PowerOnPowerOff", "PowerOnPowerOff"};
+    std::pair<QString,QString> psModelsPair{"NoPs", "NoPs"};
+    std::pair<QString,QString> ueTypesPair{"iratHO", "iratHO"};
     std::pair<QString,QString> ueArea;
 
     int positionX=2000, positionY=2000; //TODO: remove as soon as reading ueArea is ready

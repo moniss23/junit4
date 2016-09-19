@@ -293,7 +293,7 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
-    QObject::connect(dataSystem, SIGNAL(updateUeDataInUeRepresentation(UEData)), &trafficMap, SLOT(updateUeDataInUeRepresentation(UEData)));
+    QObject::connect(dataSystem, SIGNAL(updateUeDataInUeRepresentation(UEData,int,int)), &trafficMap, SLOT(updateUeDataInUeRepresentation(UEData,int,int)));
 
     // paging rate
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));
@@ -683,7 +683,7 @@ void UISystem::spawnWindow_UeParams(const QString &ueDataName, const QString &pr
       QObject::connect(ueParametersForm, SIGNAL(saveUEData(QString,QString,QString,UEData)),
                        dataSystem, SLOT(saveUEData(QString,QString,QString,UEData)));
     }
-    ueParametersForm->loadAndOpen(project->name, traffic->filename, *ueData);
+    ueParametersForm->loadAndOpen(project->name, traffic->filename, *ueData, dataSystem->getActiveCustomModels(projectName, trafficName), dataSystem->getCentersAndHandovers(projectName));
 }
 
 void UISystem::spawnWindow_TimeForm(const QString &projectName, const QString &trafficName)
