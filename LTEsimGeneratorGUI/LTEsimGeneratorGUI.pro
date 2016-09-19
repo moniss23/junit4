@@ -44,6 +44,7 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/streamul.cpp \
     Data/TrafficSettings/CustomModelsData/syncedping.cpp \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
+    Data/TrafficSettings/tuningTrafficData.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     Data/ProjectSettings/Helpers/mapparser.cpp \
     Data/ProjectSettings/pagingsettings.cpp \
@@ -91,14 +92,12 @@ SOURCES += \
     UISystem/Widgets/cellrepresentation.cpp \
     UISystem/DataForms/ueParametersForm.cpp \
     UISystem/DataForms/timeForm.cpp \
-    UISystem/DataForms/custommodelslistform.cpp
-
+    UISystem/DataForms/custommodelslistform.cpp \
+    UISystem/DataForms/tuningTrafficManager.cpp
 
 SOURCES += main.cpp\
     Maps/Traffic/UeParameters/uegroupdata.cpp \
-    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp \
-    Maps/Traffic/Tuning/tuningTrafficManager.cpp \
-    Maps/Traffic/Tuning/tuningTrafficData.cpp
+    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp
 
 
 #--------DATA SYSTEM--------#
@@ -134,9 +133,10 @@ HEADERS  += \
     Data/TrafficSettings/CustomModelsData/syncedping.h \
     Data/TrafficSettings/CustomModelsData/servicereq.h \
     Data/TrafficSettings/statisticsData.h \
+    Data/TrafficSettings/tuningTrafficData.h \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
     Data/ProjectSettings/Helpers/mapparser.h \
-    Data/TrafficSettings/uedata.cpp \
+    Data/TrafficSettings/uedata.h \
     Data/ProjectSettings/pagingsettings.h \
     Data/TrafficSettings/timeData.h
 
@@ -179,15 +179,14 @@ HEADERS  += \
     UISystem/Windows/pagingrate.h \
     UISystem/DataForms/pagingform.h \
     UISystem/DataForms/statisticsForm.h \
-    UISystem/DataForms/ueParametersForm.h \
     UISystem/DataForms/ueform.h \
-    UISystem/DataForms/timeForm.h
+    UISystem/DataForms/timeForm.h \
+    UISystem/DataForms/tuningTrafficManager.h \
+    UISystem/DataForms/ueParametersForm.h
 
 HEADERS  += \
     Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h \
-    Maps/Traffic/Tuning/tuningTrafficData.h \
-    Maps/Traffic/Tuning/tuningTrafficManager.h
+    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h
 
 
 FORMS    += \

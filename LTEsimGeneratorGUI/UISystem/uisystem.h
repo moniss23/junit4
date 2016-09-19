@@ -23,7 +23,7 @@
 #include "UISystem/DataForms/ftpulform.h"
 #include "UISystem/DataForms/pagingform.h"
 #include "Data/ProjectSettings/pagingsettings.h"
-#include "Maps/Traffic/Tuning/tuningTrafficManager.h"
+#include "UISystem/DataForms/tuningTrafficManager.h"
 #include "UISystem/DataForms/streamdlform.h"
 #include "UISystem/DataForms/streamulform.h"
 #include "UISystem/DataForms/syncedpingform.h"
@@ -97,7 +97,7 @@ signals:
     void spawnWindow_MapRange(const MapRange& mapRange, const QString &projectName);
     void spawnWindow_TrafficMap(const Project &project, TrafficFileData *trafficFileData);
     void spawnWindow_Statistics(const QString &projectName, const QString &trafficName, const StatisticsData &statisticsData);
-    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData tuningTrafficData);
+    void spawnWindow_TuningTraffic(const QString &projectName, const QString &trafficName, const std::tuple<QStringList,QStringList,QStringList> &tuningTrafficStringLists, const TuningTrafficData tuningTrafficData);
     void restoreTuningTrafficData(const TuningTrafficData &tuningTrafficData); //something wierd is happening and it does not work
     void spawnWindow_customModels(const QString &projectName, const QString &trafficName, bool *cmUsed);
     void spawnWindow_PingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &pingIndex = 0, const Ping &ping = Ping());

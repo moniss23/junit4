@@ -294,7 +294,7 @@ void UISystem::bindingObjects()
 
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
-    QObject::connect(this, SIGNAL(spawnWindow_TuningTraffic(QString,QString,TuningTrafficData)), &tuningTrafficManager, SLOT(loadAndSpawn(QString,QString,TuningTrafficData)));
+    QObject::connect(this, SIGNAL(spawnWindow_TuningTraffic(QString,QString,std::tuple<QStringList,QStringList,QStringList>,TuningTrafficData)), &tuningTrafficManager, SLOT(loadAndSpawn(QString,QString,std::tuple<QStringList,QStringList,QStringList>,TuningTrafficData)));
     QObject::connect(&tuningTrafficManager, SIGNAL(restoreTuningTrafficData(QString,QString)), this, SLOT(restoreTuningTrafficData(QString,QString))); //something wierd is happening and it does not work
     QObject::connect(this, SIGNAL(restoreTuningTrafficData(TuningTrafficData)), &tuningTrafficManager, SLOT(restoreTuningTrafficData(TuningTrafficData))); //something wierd is happening and it does not work
 
@@ -579,7 +579,8 @@ void UISystem::spawnWindow_TuningTraffic(const QString &projectName, const QStri
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_TuningTraffic(project->name, traffic->filename, traffic->tuningTrafficData);
+    auto tuningTrafficStringLists = dataSystem->getTuningTrafficStringLists(*traffic);
+    emit spawnWindow_TuningTraffic(project->name, traffic->filename, tuningTrafficStringLists, traffic->tuningTrafficData);
 }
 
 void UISystem::restoreTuningTrafficData(const QString &projectName, const QString &trafficName)

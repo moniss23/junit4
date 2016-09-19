@@ -2,6 +2,7 @@
 
 #include <QDir>
 #include <QTextStream>
+#include <QSet>
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/Helpers/mapparser.h"
@@ -604,6 +605,20 @@ QStringList DataSystem::getCentersAndHandovers(const QString &projectName)
         cellsAndHoList.append(item.area);
     }
     return cellsAndHoList;
+}
+
+std::tuple<QStringList,QStringList,QStringList> DataSystem::getTuningTrafficStringLists(const TrafficFileData &trafficFileData)
+{
+    QSet<QString> cs, ps, mobility;
+    for(UEData ueData : trafficFileData.userEquipments) {
+        cs.insert(ueData.csModelsPair.first);
+        cs.insert(ueData.csModelsPair.second);
+        ps.insert(ueData.psModelsPair.first);
+        ps.insert(ueData.psModelsPair.second);
+        mobility.insert(ueData.mobilityModelsPair.first);
+        mobility.insert(ueData.mobilityModelsPair.second);
+    }
+    return std::make_tuple(cs.toList(),ps.toList(),mobility.toList());
 }
 
 void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString &projectName){

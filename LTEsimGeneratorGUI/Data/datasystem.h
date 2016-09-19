@@ -125,6 +125,8 @@ public:
     QStringList getActiveCustomModels(const QString &projectName, const QString &trafficName);
     QStringList getCentersAndHandovers(const QString &projectName);
 
+    std::tuple<QStringList,QStringList,QStringList> getTuningTrafficStringLists(const TrafficFileData &trafficFileData);
+
 private:
     AppGlobalData                        appGlobalData;
 
