@@ -19,6 +19,9 @@
      <property name="title">
       <string>Channel Models</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <widget class="QCheckBox" name="checkBox_dl_pathloss_distribute_ues">
       <property name="geometry">
        <rect>

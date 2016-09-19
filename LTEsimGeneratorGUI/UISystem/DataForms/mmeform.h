@@ -43,6 +43,8 @@ private slots:
     void on_buttonBox_rejected();
     void on_pbReset_clicked();
 
+    void on_checkBox_toggled(bool checked);
+
 public slots:
     /**
      * @brief loadAndSpawn slot is called by spawnWindow_Mme in MapWindow

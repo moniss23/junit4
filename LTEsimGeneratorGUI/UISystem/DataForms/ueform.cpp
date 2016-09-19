@@ -36,6 +36,7 @@ void UeForm::getParameters()
     this->ueParameters.ueKeyDerivationAlgorithm = this->ui->tet_ue_keyDerivationAlgorithm->text();
     this->ueParameters.ueKey = this->ui->tet_ue_key->text();
     this->ueParameters.ueOp = this->ui->tet_ue_op->text();
+    this->ueParameters.startUeComponent = this->ui->checkBox->isChecked();
 }
 void UeForm::updateUi()
 {
@@ -46,6 +47,7 @@ void UeForm::updateUi()
     this->ui->tet_ue_keyDerivationAlgorithm->setText(this->ueParameters.ueKeyDerivationAlgorithm);
     this->ui->tet_ue_key->setText(this->ueParameters.ueKey);
     this->ui->tet_ue_op->setText(this->ueParameters.ueOp);
+    this->ui->checkBox->setChecked(this->ueParameters.startUeComponent);
 
 }
 
@@ -75,4 +77,5 @@ void UeForm::setReadOnly(bool value)
     this->ui->tet_ue_keyDerivationAlgorithm->setReadOnly(value);
     this->ui->tet_ue_network_capability->setReadOnly(value);
     this->ui->tet_ue_op->setReadOnly(value);
+    this->ui->checkBox->setCheckable(!value);
 }

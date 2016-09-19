@@ -29,6 +29,7 @@ public slots:
     void spawnWindow_MapView_handoverParams(HandoverRepresentation*, const Handover&);
     void spawnWindow_MapView_cellParams(CellRepresentation*, const QPair<Cell,Center>&);
     void spawnWindow_MapRange();
+    void updateButtonsColor();
 
 signals:
     void spawnWindow_Mme(const QString& projectNames,bool);
@@ -82,7 +83,6 @@ private slots:
 private:
 
     void closeEvent(QCloseEvent *event);
-
 private:
     Ui::NewMapWindow *ui;
     QHBoxLayout      *hBoxLayout;

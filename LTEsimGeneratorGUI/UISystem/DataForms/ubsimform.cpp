@@ -59,7 +59,7 @@ void UBsimForm::getParameters()
     this->ubSimSettings.psTrafficModelsDir = this->ui->tet_psTrafficModelsDir->text();
     this->ubSimSettings.mobilityModelsDir = this->ui->tet_mobilityModelsDir->text();
     this->ubSimSettings.UBSimGui = this->ui->ubSimGuiCheckbox->isChecked();
-    this->ubSimSettings.ubsim_patches = this->ui->tet_ubsim_patches->text().split(":");
+    this->ubSimSettings.ubsim_patches = this->ui->tet_ubsim_patches->text().split(":",QString::SkipEmptyParts);
 }
 
 void UBsimForm::updateUi()
@@ -72,7 +72,10 @@ void UBsimForm::updateUi()
     this->ui->ubSimGuiCheckbox->setChecked(this->ubSimSettings.UBSimGui);
     QString ubSimPatches;
     for (int i=0;i<ubSimSettings.ubsim_patches.size();i++){
-        ubSimPatches.append(ubSimSettings.ubsim_patches[i]+":");
+        ubSimPatches.append(ubSimSettings.ubsim_patches[i].remove("\""));
+        if (i!=ubSimSettings.ubsim_patches.size()-1){
+            ubSimPatches.append(":");
+        }
     }
     this->ui->tet_ubsim_patches->setText(ubSimPatches);
 }
@@ -85,4 +88,10 @@ void UBsimForm::setReadOnly(bool value)
     this->ui->tet_ubsim_patches->setReadOnly(value);
     this->ui->tet_ueTypesDir->setReadOnly(value);
     this->ui->ubSimGuiCheckbox->setEnabled(!value);
+    this->ui->pbReset->setEnabled(!value);
+}
+
+void UBsimForm::on_ubSimGuiCheckbox_stateChanged(int arg1)
+{
+    ubSimSettings.UBSimGui = arg1;
 }

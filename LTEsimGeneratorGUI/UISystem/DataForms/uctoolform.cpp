@@ -56,4 +56,5 @@ void UCtoolForm::setReadOnly(bool value){
     this->ui->tet_uctool_cIds->setReadOnly(value);
     this->ui->tet_uctool_ip->setReadOnly(value);
     this->ui->tet_uctool_service_ip->setReadOnly(value);
+    this->ui->pbReset->setEnabled(!value);
 }

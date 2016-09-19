@@ -173,6 +173,9 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap,SIGNAL(spawnWindow_Ue(QString,bool)),this,SLOT(spawnWindow_Ue(QString,bool)));
     QObject::connect(this,SIGNAL(spawnWindow_Ue(UeParameters,QString,bool)),&ueForm,SLOT(loadAndOpen(UeParameters,QString,bool)));
 
+    //Update Ue Parameters
+    QObject::connect(&ueForm,SIGNAL(updateUeSettings(UeParameters,QString)),dataSystem,SLOT(updateUeComponent(UeParameters,QString)));
+
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
 
@@ -186,6 +189,12 @@ void UISystem::bindingObjects()
     //Refresh Map in NewMapWindow/TrafficMap
     QObject::connect(dataSystem, SIGNAL(refreshMapView(Project)), &newMapWindow, SLOT(refreshWindow(Project)));
     QObject::connect(dataSystem, SIGNAL(refreshMapView(Project,TrafficFileData*)), &trafficMap, SLOT(refreshWindow(Project,TrafficFileData*)));
+
+    //Refresh ButtonsColor
+    QObject::connect(&ubSimForm,SIGNAL(updateUBSimSettings(UBSimSettings,QString)),&newMapWindow,SLOT(updateButtonsColor()));
+    QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings,QString)),&newMapWindow,SLOT(updateButtonsColor()));
+    QObject::connect(&pagingForm,SIGNAL(updatePaging(PagingSettings,QString)),&newMapWindow,SLOT(updateButtonsColor()));
+    QObject::connect(&ueForm,SIGNAL(updateUeSettings(UeParameters,QString)),&newMapWindow,SLOT(updateButtonsColor()));
 
     //SpawnWindow NewMapWindow/TrafficMap
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));

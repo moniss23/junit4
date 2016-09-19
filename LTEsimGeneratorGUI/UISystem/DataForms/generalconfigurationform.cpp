@@ -19,6 +19,7 @@ void GeneralConfiguration::loadAndOpen(const GeneralConfigurationParameters &gen
 {
     this->generalConfigurationParameters = generalConfigurationParameters;
     this->projectName = projectName;
+    this->updateUi();
     this->setReadOnly(enable);
     this->show();
 }
@@ -63,4 +64,5 @@ void GeneralConfiguration::setReadOnly(bool value)
     this->ui->CoreParametersVal->setReadOnly(value);
     this->ui->HandlerSetVal->setReadOnly(value);
     this->ui->LogDirVal->setReadOnly(value);
+    this->ui->restoreButton->setEnabled(!value);
 }

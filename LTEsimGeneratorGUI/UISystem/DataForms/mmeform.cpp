@@ -25,13 +25,15 @@ void MmeForm::updateUi()
     QString names;
     for (int i=0;i<mmeSettings.names.size();i++){
         names.append(mmeSettings.names[i]);
-        names.append(", ");
+        if (i!=mmeSettings.names.size()-1){
+            names.append(", ");
+        }
     }
     this->ui->tetMme_names->setText(names);
     this->ui->tetMme_tais->setText(mmeSettings.tais);
     this->ui->tetMme_s1ap_uris->setText(mmeSettings.uris);
     this->ui->tetS1ap_pluginFilterPath->setText(mmeSettings.pluginFilterPath);
-
+    this->ui->checkBox->setChecked(mmeSettings.simulatedCoreNetwork);
 }
 void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName, bool enable){
     this->mmeSettings=mmeSettings;
@@ -45,6 +47,7 @@ void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projec
 void MmeForm::on_buttonBox_accepted()
 {
     setMmeChanges();
+    emit updateMme(mmeSettings,projectName);
     this->close();
 }
 
@@ -66,6 +69,7 @@ void MmeForm::setMmeChanges(){
     mmeSettings.tais=this->ui->tetMme_tais->text();
     mmeSettings.uris=this->ui->tetMme_s1ap_uris->text();
     mmeSettings.pluginFilterPath=this->ui->tetS1ap_pluginFilterPath->text();
+    mmeSettings.simulatedCoreNetwork = this->ui->checkBox->isChecked();
     emit updateMme(mmeSettings,projectName);
 }
 void MmeForm::setReadOnly(bool value)
@@ -75,4 +79,11 @@ void MmeForm::setReadOnly(bool value)
     this->ui->tetMme_s1ap_uris->setReadOnly(value);
     this->ui->tetMme_tais->setReadOnly(value);
     this->ui->tetS1ap_pluginFilterPath->setReadOnly(value);
+    this->ui->checkBox->setCheckable(!value);
+    this->ui->pbReset->setEnabled(!value);
+}
+
+void MmeForm::on_checkBox_toggled(bool checked)
+{
+    mmeSettings.simulatedCoreNetwork=checked;
 }

@@ -74,4 +74,5 @@ void SgwForm::setReadOnly(bool value)
     this->ui->tet_sgw_ipAddresses->setReadOnly(value);
     this->ui->tet_sgw_LDIs->setReadOnly(value);
     this->ui->tet_sgw_names->setReadOnly(value);
+    this->ui->pbReset->setEnabled(!value);
 }

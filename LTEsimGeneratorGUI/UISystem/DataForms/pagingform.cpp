@@ -49,6 +49,7 @@ void PagingForm::setDefaultParameters()
         pagingUris+=(ur+",");
     }
     this->ui->tet_paging_s1ap_uris->setText(pagingUris);
+    this->ui->checkBox_generate_pagings->setChecked(pagingSettings.isUsedInConfiguration);
 
 }
 
@@ -64,6 +65,7 @@ void PagingForm::setChanges()
             pagingSettings.uePagingIdentity = "STMSI";
         }
         pagingSettings.pagingSlapUris = this->ui->tet_paging_s1ap_uris->text().split(",");
+        pagingSettings.isUsedInConfiguration=this->ui->checkBox_generate_pagings->isChecked();
         emit updatePaging(pagingSettings,projectName);
 }
 
@@ -76,6 +78,7 @@ void PagingForm::on_RestoreButton_clicked()
 void PagingForm::on_OkButton_clicked()
 {
     setChanges();
+    emit updatePaging(pagingSettings,projectName);
     this->close();
 }
 
@@ -94,4 +97,10 @@ void PagingForm::setReadOnly(bool value)
     this->ui->checkBox_bundle_paging->setEnabled(!value);
     this->ui->checkBox_generate_pagings->setEnabled(!value);
     this->ui->checkBox_s1ap_checkASN1_constraints->setEnabled(!value);
+}
+
+
+void PagingForm::on_checkBox_generate_pagings_stateChanged(int arg1)
+{
+    pagingSettings.isUsedInConfiguration=arg1;
 }

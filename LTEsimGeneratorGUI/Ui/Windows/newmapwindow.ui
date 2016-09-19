@@ -505,7 +505,7 @@ background-color:#ffd700;</string>
        <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#ffd700;</string>
+background-color:#666666;</string>
       </property>
       <property name="text">
        <string>UBsim</string>
@@ -555,7 +555,7 @@ background-color:#666666;</string>
        <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+background-color:#ffd700;</string>
       </property>
       <property name="text">
        <string>SGW</string>
@@ -605,7 +605,7 @@ background-color:#666666;</string>
        <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#ffd700;</string>
+background-color:#666666;</string>
       </property>
       <property name="text">
        <string>UE</string>
@@ -630,7 +630,7 @@ background-color:#ffd700;</string>
        <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+background-color:#ffd700;</string>
       </property>
       <property name="text">
        <string>General settings</string>

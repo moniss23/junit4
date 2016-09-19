@@ -59,7 +59,7 @@ public slots:
     void updateChannelModelSettings(const ChannelModelSettings &channelModelSettings, const QString &projectName);
     void updateUBSimSettings(const UBSimSettings &ubSimSettings, const QString &projectName);
     void updateGeneralConfigurationParameters(const GeneralConfigurationParameters &generalConfigurationParameters, const QString &projectName);
-
+    void updateUeComponent(const UeParameters &ueParameters, const QString &projectName);
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
     void updatePagingState (const QString& projectName, bool state);

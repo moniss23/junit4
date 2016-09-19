@@ -49,7 +49,7 @@ SOURCES += \
     Data/ProjectSettings/pagingsettings.cpp \
     Data/TrafficSettings/uedata.cpp \
     Data/TrafficSettings/timeData.cpp \
-    Data/TrafficSettings/statisticsData.cpp 
+    Data/TrafficSettings/statisticsData.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -138,8 +138,7 @@ HEADERS  += \
     Data/ProjectSettings/Helpers/mapparser.h \
     Data/TrafficSettings/uedata.cpp \
     Data/ProjectSettings/pagingsettings.h \
-    Data/TrafficSettings/timeData.h \
-    Data/ProjectSettings/paggingsettings.h 
+    Data/TrafficSettings/timeData.h
 
 
 #--------UI SYSTEM--------#
@@ -148,7 +147,6 @@ HEADERS  += \
     UISystem/Windows/addProjectWindow.h \
     UISystem/Windows/helpdialog.h \
     UISystem/Windows/importprojectwindow.h \
-    UISystem/DataForms/ueform.h \
     UISystem/Windows/parameterswindow.h \
     UISystem/Windows/projectmanagement.h \
     UISystem/Windows/renamedialog.h \
@@ -183,7 +181,7 @@ HEADERS  += \
     UISystem/DataForms/statisticsForm.h \
     UISystem/DataForms/ueParametersForm.h \
     UISystem/DataForms/ueform.h \
-    UISystem/DataForms/timeForm.h 
+    UISystem/DataForms/timeForm.h
 
 
 HEADERS  += \
@@ -224,7 +222,7 @@ FORMS    += \
     Ui/DataForms/streamulform.ui \
     Ui/DataForms/syncedpingform.ui \
     Ui/DataForms/servicereqform.ui \
-    UISystem/DataForms/ueform.ui \
+    Ui/DataForms/ueform.ui \
     Ui/DataForms/ueParametersForm.ui \
     Ui/SmallDialogs/pagingform.ui \
     Ui/Windows/paging_rate.ui

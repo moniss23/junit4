@@ -32,27 +32,17 @@ void NewMapWindow::loadAndOpen(const Project &project)
 {
     this->refreshWindow(project);
     this->setWindowTitle(project.parametersFile.filename+" - "+project.name+" - LTEsimGenerator");
-
-    if (project.mmeSettings.simulatedCoreNetwork) {
-        this->ui->mmeButton->setStyleSheet("QPushButton{color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;}");
-    }
-    else {
-        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
-    }
-    if (project.pagingSettings.isUsedInConfiguration) {
-        this->ui->pagingButton->setStyleSheet("QPushButton{color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;}");
-        qDebug()<<"zmieniam kolor"<< project.pagingSettings.isUsedInConfiguration;
-    }
-    else {
-        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
-    }
+    updateButtonsColor();
     this->show();
 }
 
 void NewMapWindow::refreshWindow(const Project &project) {
+
+
     delete vBoxLayout;
     delete hBoxLayout;
     delete mapView;
+
 
     this->project = project;
     mapView    = new MapView(project, this);
@@ -77,6 +67,34 @@ void NewMapWindow::refreshWindow(const Project &project) {
         this->ui->mapObjectsWidget->removeTab(i);
     }
     this->ui->mapObjectsWidget->setVisible(false);
+
+}
+void NewMapWindow::updateButtonsColor()
+{
+    if (this->project.pagingSettings.isUsedInConfiguration){
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.mmeSettings.simulatedCoreNetwork){
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.ueParameters.startUeComponent){
+        this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.ubSimSettings.UBSimGui){
+        this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
 }
 
 void NewMapWindow::spawnWindow_MapView_handoverParams(HandoverRepresentation* clickedHo, const Handover &hoObj) {
@@ -202,3 +220,4 @@ void NewMapWindow::on_ucToolButton_pressed() {emit spawnWindow_ucTool(project.na
 void NewMapWindow::on_channelModelsButton_pressed() {emit spawnWindow_ChannelModel(project.name,false);}
 void NewMapWindow::on_generalSettingsButton_clicked() {emit spawnWindow_GeneralConfiguration(project.name,false);}
 void NewMapWindow::on_ueButton_pressed() {emit spawnWindow_Ue(project.name,false);}
+

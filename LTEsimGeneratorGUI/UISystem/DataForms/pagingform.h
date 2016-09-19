@@ -37,6 +37,9 @@ private slots:
 
     void on_CancelButton_clicked();
 
+
+    void on_checkBox_generate_pagings_stateChanged(int arg1);
+
 private:
     /**
      * @brief setChanges function to override changes from ui to PagingSettings configuration class

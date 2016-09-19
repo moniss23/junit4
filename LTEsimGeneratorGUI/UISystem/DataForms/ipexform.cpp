@@ -69,4 +69,5 @@ void IpexForm::setReadOnly(bool value)
     this->ui->checkBox_ipgwtg_ftp_sender_connect_put->setEnabled(!value);
     this->ui->checkBox_ipgwtg_inband_signaling->setEnabled(!value);
     this->ui->checkBox_start_isp_simulator->setEnabled(!value);
+    this->ui->pbReset->setEnabled(!value);
 }

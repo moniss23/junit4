@@ -51,6 +51,8 @@ private slots:
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+    void on_ubSimGuiCheckbox_stateChanged(int arg1);
+
 private:
     /**
      * @brief updateUi is used to set ui fields values from ubSimSettings data
