@@ -19,12 +19,28 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #f5f5f5;</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="2">
        <widget class="QPushButton" name="resetDefaultsButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#resetDefaultsButton {
+	height: 25px;
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#resetDefaultsButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+        </property>
         <property name="text">
          <string>Reset defaults</string>
         </property>
@@ -32,6 +48,19 @@
       </item>
       <item row="0" column="3">
        <widget class="QPushButton" name="undoButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#undoButton {
+	height: 25px;
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#undoButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+        </property>
         <property name="text">
          <string>Undo</string>
         </property>
@@ -39,6 +68,19 @@
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="generateFileButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#generateFileButton {
+	height: 25px;
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#generateFileButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+        </property>
         <property name="text">
          <string>Generate file</string>
         </property>
@@ -54,6 +96,15 @@
             <height>16777215</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QListWidget#projectsList {
+	padding: 5px;
+	background-color: #fff;
+}
+QListWidget::item#projectsList:selected {
+	background-color:#666;
+}</string>
+          </property>
          </widget>
         </item>
         <item row="0" column="1" rowspan="5">
@@ -67,6 +118,9 @@
           <property name="focusPolicy">
            <enum>Qt::StrongFocus</enum>
           </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: #fff;</string>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -74,11 +128,29 @@
         </item>
         <item row="1" column="0">
          <widget class="QPushButton" name="addTrafficButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>200</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton#addTrafficButton {
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#addTrafficButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
           </property>
           <property name="text">
            <string>Add traffic file</string>
@@ -87,11 +159,29 @@
         </item>
         <item row="2" column="0">
          <widget class="QPushButton" name="renameFileButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>200</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton#renameFileButton {
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#renameFileButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
           </property>
           <property name="text">
            <string>Rename file</string>
@@ -100,11 +190,29 @@
         </item>
         <item row="3" column="0">
          <widget class="QPushButton" name="removeFileButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>200</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton#removeFileButton {
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#removeFileButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
           </property>
           <property name="text">
            <string>Remove file</string>
@@ -115,6 +223,19 @@
       </item>
       <item row="0" column="4">
        <widget class="QPushButton" name="redoButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#redoButton {
+	height: 25px;
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#redoButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+        </property>
         <property name="text">
          <string>Redo</string>
         </property>
@@ -122,8 +243,20 @@
       </item>
       <item row="0" column="0">
        <widget class="QPushButton" name="saveFileButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton#saveFileButton {
+	height: 25px;
+	color: #000;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#F2CF11;
+}
+QPushButton#saveFileButton:hover:!pressed {
+	background-color:#FFD700;
+}</string>
+        </property>
         <property name="text">
-         <string>Save file</string>
+         <string>Apply changes</string>
         </property>
         <property name="flat">
          <bool>false</bool>
@@ -133,42 +266,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>733</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionSave_As"/>
-    <addaction name="separator"/>
-    <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuSetting">
-    <property name="title">
-     <string>Settings</string>
-    </property>
-    <addaction name="actionPath"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionAbout"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuSetting"/>
-   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
