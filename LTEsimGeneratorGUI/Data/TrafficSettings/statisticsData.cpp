@@ -34,7 +34,7 @@ QByteArray StatisticsData::serializeData()
               pdcpuBearerRohcImsi << this->pdcpuBearerRohcEpsBearerId << this->pdcpuBearerErrorImsi <<
               pdcpuBearerErrorEpsBearerId << this->pdcpuFileName << this->pdcpuSeconds << this->pdcpuMeasurement;
 
-    for(unsigned i = 0; i < statisticsMap.size(); i++) {
+    for(int i = 0; i < statisticsMap.size(); i++) {
         stream << statisticsMap[i].second;
     }
 
@@ -50,7 +50,7 @@ void StatisticsData::deserializeData(const QByteArray &rawData)
               pdcpuBearerRohcImsi >> this->pdcpuBearerRohcEpsBearerId >> this->pdcpuBearerErrorImsi >>
               pdcpuBearerErrorEpsBearerId >> this->pdcpuFileName >> this->pdcpuSeconds >> this->pdcpuMeasurement;
 
-    for(unsigned i = 0; i < statisticsMap.size(); i++) {
+    for(int i = 0; i < statisticsMap.size(); i++) {
         stream >> statisticsMap[i].second;
     }
 }

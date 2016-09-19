@@ -38,5 +38,8 @@ void TuningTrafficManager::setUEGroup(Form* form)
 
 void TuningTrafficManager::loadAndSpawn(const QString &projectName, const QString &trafficFileName, const TuningTrafficData &tuningTrafficData)
 {
+    (void) projectName;
+    (void) trafficFileName;
+    (void) tuningTrafficData;
     this->show();
 }

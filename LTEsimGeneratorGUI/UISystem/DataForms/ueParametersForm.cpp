@@ -1,5 +1,5 @@
 #include "ueParametersForm.h"
-#include "ui_ueparameterswindow.h"
+#include "ui_ueParametersForm.h"
 
 UeParametersForm::UeParametersForm(QWidget *parent) :
     QWidget(parent),
@@ -41,44 +41,36 @@ void UeParametersForm::on_amountOfPairsSpinBox_editingFinished()
 
 }
 
-void UeParametersForm::on_frstMobilityModelComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_frstMobilityModelComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_scndMobilityModelComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_scndMobilityModelComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_frstCsModelComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_frstCsModelComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_scndCsModelComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_scndCsModelComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_frstPsModelComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_frstPsModelComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_scndPsModelComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_scndPsModelComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_frstUeTypeComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_frstUeTypeComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
-void UeParametersForm::on_scndUeTypeComboBox_currentIndexChanged(int index)
-{
-
+void UeParametersForm::on_scndUeTypeComboBox_currentIndexChanged(int index) {
+    (void) index;
 }
 
 void UeParametersForm::refreshUi()

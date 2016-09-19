@@ -68,7 +68,7 @@ void TrafficFileData::deserializeData(const QByteArray &rawData)
 
     int userEquipmentsAmount;
     stream >> userEquipmentsAmount;
-    for(unsigned i=0; i<userEquipmentsAmount; ++i) {
+    for(int i=0; i<userEquipmentsAmount; ++i) {
         QByteArray rawUserEquipment;
         stream >> rawUserEquipment;
 

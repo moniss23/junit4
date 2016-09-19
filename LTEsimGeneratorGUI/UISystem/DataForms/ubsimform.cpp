@@ -24,6 +24,8 @@ UBsimForm::~UBsimForm()
 }
 
 void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameters &ueParameters, const QString &projectName,bool enable) {
+    (void) ueParameters;
+
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
     this->updateUi();
