@@ -71,6 +71,11 @@ void TrafficMap::spawnWindow_UeParams(UeRepresentation *ueRepresentation, const 
     emit spawnWindow_ueParams(ueDataName, project.name, trafficFileData->filename);
 }
 
+void TrafficMap::updateUeDataInUeRepresentation(const UEData &ueData)
+{
+    this->ueRepresentation->ueObject = ueData;
+}
+
 void TrafficMap::on_statisticsButton_clicked() {
     spawnWindow_Statistics(project.name, trafficFileData->filename);
 }

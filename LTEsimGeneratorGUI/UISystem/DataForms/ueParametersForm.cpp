@@ -133,3 +133,33 @@ const QStringList UeParametersForm::MOBILITYSTRINGLIST = {
     "WalkerStartAtSouth",
     "WalkerStartAtWest"
 };
+
+void UeParametersForm::on_restoreChangesButton_clicked()
+{
+    this->refreshUi();
+}
+
+void UeParametersForm::on_okButton_clicked()
+{
+    QString oldName = this->ueData.pairName;
+    this->ueData.pairName = this->ui->pairNameLineEdit->text();
+    this->ueData.amountOfPairs = this->ui->amountOfPairsSpinBox->value();
+    this->ueData.mobilityModelsPair.first = this->ui->frstMobilityModelComboBox->currentText();
+    this->ueData.mobilityModelsPair.second = this->ui->scndMobilityModelComboBox->currentText();
+    this->ueData.csModelsPair.first = this->ui->frstCsModelComboBox->currentText();
+    this->ueData.csModelsPair.second = this->ui->scndCsModelComboBox->currentText();
+    this->ueData.psModelsPair.first = this->ui->frstPsModelComboBox->currentText();
+    this->ueData.psModelsPair.second = this->ui->scndPsModelComboBox->currentText();
+    this->ueData.ueTypesPair.first = this->ui->frstUeTypeComboBox->currentText();
+    this->ueData.ueTypesPair.second = this->ui->scndUeTypeComboBox->currentText();
+    this->ueData.ueArea.first = this->ui->frstAreaLineEdit->text();
+    this->ueData.ueArea.second = this->ui->scndAreaLineEdit->text();
+
+    emit saveUEData(projectName, trafficName, oldName, this->ueData);
+    this->close();
+}
+
+void UeParametersForm::on_cancelButton_clicked()
+{
+    this->close();
+}

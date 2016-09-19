@@ -23,6 +23,9 @@ public:
 public slots:
     void loadAndOpen(const QString& projectName, const QString& trafficName, const UEData& ueData);
 
+signals:
+    void saveUEData(const QString& projectName, const QString& trafficName, const QString& ueDataName, const UEData& uedata);
+
 private slots:
     void on_pairNameLineEdit_editingFinished();
 
@@ -43,6 +46,12 @@ private slots:
     void on_frstUeTypeComboBox_currentIndexChanged(int index);
 
     void on_scndUeTypeComboBox_currentIndexChanged(int index);
+
+    void on_restoreChangesButton_clicked();
+
+    void on_okButton_clicked();
+
+    void on_cancelButton_clicked();
 
 private:
     void refreshUi();

@@ -280,6 +280,7 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
+    QObject::connect(dataSystem, SIGNAL(updateUeDataInUeRepresentation(UEData)), &trafficMap, SLOT(updateUeDataInUeRepresentation(UEData)));
 
     // paging rate
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));
@@ -649,6 +650,8 @@ void UISystem::spawnWindow_UeParams(const QString &ueDataName, const QString &pr
     if(!ueParametersForm){
       ueParametersForm = new UeParametersForm();
 
+      QObject::connect(ueParametersForm, SIGNAL(saveUEData(QString,QString,QString,UEData)),
+                       dataSystem, SLOT(saveUEData(QString,QString,QString,UEData)));
     }
     ueParametersForm->loadAndOpen(project->name, traffic->filename, *ueData);
 }

@@ -935,6 +935,32 @@ void DataSystem::updateProjectOnMapCloseEvent(const QString &projectName){
     saveProjectsFile();
 }
 
+void DataSystem::saveUEData(const QString &projectName, const QString &trafficName, const QString &ueDataName, const UEData &uedata)
+{
+    auto project = findProjectByName(projectName);
+    if(project == nullptr) {
+        errorInData("Can't find right project");
+        return;
+    }
+    auto traffic = project->findTrafficFileByName(trafficName);
+    if (traffic==nullptr) {
+        errorInData("Can't find right trafficFile");
+        return;
+    }
+    auto ueData = std::find_if(std::begin(traffic->userEquipments), std::end(traffic->userEquipments),[&ueDataName]
+                               (const UEData& data)->bool{
+        return data.pairName == ueDataName;
+    });
+
+    if(ueData == std::end(traffic->userEquipments)) {
+        errorInData("Can't find right UE\nWrong name probably");
+        return;
+    }
+    *ueData = uedata;
+    emit updateUeDataInUeRepresentation(*ueData);
+    saveProjectsFile();
+}
+
 void DataSystem::updatePagingRate(QString projectName, int rate){
     auto project = findProjectByName(projectName);
     project->pagingSettings.rate = rate;

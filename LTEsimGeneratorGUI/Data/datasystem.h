@@ -32,6 +32,7 @@ signals:
     void refreshMapView(const Project &project);
     void refreshMapView(const Project &project, TrafficFileData* trafficFound);
     void currentCustomModelChanged(const CustomModelSettings &customModelsSettings, bool * cmUsed);
+    void updateUeDataInUeRepresentation(const UEData &ueData);
 
 public slots:
     void LoadAppData();
@@ -112,6 +113,8 @@ public slots:
     void deleteCustomModelItem(const QString &projectName, const QString &trafficName, const QString &item, const int &itemIndex, const int &CMindex);
 
     void updateProjectOnMapCloseEvent(const QString &projectName);
+
+    void saveUEData(const QString &projectName, const QString &trafficName, const QString& ueDataName, const UEData &uedata);
 
 public:
     QString getDefaultNewProjectDir() const;
