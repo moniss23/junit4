@@ -103,11 +103,11 @@ void TrafficMap::on_ubSimButton_clicked() { emit spawnWindow_UBsim(project.name,
 void TrafficMap::on_ueButton_clicked() { emit spawnWindow_Ue(project.name,true); }
 void TrafficMap::on_ipexButton_clicked() { emit spawnWindow_Ipex(project.name,true); }
 void TrafficMap::on_sgwButton_clicked() { emit spawnWindow_Sgw(project.name,true); }
-void TrafficMap::on_paggingButton_clicked() { emit spawnWindow_Pagging(project.name,true); }
+void TrafficMap::on_pagingButton_clicked() { emit spawnWindow_Paging(project.name,true); }
 void TrafficMap::on_mmeButton_clicked() { emit spawnWindow_Mme(project.name,true); }
 void TrafficMap::on_generalSettingsButton_clicked() { emit spawnWindow_GeneralSettings(project.name,true); }
 
-void TrafficMap::on_PaggingRateButton_clicked()
+void TrafficMap::on_PagingRateButton_clicked()
 {
-    emit spawnWindow_PaggingRate(project.name);
+    emit spawnWindow_PagingRate(project.name);
 }

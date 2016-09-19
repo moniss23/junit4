@@ -32,7 +32,7 @@ public slots:
 
 signals:
     void spawnWindow_Mme(const QString& projectNames,bool);
-    void spawnWindow_Pagging(const QString& projectName,bool);
+    void spawnWindow_Paging(const QString& projectName,bool);
     void spawnWindow_Sgw(const QString& projectName,bool);
     void spawnWindow_Ipex(const QString& projectName,bool);
     void spawnWindow_UBSim(const QString& projectName,bool);
@@ -44,7 +44,7 @@ signals:
 
     void updateUEsimulated(const QString& projectName, const bool& checked);
     void updateCoreNetwork(const QString& projectName, const bool& checked);
-    void updatePagging(const QString& projectName, const bool& checked);
+    void updatePaging(const QString& projectName, const bool& checked);
     void updateUbSim(const QString& projectName, const bool& checked);
     void updateUe(const QString& projectName, const bool& checked);
     void updateSgw(const QString& projectName, const bool& checked);
@@ -61,7 +61,7 @@ signals:
 
 private slots:
     void on_mmeButton_pressed();
-    void on_paggingButton_pressed();
+    void on_pagingButton_pressed();
     void on_sgwButton_pressed();
     void on_ipexButton_pressed();
     void on_ubSimButton_pressed();

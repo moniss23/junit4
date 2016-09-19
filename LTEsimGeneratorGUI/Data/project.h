@@ -15,7 +15,7 @@
 #include "Data/ProjectSettings/channelmodelsettings.h"
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/ProjectSettings/mmesettings.h"
-#include "Data/ProjectSettings/paggingsettings.h"
+#include "Data/ProjectSettings/pagingsettings.h"
 #include "Data/ProjectSettings/ubsimsettings.h"
 #include "Data/ProjectSettings/generalconfigurationparameters.h"
 #include "Data/ProjectSettings/maprange.h"
@@ -42,7 +42,7 @@ public:
     ChannelModelSettings            channelModelSettings;
     DataGeneratorSettings           dataGeneratorSettings;
     MmeSettings                     mmeSettings;
-    PaggingSettings                  paggingSettings;
+    PagingSettings                  pagingSettings;
     UBSimSettings                   ubSimSettings;
     GeneralConfigurationParameters  generalConfiguration;
     MapRange                        mapRange;

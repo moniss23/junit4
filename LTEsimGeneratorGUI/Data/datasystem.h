@@ -61,14 +61,14 @@ public slots:
 
     void updateSimulatedCoreNetworkState(const QString& projectName,bool state);
     void updateSimulatedUeState(const QString& projectName,bool state);
-    void updatePaggingState (const QString& projectName, bool state);
+    void updatePagingState (const QString& projectName, bool state);
     void updateSgwState(const QString& projectName,bool state);
     void updateUBSimState(const QString& projectName,bool state);
 
     void updateMme(const MmeSettings& mmeSettings, QString projectName);
     void updateMapRange (const MapRange& mapRange,QString projectName);
-    void updatePagging(const PaggingSettings& paggingSettings, QString projectName);
-    void updatePaggingRate(QString pojectName,int rate);
+    void updatePaging(const PagingSettings& pagingSettings, QString projectName);
+    void updatePagingRate(QString pojectName,int rate);
 
 
     // Add, remove, update Cells

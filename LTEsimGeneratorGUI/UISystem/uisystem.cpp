@@ -141,14 +141,14 @@ void UISystem::bindingObjects()
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Mme(QString,bool)), this, SLOT(spawnWindow_Mme(QString,bool)));
     QObject::connect(&trafficMap,SIGNAL(spawnWindow_Mme(QString,bool)),this,SLOT(spawnWindow_Mme(QString,bool)));
 
-    //Open Pagging widnow
-    QObject::connect(this,SIGNAL(spawnWindow_Pagging(PaggingSettings,QString,bool)),&paggingForm,SLOT(loadAndSpawn(PaggingSettings,QString,bool)));
-    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_Pagging(QString,bool)),this,SLOT(spawnWindow_Pagging(QString,bool)));
-    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Pagging(QString,bool)),this,SLOT(spawnWindow_Pagging(QString,bool)));
+    //Open Paging widnow
+    QObject::connect(this,SIGNAL(spawnWindow_Paging(PagingSettings,QString,bool)),&pagingForm,SLOT(loadAndSpawn(PagingSettings,QString,bool)));
+    QObject::connect(&newMapWindow,SIGNAL(spawnWindow_Paging(QString,bool)),this,SLOT(spawnWindow_Paging(QString,bool)));
+    QObject::connect(&trafficMap,SIGNAL(spawnWindow_Paging(QString,bool)),this,SLOT(spawnWindow_Paging(QString,bool)));
 
-    //Update Mme and Pagging
+    //Update Mme and Paging
     QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings, QString)),dataSystem,SLOT(updateMme(MmeSettings,QString)));
-    QObject::connect(&paggingForm,SIGNAL(updatePagging(PaggingSettings,QString)),dataSystem,SLOT(updatePagging(PaggingSettings,QString)));
+    QObject::connect(&pagingForm,SIGNAL(updatePaging(PagingSettings,QString)),dataSystem,SLOT(updatePaging(PagingSettings,QString)));
 
     //Update Project SgwData
     QObject::connect(&sgwForm,SIGNAL(updateSgw(SgwSettings,QString)),dataSystem,SLOT(updateSgwSettings(SgwSettings,QString)));
@@ -199,7 +199,7 @@ void UISystem::bindingObjects()
     //Update LTESim ChBoxes
     QObject::connect(&newMapWindow, SIGNAL(updateCoreNetwork(QString,bool)), dataSystem, SLOT(updateSimulatedCoreNetworkState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUEsimulated(QString,bool)), dataSystem, SLOT(updateSimulatedUeState(QString,bool)));
-    QObject::connect(&newMapWindow, SIGNAL(updatePagging(QString,bool)), dataSystem, SLOT(updatePaggingState(QString,bool)));
+    QObject::connect(&newMapWindow, SIGNAL(updatePaging(QString,bool)), dataSystem, SLOT(updatePagingState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateUbSim(QString,bool)),dataSystem,SLOT(updateUBSimState(QString,bool)));
     QObject::connect(&newMapWindow, SIGNAL(updateSgw(QString,bool)),dataSystem,SLOT(updateSgwState(QString,bool)));
 
@@ -274,10 +274,11 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
-    // Pagging rate
-    QObject::connect(&trafficMap, SIGNAL(spawnWindow_PaggingRate(QString)),this, SLOT(spawnWindow_PaggingRate(QString)));
-    QObject::connect(this,SIGNAL(spawnWindow_PaggingRate(QString,int&)),&paggingRate,SLOT(loadAndSpawn(QString,int&)));
-    QObject::connect(&paggingRate,SIGNAL(updatePaggingRate(QString,int)),dataSystem,SLOT(updatePaggingRate(QString,int)));
+
+    // paging rate
+    QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));
+    QObject::connect(this,SIGNAL(spawnWindow_PagingRate(QString,int&)),&pagingRate,SLOT(loadAndSpawn(QString,int&)));
+    QObject::connect(&pagingRate,SIGNAL(updatePagingRate(QString,int)),dataSystem,SLOT(updatePagingRate(QString,int)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {
@@ -358,14 +359,14 @@ void UISystem::spawnWindow_Mme(const QString &projectName,bool enable){
     emit spawnWindow_Mme(project->mmeSettings, project->name, enable);
     return;
 }
-void UISystem::spawnWindow_Pagging(const QString &projectName, bool enable){
+void UISystem::spawnWindow_Paging(const QString &projectName, bool enable){
     auto project = findProjectByName(projectName);
 
     if(project == nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_Pagging(project->paggingSettings, project->name,enable);
+    emit spawnWindow_Paging(project->pagingSettings, project->name,enable);
     return;
 }
 
@@ -692,13 +693,13 @@ void UISystem::showErrorWindow(const QString &errorDescription)
 {
     QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
 }
-void UISystem::spawnWindow_PaggingRate(const QString &projectName)
+void UISystem::spawnWindow_PagingRate(const QString &projectName)
 {
     auto project = findProjectByName(projectName);
     if (project==nullptr) {
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_PaggingRate(project->name,project->paggingSettings.rate);
+    emit spawnWindow_PagingRate(project->name,project->pagingSettings.rate);
 }
 

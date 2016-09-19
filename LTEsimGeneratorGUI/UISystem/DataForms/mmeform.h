@@ -5,14 +5,14 @@
 #include <QString>
 
 #include "Data/ProjectSettings/mmesettings.h"
-#include "Data/ProjectSettings/paggingsettings.h"
+#include "Data/ProjectSettings/pagingsettings.h"
 
 namespace Ui {
 class MmeForm;
 }
 /*
 * @brief The MmeForm class is responsible for drawing UI form
-*        for Mme and Pagging configuration.
+*        for Mme and Paging configuration.
 */
 
 class MmeForm : public QWidget
@@ -59,7 +59,7 @@ private:
     void setMmeChanges();
 
     /**
-     * @brief setPaggingChanges function to override changes from ui to PaggingSettings configuration class
+     * @brief setPagingChanges function to override changes from ui to PagingSettings configuration class
      *
      */
 

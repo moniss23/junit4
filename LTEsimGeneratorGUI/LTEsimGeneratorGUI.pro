@@ -47,11 +47,10 @@ SOURCES += \
     Data/TrafficSettings/CustomModelsData/servicereq.cpp \
     Data/ProjectSettings/Helpers/ueparametersparser.cpp \
     Data/ProjectSettings/Helpers/mapparser.cpp \
-    Data/ProjectSettings/paggingsettings.cpp \
+    Data/ProjectSettings/pagingsettings.cpp \
     Data/TrafficSettings/uedata.cpp \
-    Data/TrafficSettings/statisticsData.cpp \   
-    UISystem/DataForms/ueParametersForm.cpp
-
+    UISystem/DataForms/ueParametersForm.cpp \
+    Data/TrafficSettings/statisticsData.cpp
 
 #--------UI SYSTEM--------#
 SOURCES += \
@@ -86,10 +85,10 @@ SOURCES += \
     UISystem/DataForms/syncedpingform.cpp \
     UISystem/Widgets/handoverrepresentation.cpp \
     UISystem/Widgets/uerepresentation.cpp \
-    UISystem/DataForms/paggingform.cpp \
+    UISystem/DataForms/pagingform.cpp \
     UISystem/DataForms/statisticsForm.cpp \
     UISystem/DataForms/ueform.cpp \
-    UISystem/Windows/paggingrate.cpp \
+    UISystem/Windows/pagingrate.cpp \
     UISystem/DataForms/custommodelslistform.cpp
 
 
@@ -138,9 +137,8 @@ HEADERS  += \
     Data/ProjectSettings/Helpers/ueparametersparser.h \
     Data/ProjectSettings/Helpers/mapparser.h \
     Data/TrafficSettings/uedata.cpp \
-    Data/ProjectSettings/paggingsettings.h \
+    Data/ProjectSettings/pagingsettings.h \
     UISystem/DataForms/ueParametersForm.h
-
 
 #--------UI SYSTEM--------#
 HEADERS  += \
@@ -178,9 +176,9 @@ HEADERS  += \
     UISystem/Widgets/cellrepresentation.h \
     UISystem/Widgets/uerepresentation.h \
     UISystem/DataForms/custommodelslistform.h \
-    UISystem/DataForms/statisticsForm.h \
-    UISystem/Windows/paggingrate.h \
-    UISystem/DataForms/paggingform.h
+    UISystem/Windows/pagingrate.h \
+    UISystem/DataForms/pagingform.h \
+    UISystem/DataForms/statisticsForm.h
 
 
 HEADERS  += \
@@ -224,9 +222,9 @@ FORMS    += \
     Ui/DataForms/syncedpingform.ui \
     Ui/DataForms/servicereqform.ui \
     UISystem/DataForms/ueform.ui \
-    Ui/SmallDialogs/paggingform.ui \
     Ui/DataForms/ueParametersForm.ui \
-    Ui/Windows/pagging_rate.ui
+    Ui/SmallDialogs/pagingform.ui \
+    Ui/Windows/paging_rate.ui
 
 OTHER_FILES += \
     logoLTEsim.png

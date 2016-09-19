@@ -21,8 +21,8 @@
 #include "UISystem/DataForms/generalconfigurationform.h"
 #include "UISystem/DataForms/ftpdlform.h"
 #include "UISystem/DataForms/ftpulform.h"
-#include "UISystem/DataForms/paggingform.h"
-#include "Data/ProjectSettings/paggingsettings.h"
+#include "UISystem/DataForms/pagingform.h"
+#include "Data/ProjectSettings/pagingsettings.h"
 #include "Maps/Traffic/Tuning/tuningTrafficManager.h"
 #include "UISystem/DataForms/streamdlform.h"
 #include "UISystem/DataForms/streamulform.h"
@@ -30,7 +30,7 @@
 #include "UISystem/DataForms/servicereqform.h"
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/statisticsForm.h"
-#include "UISystem/Windows/paggingrate.h"
+#include "UISystem/Windows/pagingrate.h"
 
 class ProjectManagement;
 class ParametersWindow;
@@ -58,7 +58,7 @@ public slots:
     void spawnWindow_ParamMap(const QString &projectName);
     void spawnWindow_Sgw(const QString& projectName,bool enable);
     void spawnWindow_Mme(const QString& projectName,bool enable);
-    void spawnWindow_Pagging(const QString &projectName,bool enable);
+    void spawnWindow_Paging(const QString &projectName,bool enable);
     void spawnWindow_ChannelModel(const QString& projectName,bool enable);
     void spawnWindow_UBSim(const QString& projectName,bool enable);
     void spawnWindow_Ue(const QString &projectName,bool enable);
@@ -79,13 +79,13 @@ public slots:
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index);
     void spawnCustomModelSubclassWindowToModify(const QString &projectName, const QString &trafficName, const QString &item, const int &index, const int &CMindex);
     void spawnWindow_UeParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
-    void spawnWindow_PaggingRate(const QString &projectName);
+    void spawnWindow_PagingRate(const QString &projectName);
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_ParamMap();
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName, bool enable);
     void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName, bool enable);
-    void spawnWindow_Pagging(const PaggingSettings &pagging, const QString &projectName, bool enable);
+    void spawnWindow_Paging(const PagingSettings &paging, const QString &projectName, bool enable);
     void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName,bool enable);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName,bool enable);
     void spawnWindow_Ue(const UeParameters &ueParamaters, const QString &projectName, bool enable);
@@ -104,7 +104,7 @@ signals:
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamUlIndex = 0, const StreamUl &streamUl = StreamUl());
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &syncedPingIndex = 0, const SyncedPing &syncedPing = SyncedPing());
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &serviceReqIndex = 0, const ServiceReq &serviceReq = ServiceReq());
-    void spawnWindow_PaggingRate(const QString &projeName, int &rate);
+    void spawnWindow_PagingRate(const QString &projeName, int &rate);
 private:
     void createFirstWinow();
     void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);
@@ -140,11 +140,11 @@ private:
     StreamUlForm            streamUlForm;
     SyncedPingForm          syncedPingForm;
     ServiceReqForm          serviceReqForm;
-    PaggingForm             paggingForm;
+    PagingForm              pagingForm;
     StatisticsForm          statisticsForm;
     UeForm                  ueForm;
     UeParametersForm       *ueParametersForm;
-    PaggingRate             paggingRate;
+    PagingRate              pagingRate;
 };
 
 #endif // UISYSTEM_H

@@ -38,14 +38,14 @@ signals:
     void spawnWindow_UCTool(const QString &projectName,bool enable);
     void spawnWindow_Mme(const QString &projectName,bool enable);
     void spawnWindow_UBsim(const QString &projectName,bool enable);
-    void spawnWindow_Pagging(const QString &projectName,bool enable);
+    void spawnWindow_Paging(const QString &projectName,bool enable);
     void spawnWindow_ChannelModels(const QString &projectName,bool enable);
     void spawnWindow_Sgw(const QString &projectName,bool enable);
     void spawnWindow_GeneralSettings(const QString &projectName,bool enable);
     void spawnWindow_Ipex(const QString &projectName,bool enable);
     void spawnWindow_Ue(const QString &projectName,bool enable);
     void spawnWindow_ueParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
-    void spawnWindow_PaggingRate(const QString &projectName);
+    void spawnWindow_PagingRate(const QString &projectName);
     void addUe(const QString &projectName, const QString &trafficFileName);
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
     void removeUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
@@ -69,13 +69,13 @@ private slots:
 
     void on_sgwButton_clicked();
 
-    void on_paggingButton_clicked();
+    void on_pagingButton_clicked();
 
     void on_mmeButton_clicked();
 
     void on_generalSettingsButton_clicked();
 
-    void on_PaggingRateButton_clicked();
+    void on_PagingRateButton_clicked();
 
 private:
     Ui::TrafficMap *    ui;

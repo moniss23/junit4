@@ -5,25 +5,25 @@
 #include <QString>
 
 namespace Ui {
-class PaggingRate;
+class PagingRate;
 }
 
-class PaggingRate : public QWidget
+class PagingRate : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit PaggingRate(QWidget *parent = 0);
-    ~PaggingRate();
+    explicit PagingRate(QWidget *parent = 0);
+    ~PagingRate();
 signals:
-    void updatePaggingRate(QString projectName, int rate);
+    void updatePagingRate(QString projectName, int rate);
 private slots:
     void loadAndSpawn(const QString &projectName,int &rate);
 
     void on_OkButton_clicked();
 
 private:
-    Ui::PaggingRate *ui;
+    Ui::PagingRate *ui;
     QString projectName;
     int rate;
 };

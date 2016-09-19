@@ -43,7 +43,7 @@ SOURCES += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/mmesettings.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/maprange.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ueparameters.cpp \
-    ../LTEsimGeneratorGUI/Data/ProjectSettings/paggingsettings.cpp \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.cpp \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/statisticsData.cpp \
     ../LTEsimGeneratorGUI/UISystem/DataForms/statisticsForm.cpp \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.cpp \
@@ -70,6 +70,7 @@ SOURCES += \
     DataTests/ManagersTests/scriptparsermanagertest.cpp \
     DataTests/statisticsdatatest.cpp
 
+
 HEADERS  += \
     ../LTEsimGeneratorGUI/UISystem/Windows/helpdialog.h \
     ../LTEsimGeneratorGUI/UISystem/Windows/projectmanagement.h \
@@ -94,7 +95,7 @@ HEADERS  += \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ueparameters.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/datageneratorsettings.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/channelmodelsettings.h \
-    ../LTEsimGeneratorGUI/Data/ProjectSettings/paggingsettings.h \
+    ../LTEsimGeneratorGUI/Data/ProjectSettings/pagingsettings.h \
     ../LTEsimGeneratorGUI/Data/TrafficSettings/statisticsData.h \
     ../LTEsimGeneratorGUI/UISystem/DataForms/statisticsForm.h \
     ../LTEsimGeneratorGUI/Data/ProjectSettings/ubsimsettings.h \

@@ -555,7 +555,7 @@ background-color:#cccccc;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#ffd700;</string>
+background-color:#666666;</string>
        </property>
        <property name="text">
         <string>IPEX</string>
@@ -583,7 +583,7 @@ background-color:#ffd700;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#ffd700;</string>
+background-color:#666666;</string>
        </property>
        <property name="text">
         <string>UBsim</string>
@@ -642,7 +642,7 @@ background-color:#666666;</string>
         <bool>true</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="paggingButton">
+      <widget class="QPushButton" name="pagingButton">
        <property name="geometry">
         <rect>
          <x>40</x>
@@ -658,7 +658,7 @@ border-color: #eee;
 background-color:#666666;</string>
        </property>
        <property name="text">
-        <string>Pagging</string>
+        <string>Paging</string>
        </property>
        <property name="default">
         <bool>true</bool>
@@ -683,7 +683,7 @@ background-color:#666666;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#ffd700;</string>
+background-color:#666666;</string>
        </property>
        <property name="text">
         <string>UE</string>
@@ -720,7 +720,7 @@ background-color:#666666;</string>
         <bool>false</bool>
        </property>
       </widget>
-      <widget class="QPushButton" name="PaggingRateButton">
+      <widget class="QPushButton" name="PagingRateButton">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -763,10 +763,10 @@ border: 1px solid #ffd700;</string>
       <zorder>ubSimButton</zorder>
       <zorder>mmeButton</zorder>
       <zorder>sgwButton</zorder>
-      <zorder>paggingButton</zorder>
+      <zorder>pagingButton</zorder>
       <zorder>ueButton</zorder>
       <zorder>generalSettingsButton</zorder>
-      <zorder>PaggingRateButton</zorder>
+      <zorder>PagingRateButton</zorder>
      </widget>
      <zorder>label_12</zorder>
      <zorder>label</zorder>

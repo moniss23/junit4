@@ -28,8 +28,8 @@ private Q_SLOTS:
     void scriptParserManagerTest5_getChannelModelSettingsFromScript();
     void scriptParserManagerTest6_getMmeSettingsFromScript();
     void scriptParserManagerTest7_getMmeSettingsFromScript();
-    void scriptParserManagerTest8_getPaggingSettingsFromScript();
-    void scriptParserManagerTest9_getPaggingSettingsFromScript();
+    void scriptParserManagerTest8_getPagingSettingsFromScript();
+    void scriptParserManagerTest9_getPagingSettingsFromScript();
 
 };
 

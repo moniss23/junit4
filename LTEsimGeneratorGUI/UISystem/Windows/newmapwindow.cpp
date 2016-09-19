@@ -2,8 +2,8 @@
 #include "ui_newmapwindow.h"
 #include <QCloseEvent>
 #include <QHBoxLayout>
+#include <QDebug>
 #include "UISystem/Widgets/mapview.h"
-
 
 NewMapWindow::NewMapWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,6 +32,20 @@ void NewMapWindow::loadAndOpen(const Project &project)
 {
     this->refreshWindow(project);
     this->setWindowTitle(project.parametersFile.filename+" - "+project.name+" - LTEsimGenerator");
+
+    if (project.mmeSettings.simulatedCoreNetwork) {
+        this->ui->mmeButton->setStyleSheet("QPushButton{color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;}");
+    }
+    else {
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (project.pagingSettings.isUsedInConfiguration) {
+        this->ui->pagingButton->setStyleSheet("QPushButton{color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;}");
+        qDebug()<<"zmieniam kolor"<< project.pagingSettings.isUsedInConfiguration;
+    }
+    else {
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
     this->show();
 }
 
@@ -62,7 +76,6 @@ void NewMapWindow::refreshWindow(const Project &project) {
     for(int i=this->ui->mapObjectsWidget->count()-1; i>=0; --i) {
         this->ui->mapObjectsWidget->removeTab(i);
     }
-
     this->ui->mapObjectsWidget->setVisible(false);
 }
 
@@ -180,7 +193,7 @@ void NewMapWindow::on_removeHandoverBtn_clicked()
 void NewMapWindow::on_addCellBtn_clicked() {emit addCell(project.name);}
 void NewMapWindow::on_addHandoverBtn_clicked() {emit addHandover(project.name);}
 void NewMapWindow::on_mmeButton_pressed() {emit spawnWindow_Mme(project.name,false);}
-void NewMapWindow::on_paggingButton_pressed() {emit spawnWindow_Pagging(project.name,false);}
+void NewMapWindow::on_pagingButton_pressed() {emit spawnWindow_Paging(project.name,false);}
 void NewMapWindow::on_sgwButton_pressed() {emit spawnWindow_Sgw(project.name,false);}
 void NewMapWindow::on_ipexButton_pressed() {emit spawnWindow_Ipex(project.name,false);}
 void NewMapWindow::on_ubSimButton_pressed() {emit spawnWindow_UBSim(project.name,false);}

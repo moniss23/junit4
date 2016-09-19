@@ -564,7 +564,7 @@ background-color:#666666;</string>
        <bool>true</bool>
       </property>
      </widget>
-     <widget class="QPushButton" name="paggingButton">
+     <widget class="QPushButton" name="pagingButton">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -580,7 +580,7 @@ border-color: #eee;
 background-color:#666666;</string>
       </property>
       <property name="text">
-       <string>Pagging</string>
+       <string>Paging</string>
       </property>
       <property name="default">
        <bool>true</bool>

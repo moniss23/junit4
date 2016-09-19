@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PaggingRate</class>
- <widget class="QWidget" name="PaggingRate">
+ <class>PagingRate</class>
+ <widget class="QWidget" name="PagingRate">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -28,7 +28,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Pagging Rate</string>
+         <string>Paging Rate</string>
         </property>
        </widget>
       </item>
