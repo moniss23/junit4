@@ -1017,9 +1017,10 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
             qsrand(time(NULL));
             int angle = qrand() % 360;
             int dist = qrand() % 3000 + 750;
-
             int x = item.first.position_X + dist*sin(angle);
             int y = item.first.position_Y + dist*cos(angle);
+            ueData->positionX = x;
+            ueData->positionY = y;
             emit updateUeDataInUeRepresentation(*ueData, x, -y);
             saveProjectsFile();
             return;
@@ -1032,6 +1033,8 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
             int distY = qrand() % (item.northBoundary - item.southBoundary);
             int x = item.westBoundary + distX;
             int y = item.southBoundary + distY;
+            ueData->positionX = x;
+            ueData->positionY = y;
             emit updateUeDataInUeRepresentation(*ueData, x, -y);
             saveProjectsFile();
             return;

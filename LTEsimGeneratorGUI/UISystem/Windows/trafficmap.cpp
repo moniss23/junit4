@@ -97,7 +97,7 @@ void TrafficMap::on_removeUeButton_clicked() {
     if(ui->removeUeButton->isEnabled() && this->clickedUe != nullptr) {
         this->mapView->scene->removeItem(clickedUe);
         emit removeUe(project.name, trafficFileData->filename, clickedUe->ueObject);
-
+        this->ui->numberOfUeLabel->setText(QString::number(this->ui->numberOfUeLabel->text().toInt() - 1));
         clickedUe = nullptr;
         ui->removeUeButton->setVisible(false);
     }
