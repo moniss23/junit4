@@ -7,23 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>305</height>
+    <height>329</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Ue Component Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Ue</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-   </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>

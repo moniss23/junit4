@@ -52,6 +52,7 @@ private slots:
      *  INTERNAL CLASS LOGIC
      ***********************************************/
     void on_ubSimGuiCheckbox_stateChanged(int arg1);
+    void disableWindow(bool state);
 
 private:
     /**

@@ -2,7 +2,6 @@
 #include "ui_newmapwindow.h"
 #include <QCloseEvent>
 #include <QHBoxLayout>
-#include <QDebug>
 #include "UISystem/Widgets/mapview.h"
 
 NewMapWindow::NewMapWindow(QWidget *parent) :
@@ -33,6 +32,8 @@ void NewMapWindow::loadAndOpen(const Project &project)
     this->refreshWindow(project);
     this->setWindowTitle(project.parametersFile.filename+" - "+project.name+" - LTEsimGenerator");
     updateButtonsColor();
+    emit setEnabledPagingRate(project.pagingSettings.isUsedInConfiguration);
+    emit setEnabledUBSim(project.ueParameters.startUeComponent);
     this->show();
 }
 
@@ -85,14 +86,10 @@ void NewMapWindow::updateButtonsColor()
     }
     if (this->project.ueParameters.startUeComponent){
         this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
-    }
-    else {
-        this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
-    }
-    if (this->project.ubSimSettings.UBSimGui){
         this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
     }
     else {
+        this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
         this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
     }
 }

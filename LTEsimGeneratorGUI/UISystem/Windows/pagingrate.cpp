@@ -27,3 +27,7 @@ void PagingRate::on_OkButton_clicked()
     emit updatePagingRate(projectName,this->rate);
     this->close();
 }
+void PagingRate::enablePagingRate(bool value)
+{
+    this->setEnabled(value);
+}

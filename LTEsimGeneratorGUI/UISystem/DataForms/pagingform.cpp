@@ -12,6 +12,7 @@ PagingForm::PagingForm(QWidget *parent) :
     this->ui->lbl_7->setToolTip("Used to generate GUMMEI e.g. \"AA\", \"AB\", \"AC\"");
     this->ui->lbl_6->setToolTip("Can be IMSI or STMSI e.g. \"IMSI\"");
     this->ui->lbl_4->setToolTip("The IP addresses must be available on the LTEsim server and reachable from the eNB CP interface, e.g. \"sctp://127.0.1.1:36412\"");
+    emit enablePagingRate(pagingSettings.isUsedInConfiguration);
 }
 
 
@@ -26,7 +27,8 @@ void PagingForm::loadAndSpawn(const PagingSettings &pagingSettings, const QStrin
     this->pagingSettings = pagingSettings;
     this->projectName = projectName;
     this->setDefaultParameters();
-    this->setReadOnly(enable);
+    this->setEnabled(!enable);
+    this->enableWindow(pagingSettings.isUsedInConfiguration);
     this->show();
 }
 
@@ -103,4 +105,17 @@ void PagingForm::setReadOnly(bool value)
 void PagingForm::on_checkBox_generate_pagings_stateChanged(int arg1)
 {
     pagingSettings.isUsedInConfiguration=arg1;
+    enableWindow(arg1);
+    emit enablePagingRate(arg1);
+}
+void PagingForm::enableWindow(bool value)
+{
+    this->ui->tet_generators->setEnabled(value);
+    this->ui->tet_imsi_ranges->setEnabled(value);
+    this->ui->tet_mme_codes->setEnabled(value);
+    this->ui->tet_paging_generator_names->setEnabled(value);
+    this->ui->tet_paging_s1ap_uris->setEnabled(value);
+    this->ui->tet_ue_paging_identity->setEnabled(value);
+    this->ui->checkBox_bundle_paging->setEnabled(value);
+    this->ui->checkBox_s1ap_checkASN1_constraints->setEnabled(value);
 }

@@ -2,7 +2,6 @@
 #include "Data/ProjectSettings/Helpers/ueparametersparser.h"
 #include "Data/ProjectSettings/Helpers/mapparser.h"
 #include <QRegExp>
-#include <QDebug>
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 

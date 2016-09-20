@@ -29,7 +29,7 @@ public slots:
     void updateUe_MapView(UeRepresentation*,const QString &projectName, const QString &trafficName, const UEData &ueData);
     void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
     void updateUeDataInUeRepresentation(const UEData& ueData, int x, int y);
-
+    void updateButtonsColor();
 signals:
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
@@ -51,7 +51,8 @@ signals:
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
     void removeUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
     void saveProjectOnMapTrafficClose(const QString &projectName);
-
+    void setEnabledPagingRate(bool value);
+    void setEnabledUBSim(bool value);
 private slots:
     void on_pushButton_pressed();
     void on_addUeButton_clicked();

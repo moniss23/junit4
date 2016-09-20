@@ -21,10 +21,38 @@ TrafficMap::~TrafficMap()
 {
     delete ui;
 }
+void TrafficMap::updateButtonsColor()
+{
+    if (this->project.pagingSettings.isUsedInConfiguration){
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+        this->ui->PagingRateButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+        this->ui->PagingRateButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.mmeSettings.simulatedCoreNetwork){
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.ueParameters.startUeComponent){
+        this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+        this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+        this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+}
 
 void TrafficMap::loadAndOpen(const Project &project, TrafficFileData *trafficFileData) {
     this->refreshWindow(project, trafficFileData);
     this->setWindowTitle(trafficFileData->filename+" - "+project.name+" - LTEsimGenerator");
+    updateButtonsColor();
+    emit setEnabledPagingRate(project.pagingSettings.isUsedInConfiguration);
+    emit setEnabledUBSim(project.ueParameters.startUeComponent);
     this->show();
 }
 
@@ -112,12 +140,7 @@ void TrafficMap::on_sgwButton_clicked() { emit spawnWindow_Sgw(project.name,true
 void TrafficMap::on_pagingButton_clicked() { emit spawnWindow_Paging(project.name,true); }
 void TrafficMap::on_mmeButton_clicked() { emit spawnWindow_Mme(project.name,true); }
 void TrafficMap::on_generalSettingsButton_clicked() { emit spawnWindow_GeneralSettings(project.name,true); }
-
-void TrafficMap::on_PagingRateButton_clicked()
-{
-    emit spawnWindow_PagingRate(project.name);
-}
-
+void TrafficMap::on_PagingRateButton_clicked() { emit spawnWindow_PagingRate(project.name); }
 void TrafficMap::on_timeButton_clicked(){ emit spawnWindow_Time(project.name, trafficFileData->filename); }
 
 void TrafficMap::closeEvent(QCloseEvent *event)

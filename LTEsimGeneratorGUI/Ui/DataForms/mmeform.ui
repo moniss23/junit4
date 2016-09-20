@@ -7,17 +7,29 @@
     <x>0</x>
     <y>0</y>
     <width>419</width>
-    <height>229</height>
+    <height>250</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Mme Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout_6">
      <item>
       <widget class="QGroupBox" name="gbMME">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
@@ -25,7 +37,7 @@
         </size>
        </property>
        <property name="title">
-        <string>MME</string>
+        <string/>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -137,6 +149,9 @@
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetNoConstraint</enum>
+            </property>
             <item>
              <widget class="QLineEdit" name="tetMme_names">
               <property name="enabled">

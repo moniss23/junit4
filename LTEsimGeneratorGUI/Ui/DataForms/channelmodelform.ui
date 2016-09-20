@@ -11,13 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Channel Model Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Channel Models</string>
+      <string/>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

@@ -13,6 +13,7 @@ UeForm::UeForm(QWidget *parent) :
     this->ui->lbl_6->setToolTip("The algorithm used during EPS AKA procedure.");
     this->ui->lbl_4->setToolTip("Used for MILENAGE");
     this->ui->lbl_8->setToolTip("The OP used in the MILENAGE algorithm. Also used in simulated MME.");
+    emit enableUBSim(ueParameters.startUeComponent);
 }
 
 UeForm::~UeForm()
@@ -23,7 +24,8 @@ void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projec
     this->ueParameters=ueParameters;
     this->projectName = projectName;
     this->updateUi();
-    this->setReadOnly(enable);
+    this->setEnabled(!enable);
+    this->enableWindow(ueParameters.startUeComponent);
     this->show();
 }
 
@@ -78,4 +80,21 @@ void UeForm::setReadOnly(bool value)
     this->ui->tet_ue_network_capability->setReadOnly(value);
     this->ui->tet_ue_op->setReadOnly(value);
     this->ui->checkBox->setCheckable(!value);
+}
+void UeForm::enableWindow(bool value)
+{
+    this->ui->tet_l1l2_managers->setEnabled(value);
+    this->ui->tet_name->setEnabled(value);
+    this->ui->tet_rrc_pluginFilterPath->setEnabled(value);
+    this->ui->tet_ue_key->setEnabled(value);
+    this->ui->tet_ue_keyDerivationAlgorithm->setEnabled(value);
+    this->ui->tet_ue_network_capability->setEnabled(value);
+    this->ui->tet_ue_op->setEnabled(value);
+}
+
+void UeForm::on_checkBox_stateChanged(int arg1)
+{
+    ueParameters.startUeComponent=arg1;
+    this->enableWindow(arg1);
+    emit enableUBSim(arg1);
 }

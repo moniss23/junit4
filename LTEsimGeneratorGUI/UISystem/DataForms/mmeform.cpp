@@ -1,6 +1,5 @@
 #include "mmeform.h"
 #include "ui_mmeform.h"
-
 MmeForm::MmeForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MmeForm)
@@ -33,13 +32,16 @@ void MmeForm::updateUi()
     this->ui->tetMme_tais->setText(mmeSettings.tais);
     this->ui->tetMme_s1ap_uris->setText(mmeSettings.uris);
     this->ui->tetS1ap_pluginFilterPath->setText(mmeSettings.pluginFilterPath);
+    this->update();
     this->ui->checkBox->setChecked(mmeSettings.simulatedCoreNetwork);
+    enableWindow(this->mmeSettings.simulatedCoreNetwork);
 }
 void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projectName, bool enable){
     this->mmeSettings=mmeSettings;
     this->projectName=projectName;
     this->updateUi();
-    this->setReadOnly(enable);
+    this->ui->checkBox->setEnabled(!enable);
+    this->setEnabled(!enable);
     this->show();
 }
 
@@ -82,8 +84,18 @@ void MmeForm::setReadOnly(bool value)
     this->ui->checkBox->setCheckable(!value);
     this->ui->pbReset->setEnabled(!value);
 }
+void MmeForm::enableWindow(bool value)
+{
+    this->ui->tetMmes->setEnabled(value);
+    this->ui->tetMme_names->setEnabled(value);
+    this->ui->tetMme_s1ap_uris->setEnabled(value);
+    this->ui->tetMme_tais->setEnabled(value);
+    this->ui->tetS1ap_pluginFilterPath->setEnabled(value);
+    this->ui->pbReset->setEnabled(value);
+}
 
 void MmeForm::on_checkBox_toggled(bool checked)
 {
     mmeSettings.simulatedCoreNetwork=checked;
+    updateUi();
 }

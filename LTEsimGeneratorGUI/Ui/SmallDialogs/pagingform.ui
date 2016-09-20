@@ -11,24 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Paging Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QLabel" name="label_3">
-     <property name="font">
-      <font>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="text">
-      <string>Paging</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QFrame" name="pagings">
      <property name="enabled">

@@ -73,6 +73,7 @@ private:
      */
     void updateUi();
     void setReadOnly(bool value);
+    void enableWindow(bool value);
 
 private:
     Ui::MmeForm *ui;                //< GUI form pointer

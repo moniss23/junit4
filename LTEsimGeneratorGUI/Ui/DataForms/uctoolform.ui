@@ -11,13 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>UCTool Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QGroupBox" name="gbUCtool">
      <property name="title">
-      <string>UCtool</string>
+      <string/>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">

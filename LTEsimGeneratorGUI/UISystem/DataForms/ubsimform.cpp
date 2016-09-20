@@ -87,11 +87,15 @@ void UBsimForm::setReadOnly(bool value)
     this->ui->tet_psTrafficModelsDir->setReadOnly(value);
     this->ui->tet_ubsim_patches->setReadOnly(value);
     this->ui->tet_ueTypesDir->setReadOnly(value);
-    this->ui->ubSimGuiCheckbox->setEnabled(!value);
-    this->ui->pbReset->setEnabled(!value);
+    this->ui->ubSimGuiCheckbox->setEnabled(value);
+    this->ui->pbReset->setEnabled(value);
 }
 
 void UBsimForm::on_ubSimGuiCheckbox_stateChanged(int arg1)
 {
     ubSimSettings.UBSimGui = arg1;
+}
+void UBsimForm::disableWindow(bool state)
+{
+    this->setEnabled(state);
 }

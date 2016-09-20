@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Sgw Settings</string>
   </property>
   <widget class="QGroupBox" name="gbSGW">
    <property name="geometry">
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>SGW</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

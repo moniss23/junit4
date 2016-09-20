@@ -73,6 +73,19 @@
         </widget>
        </item>
        <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QPushButton" name="removeUeButton">
          <property name="styleSheet">
           <string notr="true">border-color: #eee;
@@ -93,6 +106,19 @@ background-color: #b2d025;</string>
           <string>+</string>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </item>
@@ -555,7 +581,7 @@ background-color:#cccccc;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+background-color:#ffd700;</string>
        </property>
        <property name="text">
         <string>IPEX</string>
@@ -583,7 +609,10 @@ background-color:#666666;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+background-color:#ffcolor: #000;
+border-radius:5px;
+border-color: #eee;
+background-color:#666666;d700;</string>
        </property>
        <property name="text">
         <string>UBsim</string>
@@ -633,7 +662,7 @@ background-color:#666666;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+background-color:#ffd700;</string>
        </property>
        <property name="text">
         <string>SGW</string>
@@ -708,7 +737,7 @@ background-color:#666666;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+background-color:#ffd700;</string>
        </property>
        <property name="text">
         <string>General settings</string>
@@ -809,82 +838,7 @@ background-color:#666666;</string>
      <property name="spacing">
       <number>15</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="statisticsButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#statisticsButton { 
-	color: #eee;
-	border-radius:5px;
-	border-color: #eee;
-	background-color:#666666;
-}
-QPushButton#statisticsButton:hover:!pressed{
-	color: #000;
-	background-color:#ffd700;
-}</string>
-       </property>
-       <property name="text">
-        <string>Statistics</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="timeButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#timeButton { 
-	color: #eee;
-	border-radius:5px;
-	border-color: #eee;
-	background-color:#666666;
-}
-QPushButton#timeButton:hover:!pressed{
-	color: #000;
-	background-color:#ffd700;
-}</string>
-       </property>
-       <property name="text">
-        <string>Time</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="tunningTrafficButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">QPushButton#tunningTrafficButton { 
-	color: #eee;
-	border-radius:5px;
-	border-color: #eee;
-	background-color:#666666;
-}
-QPushButton#tunningTrafficButton:hover:!pressed{
-	color: #000;
-	background-color:#ffd700;
-}</string>
-       </property>
-       <property name="text">
-        <string>Tuning traffic</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
+     <item row="1" column="2">
       <widget class="QPushButton" name="pushButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -909,6 +863,81 @@ QPushButton#pushButton:hover:!pressed{
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="statisticsButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#statisticsButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#statisticsButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+       </property>
+       <property name="text">
+        <string>Statistics</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QPushButton" name="timeButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#timeButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#timeButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+       </property>
+       <property name="text">
+        <string>Time</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="tunningTrafficButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton#tunningTrafficButton { 
+	color: #eee;
+	border-radius:5px;
+	border-color: #eee;
+	background-color:#666666;
+}
+QPushButton#tunningTrafficButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
+}</string>
+       </property>
+       <property name="text">
+        <string>Tuning traffic</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -918,7 +947,7 @@ QPushButton#pushButton:hover:!pressed{
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

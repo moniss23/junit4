@@ -19,7 +19,7 @@ signals:
     void updatePagingRate(QString projectName, int rate);
 private slots:
     void loadAndSpawn(const QString &projectName,int &rate);
-
+    void enablePagingRate(bool value);
     void on_OkButton_clicked();
 
 private:

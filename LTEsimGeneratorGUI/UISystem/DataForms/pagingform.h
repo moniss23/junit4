@@ -23,6 +23,7 @@ signals:
      * @param QString with current project name
      */
     void updatePaging(const PagingSettings &pagingSettings, const QString &projectName);
+    void enablePagingRate(bool value);
 public slots:
     void loadAndSpawn(const PagingSettings &pagingSettings, const QString &projectName, bool enable);
 
@@ -53,6 +54,7 @@ private:
     void setPagingParameters(PagingSettings pagingSettings);
 
     void setReadOnly(bool value);
+    void enableWindow(bool value);
 
 private:
     Ui::PagingForm *ui;             //< GUI form pointer

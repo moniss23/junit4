@@ -176,6 +176,11 @@ void UISystem::bindingObjects()
     //Update Ue Parameters
     QObject::connect(&ueForm,SIGNAL(updateUeSettings(UeParameters,QString)),dataSystem,SLOT(updateUeComponent(UeParameters,QString)));
 
+    //Enable/Disable UBSim
+    QObject::connect(&ueForm,SIGNAL(enableUBSim(bool)),&ubSimForm,SLOT(disableWindow(bool)));
+    QObject::connect(&newMapWindow,SIGNAL(setEnabledUBSim(bool)),&ubSimForm,SLOT(disableWindow(bool)));
+    QObject::connect(&trafficMap,SIGNAL(setEnabledUBSim(bool)),&ubSimForm,SLOT(disableWindow(bool)));
+
     //Update UBsimSettings
     QObject::connect(&ubSimForm, SIGNAL(updateUBSimSettings(UBSimSettings,QString)), dataSystem, SLOT(updateUBSimSettings(UBSimSettings,QString)));
 
@@ -195,6 +200,10 @@ void UISystem::bindingObjects()
     QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings,QString)),&newMapWindow,SLOT(updateButtonsColor()));
     QObject::connect(&pagingForm,SIGNAL(updatePaging(PagingSettings,QString)),&newMapWindow,SLOT(updateButtonsColor()));
     QObject::connect(&ueForm,SIGNAL(updateUeSettings(UeParameters,QString)),&newMapWindow,SLOT(updateButtonsColor()));
+    QObject::connect(&ubSimForm,SIGNAL(updateUBSimSettings(UBSimSettings,QString)),&trafficMap,SLOT(updateButtonsColor()));
+    QObject::connect(&mmeForm,SIGNAL(updateMme(MmeSettings,QString)),&trafficMap,SLOT(updateButtonsColor()));
+    QObject::connect(&pagingForm,SIGNAL(updatePaging(PagingSettings,QString)),&trafficMap,SLOT(updateButtonsColor()));
+    QObject::connect(&ueForm,SIGNAL(updateUeSettings(UeParameters,QString)),&trafficMap,SLOT(updateButtonsColor()));
 
     //SpawnWindow NewMapWindow/TrafficMap
     QObject::connect(this, SIGNAL(spawnWindow_MapWindow(Project)), &newMapWindow, SLOT(loadAndOpen(Project)));
@@ -300,6 +309,9 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));
     QObject::connect(this,SIGNAL(spawnWindow_PagingRate(QString,int&)),&pagingRate,SLOT(loadAndSpawn(QString,int&)));
     QObject::connect(&pagingRate,SIGNAL(updatePagingRate(QString,int)),dataSystem,SLOT(updatePagingRate(QString,int)));
+    QObject::connect(&pagingForm,SIGNAL(enablePagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
+    QObject::connect(&newMapWindow,SIGNAL(setEnabledPagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
+    QObject::connect(&trafficMap,SIGNAL(setEnabledPagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

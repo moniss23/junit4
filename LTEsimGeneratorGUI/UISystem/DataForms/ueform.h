@@ -26,7 +26,7 @@ signals:
      */
     void updateUeSettings(const UeParameters &ueParameters, const QString &projectName);
 
-
+    void enableUBSim(bool state);
     /***********************************************
      *  BINDINGS TO UI BUTTONS AND LISTS
      ***********************************************/
@@ -42,6 +42,8 @@ private slots:
      *  INTERNAL CLASS LOGIC
      ***********************************************/
 
+    void on_checkBox_stateChanged(int arg1);
+
 private:
     /**
      * @brief updateUi is used to set ui fields values from UeSettings data
@@ -53,6 +55,7 @@ private:
     void getParameters();
 
     void setReadOnly(bool value);
+    void enableWindow(bool value);
 private:
     Ui::UeForm *ui;                             //<<< GUI form pointer
     UeParameters  ueParameters;                 //<<< Ue Settings

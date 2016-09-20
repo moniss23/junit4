@@ -60,6 +60,9 @@ signals:
 
     void saveProjectOnClose(const QString &projectName);
 
+    void setEnabledUBSim(bool value);
+    void setEnabledPagingRate(bool value);
+
 private slots:
     void on_mmeButton_pressed();
     void on_pagingButton_pressed();

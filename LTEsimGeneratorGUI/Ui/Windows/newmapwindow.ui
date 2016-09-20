@@ -505,7 +505,10 @@ background-color:#ffd700;</string>
        <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#666666;</string>
+baccolor: #000;
+border-radius:5px;
+border-color: #eee;
+background-color:#666666;kground-color:#ffd700;</string>
       </property>
       <property name="text">
        <string>UBsim</string>
@@ -1554,7 +1557,7 @@ background-color: #666666;</string>
      <x>0</x>
      <y>0</y>
      <width>1187</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
