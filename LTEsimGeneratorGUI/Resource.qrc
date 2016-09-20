@@ -7,7 +7,6 @@
         <file>Images/about.png</file>
         <file>Images/exit.png</file>
         <file>Images/import.png</file>
-        <file>Images/logoLTEsim.png</file>
         <file>Images/new.png</file>
         <file>Images/open.png</file>
         <file>Images/quit.png</file>
@@ -28,5 +27,6 @@
         <file>Images/handover.png</file>
         <file>Images/MapItems/curved line.svg</file>
         <file>Images/MapItems/curved line 2.png</file>
+        <file>Images/LTEsimGen.png</file>
     </qresource>
 </RCC>
