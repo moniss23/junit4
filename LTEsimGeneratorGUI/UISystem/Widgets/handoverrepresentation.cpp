@@ -46,10 +46,9 @@ void HandoverRepresentation::paint(QPainter *painter, const QStyleOptionGraphics
 
     QRectF rect(-width/2, -height/2, width, height);
 
-    painter->setPen(QPen(Qt::gray, 0));
+    painter->setPen(QPen(Qt::white, 0));
+    painter->fillRect(rect, QBrush(QColor(250, 250, 250, 165)));
     painter->drawRoundedRect(rect, 3, 3);
-
-    painter->fillRect(rect, QBrush(QColor(102, 102, 102, 205)));
     painter->drawImage(rect, this->icon);
 }
 
