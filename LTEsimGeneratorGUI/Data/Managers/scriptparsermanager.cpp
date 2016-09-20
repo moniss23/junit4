@@ -837,10 +837,10 @@ QString ScriptParserManager::GenerateParametersQString(Project &project){
 # \n\
 # Copyright Ericsson AB 2013. \n\
 # \n\
-# This example shows how to setup and retrieve configuration parameters for LTEsum. \n\
+# This example shows how to setup and retrieve configuration parameters for LTEsim. \n\
 # \n\
 # \n\
-# Module that contains functions for retrieving configuration values for the LTEsum components. \n\
+# Module that contains functions for retrieving configuration values for the LTEsim components. \n\
 # \n\
 # Copy this file to your home directory with a different name and edit the copy \n\
 # to match your environment. \n\

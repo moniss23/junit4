@@ -36,6 +36,7 @@ void UCtoolForm::loadAndOpen(const UCToolSettings &ucToolSettings, const QString
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(enable);
+    this->setEnabled(!enable);
     this->show();
 }
 

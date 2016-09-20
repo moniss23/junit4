@@ -19,6 +19,7 @@ void IpexForm::loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, 
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(enable);
+    this->setEnabled(!enable);
     this->show();
 }
 

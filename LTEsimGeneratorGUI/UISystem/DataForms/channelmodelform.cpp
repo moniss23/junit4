@@ -19,6 +19,7 @@ void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSetti
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(enable);
+    this->setEnabled(!enable);
     this->show();
 }
 

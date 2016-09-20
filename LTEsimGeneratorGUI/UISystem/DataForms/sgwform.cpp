@@ -66,6 +66,7 @@ void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projec
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(enable);
+    this->setEnabled(!enable);
     this->show();
 }
 void SgwForm::setReadOnly(bool value)
