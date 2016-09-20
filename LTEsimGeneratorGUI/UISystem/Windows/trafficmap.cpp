@@ -120,3 +120,8 @@ void TrafficMap::on_PagingRateButton_clicked()
 
 void TrafficMap::on_timeButton_clicked(){ emit spawnWindow_Time(project.name, trafficFileData->filename); }
 
+void TrafficMap::closeEvent(QCloseEvent *event)
+{
+    emit saveProjectOnMapTrafficClose(project.name);
+    QMainWindow::closeEvent(event);
+}

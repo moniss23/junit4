@@ -335,7 +335,7 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
 
         outputString.append("\n");
 
-        if(project.pagingSettings.bundlePaging)
+        if(project.pagingSettings.isUsedInConfiguration)
         {
             for(int i=0;i<project.pagingSettings.names.size();i++)
             {

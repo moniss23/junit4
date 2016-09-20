@@ -225,6 +225,7 @@ void DataSystem::updateStatisticsData(const QString &projectName, const QString 
     }
     trafficFile->statisticsData = statisticsData;
     saveProjectsFile();
+    emit currentProjectChanged(*project);
 }
 
 void DataSystem::updateHandover(const Handover &handover, const QString &projectName) {

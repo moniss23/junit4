@@ -271,6 +271,7 @@ void UISystem::bindingObjects()
 
     // Update project
     QObject::connect(&newMapWindow,SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
+    QObject::connect(&trafficMap, SIGNAL(saveProjectOnMapTrafficClose(QString)), dataSystem, SLOT(updateProjectOnMapCloseEvent(QString)));
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
     QObject::connect(&customModelsListForm, SIGNAL(loadData(QString,QString,int)), dataSystem, SLOT(updateCustomModel(QString,QString,int)));
 

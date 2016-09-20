@@ -50,6 +50,7 @@ signals:
     void addUe(const QString &projectName, const QString &trafficFileName);
     void updateUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
     void removeUe(const QString &projectName, const QString &trafficName, const UEData &ueData);
+    void saveProjectOnMapTrafficClose(const QString &projectName);
 
 private slots:
     void on_pushButton_pressed();
@@ -68,6 +69,9 @@ private slots:
     void on_generalSettingsButton_clicked();
     void on_PagingRateButton_clicked();
     void on_timeButton_clicked();
+
+private:
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::TrafficMap *    ui;
