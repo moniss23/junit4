@@ -4,6 +4,8 @@
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Widgets/uerepresentation.h"
 
+#include <QCloseEvent>
+
 TrafficMap::TrafficMap(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TrafficMap)

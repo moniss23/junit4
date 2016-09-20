@@ -143,7 +143,7 @@ void ParametersWindow::previewFile(QListWidgetItem* current){
     else{
         for(int i=1; i<=currentProject.trafficFilesList.size(); i++){
             if(this->ui->projectsList->item(i)->text()==current->text()){
-                this->ui->filePreview->setText(currentProject.trafficFilesList[i-1].content);
+                this->ui->filePreview->setText(currentProject.trafficFilesList.at(i-1).content);
                 break;
             }
         }

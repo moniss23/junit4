@@ -53,6 +53,8 @@ signals:
     void saveProjectOnMapTrafficClose(const QString &projectName);
     void setEnabledPagingRate(bool value);
     void setEnabledUBSim(bool value);
+    void saveProjectOnClose(const QString &projectName);
+
 private slots:
     void on_pushButton_pressed();
     void on_addUeButton_clicked();
