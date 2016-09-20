@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QTextStream>
 #include <QSet>
+#include <QTime>
 #include "Data/Managers/filemanager.h"
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/Helpers/mapparser.h"
