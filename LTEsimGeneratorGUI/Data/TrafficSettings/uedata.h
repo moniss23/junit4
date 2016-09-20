@@ -3,6 +3,8 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
+#include <QVector>
+
 class UEData : public SerializeInterface
 {
 public:
@@ -17,7 +19,7 @@ public:
     std::pair<QString,QString> ueTypesPair{"iratHO", "iratHO"};
     std::pair<QString,QString> ueArea;
 
-    int positionX=2000, positionY=2000; //TODO: remove as soon as reading ueArea is ready
+    QVector <QPair<int, int>> position { {2000,2000}, {4000,2000} }; //TODO: remove as soon as reading ueArea is ready
 
     // SerializeInterface interface
 public:

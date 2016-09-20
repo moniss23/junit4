@@ -1,8 +1,9 @@
 #include "newmapwindow.h"
 #include "ui_newmapwindow.h"
-#include <QCloseEvent>
-#include <QHBoxLayout>
 #include "UISystem/Widgets/mapview.h"
+
+#include <QHBoxLayout>
+#include <QCloseEvent>
 
 NewMapWindow::NewMapWindow(QWidget *parent) :
     QMainWindow(parent),

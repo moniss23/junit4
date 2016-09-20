@@ -1029,34 +1029,45 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
         return;
     }
     *ueData = uedata;
+    qsrand(time(NULL));
     for(auto &item : project->cellsInfo) {
         if(item.second.area == ueData->ueArea.first) {
-            qsrand(time(NULL));
             int angle = qrand() % 360;
             int dist = qrand() % 3000 + 750;
             int x = item.first.position_X + dist*sin(angle);
             int y = item.first.position_Y + dist*cos(angle);
-            ueData->positionX = x;
-            ueData->positionY = y;
-            emit updateUeDataInUeRepresentation(*ueData, x, -y);
-            saveProjectsFile();
-            return;
+            ueData->position[0].first = x;
+            ueData->position[0].second = y;
+        }
+        if(item.second.area == ueData->ueArea.second) {
+            int angle = qrand() % 360;
+            int dist = qrand() % 3000 + 750;
+            int x = item.first.position_X + dist*sin(angle);
+            int y = item.first.position_Y + dist*cos(angle);
+            ueData->position[1].first = x;
+            ueData->position[1].second = y;
         }
     }
     for(auto &item : project->handovers) {
         if(item.area == ueData->ueArea.first) {
-            qsrand(time(NULL));
             int distX = qrand() % (item.eastBoundary - item.westBoundary);
             int distY = qrand() % (item.northBoundary - item.southBoundary);
             int x = item.westBoundary + distX;
             int y = item.southBoundary + distY;
-            ueData->positionX = x;
-            ueData->positionY = y;
-            emit updateUeDataInUeRepresentation(*ueData, x, -y);
-            saveProjectsFile();
-            return;
+            ueData->position[0].first = x;
+            ueData->position[0].second = y;
+        }
+        if(item.area == ueData->ueArea.second) {
+            int distX = qrand() % (item.eastBoundary - item.westBoundary);
+            int distY = qrand() % (item.northBoundary - item.southBoundary);
+            int x = item.westBoundary + distX;
+            int y = item.southBoundary + distY;
+            ueData->position[1].first = x;
+            ueData->position[1].second = y;
         }
     }
+    emit updateUeDataInUeRepresentation(*ueData);
+    saveProjectsFile();
 }
 
 void DataSystem::updatePagingRate(QString projectName, int rate){

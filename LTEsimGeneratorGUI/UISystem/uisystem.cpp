@@ -305,7 +305,7 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
-    QObject::connect(dataSystem, SIGNAL(updateUeDataInUeRepresentation(UEData,int,int)), &trafficMap, SLOT(updateUeDataInUeRepresentation(UEData,int,int)));
+    QObject::connect(dataSystem, SIGNAL(updateUeDataInUeRepresentation(UEData)), &trafficMap, SLOT(updateUeDataInUeRepresentation(UEData)));
 
     // paging rate
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));

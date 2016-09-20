@@ -2,7 +2,7 @@
 
 #include "uerepresentation.h"
 
-UeRepresentation::UeRepresentation(UEData &ueObject) : color(255,120,170,255), ueObject(ueObject)
+UeRepresentation::UeRepresentation(UEData &ueObject, int index) : color(255,120,170,255), ueObject(ueObject), index(index)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -31,6 +31,11 @@ void UeRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->setBrush(QBrush(color));
     painter->setPen(QPen(Qt::black, 1));
     painter->drawRoundedRect(rect, 3, 3);
+
+    auto font = painter->font();
+    font.setPointSize(8500/15);
+    painter->setFont(font);
+    painter->drawText(0,500,QString::number(this->index));
 }
 
 void UeRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
@@ -40,8 +45,8 @@ void UeRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void UeRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsItem::mouseReleaseEvent(event);
 
-    this->ueObject.positionX = pos().x();
-    this->ueObject.positionY = -pos().y();
+    this->ueObject.position[index].first = pos().x();
+    this->ueObject.position[index].second = -pos().y();
 
     emit updateUe(this, ueObject);
 }

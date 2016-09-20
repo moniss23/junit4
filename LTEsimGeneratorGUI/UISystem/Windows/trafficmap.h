@@ -28,8 +28,9 @@ public slots:
     void refreshWindow(const Project &project, TrafficFileData *trafficFileData);
     void updateUe_MapView(UeRepresentation*,const QString &projectName, const QString &trafficName, const UEData &ueData);
     void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
-    void updateUeDataInUeRepresentation(const UEData& ueData, int x, int y);
     void updateButtonsColor();
+    void updateUeDataInUeRepresentation(const UEData& ueData);
+
 signals:
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);
@@ -86,9 +87,9 @@ private:
     TrafficFileData*    trafficFileData;
     Project             project;
 
-    UeRepresentation*   ueRepresentation;
+    QVector<UeRepresentation*> doubleClickedUe {nullptr, nullptr};
 
-    UeRepresentation*   clickedUe;
+    QVector<UeRepresentation*> clickedUe {nullptr, nullptr};
 };
 
 #endif // TRAFFICMAP_H

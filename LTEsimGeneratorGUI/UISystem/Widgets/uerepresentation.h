@@ -9,10 +9,12 @@ class UeRepresentation : public QGraphicsObject
     Q_OBJECT
 
 public:
-    UeRepresentation(UEData &ueObject);
+    UeRepresentation(UEData &ueObject, int index);
     ~UeRepresentation() {}
 
-    int type() const { return UserType; }
+    enum { Type = UserType + 1 };
+
+    int type() const { return Type; }
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;
@@ -33,6 +35,8 @@ public:
     QImage icon;
     QColor color;
     UEData ueObject;
+
+    int index;
 
     const int width = 1250, height = 1250;
 };

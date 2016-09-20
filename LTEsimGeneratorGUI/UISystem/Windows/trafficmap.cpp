@@ -1,6 +1,5 @@
 #include "trafficmap.h"
 #include "ui_trafficmap.h"
-
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Widgets/uerepresentation.h"
 
@@ -16,7 +15,6 @@ TrafficMap::TrafficMap(QWidget *parent) :
     hBoxLayout2     = nullptr;
     vBoxLayout      = nullptr;
     mapView         = nullptr;
-    clickedUe       = nullptr;
 }
 
 TrafficMap::~TrafficMap()
@@ -90,21 +88,43 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
 }
 
 void TrafficMap::updateUe_MapView(UeRepresentation* ueRep, const QString &projectName, const QString &trafficName, const UEData &ueData) {
-    this->clickedUe = ueRep;
+    this->clickedUe[ueRep->index] = ueRep;
+    for(auto item: this->mapView->scene->items()) {
+        if(item->type() == (QGraphicsItem::UserType + 1)) {
+            if(UeRepresentation * ueRepresentation = dynamic_cast<UeRepresentation*>(item)) {
+                if(ueRepresentation->ueObject.pairName == ueData.pairName && ueRep->index != ueRepresentation->index) {
+                    this->clickedUe[(ueRep->index ? 0 : 1)] = ueRepresentation;
+                }
+            }
+        }
+    }
     ui->removeUeButton->setVisible(true);
     emit updateUe(projectName, trafficName, ueData);
 }
 
 void TrafficMap::spawnWindow_UeParams(UeRepresentation *ueRepresentation, const QString &ueDataName)
 {
-    this->ueRepresentation = ueRepresentation;
+    this->doubleClickedUe[ueRepresentation->index] = ueRepresentation;
+    for(auto item: this->mapView->scene->items()) {
+        if(item->type() == (QGraphicsItem::UserType + 1)) {
+            if(UeRepresentation * ueRep = dynamic_cast<UeRepresentation*>(item)) {
+                if(ueRep->ueObject.pairName == ueDataName && ueRep->index != ueRepresentation->index) {
+                    this->doubleClickedUe[(ueRepresentation->index ? 0 : 1)] = ueRep;
+                }
+            }
+        }
+    }
     emit spawnWindow_ueParams(ueDataName, project.name, trafficFileData->filename);
 }
 
-void TrafficMap::updateUeDataInUeRepresentation(const UEData &ueData, int x, int y )
+void TrafficMap::updateUeDataInUeRepresentation(const UEData &ueData)
 {
-    this->ueRepresentation->ueObject = ueData;
-    this->ueRepresentation->setPos(x, y);
+    this->doubleClickedUe[0]->ueObject = ueData;
+    this->doubleClickedUe[1]->ueObject = ueData;
+    this->doubleClickedUe[0]->setPos(ueData.position[0].first,
+                                    -ueData.position[0].second);
+    this->doubleClickedUe[1]->setPos(ueData.position[1].first,
+                                    -ueData.position[1].second);
 }
 
 void TrafficMap::on_statisticsButton_clicked() {
@@ -124,11 +144,12 @@ void TrafficMap::on_addUeButton_clicked() {
 }
 
 void TrafficMap::on_removeUeButton_clicked() {
-    if(ui->removeUeButton->isEnabled() && this->clickedUe != nullptr) {
-        this->mapView->scene->removeItem(clickedUe);
-        emit removeUe(project.name, trafficFileData->filename, clickedUe->ueObject);
+    if(ui->removeUeButton->isEnabled() && this->clickedUe[0] != nullptr && this->clickedUe[1] != nullptr) {
+        this->mapView->scene->removeItem(clickedUe[0]);
+        this->mapView->scene->removeItem(clickedUe[1]);
+        emit removeUe(project.name, trafficFileData->filename, clickedUe[0]->ueObject);
         this->ui->numberOfUeLabel->setText(QString::number(this->ui->numberOfUeLabel->text().toInt() - 1));
-        clickedUe = nullptr;
+        clickedUe[0] = clickedUe[1] = nullptr;
         ui->removeUeButton->setVisible(false);
     }
 }

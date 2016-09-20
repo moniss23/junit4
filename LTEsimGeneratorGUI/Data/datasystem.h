@@ -32,7 +32,7 @@ signals:
     void refreshMapView(const Project &project);
     void refreshMapView(const Project &project, TrafficFileData* trafficFound);
     void currentCustomModelChanged(const CustomModelSettings &customModelsSettings, bool * cmUsed);
-    void updateUeDataInUeRepresentation(const UEData &ueData, int x, int y);
+    void updateUeDataInUeRepresentation(const UEData &ueData);
 
 public slots:
     void LoadAppData();

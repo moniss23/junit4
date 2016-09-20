@@ -55,20 +55,22 @@ void MapView::drawAxisAndButtons()
     scene->addLine(x_AxisLine, solidPen);
     scene->addLine(y_AxisLine, solidPen);
 
-    QPushButton *xButton = new QPushButton();
-    QPushButton *yButton = new QPushButton();
-    xButton->setGeometry(QRect(0, -200, Xend.x(), scene->sceneRect().height() / 100));
-    yButton->setGeometry(QRect(-200, Yend.y(), scene->sceneRect().width() / 100, -Yend.y()));
-    QBrush tb(Qt::transparent);
-    xButton->setPalette(QPalette(tb,tb,tb,tb,tb,tb,tb,tb,tb));
-    yButton->setPalette(QPalette(tb,tb,tb,tb,tb,tb,tb,tb,tb));
-    xButton->setFlat(true);
-    yButton->setFlat(true);
-    scene->addWidget(xButton);
-    scene->addWidget(yButton);
+    if(trafficName.isEmpty()) {
+        QPushButton *xButton = new QPushButton();
+        QPushButton *yButton = new QPushButton();
+        xButton->setGeometry(QRect(0, -200, Xend.x(), scene->sceneRect().height() / 100));
+        yButton->setGeometry(QRect(-200, Yend.y(), scene->sceneRect().width() / 100, -Yend.y()));
+        QBrush tb(Qt::transparent);
+        xButton->setPalette(QPalette(tb,tb,tb,tb,tb,tb,tb,tb,tb));
+        yButton->setPalette(QPalette(tb,tb,tb,tb,tb,tb,tb,tb,tb));
+        xButton->setFlat(true);
+        yButton->setFlat(true);
+        scene->addWidget(xButton);
+        scene->addWidget(yButton);
 
-    QObject::connect(xButton, SIGNAL(pressed()), this, SLOT(spawnWindow_MapRange()));
-    QObject::connect(yButton, SIGNAL(pressed()), this, SLOT(spawnWindow_MapRange()));
+        QObject::connect(xButton, SIGNAL(pressed()), this, SLOT(spawnWindow_MapRange()));
+        QObject::connect(yButton, SIGNAL(pressed()), this, SLOT(spawnWindow_MapRange()));
+    }
 
     static const double Pi = 3.14159265358979323846264338327950288419717;
     qreal arrowSize = 500;
@@ -157,13 +159,21 @@ void MapView::drawUeRepresentations() {
         TrafficFileData *currentTraffic = project.findTrafficFileByName(trafficName);
 
         for(UEData &ueData : currentTraffic->userEquipments) {
-            UeRepresentation *ueRep = new UeRepresentation(ueData);
+            UeRepresentation *ueRep = new UeRepresentation(ueData, 0);
             scene->addItem(ueRep);
-            ueRep->setPos(ueRep->ueObject.positionX, -ueRep->ueObject.positionY);
+            ueRep->setPos(ueRep->ueObject.position[0].first, -ueRep->ueObject.position[0].second);
+
+            UeRepresentation *ueRep2 = new UeRepresentation(ueData, 1);
+            scene->addItem(ueRep2);
+            ueRep2->setPos(ueRep2->ueObject.position[1].first, -ueRep2->ueObject.position[1].second);
 
             QObject::connect(ueRep, SIGNAL(updateUe(UeRepresentation*,UEData)),
                              this, SLOT(updateUe(UeRepresentation*,UEData)));
             QObject::connect(ueRep, SIGNAL(spawnWindow_UeParams(UeRepresentation*,QString)),
+                             this, SLOT(spawnWindow_UeParams(UeRepresentation*,QString)));
+            QObject::connect(ueRep2, SIGNAL(updateUe(UeRepresentation*,UEData)),
+                             this, SLOT(updateUe(UeRepresentation*,UEData)));
+            QObject::connect(ueRep2, SIGNAL(spawnWindow_UeParams(UeRepresentation*,QString)),
                              this, SLOT(spawnWindow_UeParams(UeRepresentation*,QString)));
         }
     }
