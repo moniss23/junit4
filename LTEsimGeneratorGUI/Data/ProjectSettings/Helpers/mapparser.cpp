@@ -588,37 +588,6 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
             outputString.append("\")}");
             outputString.append("\n");
         }
-
-
-        for(int i=0;i<project.trafficFilesList.at(index).userEquipments.size();i++)
-        {
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).amountOfPairs);
-            outputString.append(".times {LteSimCli.bean(:name=>\"/ltesim/deployment\").create_user_pair(\"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).pairName);
-            outputString.append("\",\"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).mobilityModelsPair.first);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).csModelsPair.first);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).psModelsPair.first);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueTypesPair.first);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueArea.first);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).mobilityModelsPair.second);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).csModelsPair.second);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).psModelsPair.second);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueTypesPair.second);
-            outputString.append("\", \"");
-            outputString.append(project.trafficFilesList.at(index).userEquipments.at(i).ueArea.second);
-            outputString.append("\")}");
-            outputString.append("\n");
-        }
-
         outputString.append("\n");
 
         QString setupConfigurePagingHeader="################################\n\
