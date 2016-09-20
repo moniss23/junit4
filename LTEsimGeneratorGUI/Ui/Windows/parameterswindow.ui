@@ -246,13 +246,14 @@ QPushButton#redoButton:hover:!pressed{
         <property name="styleSheet">
          <string notr="true">QPushButton#saveFileButton {
 	height: 25px;
-	color: #000;
+	color: #eee;
 	border-radius:5px;
 	border-color: #eee;
-	background-color:#F2CF11;
+	background-color:#666666;
 }
-QPushButton#saveFileButton:hover:!pressed {
-	background-color:#FFD700;
+QPushButton#saveFileButton:hover:!pressed{
+	color: #000;
+	background-color:#ffd700;
 }</string>
         </property>
         <property name="text">
