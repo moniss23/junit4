@@ -219,3 +219,10 @@ void ParametersWindow::msg(const QString &content){
     QMessageBox(QMessageBox::Information,"",content,QMessageBox::Yes).exec();
 }
 
+
+void ParametersWindow::on_generateAllFilesButton_clicked()
+{
+    emit generateParametersScript(currentProject);
+    for(int i=1;i<this->ui->projectsList->count();i++)
+        emit generateTrafficScript(currentProject, i-1);
+}

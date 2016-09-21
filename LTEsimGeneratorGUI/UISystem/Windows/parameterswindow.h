@@ -142,6 +142,8 @@ private slots:
      *  INTERNAL CLASS LOGIC
      ***********************************************/
 
+    void on_generateAllFilesButton_clicked();
+
 private:
     void msg(const QString &content);//TODO: get rid of that. It's used only while generating script.
     /**
