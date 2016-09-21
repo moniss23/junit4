@@ -1,6 +1,5 @@
 #include "pagingrate.h"
 #include "ui_paging_rate.h"
-
 PagingRate::PagingRate(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::PagingRate)
@@ -42,9 +41,32 @@ void PagingRate::on_listWidget_currentItemChanged(QListWidgetItem *current)
     }
 }
 
-void PagingRate::on_pushButton_clicked()
+void PagingRate::on_AcceptButton_clicked()
 {
     if (this->ui->listWidget->currentRow()>-1 && rates.size()>0) {
         this->rates[this->ui->listWidget->currentRow()] = this->ui->spinBox->value();
     }
 }
+void PagingRate::on_CancelButton_clicked()
+{
+    this->close();
+}
+
+void PagingRate::restoreDefaults(QStringList names, QVector<int> rates)
+{
+    this->generators = names;
+    this->rates=rates;
+    this->ui->listWidget->clear();
+    for(QString generator:generators) {
+        this->ui->listWidget->addItem(generator);
+    }
+}
+
+void PagingRate::on_RestoreButton_clicked()
+{
+    emit restoreDefaults(projectName);
+    if (this->ui->listWidget->count()) {
+        this->ui->listWidget->setCurrentRow(0);
+    }
+}
+

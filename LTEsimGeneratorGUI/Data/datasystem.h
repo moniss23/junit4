@@ -33,6 +33,7 @@ signals:
     void refreshMapView(const Project &project, TrafficFileData* trafficFound);
     void currentCustomModelChanged(const CustomModelSettings &customModelsSettings, bool * cmUsed);
     void updateUeDataInUeRepresentation(const UEData &ueData);
+    void restorePagingRateSettings(QStringList names,QVector<int> rates);
 
 public slots:
     void LoadAppData();
@@ -70,7 +71,6 @@ public slots:
     void updateMapRange (const MapRange& mapRange,QString projectName);
     void updatePaging(const PagingSettings& pagingSettings, QString projectName);
     void updatePagingRate(QString &projectName, QStringList generators, QVector<int> rates);
-
 
     // Add, remove, update Cells
     void addCell(const QString &projectName);
@@ -118,6 +118,9 @@ public slots:
 
     //save tuning traffic
     void saveTuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData &tuningTrafficData);
+
+    // Restore Paging Rate Settings
+    void restorePagingRateSettings(const QString &projectName);
 
 public:
     QString getDefaultNewProjectDir() const;

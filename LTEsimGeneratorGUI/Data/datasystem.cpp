@@ -1095,3 +1095,8 @@ void DataSystem::saveTuningTraffic(const QString &projectName, const QString &tr
     traffic->tuningTrafficData = tuningTrafficData;
     saveProjectsFile();
 }
+void DataSystem::restorePagingRateSettings(const QString &projectName)
+{
+    auto project = findProjectByName(projectName);
+    emit restorePagingRateSettings(project->pagingSettings.names,project->pagingSettings.rates);
+}

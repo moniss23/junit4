@@ -18,14 +18,21 @@ public:
     ~PagingRate();
 signals:
     void updatePagingRate(QString &projectName, QStringList generators, QVector<int> rates);
+    void restoreDefaults(const QString &projectName);
 private slots:
     void loadAndSpawn(const QString &projectName, QStringList generators, QVector<int> rates);
     void enablePagingRate(bool value);
+    void restoreDefaults(QStringList names, QVector<int> rates);
+
     void on_OkButton_clicked();
 
     void on_listWidget_currentItemChanged(QListWidgetItem *current);
 
-    void on_pushButton_clicked();
+    void on_AcceptButton_clicked();
+
+    void on_CancelButton_clicked();
+
+    void on_RestoreButton_clicked();
 
 private:
     Ui::PagingRate *ui;

@@ -314,6 +314,9 @@ void UISystem::bindingObjects()
     QObject::connect(&pagingForm,SIGNAL(enablePagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
     QObject::connect(&newMapWindow,SIGNAL(setEnabledPagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
     QObject::connect(&trafficMap,SIGNAL(setEnabledPagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
+    // Restore PagingRate Settings
+    QObject::connect(&pagingRate,SIGNAL(restoreDefaults(QString)),dataSystem,SLOT(restorePagingRateSettings(QString)));
+    QObject::connect(dataSystem,SIGNAL(restorePagingRateSettings(QStringList,QVector<int>)),&pagingRate,SLOT(restoreDefaults(QStringList,QVector<int>)));
 }
 
 void UISystem::spawnWindow_OpenProject(const QString& projectName) {

@@ -1,6 +1,5 @@
 #include <QDoubleValidator>
 #include <QMessageBox>
-#include <QDebug>
 
 #include "tuningTrafficManager.h"
 #include "ui_tuningtrafficform.h"
