@@ -8,6 +8,9 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
+/**
+ * @brief The StatisticsData class is responsible for data about statistics that should be provided in LTEsim output.
+ */
 class StatisticsData : public SerializeInterface
 {
 public:
@@ -16,6 +19,9 @@ public:
 
     const static QStringList NAMESLIST;
 
+    /**********************************************************
+     * FIELDS STORING DATA INPUTS FROM STATISTCSFORM
+     *********************************************************/
     QString generalUe;
     QString generalDelayBetweenPackets;
     QString generalTotalNumberOfSeconds;
@@ -37,6 +43,9 @@ public:
     QString pdcpuSeconds;
     QString pdcpuMeasurement;
 
+    /**
+     * @brief statisticsMap stores the information about certain statistics to be calculated
+     */
     QVector<QPair<QString,bool>> statisticsMap;
 
     void setStatMapFor(QString key, bool value);

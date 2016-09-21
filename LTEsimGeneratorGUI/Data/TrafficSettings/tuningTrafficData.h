@@ -5,13 +5,18 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
+/**
+ * @brief The StatisticsData class is responsible for data about statistics that should be provided in LTEsim output.
+ */
 class TuningTrafficData : public SerializeInterface
 {
 public:
     TuningTrafficData();
     ~TuningTrafficData();
 
-    //Public structs representing CS/PS/Mobility parameters
+    /**
+     * @brief The CSParameters struct represents CS parameters
+     */
     struct CSParameters
     {
         QString csName;
@@ -27,6 +32,9 @@ public:
         }
     };
 
+    /**
+     * @brief The PSParameters struct represents PS parameters
+     */
     struct PSParameters
     {
         QString psName;
@@ -40,6 +48,9 @@ public:
         }
     };
 
+    /**
+     * @brief The Mobility struct represents  mobility parameters
+     */
     struct Mobility
     {
         QString mobilityName;
@@ -53,20 +64,38 @@ public:
         }
     };
 
+    /**************************************************************************
+     * STATIC QSTRINGLISTS WITH NAMES OF CS/PS/MOBILITY PAREAMETERS
+     **************************************************************************/
     const static QStringList CSSTRINGLIST;
     const static QStringList PSSTRINGLIST;
     const static QStringList MOBILITYSTRINGLIST;
 
-    //Vectors for temporary saved/set model parameters
+    /**********************************************
+     * VECTORS FOR SAVED MODEL PARAMETERS
+     **********************************************/
     QVector<CSParameters*> csParamGroup;
     QVector<PSParameters*> psParamGroup;
     QVector<Mobility*> mobilityGroup;
 
-    // SerializeInterface interface
-public:
-    QString getElementType() const;
-    QByteArray serializeData();
-    void deserializeData(const QByteArray &rawData);
+    /****************************
+     * SERIALIZATION INTERFACE  *
+     ****************************/
+    /**
+     * @brief serializeData is an inherited method that serializes this class to QByteArray
+     * @return QByteArray with all class members serialized
+     */
+    virtual QByteArray serializeData();
+    /**
+     * @brief deserializeData ia an inherited method that deserializes it's parameter to fill the fields in this class' instance
+     * @param rawData is QByteArray that contains all the data needed to creata an instance of StatisticsData class
+     */
+    virtual void deserializeData(const QByteArray &rawData);
+    /**
+     * @brief getElementType is a API method to recognise the object by QString
+     * @return  QString("SettingsData")
+     */
+    virtual QString getElementType() const;
 };
 
 #endif // TuningTrafficData_H
