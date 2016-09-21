@@ -1,5 +1,6 @@
 #include <QDoubleValidator>
 #include <QMessageBox>
+#include <QDebug>
 
 #include "tuningTrafficManager.h"
 #include "ui_tuningtrafficform.h"
@@ -81,13 +82,16 @@ void TuningTrafficManager::on_mobilitySaveButton_clicked()
 
 void TuningTrafficManager::on_saveButton_clicked()
 {
-    if(QMessageBox::Yes == QMessageBox(QMessageBox::Warning, "Do you want to save?",
-                                       "Any unsaved changes to Tuning Traffic will be lost.\nDo you want to save them?",
-                                       QMessageBox::Yes|QMessageBox::No).exec()) {
-        ui->csSaveButton->clicked();
-        ui->psSaveButton->clicked();
-        ui->mobilitySaveButton->clicked();
-    }
+//    if(QMessageBox::Yes == QMessageBox(QMessageBox::Warning, "Do you want to save?",
+//                                       "Any unsaved changes to Tuning Traffic will be lost.\nDo you want to save them?",
+//                                       QMessageBox::Yes|QMessageBox::No).exec()) {
+//        ui->csSaveButton->clicked();
+//        ui->psSaveButton->clicked();
+//        ui->mobilitySaveButton->clicked();
+//    }
+    ui->csSaveButton->clicked();
+    ui->psSaveButton->clicked();
+    ui->mobilitySaveButton->clicked();
     emit saveTuningTrafficData(projectName, trafficFileName, tuningTrafficData);
     this->close();
 }
@@ -99,12 +103,12 @@ void TuningTrafficManager::on_cancelButton_clicked()
 
 void TuningTrafficManager::on_csComboBox_currentIndexChanged(int index)
 {
-    if(index+1 != 0) {
+    if(index > 0) {
         ui->csDurationLineEdit->setEnabled(true);
         ui->csIntensityLineEdit->setEnabled(true);
         ui->csDurationLineEdit->setText(QString::number(tuningTrafficData.csParamGroup.at(index)->callDuration));
         ui->csIntensityLineEdit->setText(QString::number(tuningTrafficData.csParamGroup.at(index)->callIntensity));
-        if(index == 4) {
+        if(ui->csComboBox->currentText() == "PowerOnOffPsCntRecover") {
             ui->recoveryStartIntervalLineEdit->setEnabled(true);
             ui->recoveryStartIntervalLineEdit->setText(QString::number(tuningTrafficData.csParamGroup.at(index)->recoveryStartInterval));
         }else {
@@ -123,7 +127,7 @@ void TuningTrafficManager::on_csComboBox_currentIndexChanged(int index)
 
 void TuningTrafficManager::on_psComboBox_currentIndexChanged(int index)
 {
-    if(index+1 != 0) {
+    if(index > 0 && ui->psComboBox->itemText(index) != "NoPs") {
         ui->psDurationLineEdit->setEnabled(true);
         ui->psIntensityLineEdit->setEnabled(true);
         ui->psDurationLineEdit->setText(QString::number(tuningTrafficData.psParamGroup.at(index)->psDuration));
@@ -138,7 +142,7 @@ void TuningTrafficManager::on_psComboBox_currentIndexChanged(int index)
 
 void TuningTrafficManager::on_mobilityComboBox_currentIndexChanged(int index)
 {
-    if(index+1 != 0) {
+    if(index > 0) {
         ui->granularityLineEdit->setEnabled(true);
         ui->speedLineEdit->setEnabled(true);
         ui->granularityLineEdit->setText(QString::number(tuningTrafficData.mobilityGroup.at(index)->granularity));
