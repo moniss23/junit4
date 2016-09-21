@@ -309,8 +309,8 @@ void UISystem::bindingObjects()
 
     // paging rate
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));
-    QObject::connect(this,SIGNAL(spawnWindow_PagingRate(QString,int&)),&pagingRate,SLOT(loadAndSpawn(QString,int&)));
-    QObject::connect(&pagingRate,SIGNAL(updatePagingRate(QString,int)),dataSystem,SLOT(updatePagingRate(QString,int)));
+    QObject::connect(this,SIGNAL(spawnWindow_PagingRate(QString,QStringList,QVector<int>)),&pagingRate,SLOT(loadAndSpawn(QString,QStringList,QVector<int>)));
+    QObject::connect(&pagingRate,SIGNAL(updatePagingRate(QString&,QStringList,QVector<int>)),dataSystem,SLOT(updatePagingRate(QString&,QStringList,QVector<int>)));
     QObject::connect(&pagingForm,SIGNAL(enablePagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
     QObject::connect(&newMapWindow,SIGNAL(setEnabledPagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
     QObject::connect(&trafficMap,SIGNAL(setEnabledPagingRate(bool)),&pagingRate,SLOT(enablePagingRate(bool)));
@@ -774,6 +774,6 @@ void UISystem::spawnWindow_PagingRate(const QString &projectName)
         dataSystem->errorInData("Can't find right project");
         return;
     }
-    emit spawnWindow_PagingRate(project->name,project->pagingSettings.rate);
+    emit spawnWindow_PagingRate(project->name,project->pagingSettings.names,project->pagingSettings.rates);
 }
 

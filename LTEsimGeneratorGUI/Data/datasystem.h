@@ -69,7 +69,7 @@ public slots:
     void updateMme(const MmeSettings& mmeSettings, QString projectName);
     void updateMapRange (const MapRange& mapRange,QString projectName);
     void updatePaging(const PagingSettings& pagingSettings, QString projectName);
-    void updatePagingRate(QString pojectName,int rate);
+    void updatePagingRate(QString &projectName, QStringList generators, QVector<int> rates);
 
 
     // Add, remove, update Cells

@@ -552,9 +552,10 @@ PagingSettings ScriptParserManager::getPagingSettings(const QStringList scriptCo
         }
         else if (scriptContentLines[i].contains("[:paging_generator_names]")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            QStringList generatorNames = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"");
+            QStringList generatorNames = (scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).split("\", \"",QString::SkipEmptyParts);
             for (QString name: generatorNames){
                 pagingSettings.names.append(name);
+                pagingSettings.rates.append(0);
             }
         }
         else if (scriptContentLines[i].contains("[:imsi_ranges]")){

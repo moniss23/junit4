@@ -22,14 +22,14 @@ QByteArray PagingSettings::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-    stream << isUsedInConfiguration << generators << names << imsiRanges << mmeCodes << uePagingIdentity << pagingSlapUris << bundlePaging << rate;
+    stream << isUsedInConfiguration << generators << names << imsiRanges << mmeCodes << uePagingIdentity << pagingSlapUris << bundlePaging << rates;
     return serializedData.buffer();
 }
 
 void PagingSettings::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-    stream >> isUsedInConfiguration >> generators >> names >> imsiRanges >> mmeCodes >> uePagingIdentity >> pagingSlapUris >> bundlePaging >> rate;
+    stream >> isUsedInConfiguration >> generators >> names >> imsiRanges >> mmeCodes >> uePagingIdentity >> pagingSlapUris >> bundlePaging >> rates;
 }
 QString PagingSettings::ParseToScript()
 {

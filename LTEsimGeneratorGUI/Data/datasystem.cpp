@@ -668,7 +668,7 @@ void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){
     project->mmeSettings = mmeSettings;
     saveProjectsFile();
 }
-void DataSystem::updatePaging(const PagingSettings &pagingSettings, QString projectName){
+void DataSystem::updatePaging(const PagingSettings& pagingSettings, QString projectName){
     auto project = findProjectByName(projectName);
     if (project==nullptr){
         emit errorInData("Can't find right project.\nData not saved");
@@ -1072,9 +1072,10 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
     saveProjectsFile();
 }
 
-void DataSystem::updatePagingRate(QString projectName, int rate){
+void DataSystem::updatePagingRate(QString &projectName,QStringList generators, QVector<int> rates){
     auto project = findProjectByName(projectName);
-    project->pagingSettings.rate = rate;
+    project->pagingSettings.rates = rates;
+    project->pagingSettings.names = generators;
     saveProjectsFile();
 }
 

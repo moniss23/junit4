@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include <QListWidgetItem>
 
 namespace Ui {
 class PagingRate;
@@ -16,16 +17,21 @@ public:
     explicit PagingRate(QWidget *parent = 0);
     ~PagingRate();
 signals:
-    void updatePagingRate(QString projectName, int rate);
+    void updatePagingRate(QString &projectName, QStringList generators, QVector<int> rates);
 private slots:
-    void loadAndSpawn(const QString &projectName,int &rate);
+    void loadAndSpawn(const QString &projectName, QStringList generators, QVector<int> rates);
     void enablePagingRate(bool value);
     void on_OkButton_clicked();
+
+    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::PagingRate *ui;
     QString projectName;
-    int rate;
+    QVector<int> rates;
+    QStringList generators;
 };
 
 #endif // PAGGINGRATE_H

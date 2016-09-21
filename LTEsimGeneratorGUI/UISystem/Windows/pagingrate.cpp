@@ -13,21 +13,38 @@ PagingRate::~PagingRate()
     delete ui;
 }
 
-void PagingRate::loadAndSpawn(const QString &projectName, int &rate)
+void PagingRate::loadAndSpawn(const QString &projectName, QStringList generators, QVector<int> rates)
 {
-    this->rate = rate;
+    this->ui->listWidget->clear();
+    this->rates = rates;
+    this->generators=generators;
     this->projectName=projectName;
-    this->ui->rateSpinBox->setValue(rate);
+    for(QString generator:generators) {
+        this->ui->listWidget->addItem(generator);
+    }
     this->show();
 }
 
 void PagingRate::on_OkButton_clicked()
 {
-    this->rate = this->ui->rateSpinBox->value();
-    emit updatePagingRate(projectName,this->rate);
+    emit updatePagingRate(projectName,this->generators,this->rates);
     this->close();
 }
 void PagingRate::enablePagingRate(bool value)
 {
     this->setEnabled(value);
+}
+
+void PagingRate::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+{
+    if (current!=NULL && this->ui->listWidget->currentRow()>-1 && this->ui->listWidget->currentRow()<this->rates.size()) {
+        this->ui->spinBox->setValue(rates[this->ui->listWidget->currentRow()]);
+    }
+}
+
+void PagingRate::on_pushButton_clicked()
+{
+    if (this->ui->listWidget->currentRow()>-1 && rates.size()>0) {
+        this->rates[this->ui->listWidget->currentRow()] = this->ui->spinBox->value();
+    }
 }

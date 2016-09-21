@@ -109,7 +109,7 @@ signals:
     void spawnWindow_StreamUlForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &streamUlIndex = 0, const StreamUl &streamUl = StreamUl());
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &syncedPingIndex = 0, const SyncedPing &syncedPing = SyncedPing());
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &serviceReqIndex = 0, const ServiceReq &serviceReq = ServiceReq());
-    void spawnWindow_PagingRate(const QString &projeName, int &rate);
+    void spawnWindow_PagingRate(const QString &projeName,QStringList generators,QVector<int> rates);
 private:
     void createFirstWinow();
     void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);

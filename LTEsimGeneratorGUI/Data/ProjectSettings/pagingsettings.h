@@ -2,6 +2,7 @@
 #define pagingSETTINGS_H
 
 #include <QStringList>
+#include <QVector>
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Interfaces/scriptable.h"
 
@@ -20,7 +21,7 @@ public:
     bool s1apCheckAsn1Contrains;
     bool bundlePaging;
     int rate=0;
-
+    QVector<int> rates;
     /****************************
     * SERIALIZATION INTERFACE  *
     ****************************/

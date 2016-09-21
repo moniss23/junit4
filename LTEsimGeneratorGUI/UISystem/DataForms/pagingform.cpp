@@ -58,7 +58,7 @@ void PagingForm::setDefaultParameters()
 void PagingForm::setChanges()
 {
         pagingSettings.generators = this->ui->tet_generators->text().toInt();
-        pagingSettings.names = this->ui->tet_paging_generator_names->text().split(",");
+        pagingSettings.names = this->ui->tet_paging_generator_names->text().split(",",QString::SkipEmptyParts);
         pagingSettings.imsiRanges = this->ui->tet_imsi_ranges->text().split(",");
         if (this->ui->tet_ue_paging_identity->text() == "IMSI") {
             pagingSettings.uePagingIdentity = "IMSI";
