@@ -86,6 +86,7 @@ public slots:
     void addUe(const QString &projectName, const QString &trafficFilename);
     void updateUe(const QString &projectName, const QString &trafficFilename, const UEData &ueData);
     void removeUe(const QString &projectName, const QString &trafficFilename, const UEData &ueData);
+    void saveUEData(const QString &projectName, const QString &trafficName, const QString& ueDataName, UEData &uedata);
 
     //TrafficFileData saving
     void updateStatisticsData(const QString &projectName, const QString &trafficFileName, const StatisticsData &statisticsData);
@@ -114,7 +115,6 @@ public slots:
 
     void updateProjectOnMapCloseEvent(const QString &projectName);
 
-    void saveUEData(const QString &projectName, const QString &trafficName, const QString& ueDataName, const UEData &uedata);
 
     //save tuning traffic
     void saveTuningTraffic(const QString &projectName, const QString &trafficName, const TuningTrafficData &tuningTrafficData);

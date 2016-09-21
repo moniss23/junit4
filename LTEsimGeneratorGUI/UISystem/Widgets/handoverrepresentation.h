@@ -13,8 +13,10 @@ public:
     HandoverRepresentation(Handover &handover, QGraphicsObject *parent = 0);
     ~HandoverRepresentation() {}
 
+    enum { Type = UserType + 3 };
+    int type() const { return Type; }
+
     void updatePositions();
-    int type() const { return UserType; }
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE;

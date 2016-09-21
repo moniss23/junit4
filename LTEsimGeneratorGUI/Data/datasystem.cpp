@@ -1007,7 +1007,7 @@ void DataSystem::updateProjectOnMapCloseEvent(const QString &projectName){
     saveProjectsFile();
 }
 
-void DataSystem::saveUEData(const QString &projectName, const QString &trafficName, const QString &ueDataName, const UEData &uedata)
+void DataSystem::saveUEData(const QString &projectName, const QString &trafficName, const QString &ueDataName, UEData &uedata)
 {
     auto project = findProjectByName(projectName);
     if(project == nullptr) {
@@ -1019,7 +1019,7 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
         errorInData("Can't find right trafficFile");
         return;
     }
-    auto ueData = std::find_if(std::begin(traffic->userEquipments), std::end(traffic->userEquipments),[&ueDataName]
+    UEData* ueData = std::find_if(std::begin(traffic->userEquipments), std::end(traffic->userEquipments),[&ueDataName]
                                (const UEData& data)->bool{
         return data.pairName == ueDataName;
     });
@@ -1028,44 +1028,46 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
         errorInData("Can't find right UE\nWrong name probably");
         return;
     }
-    *ueData = uedata;
+
     qsrand(time(NULL));
     for(auto &item : project->cellsInfo) {
-        if(item.second.area == ueData->ueArea.first) {
+        if(item.second.area == uedata.ueArea.first && ueData->ueArea.first!=uedata.ueArea.first) {
             int angle = qrand() % 360;
             int dist = qrand() % 3000 + 750;
             int x = item.first.position_X + dist*sin(angle);
             int y = item.first.position_Y + dist*cos(angle);
-            ueData->position[0].first = x;
-            ueData->position[0].second = y;
+            uedata.position[0].first = x;
+            uedata.position[0].second = y;
         }
-        if(item.second.area == ueData->ueArea.second) {
+        if(item.second.area == uedata.ueArea.second && ueData->ueArea.second!=uedata.ueArea.second) {
             int angle = qrand() % 360;
             int dist = qrand() % 3000 + 750;
             int x = item.first.position_X + dist*sin(angle);
             int y = item.first.position_Y + dist*cos(angle);
-            ueData->position[1].first = x;
-            ueData->position[1].second = y;
+            uedata.position[1].first = x;
+            uedata.position[1].second = y;
         }
     }
     for(auto &item : project->handovers) {
-        if(item.area == ueData->ueArea.first) {
+        if(item.area == uedata.ueArea.first && ueData->ueArea.first!=uedata.ueArea.first) {
             int distX = qrand() % (item.eastBoundary - item.westBoundary);
             int distY = qrand() % (item.northBoundary - item.southBoundary);
             int x = item.westBoundary + distX;
             int y = item.southBoundary + distY;
-            ueData->position[0].first = x;
-            ueData->position[0].second = y;
+            uedata.position[0].first = x;
+            uedata.position[0].second = y;
         }
-        if(item.area == ueData->ueArea.second) {
+        if(item.area == uedata.ueArea.second && ueData->ueArea.second!=uedata.ueArea.second) {
             int distX = qrand() % (item.eastBoundary - item.westBoundary);
             int distY = qrand() % (item.northBoundary - item.southBoundary);
             int x = item.westBoundary + distX;
             int y = item.southBoundary + distY;
-            ueData->position[1].first = x;
-            ueData->position[1].second = y;
+            uedata.position[1].first = x;
+            uedata.position[1].second = y;
         }
     }
+
+    *ueData = uedata;
     emit updateUeDataInUeRepresentation(*ueData);
     saveProjectsFile();
 }

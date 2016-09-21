@@ -25,7 +25,7 @@ public slots:
     void loadAndOpen(const QString& projectName, const QString& trafficName, const UEData& ueData, const QStringList &customModelsList, const QStringList &cellsAndHo);
 
 signals:
-    void saveUEData(const QString& projectName, const QString& trafficName, const QString& ueDataName, const UEData& uedata);
+    void saveUEData(const QString& projectName, const QString& trafficName, const QString& ueDataName, UEData &uedata);
 
 private slots:
     void on_pairNameLineEdit_editingFinished();

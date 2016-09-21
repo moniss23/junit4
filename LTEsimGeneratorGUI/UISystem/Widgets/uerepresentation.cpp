@@ -45,8 +45,35 @@ void UeRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
 void UeRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     QGraphicsItem::mouseReleaseEvent(event);
 
-    this->ueObject.position[index].first = pos().x();
-    this->ueObject.position[index].second = -pos().y();
+    if(this->ueObject.position[index].first != pos().x() || this->ueObject.position[index].second != -pos().y()) {
+
+        this->ueObject.position[index].first = pos().x();
+        this->ueObject.position[index].second = -pos().y();
+
+        bool anyCollision = false;
+        for(auto collision : this->collidingItems()) {
+            if(collision->type() == UserType+3) {
+                if(HandoverRepresentation* hoRepresentation = dynamic_cast<HandoverRepresentation*>(collision)) {
+                    anyCollision = true;
+                    if(index == 0) {this->ueObject.ueArea.first = hoRepresentation->handoverObject.area;}
+                    else {this->ueObject.ueArea.second = hoRepresentation->handoverObject.area;}
+                    break;
+                }
+            }
+            else if(collision->type() == UserType+2) {
+                if(CellRepresentation* cellRepresentation = dynamic_cast<CellRepresentation*>(collision)) {
+                    anyCollision = true;
+                    if(index == 0) {this->ueObject.ueArea.first = cellRepresentation->cellInfo.second.area;}
+                    else {this->ueObject.ueArea.second = cellRepresentation->cellInfo.second.area;}
+                }
+            }
+        }
+
+        if(!anyCollision) {
+            if(index==0) { this->ueObject.ueArea.first = QString(); }
+            else { this->ueObject.ueArea.second = QString(); }
+        }
+    }
 
     emit updateUe(this, ueObject);
 }

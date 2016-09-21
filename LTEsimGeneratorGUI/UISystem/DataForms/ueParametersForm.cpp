@@ -85,6 +85,8 @@ void UeParametersForm::refreshUi()
     this->ui->scndPsModelComboBox->addItem("NoPs");
     this->ui->scndPsModelComboBox->addItems(customModelsList);
     this->ui->scndPsModelComboBox->addItems(UeParametersForm::PSSTRINGLIST);
+    this->ui->frstArea->addItem(QString());
+    this->ui->scndArea->addItem(QString());
     this->ui->frstArea->addItems(cellsAndHandovers);
     this->ui->scndArea->addItems(cellsAndHandovers);
     this->ui->frstPsModelComboBox->setCurrentText(this->ueData.psModelsPair.first);

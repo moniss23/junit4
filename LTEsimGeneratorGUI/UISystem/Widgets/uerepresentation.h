@@ -3,6 +3,8 @@
 
 #include <QGraphicsObject>
 #include "Data/TrafficSettings/uedata.h"
+#include "UISystem/Widgets/cellrepresentation.h"
+#include "UISystem/Widgets/handoverrepresentation.h"
 
 class UeRepresentation : public QGraphicsObject
 {
@@ -38,7 +40,7 @@ public:
 
     int index;
 
-    const int width = 1250, height = 1250;
+    const int width = 1600, height = 1600;
 };
 
 #endif // UEREPRESENTATION_H

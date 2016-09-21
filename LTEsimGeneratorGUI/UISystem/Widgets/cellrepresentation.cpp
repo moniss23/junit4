@@ -39,8 +39,8 @@ QPainterPath CellRepresentation::shape() const
     QRectF rectangle(-centersize/2 , -centersize/2 , centersize, centersize);
 
     QPainterPath path;
-    //path.addEllipse(boundingRect());
-    path.addRect(rectangle);
+    path.addEllipse(boundingRect());
+//    path.addRect(rectangle);
     return path;
 }
 
