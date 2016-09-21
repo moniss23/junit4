@@ -29,7 +29,6 @@ void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameter
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
     this->updateUi();
-    this->setReadOnly(enable);
     this->show();
 }
 
@@ -87,7 +86,6 @@ void UBsimForm::setReadOnly(bool value)
     this->ui->tet_psTrafficModelsDir->setReadOnly(value);
     this->ui->tet_ubsim_patches->setReadOnly(value);
     this->ui->tet_ueTypesDir->setReadOnly(value);
-    this->ui->ubSimGuiCheckbox->setEnabled(value);
     this->ui->pbReset->setEnabled(value);
 }
 
