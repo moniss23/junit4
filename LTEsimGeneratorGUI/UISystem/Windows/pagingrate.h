@@ -23,7 +23,7 @@ private slots:
     void enablePagingRate(bool value);
     void on_OkButton_clicked();
 
-    void on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_listWidget_currentItemChanged(QListWidgetItem *current);
 
     void on_pushButton_clicked();
 

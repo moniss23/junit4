@@ -35,7 +35,7 @@ void PagingRate::enablePagingRate(bool value)
     this->setEnabled(value);
 }
 
-void PagingRate::on_listWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)
+void PagingRate::on_listWidget_currentItemChanged(QListWidgetItem *current)
 {
     if (current!=NULL && this->ui->listWidget->currentRow()>-1 && this->ui->listWidget->currentRow()<this->rates.size()) {
         this->ui->spinBox->setValue(rates[this->ui->listWidget->currentRow()]);
