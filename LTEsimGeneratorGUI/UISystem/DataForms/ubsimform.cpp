@@ -29,19 +29,8 @@ void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameter
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
     this->updateUi();
+    this->setReadOnly(!enable);
     this->show();
-}
-
-void UBsimForm::on_buttonBox_accepted()
-{
-    this->getParameters();
-    emit updateUBSimSettings(ubSimSettings, projectName);
-    this->close();
-}
-
-void UBsimForm::on_buttonBox_rejected()
-{
-    this->close();
 }
 
 void UBsimForm::on_pbReset_clicked()
@@ -80,13 +69,15 @@ void UBsimForm::updateUi()
 }
 void UBsimForm::setReadOnly(bool value)
 {
-    this->ui->tet_csTrafficModelsDir->setReadOnly(value);
-    this->ui->tet_imsiMapRange->setReadOnly(value);
-    this->ui->tet_mobilityModelsDir->setReadOnly(value);
-    this->ui->tet_psTrafficModelsDir->setReadOnly(value);
-    this->ui->tet_ubsim_patches->setReadOnly(value);
-    this->ui->tet_ueTypesDir->setReadOnly(value);
+    this->ui->tet_csTrafficModelsDir->setEnabled(value);
+    this->ui->tet_imsiMapRange->setEnabled(value);
+    this->ui->tet_mobilityModelsDir->setEnabled(value);
+    this->ui->tet_psTrafficModelsDir->setEnabled(value);
+    this->ui->tet_ubsim_patches->setEnabled(value);
+    this->ui->tet_ueTypesDir->setEnabled(value);
+    this->ui->ubSimGuiCheckbox->setEnabled(value);
     this->ui->pbReset->setEnabled(value);
+    this->ui->okButton->setEnabled(value);
 }
 
 void UBsimForm::on_ubSimGuiCheckbox_stateChanged(int arg1)
@@ -96,4 +87,16 @@ void UBsimForm::on_ubSimGuiCheckbox_stateChanged(int arg1)
 void UBsimForm::disableWindow(bool state)
 {
     this->setEnabled(state);
+}
+
+void UBsimForm::on_okButton_clicked()
+{
+    this->getParameters();
+    emit updateUBSimSettings(ubSimSettings, projectName);
+    this->close();
+}
+
+void UBsimForm::on_cancelButton_clicked()
+{
+    this->close();
 }

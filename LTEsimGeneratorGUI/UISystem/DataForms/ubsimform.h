@@ -44,15 +44,15 @@ signals:
      *  BINDINGS TO UI BUTTONS AND LISTS
      ***********************************************/
 private slots:
-    void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
     void on_pbReset_clicked();
+    void on_ubSimGuiCheckbox_stateChanged(int arg1);
+    void disableWindow(bool state);
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
-    void on_ubSimGuiCheckbox_stateChanged(int arg1);
-    void disableWindow(bool state);
 
 private:
     /**
@@ -64,12 +64,11 @@ private:
      */
     void getParameters();
 
-
     void setReadOnly(bool value);
 private:
     Ui::UBsimForm *ui;                      //<<< GUI form pointer
     UBSimSettings ubSimSettings;            //<<< UBSIM Settings
-    UeParameters  ueParameters;                 //<<< Ue Settings
+    UeParameters  ueParameters;             //<<< Ue Settings
     QString projectName;                    //<<< Current project name
 };
 

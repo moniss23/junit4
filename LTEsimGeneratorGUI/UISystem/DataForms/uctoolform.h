@@ -42,10 +42,9 @@ signals:
      *  BINDINGS TO UI BUTTONS AND LISTS
      ***********************************************/
 private slots:
-    void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
     void on_pbReset_clicked();
-
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC

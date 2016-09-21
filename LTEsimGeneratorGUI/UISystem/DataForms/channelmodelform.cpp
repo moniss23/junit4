@@ -19,21 +19,7 @@ void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSetti
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(enable);
-    this->setEnabled(!enable);
     this->show();
-}
-
-void ChannelModelForm::on_buttonBox_accepted()
-{
-    this->getParameters();
-    emit updateChannelModelSettings(channelModelSettings, projectName);
-    this->close();
-
-}
-
-void ChannelModelForm::on_buttonBox_rejected()
-{
-    this->close();
 }
 
 void ChannelModelForm::on_restoreDefaults_clicked()
@@ -94,26 +80,40 @@ void ChannelModelForm::getParameters()
 }
 void ChannelModelForm::setReadOnly(bool value)
 {
-    ui->tet_model_set_name->setReadOnly(value);
-    ui->tet_pdcch_drop_dl_assignment_rate->setReadOnly(value);
-    ui->tet_pdcch_drop_grant_rate->setReadOnly(value);
-    ui->tet_pdsch_transport_block_decoded_error_rate->setReadOnly(value);
-    ui->tet_phich_nack_to_ack_error_rate->setReadOnly(value);
-    ui->tet_phich_drop_harq_feedback_rate->setReadOnly(value);
-    ui->tet_pusch_transport_block_decoded_error_rate->setReadOnly(value);
+    ui->tet_model_set_name->setEnabled(!value);
+    ui->tet_pdcch_drop_dl_assignment_rate->setEnabled(!value);
+    ui->tet_pdcch_drop_grant_rate->setEnabled(!value);
+    ui->tet_pdsch_transport_block_decoded_error_rate->setEnabled(!value);
+    ui->tet_phich_nack_to_ack_error_rate->setEnabled(!value);
+    ui->tet_phich_drop_harq_feedback_rate->setEnabled(!value);
+    ui->tet_pusch_transport_block_decoded_error_rate->setEnabled(!value);
 
-    ui->tet_pusch_drop_transport_block_rate->setReadOnly(value);
-    ui->tet_puxch_nack_to_ack_error_rate->setReadOnly(value);
-    ui->tet_puxch_dtx_to_ack_error_rate->setReadOnly(value);
-    ui->tet_puxch_ack_to_nack_error_rate->setReadOnly(value);
-    ui->tet_puxch_drop_scheduling_request_rate->setReadOnly(value);
-    ui->tet_dlni_noise->setReadOnly(value);
+    ui->tet_pusch_drop_transport_block_rate->setEnabled(!value);
+    ui->tet_puxch_nack_to_ack_error_rate->setEnabled(!value);
+    ui->tet_puxch_dtx_to_ack_error_rate->setEnabled(!value);
+    ui->tet_puxch_ack_to_nack_error_rate->setEnabled(!value);
+    ui->tet_puxch_drop_scheduling_request_rate->setEnabled(!value);
+    ui->tet_dlni_noise->setEnabled(!value);
 
-    ui->tet_dlni_interference->setReadOnly(value);
-    ui->tet_dl_pathloss_min_pathloss->setReadOnly(value);
-    ui->tet_dl_pathloss_max_pathloss->setReadOnly(value);
-    ui->tet_dl_pathloss_time_min_to_max->setReadOnly(value);
-    ui->tet_pathloss_based_feedback_sinr_threshold->setReadOnly(value);
+    ui->tet_dlni_interference->setEnabled(!value);
+    ui->tet_dl_pathloss_min_pathloss->setEnabled(!value);
+    ui->tet_dl_pathloss_max_pathloss->setEnabled(!value);
+    ui->tet_dl_pathloss_time_min_to_max->setEnabled(!value);
+    ui->tet_pathloss_based_feedback_sinr_threshold->setEnabled(!value);
 
     ui->checkBox_dl_pathloss_distribute_ues->setEnabled(!value);
+    ui->okButton->setEnabled(!value);
+    ui->restoreDefaults->setEnabled(!value);
+}
+
+void ChannelModelForm::on_okButton_clicked()
+{
+    this->getParameters();
+    emit updateChannelModelSettings(channelModelSettings, projectName);
+    this->close();
+}
+
+void ChannelModelForm::on_cancelButton_clicked()
+{
+    this->close();
 }

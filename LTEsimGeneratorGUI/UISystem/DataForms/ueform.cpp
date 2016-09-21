@@ -24,8 +24,8 @@ void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projec
     this->ueParameters=ueParameters;
     this->projectName = projectName;
     this->updateUi();
-    this->setEnabled(!enable);
     this->enableWindow(ueParameters.startUeComponent);
+    this->setReadOnly(!enable);
     this->show();
 }
 
@@ -49,8 +49,8 @@ void UeForm::updateUi()
     this->ui->tet_ue_keyDerivationAlgorithm->setText(this->ueParameters.ueKeyDerivationAlgorithm);
     this->ui->tet_ue_key->setText(this->ueParameters.ueKey);
     this->ui->tet_ue_op->setText(this->ueParameters.ueOp);
+    this->ui->checkBox->setChecked(!this->ueParameters.startUeComponent);
     this->ui->checkBox->setChecked(this->ueParameters.startUeComponent);
-
 }
 
 void UeForm::on_restoreDefault_clicked()
@@ -72,14 +72,16 @@ void UeForm::on_CancelButton_clicked()
 
 void UeForm::setReadOnly(bool value)
 {
-    this->ui->tet_l1l2_managers->setReadOnly(value);
-    this->ui->tet_name->setReadOnly(value);
-    this->ui->tet_rrc_pluginFilterPath->setReadOnly(value);
-    this->ui->tet_ue_key->setReadOnly(value);
-    this->ui->tet_ue_keyDerivationAlgorithm->setReadOnly(value);
-    this->ui->tet_ue_network_capability->setReadOnly(value);
-    this->ui->tet_ue_op->setReadOnly(value);
-    this->ui->checkBox->setCheckable(!value);
+    this->ui->tet_l1l2_managers->setEnabled(value);
+    this->ui->tet_name->setEnabled(value);
+    this->ui->tet_rrc_pluginFilterPath->setEnabled(value);
+    this->ui->tet_ue_key->setEnabled(value);
+    this->ui->tet_ue_keyDerivationAlgorithm->setEnabled(value);
+    this->ui->tet_ue_network_capability->setEnabled(value);
+    this->ui->tet_ue_op->setEnabled(value);
+    this->ui->checkBox->setCheckable(value);
+    this->ui->restoreDefault->setEnabled(value);
+    this->ui->OkButton->setEnabled(value);
 }
 void UeForm::enableWindow(bool value)
 {
