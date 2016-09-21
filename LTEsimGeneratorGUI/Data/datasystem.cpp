@@ -1030,6 +1030,8 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
     }
 
     qsrand(time(NULL));
+
+    // Trying to find a Cell, which name equals to one of UE area names and position UE on it
     for(auto &item : project->cellsInfo) {
         if(item.second.area == uedata.ueArea.first && ueData->ueArea.first!=uedata.ueArea.first) {
             int angle = qrand() % 360;
@@ -1048,6 +1050,8 @@ void DataSystem::saveUEData(const QString &projectName, const QString &trafficNa
             uedata.position[1].second = y;
         }
     }
+
+    // Trying to find a Handover, which name equals to one of UE area names and position UE on it
     for(auto &item : project->handovers) {
         if(item.area == uedata.ueArea.first && ueData->ueArea.first!=uedata.ueArea.first) {
             int distX = qrand() % (item.eastBoundary - item.westBoundary);

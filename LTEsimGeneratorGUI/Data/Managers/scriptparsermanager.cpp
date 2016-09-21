@@ -73,7 +73,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
         }
         else if (scriptContentLines[i].contains("getMmeParameters")){
             startIndex=i;
-            while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
+            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
@@ -88,7 +88,7 @@ void ScriptParserManager::parseFromScript(const QString &scriptContent, Project 
             cells = getCellsFromScript(scriptContentLines);        }
         else if(scriptContentLines[i].contains("default[:areas]")) {
             startIndex=i;
-            while ((!(QRegExp(" end$").indexIn(scriptContentLines[i])>-1))){
+            while ((!(QRegExp("end$").indexIn(scriptContentLines[i])>-1))){
                 len++;
                 i++;
             }
@@ -492,12 +492,11 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
             }
         }
         else if (scriptContentLines[i].contains("default[:mme_names] =")){
-            QRegExp quoteRegExp("\".*\"");
-            if (quoteRegExp.lastIndexIn(scriptContentLines[i])>-1){
-                mmeSettings.names = quoteRegExp.capturedTexts();
-            }
-            for (QString &name:mmeSettings.names){
-                name.remove('"');
+            QRegExp quoteRegExp("\\[\".*\"\\]");
+            if (quoteRegExp.indexIn(scriptContentLines[i])>-1) {
+                QString capturedMmes = quoteRegExp.capturedTexts()[0];
+                capturedMmes.remove(QRegExp("[\\[\\]\"]"));
+                mmeSettings.names = capturedMmes.split(',', QString::SkipEmptyParts);
             }
         }
 
@@ -506,8 +505,7 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
             mmeSettings.tais = scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len);
         }
         else if (scriptContentLines[i].contains("default[:mmes] = ")){
-            len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);
-            mmeSettings.numberOfMme = QString(scriptContentLines[i].mid(scriptContentLines[i].indexOf("[\"")+2,len)).toInt();
+            mmeSettings.numberOfMme = findRegexInText("[0-9]+", scriptContentLines[i], 0).toInt();
         }
         else if (scriptContentLines[i].contains("default[:mme_s1ap_uris] = ")){
             len = (scriptContentLines[i].indexOf("\"]"))-(scriptContentLines[i].indexOf("[\"")+2);

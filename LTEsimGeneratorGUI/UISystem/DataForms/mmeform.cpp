@@ -21,15 +21,11 @@ MmeForm::~MmeForm()
 
 void MmeForm::updateUi()
 {
-    QString names;
-    for (int i=0;i<mmeSettings.names.size();i++){
-        names.append(mmeSettings.names[i]);
-        if (i!=mmeSettings.names.size()-1){
-            names.append(", ");
-        }
-    }
+    QString names = mmeSettings.names.join(',');
+
     this->ui->tetMme_names->setText(names);
     this->ui->tetMme_tais->setText(mmeSettings.tais);
+    this->ui->tetMmes->setText(QString::number(mmeSettings.numberOfMme));
     this->ui->tetMme_s1ap_uris->setText(mmeSettings.uris);
     this->ui->tetS1ap_pluginFilterPath->setText(mmeSettings.pluginFilterPath);
     this->update();
@@ -70,6 +66,7 @@ void MmeForm::setMmeChanges(){
     mmeSettings.names = this->ui->tetMme_names->text().split(",");
     mmeSettings.tais=this->ui->tetMme_tais->text();
     mmeSettings.uris=this->ui->tetMme_s1ap_uris->text();
+    mmeSettings.numberOfMme = mmeSettings.names.size();
     mmeSettings.pluginFilterPath=this->ui->tetS1ap_pluginFilterPath->text();
     mmeSettings.simulatedCoreNetwork = this->ui->checkBox->isChecked();
     emit updateMme(mmeSettings,projectName);
