@@ -242,7 +242,5 @@ DISTFILES += \
     Images/MapItems/round_cell.png \
     Images/MapItems/slanted_line.png \
     Images/MapItems/srio.png \
-    RbFiles/parameters.rb \
-    RbFiles/tune_traffic_models.rb
 
 

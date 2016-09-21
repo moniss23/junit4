@@ -2,8 +2,7 @@
     <qresource prefix="/">
         <file>Documents/files_structure.PNG</file>
         <file>Documents/new_proj_file.xml</file>
-        <file>RbFiles/parameters.rb</file>
-        <file>RbFiles/tune_traffic_models.rb</file>
+        <file>RbFiles/ParametersTemplate.rb</file>
         <file>Images/about.png</file>
         <file>Images/exit.png</file>
         <file>Images/import.png</file>
@@ -28,5 +27,6 @@
         <file>Images/MapItems/curved line.svg</file>
         <file>Images/MapItems/curved line 2.png</file>
         <file>Images/LTEsimGen.png</file>
+        <file>RbFiles/TrafficTemplate.rb</file>
     </qresource>
 </RCC>

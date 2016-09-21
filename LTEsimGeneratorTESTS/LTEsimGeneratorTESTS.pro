@@ -152,6 +152,6 @@ DISTFILES += \
     ../LTEsimGeneratorGUI/Images/MapItems/round_cell.png \
     ../LTEsimGeneratorGUI/Images/MapItems/slanted_line.png \
     ../LTEsimGeneratorGUI/Images/MapItems/srio.png \
-    ../LTEsimGeneratorGUI/RbFiles/parameters.rb \
+    ../LTEsimGeneratorGUI/RbFiles/ParametersTemplate.rb \
     ../LTEsimGeneratorGUI/RbFiles/tune_traffic_models.rb \
     DataTests/dsdf

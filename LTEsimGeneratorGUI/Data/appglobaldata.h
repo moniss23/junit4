@@ -31,7 +31,7 @@ private:
     const QString settingsFile = "settings.dat";
     const QString projectsFile = "projects.dat";
     const QString projectsDirectory = "projects";
-    const QString parameterFile = ":/RbFiles/parameters.rb";
+    const QString parameterFile = ":/RbFiles/ParametersTemplate.rb";
 };
 
 #endif // APPGLOBALDATA_H
