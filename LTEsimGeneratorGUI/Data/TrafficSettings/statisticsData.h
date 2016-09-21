@@ -47,6 +47,7 @@ public:
      ****************************/
     /**
      * @brief serializeData is an inherited method that serializes this class to QByteArray
+     * @return QByteArray with all class members serialized
      */
     virtual QByteArray serializeData();
     /**
@@ -56,6 +57,7 @@ public:
     virtual void deserializeData(const QByteArray &rawData);
     /**
      * @brief getElementType is a API method to recognise the object by QString
+     * @return  QString("SettingsData")
      */
     virtual QString getElementType() const;
 };
