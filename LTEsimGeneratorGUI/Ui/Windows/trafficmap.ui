@@ -583,10 +583,7 @@ background-color:#ffd700;</string>
         <string notr="true">color: #000;
 border-radius:5px;
 border-color: #eee;
-background-color:#ffcolor: #000;
-border-radius:5px;
-border-color: #eee;
-background-color:#666666;d700;</string>
+background-color:#666666;</string>
        </property>
        <property name="text">
         <string>UBsim</string>

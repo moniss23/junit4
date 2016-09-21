@@ -3,6 +3,9 @@
 
 #include <QString>
 
+/**
+ * @brief The Handover class represents LTEsim handover object
+ */
 class Handover
 {
 public:
@@ -10,14 +13,21 @@ public:
     Handover(const QString &name);
     ~Handover();
 
+    /***********************************************
+     *  INTERNAL CLASS LOGIC
+     ***********************************************/
+public:
+    /**
+     * @brief resetParams restores Handover default parameters
+     */
     void resetParams();
 
 public:
-    QString area;
-    int southBoundary;
-    int northBoundary;
-    int westBoundary;
-    int eastBoundary;
+    QString area;           ///< Name of handover area
+    int southBoundary;      ///< South boundary
+    int northBoundary;      ///< North boundary
+    int westBoundary;       ///< West boundary
+    int eastBoundary;       ///< East boundary
 };
 
 QDataStream &operator>>(QDataStream &in, Handover &handover);
