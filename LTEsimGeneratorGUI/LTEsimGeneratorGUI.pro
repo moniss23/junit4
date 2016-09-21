@@ -207,7 +207,6 @@ FORMS    += \
     Ui/DataForms/ubsimform.ui \
     Ui/DataForms/channelmodelform.ui \
     Ui/SmallDialogs/renamedialog.ui \
-    Ui/Windows/newmapwindow.ui \
     Ui/Windows/trafficmap.ui \
     Ui/DataForms/custommodelslistform.ui \
     Ui/DataForms/pingform.ui \
@@ -222,7 +221,8 @@ FORMS    += \
     Ui/DataForms/ueform.ui \
     Ui/DataForms/ueParametersForm.ui \
     Ui/SmallDialogs/pagingform.ui \
-    Ui/Windows/paging_rate.ui
+    Ui/Windows/paging_rate.ui \
+    Ui/Windows/newmapwindow.ui
 
 OTHER_FILES += \
     logoLTEsim.png

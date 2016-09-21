@@ -1,5 +1,7 @@
 #include "newmapwindow.h"
 #include "ui_newmapwindow.h"
+#include <QCloseEvent>
+#include <QHBoxLayout>
 #include "UISystem/Widgets/mapview.h"
 
 #include <QHBoxLayout>
@@ -12,7 +14,6 @@ NewMapWindow::NewMapWindow(QWidget *parent) :
     ui->setupUi(this);
 
     hBoxLayout      = nullptr;
-    vBoxLayout      = nullptr;
     mapView         = nullptr;
     clickedCell     = nullptr;
     clickedHandover = nullptr;
@@ -25,7 +26,6 @@ NewMapWindow::~NewMapWindow()
 void NewMapWindow::closeEvent(QCloseEvent *event){
     emit saveProjectOnClose(project.name);
     event->accept();
-
 }
 
 void NewMapWindow::loadAndOpen(const Project &project)
@@ -40,23 +40,16 @@ void NewMapWindow::loadAndOpen(const Project &project)
 
 void NewMapWindow::refreshWindow(const Project &project) {
 
-
-    delete vBoxLayout;
     delete hBoxLayout;
     delete mapView;
-
 
     this->project = project;
     mapView    = new MapView(project, this);
     hBoxLayout = new QHBoxLayout(this);
-    vBoxLayout = new QVBoxLayout(this);
 
     hBoxLayout->addWidget(mapView);
-    hBoxLayout->addLayout(vBoxLayout);
-    vBoxLayout->addSpacing(35);
-    vBoxLayout->addWidget(this->ui->mapObjectsWidget, 400, Qt::AlignHCenter);
-    vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
-    this->ui->centralwidget->setLayout(hBoxLayout);
+
+    this->ui->mapWidget->setLayout(hBoxLayout);
 
     QObject::connect(mapView, SIGNAL(spawnWindow_MapView_HandoverParams(HandoverRepresentation*, Handover)),
                      this, SLOT(spawnWindow_MapView_handoverParams(HandoverRepresentation*, Handover)));
