@@ -53,3 +53,8 @@ void MapRangeForm::loadAndSpawn(const MapRange &mapRange, const QString &project
     this->updateUi();
     this->show();
 }
+
+void MapRangeForm::on_RestoreDefaultsButton_clicked()
+{
+    this->updateUi();
+}

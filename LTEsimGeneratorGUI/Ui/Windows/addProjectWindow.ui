@@ -96,11 +96,14 @@ QLineEdit#fileName:focus {
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>356</x>
      <y>430</y>
-     <width>527</width>
+     <width>191</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {
