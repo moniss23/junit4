@@ -39,6 +39,7 @@ public:
     UEData ueObject;
 
     int index;
+    UeRepresentation* relatedUe;
 
     const int width = 1600, height = 1600;
 };

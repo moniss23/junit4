@@ -2,7 +2,8 @@
 
 #include "uerepresentation.h"
 
-UeRepresentation::UeRepresentation(UEData &ueObject, int index) : color(255,120,170,255), ueObject(ueObject), index(index)
+UeRepresentation::UeRepresentation(UEData &ueObject, int index)
+    : color(255,120,170,255), ueObject(ueObject), index(index)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -75,6 +76,7 @@ void UeRepresentation::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
         }
     }
 
+    this->relatedUe->ueObject = this->ueObject;
     emit updateUe(this, ueObject);
 }
 

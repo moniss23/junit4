@@ -160,11 +160,15 @@ void MapView::drawUeRepresentations() {
 
         for(UEData &ueData : currentTraffic->userEquipments) {
             UeRepresentation *ueRep = new UeRepresentation(ueData, 0);
-            scene->addItem(ueRep);
-            ueRep->setPos(ueRep->ueObject.position[0].first, -ueRep->ueObject.position[0].second);
-
             UeRepresentation *ueRep2 = new UeRepresentation(ueData, 1);
+
+            ueRep->relatedUe = ueRep2;
+            ueRep2->relatedUe = ueRep;
+
+            scene->addItem(ueRep);
             scene->addItem(ueRep2);
+
+            ueRep->setPos(ueRep->ueObject.position[0].first, -ueRep->ueObject.position[0].second);
             ueRep2->setPos(ueRep2->ueObject.position[1].first, -ueRep2->ueObject.position[1].second);
 
             QObject::connect(ueRep, SIGNAL(updateUe(UeRepresentation*,UEData)),
