@@ -295,8 +295,8 @@ void UISystem::bindingObjects()
     //Spawn window Tuning Traffic
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_TuningTraffic(QString,QString)), this, SLOT(spawnWindow_TuningTraffic(QString,QString)));
     QObject::connect(this, SIGNAL(spawnWindow_TuningTraffic(QString,QString,std::tuple<QStringList,QStringList,QStringList>,TuningTrafficData)), &tuningTrafficManager, SLOT(loadAndSpawn(QString,QString,std::tuple<QStringList,QStringList,QStringList>,TuningTrafficData)));
-    QObject::connect(&tuningTrafficManager, SIGNAL(restoreTuningTrafficData(QString,QString)), this, SLOT(restoreTuningTrafficData(QString,QString))); //something wierd is happening and it does not work
-    QObject::connect(this, SIGNAL(restoreTuningTrafficData(TuningTrafficData)), &tuningTrafficManager, SLOT(restoreTuningTrafficData(TuningTrafficData))); //something wierd is happening and it does not work
+    QObject::connect(&tuningTrafficManager, SIGNAL(restoreTuningTrafficData(QString,QString)), this, SLOT(restoreTuningTrafficData(QString,QString)));
+    QObject::connect(this, SIGNAL(restoreTuningTrafficData(TuningTrafficData)), &tuningTrafficManager, SLOT(restoreTuningTrafficData(TuningTrafficData)));
 
     QObject::connect(&tuningTrafficManager, SIGNAL(saveTuningTrafficData(QString,QString,TuningTrafficData)), dataSystem, SLOT(saveTuningTraffic(QString,QString,TuningTrafficData)));
 

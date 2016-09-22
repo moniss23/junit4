@@ -3,15 +3,18 @@
 TuningTrafficData::TuningTrafficData()
 {
     for(auto name : CSSTRINGLIST) {
-        csParamGroup.append(new CSParameters(name));
+        CSParameters cs(name);
+        csParamGroup.push_back(cs);
     }
 
     for(auto name : PSSTRINGLIST) {
-        psParamGroup.append(new PSParameters(name));
+        PSParameters ps(name);
+        psParamGroup.push_back(ps);
     }
 
     for(auto name : MOBILITYSTRINGLIST) {
-        mobilityGroup.append(new Mobility(name));
+        Mobility mobility(name);
+        mobilityGroup.push_back(mobility);
     };
 }
 
@@ -33,15 +36,15 @@ QByteArray TuningTrafficData::serializeData()
     QDataStream stream(&serializedData);
 
     for(auto elem : csParamGroup) {
-        stream << elem->csName << elem->callIntensity << elem->callDuration << elem->recoveryStartInterval;
+        stream << elem.csName << elem.callIntensity << elem.callDuration << elem.recoveryStartInterval;
     }
 
     for(auto elem : psParamGroup) {
-        stream << elem->psName << elem->psIntensity << elem->psDuration;
+        stream << elem.psName << elem.psIntensity << elem.psDuration;
     }
 
     for(auto elem : mobilityGroup) {
-        stream << elem->mobilityName << elem->speed << elem->granularity;
+        stream << elem.mobilityName << elem.speed << elem.granularity;
     }
 
     return serializedData.buffer();
@@ -52,15 +55,15 @@ void TuningTrafficData::deserializeData(const QByteArray &rawData)
     QDataStream stream(rawData);
 
     for(auto elem : csParamGroup) {
-        stream >> elem->csName >> elem->callIntensity >> elem->callDuration >> elem->recoveryStartInterval;
+        stream >> elem.csName >> elem.callIntensity >> elem.callDuration >> elem.recoveryStartInterval;
     }
 
     for(auto elem : psParamGroup) {
-        stream >> elem->psName >> elem->psIntensity >> elem->psDuration;
+        stream >> elem.psName >> elem.psIntensity >> elem.psDuration;
     }
 
     for(auto elem : mobilityGroup) {
-        stream >> elem->mobilityName >> elem->speed >> elem->granularity;
+        stream >> elem.mobilityName >> elem.speed >> elem.granularity;
     }
 }
 

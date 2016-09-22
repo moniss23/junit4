@@ -354,28 +354,28 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
         outputString.append("\n");
         for(int i=0;i<project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.size();i++)
         {
-            if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callIntensity!=1.0)
+            if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).callIntensity!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->csName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).csName);
                 outputString.append("\", \"call_intensity\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callIntensity));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).callIntensity));
                 outputString.append(")\n");
             }
-              if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callDuration!=1.0)
+              if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).callDuration!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->csName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).csName);
                 outputString.append("\", \"call_duration\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->callDuration));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).callDuration));
                 outputString.append(")\n");
             }
-              if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval!=1.0)
+              if(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).recoveryStartInterval!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->csName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).csName);
                 outputString.append("\", \"recovery_start_interval\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i)->recoveryStartInterval));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.csParamGroup.at(i).recoveryStartInterval));
                 outputString.append(")\n");
             }
         }
@@ -383,20 +383,20 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
 
         for(int i=0;i<project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.size();i++)
         {
-            if(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psIntensity!=1.0)
+            if(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i).psIntensity!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i).psName);
                 outputString.append("\", \"ps_intensity\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psIntensity));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i).psIntensity));
                 outputString.append(")\n");
             }
-              if(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psDuration!=1.0)
+              if(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i).psDuration!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i).psName);
                 outputString.append("\", \"ps_duration\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i)->psDuration));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.psParamGroup.at(i).psDuration));
                 outputString.append(")\n");
             }
         }
@@ -404,20 +404,20 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
 
         for(int i=0;i<project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.size();i++)
         {
-            if(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->speed!=1.0)
+            if(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i).speed!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->mobilityName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i).mobilityName);
                 outputString.append("\", \"speed\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->speed));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i).speed));
                 outputString.append(")\n");
             }
-              if(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->granularity!=1.0)
+              if(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i).granularity!=1.0)
             {
                 outputString.append("UBsimTuning.setModelValue(\"");
-                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->mobilityName);
+                outputString.append(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i).mobilityName);
                 outputString.append("\", \"granularity\", ");
-                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i)->granularity));
+                outputString.append(QString::number(project.trafficFilesList.at(index).tuningTrafficData.mobilityGroup.at(i).granularity));
                 outputString.append(")\n");
             }
         }

@@ -24,6 +24,7 @@ public:
         double callDuration;
         double recoveryStartInterval;
 
+        CSParameters () {}
         CSParameters (const QString &name, const double &callIntensity = 1, const double &callDuration = 1, const double &recoveryStartInterval = 1 ){
             csName = name;
             this->callIntensity = callIntensity;
@@ -41,6 +42,7 @@ public:
         double psDuration;
         double psIntensity;
 
+        PSParameters () {}
         PSParameters (const QString &name, const double &psIntensity = 1, const double &psDuration = 1) {
             this->psName = name;
             this->psDuration = psDuration;
@@ -57,6 +59,7 @@ public:
         double speed;
         double granularity;
 
+        Mobility () {}
         Mobility (const QString &name, const double &speed = 1, const double &granularity = 1) {
             this->mobilityName = name;
             this->speed = speed;
@@ -74,9 +77,9 @@ public:
     /**********************************************
      * VECTORS FOR SAVED MODEL PARAMETERS
      **********************************************/
-    QVector<CSParameters*> csParamGroup;
-    QVector<PSParameters*> psParamGroup;
-    QVector<Mobility*> mobilityGroup;
+    QVector<CSParameters> csParamGroup;
+    QVector<PSParameters> psParamGroup;
+    QVector<Mobility> mobilityGroup;
 
     /****************************
      * SERIALIZATION INTERFACE  *

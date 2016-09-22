@@ -190,7 +190,7 @@ HEADERS  += \
 
 
 FORMS    += \
-    Ui/tuningtrafficform.ui \
+    Ui/DataForms/tuningtrafficform.ui \
     Ui/UE_param_form.ui \
     Ui/DataForms/timeForm.ui \
     Ui/Windows/addProjectWindow.ui \
