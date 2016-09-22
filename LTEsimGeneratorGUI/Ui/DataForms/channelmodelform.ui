@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>468</width>
-    <height>620</height>
+    <height>651</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,8 +25,8 @@
      <widget class="QCheckBox" name="checkBox_dl_pathloss_distribute_ues">
       <property name="geometry">
        <rect>
-        <x>12</x>
-        <y>509</y>
+        <x>10</x>
+        <y>550</y>
         <width>183</width>
         <height>20</height>
        </rect>
@@ -39,7 +39,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>550</y>
+        <y>590</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -52,7 +52,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>40</y>
         <width>451</width>
         <height>502</height>
        </rect>
@@ -360,7 +360,7 @@
       <property name="geometry">
        <rect>
         <x>250</x>
-        <y>530</y>
+        <y>570</y>
         <width>191</width>
         <height>61</height>
        </rect>
@@ -384,6 +384,19 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Use Channel Models</string>
+      </property>
      </widget>
     </widget>
    </item>

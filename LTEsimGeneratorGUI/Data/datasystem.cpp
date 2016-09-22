@@ -496,8 +496,8 @@ void DataSystem::updateDataGeneratorSettings(const DataGeneratorSettings &dataGe
         return;
     }
     project->dataGeneratorSettings = dataGeneratorSettings;
+    emit refreshMapView(*project);
     saveProjectsFile();
-    //Maybe emit signal that refresh map UI but not sure yet if we need this
 }
 
 void DataSystem::updateUCToolSettings(const UCToolSettings &ucToolSettings, const QString &projectName)
@@ -518,6 +518,7 @@ void DataSystem::updateChannelModelSettings(const ChannelModelSettings &channelM
         return;
     }
     project->channelModelSettings = channelModelSettings;
+    emit refreshMapView(*project);
     saveProjectsFile();
 }
 

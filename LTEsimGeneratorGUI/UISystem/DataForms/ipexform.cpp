@@ -18,8 +18,9 @@ void IpexForm::loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, 
     this->dataGeneratorSettings = dataGeneratorSettings;
     this->projectName = projectName;
     this->updateUi();
-    this->setReadOnly(enable);
     this->setEnabled(!enable);
+    this->enableWindow(this->dataGeneratorSettings.runIpexEnvoirement);
+    this->ui->RunIpexEnvoironementChbox->setChecked(this->dataGeneratorSettings.runIpexEnvoirement);
     this->show();
 }
 
@@ -49,6 +50,7 @@ void IpexForm::getParameters()
     dataGeneratorSettings.ipgwtgFtpSenderConnectPut = (this->ui->checkBox_ipgwtg_ftp_sender_connect_put->isChecked() ? true : false);
     dataGeneratorSettings.ipgwtgInbandSignaling = (this->ui->checkBox_ipgwtg_inband_signaling->isChecked() ? true : false);
     dataGeneratorSettings.startIspSimulator = (this->ui->checkBox_start_isp_simulator->isChecked() ? true : false);
+    dataGeneratorSettings.runIpexEnvoirement = this->ui->RunIpexEnvoironementChbox->isChecked();
 }
 
 void IpexForm::updateUi()
@@ -71,4 +73,21 @@ void IpexForm::setReadOnly(bool value)
     this->ui->checkBox_ipgwtg_inband_signaling->setEnabled(!value);
     this->ui->checkBox_start_isp_simulator->setEnabled(!value);
     this->ui->pbReset->setEnabled(!value);
+}
+void IpexForm::enableWindow(bool value)
+{
+    this->ui->tet_dataGenerator->setEnabled(value);
+    this->ui->tet_ipgwtg_ipAddress->setEnabled(value);
+    this->ui->tet_ipgwtg_port->setEnabled(value);
+    this->ui->tet_userDataGen->setEnabled(value);
+    this->ui->checkBox_ipgwtg_ftp_sender_connect_put->setEnabled(value);
+    this->ui->checkBox_ipgwtg_inband_signaling->setEnabled(value);
+    this->ui->checkBox_start_isp_simulator->setEnabled(value);
+    this->ui->pbReset->setEnabled(value);
+}
+
+void IpexForm::on_RunIpexEnvoironementChbox_toggled(bool checked)
+{
+    this->enableWindow(checked);
+    this->dataGeneratorSettings.runIpexEnvoirement=checked;
 }

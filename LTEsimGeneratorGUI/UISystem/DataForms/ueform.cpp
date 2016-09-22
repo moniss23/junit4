@@ -24,8 +24,8 @@ void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projec
     this->ueParameters=ueParameters;
     this->projectName = projectName;
     this->updateUi();
+    this->setEnabled(!enable);
     this->enableWindow(ueParameters.startUeComponent);
-    this->setReadOnly(!enable);
     this->show();
 }
 
@@ -49,7 +49,6 @@ void UeForm::updateUi()
     this->ui->tet_ue_keyDerivationAlgorithm->setText(this->ueParameters.ueKeyDerivationAlgorithm);
     this->ui->tet_ue_key->setText(this->ueParameters.ueKey);
     this->ui->tet_ue_op->setText(this->ueParameters.ueOp);
-    this->ui->checkBox->setChecked(!this->ueParameters.startUeComponent);
     this->ui->checkBox->setChecked(this->ueParameters.startUeComponent);
 }
 

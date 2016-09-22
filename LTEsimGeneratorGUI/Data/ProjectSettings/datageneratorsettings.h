@@ -18,6 +18,7 @@ public:
     bool startIspSimulator;
     bool ipgwtgInbandSignaling;
     bool ipgwtgFtpSenderConnectPut;
+    bool runIpexEnvoirement;
 
     /****************************
      * SERIALIZATION INTERFACE  *

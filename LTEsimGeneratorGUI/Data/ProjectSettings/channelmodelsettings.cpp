@@ -21,7 +21,8 @@ QByteArray ChannelModelSettings::serializeData() {
            << puxch_dtx_to_ack_error_rate << puxch_ack_to_nack_error_rate
            << puxch_drop_scheduling_request_rate << dlni_noise << dlni_interference
            << dl_pathloss_distribute_ues << dl_pathloss_min_pathloss << dl_pathloss_max_pathloss
-           << dl_pathloss_time_min_to_max << pathloss_based_feedback_sinr_threshold;
+           << dl_pathloss_time_min_to_max << pathloss_based_feedback_sinr_threshold
+           << enableChannelModels;
 
     return serializedData.buffer();
 }
@@ -35,7 +36,8 @@ void ChannelModelSettings::deserializeData(const QByteArray &rawData) {
            >> puxch_dtx_to_ack_error_rate >> puxch_ack_to_nack_error_rate
            >> puxch_drop_scheduling_request_rate >> dlni_noise >> dlni_interference
            >> dl_pathloss_distribute_ues >> dl_pathloss_min_pathloss >> dl_pathloss_max_pathloss
-           >> dl_pathloss_time_min_to_max >> pathloss_based_feedback_sinr_threshold;
+           >> dl_pathloss_time_min_to_max >> pathloss_based_feedback_sinr_threshold
+           >> enableChannelModels;
 }
 QString ChannelModelSettings::ParseToScript(){
     QString outputString;

@@ -51,6 +51,8 @@ private slots:
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+    void on_checkBox_toggled(bool checked);
+
 private:
     /**
      * @brief updateUi is used to set ui fields from channelModelSettings data
@@ -62,7 +64,6 @@ private:
     void getParameters();
 
     void setReadOnly(bool value);
-
 private:
     Ui::ChannelModelForm *ui;                   ///< GUI form pointer
     ChannelModelSettings channelModelSettings;  ///< Local copy of data

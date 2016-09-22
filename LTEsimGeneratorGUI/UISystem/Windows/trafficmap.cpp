@@ -23,6 +23,13 @@ TrafficMap::~TrafficMap()
 }
 void TrafficMap::updateButtonsColor()
 {
+
+    if (this->project.mmeSettings.simulatedCoreNetwork){
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
     if (this->project.pagingSettings.isUsedInConfiguration){
         this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
         this->ui->PagingRateButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
@@ -31,12 +38,6 @@ void TrafficMap::updateButtonsColor()
         this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
         this->ui->PagingRateButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
     }
-    if (this->project.mmeSettings.simulatedCoreNetwork){
-        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
-    }
-    else {
-        this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
-    }
     if (this->project.ueParameters.startUeComponent){
         this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
         this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
@@ -44,6 +45,18 @@ void TrafficMap::updateButtonsColor()
     else {
         this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
         this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.channelModelSettings.enableChannelModels){
+        this->ui->channelModelsButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->channelModelsButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.dataGeneratorSettings.runIpexEnvoirement){
+        this->ui->ipexButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->ipexButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
     }
 }
 

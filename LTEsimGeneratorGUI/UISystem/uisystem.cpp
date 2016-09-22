@@ -389,9 +389,13 @@ void UISystem::spawnWindow_Ipex(const QString& projectName, bool enable)
       ipexForm = new IpexForm();
       QObject::connect(ipexForm, SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)),
                        dataSystem, SLOT(updateDataGeneratorSettings(DataGeneratorSettings,QString)));
+      QObject::connect(ipexForm,SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)),
+                       &newMapWindow,SLOT(updateButtonsColor()));
+      QObject::connect(ipexForm,SIGNAL(updateDataGeneratorSettings(DataGeneratorSettings,QString)),
+                       &trafficMap,SLOT(updateButtonsColor()));
+
     }
     ipexForm->loadAndSpawn(project->dataGeneratorSettings, project->name,enable);
-
 }
 
 void UISystem::spawnWindow_ucTool(const QString& projectName, bool enable)
@@ -466,6 +470,11 @@ void UISystem::spawnWindow_ChannelModel(const QString &projectName,bool enable) 
 
         QObject::connect(channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)),
                          dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
+        QObject::connect(channelModelForm,SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)),
+                         &newMapWindow,SLOT(updateButtonsColor()));
+        QObject::connect(channelModelForm,SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)),
+                         &trafficMap,SLOT(updateButtonsColor()));
+
     }
 
     channelModelForm->loadAndOpen(project->channelModelSettings, project->name, enable);

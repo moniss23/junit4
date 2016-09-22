@@ -5,14 +5,12 @@
 #include "UISystem/Widgets/mapview.h"
 
 #include <QHBoxLayout>
-#include <QCloseEvent>
 
 NewMapWindow::NewMapWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NewMapWindow)
 {
     ui->setupUi(this);
-
     hBoxLayout      = nullptr;
     mapView         = nullptr;
     clickedCell     = nullptr;
@@ -32,9 +30,9 @@ void NewMapWindow::loadAndOpen(const Project &project)
 {
     this->refreshWindow(project);
     this->setWindowTitle(project.parametersFile.filename+" - "+project.name+" - LTEsimGenerator");
-    updateButtonsColor();
     emit setEnabledPagingRate(project.pagingSettings.isUsedInConfiguration);
     emit setEnabledUBSim(project.ueParameters.startUeComponent);
+    updateButtonsColor();
     this->show();
 }
 
@@ -66,17 +64,17 @@ void NewMapWindow::refreshWindow(const Project &project) {
 }
 void NewMapWindow::updateButtonsColor()
 {
-    if (this->project.pagingSettings.isUsedInConfiguration){
-        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
-    }
-    else {
-        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
-    }
     if (this->project.mmeSettings.simulatedCoreNetwork){
         this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
     }
     else {
         this->ui->mmeButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.pagingSettings.isUsedInConfiguration){
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->pagingButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
     }
     if (this->project.ueParameters.startUeComponent){
         this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
@@ -85,6 +83,18 @@ void NewMapWindow::updateButtonsColor()
     else {
         this->ui->ueButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
         this->ui->ubSimButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.channelModelSettings.enableChannelModels){
+        this->ui->channelModelsButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->channelModelsButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
+    }
+    if (this->project.dataGeneratorSettings.runIpexEnvoirement){
+        this->ui->ipexButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#ffd700;");
+    }
+    else {
+        this->ui->ipexButton->setStyleSheet("color: #000;\nborder-radius:5px;\nborder-color: #eee;\nbackground-color:#666666;");
     }
 }
 

@@ -31,7 +31,7 @@ public:
     double dl_pathloss_time_min_to_max;
     double pathloss_based_feedback_sinr_threshold;
     bool   dl_pathloss_distribute_ues;
-
+    bool   enableChannelModels=false;
     /****************************
      * SERIALIZATION INTERFACE  *
      ****************************/

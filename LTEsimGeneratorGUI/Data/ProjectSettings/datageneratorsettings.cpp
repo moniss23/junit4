@@ -17,7 +17,8 @@ QByteArray DataGeneratorSettings::serializeData()
 
     QDataStream stream(&serializedData);
     stream << dataGenerator << userDataGenerator << ipgwtg_IP_Address << ipgwtgPort
-           << startIspSimulator << ipgwtgInbandSignaling << ipgwtgFtpSenderConnectPut;
+           << startIspSimulator << ipgwtgInbandSignaling << ipgwtgFtpSenderConnectPut
+           << runIpexEnvoirement;
 
     return serializedData.buffer();
 }
@@ -26,6 +27,7 @@ void DataGeneratorSettings::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
     stream >> dataGenerator >> userDataGenerator >> ipgwtg_IP_Address >> ipgwtgPort
-           >> startIspSimulator >> ipgwtgInbandSignaling >> ipgwtgFtpSenderConnectPut;
+           >> startIspSimulator >> ipgwtgInbandSignaling >> ipgwtgFtpSenderConnectPut
+           >> runIpexEnvoirement;
 }
 

@@ -53,6 +53,8 @@ private slots:
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+    void on_RunIpexEnvoironementChbox_toggled(bool checked);
+
 private:
     /**
      * @brief UpdateUi takes data from dataGeneratorSettings and update ui
@@ -65,7 +67,7 @@ private:
     void getParameters();
 
     void setReadOnly(bool value);
-
+    void enableWindow(bool value);
 private:
     Ui::ipexForm *ui;                               ///<GUI form pointer
     DataGeneratorSettings dataGeneratorSettings;    ///<Local copy of data
