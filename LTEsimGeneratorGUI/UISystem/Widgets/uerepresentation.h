@@ -11,7 +11,7 @@ class UeRepresentation : public QGraphicsObject
     Q_OBJECT
 
 public:
-    UeRepresentation(UEData &ueObject, int index);
+    UeRepresentation(UEData &ueObject, int index, QColor color);
     ~UeRepresentation() {}
 
     enum { Type = UserType + 1 };

@@ -2,8 +2,8 @@
 
 #include "uerepresentation.h"
 
-UeRepresentation::UeRepresentation(UEData &ueObject, int index)
-    : color(255,120,170,255), ueObject(ueObject), index(index)
+UeRepresentation::UeRepresentation(UEData &ueObject, int index, QColor color) :
+    ueObject(ueObject), color(color), index(index)
 {
     setFlag(ItemIsMovable);
     setFlag(ItemSendsGeometryChanges);
@@ -86,8 +86,8 @@ QVariant UeRepresentation::itemChange(GraphicsItemChange change, const QVariant 
 
 void UeRepresentation::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-  color = QColor(0, 255, 255, 205);
-  QGraphicsItem::hoverEnterEvent(event);
+    color.setHsv(color.hue(), color.saturation(), color.value()+15);
+    QGraphicsItem::hoverEnterEvent(event);
 }
 
 void UeRepresentation::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
@@ -98,8 +98,8 @@ void UeRepresentation::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 void UeRepresentation::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-   color = QColor(255, 120, 170, 255);
-   QGraphicsItem::hoverLeaveEvent(event);
+    color.setHsv(color.hue(), color.saturation(), color.value()-15);
+    QGraphicsItem::hoverLeaveEvent(event);
 }
 
 

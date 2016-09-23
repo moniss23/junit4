@@ -158,9 +158,14 @@ void MapView::drawUeRepresentations() {
     if(not trafficName.isEmpty()) {
         TrafficFileData *currentTraffic = project.findTrafficFileByName(trafficName);
 
+        int colorHue(0), colorSat(100), colorStep(32);
         for(UEData &ueData : currentTraffic->userEquipments) {
-            UeRepresentation *ueRep = new UeRepresentation(ueData, 0);
-            UeRepresentation *ueRep2 = new UeRepresentation(ueData, 1);
+            QColor ueColor; ueColor.setHsv(colorHue, colorSat, 240);
+            UeRepresentation *ueRep = new UeRepresentation(ueData, 0, ueColor);
+            UeRepresentation *ueRep2 = new UeRepresentation(ueData, 1, ueColor);
+
+            if(colorHue+colorStep > 254) {colorSat = (colorSat+2*colorStep)%255;}
+            colorHue = (colorHue+colorStep)%255;
 
             ueRep->relatedUe = ueRep2;
             ueRep2->relatedUe = ueRep;
