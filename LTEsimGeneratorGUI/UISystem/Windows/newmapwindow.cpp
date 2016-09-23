@@ -43,7 +43,7 @@ void NewMapWindow::refreshWindow(const Project &project) {
 
     this->project = project;
     mapView    = new MapView(project, this);
-    hBoxLayout = new QHBoxLayout(this);
+    hBoxLayout = new QHBoxLayout();
 
     hBoxLayout->addWidget(mapView);
 

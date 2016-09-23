@@ -21,6 +21,7 @@ TrafficMap::~TrafficMap()
 {
     delete ui;
 }
+
 void TrafficMap::updateButtonsColor()
 {
 
@@ -72,6 +73,7 @@ void TrafficMap::loadAndOpen(const Project &project, TrafficFileData *trafficFil
 void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficFileData) {
     delete vBoxLayout;
     delete hBoxLayout1;
+    delete hBoxLayout2;
     delete mapView;
 
     this->project = project;
@@ -79,9 +81,9 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
 
     mapView     = new MapView(project, this, this->trafficFileData->filename);
     ui->numberOfUeLabel->setText(QString::number(this->trafficFileData->userEquipments.size()));
-    hBoxLayout1 = new QHBoxLayout(this);
-    hBoxLayout2 = new QHBoxLayout(this);
-    vBoxLayout  = new QVBoxLayout(this);
+    hBoxLayout1 = new QHBoxLayout();
+    hBoxLayout2 = new QHBoxLayout();
+    vBoxLayout  = new QVBoxLayout();
 
     QObject::connect(mapView, SIGNAL(updateUe_MapView(UeRepresentation*,QString,QString,UEData)),
                      this, SLOT(updateUe_MapView(UeRepresentation*,QString,QString,UEData)));
