@@ -28,5 +28,6 @@
         <file>Images/MapItems/curved line 2.png</file>
         <file>Images/LTEsimGen.png</file>
         <file>RbFiles/TrafficTemplate.rb</file>
+        <file>Images/userEquipment.png</file>
     </qresource>
 </RCC>

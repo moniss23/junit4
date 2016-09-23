@@ -41,7 +41,7 @@ public:
     int index;
     UeRepresentation* relatedUe;
 
-    const int width = 1600, height = 1600;
+    const int width = 1200, height = 2400;
 };
 
 #endif // UEREPRESENTATION_H

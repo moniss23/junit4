@@ -733,8 +733,8 @@ void UISystem::spawnWindow_UeParams(const QString &ueDataName, const QString &pr
     if(!ueParametersForm){
       ueParametersForm = new UeParametersForm();
 
-      QObject::connect(ueParametersForm, SIGNAL(saveUEData(QString,QString,QString,UEData)),
-                       dataSystem, SLOT(saveUEData(QString,QString,QString,UEData)));
+      QObject::connect(ueParametersForm, SIGNAL(saveUEData(QString,QString,QString,UEData&)),
+                       dataSystem, SLOT(saveUEData(QString,QString,QString,UEData&)));
     }
     ueParametersForm->loadAndOpen(project->name, traffic->filename, *ueData, dataSystem->getActiveCustomModels(projectName, trafficName), dataSystem->getCentersAndHandovers(projectName));
 }

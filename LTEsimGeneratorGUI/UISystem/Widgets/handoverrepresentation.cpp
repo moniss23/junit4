@@ -11,6 +11,7 @@ HandoverRepresentation::HandoverRepresentation(Handover &handover, QGraphicsObje
     setCacheMode(DeviceCoordinateCache);
     setZValue(1);
 
+    setToolTip(handoverObject.area);
     icon.load(":/Images/handover.png");
 }
 

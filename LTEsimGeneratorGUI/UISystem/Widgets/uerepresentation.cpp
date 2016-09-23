@@ -10,6 +10,9 @@ UeRepresentation::UeRepresentation(UEData &ueObject, int index, QColor color) :
     setCacheMode(DeviceCoordinateCache);
     setAcceptHoverEvents(true);
     setZValue(1);
+
+    setToolTip("User Equipment");
+    icon.load(":/Images/userEquipment.png");
 }
 
 QRectF UeRepresentation::boundingRect() const {
@@ -32,11 +35,7 @@ void UeRepresentation::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->setBrush(QBrush(color));
     painter->setPen(QPen(Qt::black, 1));
     painter->drawRoundedRect(rect, 3, 3);
-
-    auto font = painter->font();
-    font.setPointSize(8500/15);
-    painter->setFont(font);
-    painter->drawText(0,500,QString::number(this->index));
+    painter->drawImage(rect, this->icon);
 }
 
 void UeRepresentation::mousePressEvent(QGraphicsSceneMouseEvent *event) {
