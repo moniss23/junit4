@@ -5,8 +5,10 @@
 #include "UISystem/Windows/addProjectWindow.h"
 #include "UISystem/Windows/renamedialog.h"
 #include "UISystem/Windows/parameterswindow.h"
+
 #include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/voipform.h"
+#include "UISystem/DataForms/channelmodelform.h"
 #include "UISystem/DataForms/uctoolform.h"
 #include "UISystem/DataForms/ueParametersForm.h"
 #include "UISystem/DataForms/timeForm.h"
@@ -14,9 +16,8 @@
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
     projectUi(nullptr),paramWindow(nullptr),addProjectWindow(nullptr),
-    renameDialog(nullptr),
-    ipexForm(nullptr),
-    ucToolForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
+    renameDialog(nullptr),ipexForm(nullptr),ucToolForm(nullptr),
+    channelModelForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
 {
     createFirstWinow();
 
@@ -123,12 +124,8 @@ void UISystem::bindingObjects()
     QObject::connect(&trafficMap,SIGNAL(spawnWindow_UCTool(QString,bool)),this,SLOT(spawnWindow_ucTool(QString,bool)));
 
     //Open ChannelModel window
-    QObject::connect(this, SIGNAL(spawnWindow_ChannelModel(ChannelModelSettings,QString,bool)), &channelModelForm, SLOT(loadAndOpen(ChannelModelSettings,QString,bool)));
-    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ChannelModel(QString,bool)), this, SLOT(spawnWindow_ChannelModel(QString,bool)));
     QObject::connect(&trafficMap,SIGNAL(spawnWindow_ChannelModels(QString,bool)),this,SLOT(spawnWindow_ChannelModel(QString,bool)));
-
-    //Update ChannelModelSettings
-    QObject::connect(&channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)), dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
+    QObject::connect(&newMapWindow, SIGNAL(spawnWindow_ChannelModel(QString,bool)), this, SLOT(spawnWindow_ChannelModel(QString,bool)));
 
     //Open Sgw window
     QObject::connect(this, SIGNAL(spawnWindow_Sgw(SgwSettings,QString,bool)), &sgwForm, SLOT(loadAndSpawn(SgwSettings,QString,bool)));
@@ -462,7 +459,17 @@ void UISystem::spawnWindow_ChannelModel(const QString &projectName,bool enable) 
         dataSystem->errorInData("Can't find right project.");
         return;
     }
-    emit spawnWindow_ChannelModel(project->channelModelSettings, project->name,enable);
+
+    if(!channelModelForm){
+        channelModelForm = new ChannelModelForm();
+        //Update ChannelModelSettings
+
+        QObject::connect(channelModelForm, SIGNAL(updateChannelModelSettings(ChannelModelSettings,QString)),
+                         dataSystem, SLOT(updateChannelModelSettings(ChannelModelSettings,QString)));
+    }
+
+    channelModelForm->loadAndOpen(project->channelModelSettings, project->name, enable);
+
     return;
 }
 

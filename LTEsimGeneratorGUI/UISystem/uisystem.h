@@ -7,7 +7,6 @@
 #include "UISystem/Windows/settings.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "UISystem/DataForms/mmeform.h"
-#include "UISystem/DataForms/channelmodelform.h"
 #include "UISystem/DataForms/ubsimform.h"
 #include "UISystem/DataForms/ueform.h"
 #include "UISystem/DataForms/maprangeform.h"
@@ -36,6 +35,7 @@ class RenameDialog;
 class ParametersWindow;
 class IpexForm;
 class UCtoolForm;
+class ChannelModelForm;
 class UeParametersForm;
 class TimeForm;
 
@@ -98,7 +98,6 @@ signals:
     void spawnWindow_Sgw(const SgwSettings& sgwSettings, const QString &projectName, bool enable);
     void spawnWindow_Mme(const MmeSettings& mmeSettings, const QString &projectName, bool enable);
     void spawnWindow_Paging(const PagingSettings &paging, const QString &projectName, bool enable);
-    void spawnWindow_ChannelModel(const ChannelModelSettings& channelModelSettings, const QString& projectName,bool enable);
     void spawnWindow_UBSim(const UBSimSettings &ubSimSettings,const UeParameters &UeParameters, const QString &projectName,bool enable);
     void spawnWindow_Ue(const UeParameters &ueParamaters, const QString &projectName, bool enable);
     void spawnWindow_MapWindow(const Project &project);
@@ -134,11 +133,12 @@ private:
     AddProjectWindow       *addProjectWindow;
     Settings                settingsWindow;
     RenameDialog           *renameDialog;
+
     IpexForm               *ipexForm;
     UCtoolForm             *ucToolForm;
     SgwForm                 sgwForm;
     MmeForm                 mmeForm;
-    ChannelModelForm        channelModelForm;
+    ChannelModelForm       *channelModelForm;
     UBsimForm               ubSimForm;
     MapRangeForm            mapRangeForm;
     NewMapWindow            newMapWindow;
