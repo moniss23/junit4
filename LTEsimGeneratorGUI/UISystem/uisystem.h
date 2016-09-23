@@ -5,7 +5,6 @@
 
 #include "UISystem/Windows/importprojectwindow.h"
 #include "UISystem/Windows/settings.h"
-#include "UISystem/Windows/renamedialog.h"
 #include "UISystem/DataForms/sgwform.h"
 #include "UISystem/DataForms/mmeform.h"
 #include "UISystem/DataForms/channelmodelform.h"
@@ -33,6 +32,7 @@
 
 class ProjectManagement;
 class AddProjectWindow;
+class RenameDialog;
 class ParametersWindow;
 class IpexForm;
 class UCtoolForm;
@@ -57,6 +57,9 @@ public slots:
     // Project management
     void spawnWindow_AddNewProject();
     void spawnWindow_OpenProject(const QString& projectName);
+
+    // Project Files management
+    void spawnWindow_RenameFile(const QString &fileName,const QString &projectName);
 
 
     void spawnWindow_Ipex(const QString& projectName,bool enable);
@@ -130,7 +133,7 @@ private:
     ParametersWindow       *paramWindow;
     AddProjectWindow       *addProjectWindow;
     Settings                settingsWindow;
-    RenameDialog            renameDialog;
+    RenameDialog           *renameDialog;
     IpexForm               *ipexForm;
     UCtoolForm             *ucToolForm;
     SgwForm                 sgwForm;

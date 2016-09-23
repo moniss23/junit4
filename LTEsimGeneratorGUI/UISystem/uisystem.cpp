@@ -3,6 +3,7 @@
 
 #include "UISystem/Windows/projectmanagement.h"
 #include "UISystem/Windows/addProjectWindow.h"
+#include "UISystem/Windows/renamedialog.h"
 #include "UISystem/Windows/parameterswindow.h"
 #include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/voipform.h"
@@ -13,6 +14,7 @@
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
     projectUi(nullptr),paramWindow(nullptr),addProjectWindow(nullptr),
+    renameDialog(nullptr),
     ipexForm(nullptr),
     ucToolForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
 {
@@ -75,7 +77,7 @@ void UISystem::bindProjectOvierviewWindow(ParametersWindow *overviewWindow)
     QObject::connect(dataSystem, SIGNAL(currentProjectChanged(Project)),overviewWindow, SLOT(refreshUI(Project)));
 
     //Rename file
-    QObject::connect(overviewWindow,SIGNAL(spawnWindow_RenameFile(QString,QString)),&renameDialog,SLOT(initWindow(QString,QString)));
+    QObject::connect(overviewWindow,SIGNAL(spawnWindow_RenameFile(QString,QString)),this,SLOT(spawnWindow_RenameFile(QString,QString)));
 
     //Delete TrafficFile
     QObject::connect(overviewWindow,SIGNAL(removeFile_TrafficFile(QString,QString)),dataSystem,SLOT(removeFile_TrafficFile(QString,QString)));
@@ -111,10 +113,6 @@ void UISystem::bindingObjects()
     // Import Project
     //QObject::connect(&projectUi,SIGNAL(spawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
     //QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), dataSystem, SLOT(importProject(const QString&)));
-
-    //Rename file
-    QObject::connect(dataSystem,SIGNAL(currentProjectChanged(Project)),&renameDialog,SLOT(close()));
-    QObject::connect(&renameDialog,SIGNAL(changedFilename(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
 
     //Open Ipex window
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ipex(QString,bool)), this, SLOT(spawnWindow_Ipex(QString,bool)));
@@ -331,6 +329,18 @@ void UISystem::spawnWindow_OpenProject(const QString& projectName) {
       bindProjectOvierviewWindow(paramWindow);
     }
     paramWindow->loadProjectAndOpen(*project);
+}
+
+void UISystem::spawnWindow_RenameFile(const QString &fileName, const QString &projectName)
+{
+   if(!renameDialog){
+       renameDialog = new RenameDialog();
+
+       //Rename file
+       QObject::connect(renameDialog,SIGNAL(changedFilename(QString,QString,QString)),dataSystem,SLOT(checkAndRenameIfFilenameUnique(QString,QString,QString)));
+       QObject::connect(dataSystem,SIGNAL(currentProjectChanged(Project)),renameDialog,SLOT(close()));
+   }
+   renameDialog->initWindow(fileName,projectName);
 }
 
 void UISystem::spawnWindow_AddNewProject()
