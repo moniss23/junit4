@@ -296,7 +296,7 @@ void DataSystem::setDefaultTrafficFileContent(const QString &projectName, const 
         emit errorInData("Can't find right traffic file");
         return;
     }
-    trafficFile->content = getDefaultTrafficFileContent();
+    trafficFile->content = fileManager->readFileToQString(appGlobalData.getTrafficFile());
     emit currentProjectChanged(*project);
 }
 

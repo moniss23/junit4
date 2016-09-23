@@ -106,12 +106,12 @@ void ParametersWindow::on_actionSave_triggered()
 void ParametersWindow::on_addTrafficButton_clicked()
 {
     emit AddFile_Traffic(currentProject.name, QString());
+    emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(currentProject.trafficFilesList.size()-1).filename);
 }
 
 // "remove file" button clicked
 void ParametersWindow::on_removeFileButton_clicked()
 {
-
     // if the file is traffic
     if(this->ui->projectsList->currentRow()>0){
 

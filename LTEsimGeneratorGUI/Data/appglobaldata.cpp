@@ -27,6 +27,11 @@ QString AppGlobalData::getParameterFile() const
     return parameterFile;
 }
 
+QString AppGlobalData::getTrafficFile() const
+{
+    return trafficFile;
+}
+
 QString AppGlobalData::getProjectsDirectory() const
 {
     return projectsDirectory;

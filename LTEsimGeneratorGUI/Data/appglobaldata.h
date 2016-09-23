@@ -13,6 +13,8 @@ public:
 
     QString getParameterFile() const;
 
+    QString getTrafficFile() const;
+
     QString getProjectsDirectory() const;
 
     QString getProjectsFile() const;
@@ -32,6 +34,7 @@ private:
     const QString projectsFile = "projects.dat";
     const QString projectsDirectory = "projects";
     const QString parameterFile = ":/RbFiles/ParametersTemplate.rb";
+    const QString trafficFile = ":/RbFiles/TrafficTemplate.rb";
 };
 
 #endif // APPGLOBALDATA_H
