@@ -37,6 +37,8 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
         return;
     }
 
+    this->ui->filePreview->setReadOnly(this->ui->projectsList->currentRow()!=0);
+
     if (previous && filePreviewChanged) {
 
         if(QMessageBox::Yes == QMessageBox(QMessageBox::Information, "LTEsimGenerator", "File " +
