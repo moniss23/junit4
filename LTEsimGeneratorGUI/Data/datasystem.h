@@ -124,6 +124,10 @@ public slots:
     // Restore Paging Rate Settings
     void restorePagingRateSettings(const QString &projectName);
 
+
+    // Import Parameters
+    void importScript(const QString &fileDir);
+
 public:
     QString getDefaultNewProjectDir() const;
     AppGlobalData getAppGlobalData() const;
@@ -148,6 +152,7 @@ private:
     QString generateUniqueCellNumber(Project *project);
     QString generateUniqueHandoverName(Project *project);
     QString generateUniqueTrafficFilename(Project *project);
+    QString generateUniqueImportedProjectNumber();
 };
 
 #endif // DATASYSTEM_H

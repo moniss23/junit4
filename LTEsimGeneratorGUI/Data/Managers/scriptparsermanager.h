@@ -25,6 +25,7 @@ public:
     MapRange getMapRange(const QStringList scriptContentLines, Project &project);
     UeParameters getUeParameters(const QStringList &scriptContentLines);
     QString GenerateParametersQString(Project &project);
+    QString validateData(const Project &project);
 
 private:
     QVector<Cell> getCellsFromScript(const QStringList scriptContent);
@@ -33,6 +34,14 @@ private:
     QVector<QPair<Cell, Center>> matchCellsToCenters(auto cells, auto centers);
 
     QString findRegexInText(QString pattern, const QString &text, int pos);
+
+
+    // ******** DATA VALIDATION ********* //
+    bool validateCells(const Project &project);
+    bool validateHandovers(const Project &project);
+    bool validateMapRange(const Project &project);
+    // ******** DATA VALIDATION ********* //
+
 };
 
 #endif // SCRIPTPARSERMANAGER_H

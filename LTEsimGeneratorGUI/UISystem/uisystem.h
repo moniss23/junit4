@@ -91,7 +91,6 @@ public slots:
     void spawnWindow_UeParams(const QString &ueDataName, const QString& projectName, const QString& trafficName);
     void spawnWindow_PagingRate(const QString &projectName);
     void spawnWindow_TimeForm(const QString &projectName, const QString &trafficName);
-
 signals:
     void spawnSettingsWindowForProject(const AppGlobalData& data,const Project& project = Project());
     void spawnWindow_ParamMap();

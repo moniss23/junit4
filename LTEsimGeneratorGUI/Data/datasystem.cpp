@@ -354,7 +354,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
         emit errorInData("Name already in use. Choose another one.");
         return;
     }
-
     Project newProject;
     newProject.name = projectName;
     newProject.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
@@ -368,6 +367,7 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     projects.push_back(newProject);
     emit currentProjects(projects);
     saveProjectsFile();
+
 }
 
 void DataSystem::setGlobalLocationForNewProjects(const QString &location)
@@ -563,6 +563,7 @@ void DataSystem::updateGeneralConfigurationParameters(const GeneralConfiguration
 void DataSystem::generateParametersScript(Project &project)
 {
     QString content = scriptParserManager->GenerateParametersQString(project);
+
     emit updateFileContent(project.name,project.parametersFile.filename,content);
     fileManager->generateParametersScript(project.fullpath,project.name,project.parametersFile.filename,content);
 }
@@ -1121,4 +1122,32 @@ void DataSystem::restorePagingRateSettings(const QString &projectName)
 {
     auto project = findProjectByName(projectName);
     emit restorePagingRateSettings(project->pagingSettings.names,project->pagingSettings.rates);
+}
+void DataSystem::importScript(const QString &fileDir)
+{
+    QString newProjectName = "ImportedProject_"+generateUniqueImportedProjectNumber();
+    createNewProject(newProjectName,fileDir);
+    auto project = findProjectByName(newProjectName);
+    QString output = fileManager->readFileToQString(fileDir);
+    scriptParserManager->parseFromScript(output,*project);
+    QString errorOutput = scriptParserManager->validateData(*project);
+    if (errorOutput.isEmpty()) {
+        project->fullpath="<default>";
+        project->parametersFile.content = output;
+    }
+    else {
+        emit errorInData(QString("Can't load "+fileDir+" file \n\n"+errorOutput));
+        deleteProject(project->name);
+    }
+    saveProjectsFile();
+}
+QString DataSystem::generateUniqueImportedProjectNumber()
+{
+    int sum=0;
+    for (Project &it:projects) {
+        if (it.name.contains("ImportedProject")) {
+            sum++;
+        }
+    }
+    return QString::number(sum);
 }

@@ -2,6 +2,8 @@
 #include "Data/ProjectSettings/Helpers/ueparametersparser.h"
 #include "Data/ProjectSettings/Helpers/mapparser.h"
 #include <QRegExp>
+#include <QSet>
+
 ScriptParserManager::ScriptParserManager() {}
 ScriptParserManager::~ScriptParserManager() {}
 
@@ -480,7 +482,7 @@ MmeSettings ScriptParserManager::getMmeSettings(const QStringList scriptContentL
     int len;
     for (int i=0;i<scriptContentLines.size();i++) {
         if (scriptContentLines[i].contains("default[:simulate_core]")){
-            QRegExp boolean("(false|true)");
+            QRegExp boolean("\\b(true|false)\\b");
             if (boolean.indexIn(scriptContentLines[i])>-1) {
                 if (boolean.capturedTexts()[0]=="true") {
                     mmeSettings.simulatedCoreNetwork=true;
@@ -873,4 +875,29 @@ module Parameters \n\
     outputTextStream.append(project.channelModelSettings.ParseToScript());
     outputTextStream.append("end");
     return outputTextStream;
+}
+bool ScriptParserManager::validateCells(const Project &project) {
+    if (!project.cellsInfo.size())              {return false;}
+    QSet<QString> cellsNames;
+    for (QPair<Cell,Center> pair:project.cellsInfo) {
+        if (pair.first.name=="" || cellsNames.contains(pair.first.name))    {return false;}
+        cellsNames.insert(pair.first.name);
+    }
+    return true;
+}
+bool ScriptParserManager::validateMapRange(const Project &project)
+{
+    if (project.mapRange.mapScale<=0)                                   {return false;}
+    if (project.mapRange.mapScale>project.mapRange.northBoundMap)       {return false;}
+    if (project.mapRange.mapScale>project.mapRange.eastBoundMap)        {return false;}
+    if (project.mapRange.southBoundMap>project.mapRange.northBoundMap)  {return false;}
+    if (project.mapRange.westBoundMap>project.mapRange.eastBoundMap)    {return false;}
+    return true;
+}
+
+QString ScriptParserManager::validateData(const Project &project) {
+    QString errorOutput;
+    if (!validateCells(project))                {errorOutput.append("Can't read cells data \n");}
+    if (!validateMapRange(project))             {errorOutput.append("Can't read map range\n");}
+    return errorOutput;
 }

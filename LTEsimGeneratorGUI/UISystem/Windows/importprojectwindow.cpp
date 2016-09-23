@@ -13,10 +13,9 @@ ImportProjectWindow::~ImportProjectWindow()
 
 void ImportProjectWindow::getProjectDirectory()
 {
-    QString ImportDir = QFileDialog::getExistingDirectory(NULL,
-                                                          ("Find project directory"),
-                                                          "/",
-                                                           QFileDialog::ShowDirsOnly);
-
-    emit selectedProjectDirectory(ImportDir);
+    QWidget widget;
+    QString fileName = QFileDialog::getOpenFileName(&widget,QString("Open File"),
+                                                    QString("/home"),
+                                                    QString("Ruby Scripts (*.rb)"));
+    emit selectedProjectDirectory(fileName);
 }
