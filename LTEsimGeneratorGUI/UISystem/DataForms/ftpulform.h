@@ -8,7 +8,6 @@
 namespace Ui {
 class FtpUlForm;
 }
-
 /**
  * @brief The FtpUlForm class is responsible for showing and managing FtpUl data.
  */

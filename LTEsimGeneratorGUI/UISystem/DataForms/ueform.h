@@ -57,9 +57,9 @@ private:
     void setReadOnly(bool value);
     void enableWindow(bool value);
 private:
-    Ui::UeForm *ui;                             //<<< GUI form pointer
-    UeParameters  ueParameters;                 //<<< Ue Settings
-    QString projectName;                        //<<< Current project name
+    Ui::UeForm *ui;                             ///< GUI form pointer
+    UeParameters  ueParameters;                 ///< Ue Settings
+    QString projectName;                        ///< Current project name
 };
 
 #endif // UEFORM_H

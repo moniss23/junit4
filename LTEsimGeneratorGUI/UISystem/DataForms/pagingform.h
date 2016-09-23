@@ -6,6 +6,9 @@
 namespace Ui {
 class PagingForm;
 }
+/**
+ * @brief The PagingForm class is responsible for showing and managing PagingSettings.
+ */
 
 class PagingForm : public QWidget
 {
@@ -57,9 +60,9 @@ private:
     void enableWindow(bool value);
 
 private:
-    Ui::PagingForm *ui;             //< GUI form pointer
-    PagingSettings pagingSettings;  //< PagingSettings class to store Paging configuration
-    QString projectName;            //< Current project name
+    Ui::PagingForm *ui;             ///< GUI form pointer
+    PagingSettings pagingSettings;  ///< PagingSettings class to store Paging configuration
+    QString projectName;            ///< Current project name
 };
 
 #endif // pagingFORM_H

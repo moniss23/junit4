@@ -8,7 +8,6 @@
 namespace Ui {
 class FtpDlForm;
 }
-
 /**
  * @brief The FtpDlForm class is responsible for showing and managing FtpDl data.
  */

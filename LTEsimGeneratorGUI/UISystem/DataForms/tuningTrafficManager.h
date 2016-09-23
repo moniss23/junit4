@@ -86,11 +86,11 @@ private:
     void fillComboBoxes(const std::tuple<QStringList,QStringList,QStringList> &comboBoxesLists);
 
 private:
-    Ui::TuningTrafficForm *ui;                   //<<< GUI form pointer
-    TuningTrafficData tuningTrafficData;  //<<< TuningTraffic data
+    Ui::TuningTrafficForm *ui;                   ///< GUI form pointer
+    TuningTrafficData tuningTrafficData;         ///< TuningTraffic data
 
-    QString projectName;                         //<<< Current project name
-    QString trafficFileName;                     //<<< Current trafic file name
+    QString projectName;                         ///< Current project name
+    QString trafficFileName;                     ///< Current trafic file name
 };
 
 #endif // TUNINGTRAFFICMANAGER_H

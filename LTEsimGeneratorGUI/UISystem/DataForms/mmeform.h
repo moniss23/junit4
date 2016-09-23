@@ -76,9 +76,9 @@ private:
     void enableWindow(bool value);
 
 private:
-    Ui::MmeForm *ui;                //< GUI form pointer
-    MmeSettings mmeSettings;        //< MmeSettings class to store Mme configuration
-    QString projectName;            //< Current project name
+    Ui::MmeForm *ui;                ///< GUI form pointer
+    MmeSettings mmeSettings;        ///< MmeSettings class to store Mme configuration
+    QString projectName;            ///< Current project name
 };
 
 #endif // MMEFORM_H

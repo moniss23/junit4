@@ -162,18 +162,18 @@ private:
     void refreshCmButtonsColors(const int &index);
 
 private:
-    Ui::CustomModelsListForm *ui;                   ///<<< GUI Form pointer
+    Ui::CustomModelsListForm *ui;                   ///<GUI Form pointer
 
-    QPalette usedQci;                               ///< Palette for used qci
-    QPalette unusedQci;                             ///< Palette for unused qci
+    QPalette usedQci;                               ///<Palette for used qci
+    QPalette unusedQci;                             ///<Palette for unused qci
 
-    QPushButton *cmButtonsPtr[10];                  ///< table of pointers which points to ui->buttons
+    QPushButton *cmButtonsPtr[10];                  ///<table of pointers which points to ui->buttons
 
-    QString projectName;                            ///< current project's name
-    QString trafficName;                            ///< current traffic's name
-    int currentCustomModelIndex;                    ///< current custom model index
-    CustomModelSettings customModelSettings;        ///< local copy of custom model data
-    bool * cmUsed;                                  ///< pointer to table of used custom models
+    QString projectName;                            ///<current project's name
+    QString trafficName;                            ///<current traffic's name
+    int currentCustomModelIndex;                    ///<current custom model index
+    CustomModelSettings customModelSettings;        ///<local copy of custom model data
+    bool * cmUsed;                                  ///<pointer to table of used custom models
 };
 
 #endif // CUSTOMMODELSLISTFORM_H

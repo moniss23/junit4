@@ -59,9 +59,9 @@ private:
     void setMapRangeChanges();
 
 private:
-    Ui::MapRangeForm *ui;           //< GUI form pointer
-    MapRange mapRange;              //< MapRange class to store MapRange configuration
-    QString projectName;            //< Current project name
+    Ui::MapRangeForm *ui;           ///< GUI form pointer
+    MapRange mapRange;              ///< MapRange class to store MapRange configuration
+    QString projectName;            ///< Current project name
 };
 
 #endif // MAPRANGEFORM_H

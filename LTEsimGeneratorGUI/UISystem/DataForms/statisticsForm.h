@@ -8,7 +8,6 @@
 namespace Ui {
 class StatisticsForm;
 }
-
 /**
  * @brief The StatisticsForm class is responsible for showing and managing statisticsData.
  */

@@ -8,7 +8,6 @@
 namespace Ui {
 class SGWForm;
 }
-
 /**
  * @brief The SgwForm class is responsible for drawing UI form
  *        for Sgw configuration.
@@ -70,9 +69,9 @@ private:
     void setReadOnly(bool value);
 
 private:
-    Ui::SGWForm *ui;            //< GUI form pointer
-    SgwSettings sgwSettings;    //< SgwSettings class to store SGW configuration
-    QString projectName;        //< Current project name
+    Ui::SGWForm *ui;            ///< GUI form pointer
+    SgwSettings sgwSettings;    ///< SgwSettings class to store SGW configuration
+    QString projectName;        ///< Current project name
 };
 
 #endif // SGWFORM_H

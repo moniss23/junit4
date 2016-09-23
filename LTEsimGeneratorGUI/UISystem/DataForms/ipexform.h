@@ -67,9 +67,9 @@ private:
     void setReadOnly(bool value);
 
 private:
-    Ui::ipexForm *ui;                               ///< GUI form pointer
-    DataGeneratorSettings dataGeneratorSettings;    ///< Local copy of data
-    QString projectName;                            ///< CurrentProject name
+    Ui::ipexForm *ui;                               ///<GUI form pointer
+    DataGeneratorSettings dataGeneratorSettings;    ///<Local copy of data
+    QString projectName;                            ///<CurrentProject name
 };
 
 #endif // IPEXFORM_H

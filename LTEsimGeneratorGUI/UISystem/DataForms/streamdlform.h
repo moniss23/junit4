@@ -8,7 +8,6 @@
 namespace Ui {
 class StreamDlForm;
 }
-
 /**
  * @brief The StreamDlForm class is responsible for showing and managing streamDl data.
  */

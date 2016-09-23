@@ -73,11 +73,11 @@ private:
     void getParameters();
 
 private:
-    Ui::TimeForm *ui;                   //<<<GUI form pointer
+    Ui::TimeForm *ui;                   ///< GUI form pointer
 
-    TimeData timeData;                  //<<< Time data
-    QString projectName;                //<<< Current project name
-    QString trafficName;                //<<< Current traffic file name
+    TimeData timeData;                  ///< Time data
+    QString projectName;                ///< Current project name
+    QString trafficName;                ///< Current traffic file name
 };
 
 #endif // TIMEMANAGER_H

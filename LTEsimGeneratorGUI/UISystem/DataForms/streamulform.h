@@ -8,7 +8,6 @@
 namespace Ui {
 class StreamUlForm;
 }
-
 /**
  * @brief The StreamUlForm class is responsible for showing and managing streamUl data.
  */

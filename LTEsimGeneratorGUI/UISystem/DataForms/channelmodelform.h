@@ -6,12 +6,12 @@
 
 #include "Data/ProjectSettings/channelmodelsettings.h"
 
-/**
- *  ChannelModelForm class is responsible for showing and managing ChannelModelSettings data.
- */
 namespace Ui {
 class ChannelModelForm;
 }
+/**
+ * @brief The ChannelModelForm classis responsible for showing and managing ChannelModelSettings data.
+ */
 
 class ChannelModelForm : public QWidget
 {
@@ -64,9 +64,9 @@ private:
     void setReadOnly(bool value);
 
 private:
-    Ui::ChannelModelForm *ui;                   //<<< GUI form pointer
-    ChannelModelSettings channelModelSettings;  //<<< Local copy of data
-    QString projectName;                        //<<< Current Project name
+    Ui::ChannelModelForm *ui;                   ///< GUI form pointer
+    ChannelModelSettings channelModelSettings;  ///< Local copy of data
+    QString projectName;                        ///< Current Project name
 };
 
 #endif // CHANNELMODELFORM_H

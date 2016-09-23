@@ -66,10 +66,10 @@ private:
 
     void setReadOnly(bool value);
 private:
-    Ui::UBsimForm *ui;                      //<<< GUI form pointer
-    UBSimSettings ubSimSettings;            //<<< UBSIM Settings
-    UeParameters  ueParameters;             //<<< Ue Settings
-    QString projectName;                    //<<< Current project name
+    Ui::UBsimForm *ui;                      ///< GUI form pointer
+    UBSimSettings ubSimSettings;            ///< UBSIM Settings
+    UeParameters  ueParameters;             ///< Ue Settings
+    QString projectName;                    ///< Current project name
 };
 
 #endif // UBSIMFORM_H
