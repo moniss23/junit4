@@ -2,6 +2,7 @@
 #include <QMessageBox>
 
 #include "UISystem/Windows/projectmanagement.h"
+#include "UISystem/Windows/addProjectWindow.h"
 #include "UISystem/Windows/parameterswindow.h"
 #include "UISystem/DataForms/ipexform.h"
 #include "UISystem/DataForms/voipform.h"
@@ -11,7 +12,8 @@
 
 UISystem::UISystem(DataSystem* data) :
     dataSystem(data),
-    projectUi(nullptr),paramWindow(nullptr),ipexForm(nullptr),
+    projectUi(nullptr),paramWindow(nullptr),addProjectWindow(nullptr),
+    ipexForm(nullptr),
     ucToolForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
 {
     createFirstWinow();
@@ -40,10 +42,11 @@ void UISystem::createFirstWinow()
 
 void UISystem::bindProjectManagementWindow(ProjectManagement *projectMngtWnd)
 {
-   //refresh when smth changes
+   // Refresh when smth changes
    QObject::connect(dataSystem, SIGNAL(currentProjects(const QVector<Project> &)),
                     projectMngtWnd,   SLOT(updateProjectLists(const QVector<Project>&)));
 
+   // Open selected project
    QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_OpenProject(QString)),this,SLOT(spawnWindow_OpenProject(QString)));
 
    //Spawning ProjectManagement after closing ParametersWindow
@@ -56,7 +59,7 @@ void UISystem::bindProjectManagementWindow(ProjectManagement *projectMngtWnd)
    QObject::connect(projectMngtWnd, SIGNAL(spawnWindow_Settings(QString)), this, SLOT(initialiseSettingsWindowSpawn(QString)));
 
    // New Projects
-   QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_NewProject()), &addProjectWindow, SLOT(exec()));
+   QObject::connect(projectMngtWnd,SIGNAL(spawnWindow_NewProject()), this, SLOT(spawnWindow_AddNewProject()));
 }
 
 void UISystem::bindProjectOvierviewWindow(ParametersWindow *overviewWindow)
@@ -108,10 +111,6 @@ void UISystem::bindingObjects()
     // Import Project
     //QObject::connect(&projectUi,SIGNAL(spawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
     //QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), dataSystem, SLOT(importProject(const QString&)));
-
-    // New Projects
-    QObject::connect(&addProjectWindow,SIGNAL(createNewProject(QString,QString)),dataSystem,SLOT(createNewProject(QString,QString)));
-    QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)), &addProjectWindow, SLOT(close()));
 
     //Rename file
     QObject::connect(dataSystem,SIGNAL(currentProjectChanged(Project)),&renameDialog,SLOT(close()));
@@ -332,6 +331,24 @@ void UISystem::spawnWindow_OpenProject(const QString& projectName) {
       bindProjectOvierviewWindow(paramWindow);
     }
     paramWindow->loadProjectAndOpen(*project);
+}
+
+void UISystem::spawnWindow_AddNewProject()
+{
+   if(!addProjectWindow) {
+     addProjectWindow = new AddProjectWindow(projectUi);
+
+     // New Projects
+     QObject::connect(addProjectWindow,SIGNAL(createNewProject(QString,QString)),
+                      dataSystem,SLOT(createNewProject(QString,QString)));
+
+     QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)),
+                      addProjectWindow, SLOT(close()));
+   }
+
+
+   addProjectWindow->exec();
+
 }
 
 void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {

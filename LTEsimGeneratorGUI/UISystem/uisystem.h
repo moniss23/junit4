@@ -3,7 +3,6 @@
 
 #include "Data/datasystem.h"
 
-#include "UISystem/Windows/addProjectWindow.h"
 #include "UISystem/Windows/importprojectwindow.h"
 #include "UISystem/Windows/settings.h"
 #include "UISystem/Windows/renamedialog.h"
@@ -33,6 +32,7 @@
 #include "UISystem/Windows/pagingrate.h"
 
 class ProjectManagement;
+class AddProjectWindow;
 class ParametersWindow;
 class IpexForm;
 class UCtoolForm;
@@ -53,7 +53,12 @@ public:
 public slots:
     void initialiseSettingsWindowSpawn(const QString& projectName = QString());
     void showErrorWindow(const QString& errorDescription);
+
+    // Project management
+    void spawnWindow_AddNewProject();
     void spawnWindow_OpenProject(const QString& projectName);
+
+
     void spawnWindow_Ipex(const QString& projectName,bool enable);
     void spawnWindow_ucTool(const QString &projectName,bool enable);
     void spawnWindow_ParamMap(const QString &projectName);
@@ -110,6 +115,7 @@ signals:
     void spawnWindow_SyncedPingForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &syncedPingIndex = 0, const SyncedPing &syncedPing = SyncedPing());
     void spawnWindow_ServiceReqForm(const QString &projectName, const QString &trafficName, const int &index, bool * qciUsed, const int &serviceReqIndex = 0, const ServiceReq &serviceReq = ServiceReq());
     void spawnWindow_PagingRate(const QString &projeName,QStringList generators,QVector<int> rates);
+
 private:
     void createFirstWinow();
     void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);
@@ -122,7 +128,7 @@ private:
     ProjectManagement      *projectUi;
     ImportProjectWindow     importProject;
     ParametersWindow       *paramWindow;
-    AddProjectWindow        addProjectWindow;
+    AddProjectWindow       *addProjectWindow;
     Settings                settingsWindow;
     RenameDialog            renameDialog;
     IpexForm               *ipexForm;
