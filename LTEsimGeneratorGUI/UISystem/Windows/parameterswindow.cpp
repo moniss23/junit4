@@ -198,7 +198,11 @@ void ParametersWindow::on_generateFileButton_clicked()
     if(this->ui->projectsList->currentRow()==0)
         emit generateParametersScript(currentProject);
     else
-        emit generateTrafficScript(currentProject, this->ui->projectsList->currentRow()-1);
+    {
+        int index=this->ui->projectsList->currentRow();
+        emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(currentProject.trafficFilesList.size()-1).filename);
+        emit generateTrafficScript(currentProject, index-1);
+    }
 }
 
 // "settings" opened
