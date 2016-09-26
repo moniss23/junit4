@@ -21,15 +21,6 @@ SgwForm::~SgwForm()
 {
     delete ui;
 }
-void SgwForm::on_buttonBox_accepted()
-{
-    setChanges();
-    this->close();
-}
-void SgwForm::on_buttonBox_rejected()
-{
-    this->close();
-}
 
 void SgwForm::on_pbReset_clicked()
 {
@@ -65,15 +56,26 @@ void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projec
     this->sgwSettings = sgwSettings;
     this->projectName = projectName;
     this->updateUi();
-    this->setReadOnly(enable);
-    this->setEnabled(!enable);
+    this->setReadOnly(!enable);
     this->show();
 }
 void SgwForm::setReadOnly(bool value)
 {
-    this->ui->tet_sgw_apn_lists->setReadOnly(value);
-    this->ui->tet_sgw_ipAddresses->setReadOnly(value);
-    this->ui->tet_sgw_LDIs->setReadOnly(value);
-    this->ui->tet_sgw_names->setReadOnly(value);
-    this->ui->pbReset->setEnabled(!value);
+    this->ui->tet_sgw_apn_lists->setEnabled(value);
+    this->ui->tet_sgw_ipAddresses->setEnabled(value);
+    this->ui->tet_sgw_LDIs->setEnabled(value);
+    this->ui->tet_sgw_names->setEnabled(value);
+    this->ui->pbReset->setEnabled(value);
+    this->ui->okButton->setEnabled(value);
+}
+
+void SgwForm::on_okButton_clicked()
+{
+    setChanges();
+    this->close();
+}
+
+void SgwForm::on_cancelButton_clicked()
+{
+    this->close();
 }

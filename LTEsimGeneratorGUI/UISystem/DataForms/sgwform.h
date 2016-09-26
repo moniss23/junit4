@@ -45,10 +45,9 @@ public slots:
      *  BINDINGS TO UI BUTTONS AND LISTS
      ***********************************************/
 private slots:
-    void on_buttonBox_accepted();
     void on_pbReset_clicked();
-    void on_buttonBox_rejected();
-
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
@@ -59,8 +58,6 @@ private:
      *
      */
     void setChanges();
-
-
     /**
      * @brief updateUi function to restore configuration to state before users changes
      *

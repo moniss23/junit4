@@ -33,17 +33,14 @@ signals:
     void updateMme(const MmeSettings &mmeSettings, const QString &projectName);
 
 
-private slots:
-
     /***********************************************
-     *  BINDINGS TO UI BUTTONS AND LISTS
-     ***********************************************/
-
-    void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
+    *  BINDINGS TO UI BUTTONS AND LISTS
+    ***********************************************/
+private slots:
     void on_pbReset_clicked();
-
     void on_checkBox_toggled(bool checked);
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
 
 public slots:
     /**

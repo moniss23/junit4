@@ -36,25 +36,15 @@ void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projec
     this->mmeSettings=mmeSettings;
     this->projectName=projectName;
     this->updateUi();
-    this->ui->checkBox->setEnabled(!enable);
-    this->setEnabled(!enable);
+    if(mmeSettings.simulatedCoreNetwork) {
+        this->enableWindow(mmeSettings.simulatedCoreNetwork);
+        this->setReadOnly(!enable);
+    } else {
+        this->setReadOnly(!enable);
+        this->enableWindow(mmeSettings.simulatedCoreNetwork);
+    }
     this->show();
 }
-
-
-void MmeForm::on_buttonBox_accepted()
-{
-    setMmeChanges();
-    emit updateMme(mmeSettings,projectName);
-    this->close();
-}
-
-
-void MmeForm::on_buttonBox_rejected()
-{
-    this->close();
-}
-
 
 void MmeForm::on_pbReset_clicked()
 {
@@ -73,13 +63,14 @@ void MmeForm::setMmeChanges(){
 }
 void MmeForm::setReadOnly(bool value)
 {
-    this->ui->tetMmes->setReadOnly(value);
-    this->ui->tetMme_names->setReadOnly(value);
-    this->ui->tetMme_s1ap_uris->setReadOnly(value);
-    this->ui->tetMme_tais->setReadOnly(value);
-    this->ui->tetS1ap_pluginFilterPath->setReadOnly(value);
-    this->ui->checkBox->setCheckable(!value);
-    this->ui->pbReset->setEnabled(!value);
+    this->ui->tetMmes->setEnabled(value);
+    this->ui->tetMme_names->setEnabled(value);
+    this->ui->tetMme_s1ap_uris->setEnabled(value);
+    this->ui->tetMme_tais->setEnabled(value);
+    this->ui->tetS1ap_pluginFilterPath->setEnabled(value);
+    this->ui->checkBox->setEnabled(value);
+    this->ui->pbReset->setEnabled(value);
+    this->ui->okButton->setEnabled(value);
 }
 void MmeForm::enableWindow(bool value)
 {
@@ -88,11 +79,23 @@ void MmeForm::enableWindow(bool value)
     this->ui->tetMme_s1ap_uris->setEnabled(value);
     this->ui->tetMme_tais->setEnabled(value);
     this->ui->tetS1ap_pluginFilterPath->setEnabled(value);
-    this->ui->pbReset->setEnabled(value);
 }
 
 void MmeForm::on_checkBox_toggled(bool checked)
 {
     mmeSettings.simulatedCoreNetwork=checked;
+    this->enableWindow(checked);
     updateUi();
+}
+
+void MmeForm::on_okButton_clicked()
+{
+    setMmeChanges();
+    emit updateMme(mmeSettings,projectName);
+    this->close();
+}
+
+void MmeForm::on_cancelButton_clicked()
+{
+    this->close();
 }

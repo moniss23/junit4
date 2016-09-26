@@ -16,7 +16,6 @@ PagingForm::PagingForm(QWidget *parent) :
 }
 
 
-
 PagingForm::~PagingForm()
 {
     delete ui;
@@ -27,8 +26,13 @@ void PagingForm::loadAndSpawn(const PagingSettings &pagingSettings, const QStrin
     this->pagingSettings = pagingSettings;
     this->projectName = projectName;
     this->setDefaultParameters();
-    this->setEnabled(!enable);
-    this->enableWindow(pagingSettings.isUsedInConfiguration);
+    if(pagingSettings.isUsedInConfiguration) {
+        this->enableWindow(pagingSettings.isUsedInConfiguration);
+        this->setReadOnly(!enable);
+    } else {
+        this->setReadOnly(!enable);
+        this->enableWindow(pagingSettings.isUsedInConfiguration);
+    }
     this->show();
 }
 
@@ -90,15 +94,17 @@ void PagingForm::on_CancelButton_clicked()
 }
 void PagingForm::setReadOnly(bool value)
 {
-    this->ui->tet_generators->setReadOnly(value);
-    this->ui->tet_imsi_ranges->setReadOnly(value);
-    this->ui->tet_mme_codes->setReadOnly(value);
-    this->ui->tet_paging_generator_names->setReadOnly(value);
-    this->ui->tet_paging_s1ap_uris->setReadOnly(value);
-    this->ui->tet_ue_paging_identity->setReadOnly(value);
-    this->ui->checkBox_bundle_paging->setEnabled(!value);
-    this->ui->checkBox_generate_pagings->setEnabled(!value);
-    this->ui->checkBox_s1ap_checkASN1_constraints->setEnabled(!value);
+    this->ui->tet_generators->setEnabled(value);
+    this->ui->tet_imsi_ranges->setEnabled(value);
+    this->ui->tet_mme_codes->setEnabled(value);
+    this->ui->tet_paging_generator_names->setEnabled(value);
+    this->ui->tet_paging_s1ap_uris->setEnabled(value);
+    this->ui->tet_ue_paging_identity->setEnabled(value);
+    this->ui->checkBox_bundle_paging->setEnabled(value);
+    this->ui->checkBox_generate_pagings->setEnabled(value);
+    this->ui->checkBox_s1ap_checkASN1_constraints->setEnabled(value);
+    this->ui->RestoreButton->setEnabled(value);
+    this->ui->OkButton->setEnabled(value);
 }
 
 

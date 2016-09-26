@@ -11,7 +11,6 @@ class GeneralConfiguration;
 /**
  * @brief The GeneralConfiguration class is responsible for showing and managing generationconfigurationform data.
  */
-
 class GeneralConfiguration : public QWidget
 {
     Q_OBJECT

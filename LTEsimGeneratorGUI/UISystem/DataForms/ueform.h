@@ -53,9 +53,8 @@ private:
      * @brief getParameters is used to set ueSettings data from ui fields
      */
     void getParameters();
-
-    void setReadOnly(bool value);
-    void enableWindow(bool value);
+    void setReadOnly(bool enable);
+    void enableWindow(bool start);
 private:
     Ui::UeForm *ui;                             ///< GUI form pointer
     UeParameters  ueParameters;                 ///< Ue Settings

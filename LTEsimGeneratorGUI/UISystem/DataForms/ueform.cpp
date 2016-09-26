@@ -20,12 +20,18 @@ UeForm::~UeForm()
 {
     delete ui;
 }
+
 void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projectName,bool enable) {
     this->ueParameters=ueParameters;
     this->projectName = projectName;
     this->updateUi();
-    this->setEnabled(!enable);
-    this->enableWindow(ueParameters.startUeComponent);
+    if(ueParameters.startUeComponent) {
+        this->enableWindow(ueParameters.startUeComponent);
+        this->setReadOnly(!enable);
+    } else {
+        this->setReadOnly(!enable);
+        this->enableWindow(ueParameters.startUeComponent);
+    }
     this->show();
 }
 
@@ -40,6 +46,7 @@ void UeForm::getParameters()
     this->ueParameters.ueOp = this->ui->tet_ue_op->text();
     this->ueParameters.startUeComponent = this->ui->checkBox->isChecked();
 }
+
 void UeForm::updateUi()
 {
     this->ui->tet_name->setText(this->ueParameters.name);
@@ -78,19 +85,20 @@ void UeForm::setReadOnly(bool value)
     this->ui->tet_ue_keyDerivationAlgorithm->setEnabled(value);
     this->ui->tet_ue_network_capability->setEnabled(value);
     this->ui->tet_ue_op->setEnabled(value);
-    this->ui->checkBox->setCheckable(value);
+    this->ui->checkBox->setEnabled(value);
     this->ui->restoreDefault->setEnabled(value);
     this->ui->OkButton->setEnabled(value);
 }
-void UeForm::enableWindow(bool value)
+
+void UeForm::enableWindow(bool start)
 {
-    this->ui->tet_l1l2_managers->setEnabled(value);
-    this->ui->tet_name->setEnabled(value);
-    this->ui->tet_rrc_pluginFilterPath->setEnabled(value);
-    this->ui->tet_ue_key->setEnabled(value);
-    this->ui->tet_ue_keyDerivationAlgorithm->setEnabled(value);
-    this->ui->tet_ue_network_capability->setEnabled(value);
-    this->ui->tet_ue_op->setEnabled(value);
+    this->ui->tet_l1l2_managers->setEnabled(start);
+    this->ui->tet_name->setEnabled(start);
+    this->ui->tet_rrc_pluginFilterPath->setEnabled(start);
+    this->ui->tet_ue_key->setEnabled(start);
+    this->ui->tet_ue_keyDerivationAlgorithm->setEnabled(start);
+    this->ui->tet_ue_network_capability->setEnabled(start);
+    this->ui->tet_ue_op->setEnabled(start);
 }
 
 void UeForm::on_checkBox_stateChanged(int arg1)

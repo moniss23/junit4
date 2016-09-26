@@ -2,8 +2,6 @@
 #include "ui_generalconfiguration.h"
 #include "Data/project.h"
 
-#include <QMessageBox>
-
 GeneralConfiguration::GeneralConfiguration(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::GeneralConfiguration)
@@ -20,9 +18,9 @@ void GeneralConfiguration::loadAndOpen(const GeneralConfigurationParameters &gen
     this->generalConfigurationParameters = generalConfigurationParameters;
     this->projectName = projectName;
     this->updateUi();
-    this->setReadOnly(enable);
-    this->setEnabled(!enable);
+    this->setReadOnly(!enable);
     this->show();
+
 }
 void GeneralConfiguration::updateUi(){
     this->ui->FileGzipEnabledCheckbox->setEnabled(this->generalConfigurationParameters.loggerFileGzipEnabled);
@@ -32,6 +30,7 @@ void GeneralConfiguration::updateUi(){
     this->ui->HandlerSetVal->setText(generalConfigurationParameters.loggerHandlerSet);
     this->ui->LogDirVal->setText(generalConfigurationParameters.logDir);
 }
+
 void GeneralConfiguration::getParameters(){
     generalConfigurationParameters.loggerFileGzipEnabled = (this->ui->FileGzipEnabledCheckbox->isChecked() ? true : false);
     generalConfigurationParameters.logDir = this->ui->LogDirVal->text();
@@ -57,13 +56,15 @@ void GeneralConfiguration::on_cancelButton_clicked()
 {
     this->close();
 }
+
 void GeneralConfiguration::setReadOnly(bool value)
 {
-    this->ui->FileGzipEnabledCheckbox->setEnabled(!value);
-    this->ui->FileCountVal->setReadOnly(value);
-    this->ui->FileSIzeLimitVal->setReadOnly(value);
-    this->ui->CoreParametersVal->setReadOnly(value);
-    this->ui->HandlerSetVal->setReadOnly(value);
-    this->ui->LogDirVal->setReadOnly(value);
-    this->ui->restoreButton->setEnabled(!value);
+    this->ui->FileGzipEnabledCheckbox->setEnabled(value);
+    this->ui->FileCountVal->setEnabled(value);
+    this->ui->FileSIzeLimitVal->setEnabled(value);
+    this->ui->CoreParametersVal->setEnabled(value);
+    this->ui->HandlerSetVal->setEnabled(value);
+    this->ui->LogDirVal->setEnabled(value);
+    this->ui->restoreButton->setEnabled(value);
+    this->ui->okButton->setEnabled(value);
 }
