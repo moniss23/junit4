@@ -50,11 +50,11 @@ void TuningTrafficManager::on_csSaveButton_clicked()
 {
     int currentIndex = ui->csComboBox->currentIndex();
     if(currentIndex != 0) {
-        TuningTrafficData::CSParameters tmpCS = tuningTrafficData.csParamGroup.at(currentIndex-1);
-        tmpCS.callDuration = ui->csDurationLineEdit->text().toDouble();
-        tmpCS.callIntensity = ui->csIntensityLineEdit->text().toDouble();
-        if(currentIndex == 4)
-            tmpCS.recoveryStartInterval = ui->recoveryStartIntervalLineEdit->text().toDouble();
+        tuningTrafficData.csParamGroup[currentIndex-1].callDuration = ui->csDurationLineEdit->text().toDouble();
+        tuningTrafficData.csParamGroup[currentIndex-1].callIntensity = ui->csIntensityLineEdit->text().toDouble();
+        if(currentIndex == 4){
+            tuningTrafficData.csParamGroup[currentIndex-1].recoveryStartInterval = ui->recoveryStartIntervalLineEdit->text().toDouble();
+        }
     }
 }
 

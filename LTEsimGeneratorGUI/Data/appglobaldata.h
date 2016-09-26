@@ -2,6 +2,7 @@
 #define APPGLOBALDATA_H
 
 #include <QString>
+#include <QStringList>
 
 class AppGlobalData
 {

@@ -19,8 +19,6 @@ public:
     /***********************************************
      *   PUBLIC API
      ***********************************************/
-
-
     /**
      * @brief readFromFile reads binary data from a file
      * @param fileFullPath QString with full path to the file
@@ -32,14 +30,27 @@ public:
      * @param fileFullPath QString with full path to the file
      * @param rawData QByteArray with binary data
      */
-    void writeToFile(const QString &fileFullPath, const QByteArray &rawData);
+    void writeToFile(const QString &fileFullPath, const QByteArray &locationFileContent);
+    /**
+     * @brief redProjectFromFile
+     * @param fullFilePath
+     * @return
+     */
+    QByteArray readProjectFromFile(QString fullFilePath);
+    /**
+     * @brief writeProjectToFile
+     * @param location
+     * @param projectName
+     * @param rawData
+     */
+    void writeProjectToFile(QString location, QString projectName, QByteArray rawData);
     /**
      * @brief generateParametersScript is used to write parametersFileData content to file
      * @param location is path to file
      * @param projectName is current Project name
      * @param content is content that will be write to file
      */
-    void generateParametersScript(QString location, QString projectName, QString content);
+    void generateParametersScript(QString location, QString projectName,QString fileName, QString content);
     /**
      * @brief generateTrafficScript is used to write trafficFileData content to file
      * @param location is path to file

@@ -65,7 +65,7 @@ void LTEsimGeneratorTESTS::appSetttingsTest1_checkDefaultProjectDir()
     DataSystem appSettings;
 
     QString dir = appSettings.getDefaultNewProjectDir();
-    QCOMPARE(dir, QString("<default>"));
+    QCOMPARE(dir, QString("./Projects"));
 
 }
 

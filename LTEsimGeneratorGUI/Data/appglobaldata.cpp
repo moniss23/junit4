@@ -1,7 +1,7 @@
 #include "appglobaldata.h"
 
 AppGlobalData::AppGlobalData():
-    defaultNewProjectsPath("<default>")
+    defaultNewProjectsPath("./Projects")
 {
 
 }

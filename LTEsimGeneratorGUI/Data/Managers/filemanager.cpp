@@ -20,53 +20,82 @@ QByteArray FileManager::readFromFile(const QString &fileFullPath) {
     return rawData;
 }
 
-void FileManager::writeToFile(const QString &fileFullPath, const QByteArray &rawData) {
+void FileManager::writeToFile(const QString &fileFullPath, const QByteArray &locationFileContent) {
     QFile file(fileFullPath);
     file.open(QIODevice::WriteOnly);
 
+    QDataStream fileStream(&file);
+    fileStream << locationFileContent;
+    file.close();
+}
+
+QByteArray FileManager::readProjectFromFile(QString fullFilePath)
+{
+    QFile file(fullFilePath);
+    file.open(QIODevice::ReadOnly);
+
+    QByteArray rawData;
+    QDataStream fileStream(&file);
+
+    fileStream >> rawData;
+    file.close();
+    return rawData;
+}
+
+void FileManager::writeProjectToFile(QString location, QString projectName, QByteArray rawData)
+{
+    QDir dir;
+    QFile file;
+    if(!QDir(location).exists()) {
+        dir.mkdir(location);
+    }
+    if(!QDir(location+"/"+projectName).exists()) {
+        dir.mkdir(location+"/"+projectName);
+    }
+    file.setFileName(location+"/"+projectName+"/"+projectName+".datass");
+    file.open(QIODevice::WriteOnly);
     QDataStream fileStream(&file);
     fileStream << rawData;
     file.close();
 }
 
-
-void FileManager::generateParametersScript(QString location,QString projectName,QString content) {
+void FileManager::generateParametersScript(QString location,QString projectName, QString fileName, QString content) {
     QDir dir;
     QFile file;
-    dir.setCurrent(location);
-    if (!QDir("projects").exists()) {
-        dir.mkdir("projects");
+    if(!QDir(location).exists()) {
+        dir.mkdir(location);
     }
-    if (!QDir("projects/"+projectName).exists()){
-        dir.mkdir("projects/"+projectName);
+    if(!QDir(location+"/"+projectName).exists()) {
+        dir.mkdir(location+"/"+projectName);
     }
-    dir.setCurrent("projects/"+projectName);
-    file.setFileName("Parameters.rb");
+    if(!QDir(location+"/"+projectName+"/Scripts").exists()) {
+        dir.mkdir((location+"/"+projectName+"/Scripts"));
+    }
+    file.setFileName(location+"/"+projectName+"/Scripts/"+fileName);
     file.open(QIODevice::WriteOnly);
-    QTextStream file_str(&file);
-    file_str << content;
+    QTextStream fileStream(&file);
+    fileStream << content;
     file.close();
-    dir.setCurrent("../../");
 }
 
 void FileManager::generateTrafficScript(QString location, QString projectName, QString content, QString fileName)
 {
     QDir dir;
     QFile file;
-    dir.setCurrent(location);
-    if (!QDir("projects").exists()) {
-        dir.mkdir("projects");
+    if(!QDir(location).exists()) {
+        dir.mkdir(location);
     }
-    if (!QDir("projects/"+projectName).exists()){
-        dir.mkdir("projects/"+projectName);
+    if(!QDir(location+"/"+projectName).exists()) {
+        dir.mkdir(location+"/"+projectName);
     }
-    dir.setCurrent("projects/"+projectName);
-    file.setFileName( fileName);
+    if(!QDir(location+"/"+projectName+"/Scripts").exists()) {
+        dir.mkdir((location+"/"+projectName+"/Scripts"));
+    }
+    file.setFileName(location+"/"+projectName+"/Scripts/"+fileName);
     file.open(QIODevice::WriteOnly);
-    QTextStream file_str(&file);
-    file_str << content;
+    QTextStream fileStream(&file);
+    fileStream << content;
     file.close();
-    dir.setCurrent("../../");
 }
 
 // Check if projects file exists, create it if it doesn't

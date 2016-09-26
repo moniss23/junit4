@@ -24,18 +24,23 @@ void DataSystem::LoadAppData() {
     emit currentProjects(projects);
 }
 void DataSystem::loadProjectsFile() {
-    QDataStream dataStream(fileManager->readFromFile(appGlobalData.getProjectsFile()));
+    QByteArray locationsData(fileManager->readFromFile(appGlobalData.getProjectsFile()));
+    QDataStream dataStream(locationsData);
 
     int projectsAmount;
     dataStream >> projectsAmount;
 
     while(projectsAmount--) {
-        QByteArray singleProjectData;
-        dataStream >> singleProjectData;
+        QString singleProjectLocation;
+        dataStream >> singleProjectLocation;
 
-        Project p;
-        p.deserializeData(singleProjectData);
-        projects.push_back(p);
+        QByteArray singleProjectData;
+        QDataStream projectStream(fileManager->readProjectFromFile(singleProjectLocation));
+        projectStream >> singleProjectData;
+
+        Project project;
+        project.deserializeData(singleProjectData);
+        projects.push_back(project);
     }
 }
 
@@ -47,8 +52,16 @@ void DataSystem::saveProjectsFile() {
     dataStream << projects.size();
 
     for(auto &&elem : projects) {
+        QBuffer rawProjectBuff;
+        rawProjectBuff.open(QBuffer::WriteOnly);
+        QDataStream projectStream(&rawProjectBuff);
+
         QByteArray singleProjectData = elem.serializeData();
-        dataStream << singleProjectData;
+        projectStream << singleProjectData;
+
+        dataStream << elem.fullpath+"/"+elem.name+"/"+elem.name+".datass";
+
+        fileManager->writeProjectToFile(elem.fullpath, elem.name, rawProjectBuff.buffer());
     }
 
     fileManager->writeToFile(appGlobalData.getProjectsFile(), rawDataBuff.buffer());
@@ -547,7 +560,7 @@ void DataSystem::generateParametersScript(Project &project)
 {
     QString content = scriptParserManager->GenerateParametersQString(project);
     emit updateFileContent(project.name,project.parametersFile.filename,content);
-    fileManager->generateParametersScript(project.fullpath,project.name,content);
+    fileManager->generateParametersScript(project.fullpath,project.name,project.parametersFile.filename,content);
 }
 
 void DataSystem::generateTrafficScript(const Project &project, const int &indexOfFile)
