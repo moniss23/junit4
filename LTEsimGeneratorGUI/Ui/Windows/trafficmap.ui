@@ -397,7 +397,7 @@ background-color:rgb(255, 255, 255);</string>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">:rotate(180, Qt::XAxis);</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
