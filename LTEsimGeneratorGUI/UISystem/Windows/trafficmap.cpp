@@ -1,3 +1,5 @@
+#include <QDebug>
+
 #include "trafficmap.h"
 #include "ui_trafficmap.h"
 #include "UISystem/Widgets/mapview.h"
@@ -80,7 +82,10 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     this->trafficFileData = trafficFileData;
 
     mapView     = new MapView(project, this, this->trafficFileData->filename);
+    QObject::connect(mapView, SIGNAL(addUeToScene(UEData&,int)), this, SLOT(addUeToScene(UEData&,int)));
+
     ui->numberOfUeLabel->setText(QString::number(this->trafficFileData->userEquipments.size()));
+
     hBoxLayout1 = new QHBoxLayout();
     hBoxLayout2 = new QHBoxLayout();
     vBoxLayout  = new QVBoxLayout();
@@ -140,6 +145,34 @@ void TrafficMap::updateUeDataInUeRepresentation(const UEData &ueData)
                                     -ueData.position[0].second);
     this->doubleClickedUe[1]->setPos(ueData.position[1].first,
                                     -ueData.position[1].second);
+}
+
+void TrafficMap::addUeToScene(UEData &ueData, int ueDataIndex) {
+
+    qDebug() << "dodaje se ue a na imie mu " << ueDataIndex;
+
+    UeRepresentation *ueRep = new UeRepresentation(ueData, 0, this->mapView->generateColorForUe(ueDataIndex));
+    UeRepresentation *ueRep2 = new UeRepresentation(ueData, 1, this->mapView->generateColorForUe(ueDataIndex));
+
+    ueRep->relatedUe = ueRep2;
+    ueRep2->relatedUe = ueRep;
+
+    this->mapView->scene->addItem(ueRep);
+    this->mapView->scene->addItem(ueRep2);
+
+    ueRep->setPos(ueRep->ueObject.position[0].first, -ueRep->ueObject.position[0].second);
+    ueRep2->setPos(ueRep2->ueObject.position[1].first, -ueRep2->ueObject.position[1].second);
+
+    QObject::connect(ueRep, SIGNAL(updateUe(UeRepresentation*,UEData)),
+                     mapView, SLOT(updateUe(UeRepresentation*,UEData)));
+    QObject::connect(ueRep, SIGNAL(spawnWindow_UeParams(UeRepresentation*,QString)),
+                     mapView, SLOT(spawnWindow_UeParams(UeRepresentation*,QString)));
+    QObject::connect(ueRep2, SIGNAL(updateUe(UeRepresentation*,UEData)),
+                     mapView, SLOT(updateUe(UeRepresentation*,UEData)));
+    QObject::connect(ueRep2, SIGNAL(spawnWindow_UeParams(UeRepresentation*,QString)),
+                     mapView, SLOT(spawnWindow_UeParams(UeRepresentation*,QString)));
+
+    ui->numberOfUeLabel->setText(QString::number(ueDataIndex+1));
 }
 
 void TrafficMap::on_statisticsButton_clicked() {

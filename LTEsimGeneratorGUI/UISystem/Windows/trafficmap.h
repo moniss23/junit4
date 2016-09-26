@@ -29,6 +29,8 @@ public slots:
     void updateUe_MapView(UeRepresentation*,const QString &projectName, const QString &trafficName, const UEData &ueData);
     void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
     void updateButtonsColor();
+
+    void addUeToScene(UEData &ueData, int ueDataIndex);
     void updateUeDataInUeRepresentation(const UEData& ueData);
 
 signals:

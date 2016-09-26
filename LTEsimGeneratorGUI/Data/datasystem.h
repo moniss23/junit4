@@ -35,6 +35,8 @@ signals:
     void updateUeDataInUeRepresentation(const UEData &ueData);
     void restorePagingRateSettings(QStringList names,QVector<int> rates);
 
+    void addUeToScene(UEData &ueData, int ueDataIndex);
+
 public slots:
     void LoadAppData();
     void saveProjectsFile();

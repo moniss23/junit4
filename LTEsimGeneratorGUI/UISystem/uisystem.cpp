@@ -295,11 +295,13 @@ void UISystem::bindingObjects()
     QObject::connect(&tuningTrafficManager, SIGNAL(saveTuningTrafficData(QString,QString,TuningTrafficData)), dataSystem, SLOT(saveTuningTraffic(QString,QString,TuningTrafficData)));
 
     // Add UEs to Traffic Map Scene + update UEs
-    QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
     QObject::connect(&trafficMap, SIGNAL(updateUe(QString,QString,UEData)), dataSystem, SLOT(updateUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(removeUe(QString,QString,UEData)), dataSystem, SLOT(removeUe(QString,QString,UEData)));
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_ueParams(QString,QString,QString)), this, SLOT(spawnWindow_UeParams(QString,QString,QString)));
     QObject::connect(dataSystem, SIGNAL(updateUeDataInUeRepresentation(UEData)), &trafficMap, SLOT(updateUeDataInUeRepresentation(UEData)));
+
+    QObject::connect(&trafficMap, SIGNAL(addUe(QString,QString)), dataSystem, SLOT(addUe(QString,QString)));
+    QObject::connect(dataSystem, SIGNAL(addUeToScene(UEData&,int)), &trafficMap, SLOT(addUeToScene(UEData&,int)));
 
     // paging rate
     QObject::connect(&trafficMap, SIGNAL(spawnWindow_PagingRate(QString)),this, SLOT(spawnWindow_PagingRate(QString)));

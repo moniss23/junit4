@@ -18,6 +18,7 @@ public:
 
     void printNewMap();
     void resizeEvent(QResizeEvent* event);
+    QColor generateColorForUe(int ueDataIndex);
 
 public slots:
     void spawnWindow_MapRange();
@@ -33,6 +34,7 @@ signals:
     void updateUe_MapView(UeRepresentation*, const QString &projectName, const QString &trafficName, const UEData &ueData);
     void spawnWindow_ueParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
 
+    void addUeToScene(UEData &ueData, int ueDataIndex);
 
 private:
     void drawMapLines();
@@ -40,6 +42,7 @@ private:
     void drawUeRepresentations();
     void drawCellRepresentations();
     void drawHandoverRepresentations();
+
 
 public:
     QGraphicsScene *scene;

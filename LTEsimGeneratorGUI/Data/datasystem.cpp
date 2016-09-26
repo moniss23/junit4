@@ -98,7 +98,7 @@ void DataSystem::addUe(const QString &projectName, const QString &trafficFilenam
         trafficFound->userEquipments.append(ueData);
 
         emit currentProjectChanged(*project);
-        emit refreshMapView(*project, trafficFound); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
+        emit addUeToScene(ueData, trafficFound->userEquipments.size()-1);
         saveProjectsFile();
     }
     else emit errorInData("Couldn't find " + trafficFilename + " in current project");
