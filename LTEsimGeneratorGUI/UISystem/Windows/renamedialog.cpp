@@ -9,7 +9,6 @@ RenameDialog::RenameDialog(QWidget *parent) :
     fileNameValidator(fileNameRegExp)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Rename file");
     this->setModal(Qt::WindowModal);
     ui->fileNameInput->setValidator(&fileNameValidator);
     fileNameValidator.setParent(ui->fileNameInput);

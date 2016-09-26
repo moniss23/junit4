@@ -58,8 +58,6 @@ void ParametersWindow::refreshUI(const Project &project)
     currentProject = project;
 
     //BASIC UI REFRESH
-    this->setWindowTitle(project.name);
-
     ui->projectsList->clear();
 
     //PARAMETERS FILE

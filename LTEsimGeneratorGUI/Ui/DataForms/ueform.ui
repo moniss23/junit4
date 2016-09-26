@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Ue Component Settings</string>
+   <string>UE Component Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

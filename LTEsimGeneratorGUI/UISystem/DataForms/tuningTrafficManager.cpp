@@ -8,7 +8,6 @@ TuningTrafficManager::TuningTrafficManager(QWidget *parent) :
     ui(new Ui::TuningTrafficForm)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Tuning traffic");
     setFixedSize(sizeHint());
 
     ui->mobilityCheckBox->setVisible(false);

@@ -5,7 +5,6 @@ MmeForm::MmeForm(QWidget *parent) :
     ui(new Ui::MmeForm)
 {
     ui->setupUi(this);
-    this->setWindowTitle("MME settings");
     this->ui->lblMme_names->setToolTip("Name of the MME component e.g. \"mme1\"");
     this->ui->lblMme_tais->setToolTip("MME tracking area identity value e.g. \"62F2281200\"");
     this->ui->lblMmes->setToolTip("Number of MMEs (used in multiple MME configuration) ");

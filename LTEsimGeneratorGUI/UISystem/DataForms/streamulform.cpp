@@ -6,7 +6,6 @@ StreamUlForm::StreamUlForm(QWidget *parent) :
     ui(new Ui::StreamUlForm), qciUsed(nullptr)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Stream Ul");
 }
 
 StreamUlForm::~StreamUlForm()

@@ -11,7 +11,6 @@ AddProjectWindow::AddProjectWindow(QWidget *parent) :
     fileNameValidator(fileNameRegExp)
 {
     ui->setupUi(this);
-    this->setWindowTitle("New project");
     ui->defaultLocationRadioButton->setChecked(true);
     ui->fileName->setValidator(&fileNameValidator);
     fileNameValidator.setParent(ui->fileName);

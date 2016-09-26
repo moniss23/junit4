@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Sgw Settings</string>
+   <string>SGW Settings</string>
   </property>
   <widget class="QGroupBox" name="gbSGW">
    <property name="geometry">

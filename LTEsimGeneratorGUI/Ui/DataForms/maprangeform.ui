@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>302</width>
-    <height>191</height>
+    <width>309</width>
+    <height>193</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MapRangeForm</string>
+   <string>Map Range Settings</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">

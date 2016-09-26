@@ -9,7 +9,6 @@ ProjectManagement::ProjectManagement(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ProjectManagement)
 {
     ui->setupUi(this);
-    this->setWindowTitle("LTEsimGenerator");
 }
 
 ProjectManagement::~ProjectManagement()

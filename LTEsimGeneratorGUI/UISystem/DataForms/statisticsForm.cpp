@@ -7,7 +7,6 @@ StatisticsForm::StatisticsForm(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(413, 523);
-    this->setWindowTitle("Statistics");
 }
 
 StatisticsForm::~StatisticsForm() {

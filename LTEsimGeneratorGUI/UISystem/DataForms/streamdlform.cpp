@@ -6,7 +6,6 @@ StreamDlForm::StreamDlForm(QWidget *parent) :
     ui(new Ui::StreamDlForm), qciUsed(nullptr)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Stream Dl");
 }
 
 StreamDlForm::~StreamDlForm()

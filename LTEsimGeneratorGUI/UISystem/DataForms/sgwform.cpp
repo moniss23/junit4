@@ -9,8 +9,6 @@ SgwForm::SgwForm(QWidget *parent) :
     ui(new Ui::SGWForm)
 {
     ui->setupUi(this);
-    this->setWindowTitle("SGW settings");
-    //set tooltips for lbls
     this->ui->lblSgw_names->setToolTip("Name of the Serving GWs e.g. \"sgw1\"");
     this->ui->lblSgw_ipAddresses->setToolTip("e.g. \"127.0.0.1\" ");
     this->ui->lblSgw_apn_list->setToolTip("The parameter contains APN name and an IP number range tjat the SGW will assign to the UE e.g. \"ltesim-core-network,172.17.0.1/16;\"");

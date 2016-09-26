@@ -5,7 +5,6 @@ MapRangeForm::MapRangeForm(QWidget *parent) :
     ui(new Ui::MapRangeForm)
 {
     ui->setupUi(this);
-    this->setWindowTitle("MapRange settings");
     this->ui->lbl_north->setToolTip("Max vertical map range");
     this->ui->lbl_south->setToolTip("Min vertical map range");
     this->ui->lbl_east->setToolTip("Max horizontal map range");

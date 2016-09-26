@@ -6,7 +6,6 @@ ChannelModelForm::ChannelModelForm(QWidget *parent) :
     ui(new Ui::ChannelModelForm)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Channel Models settings");
 }
 
 ChannelModelForm::~ChannelModelForm()

@@ -6,7 +6,6 @@ UeParametersForm::UeParametersForm(QWidget *parent) :
     ui(new Ui::UeParametersForm)
 {
     ui->setupUi(this);
-    this->setWindowTitle("UeData");
     this->ui->frstMobilityModelComboBox->addItems(UeParametersForm::MOBILITYSTRINGLIST);
     this->ui->scndMobilityModelComboBox->addItems(UeParametersForm::MOBILITYSTRINGLIST);
     this->ui->frstCsModelComboBox->addItems(UeParametersForm::CSSTRINGLIST);
