@@ -53,6 +53,7 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
 
 void ParametersWindow::refreshUI(const Project &project)
 {
+    int currentIndex=this->ui->projectsList->currentRow();
     currentProject = project;
 
     //BASIC UI REFRESH
@@ -69,7 +70,7 @@ void ParametersWindow::refreshUI(const Project &project)
     // REFRESH ACTIVE WINDOW
 
 
-    ui->projectsList->setCurrentRow( 0, QItemSelectionModel::ClearAndSelect);
+    ui->projectsList->setCurrentRow( currentIndex, QItemSelectionModel::ClearAndSelect);
 }
 
 ParametersWindow::~ParametersWindow()
