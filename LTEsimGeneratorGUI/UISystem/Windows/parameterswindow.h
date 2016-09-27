@@ -125,6 +125,7 @@ private slots:
     void on_actionOpen_triggered();
     void on_actionSave_triggered();
     void on_actionPath_triggered();
+    void on_actionQuit_triggered();
 
     void on_addTrafficButton_clicked();
     void on_removeFileButton_clicked();

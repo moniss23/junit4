@@ -47,6 +47,12 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
             return;
         }
     }
+    if (this->ui->projectsList->currentRow()==0) {
+        this->ui->actionSave->setEnabled(true);
+    }
+    else {
+        this->ui->actionSave->setEnabled(false);
+    }
     previewFile(current);
     filePreviewChanged = false;
 }
@@ -86,6 +92,10 @@ void ParametersWindow::on_actionAbout_triggered()
 {
     viewHelp.show();
 }
+void ParametersWindow::on_actionQuit_triggered()
+{
+    this->close();
+}
 
 void ParametersWindow::closeEvent(QCloseEvent *event) {
     emit spawnWindow_ProjectMng();
@@ -93,10 +103,21 @@ void ParametersWindow::closeEvent(QCloseEvent *event) {
 }
 void ParametersWindow::on_actionOpen_triggered()
 {
+    if(this->ui->projectsList->currentRow()==0) {
+        emit spawnWindow_ParamMap(currentProject.name);
+    }
+    else {
+        emit spawnWindow_TrafficMap(currentProject.name, this->ui->projectsList->currentItem()->text());
+    }
 }
 
 void ParametersWindow::on_actionSave_triggered()
 {
+    if(!filePreviewChanged) return;
+    if (this->ui->projectsList->currentRow()==0){
+        emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
+    }
+    filePreviewChanged = false;
 }
 
 // "add traffic file" button clicked
