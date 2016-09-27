@@ -213,6 +213,14 @@ void ParametersWindow::on_filePreview_textChanged()
 // "generate file" button is clicked
 void ParametersWindow::on_generateFileButton_clicked()
 {
+    if(filePreviewChanged) {
+        if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Do you want to save " +
+                                         ui->projectsList->currentItem()->text() + " file before generating script?\n",QMessageBox::Yes|QMessageBox::No).exec()){
+            emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
+        }
+        filePreviewChanged = false;
+    }
+
     if(this->ui->projectsList->currentRow()==0)
         emit generateParametersScript(currentProject);
     else
@@ -246,6 +254,14 @@ void ParametersWindow::msg(const QString &content){
 
 void ParametersWindow::on_generateAllFilesButton_clicked()
 {
+    if(filePreviewChanged) {
+        if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Do you want to save " +
+                                         ui->projectsList->currentItem()->text() + " file before generating script?\n",QMessageBox::Yes|QMessageBox::No).exec()){
+            emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
+        }
+        filePreviewChanged = false;
+    }
+
     emit generateParametersScript(currentProject);
     for(int i=1;i<this->ui->projectsList->count();i++)
         emit generateTrafficScript(currentProject, i-1);
