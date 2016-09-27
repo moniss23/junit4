@@ -220,6 +220,10 @@ void ParametersWindow::on_filePreview_textChanged()
 // "generate file" button is clicked
 void ParametersWindow::on_generateFileButton_clicked()
 {
+    if (this->ui->projectsList->currentRow()<=-1){
+        msg("There's no selected file!");
+        return;
+    }
     if(filePreviewChanged) {
         if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Do you want to save " +
                                          ui->projectsList->currentItem()->text() + " file before generating script?\n",QMessageBox::Yes|QMessageBox::No).exec()){
@@ -230,13 +234,12 @@ void ParametersWindow::on_generateFileButton_clicked()
 
     if(this->ui->projectsList->currentRow()==0) {
         emit generateParametersScript(currentProject);
+        return;
+
     }
-    else
-    {
-        int index=this->ui->projectsList->currentRow();
-        emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(currentProject.trafficFilesList.size()-1).filename);
-        emit generateTrafficScript(currentProject, index-1);
-    }
+    int index=this->ui->projectsList->currentRow();
+    emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(currentProject.trafficFilesList.size()-1).filename);
+    emit generateTrafficScript(currentProject, index-1);
 }
 
 // "settings" opened
