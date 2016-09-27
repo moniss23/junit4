@@ -31,7 +31,9 @@ public:
             this->callDuration = callDuration;
             this->recoveryStartInterval = recoveryStartInterval;
         }
+
     };
+
 
     /**
      * @brief The PSParameters struct represents PS parameters
@@ -100,5 +102,17 @@ public:
      */
     virtual QString getElementType() const;
 };
+
+// SERIALIZE CS PARAMETERS
+QDataStream &operator>>(QDataStream &in, TuningTrafficData::CSParameters &csParameters);
+QDataStream &operator<<(QDataStream &out, const TuningTrafficData::CSParameters &csParameters);
+
+// SERIALIZE PS PARAMETERS
+QDataStream &operator>>(QDataStream &in, TuningTrafficData::PSParameters &psParameters);
+QDataStream &operator<<(QDataStream &out, const TuningTrafficData::PSParameters &psParameters);
+
+// SERIALIZE MOBILITY
+QDataStream &operator>>(QDataStream &in, TuningTrafficData::Mobility &mobility);
+QDataStream &operator<<(QDataStream &out, const TuningTrafficData::Mobility &mobility);
 
 #endif // TuningTrafficData_H

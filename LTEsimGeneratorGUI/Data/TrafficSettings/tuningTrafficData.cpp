@@ -34,18 +34,7 @@ QByteArray TuningTrafficData::serializeData()
     serializedData.open(QBuffer::WriteOnly);
 
     QDataStream stream(&serializedData);
-
-    for(auto elem : csParamGroup) {
-        stream << elem.csName << elem.callIntensity << elem.callDuration << elem.recoveryStartInterval;
-    }
-
-    for(auto elem : psParamGroup) {
-        stream << elem.psName << elem.psIntensity << elem.psDuration;
-    }
-
-    for(auto elem : mobilityGroup) {
-        stream << elem.mobilityName << elem.speed << elem.granularity;
-    }
+    stream << csParamGroup << psParamGroup << mobilityGroup;
 
     return serializedData.buffer();
 }
@@ -53,18 +42,7 @@ QByteArray TuningTrafficData::serializeData()
 void TuningTrafficData::deserializeData(const QByteArray &rawData)
 {
     QDataStream stream(rawData);
-
-    for(auto elem : csParamGroup) {
-        stream >> elem.csName >> elem.callIntensity >> elem.callDuration >> elem.recoveryStartInterval;
-    }
-
-    for(auto elem : psParamGroup) {
-        stream >> elem.psName >> elem.psIntensity >> elem.psDuration;
-    }
-
-    for(auto elem : mobilityGroup) {
-        stream >> elem.mobilityName >> elem.speed >> elem.granularity;
-    }
+    stream >> csParamGroup >> psParamGroup >> mobilityGroup;
 }
 
 const QStringList TuningTrafficData::CSSTRINGLIST = {
@@ -136,3 +114,40 @@ const QStringList TuningTrafficData::MOBILITYSTRINGLIST = {
     "WalkerStartAtSouth",
     "WalkerStartAtWest"
 };
+
+QDataStream &operator <<(QDataStream &out, const TuningTrafficData::CSParameters &csParameters )
+{
+    out << csParameters.csName << csParameters.callDuration << csParameters.callIntensity
+    << csParameters.recoveryStartInterval;
+    return out;
+}
+QDataStream &operator >>(QDataStream &in, TuningTrafficData::CSParameters &csParameters)
+{
+    in >> csParameters.csName >> csParameters.callDuration >> csParameters.callIntensity
+    >> csParameters.recoveryStartInterval;
+    return in;
+}
+
+
+QDataStream &operator <<(QDataStream &out, const TuningTrafficData::PSParameters &psParameters )
+{
+    out << psParameters.psName << psParameters.psDuration << psParameters.psIntensity;
+    return out;
+}
+QDataStream &operator >>(QDataStream &in, TuningTrafficData::PSParameters &psParameters)
+{
+    in >> psParameters.psName >> psParameters.psDuration >> psParameters.psIntensity;
+    return in;
+}
+
+
+QDataStream &operator <<(QDataStream &out, const TuningTrafficData::Mobility &mobility)
+{
+    out << mobility.mobilityName << mobility.speed << mobility.granularity;
+    return out;
+}
+QDataStream &operator >>(QDataStream &in, TuningTrafficData::Mobility &mobility)
+{
+    in >> mobility.mobilityName >> mobility.speed >> mobility.granularity;
+    return in;
+}
