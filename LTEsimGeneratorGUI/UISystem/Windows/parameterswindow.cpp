@@ -1,6 +1,5 @@
 #include "parameterswindow.h"
 #include "ui_parameterswindow.h"
-
 #include <QMessageBox>
 #include <QStringList>
 #include <QListWidgetItem>
@@ -221,8 +220,9 @@ void ParametersWindow::on_generateFileButton_clicked()
         filePreviewChanged = false;
     }
 
-    if(this->ui->projectsList->currentRow()==0)
+    if(this->ui->projectsList->currentRow()==0) {
         emit generateParametersScript(currentProject);
+    }
     else
     {
         int index=this->ui->projectsList->currentRow();

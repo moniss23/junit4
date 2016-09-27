@@ -36,7 +36,8 @@ signals:
     void restorePagingRateSettings(QStringList names,QVector<int> rates);
 
     void addUeToScene(UEData &ueData, int ueDataIndex);
-
+    void addCellToScene (QPair<Cell,Center> &cell);
+    void addHandoverToScene(Handover &handover);
 public slots:
     void LoadAppData();
     void saveProjectsFile();

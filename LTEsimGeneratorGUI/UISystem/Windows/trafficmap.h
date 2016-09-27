@@ -32,7 +32,6 @@ public slots:
 
     void addUeToScene(UEData &ueData, int ueDataIndex);
     void updateUeDataInUeRepresentation(const UEData& ueData);
-
 signals:
     void spawnWindow_Time(const QString &projectName, const QString &trafficName);
     void spawnWindow_CustomModels(const QString &projectName, const QString &trafficName);

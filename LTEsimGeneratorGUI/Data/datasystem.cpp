@@ -1,5 +1,4 @@
 #include "datasystem.h"
-
 #include <QDir>
 #include <QTextStream>
 #include <QSet>
@@ -159,8 +158,10 @@ void DataSystem::addCell(const QString &projectName) {
     cellInfo.first.pci = newCellNumber.toInt();
 
     project->cellsInfo.append(cellInfo);
+
+    emit addCellToScene(cellInfo);
+
     emit currentProjectChanged(*project);
-    emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
     saveProjectsFile();
 }
 
@@ -179,8 +180,8 @@ void DataSystem::addHandover(const QString &projectName) {
     handover.northBoundary = handover.southBoundary + 1000;
 
     project->handovers.append(handover);
+    emit addHandoverToScene(handover);
     emit currentProjectChanged(*project);
-    emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
     saveProjectsFile();
 }
 
@@ -418,7 +419,7 @@ QString DataSystem::generateUniqueCellNumber(Project *project)
 QString DataSystem::generateUniqueHandoverName(Project *project)
 {
     for(unsigned i=1011; i<UINT_MAX; ++i) {
-        const QString newHOName = "handover" + QString::number(i/100) + "_" + QString::number(i%100);
+        const QString newHOName = "Handover" + QString::number(i/100) + "_" + QString::number(i%100);
         if(std::none_of(project->handovers.begin(), project->handovers.end(),
             [&newHOName](auto &handover){return newHOName==handover.area;})) {
             return newHOName;
@@ -564,8 +565,8 @@ void DataSystem::generateParametersScript(Project &project)
 {
     QString content = scriptParserManager->GenerateParametersQString(project);
 
-    emit updateFileContent(project.name,project.parametersFile.filename,content);
     fileManager->generateParametersScript(project.fullpath,project.name,project.parametersFile.filename,content);
+    emit updateFileContent(project.name,project.parametersFile.filename,content);
 }
 
 void DataSystem::generateTrafficScript(const Project &project, const int &indexOfFile)

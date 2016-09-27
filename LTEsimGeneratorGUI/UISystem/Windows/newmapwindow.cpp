@@ -4,8 +4,6 @@
 #include <QHBoxLayout>
 #include "UISystem/Widgets/mapview.h"
 
-#include <QHBoxLayout>
-
 NewMapWindow::NewMapWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::NewMapWindow)
@@ -28,11 +26,11 @@ void NewMapWindow::closeEvent(QCloseEvent *event){
 
 void NewMapWindow::loadAndOpen(const Project &project)
 {
-    this->refreshWindow(project);
     this->setWindowTitle(project.parametersFile.filename+" - "+project.name+" - LTEsimGenerator");
     emit setEnabledPagingRate(project.pagingSettings.isUsedInConfiguration);
     emit setEnabledUBSim(project.ueParameters.startUeComponent);
     updateButtonsColor();
+    this->refreshWindow(project);
     this->showMaximized();
 }
 
@@ -208,6 +206,22 @@ void NewMapWindow::on_removeHandoverBtn_clicked()
         this->ui->handoverTab->close();
         this->ui->mapObjectsWidget->setVisible(false);
     }
+}
+void NewMapWindow::addCellToScene(QPair<Cell, Center> &cellinfo)
+{
+    CellRepresentation *cellRep = new CellRepresentation(cellinfo);
+    this->mapView->scene->addItem(cellRep);
+    cellRep->setPos(cellinfo.first.position_X,-cellinfo.first.position_Y);
+    QObject::connect(cellRep,SIGNAL(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)),
+                     mapView,SLOT(spawnWindow_CellParams(CellRepresentation*,QPair<Cell,Center>)));
+}
+void NewMapWindow::addHandoverToScene(Handover &handover)
+{
+    HandoverRepresentation *hanRep = new HandoverRepresentation(handover);
+    this->mapView->scene->addItem(hanRep);
+    hanRep->updatePositions();
+    QObject::connect(hanRep,SIGNAL(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)),
+                     mapView,SLOT(spawnWindow_HandoverParams(HandoverRepresentation*,Handover)));
 }
 void NewMapWindow::on_addCellBtn_clicked() {emit addCell(project.name);}
 void NewMapWindow::on_addHandoverBtn_clicked() {emit addHandover(project.name);}

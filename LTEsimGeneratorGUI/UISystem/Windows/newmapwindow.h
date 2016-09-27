@@ -30,7 +30,8 @@ public slots:
     void spawnWindow_MapView_cellParams(CellRepresentation*, const QPair<Cell,Center>&);
     void spawnWindow_MapRange();
     void updateButtonsColor();
-
+    void addCellToScene(QPair<Cell,Center> &cellinfo);
+    void addHandoverToScene(Handover &handover);
 signals:
     void spawnWindow_Mme(const QString& projectNames,bool);
     void spawnWindow_Paging(const QString& projectName,bool);

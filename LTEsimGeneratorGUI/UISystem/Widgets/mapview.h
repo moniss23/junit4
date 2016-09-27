@@ -35,7 +35,8 @@ signals:
     void spawnWindow_ueParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
 
     void addUeToScene(UEData &ueData, int ueDataIndex);
-
+    void addCelltoScene (Cell &cell);
+    void addHandoverToScene (Handover &handover);
 private:
     void drawMapLines();
     void drawAxisAndButtons();

@@ -236,7 +236,6 @@ QVector<Handover> ScriptParserManager::getHandoversFromScript(const QStringList 
             i+=5;
         }
     }
-
     return handovers;
 }
 

@@ -2,7 +2,6 @@
 #include "ui_trafficmap.h"
 #include "UISystem/Widgets/mapview.h"
 #include "UISystem/Widgets/uerepresentation.h"
-
 #include <QCloseEvent>
 
 TrafficMap::TrafficMap(QWidget *parent) :
@@ -81,7 +80,6 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
 
     mapView     = new MapView(project, this, this->trafficFileData->filename);
     QObject::connect(mapView, SIGNAL(addUeToScene(UEData&,int)), this, SLOT(addUeToScene(UEData&,int)));
-
     ui->numberOfUeLabel->setText(QString::number(this->trafficFileData->userEquipments.size()));
 
     hBoxLayout1 = new QHBoxLayout();
@@ -170,6 +168,7 @@ void TrafficMap::addUeToScene(UEData &ueData, int ueDataIndex) {
 
     ui->numberOfUeLabel->setText(QString::number(ueDataIndex+1));
 }
+
 
 void TrafficMap::on_statisticsButton_clicked() {
     spawnWindow_Statistics(project.name, trafficFileData->filename);
