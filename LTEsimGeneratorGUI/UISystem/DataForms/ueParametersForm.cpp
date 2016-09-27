@@ -140,7 +140,25 @@ const QStringList UeParametersForm::PSSTRINGLIST = {
     "LteRealTimeStreamingDynSpeed",
     "LteServiceReq",
     "LteWww",
-    "LteWww2Pdn"
+    "LteWww2Pdn",
+    "LteBatRealTimeStreaming",
+    "LteBatRealTimeStreamingDLUL",
+    "LteBatPDStreaming",
+    "LteBatWww",
+    "LteBatInstantMessaging",
+    "LteBatP2P",
+    "LteBatPing",
+    "LteBatMobileTv",
+    "LteMMTelAudioVisualOrig2Pdn",
+    "LteMMTelStaticBearerPingOnDefault",
+    "LteMMTelStaticBearerFtpDlOnDefault",
+    "LteMMTelDynamicBearerPingOnDefault",
+    "LteMMTelVoip",
+    "LteMMTelVoip50",
+    "LteMMTelVoip2Pdn50",
+    "LteMMTelVoipTerm",
+    "LteMMTelVoipTerm50",
+    "LteMMTelVoipTerm2Pdn50"
 };
 
 const QStringList UeParametersForm::MOBILITYSTRINGLIST = {

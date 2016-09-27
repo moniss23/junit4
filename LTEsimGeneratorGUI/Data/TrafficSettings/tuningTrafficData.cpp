@@ -81,7 +81,6 @@ const QStringList TuningTrafficData::CSSTRINGLIST = {
 };
 
 const QStringList TuningTrafficData::PSSTRINGLIST = {
-    "NoPs",
     "general_10s_50Mbps",
     "general_infinite_200Mbps",
     "LteFtpEightBearers",
@@ -106,7 +105,25 @@ const QStringList TuningTrafficData::PSSTRINGLIST = {
     "LteRealTimeStreamingDynSpeed",
     "LteServiceReq",
     "LteWww",
-    "LteWww2Pdn"
+    "LteWww2Pdn",
+    "LteBatRealTimeStreaming",
+    "LteBatRealTimeStreamingDLUL",
+    "LteBatPDStreaming",
+    "LteBatWww",
+    "LteBatInstantMessaging",
+    "LteBatP2P",
+    "LteBatPing",
+    "LteBatMobileTv",
+    "LteMMTelAudioVisualOrig2Pdn",
+    "LteMMTelStaticBearerPingOnDefault",
+    "LteMMTelStaticBearerFtpDlOnDefault",
+    "LteMMTelDynamicBearerPingOnDefault",
+    "LteMMTelVoip",
+    "LteMMTelVoip50",
+    "LteMMTelVoip2Pdn50",
+    "LteMMTelVoipTerm",
+    "LteMMTelVoipTerm50",
+    "LteMMTelVoipTerm2Pdn50"
 };
 
 const QStringList TuningTrafficData::MOBILITYSTRINGLIST = {
