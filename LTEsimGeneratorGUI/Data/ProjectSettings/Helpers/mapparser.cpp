@@ -671,17 +671,19 @@ QString MapParser::GenerateTrafficScript(const Project &project, const int &inde
         statistics.append("Statistics.writePdcpUStatisticsToFile("+project.trafficFilesList.at(index).statisticsData.pdcpuFileName+","+project.trafficFilesList.at(index).statisticsData.pdcpuSeconds+","+project.trafficFilesList.at(index).statisticsData.pdcpuMeasurement+") \n");
 
     if(project.trafficFilesList.at(index).timeData.tab1_statisticsWithRate)
-        for(int i=0;i<project.trafficFilesList.at(index).timeData.spn_time1.second();i=i+project.trafficFilesList.at(index).timeData.tab1_statsRate)
+        for(int i=0;i<(QTime(0,0,0).secsTo(project.trafficFilesList.at(index).timeData.spn_time1)-project.trafficFilesList.at(index).timeData.tab1_statsRate);i=i+project.trafficFilesList.at(index).timeData.tab1_statsRate)
         {
             statisticsString.append("\nsleep("+QString::number(project.trafficFilesList.at(index).timeData.tab1_statsRate)+")\n");
             statisticsString.append(statistics);
         }
-    if(project.trafficFilesList.at(index).timeData.tab2_statisticsWithRate)
-        for(int i=0;i<project.trafficFilesList.at(index).timeData.spn_time2.second();i=i+project.trafficFilesList.at(index).timeData.tab2_statsRate)
+    else if(project.trafficFilesList.at(index).timeData.tab2_statisticsWithRate)
+    {
+        for(int i=0;i<(QTime(0,0,0).secsTo(project.trafficFilesList.at(index).timeData.spn_time1)-project.trafficFilesList.at(index).timeData.tab1_statsRate);i=i+project.trafficFilesList.at(index).timeData.tab2_statsRate)
         {
             statisticsString.append("\nsleep("+QString::number(project.trafficFilesList.at(index).timeData.tab2_statsRate)+")\n");
             statisticsString.append(statistics);
         }
+    }
 
     contentList.insert(contentList.indexOf("## Test Case - Statistics     ##")+3,statisticsString);
 
