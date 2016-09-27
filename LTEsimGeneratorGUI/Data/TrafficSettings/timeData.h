@@ -21,6 +21,8 @@ public:
     bool tab1_ueAttachDettach, tab1_statisticsWithRate, tab1_statisticsAfterEnd;
     bool tab2_ueAttachDettach, tab2_statisticsWithRate, tab2_statisticsAfterEnd;
 
+    bool resetAllStat1, resetAllStat2;
+
     /****************************
      * SERIALIZATION INTERFACE  *
      ****************************/

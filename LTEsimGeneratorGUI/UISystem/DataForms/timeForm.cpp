@@ -23,8 +23,6 @@ void TimeForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->projectName = projectName;
     this->trafficName = trafficName;
     this->timeData=timeData;
-    this->timeData.tab1_statisticsAfterEnd=true;
-    this->timeData.tab2_statisticsAfterEnd=true;
     this->refreshUi();
     this->show();
 }
@@ -58,6 +56,8 @@ void TimeForm::refreshUi()
     ui->tab2_statisticsWithRate->setChecked(timeData.tab2_statisticsWithRate);
     ui->tab1_printStatisticsAfterTheEnd->setChecked(timeData.tab1_statisticsAfterEnd);
     ui->tab2_statisticsAfterTheEnd->setChecked(timeData.tab2_statisticsAfterEnd);
+    ui->resetAllStat1->setChecked(timeData.resetAllStat1);
+    ui->resetAllStat2->setChecked(timeData.resetAllStat2);
 
     ui->spn_hours1->setValue(timeData.spn_time1.hour());
     ui->spn_minutes1->setValue(timeData.spn_time1.minute());
@@ -135,6 +135,8 @@ void TimeForm::getParameters()
     timeData.tab2_statisticsWithRate = ui->tab2_statisticsWithRate->isChecked();
     timeData.tab1_ueAttachDettach = ui->gb_attdetRate1->isChecked();
     timeData.tab2_ueAttachDettach = ui->gb_attdetRate2->isChecked();
+    timeData.resetAllStat1 = ui->resetAllStat1->isChecked();
+    timeData.resetAllStat2 = ui->resetAllStat2->isChecked();
 }
 
 void TimeForm::on_tab1_printStatisticsWithRate_toggled(bool checked)

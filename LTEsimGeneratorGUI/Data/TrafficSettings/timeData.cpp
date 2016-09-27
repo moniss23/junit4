@@ -10,6 +10,7 @@ TimeData::TimeData()
     tab2_ueAttachDettach = tab2_statisticsWithRate = tab2_statisticsAfterEnd = false;
 
     tab2_crdelUEPeriod = 0;
+    resetAllStat1 = resetAllStat2 = false;
 }
 
 TimeData::~TimeData()
@@ -30,7 +31,7 @@ QByteArray TimeData::serializeData()
     stream << tab1_attachRate << tab1_detachRate << tab1_statsRate
            << tab2_attachRate << tab2_detachRate << tab2_statsRate
            << tab1_timeTrafficDuration << tab2_timeTrafficDuration
-           << tab2_crdelUEPeriod << tab1_ueAttachDettach
+           << tab2_crdelUEPeriod << tab1_ueAttachDettach << resetAllStat1 << resetAllStat2
            << tab1_statisticsWithRate << tab1_statisticsAfterEnd << tab2_ueAttachDettach
            << tab2_statisticsWithRate << tab2_statisticsAfterEnd << spn_time1 << spn_time2;
 
@@ -43,7 +44,7 @@ void TimeData::deserializeData(const QByteArray &rawData)
     stream >> tab1_attachRate >> tab1_detachRate >> tab1_statsRate
            >> tab2_attachRate >> tab2_detachRate >> tab2_statsRate
            >> tab1_timeTrafficDuration >> tab2_timeTrafficDuration
-           >> tab2_crdelUEPeriod >> tab1_ueAttachDettach
+           >> tab2_crdelUEPeriod >> tab1_ueAttachDettach >> resetAllStat1 >> resetAllStat2
            >> tab1_statisticsWithRate >> tab1_statisticsAfterEnd >> tab2_ueAttachDettach
            >> tab2_statisticsWithRate >> tab2_statisticsAfterEnd >> spn_time1 >> spn_time2 ;
 }
