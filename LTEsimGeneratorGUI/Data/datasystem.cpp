@@ -341,10 +341,14 @@ QString DataSystem::getDefaultTrafficFileContent() {
     trafficTemplate.close();
 
     return fileContent;
-
 }
 
 void DataSystem::createNewProject(const QString &projectName, const QString &directory) {
+
+    if(projectName.isEmpty()) {
+        emit errorInData("Project name cannot be empty");
+        return;
+    }
 
     if(isProjectNameUsed(projectName)) {
         emit errorInData("Name already in use. Choose another one.");
