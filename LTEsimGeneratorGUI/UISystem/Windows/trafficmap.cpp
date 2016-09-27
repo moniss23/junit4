@@ -1,5 +1,3 @@
-#include <QDebug>
-
 #include "trafficmap.h"
 #include "ui_trafficmap.h"
 #include "UISystem/Widgets/mapview.h"
@@ -148,8 +146,6 @@ void TrafficMap::updateUeDataInUeRepresentation(const UEData &ueData)
 }
 
 void TrafficMap::addUeToScene(UEData &ueData, int ueDataIndex) {
-
-    qDebug() << "dodaje se ue a na imie mu " << ueDataIndex;
 
     UeRepresentation *ueRep = new UeRepresentation(ueData, 0, this->mapView->generateColorForUe(ueDataIndex));
     UeRepresentation *ueRep2 = new UeRepresentation(ueData, 1, this->mapView->generateColorForUe(ueDataIndex));
