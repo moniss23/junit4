@@ -31,7 +31,11 @@ void PagingRate::on_OkButton_clicked()
 }
 void PagingRate::enablePagingRate(bool value)
 {
-    this->setEnabled(value);
+    ui->listWidget->setEnabled(value);
+    ui->spinBox->setEnabled(value);
+    ui->AcceptButton->setEnabled(value);
+    ui->OkButton->setEnabled(value);
+    ui->RestoreButton->setEnabled(value);
 }
 
 void PagingRate::on_listWidget_currentItemChanged(QListWidgetItem *current)

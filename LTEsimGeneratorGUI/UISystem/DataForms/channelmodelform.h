@@ -47,11 +47,11 @@ private slots:
     void on_restoreDefaults_clicked();
     void on_okButton_clicked();
     void on_cancelButton_clicked();
+    void on_checkBox_toggled(bool checked);
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
-    void on_checkBox_toggled(bool checked);
 
 private:
     /**
@@ -64,6 +64,7 @@ private:
     void getParameters();
 
     void setReadOnly(bool value);
+    void enableWindow(bool value);
 private:
     Ui::ChannelModelForm *ui;                   ///< GUI form pointer
     ChannelModelSettings channelModelSettings;  ///< Local copy of data

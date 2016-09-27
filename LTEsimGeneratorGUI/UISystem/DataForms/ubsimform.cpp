@@ -29,7 +29,10 @@ void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameter
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
     this->updateUi();
+
+    this->disableWindow(!ueParameters.startUeComponent);
     this->setReadOnly(!enable);
+
     this->show();
 }
 
@@ -86,7 +89,13 @@ void UBsimForm::on_ubSimGuiCheckbox_stateChanged(int arg1)
 }
 void UBsimForm::disableWindow(bool state)
 {
-    this->setEnabled(state);
+    this->ui->tet_csTrafficModelsDir->setEnabled(!state);
+    this->ui->tet_imsiMapRange->setEnabled(!state);
+    this->ui->tet_mobilityModelsDir->setEnabled(!state);
+    this->ui->tet_psTrafficModelsDir->setEnabled(!state);
+    this->ui->tet_ubsim_patches->setEnabled(!state);
+    this->ui->tet_ueTypesDir->setEnabled(!state);
+    this->ui->ubSimGuiCheckbox->setEnabled(!state);
 }
 
 void UBsimForm::on_okButton_clicked()

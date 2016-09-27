@@ -17,8 +17,10 @@ void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSetti
     this->channelModelSettings = channelModelSettings;
     this->projectName = projectName;
     this->updateUi();
-    this->setEnabled(!enable);
-    this->setReadOnly(channelModelSettings.enableChannelModels);
+
+    this->enableWindow(channelModelSettings.enableChannelModels);
+    this->setReadOnly(!enable);
+
     this->show();
 }
 
@@ -82,6 +84,7 @@ void ChannelModelForm::getParameters()
 }
 void ChannelModelForm::setReadOnly(bool value)
 {
+    ui->checkBox->setEnabled(value);
     ui->tet_model_set_name->setEnabled(value);
     ui->tet_pdcch_drop_dl_assignment_rate->setEnabled(value);
     ui->tet_pdcch_drop_grant_rate->setEnabled(value);
@@ -105,6 +108,33 @@ void ChannelModelForm::setReadOnly(bool value)
 
     ui->checkBox_dl_pathloss_distribute_ues->setEnabled(value);
     ui->restoreDefaults->setEnabled(value);
+    ui->okButton->setEnabled(value);
+}
+
+void ChannelModelForm::enableWindow(bool value)
+{
+    ui->tet_model_set_name->setEnabled(value);
+    ui->tet_pdcch_drop_dl_assignment_rate->setEnabled(value);
+    ui->tet_pdcch_drop_grant_rate->setEnabled(value);
+    ui->tet_pdsch_transport_block_decoded_error_rate->setEnabled(value);
+    ui->tet_phich_nack_to_ack_error_rate->setEnabled(value);
+    ui->tet_phich_drop_harq_feedback_rate->setEnabled(value);
+    ui->tet_pusch_transport_block_decoded_error_rate->setEnabled(value);
+
+    ui->tet_pusch_drop_transport_block_rate->setEnabled(value);
+    ui->tet_puxch_nack_to_ack_error_rate->setEnabled(value);
+    ui->tet_puxch_dtx_to_ack_error_rate->setEnabled(value);
+    ui->tet_puxch_ack_to_nack_error_rate->setEnabled(value);
+    ui->tet_puxch_drop_scheduling_request_rate->setEnabled(value);
+    ui->tet_dlni_noise->setEnabled(value);
+
+    ui->tet_dlni_interference->setEnabled(value);
+    ui->tet_dl_pathloss_min_pathloss->setEnabled(value);
+    ui->tet_dl_pathloss_max_pathloss->setEnabled(value);
+    ui->tet_dl_pathloss_time_min_to_max->setEnabled(value);
+    ui->tet_pathloss_based_feedback_sinr_threshold->setEnabled(value);
+
+    ui->checkBox_dl_pathloss_distribute_ues->setEnabled(value);
 }
 
 void ChannelModelForm::on_okButton_clicked()
@@ -121,6 +151,6 @@ void ChannelModelForm::on_cancelButton_clicked()
 
 void ChannelModelForm::on_checkBox_toggled(bool checked)
 {
-    this->setReadOnly(checked);
+    this->enableWindow(checked);
     this->channelModelSettings.enableChannelModels = checked;
 }
