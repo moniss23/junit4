@@ -26,7 +26,7 @@ void ParametersWindow::loadProjectAndOpen(const Project &project){
 
     refreshUI(project);
     setWindowTitle(project.name + " - LTEsimGenerator");
-    show();
+    showMaximized();
 }
 
 void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous)

@@ -33,7 +33,7 @@ void NewMapWindow::loadAndOpen(const Project &project)
     emit setEnabledPagingRate(project.pagingSettings.isUsedInConfiguration);
     emit setEnabledUBSim(project.ueParameters.startUeComponent);
     updateButtonsColor();
-    this->show();
+    this->showMaximized();
 }
 
 void NewMapWindow::refreshWindow(const Project &project) {

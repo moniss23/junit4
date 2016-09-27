@@ -67,7 +67,7 @@ void TrafficMap::loadAndOpen(const Project &project, TrafficFileData *trafficFil
     updateButtonsColor();
     emit setEnabledPagingRate(project.pagingSettings.isUsedInConfiguration);
     emit setEnabledUBSim(project.ueParameters.startUeComponent);
-    this->show();
+    this->showMaximized();
 }
 
 void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficFileData) {
