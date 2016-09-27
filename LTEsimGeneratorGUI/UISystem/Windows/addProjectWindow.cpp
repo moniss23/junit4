@@ -3,6 +3,8 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QCompleter>
+#include <QDirModel>
 
 AddProjectWindow::AddProjectWindow(QWidget *parent) :
     QDialog(parent),
@@ -14,6 +16,12 @@ AddProjectWindow::AddProjectWindow(QWidget *parent) :
     ui->defaultLocationRadioButton->setChecked(true);
     ui->fileName->setValidator(&fileNameValidator);
     fileNameValidator.setParent(ui->fileName);
+
+    QCompleter *completer = new QCompleter(this);
+    QDirModel *model = new QDirModel(completer);
+    model->setFilter(QDir::AllDirs);
+    completer->setModel(model);
+    ui->lineEdit->setCompleter(completer);
 }
 
 AddProjectWindow::~AddProjectWindow() {
