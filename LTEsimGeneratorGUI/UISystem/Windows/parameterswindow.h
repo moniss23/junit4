@@ -133,6 +133,10 @@ private slots:
     void on_generateFileButton_clicked();
     void on_saveFileButton_clicked();
 
+
+    void on_undoButton_clicked();
+    void on_redoButton_clicked();
+
     void on_projectsList_itemDoubleClicked(QListWidgetItem *item);
     void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
@@ -143,6 +147,7 @@ private slots:
      ***********************************************/
 
     void on_generateAllFilesButton_clicked();
+
 
 private:
     void msg(const QString &content);//TODO: get rid of that. It's used only while generating script.

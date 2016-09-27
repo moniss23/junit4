@@ -16,8 +16,6 @@ ParametersWindow::ParametersWindow(QWidget *parent) :
     ui->projectsList->setAlternatingRowColors(true);
     ui->projectsList->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    this->ui->undoButton->setEnabled(false);
-    this->ui->redoButton->setEnabled(false);
     this->ui->resetDefaultsButton->setEnabled(true);
 
     this->ui->filePreview->setReadOnly(false);
@@ -230,3 +228,7 @@ void ParametersWindow::on_generateAllFilesButton_clicked()
     for(int i=1;i<this->ui->projectsList->count();i++)
         emit generateTrafficScript(currentProject, i-1);
 }
+
+
+void ParametersWindow::on_undoButton_clicked() { this->ui->filePreview->undo(); }
+void ParametersWindow::on_redoButton_clicked() { this->ui->filePreview->redo(); }
