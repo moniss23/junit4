@@ -52,7 +52,7 @@ void FileManager::writeProjectToFile(QString location, QString projectName, QByt
     if(!QDir(location+"/"+projectName).exists()) {
         dir.mkdir(location+"/"+projectName);
     }
-    file.setFileName(location+"/"+projectName+"/"+projectName+".datass");
+    file.setFileName(location+"/"+projectName+"/"+projectName+".proj");
     file.open(QIODevice::WriteOnly);
     QDataStream fileStream(&file);
     fileStream << rawData;

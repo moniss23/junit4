@@ -59,7 +59,7 @@ void DataSystem::saveProjectsFile() {
         QByteArray singleProjectData = elem.serializeData();
         projectStream << singleProjectData;
 
-        dataStream << elem.fullpath+"/"+elem.name+"/"+elem.name+".datass";
+        dataStream << elem.fullpath+"/"+elem.name+"/"+elem.name+appGlobalData.getProFileExt();
 
         fileManager->writeProjectToFile(elem.fullpath, elem.name, rawProjectBuff.buffer());
     }
