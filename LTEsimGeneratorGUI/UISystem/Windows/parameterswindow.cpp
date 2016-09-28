@@ -102,7 +102,11 @@ void ParametersWindow::closeEvent(QCloseEvent *event) {
 }
 void ParametersWindow::on_actionOpen_triggered()
 {
-    if(this->ui->projectsList->currentRow()==0) {
+    if (this->ui->projectsList->currentRow()<=-1) {
+        msg("There's no selected file !");
+        return;
+    }
+    else if(this->ui->projectsList->currentRow()==0) {
         emit spawnWindow_ParamMap(currentProject.name);
     }
     else {
@@ -112,6 +116,10 @@ void ParametersWindow::on_actionOpen_triggered()
 
 void ParametersWindow::on_actionSave_triggered()
 {
+    if (this->ui->projectsList->currentRow()<=-1) {
+        msg("There's no selected file !");
+        return;
+    }
     if(!filePreviewChanged) return;
     if (this->ui->projectsList->currentRow()==0){
         emit updateFileContent(currentProject.name, this->ui->projectsList->currentItem()->text(), this->ui->filePreview->toPlainText());
