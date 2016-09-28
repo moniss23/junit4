@@ -59,6 +59,18 @@ void FileManager::writeProjectToFile(QString location, QString projectName, QByt
     file.close();
 }
 
+void FileManager::removeProjectDirectory(QString directory)
+{
+    QDir dir(directory);
+    dir.removeRecursively();
+}
+
+void FileManager::removeTrafficFile(QString fullpath)
+{
+    QFile traffic(fullpath);
+    traffic.remove();
+}
+
 void FileManager::generateParametersScript(QString location,QString projectName, QString fileName, QString content) {
     QDir dir;
     QFile file;

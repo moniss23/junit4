@@ -45,6 +45,16 @@ public:
      */
     void writeProjectToFile(QString location, QString projectName, QByteArray rawData);
     /**
+     * @brief removeProjectDirectory
+     * @param directory
+     */
+    void removeProjectDirectory(QString directory);
+    /**
+     * @brief removeTrafficFile
+     * @param fullpath
+     */
+    void removeTrafficFile(QString fullpath);
+    /**
      * @brief generateParametersScript is used to write parametersFileData content to file
      * @param location is path to file
      * @param projectName is current Project name

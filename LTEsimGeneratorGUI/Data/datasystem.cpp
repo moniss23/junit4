@@ -326,7 +326,7 @@ void DataSystem::removeFile_TrafficFile(const QString& ProjectName, const QStrin
         emit errorInData("Cannot find right traffic file");
         return;
     }
-
+    fileManager->removeTrafficFile(project->fullpath+"/"+project->name+"/Scripts/"+traffic->filename);
     project->trafficFilesList.erase(traffic);
     emit currentProjectChanged(*project);
 
@@ -444,7 +444,10 @@ QString DataSystem::generateUniqueTrafficFilename(Project *project)
 
 void DataSystem::deleteProject(const QString projectName)
 {
-    projects.erase(findProjectByName(projectName));
+    Project* project = findProjectByName(projectName);
+    fileManager->removeProjectDirectory(project->fullpath+"/"+project->name);
+    projects.erase(project);
+
     emit currentProjects(projects);
 
     saveProjectsFile();
