@@ -41,18 +41,27 @@ void PagingForm::setDefaultParameters()
     this->ui->tet_generators->setText(QString::number(pagingSettings.generators));
     QString pagingNames;
     for (QString name:pagingSettings.names) {
-        pagingNames+=(name+",");
+        pagingNames+=(name);
+        if (name!=pagingSettings.names.back()) {
+            pagingNames.append(",");
+        }
     }
     this->ui->tet_paging_generator_names->setText(pagingNames);
     QString pagingRanges;
     for (QString range:pagingSettings.imsiRanges) {
-        pagingRanges+=(range+",");
+        pagingRanges+=(range);
+        if (range!=pagingSettings.imsiRanges.back()) {
+            pagingRanges.append(",");
+        }
     }
     this->ui->tet_imsi_ranges->setText(pagingRanges);
     this->ui->tet_ue_paging_identity->setText(pagingSettings.uePagingIdentity);
     QString pagingUris;
     for (QString ur:pagingSettings.pagingSlapUris) {
-        pagingUris+=(ur+",");
+        pagingUris+=(ur);
+        if (ur!=pagingSettings.pagingSlapUris.back()) {
+            pagingUris.append(",");
+        }
     }
     this->ui->tet_paging_s1ap_uris->setText(pagingUris);
     this->ui->checkBox_generate_pagings->setChecked(pagingSettings.isUsedInConfiguration);
