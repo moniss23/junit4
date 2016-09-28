@@ -10,6 +10,7 @@
 namespace Ui {
 class UBsimForm;
 }
+
 /**
  *  UBsimForm class is responsible for showing and managing UBSimSettings data.
  */

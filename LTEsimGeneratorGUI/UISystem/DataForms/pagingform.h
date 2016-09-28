@@ -6,10 +6,10 @@
 namespace Ui {
 class PagingForm;
 }
+
 /**
  * @brief The PagingForm class is responsible for showing and managing PagingSettings.
  */
-
 class PagingForm : public QWidget
 {
     Q_OBJECT

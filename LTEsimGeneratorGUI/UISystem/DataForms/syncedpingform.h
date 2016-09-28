@@ -10,6 +10,7 @@ class QCheckBox;
 namespace Ui {
 class SyncedPingForm;
 }
+
 /**
  * @brief The SyncedPingForm class is responsible for showing and managing SyncedPing data.
  */

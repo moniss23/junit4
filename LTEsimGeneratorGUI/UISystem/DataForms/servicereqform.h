@@ -10,6 +10,7 @@ class QCheckBox;
 namespace Ui {
 class ServiceReqForm;
 }
+
 /**
  * @brief The ServiceReqForm class is responsible for showing and managing ServiceReq data.
  */

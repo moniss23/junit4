@@ -7,6 +7,7 @@
 namespace Ui {
 class UeParametersForm;
 }
+
 /**
  * @brief The UeParametersForm class is responsible for showing and managing UEData.
  */

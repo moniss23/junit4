@@ -8,9 +8,9 @@
 namespace Ui {
 class SGWForm;
 }
+
 /**
- * @brief The SgwForm class is responsible for drawing UI form
- *        for Sgw configuration.
+ * @brief The SgwForm class is responsible for drawing UI form for Sgw configuration.
  */
 class SgwForm : public QWidget
 {

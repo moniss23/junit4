@@ -8,6 +8,7 @@
 namespace Ui {
 class TimeForm;
 }
+
 /**
  * @brief The TimeForm class is responsible for showing and managing TimeData data.
  */

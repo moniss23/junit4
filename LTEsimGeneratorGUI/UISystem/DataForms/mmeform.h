@@ -10,11 +10,10 @@
 namespace Ui {
 class MmeForm;
 }
-/*
-* @brief The MmeForm class is responsible for drawing UI form
-*        for Mme and Paging configuration.
-*/
 
+/**
+ * @brief The MmeForm class is responsible for drawing UI form for Mme and Paging configuration.
+ */
 class MmeForm : public QWidget
 {
     Q_OBJECT

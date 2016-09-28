@@ -7,6 +7,7 @@
 namespace Ui {
 class UCtoolForm;
 }
+
 /**
  *  UCtoolForm class is responsible for showing and managing UCToolSettings data.
  */

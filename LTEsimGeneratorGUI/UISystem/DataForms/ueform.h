@@ -8,6 +8,9 @@ namespace Ui {
 class UeForm;
 }
 
+/**
+ * @brief The UeForm class represents a window that provides UE Components settings
+ */
 class UeForm : public QWidget
 {
     Q_OBJECT

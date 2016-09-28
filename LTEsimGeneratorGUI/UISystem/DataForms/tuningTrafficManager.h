@@ -9,6 +9,7 @@
 namespace Ui {
 class TuningTrafficForm;
 }
+
 /**
  * @brief The TuningTrafficManager class is responsible for showing and managing TuningTrafficData
  */

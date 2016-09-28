@@ -8,6 +8,7 @@
 namespace Ui {
 class PingForm;
 }
+
 /**
  * @brief The PingForm class is responsible for showing and managing Ping data.
  */

@@ -9,6 +9,9 @@ namespace Ui {
 class MapRangeForm;
 }
 
+/**
+ * @brief The MapRangeForm class represents a window that provides map range settings
+ */
 class MapRangeForm : public QWidget
 {
     Q_OBJECT
