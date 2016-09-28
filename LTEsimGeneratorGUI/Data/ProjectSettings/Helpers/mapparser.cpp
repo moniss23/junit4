@@ -5,7 +5,7 @@ MapParser::MapParser()
 
 }
 
-QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &mapRange,QVector<Handover> &handover, UBSimSettings &ubSim, DataGeneratorSettings &dataGenerator)
+QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &mapRange,QVector<Handover> &handovers, UBSimSettings &ubSim, DataGeneratorSettings &dataGenerator)
 {
     QString outputString;
 
@@ -190,28 +190,28 @@ QString MapParser::ParseMap(QVector<QPair<Cell, Center>> &cellsInfo,MapRange &ma
         outputString.append(QString::number(cellsInfo[i].second.eastBoundary));
         outputString.append("\n  },");
     }
-    for (int i=0;i<handover.size();i++){
+    for (int i=0;i<handovers.size();i++){
         outputString.append("{\n");
         // NAME
         outputString.append("  :area => \"");
-        outputString.append(handover[i].area);
+        outputString.append(handovers[i].area);
         outputString.append("\",\n");
         // SOUTH
         outputString.append("  :southBoundary => ");
-        outputString.append(QString::number(handover[i].southBoundary));
+        outputString.append(QString::number(handovers[i].southBoundary));
         outputString.append(",\n");
         // NORTH
         outputString.append("  :northBoundary => ");
-        outputString.append(QString::number(handover[i].northBoundary));
+        outputString.append(QString::number(handovers[i].northBoundary));
         outputString.append(",\n");
         // WEST
         outputString.append("  :westBoundary => ");
-        outputString.append(QString::number(handover[i].westBoundary));
+        outputString.append(QString::number(handovers[i].westBoundary));
         outputString.append(",\n");
         // EAST
         outputString.append("  :eastBoundary => ");
-        outputString.append(QString::number(handover[i].eastBoundary));
-        if (i==handover.size()-1){
+        outputString.append(QString::number(handovers[i].eastBoundary));
+        if (i==handovers.size()-1){
             outputString.append("\n  }");
         }
         else {
