@@ -517,7 +517,7 @@ void DataSystem::updateDataGeneratorSettings(const DataGeneratorSettings &dataGe
         return;
     }
     project->dataGeneratorSettings = dataGeneratorSettings;
-    emit refreshMapView(*project);
+    emit updateProject(*project);
     saveProjectsFile();
 }
 
@@ -529,6 +529,7 @@ void DataSystem::updateUCToolSettings(const UCToolSettings &ucToolSettings, cons
         return;
     }
     project->ucToolSettings = ucToolSettings;
+    emit updateProject(*project);
     saveProjectsFile();
 }
 
@@ -539,7 +540,7 @@ void DataSystem::updateChannelModelSettings(const ChannelModelSettings &channelM
         return;
     }
     project->channelModelSettings = channelModelSettings;
-    emit refreshMapView(*project);
+    emit updateProject(*project);
     saveProjectsFile();
 }
 
@@ -550,7 +551,7 @@ void DataSystem::updateUBSimSettings(const UBSimSettings &ubSimSettings, const Q
         return;
     }
     project->ubSimSettings = ubSimSettings;
-    emit refreshMapView(*project);
+    emit updateProject(*project);
     saveProjectsFile();
 }
 
@@ -561,6 +562,7 @@ void DataSystem::updateGeneralConfigurationParameters(const GeneralConfiguration
         return;
     }
     project->generalConfiguration = generalConfigurationParameters;
+    emit updateProject(*project);
     saveProjectsFile();
 }
 
@@ -651,7 +653,6 @@ void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString
         emit errorInData("Can't find right project.\nData not saved");
         return;
     }
-    emit refreshMapView(*project);
     project->sgwSettings = sgwSettings;
     saveProjectsFile();
 }
@@ -673,7 +674,6 @@ void DataSystem::updateSgwState(const QString &projectName, bool state){
 void DataSystem::updatePagingState(const QString &projectName, bool state){
     auto project = findProjectByName(projectName);
     project->pagingSettings.isUsedInConfiguration = state;
-    emit refreshMapView(*project);
     saveProjectsFile();
 }
 void DataSystem::updateUBSimState(const QString &projectName, bool state){
@@ -687,8 +687,8 @@ void DataSystem::updateMme(const MmeSettings &mmeSettings, QString projectName){
         emit errorInData("Can't find right project.\nData not saved");
         return;
     }
-    emit refreshMapView(*project);
     project->mmeSettings = mmeSettings;
+    emit updateProject(*project);
     saveProjectsFile();
 }
 void DataSystem::updatePaging(const PagingSettings& pagingSettings, QString projectName){
@@ -698,7 +698,7 @@ void DataSystem::updatePaging(const PagingSettings& pagingSettings, QString proj
         return;
     }
     project->pagingSettings = pagingSettings;
-    emit refreshMapView(*project);
+    emit updateProject(*project);
     saveProjectsFile();
 }
 void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
@@ -709,7 +709,6 @@ void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
     }
     project->mapRange = mapRange;
     emit currentProjectChanged(*project);
-    emit refreshMapView(*project); //TODO: get rid of that. currentProjectCHanged should notify Map to repaint.
     saveProjectsFile();
 }
 void DataSystem::updateUeComponent(const UeParameters &ueParameters, const QString &projectName)
@@ -720,7 +719,7 @@ void DataSystem::updateUeComponent(const UeParameters &ueParameters, const QStri
         return;
     }
     project->ueParameters=ueParameters;
-    emit refreshMapView(*project);
+    emit updateProject(*project);
     saveProjectsFile();
 }
 

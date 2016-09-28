@@ -185,6 +185,9 @@ void UISystem::bindingObjects()
     //Update Map Range
     QObject::connect(&mapRangeForm,SIGNAL(updateMapRange(MapRange,QString)),dataSystem,SLOT(updateMapRange(MapRange,QString)));
 
+    //Update Projecs data in NewMapWindow
+    QObject::connect(dataSystem,SIGNAL(updateProject(Project&)),&newMapWindow,SLOT(updateProject(Project&)));
+
     //Refresh Map in NewMapWindow/TrafficMap
     QObject::connect(dataSystem, SIGNAL(refreshMapView(Project)), &newMapWindow, SLOT(refreshWindow(Project)));
     QObject::connect(dataSystem, SIGNAL(refreshMapView(Project,TrafficFileData*)), &trafficMap, SLOT(refreshWindow(Project,TrafficFileData*)));

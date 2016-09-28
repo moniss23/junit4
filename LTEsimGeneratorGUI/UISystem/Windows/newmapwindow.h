@@ -32,6 +32,7 @@ public slots:
     void updateButtonsColor();
     void addCellToScene(QPair<Cell,Center> &cellinfo);
     void addHandoverToScene(Handover &handover);
+    void updateProject(Project &project);
 signals:
     void spawnWindow_Mme(const QString& projectNames,bool);
     void spawnWindow_Paging(const QString& projectName,bool);

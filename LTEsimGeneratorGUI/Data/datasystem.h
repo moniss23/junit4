@@ -38,6 +38,9 @@ signals:
     void addUeToScene(UEData &ueData, int ueDataIndex);
     void addCellToScene (QPair<Cell,Center> &cell);
     void addHandoverToScene(Handover &handover);
+
+    void updateProject(Project &project);
+
 public slots:
     void LoadAppData();
     void saveProjectsFile();

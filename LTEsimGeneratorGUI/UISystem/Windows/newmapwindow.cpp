@@ -31,7 +31,12 @@ void NewMapWindow::loadAndOpen(const Project &project)
     emit setEnabledUBSim(project.ueParameters.startUeComponent);
     updateButtonsColor();
     this->refreshWindow(project);
+    this->updateButtonsColor();
     this->showMaximized();
+}
+void NewMapWindow::updateProject(Project &project)
+{
+    this->project=project;
 }
 
 void NewMapWindow::refreshWindow(const Project &project) {
