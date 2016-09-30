@@ -17,5 +17,7 @@ void ImportProjectWindow::getProjectDirectory()
     QString fileName = QFileDialog::getOpenFileName(&widget,QString("Open File"),
                                                     QString("/home"),
                                                     QString("Ruby Scripts (*.rb)"));
-    emit selectedProjectDirectory(fileName);
+    if (!fileName.isEmpty()){
+        emit selectedProjectDirectory(fileName);
+    }
 }
