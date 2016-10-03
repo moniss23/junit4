@@ -70,7 +70,8 @@
 	background-color: #fff;
 }
 QListWidget::item#listWidget:selected {
-	background-color:#666;
+	color: #000;
+	background-color:#ffd700;
 }</string>
     </property>
    </widget>

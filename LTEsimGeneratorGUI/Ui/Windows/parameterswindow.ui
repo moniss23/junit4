@@ -102,7 +102,8 @@ QPushButton#generateFileButton:hover:!pressed{
 	background-color: #fff;
 }
 QListWidget::item#projectsList:selected {
-	background-color:#666;
+	color: #000;
+	background-color:#ffd700;
 }</string>
           </property>
          </widget>
