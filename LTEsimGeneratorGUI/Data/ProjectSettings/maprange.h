@@ -3,18 +3,20 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
+/**
+ * @brief The MapRange class contains boundaries for map
+ */
 class MapRange : public SerializeInterface
 {
 public:
     MapRange();
     ~MapRange() {}
 
-    int northBoundMap;
-    int southBoundMap;
-    int eastBoundMap;
-    int westBoundMap;
-    int mapScale = 7000;
-
+    int northBoundMap;      ///< Northern boundary
+    int southBoundMap;      ///< Southern boundary
+    int eastBoundMap;       ///< Eastern boundary
+    int westBoundMap;       ///< Western boundary
+    int mapScale = 7000;    ///< Map scale
 
     /****************************
      * SERIALIZATION INTERFACE  *

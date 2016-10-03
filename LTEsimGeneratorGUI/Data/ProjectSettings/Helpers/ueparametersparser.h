@@ -1,7 +1,9 @@
 #ifndef UEPARAMETERSPARSER_H
 #define UEPARAMETERSPARSER_H
+
 #include "Data/ProjectSettings/uctoolsettings.h"
 #include "Data/ProjectSettings/ueparameters.h"
+
 /**
  * @brief The UeParametersParser class is used to parse information about UEs to Ruby script
  */

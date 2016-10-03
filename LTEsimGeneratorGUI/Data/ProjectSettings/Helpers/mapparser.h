@@ -1,6 +1,10 @@
 #ifndef MAPPARSER_H
 #define MAPPARSER_H
 
+#include <QString>
+#include <QPair>
+#include <QVector>
+
 #include "Data/ProjectSettings/maprange.h"
 #include "Data/Objects/cell.h"
 #include "Data/Objects/handover.h"
@@ -8,9 +12,6 @@
 #include "Data/ProjectSettings/datageneratorsettings.h"
 #include "Data/project.h"
 
-#include <QString>
-#include <QPair>
-#include <QVector>
 /**
  * @brief The MapParser class is used to generate part of Parameters script responsible for map and whole Traffic script
  */

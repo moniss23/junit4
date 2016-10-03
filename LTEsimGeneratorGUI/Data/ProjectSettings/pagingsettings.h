@@ -1,31 +1,38 @@
 #ifndef pagingSETTINGS_H
 #define pagingSETTINGS_H
 
-#include <QStringList>
 #include <QVector>
+#include <QStringList>
+
 #include "Data/Interfaces/serializeinterface.h"
 #include "Data/Interfaces/scriptable.h"
 
+/**
+ * @brief The PagingSettings class includes settings for Paging module
+ */
 class PagingSettings : public SerializeInterface, public Scriptable
 {
 public:
     PagingSettings();
     ~PagingSettings();
-    bool isUsedInConfiguration;
-    int generators;
-    QStringList names;
-    QStringList imsiRanges;
-    QStringList mmeCodes;
-    QString uePagingIdentity;
-    QStringList pagingSlapUris;
-    bool s1apCheckAsn1Contrains;
-    bool bundlePaging;
-    int rate=0;
-    QVector<int> rates;
+
+    int generators;                 ///< Number of generators
+    QStringList names;              ///< Names of generators
+    QStringList imsiRanges;         ///< IMSI ranges
+    QStringList mmeCodes;           ///< MME codes
+    QString uePagingIdentity;       ///< UE paging identity
+    QStringList pagingSlapUris;     ///< Paging slap URIS
+
+    bool isUsedInConfiguration;     ///< Usage in configuration setting (true/false)
+    bool s1apCheckAsn1Contrains;    ///< Slap check ASN1 contrains setting (true/false)
+    bool bundlePaging;              ///< Bundle paging setting (true/false)
+
+    int rate=0;                     ///< Rate (default = 0)
+    QVector<int> rates;             ///< Vector of rates
+
     /****************************
     * SERIALIZATION INTERFACE  *
     ****************************/
-
     virtual QString getElementType() const;
     virtual QByteArray serializeData();
     virtual void deserializeData(const QByteArray &rawData);
@@ -33,7 +40,6 @@ public:
     /****************************
     *   PARSING INTERFACE       *
     ****************************/
-
     virtual QString ParseToScript();
 };
 

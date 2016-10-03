@@ -6,6 +6,9 @@
 
 #include "Data/Interfaces/serializeinterface.h"
 
+/**
+ * @brief The TimeData class contains settings for Time component
+ */
 class TimeData : public SerializeInterface
 {
 public:
