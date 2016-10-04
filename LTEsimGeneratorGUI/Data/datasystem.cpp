@@ -454,8 +454,17 @@ void DataSystem::deleteProject(const QString projectName)
 }
 
 void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, const QString &oldFilename, const QString& projectName) {
+    QString filename = newFilename;
 
-    if(newFilename == oldFilename) {
+    if(filename.isEmpty()) {
+        emit errorInData("Filename can not be empty, can't rename.");
+        return;
+    }
+    if(!filename.endsWith(appGlobalData.getRbFileExt())) {
+        filename.append(appGlobalData.getRbFileExt());
+    }
+
+    if(filename == oldFilename) {
         emit errorInData("Filename not changed, can't rename.");
         return;
     }
@@ -467,18 +476,18 @@ void DataSystem::checkAndRenameIfFilenameUnique(const QString &newFilename, cons
     }
 
     if(proj->parametersFile.filename == oldFilename) {
-        proj->parametersFile.filename = newFilename;
+        proj->parametersFile.filename = filename;
         emit currentProjectChanged(*proj);
         saveProjectsFile();
         return;
     }
     else {
-        if(proj->findTrafficFileByName(newFilename) != nullptr) {
+        if(proj->findTrafficFileByName(filename) != nullptr) {
             emit errorInData("Name already in use. Choose another one");
             return;
         }
 
-        proj->findTrafficFileByName(oldFilename)->filename = newFilename;
+        proj->findTrafficFileByName(oldFilename)->filename = filename;
         emit currentProjectChanged(*proj);
         saveProjectsFile();
         return;

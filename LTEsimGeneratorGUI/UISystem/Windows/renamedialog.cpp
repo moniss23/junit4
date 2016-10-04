@@ -24,16 +24,7 @@ void RenameDialog::on_buttonBox_accepted()
     QString newFilename = ui->fileNameInput->text();
     QString oldFilename = ui->filenameLabel->text();
 
-    if(!newFilename.endsWith(getRbFileExt())) {
-        newFilename.append(getRbFileExt());
-    }
-
     emit changedFilename(newFilename, oldFilename, currentProjectName);
-}
-
-QString RenameDialog::getRbFileExt() const
-{
-    return rbFileExt;
 }
 
 void RenameDialog::on_buttonBox_rejected()

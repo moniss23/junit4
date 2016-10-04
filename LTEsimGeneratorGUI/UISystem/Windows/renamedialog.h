@@ -23,8 +23,6 @@ public:
     ~RenameDialog();
 
     virtual void accept();
-    QString getRbFileExt() const;
-
     /***********************************************
      *  WINDOW PUBLIC API
      ***********************************************/
@@ -58,8 +56,6 @@ private slots:
 private:
     Ui::RenameDialog    *ui;                                    ///< RenameDialog's UI
     QString             currentProjectName;                     ///< Current project name
-
-    const QString       rbFileExt = ".rb";                      ///< Extension for Ruby files.
 
     const QString       fileNamePattern = "^[\\w\\s-.]{1,50}$"; ///< Regular expression rules
     QRegExp             fileNameRegExp;                         ///< RegExp used in name validator
