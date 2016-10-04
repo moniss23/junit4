@@ -47,7 +47,7 @@ public slots:
     void setGlobalLocationForNewProjects(const QString& location);
     void set_RB_FilesLocationForProject(const QString& projectName, const QString& location);
 
-    void createNewProject(const QString &projectName, const QString & directory);
+    void createNewProject(const QString &projectName, const QString & directory, bool isCustomLocation);
     void deleteProject(const QString);
 
     void addToProject_TrafficFile(const QString &ProjectName, const QString &fileName);

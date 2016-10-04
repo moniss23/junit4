@@ -30,7 +30,7 @@ void AddProjectWindowTest::AddProjectWindowTest1_checkCreateNewProjectSignal()
 
     QPushButton* okButton = buttonBox->button(QDialogButtonBox::Ok);
 
-    QSignalSpy spy(&addProjectWindow, SIGNAL(createNewProject(QString,QString)));
+    QSignalSpy spy(&addProjectWindow, SIGNAL(createNewProject(QString,QString,bool)));
 
     okButton->click();
 

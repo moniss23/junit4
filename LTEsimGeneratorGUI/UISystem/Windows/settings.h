@@ -43,10 +43,10 @@ signals:
 public slots:
     /**
      * @brief ShowForProject shows window using data from given project
-     * @param globalProjectData application global data, used to make local copy
-     * @param project           project for which we can change the settings
+     * @param appGlobalData application global data, used to make local copy
+     * @param project is a project for which we can change the settings, project.name.isEmpty() means global settings
      */
-    void ShowForProject(const AppGlobalData& globalProjectData , const Project &project = Project());//Project.name.isEmpty() == true
+    void Show(const AppGlobalData& appGlobalData , const Project &project = Project());//Project.name.isEmpty() == true
 
 
     /***********************************************
@@ -58,7 +58,6 @@ private slots:
     void on_cancelButton_clicked();
     void on_globalBrowseButton_clicked();
     void on_globalDefaultButton_clicked();
-    void on_projectDefaultButton_clicked();
     void on_projectBrowseButton_clicked();
     void on_globalCustomDirRadioButton_toggled(bool checked);
     void on_globalDirInput_textChanged();
@@ -70,9 +69,6 @@ private slots:
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/    
-private:
-    void apply_settings(bool shouldClose);
-
 private:
     Ui::Settings *ui;                 ///< GUI form pointer
     Project currentProject;           ///< Local project instance

@@ -30,8 +30,9 @@ signals:
      * @brief createNewProject signal used to notify application of new project request
      * @param projectName QString with new project name
      * @param directory QString with new project directory
+     * @param isCustomLocation flag that represent custom or default location, true if custom
      */
-    void createNewProject(const QString& projectName, const QString& directory);
+    void createNewProject(const QString& projectName, const QString& directory, bool isCustomLocation);
 
 
     /***********************************************

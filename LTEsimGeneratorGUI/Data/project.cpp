@@ -1,7 +1,7 @@
 #include "project.h"
 
 Project::Project() {
-    this->genScriptDir = "<default>";
+    this->genScriptDir = "./Projects";
 }
 
 QString Project::getElementType() const

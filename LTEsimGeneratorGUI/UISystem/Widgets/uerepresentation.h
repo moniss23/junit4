@@ -30,9 +30,9 @@ signals:
     void spawnWindow_UeParams(UeRepresentation* ueRepresentation, const QString &ueDataName);
 
 public:
+    UEData ueObject;                             //<<< Data of UE pair
     QColor color;                                //<<< Color for graphical representation
     QImage icon;                                 //<<< Graphical representation of a single UE
-    UEData ueObject;                             //<<< Data of UE pair
 
     int index;                                   //<<< Numerical identifier of a UE
     UeRepresentation* relatedUe;                 //<<< Pointer to second UE from the pair

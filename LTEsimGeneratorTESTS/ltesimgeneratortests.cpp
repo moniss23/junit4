@@ -60,7 +60,7 @@ void LTEsimGeneratorTESTS::cleanupTestCase()
 
 void LTEsimGeneratorTESTS::appSetttingsTest1_checkDefaultProjectDir()
 {
-    qInfo() << "TEST FOR NEW PROJECT SETTINGS AND <DEFAULT> PROJECT DIR";
+    qInfo() << "TEST FOR NEW PROJECT SETTINGS AND \"./Projects\" PROJECT DIR";
 
     DataSystem appSettings;
 

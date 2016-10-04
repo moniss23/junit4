@@ -7,6 +7,8 @@
 #include "Data/Managers/scriptparsermanager.h"
 #include "Data/ProjectSettings/Helpers/mapparser.h"
 
+extern Q_CORE_EXPORT int qt_ntfs_permission_lookup;
+
 DataSystem::DataSystem() {
 
     fileManager         = std::make_unique<FileManager>();
@@ -344,17 +346,33 @@ QString DataSystem::getDefaultTrafficFileContent() {
     return fileContent;
 }
 
-void DataSystem::createNewProject(const QString &projectName, const QString &directory) {
+void DataSystem::createNewProject(const QString &projectName, const QString &directory, bool isCustomLocation) {
 
     if(projectName.isEmpty()) {
-        emit errorInData("Project name cannot be empty");
+        emit errorInData("Project name can not be empty");
         return;
     }
-
     if(isProjectNameUsed(projectName)) {
         emit errorInData("Name already in use. Choose another one.");
         return;
     }
+    if(isCustomLocation) {
+        if(directory.isEmpty()) {
+            emit errorInData("Path can not be empty.");
+            return;
+        }
+        QDir location(directory);
+        if(!location.exists()) {
+            emit errorInData("Destination folder does not exist.");
+            return;
+        }
+        QFileInfo dir(directory);
+        if(!dir.isWritable()) {
+            emit errorInData("Path \"" + directory + "\" is not valid.\nYou need read/write permissions.");
+            return;
+        }
+    }
+
     Project newProject;
     newProject.name = projectName;
     newProject.fullpath = directory.isEmpty() ? getDefaultNewProjectDir() : directory;
@@ -368,7 +386,6 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
     projects.push_back(newProject);
     emit currentProjects(projects);
     saveProjectsFile();
-
 }
 
 void DataSystem::setGlobalLocationForNewProjects(const QString &location)
@@ -377,14 +394,21 @@ void DataSystem::setGlobalLocationForNewProjects(const QString &location)
         emit errorInData("You must specify the directory.");
         return;
     }
-    if(location!="<default>") {
+    if(location!="./Projects") {
         QDir new_dir(location);
         if(!new_dir.exists()) {
             emit errorInData("Selected directory does not seem to exist.");
             return;
         }
     }
+    QFileInfo dir(location);
+    if(!dir.isWritable()) {
+        emit errorInData("Path \"" + location + "\" is not valid.\nYou need read/write permissions.");
+        return;
+    }
     appGlobalData.setDefaultNewProjectsPath(location);
+    saveProjectsFile();
+    emit currentProjects(projects);
 }
 
 void DataSystem::addToProject_TrafficFile(const QString &ProjectName, const QString& fileName)
@@ -507,15 +531,21 @@ void DataSystem::set_RB_FilesLocationForProject(const QString& projectName, cons
         emit errorInData("You must specify the directory.");
         return;
     }
-    if(location!="<default>" && location!="<individually>") {
+    if(location!="<individually>") {
         QDir new_dir(location);
         if(!new_dir.exists()) {
             emit errorInData("Selected directory does not seem to exist.");
             return;
         }
+        QFileInfo dir(location);
+        if(!dir.isWritable()) {
+            emit errorInData("Path \"" + location + "\" is not valid.\nYou need read/write permissions.");
+            return;
+        }
     }
     project->genScriptDir = location;
     saveProjectsFile();
+    emit currentProjects(projects);
     emit currentProjectChanged(*project);
 }
 
@@ -1138,13 +1168,13 @@ void DataSystem::restorePagingRateSettings(const QString &projectName)
 void DataSystem::importScript(const QString &fileDir)
 {
     QString newProjectName = "ImportedProject_"+generateUniqueImportedProjectNumber();
-    createNewProject(newProjectName,fileDir);
+    createNewProject(newProjectName,fileDir, true);
     auto project = findProjectByName(newProjectName);
     QString output = fileManager->readFileToQString(fileDir);
     scriptParserManager->parseFromScript(output,*project);
     QString errorOutput = scriptParserManager->validateData(*project);
     if (errorOutput.isEmpty()) {
-        project->fullpath="<default>";
+        project->fullpath="./Projects";
         project->parametersFile.content = output;
     }
     else {

@@ -109,7 +109,8 @@ void UISystem::bindingObjects()
     // Settings
     QObject::connect(&settingsWindow, SIGNAL(SetGlobalLocationForNewProjects(QString)), dataSystem, SLOT(setGlobalLocationForNewProjects(QString)));
     QObject::connect(&settingsWindow, SIGNAL(Set_RB_FilesLocationForProject(QString,QString)), dataSystem, SLOT(set_RB_FilesLocationForProject(QString,QString)));
-    QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
+    QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(Show(AppGlobalData,Project)));
+    QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)), &settingsWindow, SLOT(close()));
 
     // Import Project
     QObject::connect(projectUi,SIGNAL(spawnWindow_ImportProject()), &importProject, SLOT(spawnWindowFileDialog()));
@@ -350,8 +351,8 @@ void UISystem::spawnWindow_AddNewProject()
      addProjectWindow = new AddProjectWindow(projectUi);
 
      // New Projects
-     QObject::connect(addProjectWindow,SIGNAL(createNewProject(QString,QString)),
-                      dataSystem,SLOT(createNewProject(QString,QString)));
+     QObject::connect(addProjectWindow,SIGNAL(createNewProject(QString,QString,bool)),
+                      dataSystem,SLOT(createNewProject(QString,QString,bool)));
 
      QObject::connect(dataSystem, SIGNAL(currentProjects(QVector<Project>)),
                       addProjectWindow, SLOT(close()));
@@ -815,7 +816,7 @@ void UISystem::spawnWindow_StreamUlForm(const QString &projectName, const QStrin
 
 void UISystem::showErrorWindow(const QString &errorDescription)
 {
-    QMessageBox(QMessageBox::Information,"",errorDescription,QMessageBox::Yes).exec();
+    QMessageBox(QMessageBox::Information,"LTEsimGenerator",errorDescription,QMessageBox::Ok).exec();
 }
 void UISystem::spawnWindow_PagingRate(const QString &projectName)
 {

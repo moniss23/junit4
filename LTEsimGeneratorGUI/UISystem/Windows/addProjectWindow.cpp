@@ -22,6 +22,7 @@ AddProjectWindow::AddProjectWindow(QWidget *parent) :
     model->setFilter(QDir::AllDirs);
     completer->setModel(model);
     ui->lineEdit->setCompleter(completer);
+    ui->fileName->clear();
 }
 
 AddProjectWindow::~AddProjectWindow() {
@@ -31,26 +32,11 @@ AddProjectWindow::~AddProjectWindow() {
 // creating a new project
 void AddProjectWindow::on_buttonBox_accepted()
 {
-    if(this->ui->customLocationRadioButton->isChecked() && this->ui->lineEdit->text().length()==0) {
-        QMessageBox(QMessageBox::Information,"","You must specify the project's location.",QMessageBox::Yes).exec();
-        return;
+    if(this->ui->defaultLocationRadioButton->isChecked()) {
+        emit createNewProject(ui->fileName->text(),ui->lineEdit->text(), false);
+    }else {
+        emit createNewProject(ui->fileName->text(),ui->lineEdit->text(), true);
     }
-
-    if(this->ui->customLocationRadioButton->isChecked()) {
-        QDir d(this->ui->lineEdit->text());
-        if(!d.exists()) {
-            QMessageBox(QMessageBox::Critical,"","Destination folder does not exist.").exec();
-            return;
-        }
-    }
-
-    if(this->ui->customLocationRadioButton->isChecked()) {
-        emit createNewProject(ui->fileName->text(),ui->lineEdit->text());
-    }
-    else if(this->ui->defaultLocationRadioButton->isChecked()) {
-        emit createNewProject(ui->fileName->text(),QString());//empty is the default one
-    }
-    ui->fileName->clear();
 }
 
 void AddProjectWindow::on_buttonBox_rejected() {this->close();}
