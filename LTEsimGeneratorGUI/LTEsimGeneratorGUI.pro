@@ -96,8 +96,6 @@ SOURCES += \
     UISystem/DataForms/tuningTrafficManager.cpp
 
 SOURCES += main.cpp\
-    Maps/Traffic/UeParameters/uegroupdata.cpp \
-    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.cpp
 
 
 #--------DATA SYSTEM--------#
@@ -183,10 +181,6 @@ HEADERS  += \
     UISystem/DataForms/timeForm.h \
     UISystem/DataForms/tuningTrafficManager.h \
     UISystem/DataForms/ueParametersForm.h
-
-HEADERS  += \
-    Maps/Traffic/UeParameters/uegroupdata.h \
-    Maps/Traffic/TrafficFileManagement/trafficfilemanagement.h
 
 
 FORMS    += \
