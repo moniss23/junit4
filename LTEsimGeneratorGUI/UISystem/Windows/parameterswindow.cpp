@@ -195,7 +195,6 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
     if(this->ui->projectsList->currentRow()==0){
         if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
             emit setDefaultParametersFileContent(currentProject.name);
-            this->ui->resetDefaultsButton->setEnabled(false);
         }
     }
     // if the file is traffic
@@ -203,7 +202,6 @@ void ParametersWindow::on_resetDefaultsButton_clicked()
         // ask for confirmation
         if(QMessageBox::Yes==QMessageBox(QMessageBox::Question,"LTEsimGenerator","Entire file content will be reverted to default state. All changes will be lost. Proceed?",QMessageBox::Yes|QMessageBox::No).exec()){
             emit setDefaultTrafficFileContent(currentProject.name, this->ui->projectsList->currentItem()->text());
-            this->ui->resetDefaultsButton->setEnabled(false);
         }
     }
 }
