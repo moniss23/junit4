@@ -88,7 +88,7 @@ SOURCES += \
     UISystem/DataForms/pagingform.cpp \
     UISystem/DataForms/statisticsForm.cpp \
     UISystem/DataForms/ueform.cpp \
-    UISystem/Windows/pagingrate.cpp \
+    UISystem/DataForms/pagingrate.cpp \
     UISystem/Widgets/cellrepresentation.cpp \
     UISystem/DataForms/ueParametersForm.cpp \
     UISystem/DataForms/timeForm.cpp \
@@ -176,7 +176,7 @@ HEADERS  += \
     UISystem/Widgets/cellrepresentation.h \
     UISystem/Widgets/uerepresentation.h \
     UISystem/DataForms/custommodelslistform.h \
-    UISystem/Windows/pagingrate.h \
+    UISystem/DataForms/pagingrate.h \
     UISystem/DataForms/pagingform.h \
     UISystem/DataForms/statisticsForm.h \
     UISystem/DataForms/ueform.h \
@@ -221,7 +221,7 @@ FORMS    += \
     Ui/DataForms/ueform.ui \
     Ui/DataForms/ueParametersForm.ui \
     Ui/SmallDialogs/pagingform.ui \
-    Ui/Windows/paging_rate.ui \
+    Ui/DataForms/paging_rate.ui \
     Ui/Windows/newmapwindow.ui
 
 OTHER_FILES += \

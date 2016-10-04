@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QString>
-#include <QPair>
 #include <QVector>
 
 #include "Data/Interfaces/serializeinterface.h"

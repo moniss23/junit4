@@ -27,7 +27,7 @@
 #include "UISystem/DataForms/servicereqform.h"
 #include "UISystem/DataForms/voipform.h"
 #include "UISystem/DataForms/statisticsForm.h"
-#include "UISystem/Windows/pagingrate.h"
+#include "UISystem/DataForms/pagingrate.h"
 
 class ProjectManagement;
 class AddProjectWindow;

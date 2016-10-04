@@ -25,13 +25,11 @@ public:
     std::pair<QString,QString> ueTypesPair{"iratHO", "iratHO"};                         ///< UE type
     std::pair<QString,QString> ueArea;                                                  ///< UE area
 
-    //TODO: remove as soon as reading ueArea is ready
     QVector <QPair<int, int>> position { {2000,2000}, {4000,2000} };                    ///< UE position
 
     /****************************
      * SERIALIZATION INTERFACE  *
      ****************************/
-public:
     /**
      * @brief getElementType is used to check element typr
      * @return QString  "UEData"

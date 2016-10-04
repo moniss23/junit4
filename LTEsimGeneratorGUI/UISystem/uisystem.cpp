@@ -112,8 +112,8 @@ void UISystem::bindingObjects()
     QObject::connect(this, SIGNAL(spawnSettingsWindowForProject(AppGlobalData,Project)), &settingsWindow, SLOT(ShowForProject(AppGlobalData,Project)));
 
     // Import Project
-    QObject::connect(projectUi,SIGNAL(spawnWindow_ImportProject()), &importProject, SLOT(getProjectDirectory()));
-    QObject::connect(&importProject,SIGNAL(selectedProjectDirectory(const QString&)), dataSystem, SLOT(importScript(const QString&)));
+    QObject::connect(projectUi,SIGNAL(spawnWindow_ImportProject()), &importProject, SLOT(spawnWindowFileDialog()));
+    QObject::connect(&importProject,SIGNAL(importProject(QString)), dataSystem, SLOT(importScript(QString)));
 
     //Open Ipex window
     QObject::connect(&newMapWindow, SIGNAL(spawnWindow_Ipex(QString,bool)), this, SLOT(spawnWindow_Ipex(QString,bool)));
