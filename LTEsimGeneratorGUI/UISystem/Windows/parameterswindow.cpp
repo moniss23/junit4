@@ -238,7 +238,7 @@ void ParametersWindow::on_generateFileButton_clicked()
 
     }
     int index=this->ui->projectsList->currentRow();
-    emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(currentProject.trafficFilesList.size()-1).filename);
+    emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(index-1).filename);
     emit generateTrafficScript(currentProject, index-1);
 }
 
@@ -275,7 +275,10 @@ void ParametersWindow::on_generateAllFilesButton_clicked()
 
     emit generateParametersScript(currentProject);
     for(int i=1;i<this->ui->projectsList->count();i++)
+    {
+        emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(i-1).filename);
         emit generateTrafficScript(currentProject, i-1);
+    }
 }
 
 
