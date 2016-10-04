@@ -30,18 +30,19 @@ void ProjectManagement::on_openProject_Button_clicked()
 }
 
 void ProjectManagement::on_deleteProject_Button_clicked(){
-    QListWidgetItem *item = ui->listWidget->currentItem();
-    if (item==NULL){
-        return;
-    }
-    QMessageBox msgBox(QMessageBox::Warning,"Delete a project.","Do you really want to delete this project?\nIt will be lost forever.");
+    QListWidgetItem *currentItem = ui->listWidget->currentItem();
+
+    if (currentItem == nullptr) {return;}
+
+    QMessageBox msgBox(QMessageBox::Warning, "Delete a project",
+                       "Do you really want to delete this project?\nIt will be lost forever.");
     msgBox.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
-     int ret = msgBox.exec();
-     if(ret == QMessageBox::Yes) {
-         QString text = item->text();
-         QString projectName = text.split("\t")[0];
-         emit deleteProject(projectName);
-     }
+
+    if(msgBox.exec() == QMessageBox::Yes) {
+        ui->listWidget_2->clear();
+        QString projectName = currentItem->text().split("\t")[0];
+        emit deleteProject(projectName);
+    }
 }
 
 void ProjectManagement::on_importProject_Button_clicked()
@@ -91,7 +92,7 @@ void ProjectManagement::updateProjectLists(const QVector<Project> &projects)
 void ProjectManagement::open_project(){
 
     if( ui->listWidget->selectedItems().isEmpty()){
-      return;
+        return;
     }
 
     QListWidgetItem* selected_item = ui->listWidget->currentItem();
@@ -114,7 +115,7 @@ void ProjectManagement::previewProjectFiles(QListWidgetItem* item){
     QString ProjectName = item->text().split("\t")[0];
 
     auto it = std::find_if(std::begin(projects), std::end(projects),
-                 [&ProjectName](const Project &val){return val.name == ProjectName;});
+                           [&ProjectName](const Project &val){return val.name == ProjectName;});
     if(it==std::end(projects)) return;
 
     ui->listWidget_2->addItem(it->parametersFile.filename);
