@@ -142,14 +142,11 @@ private slots:
     void on_projectsList_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
 
     void on_filePreview_textChanged();
+    void on_generateAllFilesButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
-
-    void on_generateAllFilesButton_clicked();
-
-
 private:
     void msg(const QString &content);//TODO: get rid of that. It's used only while generating script.
     /**

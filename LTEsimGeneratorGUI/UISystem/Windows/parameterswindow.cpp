@@ -1,10 +1,10 @@
 #include "parameterswindow.h"
 #include "ui_parameterswindow.h"
+#include "UISystem/Helpers/rubysyntaxhighlighter.h"
+
 #include <QMessageBox>
 #include <QStringList>
 #include <QListWidgetItem>
-
-#include "UISystem/Helpers/rubysyntaxhighlighter.h"
 
 ParametersWindow::ParametersWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::ParametersWindow),
@@ -59,6 +59,8 @@ void ParametersWindow::on_projectsList_currentItemChanged(QListWidgetItem *curre
 void ParametersWindow::refreshUI(const Project &project)
 {
     int currentIndex=this->ui->projectsList->currentRow();
+    this->ui->filePreview->clear();
+
     currentProject = project;
 
     //BASIC UI REFRESH
