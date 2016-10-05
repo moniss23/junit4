@@ -10,8 +10,7 @@ TrafficMap::TrafficMap(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    hBoxLayout1     = nullptr;
-    hBoxLayout2     = nullptr;
+    hBoxLayout     = nullptr;
     vBoxLayout      = nullptr;
     mapView         = nullptr;
 }
@@ -71,8 +70,7 @@ void TrafficMap::loadAndOpen(const Project &project, TrafficFileData *trafficFil
 
 void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficFileData) {
     delete vBoxLayout;
-    delete hBoxLayout1;
-    delete hBoxLayout2;
+    delete hBoxLayout;
     delete mapView;
 
     this->project = project;
@@ -82,8 +80,7 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     QObject::connect(mapView, SIGNAL(addUeToScene(UEData&,int)), this, SLOT(addUeToScene(UEData&,int)));
     ui->numberOfUeLabel->setText(QString::number(this->trafficFileData->userEquipments.size()));
 
-    hBoxLayout1 = new QHBoxLayout();
-    hBoxLayout2 = new QHBoxLayout();
+    hBoxLayout = new QHBoxLayout();
     vBoxLayout  = new QVBoxLayout();
 
     QObject::connect(mapView, SIGNAL(updateUe_MapView(UeRepresentation*,QString,QString,UEData)),
@@ -91,14 +88,14 @@ void TrafficMap::refreshWindow(const Project &project, TrafficFileData *trafficF
     QObject::connect(mapView, SIGNAL(spawnWindow_ueParams(UeRepresentation*,QString)),
                      this, SLOT(spawnWindow_UeParams(UeRepresentation*,QString)));
 
-    hBoxLayout1->addWidget(mapView);
-    hBoxLayout1->addLayout(vBoxLayout);
+    hBoxLayout->addWidget(mapView);
+    hBoxLayout->addLayout(vBoxLayout);
     vBoxLayout->addWidget(this->ui->ueGroupWidget, 200, Qt::AlignTop);
     vBoxLayout->addSpacing(this->height() / 10);
     vBoxLayout->addWidget(this->ui->trafficParamsWidget, 400);
     vBoxLayout->addWidget(this->ui->line, 400, Qt::AlignBottom);
     vBoxLayout->addWidget(this->ui->rbsWidget, 400, Qt::AlignBottom);
-    this->ui->centralwidget->setLayout(hBoxLayout1);
+    this->ui->centralwidget->setLayout(hBoxLayout);
 
     ui->removeUeButton->setVisible(false);
 }

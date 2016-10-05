@@ -282,8 +282,6 @@ void UISystem::bindingObjects()
     QObject::connect(dataSystem, SIGNAL(currentCustomModelChanged(CustomModelSettings,bool*)), &customModelsListForm, SLOT(currentCustomModelChanged(CustomModelSettings,bool*)));
     QObject::connect(&customModelsListForm, SIGNAL(loadData(QString,QString,int)), dataSystem, SLOT(updateCustomModel(QString,QString,int)));
 
-    QObject::connect(&trafficMap, SIGNAL(saveProjectOnClose(QString)),dataSystem,SLOT(updateProjectOnMapCloseEvent(QString)));
-
     // Deleting custom model item
     QObject::connect(&customModelsListForm, SIGNAL(deleteCustomModelItem(QString,QString,QString,int,int)), dataSystem, SLOT(deleteCustomModelItem(QString,QString,QString,int,int)));
 
