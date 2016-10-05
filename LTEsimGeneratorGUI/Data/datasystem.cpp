@@ -28,6 +28,10 @@ void DataSystem::loadProjectsFile() {
     QByteArray locationsData(fileManager->readFromFile(appGlobalData.getProjectsFile()));
     QDataStream dataStream(locationsData);
 
+    QString defaultNewProjectsPath;
+    dataStream >> defaultNewProjectsPath;
+    if(!defaultNewProjectsPath.isEmpty()) appGlobalData.setDefaultNewProjectsPath(defaultNewProjectsPath);
+
     int projectsAmount;
     dataStream >> projectsAmount;
 
@@ -49,6 +53,8 @@ void DataSystem::saveProjectsFile() {
     QBuffer rawDataBuff;
     rawDataBuff.open(QBuffer::WriteOnly);
     QDataStream dataStream(&rawDataBuff);
+
+    dataStream << appGlobalData.getDefaultNewProjectsPath();
 
     dataStream << projects.size();
 

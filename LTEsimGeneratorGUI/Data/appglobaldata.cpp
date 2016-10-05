@@ -56,3 +56,26 @@ QString AppGlobalData::getRbFileExt() const
 {
     return rbFileExt;
 }
+
+QString AppGlobalData::getElementType() const
+{
+    return QString("AppGlobalData");
+}
+
+QByteArray AppGlobalData::serializeData()
+{
+    QBuffer serializedData;
+    serializedData.open(QBuffer::WriteOnly);
+
+    QDataStream stream(&serializedData);
+    stream << defaultNewProjectsPath;
+
+    return serializedData.buffer();
+}
+
+void AppGlobalData::deserializeData(const QByteArray &rawData)
+{
+    QDataStream stream(rawData);
+
+    stream >> defaultNewProjectsPath;
+}

@@ -4,10 +4,12 @@
 #include <QString>
 #include <QStringList>
 
+#include "Interfaces/serializeinterface.h"
+
 /**
  * @brief The AppGlobalData class contains global data
  */
-class AppGlobalData
+class AppGlobalData : public SerializeInterface
 {
 public:
     /**
@@ -60,6 +62,25 @@ public:
      * @return QString ".rb"
      */
     QString getRbFileExt() const;
+
+    /****************************
+     * SERIALIZATION INTERFACE  *
+     ****************************/
+    /**
+     * @brief getElementType is a API method to recognise the object by QString
+     * @return QSting "Project"
+     */
+    virtual QString getElementType() const;
+    /**
+     * @brief serializeData is an inherited method that serializes this class to QByteArray
+     * @return QByteArray with serialized object of the class
+     */
+    virtual QByteArray serializeData();
+    /**
+     * @brief deserializeData deserializeData ia an inherited method that deserializes it's parameter to fill the fields in this class' instance
+     * @param rawData rawData is QByteArray that contains all the data needed to creata an instance of trafficFileData class
+     */
+    virtual void deserializeData(const QByteArray &rawData);
 
 private:
 
