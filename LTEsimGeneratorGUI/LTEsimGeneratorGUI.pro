@@ -97,7 +97,6 @@ SOURCES += \
 
 SOURCES += main.cpp\
 
-
 #--------DATA SYSTEM--------#
 HEADERS  += \
     Data/Managers/filemanager.h \
@@ -181,7 +180,6 @@ HEADERS  += \
     UISystem/DataForms/timeForm.h \
     UISystem/DataForms/tuningTrafficManager.h \
     UISystem/DataForms/ueParametersForm.h
-
 
 FORMS    += \
     Ui/DataForms/tuningtrafficform.ui \

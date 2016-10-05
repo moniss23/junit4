@@ -11,13 +11,19 @@ TuningTrafficManager::TuningTrafficManager(QWidget *parent) :
 
     ui->mobilityCheckBox->setVisible(false);
 
-    ui->csIntensityLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
-    ui->csDurationLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
-    ui->recoveryStartIntervalLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
-    ui->psIntensityLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
-    ui->psDurationLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
-    ui->granularityLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
-    ui->speedLineEdit->setValidator(new QDoubleValidator(1.00,100.00,2,this));
+    QDoubleValidator* doubleValidator = new QDoubleValidator(0.001,100.000,3,this);
+    doubleValidator->setNotation(QDoubleValidator::StandardNotation);
+    doubleValidator->setBottom(0.001);
+    doubleValidator->setTop(100.000);
+    doubleValidator->setRange(0.001,100.000,3);
+
+    ui->csIntensityLineEdit->setValidator(doubleValidator);
+    ui->csDurationLineEdit->setValidator(doubleValidator);
+    ui->recoveryStartIntervalLineEdit->setValidator(doubleValidator);
+    ui->psIntensityLineEdit->setValidator(doubleValidator);
+    ui->psDurationLineEdit->setValidator(doubleValidator);
+    ui->granularityLineEdit->setValidator(doubleValidator);
+    ui->speedLineEdit->setValidator(doubleValidator);
 }
 
 TuningTrafficManager::~TuningTrafficManager()
@@ -53,10 +59,10 @@ void TuningTrafficManager::on_csSaveButton_clicked()
     for (TuningTrafficData::CSParameters &it:this->tuningTrafficData.csParamGroup) {
         if (it.csName == this->ui->csComboBox->currentText()) {
             if (it.csName == "PowerOnOffPsCntRecover") {
-                it.recoveryStartInterval = ui->csIntensityLineEdit->text().toDouble();
+                it.recoveryStartInterval = ui->csIntensityLineEdit->text().replace(',','.').toDouble();
             }
-            it.callDuration=ui->csDurationLineEdit->text().toDouble();
-            it.callIntensity=ui->csIntensityLineEdit->text().toDouble();
+            it.callDuration=ui->csDurationLineEdit->text().replace(',','.').toDouble();
+            it.callIntensity=ui->csIntensityLineEdit->text().replace(',','.').toDouble();
             return;
         }
     }
@@ -64,13 +70,14 @@ void TuningTrafficManager::on_csSaveButton_clicked()
 
 void TuningTrafficManager::on_psSaveButton_clicked()
 {
-    if(this->ui->psComboBox->currentText()=="None item") {
+    QString currentText = this->ui->psComboBox->currentText();
+    if(currentText == "None item" || currentText == "NoPs") {
         return;
     }
     for (TuningTrafficData::PSParameters &it:this->tuningTrafficData.psParamGroup) {
-        if (it.psName == this->ui->psComboBox->currentText()) {
-            it.psDuration=ui->psDurationLineEdit->text().toDouble();
-            it.psIntensity=ui->psIntensityLineEdit->text().toDouble();
+        if (it.psName == currentText) {
+            it.psDuration=ui->psDurationLineEdit->text().replace(',','.').toDouble();
+            it.psIntensity=ui->psIntensityLineEdit->text().replace(',','.').toDouble();
             return;
         }
     }
@@ -83,8 +90,8 @@ void TuningTrafficManager::on_mobilitySaveButton_clicked()
     }
     for (TuningTrafficData::Mobility &it:this->tuningTrafficData.mobilityGroup) {
         if (it.mobilityName == this->ui->mobilityComboBox->currentText()) {
-            it.speed=ui->speedLineEdit->text().toDouble();
-            it.granularity=ui->granularityLineEdit->text().toDouble();
+            it.speed=ui->speedLineEdit->text().replace(',','.').toDouble();
+            it.granularity=ui->granularityLineEdit->text().replace(',','.').toDouble();
             return;
         }
     }
@@ -122,22 +129,22 @@ void TuningTrafficManager::on_csComboBox_currentIndexChanged(int index)
 
     if(ui->csComboBox->currentText() == "PowerOnOffPsCntRecover") {
         ui->recoveryStartIntervalLineEdit->setEnabled(true);
-        ui->recoveryStartIntervalLineEdit->setText(QString::number(tuningTrafficData.csParamGroup.at(index).recoveryStartInterval));
+        ui->recoveryStartIntervalLineEdit->setText(QString::number(tuningTrafficData.csParamGroup.at(index).recoveryStartInterval).replace('.',','));
     }else {
         ui->recoveryStartIntervalLineEdit->setEnabled(false);
         ui->recoveryStartIntervalLineEdit->setText("");
     }
     for (TuningTrafficData::CSParameters &it:this->tuningTrafficData.csParamGroup) {
         if (it.csName == this->ui->csComboBox->currentText()) {
-            ui->csDurationLineEdit->setText(QString::number(it.callDuration));
-            ui->csIntensityLineEdit->setText(QString::number(it.callIntensity));
+            ui->csDurationLineEdit->setText(QString::number(it.callDuration).replace('.',','));
+            ui->csIntensityLineEdit->setText(QString::number(it.callIntensity).replace('.',','));
         }
     }
 }
 
 void TuningTrafficManager::on_psComboBox_currentIndexChanged(int index)
 {
-    if (index<=0) {
+    if (index<=0 || ui->psComboBox->currentText() == "NoPs") {
         ui->psDurationLineEdit->setEnabled(false);
         ui->psIntensityLineEdit->setEnabled(false);
         ui->psDurationLineEdit->setText("");
@@ -148,8 +155,8 @@ void TuningTrafficManager::on_psComboBox_currentIndexChanged(int index)
     ui->psIntensityLineEdit->setEnabled(true);
     for (TuningTrafficData::PSParameters &it:this->tuningTrafficData.psParamGroup) {
         if (it.psName == this->ui->psComboBox->currentText()) {
-            ui->psDurationLineEdit->setText(QString::number(it.psDuration));
-            ui->psIntensityLineEdit->setText(QString::number(it.psIntensity));
+            ui->psDurationLineEdit->setText(QString::number(it.psDuration).replace('.',','));
+            ui->psIntensityLineEdit->setText(QString::number(it.psIntensity).replace('.',','));
         }
     }
 }
@@ -167,8 +174,8 @@ void TuningTrafficManager::on_mobilityComboBox_currentIndexChanged(int index)
     ui->granularityLineEdit->setEnabled(true);
     for (TuningTrafficData::Mobility &it:this->tuningTrafficData.mobilityGroup) {
         if (it.mobilityName == this->ui->mobilityComboBox->currentText()) {
-            ui->speedLineEdit->setText(QString::number(it.speed));
-            ui->granularityLineEdit->setText(QString::number(it.granularity));
+            ui->speedLineEdit->setText(QString::number(it.speed).replace('.',','));
+            ui->granularityLineEdit->setText(QString::number(it.granularity).replace('.',','));
         }
     }
 }
