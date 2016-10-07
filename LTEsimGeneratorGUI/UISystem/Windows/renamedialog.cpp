@@ -39,7 +39,7 @@ void RenameDialog::initWindow(const QString& filename, const QString &projectNam
     ui->fileNameInput->clear();
     ui->fileNameInput->setPlaceholderText(filename);
     ui->fileNameInput->setFocus();
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

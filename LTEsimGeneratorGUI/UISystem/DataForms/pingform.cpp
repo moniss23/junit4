@@ -22,7 +22,7 @@ void PingForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->qciUsed = qciUsed;
     this->ping = ping;
     this->refreshUi();
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

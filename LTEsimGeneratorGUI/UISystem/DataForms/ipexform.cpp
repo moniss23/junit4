@@ -25,8 +25,7 @@ void IpexForm::loadAndSpawn(const DataGeneratorSettings &dataGeneratorSettings, 
         this->setReadOnly(!enable);
         this->enableWindow(this->dataGeneratorSettings.runIpexEnvoirement);
     }
-
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+    this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

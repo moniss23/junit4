@@ -55,7 +55,7 @@ void SgwForm::loadAndSpawn(const SgwSettings &sgwSettings, const QString &projec
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(!enable);
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 void SgwForm::setReadOnly(bool value)

@@ -25,7 +25,7 @@ void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSetti
         this->enableWindow(channelModelSettings.enableChannelModels);
     }
 
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+    this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

@@ -65,7 +65,7 @@ void Settings::Show(const AppGlobalData &appGlobalData, const Project &project)
             this->ui->projectDirInput->setText(currentProject.genScriptDir);
         }
     }
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

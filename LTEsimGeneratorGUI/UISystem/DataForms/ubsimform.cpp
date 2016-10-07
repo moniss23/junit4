@@ -36,7 +36,7 @@ void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameter
         this->setReadOnly(!enable);
         this->disableWindow(!ueParameters.startUeComponent);
     }
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

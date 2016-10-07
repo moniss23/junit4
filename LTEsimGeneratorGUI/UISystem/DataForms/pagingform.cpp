@@ -33,7 +33,7 @@ void PagingForm::loadAndSpawn(const PagingSettings &pagingSettings, const QStrin
         this->setReadOnly(!enable);
         this->enableWindow(pagingSettings.isUsedInConfiguration);
     }
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

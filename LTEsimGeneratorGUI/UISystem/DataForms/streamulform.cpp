@@ -22,7 +22,7 @@ void StreamUlForm::loadAndOpen(const QString &projectName, const QString &traffi
     this->streamUl = streamUl;
     this->qciUsed = qciUsed;
     this->refreshUi();
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

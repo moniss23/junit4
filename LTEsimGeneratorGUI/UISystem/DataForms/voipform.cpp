@@ -22,7 +22,7 @@ void VoipForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->voip = voip;
     this->qciUsed = qciUsed;
     this->refreshUi();
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

@@ -32,7 +32,7 @@ void UeForm::loadAndOpen(const UeParameters &ueParameters, const QString &projec
         this->setReadOnly(!enable);
         this->enableWindow(ueParameters.startUeComponent);
     }
-    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
+        this->setWindowFlags( Qt::Dialog | Qt::WindowStaysOnTopHint);
     this->show();
 }
 
