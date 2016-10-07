@@ -29,10 +29,13 @@ void UBsimForm::loadAndOpen(const UBSimSettings &ubSimSettings,const UeParameter
     this->ubSimSettings = ubSimSettings;
     this->projectName = projectName;
     this->updateUi();
-
-    this->disableWindow(!ueParameters.startUeComponent);
-    this->setReadOnly(!enable);
-
+    if(ueParameters.startUeComponent) {
+        this->disableWindow(!ueParameters.startUeComponent);
+        this->setReadOnly(!enable);
+    }else {
+        this->setReadOnly(!enable);
+        this->disableWindow(!ueParameters.startUeComponent);
+    }
     this->show();
 }
 
