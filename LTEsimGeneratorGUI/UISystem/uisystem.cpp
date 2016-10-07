@@ -21,6 +21,7 @@ UISystem::UISystem(DataSystem* data) :
     renameDialog(nullptr),ipexForm(nullptr),ucToolForm(nullptr),
     channelModelForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
 {
+
     QSplashScreen *splash = new QSplashScreen;
     QPixmap splashImage(":/Images/LTEsimGen.png");
     splash->setPixmap(splashImage.scaled(600, 250));
@@ -29,9 +30,6 @@ UISystem::UISystem(DataSystem* data) :
     QTimer::singleShot(2000,splash,SLOT(close()));
     QTimer::singleShot(2000, this, SLOT(createFirstWinow()));
 
-    settingsWindow.setWindowModality(Qt::WindowModal);
-    this->bindingObjects();
-    dataSystem->LoadAppData();
 }
 
 UISystem::~UISystem()
@@ -50,6 +48,10 @@ void UISystem::createFirstWinow()
   projectUi = new ProjectManagement();
   bindProjectManagementWindow(projectUi);
   projectUi->show();
+
+  settingsWindow.setWindowModality(Qt::WindowModal);
+  this->bindingObjects();
+  dataSystem->LoadAppData();
 
 }
 
