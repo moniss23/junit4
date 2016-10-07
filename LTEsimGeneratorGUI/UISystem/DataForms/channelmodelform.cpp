@@ -17,10 +17,13 @@ void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSetti
     this->channelModelSettings = channelModelSettings;
     this->projectName = projectName;
     this->updateUi();
-
-    this->enableWindow(channelModelSettings.enableChannelModels);
-    this->setReadOnly(!enable);
-
+    if(channelModelSettings.enableChannelModels) {
+        this->enableWindow(channelModelSettings.enableChannelModels);
+        this->setReadOnly(!enable);
+    }else {
+        this->setReadOnly(!enable);
+        this->enableWindow(channelModelSettings.enableChannelModels);
+    }
     this->show();
 }
 
