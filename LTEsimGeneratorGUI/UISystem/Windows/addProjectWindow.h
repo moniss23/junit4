@@ -25,6 +25,9 @@ public:
     /***********************************************
      *  WINDOW PUBLIC API
      ***********************************************/
+public slots:
+    void loadAndOpen();
+
 signals:
     /**
      * @brief createNewProject signal used to notify application of new project request

@@ -29,6 +29,13 @@ AddProjectWindow::~AddProjectWindow() {
     delete ui;
 }
 
+void AddProjectWindow::loadAndOpen()
+{
+    ui->defaultLocationRadioButton->setChecked(true);
+    ui->fileName->clear();
+    this->show();
+}
+
 // creating a new project
 void AddProjectWindow::on_buttonBox_accepted()
 {
