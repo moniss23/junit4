@@ -21,6 +21,7 @@ void PagingRate::loadAndSpawn(const QString &projectName, QStringList generators
     for(QString generator:generators) {
         this->ui->listWidget->addItem(generator);
     }
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

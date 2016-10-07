@@ -43,6 +43,7 @@ void TuningTrafficManager::loadAndSpawn(const QString &projectName, const QStrin
     ui->psComboBox->setCurrentIndex(0);
     ui->mobilityComboBox->setCurrentIndex(0);
 
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

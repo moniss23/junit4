@@ -24,6 +24,7 @@ void ServiceReqForm::loadAndOpen(const QString &projectName, const QString &traf
     this->serviceReq = serviceReq;
     this->qciUsed = qciUsed;
     this->refreshUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

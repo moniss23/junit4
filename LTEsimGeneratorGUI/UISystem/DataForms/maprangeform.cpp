@@ -50,6 +50,7 @@ void MapRangeForm::loadAndSpawn(const MapRange &mapRange, const QString &project
     this->mapRange = mapRange;
     this->projectName = projectName;
     this->updateUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

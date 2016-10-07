@@ -15,6 +15,7 @@ MapView::MapView(const Project& project, QWidget *parent, QString trafficName)
     scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
     this->printNewMap();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

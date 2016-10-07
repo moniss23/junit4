@@ -24,6 +24,8 @@ void ChannelModelForm::loadAndOpen(const ChannelModelSettings &channelModelSetti
         this->setReadOnly(!enable);
         this->enableWindow(channelModelSettings.enableChannelModels);
     }
+
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

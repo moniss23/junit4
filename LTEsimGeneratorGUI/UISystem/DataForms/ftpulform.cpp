@@ -22,6 +22,7 @@ void FtpUlForm::loadAndOpen(const QString &projectName, const QString &trafficNa
     this->ftpUl = ftpUl;
     this->qciUsed = qciUsed;
     this->refreshUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

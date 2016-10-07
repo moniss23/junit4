@@ -24,6 +24,7 @@ void TimeForm::loadAndOpen(const QString &projectName, const QString &trafficNam
     this->trafficName = trafficName;
     this->timeData=timeData;
     this->refreshUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

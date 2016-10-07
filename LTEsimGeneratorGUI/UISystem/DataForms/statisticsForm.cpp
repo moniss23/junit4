@@ -19,6 +19,7 @@ void StatisticsForm::loadAndSpawn(const QString &projectName, const QString &tra
     this->trafficFileName = trafficFileName;
     this->statisticsData = statisticsData;
     refreshUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

@@ -42,6 +42,7 @@ void MmeForm::loadAndSpawn(const MmeSettings &mmeSettings, const QString &projec
         this->setReadOnly(!enable);
         this->enableWindow(mmeSettings.simulatedCoreNetwork);
     }
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

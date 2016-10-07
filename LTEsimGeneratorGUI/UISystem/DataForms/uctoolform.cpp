@@ -24,6 +24,7 @@ void UCtoolForm::loadAndOpen(const UCToolSettings &ucToolSettings, const QString
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(!enable);
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

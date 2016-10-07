@@ -19,6 +19,7 @@ void GeneralConfiguration::loadAndOpen(const GeneralConfigurationParameters &gen
     this->projectName = projectName;
     this->updateUi();
     this->setReadOnly(!enable);
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 
 }

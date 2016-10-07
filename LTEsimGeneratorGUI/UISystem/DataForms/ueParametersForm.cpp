@@ -27,6 +27,7 @@ void UeParametersForm::loadAndOpen(const QString &projectName, const QString &tr
     this->customModelsList = customModelsList;
     this->cellsAndHandovers = cellsAndHo;
     this->refreshUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

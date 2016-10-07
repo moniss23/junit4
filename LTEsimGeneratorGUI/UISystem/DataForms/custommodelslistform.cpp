@@ -30,6 +30,7 @@ void CustomModelsListForm::open(const QString &projectName, const QString &traff
             this->cmButtonsPtr[i]->setStyleSheet("background-color: rgb(255, 0, 0); color: rgb(0, 0, 0)");
     }
     this->cmButtonsPtr[0]->click();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

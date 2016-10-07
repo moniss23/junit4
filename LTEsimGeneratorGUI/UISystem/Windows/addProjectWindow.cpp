@@ -33,6 +33,7 @@ void AddProjectWindow::loadAndOpen()
 {
     ui->defaultLocationRadioButton->setChecked(true);
     ui->fileName->clear();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 

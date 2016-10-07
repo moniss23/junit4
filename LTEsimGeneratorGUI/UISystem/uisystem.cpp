@@ -359,6 +359,7 @@ void UISystem::spawnWindow_AddNewProject()
    }
 
    addProjectWindow->loadAndOpen();
+
 }
 
 void UISystem::initialiseSettingsWindowSpawn(const QString& projectName) {

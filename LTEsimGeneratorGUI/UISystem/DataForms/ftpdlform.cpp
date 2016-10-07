@@ -24,6 +24,7 @@ void FtpDlForm::loadAndOpen(const QString &projectName, const QString &trafficNa
     this->ftpDl = ftpDl;
     this->qciUsed = qciUsed;
     this->refreshUi();
+    this->setWindowFlags( Qt::Dialog | Qt::WindowTitleHint | Qt::WindowStaysOnTopHint);
     this->show();
 }
 
