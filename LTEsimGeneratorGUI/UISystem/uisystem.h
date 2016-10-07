@@ -51,6 +51,7 @@ public:
     void bindingObjects();
 
 public slots:
+    void createFirstWinow();
     void initialiseSettingsWindowSpawn(const QString& projectName = QString());
     void showErrorWindow(const QString& errorDescription);
 
@@ -118,7 +119,7 @@ signals:
     void spawnWindow_PagingRate(const QString &projeName,QStringList generators,QVector<int> rates);
 
 private:
-    void createFirstWinow();
+
     void bindProjectManagementWindow(ProjectManagement *projectMngtWnd);
     void bindProjectOvierviewWindow(ParametersWindow   *overviewWindow);
 

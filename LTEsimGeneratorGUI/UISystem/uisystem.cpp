@@ -1,5 +1,7 @@
 #include "uisystem.h"
 #include <QMessageBox>
+#include <QTimer>
+#include <QSplashScreen>
 
 #include "UISystem/Windows/projectmanagement.h"
 #include "UISystem/Windows/addProjectWindow.h"
@@ -19,7 +21,13 @@ UISystem::UISystem(DataSystem* data) :
     renameDialog(nullptr),ipexForm(nullptr),ucToolForm(nullptr),
     channelModelForm(nullptr), ueParametersForm(nullptr), timeForm(nullptr)
 {
-    createFirstWinow();
+    QSplashScreen *splash = new QSplashScreen;
+    QPixmap splashImage(":/Images/LTEsimGen.png");
+    splash->setPixmap(splashImage.scaled(600, 250));
+    splash->show();
+
+    QTimer::singleShot(2000,splash,SLOT(close()));
+    QTimer::singleShot(2000, this, SLOT(createFirstWinow()));
 
     settingsWindow.setWindowModality(Qt::WindowModal);
     this->bindingObjects();
@@ -38,9 +46,11 @@ UISystem::~UISystem()
 
 void UISystem::createFirstWinow()
 {
+
   projectUi = new ProjectManagement();
   bindProjectManagementWindow(projectUi);
   projectUi->show();
+
 }
 
 void UISystem::bindProjectManagementWindow(ProjectManagement *projectMngtWnd)
@@ -794,7 +804,7 @@ void UISystem::spawnWindow_StreamDlForm(const QString &projectName, const QStrin
         dataSystem->errorInData("Can't find right trafficFile");
         return;
     }
-    emit spawnWindow_StreamDlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed); 
+    emit spawnWindow_StreamDlForm(project->name, traffic->filename, index, traffic->customModels[index].qciUsed);
 }
 
 
