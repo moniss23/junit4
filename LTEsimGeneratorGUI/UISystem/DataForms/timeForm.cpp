@@ -71,21 +71,9 @@ void TimeForm::refreshUi()
     ui->lbl_warning2->setVisible(Form::getUEPairs() > 1000);
 }
 
-void TimeForm::on_buttonBox_accepted()
-{
-    this->getParameters();
-    emit saveTimeData(projectName, trafficName, timeData);
-    this->close();
-}
-
 void TimeForm::on_btn_restore_clicked()
 {
     this->refreshUi();
-}
-
-void TimeForm::on_buttonBox_rejected()
-{
-    this->close();
 }
 
 void TimeForm::on_gb_attdetRate1_toggled()
@@ -147,4 +135,16 @@ void TimeForm::on_tab1_printStatisticsWithRate_toggled(bool checked)
 void TimeForm::on_tab2_statisticsWithRate_toggled(bool checked)
 {
     this->ui->tab2_statisticsLineEdit->setEnabled(checked);
+}
+
+void TimeForm::on_okButton_clicked()
+{
+    this->getParameters();
+    emit saveTimeData(projectName, trafficName, timeData);
+    this->close();
+}
+
+void TimeForm::on_cancelButton_clicked()
+{
+    this->close();
 }

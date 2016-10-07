@@ -724,12 +724,16 @@
       </spacer>
      </item>
      <item>
-      <widget class="QDialogButtonBox" name="buttonBox">
-       <property name="layoutDirection">
-        <enum>Qt::RightToLeft</enum>
+      <widget class="QPushButton" name="okButton">
+       <property name="text">
+        <string>Ok</string>
        </property>
-       <property name="standardButtons">
-        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton">
+       <property name="text">
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
@@ -738,22 +742,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>TimeForm</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>229</x>
-     <y>386</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>134</x>
-     <y>197</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

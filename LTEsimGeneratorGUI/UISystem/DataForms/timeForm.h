@@ -46,8 +46,6 @@ signals:
      *  BINDINGS TO UI BUTTONS                     *
      ***********************************************/
 private slots:
-    void on_buttonBox_accepted();
-    void on_buttonBox_rejected();
     void on_btn_restore_clicked();
     void on_gb_attdetRate1_toggled();
     void on_gb_attdetRate2_toggled();
@@ -55,6 +53,8 @@ private slots:
     void on_txt_attachRate2_textChanged(QString);
     void on_tab1_printStatisticsWithRate_toggled(bool checked);
     void on_tab2_statisticsWithRate_toggled(bool checked);
+    void on_okButton_clicked();
+    void on_cancelButton_clicked();
 
     /***********************************************
      *  INTERNAL CLASS LOGIC
