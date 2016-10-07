@@ -34,17 +34,6 @@ void MapRangeForm::setMapRangeChanges()
     this->mapRange.mapScale = this->ui->scaleSpinBox->value();
 }
 
-void MapRangeForm::on_buttonBox_accepted()
-{
-    setMapRangeChanges();
-    emit updateMapRange(mapRange,projectName);
-    this->close();
-}
-void MapRangeForm::on_buttonBox_rejected()
-{
-    this->close();
-}
-
 void MapRangeForm::loadAndSpawn(const MapRange &mapRange, const QString &projectName)
 {
     this->mapRange = mapRange;
@@ -57,4 +46,16 @@ void MapRangeForm::loadAndSpawn(const MapRange &mapRange, const QString &project
 void MapRangeForm::on_RestoreDefaultsButton_clicked()
 {
     this->updateUi();
+}
+
+void MapRangeForm::on_okButton_clicked()
+{
+    setMapRangeChanges();
+    emit updateMapRange(mapRange,projectName);
+    this->close();
+}
+
+void MapRangeForm::on_cancelButton_clicked()
+{
+    this->close();
 }

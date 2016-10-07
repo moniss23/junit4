@@ -754,6 +754,7 @@ void DataSystem::updateMapRange(const MapRange &mapRange, QString projectName){
     }
     project->mapRange = mapRange;
     emit currentProjectChanged(*project);
+    emit refreshMapView(*project);
     saveProjectsFile();
 }
 void DataSystem::updateUeComponent(const UeParameters &ueParameters, const QString &projectName)
