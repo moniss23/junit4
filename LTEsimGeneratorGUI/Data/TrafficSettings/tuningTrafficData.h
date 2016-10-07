@@ -69,16 +69,16 @@ public:
         }
     };
 
-    /**************************************************************************
-     * STATIC QSTRINGLISTS WITH NAMES OF CS/PS/MOBILITY PAREAMETERS
-     **************************************************************************/
+    /*************************************************************************
+     * STATIC QSTRINGLISTS WITH NAMES OF AVAILABLE CS/PS/MOBILITY PAREAMETERS
+     *************************************************************************/
     const static QStringList CSSTRINGLIST;
     const static QStringList PSSTRINGLIST;
     const static QStringList MOBILITYSTRINGLIST;
 
-    /**********************************************
+    /*************************************
      * VECTORS FOR SAVED MODEL PARAMETERS
-     **********************************************/
+     *************************************/
     QVector<CSParameters> csParamGroup;
     QVector<PSParameters> psParamGroup;
     QVector<Mobility> mobilityGroup;

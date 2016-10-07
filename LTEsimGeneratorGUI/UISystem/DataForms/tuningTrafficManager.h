@@ -58,12 +58,6 @@ signals:
      *  BINDINGS TO UI BUTTONS                     *
      ***********************************************/
 private slots:
-    void on_csSaveButton_clicked();
-
-    void on_psSaveButton_clicked();
-
-    void on_mobilitySaveButton_clicked();
-
     void on_saveButton_clicked();
 
     void on_cancelButton_clicked();
@@ -79,6 +73,20 @@ private slots:
     /***********************************************
      *  INTERNAL CLASS LOGIC
      ***********************************************/
+    void on_csIntensityLineEdit_editingFinished();
+
+    void on_csDurationLineEdit_editingFinished();
+
+    void on_recoveryStartIntervalLineEdit_editingFinished();
+
+    void on_psIntensityLineEdit_editingFinished();
+
+    void on_psDurationLineEdit_editingFinished();
+
+    void on_granularityLineEdit_editingFinished();
+
+    void on_speedLineEdit_editingFinished();
+
 private:
     /**
      * @brief fillComboBoxes method fills comboBoxes with parameters assigned to UEs

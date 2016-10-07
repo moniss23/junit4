@@ -681,15 +681,23 @@ QStringList DataSystem::getCentersAndHandovers(const QString &projectName)
 std::tuple<QStringList,QStringList,QStringList> DataSystem::getTuningTrafficStringLists(const TrafficFileData &trafficFileData)
 {
     QSet<QString> cs, ps, mobility;
+    QString tmp;
     for(UEData ueData : trafficFileData.userEquipments) {
         cs.insert(ueData.csModelsPair.first);
         cs.insert(ueData.csModelsPair.second);
-        ps.insert(ueData.psModelsPair.first);
-        ps.insert(ueData.psModelsPair.second);
+        tmp = ueData.psModelsPair.first;
+        if(TuningTrafficData::PSSTRINGLIST.contains(tmp)) {
+            ps.insert(tmp);
+        }
+        tmp = ueData.psModelsPair.second;
+        if(TuningTrafficData::PSSTRINGLIST.contains(tmp)) {
+            ps.insert(tmp);
+        }
         mobility.insert(ueData.mobilityModelsPair.first);
         mobility.insert(ueData.mobilityModelsPair.second);
     }
-    return std::make_tuple(cs.toList(),ps.toList(),mobility.toList());
+    auto modelsLists = std::make_tuple(cs.toList(),ps.toList(),mobility.toList());
+    return modelsLists;
 }
 
 void DataSystem::updateSgwSettings(const SgwSettings &sgwSettings, const QString &projectName){
