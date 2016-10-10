@@ -367,9 +367,13 @@ void DataSystem::createNewProject(const QString &projectName, const QString &dir
             emit errorInData("Path can not be empty.");
             return;
         }
-        QDir location(directory);
-        if(!location.exists()) {
-            emit errorInData("Destination folder does not exist.");
+
+        QDir location(QDir::currentPath());
+        QString relativePath;
+        relativePath = location.relativeFilePath(directory);
+
+        if(!QFile(relativePath).exists()) {
+            emit errorInData("Destination file does not exist.");
             return;
         }
         QFileInfo dir(directory);
