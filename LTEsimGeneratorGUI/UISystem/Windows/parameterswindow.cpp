@@ -234,12 +234,14 @@ void ParametersWindow::on_generateFileButton_clicked()
 
     if(this->ui->projectsList->currentRow()==0) {
         emit generateParametersScript(currentProject);
+        msg("Script " + currentProject.parametersFile.filename + " generated in " + currentProject.fullpath + "/" + currentProject.name + "/Scripts.");
         return;
 
     }
     int index=this->ui->projectsList->currentRow();
     emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(index-1).filename);
     emit generateTrafficScript(currentProject, index-1);
+    msg("Script " + currentProject.trafficFilesList.at(index-1).filename + " generated in " + currentProject.fullpath + "/" + currentProject.name + "/Scripts.");
 }
 
 // "settings" opened
@@ -279,6 +281,13 @@ void ParametersWindow::on_generateAllFilesButton_clicked()
         emit setDefaultTrafficFileContent(currentProject.name,currentProject.trafficFilesList.at(i-1).filename);
         emit generateTrafficScript(currentProject, i-1);
     }
+    QString msgText;
+    msgText.append("Scripts:\n");
+    msgText.append("\t" + currentProject.parametersFile.filename + "\n");
+    for(int i=0;i<currentProject.trafficFilesList.size();i++)
+        msgText.append("\t" + currentProject.trafficFilesList.at(i).filename + "\n");
+    msgText.append("generated in " + currentProject.fullpath + "/" + currentProject.name + "/Scripts.");
+    msg(msgText);
 }
 
 
